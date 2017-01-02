@@ -26,7 +26,7 @@ class Logunt extends Migration
             $table->integer('idPersonal')->unsigned();
         });
 
-        Schema::table('logunt', function(Blueprint $table) {
+        Schema::table('logunt', function( $table) {
 
             $table->foreign('idPersonal')->references('codPersonal')->on('personal');
         });

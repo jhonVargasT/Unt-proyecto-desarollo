@@ -28,7 +28,7 @@ class Cliente extends Migration
 
         });
 
-        Schema::table('cliente', function(Blueprint $table) {
+        Schema::table('cliente', function( $table) {
 
             $table->foreign('idPersona')->references('codPersona')->on('persona');
         });

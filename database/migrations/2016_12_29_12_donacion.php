@@ -28,7 +28,7 @@ class Donacion extends Migration
             $table->integer('idDonacion')->unsigned();
         });
 
-        Schema::table('donacion', function(Blueprint $table) {
+        Schema::table('donacion', function( $table) {
 
             $table->foreign('idDonacion')->references('codTramite')->on('tramite');
         });

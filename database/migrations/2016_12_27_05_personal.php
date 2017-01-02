@@ -29,7 +29,7 @@ class Personal extends Migration
             $table->integer('idPersona')->unsigned();
         });
 
-        Schema::table('personal', function(Blueprint $table) {
+        Schema::table('personal', function( $table) {
 
             $table->foreign('idPersona')->references('codPersona')->on('persona');
         });

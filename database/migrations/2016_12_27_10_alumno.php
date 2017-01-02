@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Alumno extends Migration
 {
@@ -22,15 +23,18 @@ class Alumno extends Migration
             $table -> date('fecha');
             $table -> boolean('estado');
             $table->timestamps();
+
             $table->integer('idPersona')-> unsigned();
-            $table->integer('codigoEscuela')-> unsigned();
+            $table->integer('coEscuela')-> unsigned();
 
         });
 
-        Schema::table('alumno', function(Blueprint $table) {
+        Schema::table('alumno', function($table) {
+
+            $table->foreign('coEscuela')->references('idEscuela')->on('escuela');
 
             $table->foreign('idPersona')->references('codPersona')->on('persona');
-            $table->foreign('codigoEscuela')->references('idEscuela')->on('escuela');
+
         });
 
     }

@@ -18,7 +18,7 @@ class Facultad extends Migration
         {
             $table->engine = 'InnoDB';
 
-            $table ->increments('idacultad');
+            $table ->increments('idFacultad');
             $table ->string('codFacultad');
             $table ->string('nombre');
             $table ->string('nroCuenta');

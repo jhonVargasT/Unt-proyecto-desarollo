@@ -14,10 +14,10 @@ class Escuela extends Migration
     public function up()
     {
         //
-        Schema::create('escuela', function ( $table)
+        Schema::create('escuela', function (Blueprint $table)
         {
             $table->engine = 'InnoDB';
-            $table-> integer('idEscuela');
+            $table-> increments('idEscuela');
             $table ->string('codEscuela');
             $table ->string('nombre');
             $table ->string('nroCuenta');
@@ -28,7 +28,7 @@ class Escuela extends Migration
 
         });
 
-        Schema::table('escuela', function(Blueprint $table) {
+        Schema::table('escuela', function( $table) {
 
             $table->foreign('codigoFacultad')->references('idFacultad')->on('facultad');
         });

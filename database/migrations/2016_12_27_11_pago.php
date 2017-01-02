@@ -31,7 +31,7 @@ class Pago extends Migration
             $table->integer('idSubtramite')->unsigned();
         });
 
-        Schema::table('pago', function(Blueprint $table) {
+        Schema::table('pago', function( $table) {
 
 
             $table->foreign('idPersona')->references('codPersona')->on('persona');

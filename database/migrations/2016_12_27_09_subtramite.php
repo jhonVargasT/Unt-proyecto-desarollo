@@ -28,7 +28,7 @@ class Subtramite extends Migration
             $table->integer('idTramite')->unsigned();
         });
 
-        Schema::table('subtramite', function(Blueprint $table) {
+        Schema::table('subtramite', function( $table) {
 
             $table->foreign('idTramite')->references('codTramite')->on('tramite');
         });
