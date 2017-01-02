@@ -4,17 +4,16 @@ namespace App\Repository;
 
 use Illuminate\Support\Facades\DB;
 
-class PersonaRepository
+class PersonalRepository
 {
 
-    public function consultarPersonas( $dni, $nombres)
+    public function consultarPersonal( $dni)
     {
-        $cPersonas = DB::table('persona')
+        $cPersonal = DB::table('personal')
             ->where('dni', '=', $dni)
-            ->orWhere('nombres', '=', $nombres)
             ->get();
 
-        return $cPersonas;
+        return $cPersonal;
     }
 
     public function  consultarPersona($dni)

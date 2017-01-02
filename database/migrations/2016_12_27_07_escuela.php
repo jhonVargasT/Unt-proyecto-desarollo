@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Escuela extends Migration
 {
@@ -13,23 +14,23 @@ class Escuela extends Migration
     public function up()
     {
         //
-        Schema::create('escuela', function (Blueprint $table)
+        Schema::create('escuela', function ( $table)
         {
             $table->engine = 'InnoDB';
-
-            $table ->increments('codEscuela');
+            $table-> integer('idEscuela');
+            $table ->string('codEscuela');
             $table ->string('nombre');
             $table ->string('nroCuenta');
             $table -> boolean('estado');
             $table->timestamps();
 
-            $table->integer('idFacultad')->unsigned();
+            $table->integer('codigoFacultad')->unsigned();
 
         });
 
         Schema::table('escuela', function(Blueprint $table) {
 
-            $table->foreign('idFacultad')->references('codFacultad')->on('facultad');
+            $table->foreign('codigoFacultad')->references('idFacultad')->on('facultad');
         });
     }
 

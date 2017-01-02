@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class escuelamodel extends Model
 {
-    protected $fillable= array('codEscuela', 'nombre', 'nroCuenta', 'estado','codFacultad');
+    protected $fillable= array('codEscuela', 'nombre', 'nroCuenta', 'estado','idFacultad');
 
     public function facultad() {
         return $this->belongsTo('facultadmodel');

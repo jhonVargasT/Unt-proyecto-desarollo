@@ -23,14 +23,14 @@ class Alumno extends Migration
             $table -> boolean('estado');
             $table->timestamps();
             $table->integer('idPersona')-> unsigned();
-            $table->integer('idEscuela')-> unsigned();
+            $table->integer('codigoEscuela')-> unsigned();
 
         });
 
         Schema::table('alumno', function(Blueprint $table) {
 
             $table->foreign('idPersona')->references('codPersona')->on('persona');
-            $table->foreign('idEscuela')->references('codEscuela')->on('escuela');
+            $table->foreign('codigoEscuela')->references('idEscuela')->on('escuela');
         });
 
     }
