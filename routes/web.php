@@ -17,8 +17,12 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('home');
 });
+Route::get('/personal', function () {
+    return view('personal');
+});
 
-Route::resource('/index','personalController@loguearPersonal');
+Route::resource('/home','personalController@loguearPersonal');
+Route::resource('/registrado','personalController@registrarPersonal');
 
 
 

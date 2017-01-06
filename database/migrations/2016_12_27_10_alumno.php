@@ -21,7 +21,7 @@ class Alumno extends Migration
             $table ->increments('codAlumno');
             $table ->string('codMatricula');
             $table -> date('fecha');
-            $table -> boolean('estado');
+            $table -> boolean('estado')->default('1');
 
 
             $table->integer('idPersona')-> unsigned();

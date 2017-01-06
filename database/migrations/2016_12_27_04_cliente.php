@@ -21,7 +21,7 @@ class Cliente extends Migration
             $table ->increments('codCliente');
             $table ->string('ruc');
             $table -> string('razonSocial');
-            $table -> boolean('estado');
+            $table -> boolean('estado')->default('1');
 
             $table->integer('idPersona')->unsigned();
 

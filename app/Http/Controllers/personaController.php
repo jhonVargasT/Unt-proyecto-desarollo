@@ -13,5 +13,4 @@ class personaController extends Controller
     {
         $this->personRepo = $personaRepo;
     }
-
 }

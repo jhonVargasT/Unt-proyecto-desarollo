@@ -22,8 +22,8 @@ class Personal extends Migration
             $table ->string('cuenta');
             $table ->string('password');
             $table ->string('tipoCuenta');
-            $table ->boolean('estadoCuenta');
-            $table -> boolean('estado');
+            $table ->boolean('estadoCuenta')->default('1');
+            $table -> boolean('estado')->default('1');
 
             $table->integer('idPersona')->unsigned();
         });

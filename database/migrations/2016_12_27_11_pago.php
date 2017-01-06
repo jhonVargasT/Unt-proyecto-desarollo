@@ -22,7 +22,7 @@ class Pago extends Migration
             $table ->string('lugar');
             $table ->string('detalle');
             $table ->date('fechaDevolucion');
-            $table -> boolean('estado');
+            $table -> boolean('estado')->default('1');
 
 
 

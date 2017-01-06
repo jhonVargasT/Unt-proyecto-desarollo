@@ -22,7 +22,7 @@ class Facultad extends Migration
             $table ->string('codFacultad');
             $table ->string('nombre');
             $table ->string('nroCuenta');
-            $table -> boolean('estado');
+            $table -> boolean('estado')->default('1');
 
         });
     }

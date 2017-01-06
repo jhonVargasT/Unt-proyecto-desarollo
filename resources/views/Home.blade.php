@@ -24,10 +24,12 @@
 </head>
 <body>
 <?php
+        $space = ' ';
 foreach ($personal as $per) {
-    $user = $per->codPersonal;
+    $usern= $per->nombres;
+    $usera= $per->apellidos;
 }
-if($user!=null)
+if($per!=null)
     {?>
 <nav class="navbar navbar-default navbar-fixed-top" >
     <div >
@@ -40,7 +42,7 @@ if($user!=null)
             <div class="panel panel-default">
                 <div class="panel-heading">Autenticar</div>
                 <div class="panel-body">
-                    <p> Hello, <?php echo $user ?>   </p>
+                    <p> Hello, <?php echo $usern; echo $space; echo $usera?>   </p>
                 </div>
             </div>
         </div>

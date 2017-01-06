@@ -21,7 +21,7 @@ class Escuela extends Migration
             $table ->string('codEscuela');
             $table ->string('nombre');
             $table ->string('nroCuenta');
-            $table -> boolean('estado');
+            $table -> boolean('estado')->default('1');
 
 
             $table->integer('codigoFacultad')->unsigned();

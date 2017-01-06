@@ -22,7 +22,7 @@ class Donacion extends Migration
             $table ->string('numResolucion');
             $table -> date('fechaIngreso');
             $table -> string('decripcion');
-            $table -> boolean('estado');
+            $table -> boolean('estado')->default('1');
 
             $table->integer('idDonacion')->unsigned();
         });
