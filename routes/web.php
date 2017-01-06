@@ -12,7 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('Index');
+    return view('index');
+});
+Route::get('/home', function () {
+    return view('home');
 });
 
-Route::resource('/Index','personalController@loguearPersonal');
+Route::resource('/index','personalController@loguearPersonal');
+
+
+

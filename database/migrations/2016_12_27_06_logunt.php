@@ -21,7 +21,7 @@ class Logunt extends Migration
             $table ->increments('codLog');
             $table ->string('descripcion');
             $table -> boolean('estado');
-            $table->timestamps();
+
 
             $table->integer('idPersonal')->unsigned();
         });

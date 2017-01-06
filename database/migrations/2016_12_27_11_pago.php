@@ -23,7 +23,7 @@ class Pago extends Migration
             $table ->string('detalle');
             $table ->date('fechaDevolucion');
             $table -> boolean('estado');
-            $table->timestamps();
+
 
 
             $table->integer('idPersona')->unsigned();

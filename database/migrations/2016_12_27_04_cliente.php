@@ -22,7 +22,7 @@ class Cliente extends Migration
             $table ->string('ruc');
             $table -> string('razonSocial');
             $table -> boolean('estado');
-            $table->timestamps();
+
             $table->integer('idPersona')->unsigned();
 
 

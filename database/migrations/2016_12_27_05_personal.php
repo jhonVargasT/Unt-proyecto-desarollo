@@ -24,7 +24,6 @@ class Personal extends Migration
             $table ->string('tipoCuenta');
             $table ->boolean('estadoCuenta');
             $table -> boolean('estado');
-            $table->timestamps();
 
             $table->integer('idPersona')->unsigned();
         });

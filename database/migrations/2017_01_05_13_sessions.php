@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Persona extends Migration
+class Sessions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,18 @@ class Persona extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('persona', function (Blueprint $table)
-        {
+        Schema::create('sessions', function (Blueprint $table) {
+
             $table->engine = 'InnoDB';
+            $table->string('id')->unique();
 
-            $table ->increments('codPersona');
-            $table ->string('dni');
-            $table -> string('nombres');
-            $table -> string('apellidos');
-            $table -> boolean('estado');
+            $table->integer('idPersonal')->unsigned();
 
+        });
+
+        Schema::table('sessions', function( $table) {
+
+            $table->foreign('idPersonal')->references('codPersonal')->on('personal');
         });
     }
 
@@ -34,7 +35,6 @@ class Persona extends Migration
      */
     public function down()
     {
-        //
-        Schema::drop('persona');
+        Schema::dropIfExists('sessions');
     }
 }

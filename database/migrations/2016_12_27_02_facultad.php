@@ -23,7 +23,7 @@ class Facultad extends Migration
             $table ->string('nombre');
             $table ->string('nroCuenta');
             $table -> boolean('estado');
-            $table->timestamps();
+
         });
     }
 

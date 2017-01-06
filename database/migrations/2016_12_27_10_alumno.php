@@ -22,7 +22,7 @@ class Alumno extends Migration
             $table ->string('codMatricula');
             $table -> date('fecha');
             $table -> boolean('estado');
-            $table->timestamps();
+
 
             $table->integer('idPersona')-> unsigned();
             $table->integer('coEscuela')-> unsigned();

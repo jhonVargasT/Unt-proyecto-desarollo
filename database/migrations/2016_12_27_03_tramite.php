@@ -24,7 +24,7 @@ class Tramite extends Migration
             $table ->string('fuentefinanc');
             $table ->boolean('tipoRecurso');
             $table -> boolean('estado');
-            $table->timestamps();
+
         });
     }
 

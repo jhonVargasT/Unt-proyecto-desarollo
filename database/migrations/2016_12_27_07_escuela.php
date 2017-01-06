@@ -22,7 +22,7 @@ class Escuela extends Migration
             $table ->string('nombre');
             $table ->string('nroCuenta');
             $table -> boolean('estado');
-            $table->timestamps();
+
 
             $table->integer('codigoFacultad')->unsigned();
 
