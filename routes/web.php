@@ -12,16 +12,20 @@
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('LayoutAdm');
 });
 Route::get('/home', function () {
     return view('home');
 });
 Route::get('/personal', function () {
-    return view('personal');
+    return view('Administrador/personal');
 });
 
-Route::resource('/home','personalController@loguearPersonal');
+Route::get('/Index', function () {
+    return view('Index');
+});
+
+Route::resource('/Index','personalController@loguearPersonal');
 Route::resource('/registrado','personalController@registrarPersonal');
 
 

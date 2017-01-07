@@ -48,7 +48,7 @@ if($per!=null)
         </div>
     </div>
 </div> <!-- /container -->
-<script src="{{asset('asset/js/ie10-viewport-bug-workaround.js')}}"></script>
+<script src="{{asset('assets')}}"></script>
 <?php }?>
 </body>
 </html>

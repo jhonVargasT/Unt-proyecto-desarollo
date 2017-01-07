@@ -46,7 +46,9 @@ class personalController extends Controller
         $cuenta= ($request->cuenta);
         $pass= ($request->contraseña);
 
-        $personal = DB::select('select nombres, apellidos from persona right join personal on persona.codPersona=personal.idPersona where personal.cuenta=:cuenta and personal.password=:pass',
+        echo ($cuenta.$pass);
+
+      /*  $personal = DB::select('select nombres, apellidos from persona right join personal on persona.codPersona=personal.idPersona where personal.cuenta=:cuenta and personal.password=:pass',
             ['cuenta' => $cuenta , 'pass'=>$pass]);
 
         if($personal!=null) {
@@ -54,7 +56,7 @@ class personalController extends Controller
         }
         else{
             return view('index');
-        }
+        }*/
 
     }
 }
