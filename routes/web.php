@@ -12,21 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('LayoutAdm');
-});
-Route::get('/home', function () {
-    return view('home');
-});
-Route::get('/personal', function () {
-    return view('Administrador/personal');
+    return view('Administrador/DonacionesYTransacciones/AddDonyTrans');
 });
 
 Route::get('/Index', function () {
     return view('Index');
 });
 
-Route::resource('/Index','personalController@loguearPersonal');
-Route::resource('/registrado','personalController@registrarPersonal');
+Route::resource('/Index', 'personalController@loguearPersonal');
+Route::resource('/registrado', 'personalController@registrarPersonal');
 
 
 

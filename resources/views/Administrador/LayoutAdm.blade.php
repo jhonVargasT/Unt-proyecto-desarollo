@@ -4,8 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Logear</title>
-
+    <title>@yield('header.title', 'Unt Tesoreria-Administrador')</title>
     <!-- CSS -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
     <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
@@ -29,25 +28,21 @@
 </head>
 <body>
 <div class="container ">
-
-    <div class=" container row">
-        <h2 class="left" align="left"> Unt-Administrador </h2>
-    </div>
-
-    <div class="row col-xs-10 ">
-        <div class=" col-xs-4">
-            <h4 align="left">Bienvenido usuario : </h4>
+    <div class="row">
+        <h2 class="left" align="center"> Unt Tesoreria-Administrador </h2>
+        <div class=" col-xs-8">
+            <div class="col-md-4  ">
+                <h4 align="left">Bienvenido usuario : </h4>
+            </div>
+            <div class="col-md-4 ">
+                <h4> usuario </h4>
+            </div>
         </div>
-        <div class="col-md-1 ">
-            <h4> usuario </h4>
+        <div class="col-md-4  "align="right">
+            <a href="#"> <span class="glyphicon glyphicon-log-out"></span> Salir</a>
         </div>
     </div>
-
-    <div class=" col-md-2" align="lefth">
-        <a href="{{url('/Index')}}" class="btn btn-sm btn-danger"><span
-                    class="glyphicon glyphicon-share-alt"></span> Salir</a>
-    </div>
-
+    <br>
     <!--barra de navegacion -->
     <div class="row">
         <div class="col-sm-3 ">
@@ -57,8 +52,8 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                    <span class="glyphicon glyphicon-list-alt">
-                                    </span> Reporte</a>
+                                    <span class="fa fa-pie-chart">
+                                    </span> Reportes</a>
                         </h4>
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse">
@@ -82,9 +77,9 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span
-                                        class="glyphicon glyphicon-th">
-                            </span> Estudiante</a>
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                <span class="glyphicon glyphicon-user">
+                            </span> Estudiantes</a>
                         </h4>
                     </div>
                     <div id="collapseTwo" class="panel-collapse collapse">
@@ -109,9 +104,36 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span
-                                        class="glyphicon glyphicon-user">
-                            </span> Escuela</a>
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThrees">
+                                <spam class="fa fa-graduation-cap"></spam>
+                                Facultades</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThrees" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-search"></span>
+                                        <a href="#">Buscar Facultades</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                        <a href="#">Agregar Facultad</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                <spam class="fa fa-graduation-cap"></spam>
+                                Escuelas</a>
                         </h4>
                     </div>
                     <div id="collapseThree" class="panel-collapse collapse">
@@ -137,7 +159,7 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span
-                                        class="glyphicon glyphicon-user">
+                                        class="fa fa-users">
                             </span> Personal</a>
                         </h4>
                     </div>
@@ -165,7 +187,7 @@
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
                                 <span class="glyphicon glyphicon-pushpin"></span>
-                            </span> Tramite</a>
+                                </span> Tramites</a>
                         </h4>
                     </div>
                     <div id="collapseFive" class="panel-collapse collapse">
@@ -192,7 +214,7 @@
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
                                 <span class="glyphicon glyphicon-pushpin">
-                            </span> SubTramite</a>
+                            </span> SubTramites</a>
                         </h4>
                     </div>
                     <div id="collapseSix" class="panel-collapse collapse">
@@ -218,7 +240,7 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven"><span
-                                        class="glyphicon glyphicon-user">
+                                        class="fa fa-money">
                             </span> Donaciones y Transacciones</a>
                         </h4>
                     </div>
@@ -245,9 +267,7 @@
         </div>
         <div class="col-sm-9 col-md-9">
             <div class="well">
-                <h1>
-                    Accordion Menu With Icon</h1>
-                Admin Dashboard Accordion Menu
+                @yield('content')
             </div>
         </div>
     </div>
@@ -279,8 +299,8 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
 
-<footer class="footer">
-    <p>© 2016 Company, Inc.</p>
+<footer class="footer row col-xs-10">
+    <p align="right">© 2016 ÑuxtuSoft, S.A.C.</p>
 </footer>
 <!-- Javascript -->
 <script src="{{asset('assets/js/jquery-1.11.1.min.js')}}"></script>
