@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
     <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/font-awesome/css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/form-elements.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -38,7 +37,7 @@
                 <h4> usuario </h4>
             </div>
         </div>
-        <div class="col-md-4  "align="right">
+        <div class="col-md-4" align="right">
             <a href="#"> <span class="glyphicon glyphicon-log-out"></span> Salir</a>
         </div>
     </div>
@@ -46,7 +45,6 @@
     <!--barra de navegacion -->
     <div class="row">
         <div class="col-sm-3 ">
-
             <div class="panel-group" id="accordion">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -105,7 +103,7 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseThrees">
-                                <spam class="fa fa-graduation-cap"></spam>
+                                <spam class="fa fa-building-o"></spam>
                                 Facultades</a>
                         </h4>
                     </div>
@@ -265,11 +263,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-9 col-md-9">
-            <div class="well">
-                @yield('content')
-            </div>
+
+    <div class="col-sm-9 col-md-9">
+        <div class="well well-sm">
+            @yield('content')
+
         </div>
+    </div>
     </div>
 </div>
 <!-- /#wrapper -->
@@ -278,16 +278,16 @@
 <!-- /. WRAPPER  -->
 <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
 <!-- JQUERY SCRIPTS -->
-<script src="assets/js/jquery-1.10.2.js"></script>
+<script src="{{asset('assets/js/jquery-1.10.2.js')}}"></script>
 <!-- BOOTSTRAP SCRIPTS -->
-<script src="assets/js/bootstrap.min.js"></script>
+<script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
 <!-- METISMENU SCRIPTS -->
-<script src="assets/js/jquery.metisMenu.js"></script>
+<script src="{{asset('assets/js/jquery.metisMenu.js')}}"></script>
 <!-- MORRIS CHART SCRIPTS -->
-<script src="assets/js/morris/raphael-2.1.0.min.js"></script>
-<script src="assets/js/morris/morris.js"></script>
+<script src="{{asset('assets/js/morris/raphael-2.1.0.min.js')}}"></script>
+<script src="{{asset('assets/js/morris/morris.js')}}"></script>
 <!-- CUSTOM SCRIPTS -->
-<script src="assets/js/custom.js"></script>
+<script src="{{asset('assets/js/custom.js')}}"></script>
 <!-- Extra JavaScript/CSS added manually in "Settings" tab -->
 <!-- Include jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -297,11 +297,6 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-
-
-<footer class="footer row col-xs-10">
-    <p align="right">© 2016 ÑuxtuSoft, S.A.C.</p>
-</footer>
 <!-- Javascript -->
 <script src="{{asset('assets/js/jquery-1.11.1.min.js')}}"></script>
 <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
@@ -311,6 +306,11 @@
 <script src="{{asset('assets/js/placeholder.js')}}"></script>
 <![endif]-->
 
+<footer class="footer row col-xs-12">
+    <p align="right">© 2016 ÑuxtuSoft, S.A.C.</p>
+</footer>
+
+
 </body>
-</iframe>
+
 </html>

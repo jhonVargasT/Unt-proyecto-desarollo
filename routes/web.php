@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('Administrador/DonacionesYTransacciones/AddDonyTrans');
+    return view('Administrador/DonacionesYTransacciones/SearchDonYTrans');
 });
 
 Route::get('/Index', function () {
