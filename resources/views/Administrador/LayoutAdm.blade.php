@@ -271,6 +271,9 @@
         </div>
     </div>
     </div>
+    <footer class="footer row col-xs-12">
+        <p align="right">© 2016 ÑuxtuSoft, S.A.C.</p>
+    </footer>
 </div>
 <!-- /#wrapper -->
 <!-- /#wrapper -->
@@ -306,9 +309,7 @@
 <script src="{{asset('assets/js/placeholder.js')}}"></script>
 <![endif]-->
 
-<footer class="footer row col-xs-12">
-    <p align="right">© 2016 ÑuxtuSoft, S.A.C.</p>
-</footer>
+
 
 
 </body>

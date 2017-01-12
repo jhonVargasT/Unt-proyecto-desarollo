@@ -1,7 +1,4 @@
 @extends('Administrador\LayoutAdm')
-@section('header.title')
-    AddDonAndTrans
-@stop
 @section('content')
     <fieldset>
         <form class="form-Vertical">
@@ -10,38 +7,45 @@
             <!-- Search input-->
             <div class="col-sm-12 row form-group">
                 <div class="form-group-sm " align="left">
-                   <span class="col-sm-3 control-label"  > Clasificador Siaf :</span>
-                    <div class="col-sm-4">
-                        <input class="form-control input-sm" type="text" >
+                   <span class="col-sm-2 control-label"  > Clasificador Siaf </span>
+                    <div class="col-sm-5">
+                        <input class="form-control input-sm" name="clasificadorSiaf" type="text" >
                     </div>
                 </div>
                 <div class=" form-group-sm" align="left">
-                    <span class="col-sm-2 control-label">Fecha :</span>
+                    <span class="col-sm-2 control-label">Fecha </span>
                     <div class="col-sm-3">
-                        <input class="form-control" type="text">
+                        <input class="form-control" name="fechaDeIngreso" type="text">
                     </div>
                 </div>
             </div>
             <div class="col-sm-12 row form-group" >
                 <div class="form-group-sm " align="left">
-                    <span class="col-sm-3 control-label">Tipo de recurso :</span>
-                    <div class="col-sm-4">
-                        <input class="form-control input-sm " type="text">
+                    <span class="col-sm-2 control-label">Tipo de recurso </span>
+                    <div class="col-sm-5">
+                        <input class="form-control input-sm "name="TipoDeRecurso" type="text">
                     </div>
                 </div>
                 <div class=" form-group-sm" align="left">
-                    <span class="col-sm-2 control-label">Monto :</span>
+                    <span class="col-sm-2 control-label">Monto </span>
                     <div class="col-sm-3">
-                        <input class="form-control" type="text">
+                        <input class="form-control" name="monto" type="text">
                     </div>
                 </div>
             </div>
             <br>
             <div class="col-sm-12 row form-group" align="left">
+                <div >
+                    <span class=" col-sm-2 control-label">Descripcion </span>
+                    <div class="col-sm-5">
+                        <textarea class="form-control " rows="5" name="descripcion" >
+                            </textarea>
+                    </div>
+                </div>
                 <div class="form-group-sm ">
-                    <span class="col-sm-3 control-label">Numero de resolucion :</span>
-                    <div class="col-sm-4">
-                        <input class="form-control " type="text">
+                    <span class="col-sm-2 control-label">Numero de resolucion </span>
+                    <div class="col-sm-3">
+                        <input class="form-control " name="numeroResolucion" type="text">
                     </div>
                 </div>
 
