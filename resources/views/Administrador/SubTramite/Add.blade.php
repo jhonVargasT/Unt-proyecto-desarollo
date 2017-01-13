@@ -2,40 +2,53 @@
 @section('content')
     <fieldset>
         <form class="Vertical">
-            <legend>Agregar tramite</legend>
+            <legend>Agregar subtramite</legend>
             <br>
             <div class="col-sm-12 row form-group">
                 <div class="form-group-sm " align="left">
-                    <span class="col-sm-3 control-label"> Clasificador Siaf</span>
-                    <div class="col-sm-3">
-                        <input class="form-control input-sm" name="clasificadorSiaf" type="text">
+                    <span class="col-sm-3 control-label"> Nombre Tramite</span>
+                    <div class="input-group col-sm-6">
+                        <input type="text" class="form-control" name="nombreTramite" placeholder="Ingresa Nombre de Tramite aqui ..">
+                        <span class="input-group-btn">
+                            <button class="btn btn-sm" type="button">Buscar</button>
+                        </span>
                     </div>
 
                 </div>
-                <div class=" form-group-sm" align="left">
-                    <span class="col-sm-2 control-label"> Nombre de tramite</span>
-                    <div class="col-sm-4">
-                        <input class="form-control" name="nombreTramite" type="text">
+            </div>
+            <div class="col-sm-12 row form-group">
+                <div class="form-group-sm " align="left">
+                    <span class="col-sm-3 control-label"> Cuenta contable</span>
+                    <div class="col-sm-3">
+                        <input class="form-control input-sm" name="cuentaContable" type="text">
+                    </div>
+                    <div class="col-sm-1">
+
                     </div>
                 </div>
+                <div class="form-group-sm">
+                    <span class="col-sm-2">Precio</span>
+                        <div class="input-group col-sm-2">
+                            <div class="input-group-addon ">S/.</div>
+                            <input type="text" class="form-control " name="precio" >
+
+                        </div>
+                    </div>
+
+
 
             </div>
 
             <div class="col-sm-12 row form-group">
                 <div class="form-group-sm " align="left">
-                    <span class="col-sm-3 control-label"> tipo de recurso</span>
-                    <div class="col-sm-1">
-                        <input class="form-control input-sm" name="tipoDeRecurso" type="text">
+                    <span class="col-sm-3 control-label"> Nombre Subtramite</span>
+                    <div class="col-sm-4">
+                        <input class="form-control input-sm" name="nombreSubTramite" type="text">
                     </div>
                     <div class="col-sm-1"></div>
 
                 </div>
-                <div class=" form-group-sm" align="left">
-                    <span class="col-sm-3 control-label"> Fuente de financiamieto</span>
-                    <div class="col-sm-1">
-                        <input class="form-control" name="fuenteFinaciamiento" type="text">
-                    </div>
-                </div>
+
 
             </div>
             <div class="col-sm-12 row form-group">

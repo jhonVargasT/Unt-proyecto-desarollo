@@ -2,7 +2,7 @@
 @section('content')
     <fieldset>
         <div>
-            <legend>Buscar subtramites</legend>
+            <legend>Buscar cliente</legend>
             <!--menu Busqueda-->
             <br>
             <div class="col-sm-12 row form-group">
@@ -10,9 +10,11 @@
                     <span class="col-sm-5 control-label">Buscar por:</span>
                     <div class="col-sm-7 ">
                         <select class=" form-control">
-                            <option>Nombre Tramite</option>
-                            <option>Cuenta contable</option>
-                            <option>Nombre de subtramite</option>
+                            <option>Dni</option>
+                            <option>Nombres y apellidos</option>
+                            <option>Codigo personal</option>
+                            <option>Ruc</option>
+                            <option>Razon social</option>
                         </select>
                     </div>
                 </div>
@@ -24,47 +26,38 @@
                 </div>
 
             </div>
+
             <!--tabla-->
             <div class="table-responsive col-sm-12">
                 <table class="table table-bordered">
-                    <head>
-                        <!--cabecear Tabla-->
-                        <tr>
+                    <thead>
+                    <!--cabecear Tabla-->
+                    <tr >
 
-                            <th>Nombre Tramite</th>
-                            <th>Cuenta contable</th>
-                            <th>Nombre de subtramite</th>
-                            <th>Precio</th>
-                            <th>Opciones</th>
-
-                        </tr>
-                    </head>
+                        <th>Dni</th>
+                        <th>Nombres y apellidos</th>
+                        <th>Codigo personal</th>
+                        <th>Ruc</th>
+                        <th>Razon social</th>
+                        <th>Opciones</th>
+                    </tr>
+                    </thead>
                     <body>
-                    <tr>
+                    <!--Contenido-->
+                    <tr >
                         <td>00001</td>
                         <td>125.168.129.58</td>
-                        <td>1546568</td>
-                        <td>10/01/2017</td>
-
-                        <td>
-                            <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
-                            <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>00002</td>
+                        <td>Aw32234234</td>
                         <td>125.168.129.58</td>
-                        <td>5648665</td>
-                        <td>10/01/2017</td>
+                        <td>Aw32234234</td>
 
-                        <td>
+                        <td align="center">
                             <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
                             <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
-
                         </td>
 
                     </tr>
+
                     </body>
                 </table>
             </div>

@@ -17,10 +17,10 @@
                         </select>
                     </div>
                 </div>
-                <div class="input-group col-sm-6">
+                <div class="form-group-sm input-group col-sm-6">
                     <input type="text" class="form-control" placeholder="Ingresa datos aqui ..">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Buscar</button>
+                            <button class="btn btn-sm" type="button">Buscar</button>
                         </span>
                 </div>
 
