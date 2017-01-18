@@ -14,7 +14,7 @@
                                 <input class="form-control input-sm" name="dni" type="text">
                             </div>
                             <div class="col-sm-1">
-                                </div>
+                            </div>
                         </div>
                         <div class="form-group-sm">
                             <span class="col-sm-2">Nombres</span>
@@ -41,12 +41,10 @@
                     <div class="col-sm-12 row form-group">
                         <div class="form-group-sm " align="left">
                             <span class="col-sm-2 control-label"> Ruc:</span>
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 <input class="form-control input-sm" name="ruc" type="text">
                             </div>
-
                         </div>
-
                         <div class="form-group-sm " align="left">
                             <span class="col-sm-2 control-label"> Razon social</span>
                             <textarea class="col-sm-4" name="razonSocial">

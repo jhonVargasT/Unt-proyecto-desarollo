@@ -5,7 +5,7 @@
             <legend>Buscar alumno</legend>
             <!--menu Busqueda-->
             <br>
-            <div class="col-sm-12 row form-group">
+            <div class="col-sm-12 row form-group ">
                 <div class="form-group-sm col-sm-6 ">
                     <span class="col-sm-5 control-label">Buscar por:</span>
                     <div class="col-sm-7 ">
