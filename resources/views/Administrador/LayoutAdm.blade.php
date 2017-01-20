@@ -86,13 +86,13 @@
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="#">Buscar Estudiantes</a>
+                                        <a href="/BuscarEstudiante">Buscar Estudiantes</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="#">Agregar Estudiante</a>
+                                        <a href="/RegistrarEstudiante">Agregar Estudiante</a>
                                     </td>
                                 </tr>
                             </table>
@@ -114,13 +114,13 @@
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="#">Buscar Clientes</a>
+                                        <a href="/BuscarCliente">Buscar Clientes</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="#">Agregar Clientes</a>
+                                        <a href="/RegistrarCliente">Agregar Clientes</a>
                                     </td>
                                 </tr>
                             </table>
@@ -141,13 +141,13 @@
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="#">Buscar Facultades</a>
+                                        <a href="/BuscarFacultad">Buscar Facultades</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="#">Agregar Facultad</a>
+                                        <a href="/RegistrarFacultad">Agregar Facultad</a>
                                     </td>
                                 </tr>
                             </table>
@@ -168,13 +168,13 @@
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="#">Buscar Escuelas</a>
+                                        <a href="/BuscarEscuela">Buscar Escuelas</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="#">Agregar Escuela</a>
+                                        <a href="/RegistrarEscuela">Agregar Escuela</a>
                                     </td>
                                 </tr>
                             </table>
@@ -195,13 +195,13 @@
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="#">Buscar Personal</a>
+                                        <a href="/BuscarPersonal">Buscar Personal</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="#">Agregar Personal</a>
+                                        <a href="/RegistrarPersonal">Agregar Personal</a>
                                     </td>
                                 </tr>
                             </table>
@@ -222,13 +222,13 @@
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="#">Buscar Tramites</a>
+                                        <a href="/BuscarTramite">Buscar Tramites</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="#">Agregar Tramite</a>
+                                        <a href="/RegistrarTramite">Agregar Tramite</a>
                                     </td>
                                 </tr>
                             </table>
@@ -249,13 +249,13 @@
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="#">Buscar SubTramites</a>
+                                        <a href="/BuscarSubtramite">Buscar SubTramites</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="#">Agregar SubTramite</a>
+                                        <a href="/RegistrarSubtramite">Agregar SubTramite</a>
                                     </td>
                                 </tr>
                             </table>
@@ -276,13 +276,13 @@
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="#">Buscar Donaciones y transacciones</a>
+                                        <a href="/BuscarDonacionesYTransacciones">Buscar Donaciones y transacciones</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="#">Agregar Donaciones y transacciones</a>
+                                        <a href="/RegistrarDonacionesYTransacciones">Agregar Donaciones y transacciones</a>
                                     </td>
                                 </tr>
                             </table>

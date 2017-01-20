@@ -1,6 +1,15 @@
 @extends('Administrador\LayoutAdm')
 @section('content')
     <fieldset>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Laravel DataTables Tutorial</title>
+
+        <!-- Bootstrap CSS -->
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+
         <div>
             <legend>Buscar alumno</legend>
             <!--menu Busqueda-->
@@ -20,64 +29,15 @@
                 </div>
                 <div class="form-group-sm input-group col-sm-6">
                     <input type="text" class="form-control" placeholder="Ingresa datos aqui ..">
-                        <span class="input-group-btn">
+                    <span class="input-group-btn">
+
                             <button class="btn btn-sm" type="button">Buscar</button>
                         </span>
                 </div>
 
             </div>
-
             <!--tabla-->
-            <div class="table-responsive col-sm-12">
-                <table class="table table-bordered">
-                    <thead>
-                    <!--cabecear Tabla-->
-                    <tr >
 
-                        <th>Dni</th>
-                        <th>Nombres y apellidos</th>
-                        <th>Codigo personal</th>
-                        <th>Codigo alumno</th>
-                        <th>Codigo Matricula</th>
-                        <th>Fecha Matricula</th>
-                        <th>Opciones</th>
-                    </tr>
-                    </thead>
-                    <body>
-                    <!--Contenido-->
-                    <tr >
-                        <td>00001</td>
-                        <td>125.168.129.58</td>
-                        <td>Aw32234234</td>
-                        <td>125.168.129.58</td>
-                        <td>Aw32234234</td>
-                        <td>Aw32234234</td>
-
-                        <td align="center">
-                            <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
-                            <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
-                        </td>
-
-                    </tr>
-
-                    </body>
-                </table>
-            </div>
-            <div class="col-sm-12 row">
-                <div class="col-sm-4"></div>
-                <!--paginadro-->
-                <div class="col-sm-4" align="center">
-                    <ul class="pagination  pagination-sm">
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-4"></div>
-
-            </div>
 
         </div>
     </fieldset>

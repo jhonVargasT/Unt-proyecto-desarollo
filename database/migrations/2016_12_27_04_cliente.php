@@ -19,8 +19,8 @@ class Cliente extends Migration
             $table->engine = 'InnoDB';
 
             $table ->increments('codCliente');
-            $table ->string('ruc');
-            $table -> string('razonSocial');
+            $table ->string('ruc')->nullable();
+            $table -> string('razonSocial')->nullable();
             $table -> boolean('estado')->default('1');
 
             $table->integer('idPersona')->unsigned();

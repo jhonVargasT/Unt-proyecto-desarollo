@@ -27,7 +27,7 @@ class Pago extends Migration
 
 
             $table->integer('idPersona')->unsigned();
-            $table->integer('idPersonal')->unsigned();
+            //$table->integer('idPersonal')->unsigned()->nullable();
             $table->integer('idSubtramite')->unsigned();
         });
 
@@ -35,7 +35,7 @@ class Pago extends Migration
 
 
             $table->foreign('idPersona')->references('codPersona')->on('persona');
-            $table->foreign('idPersonal')->references('codPersonal')->on('personal');
+            //$table->foreign('idPersonal')->references('codPersonal')->on('personal');
             $table->foreign('idSubtramite')->references('codSubtramite')->on('subtramite');
         });
     }
