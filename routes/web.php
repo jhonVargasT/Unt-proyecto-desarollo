@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('Administrador/Reporte/Report');
+    return view('Ventanilla/Pagos/SearchPago');
 });
 
 Route::get('/Index', function () {

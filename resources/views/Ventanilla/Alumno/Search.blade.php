@@ -1,8 +1,8 @@
-@extends('Administrador\LayoutAdm')
+@extends('Ventanilla\LayoutVenta')
 @section('content')
     <fieldset>
         <div>
-            <legend>Buscar alumno</legend>
+            <legend>Buscar estudiante</legend>
             <!--menu Busqueda-->
             <br>
             <div class="col-sm-12 row form-group">

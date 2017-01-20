@@ -1,8 +1,8 @@
-@extends('Administrador\LayoutAdm')
+@extends('Ventanilla\LayoutVenta')
 @section('content')
     <fieldset>
         <form class="Horizontal">
-            <legend>Editar Alumno</legend>
+            <legend>Editar estudiante</legend>
             <br>
             <div class="panel panel-default">
                 <div class="panel-heading">Datos persona</div>

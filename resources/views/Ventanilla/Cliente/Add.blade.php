@@ -1,4 +1,4 @@
-@extends('Administrador\LayoutAdm')
+@extends('Ventanilla\LayoutVenta')
 @section('content')
     <fieldset>
         <form class="Horizontal">

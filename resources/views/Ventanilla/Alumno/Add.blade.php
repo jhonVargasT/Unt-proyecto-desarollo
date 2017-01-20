@@ -1,14 +1,13 @@
-@extends('Administrador\LayoutAdm')
+@extends('Ventanilla\Menu')
 @section('content')
     <fieldset>
         <form class="Horizontal">
-            <legend>Agregar Alumno</legend>
+            <legend>Agregar estudiante</legend>
             <br>
-            <div class="panel panel-default">
-                <div class="panel-heading">Datos persona</div>
+
                 <div class="panel-body">
                     <div class="col-sm-12 row form-group">
-                        <div class="form-group-sm " align="right">
+                        <div class="form-group-sm " align="left">
                             <span class="col-sm-2 control-label"> Numero de Dni</span>
                             <div class="col-sm-3">
                                 <input class="form-control input-sm" name="dni" type="text">
@@ -31,10 +30,8 @@
                     </div>
                 </div>
 
-            </div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">Datos Alumno</div>
+
                 <div class="panel-body">
                     <div class="col-sm-12 row form-group">
                         <div class="form-group-sm " align="left">

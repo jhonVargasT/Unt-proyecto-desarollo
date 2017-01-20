@@ -1,4 +1,4 @@
-@extends('Administrador\LayoutAdm')
+@extends('Administrador/Body')
 @section('content')
     <fieldset>
         <div>

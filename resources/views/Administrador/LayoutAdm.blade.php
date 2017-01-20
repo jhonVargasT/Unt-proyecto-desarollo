@@ -25,7 +25,7 @@
     </script>
 </head>
 <body>
-<div class="">
+<div class="container container-fluid">
     <br>
     <div class="col-sm-12 panel panel-default ">
         <div class="col-sm-12 ">
@@ -47,9 +47,12 @@
             </div>
         </div>
 
-        <div class="col-sm-12 "> <hr> <br> </div>
+        <div class="col-sm-12 ">
+            <hr>
+            <br></div>
         <div class="col-sm-12 ">
             <div class=" col-sm-8">
+
                 <div class="col-sm-6  ">
                     <h4 align="left">Bienvenido administrador : </h4>
                 </div>
@@ -57,12 +60,16 @@
                     <h4> usuario </h4>
                 </div>
             </div>
-            <div class="col-sm-4" align="right">
-                <a href="#"> <span class="glyphicon glyphicon-log-out "></span> Salir</a>
-            </div>
+            <div class="col-sm-4">
 
+                <div class="col-sm-12" align="right">
+
+                    <h4><a   href="#" class="glyphicon  glyphicon-log-out red"> Salir   </a></h4>
+
+                </div>
+            </div>
         </div>
-        <div class="col-sm-12 "> <br> </div>
+        <div class="col-sm-12 "><br></div>
     </div>
     <div class=" col-sm-12 panel panel-default">
         @yield('body')

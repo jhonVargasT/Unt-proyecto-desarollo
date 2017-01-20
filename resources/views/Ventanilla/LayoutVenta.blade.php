@@ -24,30 +24,66 @@
                 'csrfToken' => csrf_token(),]); ?>
     </script>
 </head>
-<body>
-<div class="container ">
-    <div class="row">
-        <h2 class="left" align="center"> Unt Tesoreria-Administrador </h2>
-        <div class=" col-xs-8">
-            <div class="col-md-4  ">
-                <h4 align="left">Bienvenido usuario : </h4>
-            </div>
-            <div class="col-md-4 ">
-                <h4> usuario </h4>
-            </div>
-        </div>
-        <div class="col-md-4" align="right">
-            <a href="#"> <span class="glyphicon glyphicon-log-out"></span> Salir</a>
-        </div>
-    </div>
+<body style="background-color:#5e5e5e">
+<div class="container container-fluid">
     <br>
-    <!--barra de navegacion -->
-    <div class="navbar navbar-default navbar-static-top">
-        <div class="container col-sm-12">
-
+    <div class="col-sm-12 panel panel-default ">
+        <div class="col-sm-12 ">
+            <div class="col-sm-3 ">
+                <div>
+                    <img src="{{ asset('assets/img/logo.png') }}">
+                </div>
+            </div>
+            <div class="col-sm-9  " align="center">
+                <br>
+                <br>
+                <br>
+                <div>
+                    <h1> UNIVERSIDAD NACIONAL DE TRUJILLO</h1>
+                </div>
+                <div>
+                    <h3>Tesoreria - Ventanilla</h3>
+                </div>
+            </div>
         </div>
+
+        <div class="col-sm-12 ">
+            <hr>
+            <br></div>
+        <div class="col-sm-12 ">
+            <div class=" col-sm-8">
+
+                <div class="col-sm-6  ">
+                    <h4 align="left">Bienvenido cajero : </h4>
+                </div>
+                <div class="col-sm-6 " align="left">
+                    <h4> usuario </h4>
+                </div>
+            </div>
+            <div class="col-sm-4">
+
+                <div class="col-sm-12" align="right">
+
+                    <h4><a   href="#" class="glyphicon  glyphicon-log-out red"> Salir   </a></h4>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 "><br></div>
     </div>
+    <div class=" col-sm-12 panel panel-default">
+        @yield('body')
+    </div>
+    <footer class="footer row col-sm-12">
+        <p align="right">© 2016 ÑuxtuSoft, S.A.C.</p>
+    </footer>
 </div>
+<!-- /#wrapper -->
+<!-- /#wrapper -->
+<!-- /#wrapper -->
+<!-- /. WRAPPER  -->
+<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+<!-- JQUERY SCRIPTS -->
 <script src="{{asset('assets/js/jquery-1.10.2.js')}}"></script>
 <!-- BOOTSTRAP SCRIPTS -->
 <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
