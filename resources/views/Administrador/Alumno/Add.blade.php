@@ -1,4 +1,4 @@
-@extends('Administrador\LayoutAdm')
+@extends('Administrador/Body')
 @section('content')
     <fieldset>
         <form name="form" action="{{url('AlumnoRegistrado')}}" role="form" method="POST" class="Horizontal">

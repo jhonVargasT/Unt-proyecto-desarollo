@@ -1,8 +1,8 @@
-@extends('Administrador\LayoutAdm')
+@extends('Ventanilla\LayoutVenta')
 @section('content')
     <fieldset>
         <div>
-            <legend>Buscar alumno</legend>
+            <legend>Buscar cliente</legend>
             <!--menu Busqueda-->
             <br>
             <div class="col-sm-12 row form-group">
@@ -13,8 +13,8 @@
                             <option>Dni</option>
                             <option>Nombres y apellidos</option>
                             <option>Codigo personal</option>
-                            <option>Codigo alumno</option>
-                            <option>Codigo Matricula</option>
+                            <option>Ruc</option>
+                            <option>Razon social</option>
                         </select>
                     </div>
                 </div>
@@ -37,9 +37,8 @@
                         <th>Dni</th>
                         <th>Nombres y apellidos</th>
                         <th>Codigo personal</th>
-                        <th>Codigo alumno</th>
-                        <th>Codigo Matricula</th>
-                        <th>Fecha Matricula</th>
+                        <th>Ruc</th>
+                        <th>Razon social</th>
                         <th>Opciones</th>
                     </tr>
                     </thead>
@@ -50,7 +49,6 @@
                         <td>125.168.129.58</td>
                         <td>Aw32234234</td>
                         <td>125.168.129.58</td>
-                        <td>Aw32234234</td>
                         <td>Aw32234234</td>
 
                         <td align="center">
