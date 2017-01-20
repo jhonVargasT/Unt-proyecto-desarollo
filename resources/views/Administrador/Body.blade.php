@@ -22,11 +22,6 @@
                                         <a href="#">Reporte Pagos</a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <a href="#">Reporte Donaciones y Transacciones</a>
-                                    </td>
-                                </tr>
                             </table>
                         </div>
                     </div>

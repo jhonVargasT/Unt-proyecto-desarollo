@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('header.title', 'Unt Tesoreria-Administrador')</title>
     <!-- CSS -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
     <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
@@ -26,280 +25,56 @@
     </script>
 </head>
 <body>
-<div class="container ">
-    <div class="row">
-        <h2 class="left" align="center"> Unt Tesoreria-Administrador </h2>
-        <div class=" col-xs-8">
-            <div class="col-md-4  ">
-                <h4 align="left">Bienvenido usuario : </h4>
-            </div>
-            <div class="col-md-4 ">
-                <h4> usuario </h4>
-            </div>
-        </div>
-        <div class="col-md-4" align="right">
-            <a href="#"> <span class="glyphicon glyphicon-log-out"></span> Salir</a>
-        </div>
-    </div>
+<div class="container container-fluid">
     <br>
-    <!--barra de navegacion -->
-    <div class="row">
-        <div class="col-sm-3 ">
-            <div class="panel-group" id="accordion">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                    <span class="fa fa-pie-chart">
-                                    </span> Reportes</a>
-                        </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <a href="#">Reporte Pagos</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="#">Reporte Donaciones y Transacciones</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
+    <div class="col-sm-12 panel panel-default ">
+        <div class="col-sm-12 ">
+            <div class="col-sm-3 ">
+                <div>
+                    <img src="{{ asset('assets/img/logo.png') }}">
                 </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                <span class="glyphicon glyphicon-user">
-                            </span> Estudiantes</a>
-                        </h4>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-search"></span>
-                                        <a href="#">Buscar Estudiantes</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="#">Agregar Estudiante</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
+            </div>
+            <div class="col-sm-9  " align="center">
+                <br>
+                <br>
+                <br>
+                <div>
+                    <h1> UNIVERSIDAD NACIONAL DE TRUJILLO</h1>
                 </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseClie">
-                                <span class="glyphicon glyphicon-user">
-                            </span> Clientes</a>
-                        </h4>
-                    </div>
-                    <div id="collapseClie" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-search"></span>
-                                        <a href="#">Buscar Clientes</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="#">Agregar Clientes</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThrees">
-                                <spam class="fa fa-building-o"></spam>
-                                Facultades</a>
-                        </h4>
-                    </div>
-                    <div id="collapseThrees" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-search"></span>
-                                        <a href="#">Buscar Facultades</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="#">Agregar Facultad</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                <spam class="fa fa-graduation-cap"></spam>
-                                Escuelas</a>
-                        </h4>
-                    </div>
-                    <div id="collapseThree" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-search"></span>
-                                        <a href="#">Buscar Escuelas</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="#">Agregar Escuela</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span
-                                        class="fa fa-users">
-                            </span> Personal</a>
-                        </h4>
-                    </div>
-                    <div id="collapseFour" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-search"></span>
-                                        <a href="#">Buscar Personal</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="#">Agregar Personal</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
-                                <span class="glyphicon glyphicon-pushpin"></span>
-                                </span> Tramites</a>
-                        </h4>
-                    </div>
-                    <div id="collapseFive" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-search"></span>
-                                        <a href="#">Buscar Tramites</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="#">Agregar Tramite</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
-                                <span class="glyphicon glyphicon-pushpin">
-                            </span> SubTramites</a>
-                        </h4>
-                    </div>
-                    <div id="collapseSix" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-search"></span>
-                                        <a href="#">Buscar SubTramites</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="#">Agregar SubTramite</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven"><span
-                                        class="fa fa-money">
-                            </span> Donaciones y Transacciones</a>
-                        </h4>
-                    </div>
-                    <div id="collapseSeven" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-search"></span>
-                                        <a href="#">Buscar Donaciones y transacciones</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="#">Agregar Donaciones y transacciones</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
+                <div>
+                    <h3>Tesoreria - Administrador</h3>
                 </div>
             </div>
         </div>
 
-    <div class="col-sm-9 col-md-9">
-        <div class="well well-sm">
-            @yield('content')
+        <div class="col-sm-12 ">
+            <hr>
+            <br></div>
+        <div class="col-sm-12 ">
+            <div class=" col-sm-8">
 
+                <div class="col-sm-6  ">
+                    <h4 align="left">Bienvenido administrador : </h4>
+                </div>
+                <div class="col-sm-6 " align="left">
+                    <h4> usuario </h4>
+                </div>
+            </div>
+            <div class="col-sm-4">
+
+                <div class="col-sm-12" align="right">
+
+                    <h4><a   href="#" class="glyphicon  glyphicon-log-out red"> Salir   </a></h4>
+
+                </div>
+            </div>
         </div>
+        <div class="col-sm-12 "><br></div>
     </div>
+    <div class=" col-sm-12 panel panel-default">
+        @yield('body')
     </div>
-    <footer class="footer row col-xs-12">
+    <footer class="footer row col-sm-12">
         <p align="right">© 2016 ÑuxtuSoft, S.A.C.</p>
     </footer>
 </div>
@@ -336,8 +111,6 @@
 <!--[if lt IE 10]>
 <script src="{{asset('assets/js/placeholder.js')}}"></script>
 <![endif]-->
-
-
 
 
 </body>
