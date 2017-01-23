@@ -246,8 +246,7 @@
                 </div>
             </div>
         </div>
-        <br>
-        <div class="col-sm-9  panel panel-default">
+        <div class="col-sm-9  ">
             @yield('content')
         </div>
     </div>

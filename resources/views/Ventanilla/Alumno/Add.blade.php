@@ -1,8 +1,10 @@
-@extends('Ventanilla\Menu')
+@extends('Ventanilla.Menu')
 @section('content')
-    <fieldset>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Agregar estudiante</div>
         <form class="Horizontal">
-            <legend>Agregar estudiante</legend>
+
+            <div class="panel-body">
             <br>
 
                 <div class="panel-body">
@@ -68,6 +70,7 @@
                 <a href="#" class=" col-md-2 btn btn-success"><span class="glyphicon glyphicon-ok"></span> Aceptar</a>
                 <div class="col-md-3"></div>
             </div>
+    </div>
         </form>
-    </fieldset>
+    </div>
 @stop

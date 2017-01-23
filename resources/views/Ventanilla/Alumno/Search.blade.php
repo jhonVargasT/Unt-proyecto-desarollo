@@ -1,4 +1,4 @@
-@extends('Ventanilla\LayoutVenta')
+@extends('Ventanilla.Menu')
 @section('content')
     <fieldset>
         <div>
