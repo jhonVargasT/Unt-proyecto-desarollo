@@ -1,19 +1,18 @@
-@extends('Administrador\LayoutAdm')
+@extends('Ventanilla.Menu')
 @section('content')
-    <fieldset>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Agregar estudiante</div>
         <form class="Horizontal">
-            <legend>editar cliente</legend>
+
+            <div class="panel-body">
             <br>
-            <div class="panel panel-default">
-                <div class="panel-heading">Datos persona</div>
+
                 <div class="panel-body">
                     <div class="col-sm-12 row form-group">
-                        <div class="form-group-sm " align="right">
+                        <div class="form-group-sm " align="left">
                             <span class="col-sm-2 control-label"> Numero de Dni</span>
                             <div class="col-sm-3">
                                 <input class="form-control input-sm" name="dni" type="text">
-                            </div>
-                            <div class="col-sm-1">
                             </div>
                         </div>
                         <div class="form-group-sm">
@@ -33,28 +32,32 @@
                     </div>
                 </div>
 
-            </div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">Datos cliente</div>
+
                 <div class="panel-body">
                     <div class="col-sm-12 row form-group">
                         <div class="form-group-sm " align="left">
-                            <span class="col-sm-2 control-label"> Ruc:</span>
+                            <span class="col-sm-2 control-label"> Codigo alumno</span>
                             <div class="col-sm-3">
-                                <input class="form-control input-sm" name="ruc" type="text">
+                                <input class="form-control input-sm" name="codigoAlumno" type="text">
                             </div>
-
                         </div>
-
                         <div class="form-group-sm " align="left">
-                            <span class="col-sm-2 control-label"> Razon social</span>
-                            <textarea class="col-sm-4" name="razonSocial">
-
-                            </textarea>
+                            <span class="col-sm-3 control-label"> Codigo matricula</span>
+                            <div class="col-sm-3">
+                                <input class="form-control input-sm" name="codigoMatricula" type="text">
+                            </div>
                         </div>
                     </div>
+                    <div class="col-sm-12 row form-group">
+                        <div class="form-group-sm " align="left">
+                            <span class="col-sm-2 control-label"> Fecha matricula</span>
+                            <div class="col-sm-3">
+                                <input class="form-control input-sm" name="fechaDeMatricula" type="text">
+                            </div>
+                        </div>
 
+                    </div>
 
                 </div>
 
@@ -67,6 +70,7 @@
                 <a href="#" class=" col-md-2 btn btn-success"><span class="glyphicon glyphicon-ok"></span> Aceptar</a>
                 <div class="col-md-3"></div>
             </div>
+    </div>
         </form>
-    </fieldset>
+    </div>
 @stop

@@ -35,7 +35,8 @@
                     <tr >
 
                         <th>Dni</th>
-                        <th>Nombres y apellidos</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
                         <th>Codigo personal</th>
                         <th>Ruc</th>
                         <th>Razon social</th>

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
     <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/font-awesome/css/font-awesome.min.css')}}">
-    <title> Unt - Tesoreria </title>
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,10 +24,10 @@
                 'csrfToken' => csrf_token(),]); ?>
     </script>
 </head>
-<body style="background-color: #ccd0d2">
+<body style="background-color:#5e5e5e">
 <div class="container container-fluid">
     <br>
-    <div class="col-sm-12 panel panel-default " >
+    <div class="col-sm-12 panel panel-default ">
         <div class="col-sm-12 ">
             <div class="col-sm-3 ">
                 <div>
@@ -42,7 +42,7 @@
                     <h1> UNIVERSIDAD NACIONAL DE TRUJILLO</h1>
                 </div>
                 <div>
-                    <h3>Tesoreria - Administrador</h3>
+                    <h3>Tesoreria - Ventanilla</h3>
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
             <div class=" col-sm-8">
 
                 <div class="col-sm-6  ">
-                    <h4 align="left">Bienvenido administrador : </h4>
+                    <h4 align="left">Bienvenido cajero : </h4>
                 </div>
                 <div class="col-sm-6 " align="left">
                     <h4> usuario </h4>

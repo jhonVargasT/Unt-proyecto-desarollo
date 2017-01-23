@@ -1,9 +1,8 @@
-@extends('Administrador\LayoutAdm')
+@extends('Ventanilla.Menu')
 @section('content')
-    <fieldset>
-        <div>
-            <legend>Buscar alumno</legend>
-            <!--menu Busqueda-->
+    <div class="panel panel-primary">
+        <div class="panel-heading"> Reportar pago</div>
+        <div class="panel-body">
             <br>
             <div class="col-sm-12 row form-group">
                 <div class="form-group-sm col-sm-6 ">
@@ -11,10 +10,9 @@
                     <div class="col-sm-7 ">
                         <select class=" form-control">
                             <option>Dni</option>
-                            <option>Nombres y apellidos</option>
-                            <option>Codigo personal</option>
                             <option>Codigo alumno</option>
-                            <option>Codigo Matricula</option>
+                            <option>Ruc</option>
+                            <option>Codigo pago</option>
                         </select>
                     </div>
                 </div>
@@ -32,29 +30,31 @@
                 <table class="table table-bordered">
                     <thead>
                     <!--cabecear Tabla-->
-                    <tr >
+                    <tr>
 
+                        <th>Codigo de pago</th>
                         <th>Dni</th>
                         <th>Nombres y apellidos</th>
-                        <th>Codigo personal</th>
-                        <th>Codigo alumno</th>
-                        <th>Codigo Matricula</th>
-                        <th>Fecha Matricula</th>
-                        <th>Opciones</th>
+                        <th>Tipo tramite</th>
+                        <th>Fecha de pago</th>
+                        <th>Monto</th>
+                        <th>Modalidad</th>
+                        <th>Nombre cajero</th>
+                        <th>Opcion</th>
                     </tr>
                     </thead>
                     <body>
                     <!--Contenido-->
-                    <tr >
+                    <tr>
                         <td>00001</td>
                         <td>125.168.129.58</td>
                         <td>Aw32234234</td>
                         <td>125.168.129.58</td>
                         <td>Aw32234234</td>
                         <td>Aw32234234</td>
-
+                        <td>00001</td>
+                        <td>125.168.129.58</td>
                         <td align="center">
-                            <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
                             <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
                         </td>
 
@@ -75,10 +75,31 @@
                         <li><a href="#">5</a></li>
                     </ul>
                 </div>
-                <div class="col-sm-4"></div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-2">
+                    <br>
+                    <div class="col-sm-6" align="right">
+                        Total :
+                    </div>
+                    <div class="col-sm-6" align="left">
+                        Cantidad
+                    </div>
+                </div>
 
             </div>
+            <div class="col-sm-12">
+                <br>
+                <div class="col-sm-5">
+                </div>
+                <div class="col-sm-2">
+                    <button href="#" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-print"></span>
+                        Imprimir
+                    </button>
+                </div>
+                <div class="col-sm-5">
 
+                </div>
+            </div>
         </div>
-    </fieldset>
+    </div>
 @stop

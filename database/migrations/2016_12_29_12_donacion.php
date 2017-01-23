@@ -22,14 +22,15 @@ class Donacion extends Migration
             $table ->string('numResolucion');
             $table -> date('fechaIngreso');
             $table -> string('decripcion');
+            $this->double('monto');
             $table -> boolean('estado')->default('1');
 
-            $table->integer('idDonacion')->unsigned();
+            $table->integer('idTramite')->unsigned();
         });
 
         Schema::table('donacion', function( $table) {
 
-            $table->foreign('idDonacion')->references('codTramite')->on('tramite');
+            $table->foreign('idTramite')->references('codTramite')->on('tramite');
         });
     }
 

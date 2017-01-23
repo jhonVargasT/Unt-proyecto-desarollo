@@ -1,7 +1,8 @@
 @extends('Administrador\LayoutAdm')
 @section('content')
     <fieldset>
-        <form class="form-Vertical">
+        <form name="form" action="{{url('DonacionRegistrada')}}" role="form" method="POST" class="Horizontal">
+        {{csrf_field()}}
             <!-- Form Name -->
             <legend>Agregar Donaciones y Transacciones</legend>
             <!-- Search input-->
