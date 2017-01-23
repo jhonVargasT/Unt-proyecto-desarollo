@@ -17,15 +17,15 @@ class Alumno extends Migration
         Schema::create('alumno', function(Blueprint $table)
         {
             $table->engine = 'InnoDB';
-
-            $table ->increments('codAlumno');
+            $table-> increments('idAlumno');
+            $table ->string('codAlumno');
             $table ->string('codMatricula');
             $table -> date('fecha');
             $table -> boolean('estado')->default('1');
 
 
             $table->integer('idPersona')-> unsigned();
-            $table->integer('coEscuela')-> unsigned();
+            $table->integer('coEscuela')-> unsigned()->nullable();
 
         });
 

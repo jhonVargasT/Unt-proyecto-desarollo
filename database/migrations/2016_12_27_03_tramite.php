@@ -22,7 +22,7 @@ class Tramite extends Migration
             $table ->string('clasificador');
             $table ->string('nombre');
             $table ->string('fuentefinanc');
-            $table ->boolean('tipoRecurso');
+            $table ->char('tipoRecurso');
             $table -> boolean('estado')->default('1');
 
         });

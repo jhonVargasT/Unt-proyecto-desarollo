@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,19 +23,23 @@
 
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="{{asset('assets/ico/favicon.png')}}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.min.css" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset('assets/ico/apple-touch-icon-144-precomposed.png')}}">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="´{{asset('assets/ico/apple-touch-icon-114-precomposed.png')}}">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset('assets/ico/apple-touch-icon-72-precomposed.png')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="{{asset('assets/ico/apple-touch-icon-144-precomposed.png')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+          href="´{{asset('assets/ico/apple-touch-icon-114-precomposed.png')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+          href="{{asset('assets/ico/apple-touch-icon-72-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" href="{{asset('assets/ico/apple-touch-icon-57-precomposed.png')}}">
     <script>window.Laravel = <?php echo json_encode([
-                'csrfToken' => csrf_token(),]); ?>
+            'csrfToken' => csrf_token(),]); ?>
     </script>
     <script>
-        $( document ).ready(function() {
+        $(document).ready(function () {
             $('#fecha').datepicker();
         });
     </script>
@@ -67,15 +70,17 @@
                         </div>
                     </div>
                     <div class="form-bottom">
-                        <form name="form"  action="{{url('Index')}}" role="form" method="POST" class="login-form">
+                        <form name="form" action="{{url('RegistrarTramite')}}" role="form" method="POST" class="login-form">
                             {{csrf_field()}}
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">Cuenta</label>
-                                <input type="text" name="cuenta" placeholder="Usuario..." class="form-username form-control" id="form-username">
+                                <input type="text" name="cuenta" placeholder="Usuario..."
+                                       class="form-username form-control" id="form-username">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-password">Contraseña</label>
-                                <input type="password" name="contraseña" placeholder="Contraseña..." class="form-password form-control" id="form-password">
+                                <input type="password" name="contraseña" placeholder="Contraseña..."
+                                       class="form-password form-control" id="form-password">
                             </div>
                             <button type="submit" name="enviar" class="btn">Ingresar</button>
                         </form>
