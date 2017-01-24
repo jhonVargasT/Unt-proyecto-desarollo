@@ -21,8 +21,13 @@ class Donacion extends Migration
             $table ->increments('codDonacion');
             $table ->string('numResolucion');
             $table -> date('fechaIngreso');
+<<<<<<< Updated upstream
             $table -> string('decripcion');
             $this->double('monto');
+=======
+            $table -> string('descripcion');
+            $table->double('monto');
+>>>>>>> Stashed changes
             $table -> boolean('estado')->default('1');
 
             $table->integer('idTramite')->unsigned();

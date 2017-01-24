@@ -18,6 +18,29 @@ class personamodel
     }
 
     /**
+<<<<<<< Updated upstream
+=======
+     * @return mixed
+     */
+    public function getCodPersona()
+    {
+        return $this->codPersona;
+    }
+
+    /**
+     * @param mixed $codPersona
+     * @return personamodel
+     */
+    public function setCodPersona($codPersona)
+    {
+        $this->codPersona = $codPersona;
+        return $this;
+    }
+
+
+
+    /**
+>>>>>>> Stashed changes
      * @return array
      */
     public function getDni()
@@ -91,4 +114,18 @@ class personamodel
 
         return $save;
     }
+<<<<<<< Updated upstream
+=======
+
+    public function editarPersona()
+    {
+        DB::table('persona')->where('dni', $this->dni)->update(['nombres' => $this->nombres, 'apellidos'=>$this->apellidos]);
+    }
+
+    public function eliminarPersona()
+    {
+        DB::table('persona')->where('codPersona', $this->codPersona)->update(['estado' => 0]);
+        DB::table('alumno')->where('idPersona', $this->codPersona)->update(['estado' => 0]);
+    }
+>>>>>>> Stashed changes
 }

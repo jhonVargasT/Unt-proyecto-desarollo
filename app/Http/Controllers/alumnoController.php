@@ -6,6 +6,9 @@ use App\alumnomodel;
 use App\personamodel;
 use Illuminate\Http\Request;
 
+
+use Illuminate\Support\Facades\DB;
+
 class alumnoController extends Controller
 {
     public function registrarAlumno(Request $request)
@@ -43,6 +46,7 @@ class alumnoController extends Controller
 
     }*/
 
+
     public function buscarAlumnoxDni(Request $request)
     {
 
@@ -52,4 +56,22 @@ class alumnoController extends Controller
         return $array;
     }
 
+
+
+    public function buscarAlumno(Request $request)
+    {
+        $datos = $request->datos;
+        $alumno = new alumnomodel();
+        $alumno->consultarAlumnos($datos);
+
+        return view('Administrador/Alumno/Search');
+    }
+
+    public function autocomplete(Request $request)
+    {
+        $data = DB::table('persona')->select("nombres as name")->where("nombres", "LIKE", "%{$request->input('query')}%")->get();
+
+        return response()->json($data);
+    }
 }
+

@@ -113,6 +113,35 @@ class tramitemodel
         return $this;
     }
 
+<<<<<<< Updated upstream
+=======
+    public function consultarNombreTramites()
+    {
+        $tramitea = array();
+
+        $nombres = DB::table('tramite')->pluck('nombre');
+
+        foreach ($nombres as $nom) {
+            array_push($tramitea, $nom);
+        }
+        return $tramitea;
+
+    }
+
+    public function consultarTRTramites($nombre)
+    {
+        $tra = array();
+
+        $tiporecurso = DB::table('tramite')->where('nombre', '=', $nombre)->pluck('tipoRecurso');
+
+        foreach ($tiporecurso as $tr) {
+            array_push($tra, $tr);
+        }
+        return $tra;
+
+    }
+
+>>>>>>> Stashed changes
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function consultarTramites()

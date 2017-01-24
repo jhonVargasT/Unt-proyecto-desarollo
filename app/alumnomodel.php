@@ -22,6 +22,27 @@ class alumnomodel extends personamodel
     /**
      * @return mixed
      */
+<<<<<<< Updated upstream
+=======
+    public function getObalumno()
+    {
+        return $this->obalumno;
+    }
+
+    /**
+     * @param mixed $obalumno
+     * @return alumnomodel
+     */
+    public function setObalumno($obalumno)
+    {
+        $this->obalumno = $obalumno;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+>>>>>>> Stashed changes
     public function getCodAlumno()
     {
         return $this->codAlumno;
@@ -135,6 +156,7 @@ class alumnomodel extends personamodel
 
     public function consultarAlumnoPorDni()
     {
+<<<<<<< Updated upstream
         //$alumnosa = array();
 
         $alumnos = DB::select('select * from persona left join alumno on persona.codPersona = alumno.idPersona where persona.dni=dni', ['dni' => $this->getDni()]);
@@ -143,14 +165,26 @@ class alumnomodel extends personamodel
             array_push($alumnosa, $alumnos->dni, $alumnos->nombres, $alumnos->codAlumno, $alumnos->codMatricula, $alumnos->fecha);
         }*/
 
+=======
+
+        $alumnos = DB::select('select * from persona left join alumno on persona.codPersona = alumno.idPersona where persona.dni=dni', ['dni' => $this->getDni()]);
+
+>>>>>>> Stashed changes
         return $alumnos;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+<<<<<<< Updated upstream
     public function consultarAlumnos($bsc, $da)
     {
         $alumnos = DB::select(DB::raw("select * from persona left join alumno on persona.codPersona = alumno.idPersona where persona.codPersona= alumno.idPersona and '$bsc'='$da'"));
         //return view('Administrador/Alumno/Search', ['alumnos' => $alumnos]);
+=======
+    public function consultarAlumnos()
+    {
+        $alumnos = DB::select('select * from persona left join alumno on persona.codPersona = alumno.idPersona where persona.codPersona= alumno.idPersona 
+                               and persona.dni =123 or persona.nombres=123 or persona.apellidos=123 or alumno.codAlumno=123 or alumno.codMatricula=123');
+>>>>>>> Stashed changes
         return $alumnos;
     }
 
@@ -207,20 +241,31 @@ class alumnomodel extends personamodel
         return $al;
     }
 
+<<<<<<< Updated upstream
     public function editarAlumno($dni,$nombres, $apellidos, $codAlumno,$codMatricula,$fecha,$nombreE)
     {
         $alumnosbd= DB::select('select codPersona from persona left join alumno on persona.codPersona = alumno.idPersona where persona.dni=:dni',['dni'=>$dni]);
+=======
+    public function editarAlumno()
+    {
+        $alumnosbd= DB::select('select codPersona from persona left join alumno on persona.codPersona = alumno.idPersona where persona.dni=:dni',['dni'=>$this->getDni()]);
+>>>>>>> Stashed changes
 
         foreach ($alumnosbd as $alumnos)
         {
             $als = $alumnos-> codPersona;
         }
 
+<<<<<<< Updated upstream
         $escuela = DB::select('select codEscuela from facultad left join escuela on facultad.idFacultad = facultad.idFacultad where escuela.nombre=nombre',['nombre' => $nombreE]);
+=======
+        /*$escuela = DB::select('select codEscuela from facultad left join escuela on facultad.idFacultad = facultad.idFacultad where escuela.nombre=nombre',['nombre' => $nombreE]);
+>>>>>>> Stashed changes
 
         foreach ($escuela as $es)
         {
             $e = $es->idEscuela;
+<<<<<<< Updated upstream
         }
 
         DB::table('persona')->where('codPersona', $als)->update(['nombres' => $nombres, 'apellidos'=>$apellidos]);
@@ -239,6 +284,18 @@ class alumnomodel extends personamodel
         DB::table('persona')->where('codPersona', $cod)->update(['estado' => 0]);
         DB::table('alumno')->where('idPersona', $cod)->update(['estado' => 0]);
     }
+=======
+        }*/
+
+        DB::table('alumno')->where('idPersona', $als)->update(['codAlumno' => $this->codAlumno, 'codMatricula'=>$this->codMatricula, 'fecha'=>$this->fecha]);
+    }
+
+    /*public function eliminarAlumno()
+    {
+
+        DB::table('alumno')->where('codAlumno', $this->codAlumno)->update(['estado' => 0]);
+    }*/
+>>>>>>> Stashed changes
 
     public function eliminarAlumnosEscuela($nombreEscuela)
     {
