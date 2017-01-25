@@ -1,68 +1,71 @@
 @extends('Administrador.Body')
 @section('content')
-    <fieldset>
-        <div>
-            <legend>Buscar facultades</legend>
-            <!--menu Busqueda-->
-            <br>
-            <div class="col-sm-12 row form-group">
-                <div class="form-group-sm col-sm-6 ">
-                    <span class="col-sm-5 control-label">Buscar por:</span>
-                    <div class="col-sm-7 ">
-                        <select class=" form-control">
-                            <option>Codigo facultad</option>
-                            <option>Cuenta Interna</option>
-                            <option>Nombre Facultad</option>
-
-                        </select>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Buscar Facultades
+        </div>
+        <div class="panel-body">
+            <form name="form" action="{{url('FacultadesBuscadas')}}" role="form" method="POST" class="Vertical">
+                {{ csrf_field() }}
+                <div class="col-sm-12 row form-group">
+                    <div class="form-group-sm col-sm-6 ">
+                        <span class="col-sm-5 control-label">Buscar por:</span>
+                        <div class="col-sm-7 ">
+                            <select class=" form-control" name="select">
+                                <option>Codigo facultad</option>
+                                <option>Cuenta Interna</option>
+                                <option>Nombre Facultad</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group-sm input-group col-sm-6">
-                    <input type="text" class="form-control" placeholder="Ingresa datos aqui ..">
+                    <div class="form-group-sm input-group col-sm-6">
+                        <input type="text" name="text" class="form-control" placeholder="Ingresa datos aqui ..">
                         <span class="input-group-btn">
-                            <button class="btn btn-sm" type="button">Buscar</button>
+                            <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
                         </span>
+                    </div>
+
                 </div>
-
-            </div>
-
+            </form>
             <!--tabla-->
             <div class="table-responsive col-sm-12">
                 <table class="table table-bordered">
+
                     <thead>
                     <!--cabecear Tabla-->
-                    <tr >
-
-                        <th >Codigo facultad</th>
-                        <th>Cuenta Interna</th>
-                        <th>Nombre Facultad</th>
-                        <th>Opciones</th>
+                    <tr>
+                            <th ><div align="center">Codigo facultad </div></th>
+                            <th ><div align="center">Nombre Facultad </div></th>
+                            <th ><div align="center">Cuenta Interna</div></th>
+                            <th ><div align="center">Opciones</div></th>
                     </tr>
                     </thead>
                     <body>
-                    <!--Contenido-->
-                    <tr >
-                        <td>00001</td>
-                        <td>125.168.129.58</td>
-                        <td>Aw32234234</td>
+                    @if(session()->has('false'))
+                        <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
+                        @endif
+                        @if(isset($cor))
+                                <?php
+                                echo $cor;
+                                ?>
+                                @endif
+                    @if(isset($facultad))
+                            <!--Contenido-->
+                    @foreach($facultad as $f)
+                        <tr>
+                            <td>{{$f->codFacultad}}</td>
+                            <td>{{$f->nombre}}</td>
+                            <td>{{$f->nroCuenta}}</td>
+                            <td align="center">
+                                <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
+                                <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
+                            </td>
 
-                        <td align="center">
-                            <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
-                            <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td>00001</td>
-                        <td>125.168.129.58</td>
-                        <td>Affewer</td>
-                        <td align="center">
-                            <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
-                            <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
-                        </td>
-
-                    </tr>
+                        </tr>
+                    @endforeach
+                    @endif
                     </body>
+
                 </table>
             </div>
             <div class="col-sm-12 row">
@@ -82,5 +85,6 @@
             </div>
 
         </div>
-    </fieldset>
+    </div>
+
 @stop

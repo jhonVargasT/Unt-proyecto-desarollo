@@ -4,6 +4,7 @@ namespace App;
 
 
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Request;
 
 class facultadmodel
 {
@@ -102,8 +103,7 @@ class facultadmodel
         return $facunombre;
 
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
 
     public function consultarFacultad($idFacultad)
     {
@@ -119,27 +119,25 @@ class facultadmodel
 
     public function consultarFacultades()
     {
-        $facultadbd= DB::select('select * from facultad');
-
-        foreach ($facultadbd as $facultad)
-        {
-            $facu = $facultad->todossusatributos;
-        }
-
-        return $facu;
+        $facultadbd= DB::table('facultad')->get();
+        return $facultadbd;
     }
-
-    public function consultarFacultadeNombre($nombre)
+    public function consultarFacultadesCodigo($codigo)
     {
-        $facultadbd= DB::select('select * from facultad where nombre=:nombre',['nombre'=>$nombre]);
-
-        foreach ($facultadbd as $facultad)
-        {
-            $facu = $facultad->todossusatributos;
-        }
-
-        return $facu;
+        $facultadbd= DB::table('facultad')->where('codFacultad','like','%'.$codigo.'%')->get();
+        return $facultadbd;
     }
+    public function consultarFacultadesNombre($nombre)
+    {
+        $facultadbd= DB::table('facultad')->where('nombre','like','%'.$nombre.'%')->get();
+        return $facultadbd;
+    }
+    public function consultarFacultadesCuentaInterna($nroCuenta)
+    {
+        $facultadbd= DB::table('facultad')->where('nroCuenta','like','%'.$nroCuenta.'%')->get();
+        return $facultadbd;
+    }
+
 
     public function save(){
         $save= DB::table('facultad')->insert(['codFacultad' => $this->codFacultad, 'nombre' => $this->nombre, 'nroCuenta'=>$this->nroCuenta]);
