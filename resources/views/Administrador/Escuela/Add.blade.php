@@ -1,6 +1,9 @@
 @extends('Administrador.Body')
 @section('content')
     <fieldset>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
         <form name="form" action="{{url('EscuelaRegistrada')}}" role="form" method="POST" class="Vertical">
             {{csrf_field()}}
             <legend>Agregar Escuela</legend>
@@ -9,22 +12,17 @@
                 <div class="form-group " align="left">
                     <span class="col-sm-3 control-label"> Nombre Facultad</span>
                     <div class="input-group col-sm-6">
-                        <input type="text" class="form-control" name="nombreFacultad"
-                               placeholder="Ingresa Nombre de facultad aqui ..">
-
-                        <select name="nombreFacultad">
-                            <?php
-                            use App\facultadmodel;
-                            $facultad = new facultadmodel();
-                            $valores = $facultad->consultarNombreFacultades();
-                            foreach ($valores as $val) {
-                                echo "<option>" . $val . "</option>";
-                            }
-                            ?>
-                        </select>
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Buscar</button>
-                        </span>
+                        <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .." name="nombreFacultad">
+                        <script type="text/javascript">
+                            var path = "{{ route('autocompletee') }}";
+                            $('input.typeahead').typeahead({
+                                source: function (query, process) {
+                                    return $.get(path, {query: query}, function (data) {
+                                        return process(data);
+                                    });
+                                }
+                            });
+                        </script>
                     </div>
 
                 </div>

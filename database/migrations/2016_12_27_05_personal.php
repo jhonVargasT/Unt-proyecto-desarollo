@@ -18,8 +18,8 @@ class Personal extends Migration
         {
             $table->engine = 'InnoDB';
 
-            $table ->increments('codPersonal');
-            $table ->string('cuenta');
+            $table ->increments('codPersonal')->unique();
+            $table ->string('cuenta')->unique();
             $table ->string('password');
             $table ->string('tipoCuenta');
             $table ->boolean('estadoCuenta')->default('1');

@@ -18,16 +18,11 @@ class Donacion extends Migration
         {
             $table->engine = 'InnoDB';
 
-            $table ->increments('codDonacion');
-            $table ->string('numResolucion');
+            $table ->increments('codDonacion')->unique();
+            $table ->string('numResolucion')->unique();
             $table -> date('fechaIngreso');
-<<<<<<< Updated upstream
-            $table -> string('decripcion');
-            $this->double('monto');
-=======
             $table -> string('descripcion');
             $table->double('monto');
->>>>>>> Stashed changes
             $table -> boolean('estado')->default('1');
 
             $table->integer('idTramite')->unsigned();

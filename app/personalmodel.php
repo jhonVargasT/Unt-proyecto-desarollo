@@ -9,10 +9,30 @@ class personalmodel extends personamodel
     private $cuenta;
     private $password;
     private $tipoCuenta;
+    private $idPersona;
 
     function __construct() {
         parent::__construct();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIdPersona()
+    {
+        return $this->idPersona;
+    }
+
+    /**
+     * @param mixed $idPersona
+     * @return personalmodel
+     */
+    public function setIdPersona($idPersona)
+    {
+        $this->idPersona = $idPersona;
+        return $this;
+    }
+
 
     /**
      * @return mixed
@@ -90,6 +110,16 @@ class personalmodel extends personamodel
         return $per;
     }
 
+    public function bdPersona($dni)
+    {
+        $persona= DB::select('select codPersona from persona where dni=:dni',['dni' => $dni]);
+
+        foreach ($persona as $pers)
+        {
+            return $per = $pers->codPersona;
+        }
+    }
+
     public function extraerCodigoPersonal($dni)
     {
         $personal = DB::select('select codPersonal from personal right join persona on personal.idPersona=persona.codPersona where persona.dni=:dni',['dni'=>$dni]);
@@ -102,10 +132,19 @@ class personalmodel extends personamodel
         return $per;
     }
 
-    public function save(){
-        $save= DB::table('personal')->insert(['cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta, 'idPersona' => $this->getDni()]);
-        return $save;
+    public function savepersonal()
+    {
+
+        $alumnoam = DB::select('select * from personal where cuenta=:cuenta', ['cuenta' => $this->cuenta]);
+
+        if ($alumnoam != null) {
+            return false;
+        } else {
+            DB::table('personal')->insert(['cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta, 'idPersona' => $this->idPersona]);
+            return true;
         }
+
+    }
 
     public function consultarPersonal($idPersonal)
     {
@@ -132,7 +171,7 @@ class personalmodel extends personamodel
         DB::table('personal')->where('idPersona', $per)->update(['cuenta' => $cuenta, 'password'=>$password, 'tipoCuenta'=>$tipoCuenta]);
     }
 
-    public function eliminarPersona($dni)
+    public function eliminarPersona()
     {
         $personace= DB::select('select codPersona from persona left join alumno on persona.codPersona = alumno.idPersona where persona.dni=:dni',['dni'=>$dni]);
 

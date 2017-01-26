@@ -18,8 +18,9 @@ class Logunt extends Migration
         {
             $table->engine = 'InnoDB';
 
-            $table ->increments('codLog');
+            $table ->increments('codLog')->unique();
             $table ->string('descripcion');
+            $table ->date('fecha');
             $table -> boolean('estado')->default('1');
 
 

@@ -17,10 +17,10 @@ class Escuela extends Migration
         Schema::create('escuela', function (Blueprint $table)
         {
             $table->engine = 'InnoDB';
-            $table-> increments('idEscuela');
-            $table ->string('codEscuela');
-            $table ->string('nombre');
-            $table ->string('nroCuenta');
+            $table-> increments('idEscuela')->unique();
+            $table ->string('codEscuela')->unique();
+            $table ->string('nombre')->unique();
+            $table ->string('nroCuenta')->unique();
             $table -> boolean('estado')->default('1');
 
 

@@ -11,6 +11,9 @@ class personamodel
     private $nombres;
     private $apellidos;
     private $pago;
+    private $val;
+    private $campo;
+    private $var;
 
     public function __construct()
     {
@@ -18,8 +21,61 @@ class personamodel
     }
 
     /**
-<<<<<<< Updated upstream
-=======
+     * @return mixed
+     */
+    public function getVal()
+    {
+        return $this->val;
+    }
+
+    /**
+     * @param mixed $val
+     * @return personamodel
+     */
+    public function setVal($val)
+    {
+        $this->val = $val;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCampo()
+    {
+        return $this->campo;
+    }
+
+    /**
+     * @param mixed $campo
+     * @return personamodel
+     */
+    public function setCampo($campo)
+    {
+        $this->campo = $campo;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVar()
+    {
+        return $this->var;
+    }
+
+    /**
+     * @param mixed $var
+     * @return personamodel
+     */
+    public function setVar($var)
+    {
+        $this->var = $var;
+        return $this;
+    }
+
+
+    /**
      * @return mixed
      */
     public function getCodPersona()
@@ -40,7 +96,6 @@ class personamodel
 
 
     /**
->>>>>>> Stashed changes
      * @return array
      */
     public function getDni()
@@ -100,26 +155,57 @@ class personamodel
 
     public function obtenerCod($vardni)
     {
-        $idPersona = DB::select('select codPersona from persona where dni=:dni',['dni'=>$vardni]);
+        $idPersona = DB::select('select codPersona from persona where dni=:dni', ['dni' => $vardni]);
 
-        foreach ($idPersona as $ip)
-        {
-            $cp= $ip->codPersona;
+        foreach ($idPersona as $ip) {
+            $cp = $ip->codPersona;
         }
         return $cp;
     }
 
-    public function save(){
-        $save =DB::table('persona')->insert(['dni' => $this->dni, 'nombres' => $this->nombres, 'apellidos'=>$this->apellidos]);
+    public function save($val,$var)
+    {
+        if($val=='alumno')
+        {
+            $oba = DB::select('select * from alumno where codAlumno=:var', ['var' => $var]);
+            if($oba!=null)
+            {
+                return false;
+            }
+            else{
+                DB::table('persona')->insert(['dni' => $this->dni, 'nombres' => $this->nombres, 'apellidos' => $this->apellidos]);
 
-        return $save;
+                return true;
+            }
+        }
+        elseif ($val=='cliente')
+        {
+            $oba = DB::select('select * from cliente where ruc=:var', ['var' => $var]);
+            if($oba!=null)
+            {
+                return false;
+            }
+            else{
+                DB::table('persona')->insert(['dni' => $this->dni, 'nombres' => $this->nombres, 'apellidos' => $this->apellidos]);
+            }
+        }
+        elseif ($val=='personal')
+        {
+            $oba = DB::select('select * from personal where cuenta=:var', ['var' => $var]);
+            if($oba!=null)
+            {
+                return false;
+            }
+            else{
+                DB::table('persona')->insert(['dni' => $this->dni, 'nombres' => $this->nombres, 'apellidos' => $this->apellidos]);
+            }
+        }
+
     }
-<<<<<<< Updated upstream
-=======
 
     public function editarPersona()
     {
-        DB::table('persona')->where('dni', $this->dni)->update(['nombres' => $this->nombres, 'apellidos'=>$this->apellidos]);
+        DB::table('persona')->where('dni', $this->dni)->update(['nombres' => $this->nombres, 'apellidos' => $this->apellidos]);
     }
 
     public function eliminarPersona()
@@ -127,5 +213,4 @@ class personamodel
         DB::table('persona')->where('codPersona', $this->codPersona)->update(['estado' => 0]);
         DB::table('alumno')->where('idPersona', $this->codPersona)->update(['estado' => 0]);
     }
->>>>>>> Stashed changes
 }

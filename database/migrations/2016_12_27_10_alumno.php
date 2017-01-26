@@ -17,9 +17,9 @@ class Alumno extends Migration
         Schema::create('alumno', function(Blueprint $table)
         {
             $table->engine = 'InnoDB';
-            $table-> increments('idAlumno');
-            $table ->string('codAlumno');
-            $table ->string('codMatricula');
+            $table-> increments('idAlumno')->unique();
+            $table ->string('codAlumno')->unique();
+            $table ->string('codMatricula')->unique();
             $table -> date('fecha');
             $table -> boolean('estado')->default('1');
 

@@ -2,20 +2,14 @@
 
 namespace App;
 
-<<<<<<< Updated upstream
-=======
 use Illuminate\Support\Facades\DB;
 
->>>>>>> Stashed changes
 class donacionmodel
 {
     private $numResolucion;
     private $fechaIngreso;
     private $descripcion;
-<<<<<<< Updated upstream
-=======
     private $monto;
->>>>>>> Stashed changes
     private $estado;
     private $idTramite;
 
@@ -84,8 +78,6 @@ class donacionmodel
     /**
      * @return mixed
      */
-<<<<<<< Updated upstream
-=======
     public function getMonto()
     {
         return $this->monto;
@@ -104,7 +96,6 @@ class donacionmodel
     /**
      * @return mixed
      */
->>>>>>> Stashed changes
     public function getEstado()
     {
         return $this->estado;
@@ -140,32 +131,25 @@ class donacionmodel
 
     public function bdTramite($nombre)
     {
-<<<<<<< Updated upstream
-        $idTra = DB::select('select idTramite from tramite where nombre=:nombre',['nombre'=>$nombre]);
-        foreach ($idTra as $idT)
-        {
-            $id= $idT->idFacultad;
-        }
-        return $id;
-=======
         $idTra = DB::select('select codTramite from tramite where nombre=:nombre',['nombre'=>$nombre]);
         foreach ($idTra as $idT)
         {
-            $idTramite= $idT->codTramite;
+            return $idTramite= $idT->codTramite;
         }
-        return $idTramite;
->>>>>>> Stashed changes
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function save(){
-<<<<<<< Updated upstream
-        $save =DB::table('donacion')->insert(['numResolucion' => $this->numResolucion, 'fechaIngreso' => $this->fechaIngreso, 'descripcion'=>$this->descripcion, 'idTramite'=>$this->idTramite]);
-=======
-        $save =DB::table('donacion')->insert(['numResolucion' => $this->numResolucion, 'fechaIngreso' => $this->fechaIngreso, 'descripcion'=>$this->descripcion, 'monto'=>$this->monto,'idTramite'=>$this->idTramite]);
->>>>>>> Stashed changes
-        return $save;
+    public function save()
+    {
+        $donacion = DB::select('select * from donacion where numResolucion=:numResolucion ', ['numResolucion' => $this->numResolucion]);
+
+        if ($donacion != null) {
+            return false;
+        } else {
+            DB::table('donacion')->insert(['numResolucion' => $this->numResolucion, 'fechaIngreso' => $this->fechaIngreso, 'descripcion'=>$this->descripcion, 'monto'=>$this->monto,'idTramite'=>$this->idTramite]);
+            return true;
+        }
     }
 
     public function editarDonacion($numeroResoulucion,$descripcion,$fechaDeIngreso)

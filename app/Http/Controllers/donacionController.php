@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\donacionmodel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class donacionController extends Controller
 {
@@ -13,28 +14,25 @@ class donacionController extends Controller
         $donacion->setNumResolucion($request->numResolucion);
         $donacion->setFechaIngreso($request->fechaIngreso);
         $donacion->setDescripcion($request->descripcion);
-<<<<<<< Updated upstream
-        $idD = $donacion->bdTramite('nombre');
-=======
         $donacion->setMonto($request->monto);
         $nombreT = $request ->nombreTramite;
         $idD = $donacion->bdTramite($nombreT);
->>>>>>> Stashed changes
         $donacion->setIdTramite($idD);
         $don= $donacion->save();
 
-        if($don!=null) {
-<<<<<<< Updated upstream
-            return view('donacion');
-        }
-        else{
-            return view('donacion');
-=======
+        if($don==true) {
             return view('Administrador/DonacionesYTransacciones/Add');
         }
         else{
             return view('Administrador/DonacionesYTransacciones/Add');
->>>>>>> Stashed changes
         }
     }
+
+    public function autocompletet(Request $request)
+    {
+        $data = DB::table('tramite')->select("nombre as name")->where("nombre", "LIKE", "%{$request->input('query')}%")->get();
+
+        return response()->json($data);
+    }
+
 }

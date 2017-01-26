@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\escuelamodel;
 
+use App\escuelamodel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class escuelaController extends Controller
 {
@@ -11,26 +12,24 @@ class escuelaController extends Controller
     public function registrarEscuela(Request $request)
     {
         $escuela = new escuelamodel();
-        $escuela ->setCodEscuela($request->codEscuela);
-        $escuela ->setNombre($request->nombre);
-        $escuela ->setNroCuenta($request->nroCuenta);
-        $coF=$escuela ->buscarFacultad($request->nombreFacultad);
+        $escuela->setCodEscuela($request->codEscuela);
+        $escuela->setNombre($request->nombre);
+        $escuela->setNroCuenta($request->nroCuenta);
+        $coF = $escuela->buscarFacultad($request->nombreFacultad);
         $escuela->setFacultad($coF);
-        $rg=$escuela->save();
+        $rg = $escuela->save();
 
-        if($rg!=null) {
+        if ($rg == true) {
             return view('/Administrador/Escuela/Add');
-        }
-        else{
+        } else {
             return view('/Administrador/Escuela/Add');
         }
     }
 
-    /*public function poblarFacultad()
+    public function autocomplete(Request $request)
     {
-        $facultad = new facultadmodel();
-        $valor = $facultad->consultarNombreFacultades();
+        $data = DB::table('facultad')->select("nombre as name")->where("nombre", "LIKE", "%{$request->input('query')}%")->get();
 
-        return view('/Administrador/Escuela/Add',['valores' => $valor]);
-    }*/
+        return response()->json($data);
+    }
 }

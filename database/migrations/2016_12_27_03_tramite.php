@@ -14,17 +14,15 @@ class Tramite extends Migration
     public function up()
     {
         //
-        Schema::create('tramite', function (Blueprint $table)
-        {
+        Schema::create('tramite', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table ->increments('codTramite');
-            $table ->string('clasificador');
-            $table ->string('nombre');
-            $table ->string('fuentefinanc');
-            $table ->char('tipoRecurso');
-            $table -> boolean('estado')->default('1');
-
+            $table->increments('codTramite')->unique();
+            $table->string('clasificador')->unique();
+            $table->string('nombre')->unique();
+            $table->string('fuentefinanc');
+            $table->char('tipoRecurso');
+            $table->boolean('estado')->default('1');
         });
     }
 

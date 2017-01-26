@@ -18,8 +18,8 @@ class Persona extends Migration
         {
             $table->engine = 'InnoDB';
 
-            $table -> increments('codPersona');
-            $table -> string('dni');
+            $table -> increments('codPersona')->unique();
+            $table -> string('dni')->unique();
             $table -> string('nombres');
             $table -> string('apellidos');
             $table -> boolean('estado')->default('1');
