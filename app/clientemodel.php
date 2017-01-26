@@ -75,10 +75,8 @@ class clientemodel extends personamodel
 
         foreach ($persona as $pers)
         {
-            $per = $pers->codPersona;
+           return $per = $pers->codPersona;
         }
-
-        return $per;
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -106,18 +104,25 @@ class clientemodel extends personamodel
         return $cl;
     }
 
-    public function save(){
-        $save= DB::table('cliente')->insert(['ruc' => $this->ruc, 'razonSocial' => $this->razonSocial, 'idPersona' => $this->idPersona]);
-        return $save;
+    public function savecliente()
+    {
+        $clienter = DB::select('select * from cliente where ruc=:ruc', ['ruc' => $this->ruc]);
+
+        if ($clienter != null) {
+            return false;
+        } else {
+            DB::table('cliente')->insert(['ruc' => $this->ruc, 'razonSocial' => $this->razonSocial, 'idPersona' => $this->idPersona]);
+            return true;
+        }
     }
+
 
     public function consultarCliente($dni)
     {
-        $clientes= DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where persona.dni=:dni',['dni'=>$dni]);
+        $clientes = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where persona.dni=:dni', ['dni' => $dni]);
 
-        foreach ($clientes as $cli)
-        {
-            $cl = $cli-> todoslosatributos;
+        foreach ($clientes as $cli) {
+            $cl = $cli->todoslosatributos;
         }
 
         return $cl;

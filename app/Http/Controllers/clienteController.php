@@ -13,16 +13,16 @@ class clienteController extends Controller
         $persona->setDni($request->dni);
         $persona->setNombres($request->nombres);
         $persona->setApellidos($request->apellidos);
-        $persona->save();
+        $valp = $persona->save('cliente',$request->ruc);
 
         $cliente = new clientemodel();
         $cliente->setRuc($request->ruc);
         $cliente->setRazonSocial($request->razonSocial);
         $idP = $cliente->bdPersona($request->dni);
         $cliente->setIdPersona($idP);
-        $cli = $cliente->save();
+        $cli = $cliente->savecliente();
 
-        if($cli!=null) {
+        if($valp&&$cli == true) {
             return view('Administrador/Cliente/Add');
         }
         else{

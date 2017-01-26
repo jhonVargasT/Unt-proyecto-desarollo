@@ -113,8 +113,6 @@ class tramitemodel
         return $this;
     }
 
-<<<<<<< Updated upstream
-=======
     public function consultarNombreTramites()
     {
         $tramitea = array();
@@ -141,7 +139,6 @@ class tramitemodel
 
     }
 
->>>>>>> Stashed changes
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function consultarTramites()
@@ -165,8 +162,15 @@ class tramitemodel
     }
 
     public function save(){
-        $save =DB::table('tramite')->insert(['clasificador' => $this->clasificador, 'nombre' => $this->nombre, 'fuentefinanc'=>$this->fuentefinanc, 'tipoRecurso'=>$this->tipoRecurso]);
-        return $save;
+
+        $facultadbd = DB::select('select * from tramite where clasificador=:clasificador and nombre=:nombre', ['clasificador' => $this->clasificador, 'nombre' => $this->nombre]);
+
+        if ($facultadbd != null) {
+            return false;
+        } else {
+            DB::table('tramite')->insert(['clasificador' => $this->clasificador, 'nombre' => $this->nombre, 'fuentefinanc'=>$this->fuentefinanc, 'tipoRecurso'=>$this->tipoRecurso]);
+            return true;
+        }
     }
 
     public function consultarTramitePorId($idTramite)

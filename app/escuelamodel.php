@@ -153,8 +153,14 @@ class escuelamodel
     }
 
     public function save(){
-        $save= DB::table('escuela')->insert(['codEscuela' => $this->codEscuela, 'nombre' => $this->nombre, 'nroCuenta'=>$this->nroCuenta, 'codigoFacultad'=> $this->facultad]);
-        return $save;
+        $escuelabd = DB::select('select * from escuela where codEscuela=:codEscuela and nombre=:nombre and nroCuenta=:nroCuenta', ['codEscuela' => $this->codEscuela, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta]);
+
+        if ($escuelabd != null) {
+            return false;
+        } else {
+            DB::table('escuela')->insert(['codEscuela' => $this->codEscuela, 'nombre' => $this->nombre, 'nroCuenta'=>$this->nroCuenta, 'codigoFacultad'=> $this->facultad]);
+            return true;
+        }
     }
 
     public function editarEscuela($nombre, $nroCuenta,$codigoEscuela)

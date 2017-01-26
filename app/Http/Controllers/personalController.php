@@ -15,19 +15,17 @@ class personalController extends Controller
         $persona->setDni($request->dni);
         $persona->setNombres($request->nombres);
         $persona->setApellidos($request->apellidos);
-        $persona->save();
-
-        $personatemp = new personamodel();
-        $codigo = $personatemp->obtenerCod($request->dni);
+        $per = $persona->save('personal',$request->cuenta);
 
         $personal = new personalmodel();
-        $personal->setDni($codigo);
         $personal->setCuenta($request->cuenta);
         $personal->setPassword($request->contraseña);
         $personal->setTipoCuenta($request->tipocuenta);
-        $p = $personal->save();
+        $co= $personal->bdPersona($request->dni);
+        $personal->setIdPersona($co);
+        $p = $personal->savepersonal();
 
-        if ($p != null) {
+        if ($per && $p == true) {
             return view('/Administrador/Personal/add');
         } else {
             return view('/Administrador/Personal/add');

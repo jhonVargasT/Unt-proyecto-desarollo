@@ -231,13 +231,13 @@
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="/BuscarDonacion">Buscar Donaciones y transacciones</a>
+                                        <a href="/BuscarDonaciones">Buscar Donaciones y transacciones</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="/RegistrarDonacion">Agregar Donaciones y transacciones</a>
+                                        <a href="/RegistrarDonaciones">Agregar Donaciones y transacciones</a>
                                     </td>
                                 </tr>
                             </table>

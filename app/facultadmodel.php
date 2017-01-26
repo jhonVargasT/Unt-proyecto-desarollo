@@ -4,7 +4,6 @@ namespace App;
 
 
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpFoundation\Request;
 
 class facultadmodel
 {
@@ -98,19 +97,19 @@ class facultadmodel
         $nombres = DB::table('facultad')->pluck('nombre');
 
         foreach ($nombres as $nom) {
-             array_push($facunombre, $nom);
+            array_push($facunombre, $nom);
         }
         return $facunombre;
 
     }
-    
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function consultarFacultad($idFacultad)
     {
-        $facultadbd= DB::select('select * from facultad ');
+        $facultadbd = DB::select('select * from facultad ');
 
-        foreach ($facultadbd as $facultad)
-        {
+        foreach ($facultadbd as $facultad) {
             $facu = $facultad->todossusatributos;
         }
 
@@ -119,39 +118,49 @@ class facultadmodel
 
     public function consultarFacultades()
     {
-        $facultadbd= DB::table('facultad')->get();
+        $facultadbd = DB::select('select * from facultad');
+
         return $facultadbd;
     }
+
     public function consultarFacultadesCodigo($codigo)
     {
         $facultadbd= DB::table('facultad')->where('codFacultad','like','%'.$codigo.'%')->get();
         return $facultadbd;
     }
+
     public function consultarFacultadesNombre($nombre)
     {
         $facultadbd= DB::table('facultad')->where('nombre','like','%'.$nombre.'%')->get();
         return $facultadbd;
     }
+
     public function consultarFacultadesCuentaInterna($nroCuenta)
     {
         $facultadbd= DB::table('facultad')->where('nroCuenta','like','%'.$nroCuenta.'%')->get();
         return $facultadbd;
     }
 
+    public function save()
+    {
+        $facultadbd = DB::select('select * from facultad where codFacultad=:codFacultad and nombre=:nombre and nroCuenta=:nroCuenta', ['codFacultad' => $this->codFacultad, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta]);
 
-    public function save(){
-        $save= DB::table('facultad')->insert(['codFacultad' => $this->codFacultad, 'nombre' => $this->nombre, 'nroCuenta'=>$this->nroCuenta]);
-        return $save;
+        if ($facultadbd != null) {
+            return false;
+        } else {
+            DB::table('facultad')->insert(['codFacultad' => $this->codFacultad, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta]);
+            return true;
+        }
     }
 
-    public function editarFacultad($nombre,$codFacultad, $nroCuenta)
+    public function editarFacultad($nombre, $codFacultad, $nroCuenta)
     {
-        DB::table('persona')->where('nombre', $nombre)->update(['codFacultad' => $codFacultad, 'nombre'=> $nombre, 'nroCuenta'=>$nroCuenta]);
+        DB::table('persona')->where('nombre', $nombre)->update(['codFacultad' => $codFacultad, 'nombre' => $nombre, 'nroCuenta' => $nroCuenta]);
     }
 
     public function eliminarFacultad($nombre)
     {
-        DB::table('persona')->where('nombre', $nombre)->update(['estado'=>0]);
+        DB::table('persona')->where('nombre', $nombre)->update(['estado' => 0]);
     }
 
 }

@@ -40,23 +40,6 @@ class subtramitemodel
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getPago(): array
-    {
-        return $this->pago;
-    }
-
-    /**
-     * @param array $pago
-     * @return subtramitemodel
-     */
-    public function setPago(array $pago): subtramitemodel
-    {
-        $this->pago = $pago;
-        return $this;
-    }
 
     /**
      * @return mixed
@@ -150,12 +133,11 @@ class subtramitemodel
 
     public function bdTramite($nombre)
     {
-        $idTra = DB::select('select idTramite from tramite where nombre=:nombre',['nombre'=>$nombre]);
+        $idTra = DB::select('select codTramite from tramite where nombre=:nombre',['nombre'=>$nombre]);
         foreach ($idTra as $idT)
         {
-            $id= $idT->idFacultad;
+            return $id= $idT->codTramite;
         }
-        return $id;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -207,8 +189,15 @@ class subtramitemodel
     }
 
     public function save(){
-        $save =DB::table('subtramite')->insert(['cuenta' => $this->cuenta, 'nombre' => $this->nombre, 'precio'=>$this->precio, 'idTramite'=>$this->idTramite]);
-        return $save;
+
+        $subbd = DB::select('select * from subtramite where cuenta=:cuenta and nombre=:nombre', ['cuenta' => $this->cuenta, 'nombre' => $this->nombre]);
+
+        if ($subbd != null) {
+            return false;
+        } else {
+            DB::table('subtramite')->insert(['cuenta' => $this->cuenta, 'nombre' => $this->nombre, 'precio'=>$this->precio, 'idTramite'=>$this->idTramite]);
+            return true;
+        }
     }
 
     public function editarSubtramite($cuenta, $nombre, $precio)

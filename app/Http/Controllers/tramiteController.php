@@ -17,7 +17,7 @@ class tramiteController extends Controller
         $tramite->setTipoRecurso($request->tipoRecurso);
         $tram = $tramite->save();
 
-        if($tram!=null) {
+        if($tram==true) {
             return view('Administrador/Tramite/add');
         }
         else{

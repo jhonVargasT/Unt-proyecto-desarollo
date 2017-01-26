@@ -198,38 +198,10 @@ Route::get('/Cliente/BuscarEstudiante', function () {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Route::get('autocomplete', array('as' => 'autocomplete', 'uses' => 'alumnoController@autocomplete'));
+Route::get('autocompletee',array('as'=>'autocompletee','uses'=>'escuelaController@autocomplete'));
+Route::get('autocomplete',array('as'=>'autocomplete','uses'=>'subtramiteController@autocomplete'));
+Route::get('autocompletet',array('as'=>'autocompletet','uses'=>'donacionController@autocompletet'));
+
+Route::post('/getmsg','donacionController@llenar');
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-use App\alumnomodel;
-use App\personamodel;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-
-Route::get('/welcome', function () {
-    $data = DB::select('select * from persona left join alumno on persona.codPersona = alumno.idPersona where persona.codPersona= alumno.idPersona and persona.estado=1 and alumno.estado=1');
-    return view('welcome')->withData($data);
-});
-Route::post('/editItem', function (Request $request) {
-    $dataa= new personamodel();
-    $dataa->setDni($request->dni);
-    $dataa->setNombres($request->nombres);
-    $dataa->setApellidos($request->apellidos);
-    $dataa->editarPersona();
-
-    $data= new alumnomodel();
-    $data->setDni($request->dni);
-    $data->setCodAlumno($request->codAlumno);
-    $data->setCodMatricula($request->codMatricula);
-    $data->setFecha($request->fecha);
-    $data->editarAlumno();
-});
-
-Route::post('/deleteItem', function (Request $request) {
-
-    $dataa = new personamodel();
-    $dataa->setCodPersona($request->codPersona);
-    $dataa->eliminarPersona();
-
-});
