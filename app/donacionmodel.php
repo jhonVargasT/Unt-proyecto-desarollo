@@ -138,22 +138,13 @@ class donacionmodel
         }
     }
 
-    public function llenartr($nombreTramite)
-    {
-        $trecurso = DB::select('select tipoRecurso from tramite where nombre=:nombre',['nombre'=>$nombreTramite]);
-        foreach ($trecurso as $tre)
-        {
-            return $trecu= $tre->tipoRecurso;
-        }
-    }
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function save()
     {
-        $escuelabd = DB::select('select * from donacion where numResolucion=:numResolucion ', ['numResolucion' => $this->numResolucion]);
+        $donacion = DB::select('select * from donacion where numResolucion=:numResolucion ', ['numResolucion' => $this->numResolucion]);
 
-        if ($escuelabd != null) {
+        if ($donacion != null) {
             return false;
         } else {
             DB::table('donacion')->insert(['numResolucion' => $this->numResolucion, 'fechaIngreso' => $this->fechaIngreso, 'descripcion'=>$this->descripcion, 'monto'=>$this->monto,'idTramite'=>$this->idTramite]);

@@ -77,6 +77,7 @@ Route::get('/BuscarDonaciones', function () {
 });
 
 Route::resource('DonacionRegistrada', 'donacionController@registrarDonaciones');
+Route::resource('DonacionTR', 'donacionController@llenar');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

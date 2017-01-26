@@ -20,7 +20,7 @@ class donacionController extends Controller
         $donacion->setIdTramite($idD);
         $don= $donacion->save();
 
-        if($don!=null) {
+        if($don==true) {
             return view('Administrador/DonacionesYTransacciones/Add');
         }
         else{
@@ -33,14 +33,6 @@ class donacionController extends Controller
         $data = DB::table('tramite')->select("nombre as name")->where("nombre", "LIKE", "%{$request->input('query')}%")->get();
 
         return response()->json($data);
-    }
-
-    public function llenar(Request $request)
-    {
-        $msg= 'mesage';
-        //$msg =$don->llenartr($request->nombreTramite);
-
-        return response()->json(array('msg'=> $msg), 200);
     }
 
 }
