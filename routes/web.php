@@ -111,6 +111,8 @@ Route::get('/BuscarFacultad', function () {
 
 Route::resource('FacultadRegistrada', 'facultadController@registrarFacultad');
 Route::resource('FacultadesBuscadas', 'facultadController@listarFacultad');
+Route::resource('FacultadCargar', 'facultadController@cargarFacultad');
+Route::resource('FacultadEditada/{idFacultad}', 'facultadController@editarFacultad');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -11,44 +11,46 @@
                     <div class="form-group-sm col-sm-6 ">
                         <span class="col-sm-5 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
-                            <select class=" form-control" name="select">
+                            <select class=" form-control" name="select" >
                                 <option>Codigo facultad</option>
-                                <option>Cuenta Interna</option>
+                                <option selected>Cuenta Interna</option>
                                 <option>Nombre Facultad</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group-sm input-group col-sm-6">
-                        <input type="text" name="text" class="form-control" placeholder="Ingresa datos aqui ..">
+                        @if(isset($txt))
+                            <input type="text" name="text" class="form-control" value="{{$txt}}">
+                        @else
+                            <input type="text" name="text" class="form-control" placeholder="Ingresa datos aqui ..">
+                        @endif
                         <span class="input-group-btn">
                             <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
                         </span>
                     </div>
-
                 </div>
             </form>
             <!--tabla-->
             <div class="table-responsive col-sm-12">
                 <table class="table table-bordered">
-
                     <thead>
                     <!--cabecear Tabla-->
                     <tr>
-                            <th ><div align="center">Codigo facultad </div></th>
-                            <th ><div align="center">Nombre Facultad </div></th>
-                            <th ><div align="center">Cuenta Interna</div></th>
-                            <th ><div align="center">Opciones</div></th>
+                        <th>
+                            <div align="center">Codigo facultad</div>
+                        </th>
+                        <th>
+                            <div align="center">Nombre Facultad</div>
+                        </th>
+                        <th>
+                            <div align="center">Cuenta Interna</div>
+                        </th>
+                        <th>
+                            <div align="center">Opciones</div>
+                        </th>
                     </tr>
                     </thead>
                     <body>
-                    @if(session()->has('false'))
-                        <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
-                        @endif
-                        @if(isset($cor))
-                                <?php
-                                echo $cor;
-                                ?>
-                                @endif
                     @if(isset($facultad))
                             <!--Contenido-->
                     @foreach($facultad as $f)
@@ -57,15 +59,14 @@
                             <td>{{$f->nombre}}</td>
                             <td>{{$f->nroCuenta}}</td>
                             <td align="center">
-                                <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
+                                {{ csrf_field() }}
+                                <a href="FacultadCargar/{{$f->idFacultad}}" ><span class="glyphicon glyphicon-pencil"></span> </a>
                                 <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
                             </td>
-
                         </tr>
                     @endforeach
                     @endif
                     </body>
-
                 </table>
             </div>
             <div class="col-sm-12 row">
@@ -81,9 +82,7 @@
                     </ul>
                 </div>
                 <div class="col-sm-4"></div>
-
             </div>
-
         </div>
     </div>
 

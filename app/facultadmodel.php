@@ -8,8 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class facultadmodel
 {
-    private $codFacultad;
-    private $nombre;
+    public $codFacultad;
+    public $nombre;
     private $nroCuenta;
     private $escuelas;
 
@@ -103,20 +103,13 @@ class facultadmodel
         return $facunombre;
 
     }
-    
 
-    public function consultarFacultad($idFacultad)
+
+    public function consultarFacultadesid($idFacultad)
     {
-        $facultadbd= DB::select('select * from facultad ');
-
-        foreach ($facultadbd as $facultad)
-        {
-            $facu = $facultad->todossusatributos;
-        }
-
-        return $facu;
+        $facultadbd= DB::table('facultad')->where('idFacultad',$idFacultad)->get();
+        return $facultadbd;
     }
-
     public function consultarFacultades()
     {
         $facultadbd= DB::table('facultad')->get();
@@ -144,14 +137,16 @@ class facultadmodel
         return $save;
     }
 
-    public function editarFacultad($nombre,$codFacultad, $nroCuenta)
+    public function editarFacultad($idFacultad)
     {
-        DB::table('persona')->where('nombre', $nombre)->update(['codFacultad' => $codFacultad, 'nombre'=> $nombre, 'nroCuenta'=>$nroCuenta]);
+
+        DB::table('facultad')->where('idFacultad',$idFacultad)->update(['codFacultad' => $this->codFacultad, 'nombre'=> $this->nombre, 'nroCuenta'=>$this->nroCuenta]);
+
     }
 
     public function eliminarFacultad($nombre)
     {
-        DB::table('persona')->where('nombre', $nombre)->update(['estado'=>0]);
+        DB::table('facultad')->where('nombre', $nombre)->update(['estado'=>0]);
     }
 
 }
