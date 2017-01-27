@@ -11,7 +11,7 @@
                     <div class="form-group-sm col-sm-6 ">
                         <span class="col-sm-5 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
-                            <select class=" form-control" name="select" >
+                            <select class=" form-control" name="select">
                                 <option>Codigo facultad</option>
                                 <option selected>Cuenta Interna</option>
                                 <option>Nombre Facultad</option>
@@ -22,7 +22,8 @@
                         @if(isset($txt))
                             <input type="text" name="text" class="form-control" value="{{$txt}}">
                         @else
-                            <input type="text" name="text" class="form-control" placeholder="Ingresa datos aqui ..">
+                            <input type="text" name="text" class="form-control" placeholder="Ingresa datos aqui .."
+                                   autocomplete="off">
                         @endif
                         <span class="input-group-btn">
                             <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
@@ -31,11 +32,16 @@
                 </div>
             </form>
             <!--tabla-->
+
             <div class="table-responsive col-sm-12">
+                @if(isset($nombre)!=null)
+                    <div class="alert alert-success" role="alert">La facultad {{$nombre}} fue actualizada!!</div>
+                @endif
+
                 <table class="table table-bordered">
                     <thead>
                     <!--cabecear Tabla-->
-                    <tr>
+                    <tr class="active">
                         <th>
                             <div align="center">Codigo facultad</div>
                         </th>
@@ -60,8 +66,11 @@
                             <td>{{$f->nroCuenta}}</td>
                             <td align="center">
                                 {{ csrf_field() }}
-                                <a href="FacultadCargar/{{$f->idFacultad}}" ><span class="glyphicon glyphicon-pencil"></span> </a>
-                                <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
+                                <!--<a href="FacultadCargar/{{$f->idFacultad}}"><span
+                                            class="glyphicon glyphicon-pencil"></span> </a>-->
+                                <a href="FacultadEliminar/{{$f->idFacultad}}"><span
+                                            class="glyphicon glyphicon-trash"></span> </a>
+
                             </td>
                         </tr>
                     @endforeach

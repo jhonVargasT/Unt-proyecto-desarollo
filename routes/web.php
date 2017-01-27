@@ -114,7 +114,7 @@ Route::resource('FacultadRegistrada', 'facultadController@registrarFacultad');
 Route::resource('FacultadesBuscadas', 'facultadController@listarFacultad');
 Route::resource('FacultadCargar', 'facultadController@cargarFacultad');
 Route::resource('FacultadEditada/{idFacultad}', 'facultadController@editarFacultad');
-
+Route::resource('FacultadEliminar', 'facultadController@eliminarFacultad');
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/RegistrarPersonal', function () {

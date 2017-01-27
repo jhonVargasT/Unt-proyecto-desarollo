@@ -3,6 +3,12 @@
     <div class="panel panel-primary">
         <div class="panel-heading"> EditarFacultad</div>
         <div class="panel-body">
+            @if(session()->has('true'))
+                <div class="alert alert-success" role="alert">{{session('true')}} </div>
+            @endif
+            @if(session()->has('false'))
+                <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
+            @endif
             @if($facultad)
                 @foreach($facultad as $f)
                     <form name="form" action="{{ url('FacultadEditada/' .$f->idFacultad ) }}" role="form" method="Get"

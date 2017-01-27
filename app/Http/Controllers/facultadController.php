@@ -28,7 +28,7 @@ class facultadController extends Controller
     {
 
         $facultad = new facultadmodel();
-        $fac = $facultad->consultarFacultadesid($idFacultad);
+        $fac = $facultad->consultarFacultadid($idFacultad);
 
         return view('Administrador/Facultad/Edit')->with(['facultad' => $fac]);
     }
@@ -40,6 +40,10 @@ class facultadController extends Controller
         $facultad->setNombre($request->NombreFacultad);
         $facultad->setNroCuenta($request->CuentaInterna);
         $facultad->editarFacultad($idFacultad);
+
+            return view('Administrador/Facultad/Search')->with(['nombre'=>$request->NombreFacultad]);
+
+
     
     }
 
@@ -48,18 +52,26 @@ class facultadController extends Controller
         $fac = null;
         $facultad = new facultadmodel();
 
-        if ($request->select == 'Codigo facultad' && $request->text = !null) {
+        if ($request->select == 'Codigo facultad' ) {
             $fac = $facultad->consultarFacultadesCodigo($request->text);
         } else {
-            if ($request->select == 'Nombre Facultad' && $request->text = !null) {
+            if ($request->select == 'Nombre Facultad' ) {
                 $fac = $facultad->consultarFacultadesNombre($request->text);
             } else {
-                if ($request->select == 'Cuenta Interna' && $request->text = !null) {
+                if ($request->select == 'Cuenta Interna' ) {
                     $fac = $facultad->consultarFacultadesCuentaInterna($request->text);
                 }
             }
         }
         return view('Administrador/Facultad/Search')->with(['facultad' => $fac, 'txt' => $request->text, 'select' => $request->select]);
 
+    }
+    
+    public function eliminarFacultad($idFacultad)
+    {
+        echo ($idFacultad);
+        $facultad = new facultadmodel();
+       // $facultad->eliminarFacultad($idFacultad);
+        //return view('Administrador/Facultad/Search')->with(['nombre'=>$request->NombreFacultad]);
     }
 }
