@@ -1,10 +1,10 @@
 @extends('Administrador.Body')
 @section('content')
-    <fieldset>
-        <div>
-            <legend>Buscar Donaciones y Transacciones</legend>
-            <!--menu Busqueda-->
-            <br>
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">Buscar Donaciones y Transacciones</div>
+        <!--menu Busqueda-->
+        <div class="panel-body">
             <div class="col-sm-12 row form-group">
                 <div class="form-group-sm col-sm-6 ">
                     <span class="col-sm-5 control-label">Buscar por:</span>
@@ -24,16 +24,12 @@
                             <button class="btn btn-sm" type="button">Buscar</button>
                         </span>
                 </div>
-
             </div>
-
-            <!--tabla-->
             <div class="table-responsive col-sm-12">
                 <table class="table table-bordered">
                     <thead>
                     <!--cabecear Tabla-->
-                    <tr >
-
+                    <tr>
                         <th>Numero Resolucion</th>
                         <th>Codigo Siaf</th>
                         <th>Tipo Recurso</th>
@@ -44,7 +40,7 @@
                     </tr>
                     </thead>
                     <body>
-                    <tr >
+                    <tr>
                         <td>00001</td>
                         <td>125.168.129.58</td>
                         <td>A</td>
@@ -54,7 +50,6 @@
                         <td>
                             <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
                             <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
-
                     </tr>
                     <tr>
                         <td>00001</td>
@@ -66,7 +61,6 @@
                         <td>
                             <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
                             <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
-
                     </tr>
                     </body>
                 </table>
@@ -84,9 +78,7 @@
                     </ul>
                 </div>
                 <div class="col-sm-4"></div>
-
             </div>
-
         </div>
-    </fieldset>
+    </div>
 @stop

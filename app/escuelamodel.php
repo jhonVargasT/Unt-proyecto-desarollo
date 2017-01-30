@@ -100,14 +100,11 @@ class escuelamodel
         return $this;
     }
 
-    public function buscarFacultad($facultad)
+    public function buscarFacultad($nombre)
     {
-        $idFacultad = DB::select('select idFacultad from facultad where nombre=:nombre',['nombre'=>$facultad]);
-        foreach ($idFacultad as $if)
-        {
-            $id= $if->idFacultad;
-        }
-        return $id;
+        $FE = DB::select('select * from facultad left join escuela on facultad.codFacultad=escuela.coFacultad where facultad.codFacultad=escuela.coFacultad and facultad.nombre=:nombre',['nombre'=>$nombre]);
+        
+      
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

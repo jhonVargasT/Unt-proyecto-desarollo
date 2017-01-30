@@ -24,7 +24,7 @@
                 'csrfToken' => csrf_token(),]); ?>
     </script>
 </head>
-<body style="background-color:#5e5e5e">
+<body style="background-color: #ccd0d2">
 <div class="container container-fluid">
     <br>
     <div class="col-sm-12 panel panel-default ">

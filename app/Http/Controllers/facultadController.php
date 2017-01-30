@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\facultadmodel;
 use Illuminate\Http\Request;
-use Validator;
-
+use Illuminate\Support\Facades\DB;
 class facultadController extends Controller
 {
 
@@ -33,7 +32,7 @@ class facultadController extends Controller
         return view('Administrador/Facultad/Edit')->with(['facultad' => $fac]);
     }
 
-    public function editarFacultad($idFacultad,Request $request)
+    public function editarFacultad($idFacultad, Request $request)
     {
         $facultad = new facultadmodel();
         $facultad->setCodFacultad($request->CodigoFacultad);
@@ -41,37 +40,36 @@ class facultadController extends Controller
         $facultad->setNroCuenta($request->CuentaInterna);
         $facultad->editarFacultad($idFacultad);
 
-            return view('Administrador/Facultad/Search')->with(['nombre'=>$request->NombreFacultad]);
+        return view('Administrador/Facultad/Search')->with(['edit' => $request->NombreFacultad]);
 
 
-    
     }
 
     public function listarFacultad(Request $request)
     {
         $fac = null;
-        $facultad = new facultadmodel();
+       $facultad = new facultadmodel();
+         if ($request->select == 'Codigo facultad') {
 
-        if ($request->select == 'Codigo facultad' ) {
-            $fac = $facultad->consultarFacultadesCodigo($request->text);
+            $fac = DB::table('facultad')->where('codFacultad', 'like', '%' . $request->text . '%')->where('estado', 1)->orderBy('idFacultad', 'desc')->get();
         } else {
-            if ($request->select == 'Nombre Facultad' ) {
-                $fac = $facultad->consultarFacultadesNombre($request->text);
+            if ($request->select == 'Nombre Facultad') {
+                $fac = DB::table('facultad')->where('nombre', 'like', '%' . $request->text . '%')->where('estado', 1)->orderBy('idFacultad', 'desc')->get();
             } else {
-                if ($request->select == 'Cuenta Interna' ) {
-                    $fac = $facultad->consultarFacultadesCuentaInterna($request->text);
+                if ($request->select == 'Cuenta Interna') {
+                    $fac = DB::table('facultad')->where('nroCuenta', 'like', '%' . $request->text . '%')->where('estado', 1)->orderBy('idFacultad', 'desc')->get();
                 }
             }
         }
         return view('Administrador/Facultad/Search')->with(['facultad' => $fac, 'txt' => $request->text, 'select' => $request->select]);
 
     }
-    
+
     public function eliminarFacultad($idFacultad)
     {
-        echo ($idFacultad);
+        echo($idFacultad);
         $facultad = new facultadmodel();
-       // $facultad->eliminarFacultad($idFacultad);
-        //return view('Administrador/Facultad/Search')->with(['nombre'=>$request->NombreFacultad]);
+        $facultad->eliminarFacultad($idFacultad);
+        return view('Administrador/Facultad/Search')->with(['delete'=>true]);
     }
 }

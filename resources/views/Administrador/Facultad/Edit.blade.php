@@ -1,4 +1,24 @@
 @extends('Administrador.Body')
+@section('facultad')
+    <div id="collapseThrees" class="collapse in">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <a href="/BuscarFacultad " style="color: #509f0c">Buscar Facultades</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <a href="/RegistrarFacultad"  target="_top" >Agregar Facultad</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+@stop
 @section('content')
     <div class="panel panel-primary">
         <div class="panel-heading"> EditarFacultad</div>
@@ -48,7 +68,7 @@
                         </div>
                         <div class="col-sm-12 row form-group">
                             <div class="col-md-3"></div>
-                            <a href="{{url('/Layout')}}" class=" col-md-2 btn btn-sm btn-danger"><span
+                            <a href="{{url('/BuscarFacultad')}}" class=" col-md-2 btn btn-sm btn-danger"><span
                                         class="glyphicon glyphicon-ban-circle"></span>
                                 Regresar
                             </a>

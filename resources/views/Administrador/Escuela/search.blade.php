@@ -1,9 +1,8 @@
 @extends('Administrador.Body')
 @section('content')
-    <fieldset>
-        <div>
-            <legend>Buscar escuelas</legend>
-            <!--menu Busqueda-->
+    <div class="panel panel-primary">
+        <div class=" panel-heading">Buscar escuelas</div>
+        <div class="panel-body">
             <br>
             <div class="col-sm-12 row form-group">
                 <div class="form-group-sm col-sm-6 ">
@@ -19,14 +18,13 @@
                 </div>
                 <div class="form-group-sm input-group col-sm-6">
                     <input type="text" class="form-control" placeholder="Ingresa datos aqui ..">
-                        <span class="input-group-btn">
-                            <button class="btn btn-sm" type="button">Buscar</button>
-                        </span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-sm" type="button">Buscar</button>
+                    </span>
                 </div>
 
             </div>
 
-            <!--tabla-->
             <div class="table-responsive col-sm-12">
                 <table class="table table-bordered">
                     <head>
@@ -87,5 +85,5 @@
             </div>
 
         </div>
-    </fieldset>
+    </div>
 @stop

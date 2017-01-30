@@ -1,10 +1,11 @@
 @extends('Administrador.Body')
 @section('content')
-    <fieldset>
-        <div>
-            <legend>Buscar subtramites</legend>
-            <!--menu Busqueda-->
-            <br>
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">Buscar subtramites</div>
+        <!--menu Busqueda-->
+
+        <div class="panel-body">
             <div class="col-sm-12 row form-group">
                 <div class="form-group-sm col-sm-6 ">
                     <span class="col-sm-5 control-label">Buscar por:</span>
@@ -85,5 +86,5 @@
             </div>
 
         </div>
-    </fieldset>
+    </div>
 @stop

@@ -1,18 +1,17 @@
 @extends('Ventanilla.Menu')
 @section('content')
-    <fieldset>
-        <div>
-            <legend>Buscar estudiante</legend>
-            <!--menu Busqueda-->
-            <br>
-            <div class="col-sm-12 row form-group">
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Buscar Estudiante</div>
+        <div class="panel-body">
+
+            <div class="col-sm-12 row form-group ">
                 <div class="form-group-sm col-sm-6 ">
                     <span class="col-sm-5 control-label">Buscar por:</span>
                     <div class="col-sm-7 ">
                         <select class=" form-control">
-                            <option>Dni</option>
+                            <option >Dni</option>
                             <option>Nombres y apellidos</option>
-                            <option>Codigo personal</option>
                             <option>Codigo alumno</option>
                             <option>Codigo Matricula</option>
                         </select>
@@ -20,39 +19,36 @@
                 </div>
                 <div class="form-group-sm input-group col-sm-6">
                     <input type="text" class="form-control" placeholder="Ingresa datos aqui ..">
-                        <span class="input-group-btn">
+                    <span class="input-group-btn">
+
                             <button class="btn btn-sm" type="button">Buscar</button>
                         </span>
                 </div>
 
             </div>
-
             <!--tabla-->
             <div class="table-responsive col-sm-12">
                 <table class="table table-bordered">
                     <thead>
                     <!--cabecear Tabla-->
-                    <tr >
+                    <tr>
 
                         <th>Dni</th>
                         <th>Nombres y apellidos</th>
-                        <th>Codigo personal</th>
                         <th>Codigo alumno</th>
-                        <th>Codigo Matricula</th>
-                        <th>Fecha Matricula</th>
+                        <th>Codigo matricula</th>
+                        <th>Fecha de matricula</th>
                         <th>Opciones</th>
                     </tr>
                     </thead>
                     <body>
                     <!--Contenido-->
-                    <tr >
+                    <tr>
                         <td>00001</td>
                         <td>125.168.129.58</td>
-                        <td>Aw32234234</td>
                         <td>125.168.129.58</td>
                         <td>Aw32234234</td>
                         <td>Aw32234234</td>
-
                         <td align="center">
                             <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
                             <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
@@ -80,5 +76,5 @@
             </div>
 
         </div>
-    </fieldset>
+    </div>
 @stop
