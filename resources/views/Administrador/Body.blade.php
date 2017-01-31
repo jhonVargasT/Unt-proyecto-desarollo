@@ -41,7 +41,7 @@
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="/BuascarEstudiante">Buscar Estudiantes</a>
+                                        <a href="/BuscarEstudiante">Buscar Estudiantes</a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -90,13 +90,14 @@
                                 Facultades</a>
                         </h4>
                     </div>
+                    @yield('facultad')
                     <div id="collapseThrees" class="panel-collapse collapse">
                         <div class="panel-body">
                             <table class="table">
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="/BuscarFacultad">Buscar Facultades</a>
+                                        <a href="/BuscarFacultad" >Buscar Facultades</a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -254,24 +255,20 @@
 <script>
     function validarNum(e){
         tecla = (document.all) ? e.keyCode : e.which;
-        //Tecla de retroceso para borrar, siempre la permite
+
         if (tecla==8){
             return true;
         }
-
-        // Patron de entrada, en este caso solo acepta numeros
         patron =/[0-9]/;
         tecla_final = String.fromCharCode(tecla);
         return patron.test(tecla_final);
     }
     function validarLetras(e){
         tecla = (document.all) ? e.keyCode : e.which;
-        //Tecla de retroceso para borrar, siempre la permite
+
         if (tecla==8){
             return true;
         }
-
-        // Patron de entrada, en este caso solo acepta letras
         patron =/[A-Za-z]/;
         tecla_final = String.fromCharCode(tecla);
         return patron.test(tecla_final);

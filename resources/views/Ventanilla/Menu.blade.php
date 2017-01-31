@@ -49,13 +49,13 @@
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="#">Buscar Estudiantes</a>
+                                        <a href="/BuscarEstudiante">Buscar Estudiantes</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="#">Agregar Estudiante</a>
+                                        <a href="/RegistrarEstudiante">Agregar Estudiante</a>
                                     </td>
                                 </tr>
                             </table>
@@ -77,13 +77,13 @@
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="#">Buscar Clientes</a>
+                                        <a href="/ventBuscarEstudiante">Buscar Clientes</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="#">Agregar Clientes</a>
+                                        <a href="/ventRegistrarCliente">Agregar Clientes</a>
                                     </td>
                                 </tr>
                             </table>

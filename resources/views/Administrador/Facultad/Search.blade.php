@@ -1,4 +1,24 @@
 @extends('Administrador.Body')
+@section('facultad')
+    <div id="collapseThrees" class="collapse in">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <a href="/BuscarFacultad " style="color: #509f0c">Buscar Facultades</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <a href="/RegistrarFacultad"  target="_top" >Agregar Facultad</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+@stop
 @section('content')
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -37,7 +57,9 @@
                 @if(isset($nombre)!=null)
                     <div class="alert alert-success" role="alert">La facultad {{$nombre}} fue actualizada!!</div>
                 @endif
-
+                @if(isset($delete)==true)
+                        <div class="alert alert-success" role="alert"> Facultad eliminada!!</div>
+                    @endif
                 <table class="table table-bordered">
                     <thead>
                     <!--cabecear Tabla-->
@@ -66,31 +88,23 @@
                             <td>{{$f->nroCuenta}}</td>
                             <td align="center">
                                 {{ csrf_field() }}
-                                <!--<a href="FacultadCargar/{{$f->idFacultad}}"><span
-                                            class="glyphicon glyphicon-pencil"></span> </a>-->
+                                <a href="FacultadCargar/{{$f->idFacultad}}"><span
+                                            class="glyphicon glyphicon-pencil"></span> </a>
                                 <a href="FacultadEliminar/{{$f->idFacultad}}"><span
                                             class="glyphicon glyphicon-trash"></span> </a>
 
                             </td>
                         </tr>
                     @endforeach
-                    @endif
+
                     </body>
+
+                    @endif
                 </table>
             </div>
             <div class="col-sm-12 row">
-                <div class="col-sm-4"></div>
-                <!--paginadro-->
-                <div class="col-sm-4" align="center">
-                    <ul class="pagination  pagination-sm">
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-4"></div>
+
+
             </div>
         </div>
     </div>

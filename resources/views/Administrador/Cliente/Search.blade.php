@@ -1,10 +1,9 @@
 @extends('Administrador.Body')
 @section('content')
-    <fieldset>
-        <div>
-            <legend>Buscar cliente</legend>
-            <!--menu Busqueda-->
-            <br>
+    <div class="panel  panel-primary">
+        <div class="panel-heading"> Buscar cliente</div>
+        <div class="panel-body">
+
             <div class="col-sm-12 row form-group">
                 <div class="form-group-sm col-sm-6 ">
                     <span class="col-sm-5 control-label">Buscar por:</span>
@@ -45,7 +44,7 @@
                     </thead>
                     <body>
                     <!--Contenido-->
-                    <tr >
+                    <tr>
                         <td>00001</td>
                         <td>125.168.129.58</td>
                         <td>Aw32234234</td>
@@ -79,5 +78,5 @@
             </div>
 
         </div>
-    </fieldset>
+    </div>
 @stop

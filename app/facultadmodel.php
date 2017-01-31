@@ -164,9 +164,9 @@ class facultadmodel
         DB::table('facultad')->where('idFacultad', $idpersona)->update(['codFacultad' => $this->codFacultad, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta]);
     }
 
-    public function eliminarFacultad($idFacultad)
+    public function eliminarFacultad($idpersona)
     {
-        DB::table('facultad')->where('idFacultad', $idFacultad)->update(['estado' => 0]);
+        DB::table('persona')->where('idFacultad', $idpersona)->update(['estado' => 0]);
     }
 
 }

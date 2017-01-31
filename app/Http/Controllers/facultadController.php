@@ -11,12 +11,7 @@ class facultadController extends Controller
 
     public function registrarFacultad(Request $request)
     {
-        $this->validate($request, [
-            'CodigoFacultad' => 'required',
-            'NombreFacultad' => 'required',
-            'CuentaInterna' => 'required|numeric',
 
-        ]);
         $facultad = new facultadmodel();
         $facultad->setCodFacultad($request->CodigoFacultad);
         $facultad->setNombre($request->NombreFacultad);
@@ -38,7 +33,7 @@ class facultadController extends Controller
         return view('Administrador/Facultad/Edit')->with(['facultad' => $fac]);
     }
 
-    public function editarFacultad($idFacultad, Request $request)
+    public function editarFacultad($idFacultad,Request $request)
     {
         $facultad = new facultadmodel();
         $facultad->setCodFacultad($request->CodigoFacultad);
@@ -46,7 +41,10 @@ class facultadController extends Controller
         $facultad->setNroCuenta($request->CuentaInterna);
         $facultad->editarFacultad($idFacultad);
 
-        return view('Administrador/Facultad/Search')->with(['nombre' => $request->NombreFacultad]);
+            return view('Administrador/Facultad/Search')->with(['nombre'=>$request->NombreFacultad]);
+
+
+    
     }
 
     public function listarFacultad(Request $request)
@@ -54,24 +52,26 @@ class facultadController extends Controller
         $fac = null;
         $facultad = new facultadmodel();
 
-        if ($request->select == 'Codigo facultad') {
+        if ($request->select == 'Codigo facultad' ) {
             $fac = $facultad->consultarFacultadesCodigo($request->text);
         } else {
-            if ($request->select == 'Nombre Facultad') {
+            if ($request->select == 'Nombre Facultad' ) {
                 $fac = $facultad->consultarFacultadesNombre($request->text);
             } else {
-                if ($request->select == 'Cuenta Interna') {
+                if ($request->select == 'Cuenta Interna' ) {
                     $fac = $facultad->consultarFacultadesCuentaInterna($request->text);
                 }
             }
         }
         return view('Administrador/Facultad/Search')->with(['facultad' => $fac, 'txt' => $request->text, 'select' => $request->select]);
-    }
 
-    public function eliminarFacultad($idFacultad, Request $request)
+    }
+    
+    public function eliminarFacultad($idFacultad)
     {
+        echo ($idFacultad);
         $facultad = new facultadmodel();
-        $facultad->eliminarFacultad($idFacultad);
-        return view('Administrador/Facultad/Search')->with(['nombre'=>$request->NombreFacultad]);
+       // $facultad->eliminarFacultad($idFacultad);
+        //return view('Administrador/Facultad/Search')->with(['nombre'=>$request->NombreFacultad]);
     }
 }

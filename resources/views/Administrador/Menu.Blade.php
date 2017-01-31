@@ -1,7 +1,6 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: JhO.On
- * Date: 17/01/2017
- * Time: 21:21
- */
+@extends('Administrador.Body')
+@section('content')
+<div  >
+    <img src="{{ asset('assets/img/Inicio.jpg') }}">
+</div>
+@stop

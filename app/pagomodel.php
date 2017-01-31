@@ -18,8 +18,11 @@ class pagomodel
     /**
      * pagomodel constructor.
      */
-    public function __construct()
+    public function __construct($lugar1, $detalle)
     {
+        $this->lugar = $lugar1;
+        $this->detalle = $detalle;
+
 
     }
 
@@ -152,38 +155,36 @@ class pagomodel
 
     public function bdPersona($dni)
     {
-        $idFacultad = DB::select('select idPersona from persona where dni=:dni',['nombre'=>$dni]);
-        foreach ($idFacultad as $if)
-        {
-            $id= $if->idFacultad;
+        $idFacultad = DB::select('select idPersona from persona where dni=:dni', ['nombre' => $dni]);
+        foreach ($idFacultad as $if) {
+            $id = $if->idFacultad;
         }
         return $id;
     }
 
     public function bdPersonaxNombre($nombres, $apellidos)
     {
-        $idFacultad = DB::select('select idPersona from persona where nombres=:nombres and apellidos=:apellidos',['nombres'=>$nombres, 'apellidos'=>$apellidos]);
-        foreach ($idFacultad as $if)
-        {
-            $id= $if->idFacultad;
+        $idFacultad = DB::select('select idPersona from persona where nombres=:nombres and apellidos=:apellidos', ['nombres' => $nombres, 'apellidos' => $apellidos]);
+        foreach ($idFacultad as $if) {
+            $id = $if->idFacultad;
         }
         return $id;
     }
 
     public function bdSubtramite($nombre)
     {
-        $cFacu = DB::select('select codSubtramite from subtramite where nombre=:nombre',['nombre'=>$nombre]);
-        foreach ($cFacu as $cFa)
-        {
-            $cF= $cFa->idFacultad;
+        $cFacu = DB::select('select codSubtramite from subtramite where nombre=:nombre', ['nombre' => $nombre]);
+        foreach ($cFacu as $cFa) {
+            $cF = $cFa->idFacultad;
         }
         return $cF;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function save(){
-        $save =DB::table('pago')->insert(['lugar' => $this->lugar, 'detalle' => $this->detalle, 'fechaDevolucion'=>$this->fechaDevolucion, 'IdPersona'=>$this->idPersona, 'idSubtramite'=>$this->idSubtramite]);
+    public function save()
+    {
+        $save = DB::table('pago')->insert(['lugar' => $this->lugar, 'detalle' => $this->detalle, 'fechaDevolucion' => $this->fechaDevolucion, 'IdPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite]);
         return $save;
     }
 

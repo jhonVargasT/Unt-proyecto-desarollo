@@ -1,10 +1,9 @@
 @extends('Administrador.Body')
 @section('body')
-
-            <div align="center">
-               <h1> Reporte Pagos </h1>
-            </div>
-            <hr>
+<br>
+    <div class="panel panel-primary">
+        <div class="panel panel-heading"> Reporte Pagos</div>
+        <div class="panel-body">
             <div class="panel-body form-group ">
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm col-sm-4 ">
@@ -124,7 +123,7 @@
                             <!--cabecear Tabla-->
                             <tr class="active">
 
-                                <th ><h5>Id pago</h5></th>
+                                <th><h5>Id pago</h5></th>
                                 <th><h5>Tipo tramite</h5></th>
                                 <th><h5>boucherl</h5></th>
                                 <th><h5>fecha de pago</h5></th>
@@ -195,4 +194,6 @@
                     </div>
                 </div>
             </div>
-   @stop
+        </div>
+    </div>
+@stop
