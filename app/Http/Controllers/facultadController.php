@@ -67,11 +67,11 @@ class facultadController extends Controller
 
     }
     
-    public function eliminarFacultad($idFacultad)
+    public function eliminarFacultad($idFacultad,Request $request)
     {
-        echo ($idFacultad);
+
         $facultad = new facultadmodel();
-       // $facultad->eliminarFacultad($idFacultad);
-        //return view('Administrador/Facultad/Search')->with(['nombre'=>$request->NombreFacultad]);
+        $facultad->eliminarFacultad($idFacultad);
+        return view('Administrador/Facultad/Search')->with(['nombre'=>$request->NombreFacultad]);
     }
 }

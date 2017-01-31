@@ -102,9 +102,8 @@ class escuelamodel
 
     public function buscarFacultad($nombre)
     {
-        $FE = DB::select('select * from facultad left join escuela on facultad.codFacultad=escuela.coFacultad where facultad.codFacultad=escuela.coFacultad and facultad.nombre=:nombre',['nombre'=>$nombre]);
-        
-      
+        $facultad = DB::select('select * from facultad left join escuela on facultad.codFacultad=escuela.coFacultad where facultad.codFacultad=escuela.coFacultad and facultad.nombre=:nombre',['nombre'=>$nombre]);
+        return $facultad;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

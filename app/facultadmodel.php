@@ -159,14 +159,14 @@ class facultadmodel
         }
     }
 
-    public function editarFacultad($idpersona)
+    public function editarFacultad($idFacultad)
     {
-        DB::table('facultad')->where('idFacultad', $idpersona)->update(['codFacultad' => $this->codFacultad, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta]);
+        DB::table('facultad')->where('idFacultad', $idFacultad)->update(['codFacultad' => $this->codFacultad, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta]);
     }
 
-    public function eliminarFacultad($idpersona)
+    public function eliminarFacultad($idFacultad)
     {
-        DB::table('persona')->where('idFacultad', $idpersona)->update(['estado' => 0]);
+        DB::table('persona')->where('idFacultad', $idFacultad)->update(['estado' => 0]);
     }
 
 }
