@@ -94,4 +94,11 @@ class personalController extends Controller
         }
         return view('Administrador/Personal/Search')->with(['personal' => $pers, 'txt' => $request->text, 'select' => $request->select]);
     }
+
+    public function eliminarPersonal($codPersona, Request $request)
+    {
+        $personal = new personalmodel();
+        $personal->eliminarPersonal($codPersona);
+        return view('Administrador/Cliente/Search')->with(['nombre' => $request->nombres]);
+    }
 }

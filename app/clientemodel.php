@@ -146,23 +146,10 @@ class clientemodel extends personamodel
         DB::table('cliente')->where('idPersona', $codPersona)->update(['ruc' => $this->ruc, 'razonSocial'=>$this->razonSocial]);
     }
 
-    public function eliminarAlumno($dni)
-    {
-        $clientecd= DB::select('select codPersona from persona left join cliente on persona.codPersona = cliente.idPersona where persona.dni=:dni',['dni'=>$dni]);
-
-        foreach ($clientecd as $clientes)
-        {
-            $cl = $clientes-> codPersona;
-        }
-
-        DB::table('persona')->where('codPersona', $cl)->update(['estado' => 0]);
-        DB::table('cliente')->where('idPersona', $cl)->update(['estado' => 0]);
-    }
-
     public function consultarAlumnoDNI($dni)
     {
         $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
-        persona.codPersona = cliente.idPersona and persona.dni=:dni',['dni'=>$dni]);
+        persona.codPersona = cliente.idPersona and persona.dni=:dni and persona.estado = 1',['dni'=>$dni]);
         //$clientebd = DB::table('persona')->leftJoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')->where('persona.dni', '=',$dni)->orderBy('persona.codPersona', 'desc')->get();
         return $clientebd;
     }
@@ -170,20 +157,24 @@ class clientemodel extends personamodel
     public function consultarAlumnoApellidos($apellidos)
     {
         $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
-        persona.codPersona = cliente.idPersona and persona.apellidos=:apellidos',['apellidos'=>$apellidos]);
+        persona.codPersona = cliente.idPersona and persona.apellidos=:apellidos and persona.estado=1',['apellidos'=>$apellidos]);
         //$alumnobd = DB::table('persona')->leftJoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')->where('persona.apellidos', '=', $apellidos)->orderBy('persona.codPersona', 'desc')->get();
         return $clientebd;
     }
 
     public function consultarAlumnoRUC($ruc)
     {
-        $clientebd = DB::table('persona')->leftJoin('cliente', 'persona.codPersona', '=', 'cliente.idPersona')->where('cliente.ruc', '=', $ruc)->orderBy('persona.codPersona', 'desc')->get();
+        $clientebd = DB::table('persona')->leftJoin('cliente', 'persona.codPersona', '=', 'cliente.idPersona')
+            ->where('cliente.ruc', '=', $ruc)
+            ->where('persona.estado', '=', 1)->orderBy('persona.codPersona', 'desc')->get();
         return $clientebd;
     }
 
     public function consultarAlumnoRazonSocial($razonSocial)
     {
-        $clientebd = DB::table('persona')->leftJoin('cliente', 'persona.codPersona', '=', 'cliente.idPersona')->where('cliente.razonSocial', '=', $razonSocial)->orderBy('persona.codPersona', 'desc')->get();
+        $clientebd = DB::table('persona')->leftJoin('cliente', 'persona.codPersona', '=', 'cliente.idPersona')
+            ->where('cliente.razonSocial', '=', $razonSocial)
+            ->where('persona.estado', '=', 1)->orderBy('persona.codPersona', 'desc')->get();
         return $clientebd;
     }
 
@@ -192,5 +183,11 @@ class clientemodel extends personamodel
         $alumnobd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
         persona.codPersona = cliente.idPersona and persona.codPersona=:codPersona',['codPersona'=>$codPersona]);
         return $alumnobd;
+    }
+
+    public function eliminarCliente($codPersona)
+    {
+        DB::table('persona')->where('codPersona', $codPersona)->update(['estado' => 0]);
+        DB::table('cliente')->where('idPersona', $codPersona)->update(['estado' => 0]);
     }
 }

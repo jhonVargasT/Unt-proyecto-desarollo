@@ -71,4 +71,11 @@ class clienteController extends Controller
         }
         return view('Administrador/Cliente/Search')->with(['cliente' => $cli, 'txt' => $request->text, 'select' => $request->select]);
     }
+
+    public function eliminarCliente($codPersona,Request $request)
+    {
+        $cliente = new clientemodel();
+        $cliente->eliminarCliente($codPersona);
+        return view('Administrador/Cliente/Search')->with(['nombre'=>$request->nombres]);
+    }
 }

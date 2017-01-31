@@ -179,31 +179,43 @@ class tramitemodel
 
     public function consultarTramiteFF($ff)
     {
-        $tramitebd = DB::table('tramite')->where('fuentefinanc',$ff)->orderBy('codTramite', 'desc')->get();
+        $tramitebd = DB::table('tramite')
+            ->where('fuentefinanc', $ff)
+            ->where('estado',1)
+            ->orderBy('codTramite', 'desc')->get();
         return $tramitebd;
     }
 
     public function consultarTramiteCS($cs)
     {
-        $tramitebd = DB::table('tramite')->where('clasificador',$cs)->orderBy('codTramite', 'desc')->get();
+        $tramitebd = DB::table('tramite')
+            ->where('clasificador', $cs)
+            ->where('estado', 1)
+            ->orderBy('codTramite', 'desc')->get();
         return $tramitebd;
     }
 
     public function consultarTramiteTR($tr)
     {
-        $tramitebd = DB::table('tramite')->where('tipoRecurso',$tr)->orderBy('codTramite', 'desc')->get();
+        $tramitebd = DB::table('tramite')
+            ->where('tipoRecurso', $tr)
+            ->where('estado',1)
+            ->orderBy('codTramite', 'desc')->get();
         return $tramitebd;
     }
 
     public function consultarTramiteN($nombre)
     {
-        $tramitebd = DB::table('tramite')->where('nombre',$nombre)->orderBy('codTramite', 'desc')->get();
+        $tramitebd = DB::table('tramite')
+            ->where('nombre', $nombre)
+            ->where('estado',1)
+            ->orderBy('codTramite', 'desc')->get();
         return $tramitebd;
     }
 
     public function consultarTramiteid($codTramite)
     {
-        $tramitebd = DB::table('tramite')->where('codTramite',$codTramite)->get();
+        $tramitebd = DB::table('tramite')->where('codTramite', $codTramite)->get();
         return $tramitebd;
     }
 
@@ -224,8 +236,11 @@ class tramitemodel
         DB::table('tramite')->where('codTramite', $codTramite)->update(['clasificador' => $this->clasificador, 'nombre' => $this->nombre, 'fuentefinanc' => $this->fuentefinanc, 'tipoRecurso' => $this->tipoRecurso]);
     }
 
-    public function eliminarTramite($nombre)
+    public function eliminarTramite($codTramite)
     {
-        DB::table('tramite')->where('nombre', $nombre)->update(['estado' => 1]);
+        DB::table('tramite')->where('codTramite', $codTramite)->update(['estado' => 0]);
+        DB::table('subtramite')->where('estado', 1)->update(['estado' => 0]);
+        DB::table('donacion')->where('estado', 1)->update(['estado' => 0]);
+
     }
 }

@@ -65,4 +65,11 @@ class tramiteController extends Controller
         return view('Administrador/Tramite/Search')->with(['tramite' => $tra, 'txt' => $request->text, 'select' => $request->select]);
     }
 
+    public function eliminarTramite($codTramite,Request $request)
+    {
+        $tramite = new tramitemodel();
+        $tramite->eliminarTramite($codTramite);
+        return view('Administrador/Tramite/Search')->with(['nombre'=>$request->nombre]);
+    }
+
 }
