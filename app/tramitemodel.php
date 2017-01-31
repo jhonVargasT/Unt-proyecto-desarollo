@@ -11,8 +11,6 @@ class tramitemodel
     private $fuentefinanc;
     private $tipoRecurso;
     private $estado;
-    private $subtramites;
-    private $donacion;
 
     /**
      * tramitemodel constructor.
@@ -144,77 +142,86 @@ class tramitemodel
     public function consultarTramites()
     {
         $tramite = DB::select('select * from tramite ');
-        foreach ($tramite as $trami)
-        {
-            $tr= $trami->todoslosatributos;
+        foreach ($tramite as $trami) {
+            $tr = $trami->todoslosatributos;
         }
         return $tr;
     }
 
     public function consultarTramite($nombre)
     {
-        $tramite = DB::select('select * from tramite where nombre=:nombre', ['nombre'=>$nombre]);
-        foreach ($tramite as $trami)
-        {
-            $tr= $trami->todoslosatributos;
+        $tramite = DB::select('select * from tramite where nombre=:nombre', ['nombre' => $nombre]);
+        foreach ($tramite as $trami) {
+            $tr = $trami->todoslosatributos;
         }
         return $tr;
     }
 
-    public function save(){
-
-        $facultadbd = DB::select('select * from tramite where clasificador=:clasificador and nombre=:nombre', ['clasificador' => $this->clasificador, 'nombre' => $this->nombre]);
-
-        if ($facultadbd != null) {
-            return false;
-        } else {
-            DB::table('tramite')->insert(['clasificador' => $this->clasificador, 'nombre' => $this->nombre, 'fuentefinanc'=>$this->fuentefinanc, 'tipoRecurso'=>$this->tipoRecurso]);
-            return true;
-        }
-    }
 
     public function consultarTramitePorId($idTramite)
     {
-        $tramite = DB::select('select * from tramite where codTramite=:codTramite',['codTramite'=>$idTramite]);
-        foreach ($tramite as $trami)
-        {
-            $tr= $trami->todoslosatributos;
+        $tramite = DB::select('select * from tramite where codTramite=:codTramite', ['codTramite' => $idTramite]);
+        foreach ($tramite as $trami) {
+            $tr = $trami->todoslosatributos;
         }
         return $tr;
     }
 
     public function consultarTramitePorClasificador($clasificador)
     {
-        $tramite = DB::select('select * from tramite where clasificador=:clasificador',['clasificador'=>$clasificador]);
-        foreach ($tramite as $trami)
-        {
-            $tr= $trami->todoslosatributos;
+        $tramite = DB::select('select * from tramite where clasificador=:clasificador', ['clasificador' => $clasificador]);
+        foreach ($tramite as $trami) {
+            $tr = $trami->todoslosatributos;
         }
         return $tr;
     }
 
-    //public function consultarTramite($nombreTramite){}
 
     public function consultarTramiteFF($ff)
     {
-        $tramite = DB::select('select * from tramite where fuentefinanc=:fuentefinanc',['fuentefinanc'=>$ff]);
-        foreach ($tramite as $trami)
-        {
-            $tr= $trami->todoslosatributos;
-        }
-        return $tr;
+        $tramitebd = DB::table('tramite')->where('fuentefinanc',$ff)->orderBy('codTramite', 'desc')->get();
+        return $tramitebd;
     }
 
-    public function editarTramite($nombre,$clasificador,$fuentefinanc,$tipoRecurso)
+    public function consultarTramiteCS($cs)
     {
-        $tramitecod= DB::select('select codTramite from tramite where nombre=:nombre',['nombre'=>$nombre]);
+        $tramitebd = DB::table('tramite')->where('clasificador',$cs)->orderBy('codTramite', 'desc')->get();
+        return $tramitebd;
+    }
 
-        foreach ($tramitecod as $tramite)
-        {
-            $cod = $tramite-> codTramite;
+    public function consultarTramiteTR($tr)
+    {
+        $tramitebd = DB::table('tramite')->where('tipoRecurso',$tr)->orderBy('codTramite', 'desc')->get();
+        return $tramitebd;
+    }
+
+    public function consultarTramiteN($nombre)
+    {
+        $tramitebd = DB::table('tramite')->where('nombre',$nombre)->orderBy('codTramite', 'desc')->get();
+        return $tramitebd;
+    }
+
+    public function consultarTramiteid($codTramite)
+    {
+        $tramitebd = DB::table('tramite')->where('codTramite',$codTramite)->get();
+        return $tramitebd;
+    }
+
+    public function save()
+    {
+        $facultadbd = DB::select('select * from tramite where clasificador=:clasificador and nombre=:nombre', ['clasificador' => $this->clasificador, 'nombre' => $this->nombre]);
+
+        if ($facultadbd != null) {
+            return false;
+        } else {
+            DB::table('tramite')->insert(['clasificador' => $this->clasificador, 'nombre' => $this->nombre, 'fuentefinanc' => $this->fuentefinanc, 'tipoRecurso' => $this->tipoRecurso]);
+            return true;
         }
+    }
 
-        DB::table('tramite')->where('codTramite', $cod)->update(['clasificador' => $clasificador, 'nombre'=>$nombre, 'fuentefinanc'=>$fuentefinanc, 'tipoRecurso'=>$tipoRecurso]);
+    public function editarTramite($codTramite)
+    {
+        DB::table('tramite')->where('codTramite', $codTramite)->update(['clasificador' => $this->clasificador, 'nombre' => $this->nombre, 'fuentefinanc' => $this->fuentefinanc, 'tipoRecurso' => $this->tipoRecurso]);
     }
 
     public function eliminarTramite($nombre)

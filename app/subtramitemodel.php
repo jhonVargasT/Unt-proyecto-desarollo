@@ -6,13 +6,11 @@ use Illuminate\Support\Facades\DB;
 
 class subtramitemodel
 {
-    private $codSubtramite;
     private $cuenta;
     private $nombre;
     private $precio;
     private $estado;
     private $idTramite;
-    private $pago;
 
     /**
      * subtramitemodel constructor.
@@ -21,25 +19,6 @@ class subtramitemodel
     {
         $this-> pago = array();
     }
-
-    /**
-     * @return mixed
-     */
-    public function getCodSubtramite()
-    {
-        return $this->codSubtramite;
-    }
-
-    /**
-     * @param mixed $codSubtramite
-     * @return subtramitemodel
-     */
-    public function setCodSubtramite($codSubtramite)
-    {
-        $this->codSubtramite = $codSubtramite;
-        return $this;
-    }
-
 
     /**
      * @return mixed
@@ -200,16 +179,35 @@ class subtramitemodel
         }
     }
 
-    public function editarSubtramite($cuenta, $nombre, $precio)
+    public function editarSubtramite($codSubtramite)
     {
-        $tramitecod= DB::select('select codTramite from tramite left join subtramite on tramite.codTramite = subtramite.idTramite where subtramite.nombre=:nombre',['nombre'=>$nombre]);
+        DB::table('subtramite')->where('codSubtramite', $codSubtramite)->update(['cuenta' => $this->cuenta, 'nombre' => $this->nombre, 'precio' => $this->precio]);
+    }
 
-        foreach ($tramitecod as $tramite)
-        {
-            $cod = $tramite-> todoslosatributos;
-        }
+    public function consultarSubtramiteid($codSubtramite)
+    {
+        $subtramitebd = DB::table('subtramite')->where('codSubtramite',$codSubtramite)->get();
+        return $subtramitebd;
+    }
 
-        DB::table('subtramite')->where('idTramite', $cod)->update(['cuenta' => $cuenta, 'nombre'=>$nombre, 'precio'=>$precio, 'idTramite'=>$cod]);
+    public function consultarSubtramiteTramite($nombreTramite)
+    {
+        //$subtramitebd = DB::table('tramite')->leftJoin('subtramite', 'tramite.codTramite', '=', 'subtramite.idTramite')->where('tramite.nombre', '=',$nombreTramite)->orderBy('tramite.codTramite', 'desc')->get();
+        $subtramitebd = DB::select('select * from tramite left join subtramite on tramite.codTramite = subtramite.idTramite where 
+        tramite.codTramite = subtramite.idTramite and tramite.nombre=:nombre',['nombre'=>$nombreTramite]);
+        return $subtramitebd;
+    }
+
+    public function consultarSubtramiteNombre($nombreSubtramite)
+    {
+        $subtramitebd = DB::table('subtramite')->where('nombre',$nombreSubtramite)->orderBy('codSubtramite', 'desc')->get();
+        return $subtramitebd;
+    }
+
+    public function consultarSubtramiteCuenta($cuenta)
+    {
+        $subtramitebd = DB::table('subtramite')->where('cuenta',$cuenta)->orderBy('codSubtramite', 'desc')->get();
+        return $subtramitebd;
     }
 
     public function eliminar($nombre)

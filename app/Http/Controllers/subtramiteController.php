@@ -33,4 +33,40 @@ class subtramiteController extends Controller
 
         return response()->json($data);
     }
+
+    public function cargarSubtramite($codTramite)
+    {
+        $subtramite = new subtramitemodel();
+        $sub = $subtramite->consultarSubtramiteid($codTramite);
+        return view('Administrador/Subtramite/Edit')->with(['subtramite' => $sub]);
+    }
+
+    public function editarSubtramite($codSubtramite, Request $request)
+    {
+        $subtramite = new subtramitemodel();
+        $subtramite->setCuenta($request->cuentaContable);
+        $subtramite->setNombre($request->nombreSubtramite);
+        $subtramite->setPrecio($request->precio);
+        $subtramite->editarSubtramite($codSubtramite);
+        return view('Administrador/Subtramite/Search')->with(['nombre' => $request->nombreSubtramite]);
+    }
+
+    public function listarSubtramite(Request $request)
+    {
+        $sub = null;
+        $subtramite = new subtramitemodel();
+
+        if ($request->select == 'Tramite') {
+            $sub = $subtramite->consultarSubtramiteTramite($request->text);
+        } else {
+            if ($request->select == 'Nombre subtramite') {
+                $sub = $subtramite->consultarSubtramiteNombre($request->text);
+            } else {
+                if ($request->select == 'Cuenta contable') {
+                    $sub = $subtramite->consultarSubtramiteCuenta($request->text);
+                }
+            }
+        }
+        return view('Administrador/Subtramite/Search')->with(['subtramite' => $sub, 'txt' => $request->text, 'select' => $request->select]);
+    }
 }

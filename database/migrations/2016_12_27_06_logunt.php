@@ -24,12 +24,12 @@ class Logunt extends Migration
             $table -> boolean('estado')->default('1');
 
 
-            $table->integer('idPersonal')->unsigned();
+            $table->integer('codigoPersonal')->unsigned();
         });
 
         Schema::table('logunt', function( $table) {
 
-            $table->foreign('idPersonal')->references('codPersonal')->on('personal');
+            $table->foreign('codigoPersonal')->references('idPersonal')->on('personal');
         });
     }
 

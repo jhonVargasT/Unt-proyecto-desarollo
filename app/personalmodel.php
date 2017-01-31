@@ -6,14 +6,35 @@ use Illuminate\Support\Facades\DB;
 
 class personalmodel extends personamodel
 {
+    private $codPersonal;
     private $cuenta;
     private $password;
     private $tipoCuenta;
     private $idPersona;
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCodPersonal()
+    {
+        return $this->codPersonal;
+    }
+
+    /**
+     * @param mixed $codPersonal
+     * @return personalmodel
+     */
+    public function setCodPersonal($codPersonal)
+    {
+        $this->codPersonal = $codPersonal;
+        return $this;
+    }
+
 
     /**
      * @return mixed
@@ -91,7 +112,7 @@ class personalmodel extends personamodel
     public function logear()
     {
         $personal = DB::select('select nombres, apellidos from persona right join personal on persona.codPersona=personal.idPersona where personal.cuenta=:cuenta and personal.password=:pass',
-            ['cuenta' => $this->cuenta , 'pass'=>$this->password]);
+            ['cuenta' => $this->cuenta, 'pass' => $this->password]);
 
         return $personal;
     }
@@ -102,8 +123,7 @@ class personalmodel extends personamodel
     {
         $personal = DB::select('select * from persona right join personal on persona.codPersona=personal.idPersona');
 
-        foreach ($personal as $perso)
-        {
+        foreach ($personal as $perso) {
             $per = $perso->todoslosatributos;
         }
 
@@ -112,20 +132,18 @@ class personalmodel extends personamodel
 
     public function bdPersona($dni)
     {
-        $persona= DB::select('select codPersona from persona where dni=:dni',['dni' => $dni]);
+        $persona = DB::select('select codPersona from persona where dni=:dni', ['dni' => $dni]);
 
-        foreach ($persona as $pers)
-        {
+        foreach ($persona as $pers) {
             return $per = $pers->codPersona;
         }
     }
 
     public function extraerCodigoPersonal($dni)
     {
-        $personal = DB::select('select codPersonal from personal right join persona on personal.idPersona=persona.codPersona where persona.dni=:dni',['dni'=>$dni]);
+        $personal = DB::select('select codPersonal from personal right join persona on personal.idPersona=persona.codPersona where persona.dni=:dni', ['dni' => $dni]);
 
-        foreach ($personal as $perso)
-        {
+        foreach ($personal as $perso) {
             $per = $perso->codPersonal;
         }
 
@@ -148,39 +166,65 @@ class personalmodel extends personamodel
 
     public function consultarPersonal($idPersonal)
     {
-        $personal = DB::select('select * from personal right join persona on personal.idPersona=persona.codPersona where personal.codPersonal=:codPersonal',['codPersonal'=>$idPersonal]);
+        $personal = DB::select('select * from personal right join persona on personal.idPersona=persona.codPersona where personal.codPersonal=:codPersonal', ['codPersonal' => $idPersonal]);
 
-        foreach ($personal as $persona)
-        {
+        foreach ($personal as $persona) {
             $per = $persona->todoslosatributos;
         }
 
         return $per;
     }
 
-    public function editarPersonal($dni,$nombres,$apellidos,$cuenta,$password,$tipoCuenta)
+    public function editarPersonal($codPersona)
     {
-        $personacp= DB::select('select codPersona from persona left join alumno on persona.codPersona = alumno.idPersona where persona.dni=:dni',['dni'=>$dni]);
-
-        foreach ($personacp as $persona)
-        {
-            $per = $persona-> codPersona;
-        }
-
-        DB::table('persona')->where('codPersona', $per)->update(['nombres' => $nombres, 'apellidos'=>$apellidos]);
-        DB::table('personal')->where('idPersona', $per)->update(['cuenta' => $cuenta, 'password'=>$password, 'tipoCuenta'=>$tipoCuenta]);
+        DB::table('persona')->where('codPersona', $codPersona)->update(['dni'=>$this->getDni(),'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos()]);
+        DB::table('personal')->where('idPersona', $codPersona)->update(['codPersonal'=>$this->codPersonal,'cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta]);
     }
 
     public function eliminarPersona()
     {
-        $personace= DB::select('select codPersona from persona left join alumno on persona.codPersona = alumno.idPersona where persona.dni=:dni',['dni'=>$dni]);
+        DB::table('persona')->where('codPersona', '')->update(['estado' => 0]);
+        DB::table('personal')->where('idPersona', '')->update(['estado' => 0]);
+    }
 
-        foreach ($personace as $persona)
-        {
-            $cp = $persona-> codPersona;
-        }
+    public function consultarPersonalid($codPersona)
+    {
+        $alumnobd = DB::select('select * from persona left join personal on persona.codPersona = personal.idPersona where 
+        persona.codPersona = personal.idPersona and persona.codPersona=:codPersona', ['codPersona' => $codPersona]);
+        return $alumnobd;
+    }
 
-        DB::table('persona')->where('codPersona', $cp)->update(['estado' => 0]);
-        DB::table('personal')->where('idPersona', $cp)->update(['estado' => 0]);
+    public function consultarPersonalDNI($dni)
+    {
+        $alumnobd = DB::select('select * from persona left join personal on persona.codPersona = personal.idPersona where 
+        persona.codPersona = personal.idPersona and persona.dni=:dni',['dni'=>$dni]);
+        //$alumnobd = DB::table('persona')->leftJoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')->where('persona.dni', '=',$dni)->orderBy('persona.codPersona', 'desc')->get();
+        return $alumnobd;
+    }
+
+    public function consultarPersonalApellidos($apellidos)
+    {
+        $alumnobd = DB::select('select * from persona left join personal on persona.codPersona = personal.idPersona where 
+        persona.codPersona = personal.idPersona and persona.apellidos=:apellidos',['apellidos'=>$apellidos]);
+        //$alumnobd = DB::table('persona')->leftJoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')->where('persona.apellidos', '=', $apellidos)->orderBy('persona.codPersona', 'desc')->get();
+        return $alumnobd;
+    }
+
+    public function consultarPersonalCodigo($idPersonal)
+    {
+        $alumnobd = DB::table('persona')->leftJoin('personal', 'persona.codPersona', '=', 'personal.idPersona')->where('personal.idPersonal', '=', $idPersonal)->orderBy('persona.codPersona', 'desc')->get();
+        return $alumnobd;
+    }
+
+    public function consultarPersonalCuenta($cuenta)
+    {
+        $alumnobd = DB::table('persona')->leftJoin('personal', 'persona.codPersona', '=', 'personal.idPersona')->where('personal.cuenta', '=', $cuenta)->orderBy('persona.codPersona', 'desc')->get();
+        return $alumnobd;
+    }
+
+    public function consultaPersonalTipoCuenta($tipoCuenta)
+    {
+        $alumnobd = DB::table('persona')->leftJoin('personal', 'persona.codPersona', '=', 'personal.idPersona')->where('personal.tipoCuenta', '=', $tipoCuenta)->orderBy('persona.codPersona', 'desc')->get();
+        return $alumnobd;
     }
 }

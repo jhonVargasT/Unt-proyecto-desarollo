@@ -17,8 +17,8 @@ class Personal extends Migration
         Schema::create('personal', function (Blueprint $table)
         {
             $table->engine = 'InnoDB';
-
-            $table ->increments('codPersonal')->unique();
+            $table->increments('idPersonal')->unique();
+            $table ->string('codPersonal')->unique();
             $table ->string('cuenta')->unique();
             $table ->string('password');
             $table ->string('tipoCuenta');

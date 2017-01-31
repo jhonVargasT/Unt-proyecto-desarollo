@@ -132,6 +132,38 @@ class escuelamodel
         return $es;
     }
 
+    public function consultarEscuelaid($idEscuela)
+    {
+        $escuelabd = DB::table('escuela')->where('idEscuela',$idEscuela)->get();
+        return $escuelabd;
+    }
+
+    public function consultarEscuelaCodigo($codigo)
+    {
+        $escuelabd = DB::table('escuela')->where('codEscuela',$codigo)->orderBy('codEscuela', 'desc')->get();
+        return $escuelabd;
+    }
+
+    public function consultarEscuelasNombre($nombre)
+    {
+        $escuelabd = DB::table('escuela')->where('nombre', 'like', '%' . $nombre . '%')->orderBy('idEscuela', 'desc')->get();
+        return $escuelabd;
+    }
+
+    public function consultarEscuelasCuentaInterna($nroCuenta)
+    {
+        $escuelabd = DB::table('escuela')->where('nroCuenta', 'like', '%' . $nroCuenta . '%')->orderBy('idEscuela', 'desc')->get();
+        return $escuelabd;
+    }
+
+    public function consultarEscuelasFacultad($nombreF)
+    {
+        //$escuelabd = DB::table('facultad')->leftJoin('escuela', 'facultad.idFacultad', '=', 'escuela.codigoFacultad')->where('facultad.nombre', '=',$nombreF)->orderBy('facultad.idFacultad', 'desc')->get();
+        $escuelabd = DB::select('select * from facultad left join escuela on facultad.idFacultad = escuela.codigoFacultad where 
+        facultad.idFacultad = escuela.codigoFacultad and facultad.nombre=:nombre',['nombre'=>$nombreF]);
+        return $escuelabd;
+    }
+
     public function eliminarEscuelaPorFacultad($nombre)
     {
         $facultadie = DB::select('select idFacultad, estado from facultad left join escuela on facultad.idFacultad = escuela.codFacultad where escuela.nombre=:nombre',['nombre'=>$nombre]);
@@ -140,7 +172,6 @@ class escuelamodel
             $cf= $facultad->idFacultad;
             $ef= $facultad->estado;
         }
-
         if($ef==0)
         {
             DB::table('escuela')->where('coFacultad', $cf)->update(['estado' => 0]);
@@ -163,8 +194,8 @@ class escuelamodel
         }
     }
 
-    public function editarEscuela($nombre, $nroCuenta,$codigoEscuela)
+    public function editarEscuela($idescuela)
     {
-        DB::table('escuela')->where('nombre', $codigoEscuela)->update(['nombre' => $nombre, 'nroCuenta'=>$nroCuenta,'codigoFacultad'=>$codigoEscuela]);
+        DB::table('escuela')->where('idEscuela', $idescuela)->update(['nombre' => $this->nombre, 'nroCuenta'=>$this->nroCuenta]);
     }
 }
