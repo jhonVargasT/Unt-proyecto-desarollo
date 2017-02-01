@@ -1,4 +1,24 @@
-@extends('Ventanilla.Menu')
+@extends('Ventanilla.Body')
+@section('pago')
+    <div id="collapseOne" class="collapse in">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>
+                        <i class="icomoon icon-coin"></i>
+                        <a href="/ventRelizarPago" style="color: #509f0c" target="_top">Realizar pago</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="glyphicon glyphicon-list-alt"></i>
+                        <a href="/ventReportPago">Mostrar pagos</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    @stop
 @section('content')
 
     <div class="panel panel-primary ">
@@ -15,13 +35,13 @@
                             </select>
                         </div>
                         <div class="col-sm-3">
-                            <input class="form-control input-sm " name="dni" type="text">
+                            <input class="form-control input-sm " name="dni" type="text" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group-sm">
                         <span class="col-sm-2">Nombres</span>
                         <div class="col-sm-4">
-                            <input class="form-control input-sm" name="nombre" type="text">
+                            <input class="form-control input-sm" name="nombre" type="text" autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -29,11 +49,11 @@
                     <div class="form-group-sm">
                         <span class="col-sm-2">Apellidos</span>
                         <div class="col-sm-4">
-                            <input class="form-control input-sm" name="apellido" type="text">
+                            <input class="form-control input-sm" name="apellido" type="text" autocomplete="off">
                         </div>
                         <span class="col-sm-2">Tipo tramite</span>
                         <div class="col-sm-4">
-                            <input class="form-control input-sm" name="tipoTramite" type="text">
+                            <input class="form-control input-sm" name="tipoTramite" type="text" autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -41,11 +61,11 @@
                     <div class="form-group-sm">
                         <span class="col-sm-2">Facultad</span>
                         <div class="col-sm-4">
-                            <input class="form-control input-sm" name="apellido" type="text" disabled>
+                            <input class="form-control input-sm" name="apellido" type="text" autocomplete="off" disabled>
                         </div>
                         <span class="col-sm-2">Escuela</span>
                         <div class="col-sm-4">
-                            <input class="form-control input-sm" name="tipoTramite" type="text" disabled>
+                            <input class="form-control input-sm" name="tipoTramite" type="text" autocomplete="off" disabled>
                         </div>
                     </div>
                 </div>
@@ -53,7 +73,7 @@
                     <div class="form-group-sm">
                         <span class="col-sm-2">Detalle </span>
                         <div class="col-sm-4">
-                            <textarea class="form-control input-sm" name="apellido" type="text">
+                            <textarea class="form-control input-sm" name="apellido" type="text" autocomplete="off">
                                 </textarea>
                         </div>
 
@@ -65,11 +85,11 @@
             <div class="form-group-sm">
                 <span class="col-sm-2">Apellidos</span>
                 <div class="col-sm-4">
-                    <input class="form-control input-sm" name="apellido" type="text">
+                    <input class="form-control input-sm" name="apellido" type="text" autocomplete="off">
                 </div>
                 <span class="col-sm-2">Tipo tramite</span>
                 <div class="col-sm-4">
-                    <input class="form-control input-sm" name="tipoTramite" type="text">
+                    <input class="form-control input-sm" name="tipoTramite" type="text" autocomplete="off">
                 </div>
             </div>
             <div class="col-sm-12">

@@ -64,7 +64,7 @@
 
                 <div class="col-sm-12" align="right">
 
-                    <h4><a   href="#" class="glyphicon  glyphicon-log-out red"> Salir   </a></h4>
+                    <h4><a   href="/" class="glyphicon  glyphicon-log-out red" style="color: #cf1100"> Salir   </a></h4>
 
                 </div>
             </div>

@@ -1,4 +1,24 @@
 @extends('Administrador.Body')
+@section('personal')
+    <div id="collapseFour" class="collapse in">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <a href="/admBuscarPersonal">Buscar Personal</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <a href="/admRegistrarPersonal" style="color: #509f0c" target="_top">Agregar Personal</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+@stop
 @section('content')
     <div class="panel panel-primary">
         <div class="panel-heading">Agregar personal</div>
@@ -12,13 +32,13 @@
                             <div class="form-group-sm " align="right">
                                 <span class="col-sm-2 control-label"> Numero de Dni</span>
                                 <div class="col-sm-3">
-                                    <input class="form-control input-sm" name="dni" type="text">
+                                    <input class="form-control input-sm" name="dni" type="text" autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group-sm">
                                 <span class="col-sm-2">Nombres</span>
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="nombres" type="text">
+                                    <input class="form-control input-sm" name="nombres" type="text" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -26,7 +46,7 @@
                             <div class="form-group-sm">
                                 <span class="col-sm-2">Apellidos</span>
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="apellidos" type="text">
+                                    <input class="form-control input-sm" name="apellidos" type="text" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -50,13 +70,13 @@
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label"> Cuenta</span>
                                 <div class="col-sm-3">
-                                    <input class="form-control input-sm" name="cuenta" type="text">
+                                    <input class="form-control input-sm" name="cuenta" type="text" autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group-sm">
                                 <span class="col-sm-2">Contraseña</span>
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="contraseña" type="text">
+                                    <input class="form-control input-sm" name="contraseña" type="text" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -64,7 +84,7 @@
                 </div>
                 <div class="col-sm-12 row form-group">
                     <div class="col-md-3"></div>
-                    <a href="#" class=" col-md-2 btn btn-sm btn-danger"><span
+                    <a href="/Adm" class=" col-md-2 btn btn-sm btn-danger"><span
                                 class="glyphicon glyphicon-ban-circle"></span>
                         Cancelar</a>
                     <div class="col-md-2"></div>

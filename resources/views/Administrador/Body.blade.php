@@ -19,7 +19,7 @@
                             <table class="table">
                                 <tr>
                                     <td>
-                                        <a href="/Reportes">Reporte Pagos</a>
+                                        <a href="/admReportes">Reporte Pagos</a>
                                     </td>
                                 </tr>
                             </table>
@@ -35,19 +35,20 @@
                             </span> Estudiantes</a>
                         </h4>
                     </div>
+                    @yield('estudiante')
                     <div id="collapseTwo" class="panel-collapse collapse">
                         <div class="panel-body">
                             <table class="table">
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="/BuscarEstudiante">Buscar Estudiantes</a>
+                                        <a href="/admBuscarEstudiante">Buscar Estudiantes</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="/RegistrarEstudiante">Agregar Estudiante</a>
+                                        <a href="/admRegistrarEstudiante">Agregar Estudiante</a>
                                     </td>
                                 </tr>
                             </table>
@@ -63,19 +64,20 @@
                             </span> Clientes</a>
                         </h4>
                     </div>
+                    @yield('cliente')
                     <div id="collapseClie" class="panel-collapse collapse">
                         <div class="panel-body">
                             <table class="table">
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="/BuscarCliente">Buscar Clientes</a>
+                                        <a href="/admBuscarCliente">Buscar Clientes</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="/RegistrarCliente">Agregar Clientes</a>
+                                        <a href="/admRegistrarCliente">Agregar Clientes</a>
                                     </td>
                                 </tr>
                             </table>
@@ -97,13 +99,13 @@
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="/BuscarFacultad" >Buscar Facultades</a>
+                                        <a href="/admBuscarFacultad" >Buscar Facultades</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="/RegistrarFacultad">Agregar Facultad</a>
+                                        <a href="/admRegistrarFacultad">Agregar Facultad</a>
                                     </td>
                                 </tr>
                             </table>
@@ -118,19 +120,20 @@
                                 Escuelas</a>
                         </h4>
                     </div>
+                    @yield('escuela')
                     <div id="collapseThree" class="panel-collapse collapse">
                         <div class="panel-body">
                             <table class="table">
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="/BuscarEscuela">Buscar Escuelas</a>
+                                        <a href="/admBuscarEscuela">Buscar Escuelas</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="/RegistrarEscuela">Agregar Escuela</a>
+                                        <a href="/admRegistrarEscuela">Agregar Escuela</a>
                                     </td>
                                 </tr>
                             </table>
@@ -145,19 +148,20 @@
                             </span> Personal</a>
                         </h4>
                     </div>
+                    @yield('personal')
                     <div id="collapseFour" class="panel-collapse collapse">
                         <div class="panel-body">
                             <table class="table">
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="/BuscarPersonal">Buscar Personal</a>
+                                        <a href="/admBuscarPersonal">Buscar Personal</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="/RegistrarPersonal">Agregar Personal</a>
+                                        <a href="/admRegistrarPersonal">Agregar Personal</a>
                                     </td>
                                 </tr>
                             </table>
@@ -172,19 +176,20 @@
                                 </span> Tramites</a>
                         </h4>
                     </div>
+                    @yield('tramite')
                     <div id="collapseFive" class="panel-collapse collapse">
                         <div class="panel-body">
                             <table class="table">
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="/BuscarTramite">Buscar Tramites</a>
+                                        <a href="/admBuscarTramite">Buscar Tramites</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="/RegistrarTramite">Agregar Tramite</a>
+                                        <a href="/admRegistrarTramite">Agregar Tramite</a>
                                     </td>
                                 </tr>
                             </table>
@@ -199,19 +204,20 @@
                             </span> SubTramites</a>
                         </h4>
                     </div>
+                    @yield('subtramite')
                     <div id="collapseSix" class="panel-collapse collapse">
                         <div class="panel-body">
                             <table class="table">
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="/BuscarSubtramite">Buscar SubTramites</a>
+                                        <a href="/admBuscarSubtramite">Buscar SubTramites</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="/RegistrarSubtramite">Agregar SubTramite</a>
+                                        <a href="/admRegistrarSubtramite">Agregar SubTramite</a>
                                     </td>
                                 </tr>
                             </table>
@@ -226,19 +232,20 @@
                             </span> Donaciones y Transacciones</a>
                         </h4>
                     </div>
+                    @yield('donaciones')
                     <div id="collapseSeven" class="panel-collapse collapse">
                         <div class="panel-body">
                             <table class="table">
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="/BuscarDonaciones">Buscar Donaciones y transacciones</a>
+                                        <a href="/admBuscarDonaciones">Buscar Donaciones y transacciones</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="/RegistrarDonaciones">Agregar Donaciones y transacciones</a>
+                                        <a href="/admRegistrarDonaciones">Agregar Donaciones y transacciones</a>
                                     </td>
                                 </tr>
                             </table>

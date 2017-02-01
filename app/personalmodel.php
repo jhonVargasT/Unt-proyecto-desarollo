@@ -111,10 +111,10 @@ class personalmodel extends personamodel
     }
 
     public function logear()
-    {
-        $personal = DB::select('select nombres, apellidos from persona right join personal on persona.codPersona=personal.idPersona where personal.cuenta=:cuenta and personal.password=:pass',
-            ['cuenta' => $this->cuenta, 'pass' => $this->password]);
 
+    {
+        $personal = DB::table('personal')->where(['cuenta' => $this->cuenta,'password' => $this->password,'estado'=>1])->get();
+        
         return $personal;
     }
 

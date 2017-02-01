@@ -1,4 +1,24 @@
-@extends('Ventanilla.Menu')
+@extends('Ventanilla.Body')
+@section('pago')
+    <div id="collapseOne" class="collapse in">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>
+                        <i class="icomoon icon-coin"></i>
+                        <a href="/ventRelizarPago">Realizar pago</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="glyphicon glyphicon-list-alt"></i>
+                        <a href="/ventReportPago" style="color: #509f0c" target="_top">Mostrar pagos</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+@stop
 @section('content')
     <div class="panel panel-primary">
         <div class="panel-heading"> Reportar pago</div>
@@ -17,7 +37,7 @@
                     </div>
                 </div>
                 <div class="form-group-sm input-group col-sm-6">
-                    <input type="text" class="form-control" placeholder="Ingresa datos aqui ..">
+                    <input type="text" class="form-control" placeholder="Ingresa datos aqui .." autocomplete="off">
                         <span class="input-group-btn">
                             <button class="btn btn-sm" type="button">Buscar</button>
                         </span>
@@ -32,15 +52,15 @@
                     <!--cabecear Tabla-->
                     <tr>
 
-                        <th>Codigo de pago</th>
-                        <th>Dni</th>
-                        <th>Nombres y apellidos</th>
-                        <th>Tipo tramite</th>
-                        <th>Fecha de pago</th>
-                        <th>Monto</th>
-                        <th>Modalidad</th>
-                        <th>Nombre cajero</th>
-                        <th>Opcion</th>
+                        <th><div align="center"><small>Codigo de pago</small></div></th>
+                        <th><div align="center"><small>Dni</small></div></th>
+                        <th><div align="center"><small>Nombres y apellidos</small></div></th>
+                        <th><div align="center"><small>Tipo tramite</small></div></th>
+                        <th><div align="center"><small>Fecha de pago</small></div></th>
+                        <th><div align="center"><small>Monto</small></div></th>
+                        <th><div align="center"><small>Modalidad</small></div></th>
+                        <th><div align="center"><small>Nombre cajero</small></div></th>
+                        <th><div align="center"><small>Opcion</small></div></th>
                     </tr>
                     </thead>
                     <body>

@@ -12,33 +12,27 @@
 */
 
 
-Route::get('/Adm', function () {
-    return view('Administrador/body');});
-Route::get('/Vent', function () {
-    return view('Ventanilla/Menu');});
 
-Route::get('/index',function(){
+
+
+Route::get('/',function(){
     return view('Index');
 });
 
-//Route::resource('/Tramite', 'personalController@loguearPersonal');
+Route::resource('/loguear', 'personalController@loguearPersonal');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////ADMINISTRADOR/////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Route::get('/Layout', function () {
-    return view('Administrador/Body');});
-/////////////////////////////////////////////
-Route::get('/RegistrarEstudiante', function () {
+Route::get('/Adm', function () {
+    return view('/Administrador/body');});
+
+/////////////////Estudiante////////////////////////////
+Route::get('/admRegistrarEstudiante', function () {
     return view('/Administrador/Alumno/Add');
 });
 Route::resource('AlumnoRegistrado', 'alumnoController@registrarAlumno');
-
-Route::get('/EditarEstudiante', function () {
-    return view('Administrador/Alumno/Edit');
-});
-
-Route::get('/BuscarEstudiante', function () {
+Route::get('/admBuscarEstudiante', function () {
     return view('Administrador/Alumno/Search');
 });
 Route::get('EstudianteRegistrado', 'alumnoController@registrarAlumno');
@@ -46,17 +40,13 @@ Route::get('EstudianteRegistrado', 'alumnoController@registrarAlumno');
 Route::get('EstudianteEncontrado', 'alumnoController@buscarAlumno');
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////Cliente///////////////////////////////////////////////////////////////////////////////////////////////////
 
-Route::get('/RegistrarCliente', function () {
+Route::get('/admRegistrarCliente', function () {
     return view('Administrador/Cliente/Add');
 });
 
-Route::get('/EditarCliente', function () {
-    return view('Administrador/Cliente/Edit');
-});
-
-Route::get('/BuscarCliente', function () {
+Route::get('/admBuscarCliente', function () {
     return view('Administrador/Cliente/Search');
 
 });
@@ -64,34 +54,25 @@ Route::get('/BuscarCliente', function () {
 Route::resource('ClienteRegistrado', 'clienteController@registrarCliente');
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////Donaciones//////////////////////////////////////////////////////////////////////////////////
 
-Route::get('/RegistrarDonaciones', function () {
+Route::get('/admRegistrarDonaciones', function () {
     return view('Administrador/DonacionesYTransacciones/Add');
 });
 
-Route::get('/EditarDonaciones', function () {
-    return view('Administrador/DonacionesYTransacciones/Edit');
-});
-
-Route::get('/BuscarDonaciones', function () {
+Route::get('/admBuscarDonaciones', function () {
     return view('Administrador/DonacionesYTransacciones/Search');
 });
 
 Route::resource('DonacionRegistrada', 'donacionController@registrarDonaciones');
 Route::resource('DonacionTR', 'donacionController@llenar');
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////Escuela///////////////////////////////////////////////////////////////////////////////////
 
-Route::get('/RegistrarEscuela', function () {
+Route::get('/admRegistrarEscuela', function () {
     return view('Administrador/Escuela/Add');
 });
-
-Route::get('/EditarEscuela', function () {
-    return view('Administrador/Escuela/Edit');
-});
-
-Route::get('/BuscarEscuela', function () {
+Route::get('/admBuscarEscuela', function () {
     return view('Administrador/Escuela/Search');
 });
 
@@ -100,11 +81,11 @@ Route::resource('EscuelaRegistrada', 'escuelaController@registrarEscuela');
 
 ////////////////////////////////// Facultad //////////////////////////////////////////////////////////////////////////////////////
 
-Route::get('/RegistrarFacultad', function () {
+Route::get('/admRegistrarFacultad', function () {
     return view('Administrador/Facultad/Add');
 });
 
-Route::get('/BuscarFacultad', function () {
+Route::get('/admBuscarFacultad', function () {
     return view('Administrador/Facultad/Search');
 });
 
@@ -113,55 +94,47 @@ Route::resource('FacultadesBuscadas', 'facultadController@listarFacultad');
 Route::resource('FacultadCargar', 'facultadController@cargarFacultad');
 Route::get('FacultadEditada/{idFacultad}', 'facultadController@editarFacultad');
 Route::get('FacultadEliminar/{idFacultad}', 'facultadController@eliminarFacultad');
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////Personal/////////////////////////////////////////////////////////////////////////////////////
 
-Route::get('/RegistrarPersonal', function () {
+Route::get('/admRegistrarPersonal', function () {
     return view('Administrador/Personal/Add');
 });
 
-Route::get('/EditarPersonal', function () {
-    return view('Administrador/Personal/Edit');
-});
 
-Route::get('BuscarPersonal', function () {
+Route::get('admBuscarPersonal', function () {
     return view('Administrador/Personal/Search');
 });
 
 Route::resource('PersonalRegistrado', 'personalController@registrarPersonal');
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////SubTramite/////////////////////////////////////////////////////////////////////////////////////////////
 
-Route::get('/RegistrarSubtramite', function () {
+Route::get('/admRegistrarSubtramite', function () {
     return view('Administrador/SubTramite/Add');
 });
 
-Route::get('/Editarubtramite', function () {
-    return view('Administrador/SubTramite/Edit');
-});
 
-Route::get('/BuscarSubtramite', function () {
+Route::get('/admBuscarSubtramite', function () {
     return view('Administrador/SubTramite/Search');
 });
 
 Route::resource('subTramiteRegistrado', 'subtramiteController@registrarSubtramite');
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////Tramite////////////////////////////////////////////////////////////////////////////////////
 
-Route::get('/RegistrarTramite', function () {
+Route::get('/admRegistrarTramite', function () {
     return view('Administrador/Tramite/add');
 });
-Route::get('/EditarTramite', function () {
-    return view('Administrador/Tramite/edit');
-});
-Route::get('/BuscarTramite', function () {
+
+Route::get('/admBuscarTramite', function () {
     return view('Administrador/Tramite/search');
 });
 
 Route::resource('TramiteRegistrado', 'tramiteController@registrarTramite');
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////Reporte///////////////////////////////////////////////////////////////////////////////////
 
-Route::get('/Reportes', function () {
+Route::get('/admReportes', function () {
     return view('Administrador/Reporte/Report');
 });
 
@@ -176,13 +149,28 @@ Route::post('/getmsg','donacionController@llenar');
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////Ventanilla ///////////////////////////
+Route::get('/Vent', function () {
+    return view('Ventanilla/Body');});
 ///////////////Cliente/////////////////////////
 Route::get('/ventRegistrarCliente', function () {
     return view('Ventanilla/Cliente/Add');
 });
 
-Route::get('/ventBuscarEstudiante', function () {
+Route::get('/ventBuscarCliente', function () {
     return view('Ventanilla/Cliente/Search');
 });
 //////////////Alumno//////////////////////////
+Route::get('/ventRegistrarEstudiante', function () {
+    return view('Ventanilla/Alumno/Add');
+});
+
+Route::get('/ventBuscarEstudiante', function () {
+    return view('Ventanilla/Alumno/Search');
+});
 /////////////Pago////////////////////
+Route::get('/ventRelizarPago', function () {
+    return view('Ventanilla/Pagos/RealizarPago');
+});
+Route::get('/ventReportPago', function () {
+    return view('Ventanilla/Pagos/ReportPago');
+});

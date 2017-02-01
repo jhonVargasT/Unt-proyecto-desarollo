@@ -1,4 +1,24 @@
 @extends('Administrador.Body')
+@section('personal')
+    <div id="collapseFour" class="collapse in">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <a href="/admBuscarPersonal" style="color: #509f0c" target="_top">Buscar Personal</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <a href="/admRegistrarPersonal">Agregar Personal</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+@stop
 @section('content')
     <div class="panel panel-primary">
         <div class="panel-heading">Buscar personal</div>
@@ -18,7 +38,7 @@
                     </div>
                 </div>
                 <div class="form-group-sm input-group col-sm-6">
-                    <input type="text" class="form-control" placeholder="Ingresa datos aqui ..">
+                    <input type="text" class="form-control" placeholder="Ingresa datos aqui .." autocomplete="off">
                         <span class="input-group-btn">
                             <button class="btn btn-sm" type="button">Buscar</button>
                         </span>
@@ -31,16 +51,48 @@
                 <table class="table table-bordered">
                     <thead>
                     <!--cabecear Tabla-->
-                    <tr>
+                    <tr class="active">
 
-                        <th>Dni</th>
-                        <th>Nombres y apellidos</th>
-                        <th>Codigo personal</th>
-                        <th>Tipo cuenta</th>
-                        <th>Usuario</th>
-                        <th>Contraseña</th>
-                        <th>Estado</th>
-                        <th>Opciones</th>
+                        <th>
+                            <div align="center">
+                                <small>Dni</small>
+                            </div>
+                        </th>
+                        <th>
+                            <div align="center">
+                                <small>Nombres y apellidos</small>
+                            </div>
+                        </th>
+                        <th>
+                            <div align="center">
+                                <small>Codigo personal</small>
+                            </div>
+                        </th>
+                        <th>
+                            <div align="center">
+                                <small>Tipo cuenta</small>
+                            </div>
+                        </th>
+                        <th>
+                            <div align="center">
+                                <small>Usuario</small>
+                            </div>
+                        </th>
+                        <th>
+                            <div align="center">
+                                <small>Contraseña</small>
+                            </div>
+                        </th>
+                        <th>
+                            <div align="center">
+                                <small>Estado</small>
+                            </div>
+                        </th>
+                        <th>
+                            <div align="center">
+                                <small>Opciones</small>
+                            </div>
+                        </th>
                     </tr>
                     </thead>
                     <body>

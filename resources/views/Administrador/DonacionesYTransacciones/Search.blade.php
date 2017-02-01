@@ -1,4 +1,24 @@
 @extends('Administrador.Body')
+@section('donaciones')
+    <div id="collapseSeven" class="collapse in">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <a href="/admBuscarDonaciones" style="color: #509f0c" target="_top">Buscar Donaciones y transacciones</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <a href="/admRegistrarDonaciones">Agregar Donaciones y transacciones</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+@stop
 @section('content')
     <div class="panel panel-primary">
 
@@ -19,7 +39,7 @@
                     </div>
                 </div>
                 <div class="form-group-sm input-group col-sm-6">
-                    <input type="text" class="form-control" placeholder="Ingresa datos aqui ..">
+                    <input type="text" class="form-control" placeholder="Ingresa datos aqui .." autocomplete="off">
                         <span class="input-group-btn">
                             <button class="btn btn-sm" type="button">Buscar</button>
                         </span>
@@ -29,14 +49,14 @@
                 <table class="table table-bordered">
                     <thead>
                     <!--cabecear Tabla-->
-                    <tr>
-                        <th>Numero Resolucion</th>
-                        <th>Codigo Siaf</th>
-                        <th>Tipo Recurso</th>
-                        <th>Fecha</th>
-                        <th>Monto</th>
-                        <th>Descripcion</th>
-                        <th>Opciones</th>
+                    <tr class="active">
+                        <th><div align="center"><small>Numero Resolucion</small></div></th>
+                        <th><div align="center"><small>Codigo Siaf</small></div></th>
+                        <th><div align="center"><small>Tipo Recurso</small></div></th>
+                        <th><div align="center"><small>Fecha</small></div></th>
+                        <th><div align="center"><small>Monto</small></div></th>
+                        <th><div align="center"><small>Descripcion</small></div></th>
+                        <th><div align="center"><small>Opciones</small></div></th>
                     </tr>
                     </thead>
                     <body>

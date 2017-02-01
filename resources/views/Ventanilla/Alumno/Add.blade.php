@@ -1,4 +1,24 @@
-@extends('Ventanilla.Menu')
+@extends('Ventanilla.Body')
+@section('estudiante')
+    <div id="collapseTwo" class="collapse in">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <a href="/ventBuscarEstudiante" >Buscar Estudiantes</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <a href="/ventRegistrarEstudiante" style="color: #509f0c" target="_top">Agregar Estudiante</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+@stop
 @section('content')
     <div class="panel panel-primary">
         <div class="panel-heading"> Agregar Estudiante</div>
@@ -12,13 +32,13 @@
                             <div class="form-group-sm " align="right">
                                 <span class="col-sm-2 control-label"> Numero de Dni</span>
                                 <div class="col-sm-3">
-                                    <input class="form-control input-sm" name="dni" type="text">
+                                    <input class="form-control input-sm" name="dni" type="text" autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group-sm">
                                 <span class="col-sm-2">Nombres</span>
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="nombres" type="text">
+                                    <input class="form-control input-sm" name="nombres" type="text" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -26,7 +46,7 @@
                             <div class="form-group-sm">
                                 <span class="col-sm-2">Apellidos</span>
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="apellidos" type="text">
+                                    <input class="form-control input-sm" name="apellidos" type="text" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -39,13 +59,13 @@
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label"> Codigo alumno</span>
                                 <div class="col-sm-3">
-                                    <input class="form-control input-sm" name="codAlumno" type="text">
+                                    <input class="form-control input-sm" name="codAlumno" type="text" autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-3 control-label"> Codigo matricula</span>
                                 <div class="col-sm-3">
-                                    <input class="form-control input-sm" name="codMatricula" type="text">
+                                    <input class="form-control input-sm" name="codMatricula" type="text" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -53,7 +73,7 @@
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label"> Fecha matricula</span>
                                 <div class="col-sm-3">
-                                    <input class="form-control input-sm" name="fecha" type="text">
+                                    <input class="form-control input-sm" name="fecha" type="text" autocomplete="off">
                                 </div>
                             </div>
                         </div>

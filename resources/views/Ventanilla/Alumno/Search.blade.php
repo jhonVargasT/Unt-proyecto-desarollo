@@ -1,4 +1,24 @@
-@extends('Ventanilla.Menu')
+@extends('Ventanilla.Body')
+@section('estudiante')
+    <div id="collapseTwo" class="collapse in">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <a href="/ventBuscarEstudiante" style="color: #509f0c" target="_top">Buscar Estudiantes</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <a href="/ventRegistrarEstudiante" >Agregar Estudiante</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+@stop
 @section('content')
 
     <div class="panel panel-primary">
@@ -18,7 +38,7 @@
                     </div>
                 </div>
                 <div class="form-group-sm input-group col-sm-6">
-                    <input type="text" class="form-control" placeholder="Ingresa datos aqui ..">
+                    <input type="text" class="form-control" placeholder="Ingresa datos aqui .." autocomplete="off">
                     <span class="input-group-btn">
 
                             <button class="btn btn-sm" type="button">Buscar</button>

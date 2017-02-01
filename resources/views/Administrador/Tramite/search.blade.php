@@ -1,4 +1,24 @@
 @extends('Administrador.Body')
+@section('tramite')
+    <div id="collapseFive" class="collapse in">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <a href="/admBuscarTramite" style="color: #509f0c" target="_top">Buscar Tramites</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <a href="/admRegistrarTramite">Agregar Tramite</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+@stop
 @section('content')
     <div class="panel panel-primary">
         <div class="panel-heading">Buscar tramites</div>
@@ -16,7 +36,7 @@
                     </div>
                 </div>
                 <div class="input-group col-sm-6">
-                    <input type="text" class="form-control" placeholder="Escribe el dato aqui ..">
+                    <input type="text" class="form-control" placeholder="Escribe el dato aqui .." autocomplete="off">
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button">Buscar</button>
                         </span>
@@ -27,13 +47,13 @@
                 <table class="table table-bordered">
                     <head>
                         <!--cabecear Tabla-->
-                        <tr>
+                        <tr class="active">
 
-                            <th>Clasificador Siaf</th>
-                            <th>Tipo de recurso</th>
-                            <th>Nombre de tramite</th>
-                            <th>Fuente de financiamiento</th>
-                            <th>Opciones</th>
+                            <th><div align="center"><small>Clasificador Siaf</small></div></th>
+                            <th><div align="center"><small>Tipo de recurso</small></div></th>
+                            <th><div align="center"><small>Nombre de tramite</small></div></th>
+                            <th><div align="center"><small>Fuente de financiamiento</small></div></th>
+                            <th><div align="center"><small>Opciones</small></div></th>
 
                         </tr>
                     </head>
