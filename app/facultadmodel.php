@@ -131,19 +131,25 @@ class facultadmodel
 
     public function consultarFacultadesCodigo($codigo)
     {
-        $facultadbd = DB::table('facultad')->where('codFacultad',$codigo)->orderBy('idFacultad', 'desc')->get();
+        $facultadbd = DB::table('facultad')
+            ->where('codFacultad',$codigo)
+            ->where('estado',1)->orderBy('idFacultad', 'desc')->get();
         return $facultadbd;
     }
 
     public function consultarFacultadesNombre($nombre)
     {
-        $facultadbd = DB::table('facultad')->where('nombre', 'like', '%' . $nombre . '%')->orderBy('idFacultad', 'desc')->get();
+        $facultadbd = DB::table('facultad')
+            ->where('nombre', 'like', '%' . $nombre . '%')
+            ->where('estado',1)->orderBy('idFacultad', 'desc')->get();
         return $facultadbd;
     }
 
     public function consultarFacultadesCuentaInterna($nroCuenta)
     {
-        $facultadbd = DB::table('facultad')->where('nroCuenta', 'like', '%' . $nroCuenta . '%')->orderBy('idFacultad', 'desc')->get();
+        $facultadbd = DB::table('facultad')
+            ->where('nroCuenta', 'like', '%' . $nroCuenta . '%')
+            ->where('estado',1)->orderBy('idFacultad', 'desc')->get();
         return $facultadbd;
     }
 
@@ -166,7 +172,8 @@ class facultadmodel
 
     public function eliminarFacultad($idFacultad)
     {
-        DB::table('persona')->where('idFacultad', $idFacultad)->update(['estado' => 0]);
+        DB::table('facultad')->where('idFacultad', $idFacultad)->update(['estado' => 0]);
+        DB::table('escuela')->where('estado', 1)->update(['estado' => 0]);
     }
 
 }

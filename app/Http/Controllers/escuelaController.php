@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\clientemodel;
 use App\escuelamodel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -74,6 +75,12 @@ class escuelaController extends Controller
             }
         }
         return view('Administrador/Escuela/search')->with(['escuela' => $esc, 'txt' => $request->text, 'select' => $request->select]);
+    }
 
+    public function eliminarEscuela($idEscuela,Request $request)
+    {
+        $cliente = new escuelamodel();
+        $cliente->eliminarEscuela($idEscuela);
+        return view('Administrador/Escuela/Search')->with(['nombre'=>$request->nombre]);
     }
 }

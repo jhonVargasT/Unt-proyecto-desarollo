@@ -131,10 +131,9 @@ class donacionmodel
 
     public function bdTramite($nombre)
     {
-        $idTra = DB::select('select codTramite from tramite where nombre=:nombre',['nombre'=>$nombre]);
-        foreach ($idTra as $idT)
-        {
-            return $idTramite= $idT->codTramite;
+        $idTra = DB::select('select codTramite from tramite where nombre=:nombre', ['nombre' => $nombre]);
+        foreach ($idTra as $idT) {
+            return $idTramite = $idT->codTramite;
         }
     }
 
@@ -147,80 +146,63 @@ class donacionmodel
         if ($donacion != null) {
             return false;
         } else {
-            DB::table('donacion')->insert(['numResolucion' => $this->numResolucion, 'fechaIngreso' => $this->fechaIngreso, 'descripcion'=>$this->descripcion, 'monto'=>$this->monto,'idTramite'=>$this->idTramite]);
+            DB::table('donacion')->insert(['numResolucion' => $this->numResolucion, 'fechaIngreso' => $this->fechaIngreso, 'descripcion' => $this->descripcion, 'monto' => $this->monto, 'idTramite' => $this->idTramite]);
             return true;
         }
     }
 
-    public function editarDonacion($numeroResoulucion,$descripcion,$fechaDeIngreso)
+    public function editarDonacion($codDonacion)
     {
-        $donacioncod =  DB::select('select codTramite from donacion where numeroResolucion=:numeroResolucion',['numeroResolucion'=>$numeroResoulucion]);
-
-        foreach ($donacioncod as $donacion)
-        {
-            $docd =$donacion-> codTramite;
-        }
-
-        $tramitecod= DB::select('select codTramite from tramite left join donacion on tramite.codTramite = donacion.idTramite where donacion.numeroResoulucion=:numeroResoulucion',['dni'=>$numeroResoulucion]);
-
-        foreach ($tramitecod as $tramites)
-        {
-            $tr = $tramites -> codTramite;
-        }
-
-        DB::table('donacion')->where('codDonacion', $docd)->update(['numeroResolucion' => $numeroResoulucion, 'descripcion'=>$descripcion,'fechaDeIngreso'=>$fechaDeIngreso,'idTramite'=>$tr]);
+        DB::table('donacion')->where('codDonacion', $codDonacion)->update(['numeroResolucion' => $this->numResolucion, 'descripcion' => $this->descripcion, 'fechaDeIngreso' => $this->fechaIngreso]);
     }
 
-    public function eliminarDonacion($numeroResoulucion)
+    public function eliminarDonacion($codDonacion)
     {
-        $donacioncod =  DB::select('select codTramite from donacion where numeroResolucion=:numeroResolucion',['numeroResolucion'=>$numeroResoulucion]);
-
-        foreach ($donacioncod as $donacion)
-        {
-            $docd =$donacion-> codTramite;
-        }
-
-        DB::table('donacion')->where('codDonacion', $docd)->update(['estado' => 0]);
+        DB::table('donacion')->where('codDonacion', $codDonacion)->update(['estado' => 0]);
     }
 
-    public function consultarDonacion()
+    public function consultarDonacionid($codTramite)
     {
-
+        $donacionbd = DB::table('donacion')->where('codDonacion', $codTramite)->get();
+        return $donacionbd;
     }
 
-    public function consultarDonacionFecha()
+    public function consultarDonacionFecha($fechaIngreso)
     {
-
+        $donacionbd = DB::table('donacion')
+            ->where('fechaIngreso', $fechaIngreso)
+            ->where('estado', 1)
+            ->orderBy('codDonacion', 'desc')->get();
+        return $donacionbd;
     }
 
-    public function consularDonacionTramite()
+    public function consultarDonacionCodigoSiaf($clasificador)
     {
-
+        $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
+        tramite.codTramite = donacion.idTramite and tramite.clasificador=:clasificador and tramite.estado=1 and donacion.estado =1', ['clasificador' => $clasificador]);
+        return $donacionbd;
     }
 
-    public function consultarDonacionTipoRecurso()
+    public function consultarDonacionTipoRecurso($tipoRecurso)
     {
-
+        $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
+        tramite.codTramite = donacion.idTramite and tramite.tipoRecurso=:tipoRecurso and tramite.estado=1 and donacion.estado =1', ['tipoRecurso' => $tipoRecurso]);
+        return $donacionbd;
     }
 
-    public function consultarDonacionNumeroResolucion($numeroResolucion)
+    public function consultarDonacionFuenteFinanciamiento($fuentefinanc)
     {
-
+        $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
+        tramite.codTramite = donacion.idTramite and tramite.fuentefinanc=:fuentefinanc and tramite.estado=1 and donacion.estado =1', ['fuentefinanc' => $fuentefinanc]);
+        return $donacionbd;
     }
 
-    public function imprimirReportesDetallados()
+    public function consultarDonacionNumeroResolucion($numResolucion)
     {
-
+        $donacionbd = DB::table('donacion')
+            ->where('numResolucion', $numResolucion)
+            ->where('estado', 1)
+            ->orderBy('codDonacion', 'desc')->get();
+        return $donacionbd;
     }
-
-    public function imprimirReportesResumido()
-    {
-
-    }
-
-
-
-
-
-
 }

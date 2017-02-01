@@ -194,25 +194,31 @@ class subtramitemodel
     {
         //$subtramitebd = DB::table('tramite')->leftJoin('subtramite', 'tramite.codTramite', '=', 'subtramite.idTramite')->where('tramite.nombre', '=',$nombreTramite)->orderBy('tramite.codTramite', 'desc')->get();
         $subtramitebd = DB::select('select * from tramite left join subtramite on tramite.codTramite = subtramite.idTramite where 
-        tramite.codTramite = subtramite.idTramite and tramite.nombre=:nombre',['nombre'=>$nombreTramite]);
+        tramite.codTramite = subtramite.idTramite and tramite.nombre=:nombre and tramite.estado=1 and subtramite.estado=1',['nombre'=>$nombreTramite]);
         return $subtramitebd;
     }
 
     public function consultarSubtramiteNombre($nombreSubtramite)
     {
-        $subtramitebd = DB::table('subtramite')->where('nombre',$nombreSubtramite)->orderBy('codSubtramite', 'desc')->get();
+        $subtramitebd = DB::table('subtramite')
+            ->where('nombre',$nombreSubtramite)
+            ->where('estado',1)
+            ->orderBy('codSubtramite', 'desc')->get();
         return $subtramitebd;
     }
 
     public function consultarSubtramiteCuenta($cuenta)
     {
-        $subtramitebd = DB::table('subtramite')->where('cuenta',$cuenta)->orderBy('codSubtramite', 'desc')->get();
+        $subtramitebd = DB::table('subtramite')
+            ->where('cuenta',$cuenta)
+            ->where('estado',1)
+            ->orderBy('codSubtramite', 'desc')->get();
         return $subtramitebd;
     }
 
-    public function eliminar($nombre)
+    public function eliminarSubtramite($codSubtramite)
     {
-        DB::table('subtramite')->where('nombre', $nombre)->update(['estado' => 0]);
+        DB::table('subtramite')->where('codSubtramite', $codSubtramite)->update(['estado' => 0]);
     }
 
 

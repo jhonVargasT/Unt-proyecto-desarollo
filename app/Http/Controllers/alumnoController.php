@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\alumnomodel;
+use App\personalmodel;
 use App\personamodel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -85,5 +86,12 @@ class alumnoController extends Controller
             }
         }
         return view('Administrador/Alumno/Search')->with(['alumno' => $alu, 'txt' => $request->text, 'select' => $request->select]);
+    }
+
+    public function eliminarAlumno($codPersona,Request $request)
+    {
+        $alumno = new alumnomodel();
+        $alumno->eliminarAlumno($codPersona);
+        return view('Administrador/Alumno/Search')->with(['nombre'=>$request->nombres]);
     }
 }

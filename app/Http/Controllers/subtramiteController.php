@@ -18,10 +18,9 @@ class subtramiteController extends Controller
         $subtramite->setIdTramite($idTra);
         $var = $subtramite->save();
 
-        if($var == true) {
+        if ($var == true) {
             return view('Administrador/Subtramite/Add');
-        }
-        else{
+        } else {
             return view('Administrador/Subtramite/Add');
         }
 
@@ -68,5 +67,12 @@ class subtramiteController extends Controller
             }
         }
         return view('Administrador/Subtramite/Search')->with(['subtramite' => $sub, 'txt' => $request->text, 'select' => $request->select]);
+    }
+
+    public function eliminarSubtramite($codSubtramite,Request $request)
+    {
+        $subtramite = new subtramitemodel();
+        $subtramite->eliminarSubtramite($codSubtramite);
+        return view('Administrador/Subtramite/Search')->with(['nombre'=>$request->nombre]);
     }
 }
