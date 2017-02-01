@@ -1,4 +1,24 @@
 @extends('Administrador.Body')
+@section('estudiante')
+    <div id="collapseTwo" class="collapse in">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <a href="/admBuscarEstudiante" >Buscar Estudiantes</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <a href="/admRegistrarEstudiante">Agregar Estudiante</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+@stop
 @section('content')
 
     <div class="panel panel-primary">
@@ -18,7 +38,7 @@
                     </div>
                 </div>
                 <div class="form-group-sm input-group col-sm-6">
-                    <input type="text" class="form-control" placeholder="Ingresa datos aqui ..">
+                    <input type="text" class="form-control" placeholder="Ingresa datos aqui .." autocomplete="off">
                     <span class="input-group-btn">
 
                             <button class="btn btn-sm" type="button">Buscar</button>
@@ -31,14 +51,14 @@
                 <table class="table table-bordered">
                     <thead>
                     <!--cabecear Tabla-->
-                    <tr>
+                    <tr class="active">
 
-                        <th>Dni</th>
-                        <th>Nombres y apellidos</th>
-                        <th>Codigo alumno</th>
-                        <th>Codigo matricula</th>
-                        <th>Fecha de matricula</th>
-                        <th>Opciones</th>
+                        <th ><div align="center"><small>Dni</small></div></th>
+                        <th><div align="center"><small>Nombres y apellidos</small></div></th>
+                        <th><div align="center"><small>Codigo alumno</small></div></th>
+                        <th><div align="center"><small>Codigo matricula</small></div></th>
+                        <th><div align="center"><small>Fecha de matricula</small></div></th>
+                        <th><div align="center"><small>Opciones</small></div></th>
                     </tr>
                     </thead>
                     <body>

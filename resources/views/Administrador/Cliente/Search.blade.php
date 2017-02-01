@@ -1,4 +1,24 @@
 @extends('Administrador.Body')
+@section('cliente')
+    <div id="collapseClie" class="collapse in">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <a href="/admBuscarCliente" style="color: #509f0c" target="_top">Buscar Clientes</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <a href="/admRegistrarCliente">Agregar Clientes</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+@stop
 @section('content')
     <div class="panel  panel-primary">
         <div class="panel-heading"> Buscar cliente</div>
@@ -18,7 +38,7 @@
                     </div>
                 </div>
                 <div class="form-group-sm input-group col-sm-6">
-                    <input type="text" class="form-control" placeholder="Ingresa datos aqui ..">
+                    <input type="text" class="form-control" placeholder="Ingresa datos aqui .." autocomplete="off">
                         <span class="input-group-btn">
                             <button class="btn btn-sm" type="button">Buscar</button>
                         </span>
@@ -31,15 +51,15 @@
                 <table class="table table-bordered">
                     <thead>
                     <!--cabecear Tabla-->
-                    <tr >
+                    <tr class="active" >
 
-                        <th>Dni</th>
-                        <th>Nombres</th>
-                        <th>Apellidos</th>
-                        <th>Codigo personal</th>
-                        <th>Ruc</th>
-                        <th>Razon social</th>
-                        <th>Opciones</th>
+                        <th><div align="center"><small>Dni</small></div></th>
+                        <th><div align="center"><small>Nombres</small></div></th>
+                        <th><div align="center"><small>Apellidos</small></div></th>
+                        <th><div align="center"><small>Codigo personal</small></div></th>
+                        <th><div align="center"><small>Ruc</small></div></th>
+                        <th><div align="center"><small>Razon social</small></div></th>
+                        <th><div align="center"><small>Opciones</small></div></th>
                     </tr>
                     </thead>
                     <body>

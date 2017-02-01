@@ -152,7 +152,11 @@ class personamodel
     /**
      * @return mixed
      */
-
+    public function obtnerId($idPersona)
+    {
+        $persona=DB::table('persona')->where(['codPersona'=>$idPersona,'estado'=>1])->get();
+        return $persona;
+    }
     public function obtenerCod($vardni)
     {
         $idPersona = DB::select('select codPersona from persona where dni=:dni', ['dni' => $vardni]);

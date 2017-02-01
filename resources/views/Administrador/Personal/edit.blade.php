@@ -1,4 +1,24 @@
 @extends('Administrador.Body')
+@section('personal')
+    <div id="collapseFour" class="collapse in">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <a href="/admBuscarPersonal" style="color: #509f0c" target="_top" autocomplete="off">Buscar Personal</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <a href="/admRegistrarPersonal" >Agregar Personal</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+@stop
 @section('content')
     <fieldset>
         <form class="Horizontal">
@@ -11,13 +31,13 @@
                         <div class="form-group-sm " align="right">
                             <span class="col-sm-2 control-label"> Numero de Dni</span>
                             <div class="col-sm-3">
-                                <input class="form-control input-sm" name="dni" type="text">
+                                <input class="form-control input-sm" name="dni" type="text" autocomplete="off">
                             </div>
                         </div>
                         <div class="form-group-sm">
                             <span class="col-sm-2">Nombres</span>
                             <div class="col-sm-4">
-                                <input class="form-control input-sm" name="nombre" type="text">
+                                <input class="form-control input-sm" name="nombre" type="text" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -25,7 +45,7 @@
                         <div class="form-group-sm">
                             <span class="col-sm-2">Apellidos</span>
                             <div class="col-sm-4">
-                                <input class="form-control input-sm" name="apellido" type="text">
+                                <input class="form-control input-sm" name="apellido" type="text" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -40,7 +60,7 @@
                         <div class="form-group-sm " align="left">
                             <span class="col-sm-2 control-label"> Codigo personal</span>
                             <div class="col-sm-3">
-                                <input class="form-control input-sm" name="codigoPersonal" type="text">
+                                <input class="form-control input-sm" name="codigoPersonal" type="text" autocomplete="off">
                             </div>
                         </div>
                         <div class="form-group-sm row col-sm-6">
@@ -57,13 +77,13 @@
                         <div class="form-group-sm " align="left">
                             <span class="col-sm-2 control-label"> Cuenta</span>
                             <div class="col-sm-3">
-                                <input class="form-control input-sm" name="cuenta" type="text">
+                                <input class="form-control input-sm" name="cuenta" type="text" autocomplete="off">
                             </div>
                         </div>
                         <div class="form-group-sm">
                             <span class="col-sm-2">Contraseña</span>
                             <div class="col-sm-4">
-                                <input class="form-control input-sm" name="contraseña" type="text">
+                                <input class="form-control input-sm" name="contraseña" type="text" autocomplete="off">
                             </div>
                         </div>
                     </div>

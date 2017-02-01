@@ -1,6 +1,6 @@
 @extends('Administrador.Body')
 @section('body')
-<br>
+    <br>
     <div class="panel panel-primary">
         <div class="panel panel-heading"> Reporte Pagos</div>
         <div class="panel-body">
@@ -36,7 +36,7 @@
                             </select>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control input-sm " name="tramite" disabled>
+                            <input type="text" class="form-control input-sm " name="tramite" autocomplete="off" disabled >
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                     </div>
                     <div class="form-group-sm col-sm-4 ">
                         <div class="col-sm-5">
-                            <input type="checkbox" value="">
+                            <input type="checkbox" value="" autocomplete="off">
                             Escuela
                         </div>
                         <div class="col-sm-7 ">
@@ -65,28 +65,28 @@
                     </div>
                     <div class="form-group-sm col-sm-4 ">
                         <div class="col-sm-9">
-                            <input type="checkbox" name="fuenteFin">
+                            <input type="checkbox" name="fuenteFin" autocomplete="off">
                             Fuente de financiamiento
                         </div>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control input-sm " name="fuenteFinanciamiento" disabled>
+                            <input type="text" class="form-control input-sm " name="fuenteFinanciamiento" autocomplete="off" disabled>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm col-sm-4 ">
                         <div class="col-sm-9">
-                            <input type="checkbox" value="">
+                            <input type="checkbox" value="" autocomplete="off">
                             Tipo de recurso
                         </div>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control input-sm " name="tipoDeRecurso" disabled>
+                            <input type="text" class="form-control input-sm " name="tipoDeRecurso" autocomplete="off" disabled>
                         </div>
                     </div>
                     <div class="form-group-sm col-sm-4 ">
                         <span class="col-sm-6 control-label">Fecha:  </span>
                         <div class="col-sm-6 input-group date" data-provide="datepicker">
-                            <input type="text" name="fechaDesde" class="form-control" placeholder="desde">
+                            <input type="text" name="fechaDesde" class="form-control" placeholder="desde" autocomplete="off">
                             <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-th"></span>
                             </div>
@@ -94,7 +94,7 @@
                     </div>
                     <div class="form-group-sm col-sm-4 ">
                         <div class="col-sm-6 input-group date" data-provide="datepicker">
-                            <input type="text" name="fechaHasta" class="form-control" placeholder="hasta">
+                            <input type="text" name="fechaHasta" class="form-control" placeholder="hasta" autocomplete="off">
                             <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-th"></span>
                             </div>
@@ -116,25 +116,72 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 row form-group ">
-                    <div class="table-responsive col-sm-12">
-                        <table class="table table-bordered list-inline">
+                <div  align="center" class="col-sm-12 row form-group " >
+                    <div class="table-responsive col-sm-12" >
+                        <table class="table table-bordered list-inline" >
                             <thead>
                             <!--cabecear Tabla-->
                             <tr class="active">
 
-                                <th><h5>Id pago</h5></th>
-                                <th><h5>Tipo tramite</h5></th>
-                                <th><h5>boucherl</h5></th>
-                                <th><h5>fecha de pago</h5></th>
-                                <th><h5>cuenta SIAF</h5></th>
-                                <th><h5>Cuenta contable</h5></th>
-                                <th><h5>Facultad</h5></th>
-                                <th><h5>Escuela</h5></th>
-                                <th><h5>Monto</h5></th>
-                                <th><h5>Mondalidad</h5></th>
-                                <th><h5>Nombre Cajero</h5></th>
-                                <th><h5>Opciones</h5></th>
+                                <th>
+                                    <div align="center"><small>Id pago</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>Tipo tramite</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>boucherl</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>fecha de pago</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>cuenta SIAF</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>Cuenta contable</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>Facultad</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>Escuela</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>Monto</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>Mondalidad</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>Nombre Cajero</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>Opciones</small>
+                                    </div>
+                                </th>
                             </tr>
                             </thead>
                             <body>
@@ -179,14 +226,14 @@
                     <div class="col-sm-12 row form-group">
                         <div class="col-md-3"></div>
                         <div class="col-md-2">
-                            <button href="RegistrarEstudiante" class="btn btn-xs btn-primary"><span
+                            <a href="/Adm" class="btn  btn-primary"><span
                                         class="glyphicon glyphicon-arrow-left"></span> Regresar
-                            </button>
+                            </a>
                         </div>
 
                         <div class="col-md-2"></div>
                         <div class="col-md-2">
-                            <button href="#" class="btn btn-xs btn-primary">Imprimir <span
+                            <button href="#" class="btn  btn-primary">Imprimir <span
                                         class="glyphicon glyphicon-print"></span></button>
                         </div>
 

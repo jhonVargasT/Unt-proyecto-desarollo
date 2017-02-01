@@ -15,19 +15,20 @@
                                 Pagos</a>
                         </h4>
                     </div>
+                    @yield('pago')
                     <div id="collapseOne" class="panel-collapse collapse">
                         <div class="panel-body">
                             <table class="table">
                                 <tr>
                                     <td>
                                         <i class="icomoon icon-coin"></i>
-                                        <a href="#">Realizar pago</a>
+                                        <a href="/ventRelizarPago">Realizar pago</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <i class="glyphicon glyphicon-list-alt"></i>
-                                        <a href="#">Mostrar pagos</a>
+                                        <a href="/ventReportPago">Mostrar pagos</a>
                                     </td>
                                 </tr>
                             </table>
@@ -43,19 +44,20 @@
                             </span> Estudiantes</a>
                         </h4>
                     </div>
+                    @yield('estudiante')
                     <div id="collapseTwo" class="panel-collapse collapse">
                         <div class="panel-body">
                             <table class="table">
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="/BuscarEstudiante">Buscar Estudiantes</a>
+                                        <a href="/ventBuscarEstudiante">Buscar Estudiantes</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="/RegistrarEstudiante">Agregar Estudiante</a>
+                                        <a href="/ventRegistrarEstudiante">Agregar Estudiante</a>
                                     </td>
                                 </tr>
                             </table>
@@ -71,13 +73,14 @@
                             </span> Clientes</a>
                         </h4>
                     </div>
+                    @yield('cliente')
                     <div id="collapseClie" class="panel-collapse collapse">
                         <div class="panel-body">
                             <table class="table">
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="/ventBuscarEstudiante">Buscar Clientes</a>
+                                        <a href="/ventBuscarCliente">Buscar Clientes</a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -95,7 +98,6 @@
             </div>
         </div>
         <div class="col-sm-9  ">
-
             @yield('content')
         </div>
     </div>

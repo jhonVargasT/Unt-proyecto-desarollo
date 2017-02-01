@@ -6,13 +6,13 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/BuscarFacultad " style="color: #509f0c">Buscar Facultades</a>
+                        <a href="/admBuscarFacultad " style="color: #509f0c">Buscar Facultades</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/RegistrarFacultad"  target="_top" >Agregar Facultad</a>
+                        <a href="/admRegistrarFacultad"  target="_top" >Agregar Facultad</a>
                     </td>
                 </tr>
             </table>

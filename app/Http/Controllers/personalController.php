@@ -35,16 +35,32 @@ class personalController extends Controller
     public function loguearPersonal(Request $request)
     {
         $personal = new personalmodel();
+        $perso = new personamodel();
         $personal->setCuenta($request->cuenta);
-        $personal->setPassword($request->contraseña);
-        $persona = $personal->logear();
+        $personal->setPassword($request->password);
+        $person = $personal->logear();
 
-
-        if ($persona != null) {
-            return view('Administrador/Tramite/add', ['persona' => $persona]);
-        } else {
-            return view('nope');
+        foreach ($person as $per) {
+            $personal->setCuenta($per->cuenta);
+            $personal->setPassword($per->password);
+            $personal->setTipoCuenta($per->tipoCuenta);
+            $persona = $perso->obtnerId($per->codPersonal);
+            foreach ($persona as $p) {
+                $personal->setNombres($p->nombres);
+                $personal->setApellidos($p->apellidos);
+            }
         }
+        if ($personal->getTipoCuenta() == 'Administrador' && $personal->getCuenta() != '') {
+            return view('/Administrador/body');
+
+        } else {
+            if ($personal->getTipoCuenta() == 'Ventanilla'&& $personal->getCuenta() != '') {
+                return view('Ventanilla/Body');
+            } else {
+                return back()->with('true', 'Cuenta ' . $personal->getCuenta(). ' no encontrada o contraseña incorrecta')->withInput();
+            }
+        }
+
     }
 
     public function cargarPersonal($idPersona)

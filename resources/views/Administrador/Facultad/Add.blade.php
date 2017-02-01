@@ -6,13 +6,13 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/BuscarFacultad">Buscar Facultades</a>
+                        <a href="/admBuscarFacultad">Buscar Facultades</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/RegistrarFacultad" style="color: #509f0c" target="_top" >Agregar Facultad</a>
+                        <a href="/admRegistrarFacultad" style="color: #509f0c" target="_top" >Agregar Facultad</a>
                     </td>
                 </tr>
             </table>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-sm-12 row form-group">
                     <div class="col-md-3"></div>
-                    <a href="{{url('/Layout')}}" class=" col-md-2 btn btn-sm btn-danger"><span
+                    <a href="/Adm" class=" col-md-2 btn btn-sm btn-danger"><span
                                 class="glyphicon glyphicon-ban-circle"></span>
                         Regresar
                     </a>

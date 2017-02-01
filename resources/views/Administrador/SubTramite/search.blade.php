@@ -1,4 +1,24 @@
 @extends('Administrador.Body')
+@section('subtramite')
+    <div id="collapseSix" class="in collapse">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <a href="/admBuscarSubtramite" style="color: #509f0c" target="_top" autocomplete="off">Buscar SubTramites</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <a href="/admRegistrarSubtramite">Agregar SubTramite</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+@stop
 @section('content')
     <div class="panel panel-primary">
 
@@ -30,13 +50,13 @@
                 <table class="table table-bordered">
                     <head>
                         <!--cabecear Tabla-->
-                        <tr>
+                        <tr class="active">
 
-                            <th>Nombre Tramite</th>
-                            <th>Cuenta contable</th>
-                            <th>Nombre de subtramite</th>
-                            <th>Precio</th>
-                            <th>Opciones</th>
+                            <th><div align="center"><small>Nombre Tramite</small></div></th>
+                            <th><div align="center"><small>Cuenta contable</small></div></th>
+                            <th><div align="center"><small>Nombre de subtramite</small></div></th>
+                            <th><div align="center"><small>Precio</small></div></th>
+                            <th><div align="center"><small>Opciones</small></div></th>
 
                         </tr>
                     </head>

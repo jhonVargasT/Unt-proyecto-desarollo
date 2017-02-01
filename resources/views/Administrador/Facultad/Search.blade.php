@@ -6,13 +6,13 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/BuscarFacultad " style="color: #509f0c">Buscar Facultades</a>
+                        <a href="/admBuscarFacultad " style="color: #509f0c">Buscar Facultades</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/RegistrarFacultad"  target="_top" >Agregar Facultad</a>
+                        <a href="/admRegistrarFacultad" target="_top">Agregar Facultad</a>
                     </td>
                 </tr>
             </table>
@@ -58,23 +58,31 @@
                     <div class="alert alert-success" role="alert">La facultad {{$nombre}} fue actualizada!!</div>
                 @endif
                 @if(isset($delete)==true)
-                        <div class="alert alert-success" role="alert"> Facultad eliminada!!</div>
-                    @endif
+                    <div class="alert alert-success" role="alert"> Facultad eliminada!!</div>
+                @endif
                 <table class="table table-bordered">
                     <thead>
                     <!--cabecear Tabla-->
                     <tr class="active">
                         <th>
-                            <div align="center">Codigo facultad</div>
+                            <div align="center">
+                                <small><strong>Codigo facultad</strong></small>
+                            </div>
                         </th>
                         <th>
-                            <div align="center">Nombre Facultad</div>
+                            <div align="center">
+                                <small><strong>Nombre Facultad</strong></small>
+                            </div>
                         </th>
                         <th>
-                            <div align="center">Cuenta Interna</div>
+                            <div align="center">
+                                <small><strong>Cuenta Interna</strong></small>
+                            </div>
                         </th>
                         <th>
-                            <div align="center">Opciones</div>
+                            <div align="center">
+                                <small><strong>Opciones</strong></small>
+                            </div>
                         </th>
                     </tr>
                     </thead>
@@ -83,9 +91,15 @@
                             <!--Contenido-->
                     @foreach($facultad as $f)
                         <tr>
-                            <td>{{$f->codFacultad}}</td>
-                            <td>{{$f->nombre}}</td>
-                            <td>{{$f->nroCuenta}}</td>
+                            <td>
+                                <small>{{$f->codFacultad}}</small>
+                            </td>
+                            <td>
+                                <small>{{$f->nombre}}</small>
+                            </td>
+                            <td>
+                                <small>{{$f->nroCuenta}}</small>
+                            </td>
                             <td align="center">
                                 {{ csrf_field() }}
                                 <a href="FacultadCargar/{{$f->idFacultad}}"><span

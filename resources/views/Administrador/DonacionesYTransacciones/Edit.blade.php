@@ -1,5 +1,24 @@
 @extends('Administrador.Body')
-
+@section('donaciones')
+    <div id="collapseSeven" class="collapse in">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <a href="/admBuscarDonaciones" style="color: #509f0c" target="_top" >Buscar Donaciones y transacciones</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <a href="/admRegistrarDonaciones" >Agregar Donaciones y transacciones</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+@stop
 @section('content')
     <fieldset>
         <form class="form-Vertical">
@@ -11,13 +30,13 @@
                 <div class="form-group-sm " align="left">
                    <span class="col-sm-2 control-label"  > Clasificador Siaf </span>
                     <div class="col-sm-5">
-                        <input class="form-control input-sm" name="clasificadorSiaf" type="text" >
+                        <input class="form-control input-sm" name="clasificadorSiaf" type="text" autocomplete="off" >
                     </div>
                 </div>
                 <div class=" form-group-sm" align="left">
                     <span class="col-sm-2 control-label">Fecha </span>
                     <div class="col-sm-3">
-                        <input class="form-control" name="fechaDeIngreso" type="text">
+                        <input class="form-control" name="fechaDeIngreso" type="text" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -25,13 +44,13 @@
                 <div class="form-group-sm " align="left">
                     <span class="col-sm-2 control-label">Tipo de recurso </span>
                     <div class="col-sm-5">
-                        <input class="form-control input-sm "name="TipoDeRecurso" type="text">
+                        <input class="form-control input-sm "name="TipoDeRecurso" type="text" autocomplete="off">
                     </div>
                 </div>
                 <div class=" form-group-sm" align="left">
                     <span class="col-sm-2 control-label">Monto </span>
                     <div class="col-sm-3">
-                        <input class="form-control" name="monto" type="text">
+                        <input class="form-control" name="monto" type="text" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -47,7 +66,7 @@
                 <div class="form-group-sm ">
                     <span class="col-sm-2 control-label">Numero de resolucion </span>
                     <div class="col-sm-3">
-                        <input class="form-control " name="numeroResolucion" type="text">
+                        <input class="form-control " name="numeroResolucion" type="text" autocomplete="off">
                     </div>
                 </div>
 

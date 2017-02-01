@@ -1,4 +1,24 @@
 @extends('Administrador.Body')
+@section('escuela')
+    <div id="collapseThree" class="in collapse">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <a href="/admBuscarEscuela" style="color: #509f0c" target="_top">Buscar Escuelas</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <a href="/admRegistrarEscuela">Agregar Escuela</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+@stop
 @section('content')
     <div class="panel panel-primary">
         <div class=" panel-heading">Buscar escuelas</div>
@@ -17,7 +37,7 @@
                     </div>
                 </div>
                 <div class="form-group-sm input-group col-sm-6">
-                    <input type="text" class="form-control" placeholder="Ingresa datos aqui ..">
+                    <input type="text" class="form-control" placeholder="Ingresa datos aqui .." autocomplete="off">
                     <span class="input-group-btn">
                         <button class="btn btn-sm" type="button">Buscar</button>
                     </span>
@@ -29,13 +49,13 @@
                 <table class="table table-bordered">
                     <head>
                         <!--cabecear Tabla-->
-                        <tr>
+                        <tr class="active">
 
-                            <th>Codigo Escuela</th>
-                            <th>Facultad</th>
-                            <th>Cuenta interna</th>
-                            <th>Nombre Escuela</th>
-                            <th>Opciones</th>
+                            <th><div align="center"><small>Codigo Escuela</small></div></th>
+                            <th><div align="center"><small>Facultad</small></div></th>
+                            <th><div align="center"><small>Cuenta interna</small></div></th>
+                            <th><div align="center"><small>Nombre Escuela</small></div></th>
+                            <th><div align="center"><small>Opciones</small></div></th>
 
                         </tr>
                     </head>

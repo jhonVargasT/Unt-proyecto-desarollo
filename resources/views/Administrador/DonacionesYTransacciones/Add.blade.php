@@ -1,4 +1,24 @@
 @extends('Administrador.Body')
+@section('donaciones')
+    <div id="collapseSeven" class="collapse in">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <a href="/admBuscarDonaciones">Buscar Donaciones y transacciones</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <a href="/admRegistrarDonaciones" style="color: #509f0c" target="_top">Agregar Donaciones y transacciones</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+@stop
 @section('content')
     <div class="panel panel-primary">
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -18,7 +38,7 @@
                         <div class="col-sm-5">
                             <div class="input-group col-sm-6">
                                 <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
-                                       name="nombreTramite" id="name">
+                                       name="nombreTramite" id="name" autocomplete="off">
                                 <script type="text/javascript">
                                     var path = "{{ route('autocompletet') }}";
                                     $('input.typeahead').typeahead({
@@ -35,7 +55,7 @@
                     <div class=" form-group-sm" align="left">
                         <span class="col-sm-2 control-label">Fecha </span>
                         <div class="col-sm-3">
-                            <input class="form-control" name="fechaIngreso" type="text">
+                            <input class="form-control" name="fechaIngreso" type="text" autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -43,12 +63,12 @@
                     <div class="form-group-sm " align="left">
                         <span class="col-sm-2 control-label">Tipo de recurso </span>
                         <div class="col-sm-5">
-                            <input class="form-control input-sm " name="TipoDeRecurso" type="text" value="">
+                            <input class="form-control input-sm " name="TipoDeRecurso" type="text" autocomplete="off">
                         </div>
                         <div class=" form-group-sm" align="left">
                             <span class="col-sm-2 control-label">Monto </span>
                             <div class="col-sm-3">
-                                <input class="form-control" name="monto" type="text">
+                                <input class="form-control" name="monto" type="text" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -64,14 +84,14 @@
                         <div class="form-group-sm ">
                             <span class="col-sm-2 control-label">Numero de resolucion </span>
                             <div class="col-sm-3">
-                                <input class="form-control " name="numResolucion" type="text">
+                                <input class="form-control " name="numResolucion" type="text" autocomplete="off">
                             </div>
                         </div>
 
                     </div>
                     <div class="col-sm-12 row form-group">
                         <div class="col-md-3"></div>
-                        <a href="#" class=" col-md-2 btn btn-sm btn-danger"><span
+                        <a href="/Adm" class=" col-md-2 btn btn-sm btn-danger"><span
                                     class="glyphicon glyphicon-ban-circle"></span>
                             Cancelar</a>
                         <div class="col-md-2"></div>

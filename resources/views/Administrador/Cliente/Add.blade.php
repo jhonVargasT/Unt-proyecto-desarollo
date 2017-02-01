@@ -1,8 +1,28 @@
 @extends('Administrador.Body')
+@section('cliente')
+    <div id="collapseClie" class="collapse in">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <a href="/admBuscarCliente">Buscar Clientes</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <a href="/admRegistrarCliente" style="color: #509f0c" target="_top">Agregar Clientes</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+@stop
 @section('content')
     <div class="panel panel-primary">
 
-            <div class="panel panel-heading"> Agregar cliente</div>
+        <div class="panel panel-heading"> Agregar cliente</div>
         <div class="panel-body">
             <form name="form" action="{{url('ClienteRegistrado')}}" role="form" method="POST" class="Horizontal">
                 {{csrf_field()}}
@@ -14,7 +34,7 @@
                             <div class="form-group-sm " align="right">
                                 <span class="col-sm-2 control-label"> Numero de Dni</span>
                                 <div class="col-sm-3">
-                                    <input class="form-control input-sm" name="dni" type="text">
+                                    <input class="form-control input-sm" name="dni" type="text" autocomplete="off">
                                 </div>
                                 <div class="col-sm-1">
                                 </div>
@@ -22,7 +42,7 @@
                             <div class="form-group-sm">
                                 <span class="col-sm-2">Nombres</span>
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="nombres" type="text">
+                                    <input class="form-control input-sm" name="nombres" type="text" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -30,7 +50,7 @@
                             <div class="form-group-sm">
                                 <span class="col-sm-2">Apellidos</span>
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="apellidos" type="text">
+                                    <input class="form-control input-sm" name="apellidos" type="text" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -43,12 +63,12 @@
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label"> Ruc:</span>
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="ruc" type="text">
+                                    <input class="form-control input-sm" name="ruc" type="text" autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label"> Razon social</span>
-                            <textarea class="col-sm-4" name="razonSocial">
+                            <textarea class="col-sm-4" name="razonSocial" >
                             </textarea>
                             </div>
                         </div>
@@ -56,12 +76,12 @@
                 </div>
                 <div class="col-sm-12 row form-group">
                     <div class="col-md-3"></div>
-                    <a href="#" class=" col-md-2 btn btn-sm btn-danger"><span
+                    <a href="/Adm" class=" col-md-2 btn btn-sm btn-danger"><span
                                 class="glyphicon glyphicon-ban-circle"></span>
                         Cancelar</a>
                     <div class="col-md-2"></div>
                     <button type="submit" name="enviar" class="col-md-2 btn btn-success"><span
-                                class="glyphicon glyphicon-ok"></span> Guardar
+                                class="glyphicon glyphicon-ok" ></span> Guardar
                     </button>
                     <div class="col-md-3"></div>
                 </div>

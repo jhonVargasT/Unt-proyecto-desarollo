@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
     <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/font-awesome/css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/form-elements.css')}}">
+
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -36,7 +36,7 @@
           href="{{asset('assets/ico/apple-touch-icon-72-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" href="{{asset('assets/ico/apple-touch-icon-57-precomposed.png')}}">
     <script>window.Laravel = <?php echo json_encode([
-            'csrfToken' => csrf_token(),]); ?>
+                'csrfToken' => csrf_token(),]); ?>
     </script>
     <script>
         $(document).ready(function () {
@@ -45,50 +45,62 @@
     </script>
 </head>
 
-<body>
-
+<body style="background-color:  #ccd0d2">
 <!-- Top content -->
-<div class="top-content">
+<div class="container col-sm-12">
+    <div class="container col-sm-12"><br> <br> <br> <br> <br> <br> <br> <br><br></div>
+    <div class="container col-sm-12">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading" align="left">Por favor ingrese sus datos</div>
+                <div class="panel-body">
+                    @if(session()->has('true'))
+                        <div class="alert alert-danger" role="alert">{{session('true')}} </div>
+                    @endif
+                    <div class="col-sm-5">
+                        <div class="col-sm-12"><strong> UNIVERSIDAD NACIONAL DE TRUJILLO </strong></div>
 
-    <div class="inner-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-8 col-sm-offset-2 text">
-                    <h1><strong>Sistema</strong> UNT-Tesoreria</h1>
-
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 col-sm-offset-3 form-box">
-                    <div class="form-top">
-                        <div class="form-top-left">
-                            <h3>Acceder al Sistema</h3>
-                            <p>Introduzca su nombre de usuario y contraseña:</p>
+                        <div class="col-sm-12">
+                            <img src="{{ asset('assets/img/index.jpg') }}">
                         </div>
-                        <div class="form-top-right">
-                            <i class="fa fa-lock"></i>
-                        </div>
+                        <div class="col-sm-12"> Tesoreria</div>
                     </div>
-                    <div class="form-bottom">
-                        <form name="form" action="{{url('RegistrarTramite')}}" role="form" method="POST" class="login-form">
+                    <div class="col-sm-7">
+                        <form action="{{url('/loguear')}}" role="form" method="POST" class="Vertical">
                             {{csrf_field()}}
-                            <div class="form-group">
-                                <label class="sr-only" for="form-username">Cuenta</label>
-                                <input type="text" name="cuenta" placeholder="Usuario..."
-                                       class="form-username form-control" id="form-username">
+                            <div class="col-sm-12" align="left">
+                                <label for="inputEmail">Cuenta :</label>
+                                <input type="text" name="cuenta" class="form-control" placeholder="Ejemp: xvzlo"
+                                       required=""
+                                       autofocus="">
                             </div>
-                            <div class="form-group">
-                                <label class="sr-only" for="form-password">Contraseña</label>
-                                <input type="password" name="contraseña" placeholder="Contraseña..."
-                                       class="form-password form-control" id="form-password">
+                            <div class="col-sm-12" align="left">
+                                <label for="inputPassword">Contraseña :</label>
+                                <input align="center" type="password" name="password" class="form-control"
+                                       placeholder="Contraseña" required="">
+                                <br>
                             </div>
-                            <button type="submit" name="enviar" class="btn">Ingresar</button>
+
+                            <div class="col-sm-12">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-6">
+                                    <button class="btn btn-sm btn-primary btn-block " type="submit">Ingresar</button>
+                                </div>
+                                <div class="col-sm-3"></div>
+
+                            </div>
                         </form>
                     </div>
-                </div>
-            </div>
 
+                </div>
+                <br>
+            </div>
+            <footer class="footer row col-xs-12">
+                <p align="right">© 2016 ÑuxtuSoft, S.A.C.</p>
+            </footer>
         </div>
+        <div class="col-sm-4"></div>
     </div>
 </div>
 
@@ -126,8 +138,6 @@
 <script src="{{asset('assets/js/placeholder.js')}}"></script>
 <![endif]-->
 
-<footer class="footer row col-xs-12">
-    <p align="right">© 2016 ÑuxtuSoft, S.A.C.</p>
-</footer>
+
 </body>
 </html>
