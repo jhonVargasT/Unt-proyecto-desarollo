@@ -11,13 +11,10 @@ class personalController extends Controller
 {
     public function registrarPersonal(Request $request)
     {
-        $persona = new personamodel();
-        $persona->setDni($request->dni);
-        $persona->setNombres($request->nombres);
-        $persona->setApellidos($request->apellidos);
-        $per = $persona->save('personal', $request->cuenta);
-
         $personal = new personalmodel();
+        $personal->setDni($request->dni);
+        $personal->setNombres($request->nombres);
+        $personal->setApellidos($request->apellidos);
         $personal->setCuenta($request->cuenta);
         $personal->setPassword($request->contraseña);
         $personal->setTipoCuenta($request->tipocuenta);
@@ -25,10 +22,10 @@ class personalController extends Controller
         $personal->setIdPersona($co);
         $p = $personal->savepersonal();
 
-        if ($per && $p == true) {
-            return view('/Administrador/Personal/add');
+        if ($p == true) {
+            return back()->with('true', 'Personal ' . $request->nombres . ' guardada con exito')->withInput();
         } else {
-            return view('/Administrador/Personal/add');
+            return back()->with('false', 'Personal ' . $request->nombres . ' no guardada, puede que ya exista');
         }
     }
 

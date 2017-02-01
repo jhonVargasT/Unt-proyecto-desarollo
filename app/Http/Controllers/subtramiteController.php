@@ -16,14 +16,13 @@ class subtramiteController extends Controller
         $subtramite->setPrecio($request->precio);
         $idTra = $subtramite->bdTramite($request->nombreTramite);
         $subtramite->setIdTramite($idTra);
-        $var = $subtramite->save();
+        $sub = $subtramite->save();
 
-        if ($var == true) {
-            return view('Administrador/Subtramite/Add');
+        if ($sub == true) {
+            return back()->with('true', 'Subtramite ' . $request->nombre . ' guardada con exito')->withInput();
         } else {
-            return view('Administrador/Subtramite/Add');
+            return back()->with('false', 'Subtramite ' . $request->nombre . ' no guardada, puede que ya exista');
         }
-
     }
 
     public function autocomplete(Request $request)
@@ -69,10 +68,10 @@ class subtramiteController extends Controller
         return view('Administrador/Subtramite/Search')->with(['subtramite' => $sub, 'txt' => $request->text, 'select' => $request->select]);
     }
 
-    public function eliminarSubtramite($codSubtramite,Request $request)
+    public function eliminarSubtramite($codSubtramite, Request $request)
     {
         $subtramite = new subtramitemodel();
         $subtramite->eliminarSubtramite($codSubtramite);
-        return view('Administrador/Subtramite/Search')->with(['nombre'=>$request->nombre]);
+        return view('Administrador/Subtramite/Search')->with(['nombre' => $request->nombre]);
     }
 }

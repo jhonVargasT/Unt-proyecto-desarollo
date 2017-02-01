@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Support\Facades\DB;
+use PDOException;
 
 class clientemodel extends personamodel
 {
@@ -10,7 +11,8 @@ class clientemodel extends personamodel
     private $razonSocial;
     private $idPersona;
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
 
     }
@@ -47,7 +49,8 @@ class clientemodel extends personamodel
         $this->razonSocial = $razonSocial;
     }
 
-    public function persona() {
+    public function persona()
+    {
         return $this->belongsTo('personamodel');
     }
 
@@ -71,94 +74,46 @@ class clientemodel extends personamodel
 
     public function bdPersona($dni)
     {
-        $persona= DB::select('select codPersona from persona where dni=:dni',['dni' => $dni]);
+        $persona = DB::select('select codPersona from persona where dni=:dni', ['dni' => $dni]);
 
-        foreach ($persona as $pers)
-        {
-           return $per = $pers->codPersona;
+        foreach ($persona as $pers) {
+            return $per = $pers->codPersona;
         }
     }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    public function consultarClientes()
-    {
-        $clientebd= DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona');
-
-        foreach ($clientebd as $clientes)
-        {
-            $cl = $clientes-> todoslosatributos;
-        }
-
-        return $cl;
-    }
-
-    public function extraerCodigosPersona($dni)
-    {
-        $clientecd= DB::select('select codPersona from persona left join cliente on persona.codPersona = cliente.idPersona where persona.dni=:dni',['dni'=>$dni]);
-
-        foreach ($clientecd as $clientes)
-        {
-            $cl = $clientes-> codPersona;
-        }
-
-        return $cl;
-    }
 
     public function savecliente()
     {
-        $clienter = DB::select('select * from cliente where ruc=:ruc', ['ruc' => $this->ruc]);
+        try {
+            DB::transaction(function () {
 
-        if ($clienter != null) {
+                DB::table('persona')->insert(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos()]);
+                DB::table('cliente')->insert(['ruc' => $this->ruc, 'razonSocial' => $this->razonSocial, 'idPersona' => $this->idPersona]);
+                return true;
+            });
+        } catch (PDOException $e) {
             return false;
-        } else {
-            DB::table('cliente')->insert(['ruc' => $this->ruc, 'razonSocial' => $this->razonSocial, 'idPersona' => $this->idPersona]);
-            return true;
         }
-    }
-
-
-    public function consultarCliente($dni)
-    {
-        $clientes = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where persona.dni=:dni', ['dni' => $dni]);
-
-        foreach ($clientes as $cli) {
-            $cl = $cli->todoslosatributos;
-        }
-
-        return $cl;
-    }
-
-    public function consultarClienteRuc($ruc)
-    {
-        $clienteruc= DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where ruc=:ruc',['ruc'=>$ruc]);
-
-        foreach ($clienteruc as $cli)
-        {
-            $cl = $cli-> todoslosatributos;
-        }
-
-        return $cl;
     }
 
     public function editarCliente($codPersona)
     {
-        DB::table('persona')->where('codPersona', $codPersona)->update(['nombres' => $this->getDni(), 'nombres'=>$this->getNombres(), 'apellidos'=>$this->getApellidos()]);
-        DB::table('cliente')->where('idPersona', $codPersona)->update(['ruc' => $this->ruc, 'razonSocial'=>$this->razonSocial]);
+        DB::table('persona')->where('codPersona', $codPersona)->update(['nombres' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos()]);
+        DB::table('cliente')->where('idPersona', $codPersona)->update(['ruc' => $this->ruc, 'razonSocial' => $this->razonSocial]);
     }
 
     public function consultarAlumnoDNI($dni)
     {
         $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
-        persona.codPersona = cliente.idPersona and persona.dni=:dni and persona.estado = 1',['dni'=>$dni]);
-        //$clientebd = DB::table('persona')->leftJoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')->where('persona.dni', '=',$dni)->orderBy('persona.codPersona', 'desc')->get();
+        persona.codPersona = cliente.idPersona and persona.dni=:dni and persona.estado = 1', ['dni' => $dni]);
         return $clientebd;
     }
 
     public function consultarAlumnoApellidos($apellidos)
     {
         $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
-        persona.codPersona = cliente.idPersona and persona.apellidos=:apellidos and persona.estado=1',['apellidos'=>$apellidos]);
-        //$alumnobd = DB::table('persona')->leftJoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')->where('persona.apellidos', '=', $apellidos)->orderBy('persona.codPersona', 'desc')->get();
+        persona.codPersona = cliente.idPersona and persona.apellidos=:apellidos and persona.estado=1', ['apellidos' => $apellidos]);
         return $clientebd;
     }
 
@@ -181,7 +136,7 @@ class clientemodel extends personamodel
     public function consultarClienteid($codPersona)
     {
         $alumnobd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
-        persona.codPersona = cliente.idPersona and persona.codPersona=:codPersona',['codPersona'=>$codPersona]);
+        persona.codPersona = cliente.idPersona and persona.codPersona=:codPersona', ['codPersona' => $codPersona]);
         return $alumnobd;
     }
 

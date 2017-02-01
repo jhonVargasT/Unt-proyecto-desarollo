@@ -18,12 +18,12 @@ class donacionController extends Controller
         $nombreT = $request->nombreTramite;
         $idD = $donacion->bdTramite($nombreT);
         $donacion->setIdTramite($idD);
-        $don = $donacion->save();
+        $dona= $donacion->saveDonacion();
 
-        if ($don == true) {
-            return view('Administrador/DonacionesYTransacciones/Add');
+        if ($dona == true) {
+            return back()->with('true', 'Donacion ' . $request->numResolucion . ' guardada con exito')->withInput();
         } else {
-            return view('Administrador/DonacionesYTransacciones/Add');
+            return back()->with('false', 'Donacion ' . $request->numResolucion . ' no guardada, puede que ya exista');
         }
     }
 

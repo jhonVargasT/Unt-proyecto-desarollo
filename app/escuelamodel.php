@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Support\Facades\DB;
+use PDOException;
 
 class escuelamodel
 {
@@ -108,24 +109,6 @@ class escuelamodel
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function consultarEscuela($nombre)
-    {
-        $escuela = DB::select('select * from escuela where nombre=:nombre', ['nombre' => $nombre]);
-        foreach ($escuela as $escu) {
-            $es = $escu->todoslosatributos;
-        }
-        return $es;
-    }
-
-    public function consultarEscuelas()
-    {
-        $escuelas = DB::select('select * from escuela ');
-        foreach ($escuelas as $escuela) {
-            $es = $escuela->todoslosatributos;
-        }
-        return $es;
-    }
-
     public function consultarEscuelaid($idEscuela)
     {
         $escuelabd = DB::table('escuela')->where('idEscuela', $idEscuela)->get();
@@ -164,32 +147,20 @@ class escuelamodel
         return $escuelabd;
     }
 
-    public function eliminarEscuelaPorFacultad($nombre)
-    {
-        $facultadie = DB::select('select idFacultad, estado from facultad left join escuela on facultad.idFacultad = escuela.codFacultad where escuela.nombre=:nombre', ['nombre' => $nombre]);
-        foreach ($facultadie as $facultad) {
-            $cf = $facultad->idFacultad;
-            $ef = $facultad->estado;
-        }
-        if ($ef == 0) {
-            DB::table('escuela')->where('coFacultad', $cf)->update(['estado' => 0]);
-        }
-    }
-
     public function eliminarEscuela($idEscuela)
     {
         DB::table('escuela')->where('idEscuela', $idEscuela)->update(['estado' => 0]);
     }
 
-    public function save()
+    public function saveescuela()
     {
-        $escuelabd = DB::select('select * from escuela where codEscuela=:codEscuela and nombre=:nombre and nroCuenta=:nroCuenta', ['codEscuela' => $this->codEscuela, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta]);
-
-        if ($escuelabd != null) {
-            return false;
-        } else {
-            DB::table('escuela')->insert(['codEscuela' => $this->codEscuela, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta, 'codigoFacultad' => $this->facultad]);
+        try {
+            DB::transaction(function () {
+                DB::table('escuela')->insert(['codEscuela' => $this->codEscuela, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta, 'codigoFacultad' => $this->facultad]);
+            });
             return true;
+        } catch (PDOException $e) {
+            return false;
         }
     }
 

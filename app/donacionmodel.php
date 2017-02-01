@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Support\Facades\DB;
+use PDOException;
 
 class donacionmodel
 {
@@ -139,15 +140,16 @@ class donacionmodel
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function save()
+    public function saveDonacion()
     {
-        $donacion = DB::select('select * from donacion where numResolucion=:numResolucion ', ['numResolucion' => $this->numResolucion]);
+        try {
+            DB::transaction(function () {
 
-        if ($donacion != null) {
+                DB::table('donacion')->insert(['numResolucion' => $this->numResolucion, 'fechaIngreso' => $this->fechaIngreso, 'descripcion' => $this->descripcion, 'monto' => $this->monto, 'idTramite' => $this->idTramite]);
+                return true;
+            });
+        } catch (PDOException $e) {
             return false;
-        } else {
-            DB::table('donacion')->insert(['numResolucion' => $this->numResolucion, 'fechaIngreso' => $this->fechaIngreso, 'descripcion' => $this->descripcion, 'monto' => $this->monto, 'idTramite' => $this->idTramite]);
-            return true;
         }
     }
 

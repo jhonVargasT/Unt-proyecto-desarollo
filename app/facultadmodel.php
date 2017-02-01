@@ -4,6 +4,7 @@ namespace App;
 
 
 use Illuminate\Support\Facades\DB;
+use PDOException;
 
 class facultadmodel
 {
@@ -125,15 +126,15 @@ class facultadmodel
 
     public function consultarFacultadid($idFacultad)
     {
-        $facultadbd = DB::table('facultad')->where('idFacultad',$idFacultad)->get();
+        $facultadbd = DB::table('facultad')->where('idFacultad', $idFacultad)->get();
         return $facultadbd;
     }
 
     public function consultarFacultadesCodigo($codigo)
     {
         $facultadbd = DB::table('facultad')
-            ->where('codFacultad',$codigo)
-            ->where('estado',1)->orderBy('idFacultad', 'desc')->get();
+            ->where('codFacultad', $codigo)
+            ->where('estado', 1)->orderBy('idFacultad', 'desc')->get();
         return $facultadbd;
     }
 
@@ -141,7 +142,7 @@ class facultadmodel
     {
         $facultadbd = DB::table('facultad')
             ->where('nombre', 'like', '%' . $nombre . '%')
-            ->where('estado',1)->orderBy('idFacultad', 'desc')->get();
+            ->where('estado', 1)->orderBy('idFacultad', 'desc')->get();
         return $facultadbd;
     }
 
@@ -149,19 +150,19 @@ class facultadmodel
     {
         $facultadbd = DB::table('facultad')
             ->where('nroCuenta', 'like', '%' . $nroCuenta . '%')
-            ->where('estado',1)->orderBy('idFacultad', 'desc')->get();
+            ->where('estado', 1)->orderBy('idFacultad', 'desc')->get();
         return $facultadbd;
     }
 
     public function save()
     {
-        $facultadbd = DB::select('select * from facultad where codFacultad=:codFacultad and nombre=:nombre and nroCuenta=:nroCuenta', ['codFacultad' => $this->codFacultad, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta]);
-
-        if ($facultadbd != null) {
+        try {
+            DB::transaction(function () {
+                DB::table('facultad')->insert(['codFacultad' => $this->codFacultad, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta]);
+                return true;
+            });
+        } catch (PDOException $e) {
             return false;
-        } else {
-            DB::table('facultad')->insert(['codFacultad' => $this->codFacultad, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta]);
-            return true;
         }
     }
 

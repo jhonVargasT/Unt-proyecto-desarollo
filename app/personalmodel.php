@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Support\Facades\DB;
+use PDOException;
 
 class personalmodel extends personamodel
 {
@@ -117,62 +118,26 @@ class personalmodel extends personamodel
         return $personal;
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    public function consultarPersonales()
-    {
-        $personal = DB::select('select * from persona right join personal on persona.codPersona=personal.idPersona');
-
-        foreach ($personal as $perso) {
-            $per = $perso->todoslosatributos;
-        }
-
-        return $per;
-    }
-
     public function bdPersona($dni)
     {
         $persona = DB::select('select codPersona from persona where dni=:dni', ['dni' => $dni]);
-
         foreach ($persona as $pers) {
             return $per = $pers->codPersona;
         }
     }
 
-    public function extraerCodigoPersonal($dni)
-    {
-        $personal = DB::select('select codPersonal from personal right join persona on personal.idPersona=persona.codPersona where persona.dni=:dni', ['dni' => $dni]);
-
-        foreach ($personal as $perso) {
-            $per = $perso->codPersonal;
-        }
-
-        return $per;
-    }
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function savepersonal()
     {
-
-        $alumnoam = DB::select('select * from personal where cuenta=:cuenta', ['cuenta' => $this->cuenta]);
-
-        if ($alumnoam != null) {
-            return false;
-        } else {
-            DB::table('personal')->insert(['cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta, 'idPersona' => $this->idPersona]);
+        try {
+            DB::transaction(function () {
+                DB::table('persona')->insert(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos()]);
+                DB::table('personal')->insert(['cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta, 'idPersona' => $this->idPersona]);
+            });
             return true;
+        } catch (PDOException $e) {
+            return false;
         }
-
-    }
-
-    public function consultarPersonal($idPersonal)
-    {
-        $personal = DB::select('select * from personal right join persona on personal.idPersona=persona.codPersona where personal.codPersonal=:codPersonal', ['codPersonal' => $idPersonal]);
-
-        foreach ($personal as $persona) {
-            $per = $persona->todoslosatributos;
-        }
-
-        return $per;
     }
 
     public function editarPersonal($codPersona)

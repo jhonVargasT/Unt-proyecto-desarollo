@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Support\Facades\DB;
+use PDOException;
 
 class tramitemodel
 {
@@ -181,7 +182,7 @@ class tramitemodel
     {
         $tramitebd = DB::table('tramite')
             ->where('fuentefinanc', $ff)
-            ->where('estado',1)
+            ->where('estado', 1)
             ->orderBy('codTramite', 'desc')->get();
         return $tramitebd;
     }
@@ -199,7 +200,7 @@ class tramitemodel
     {
         $tramitebd = DB::table('tramite')
             ->where('tipoRecurso', $tr)
-            ->where('estado',1)
+            ->where('estado', 1)
             ->orderBy('codTramite', 'desc')->get();
         return $tramitebd;
     }
@@ -208,7 +209,7 @@ class tramitemodel
     {
         $tramitebd = DB::table('tramite')
             ->where('nombre', $nombre)
-            ->where('estado',1)
+            ->where('estado', 1)
             ->orderBy('codTramite', 'desc')->get();
         return $tramitebd;
     }
@@ -221,13 +222,13 @@ class tramitemodel
 
     public function save()
     {
-        $facultadbd = DB::select('select * from tramite where clasificador=:clasificador and nombre=:nombre', ['clasificador' => $this->clasificador, 'nombre' => $this->nombre]);
-
-        if ($facultadbd != null) {
-            return false;
-        } else {
-            DB::table('tramite')->insert(['clasificador' => $this->clasificador, 'nombre' => $this->nombre, 'fuentefinanc' => $this->fuentefinanc, 'tipoRecurso' => $this->tipoRecurso]);
+        try {
+            DB::transaction(function () {
+                DB::table('tramite')->insert(['clasificador' => $this->clasificador, 'nombre' => $this->nombre, 'fuentefinanc' => $this->fuentefinanc, 'tipoRecurso' => $this->tipoRecurso]);
+            });
             return true;
+        } catch (PDOException $e) {
+            return false;
         }
     }
 

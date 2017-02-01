@@ -12,13 +12,10 @@ class alumnoController extends Controller
 {
     public function registrarAlumno(Request $request)
     {
-        $persona = new personamodel();
-        $persona->setDni($request->dni);
-        $persona->setNombres($request->nombres);
-        $persona->setApellidos($request->apellidos);
-        $per = $persona->save('alumno', $request->codMatricula);
-
         $alumno = new alumnomodel();
+        $alumno->setDni($request->dni);
+        $alumno->setNombres($request->nombres);
+        $alumno->setApellidos($request->apellidos);
         $alumno->setCodAlumno($request->codAlumno);
         $alumno->setCodMatricula($request->codMatricula);
         $alumno->setFecha($request->fecha);
@@ -26,10 +23,10 @@ class alumnoController extends Controller
         $alumno->setIdPersona($idP);
         $al = $alumno->savealumno();
 
-        if ($per && $al == true) {
-            return view('Administrador/Alumno/Add');
+        if ($al == true) {
+            return back()->with('true', 'Alumno ' . $request->nombres . ' guardada con exito')->withInput();
         } else {
-            return view('Administrador/Alumno/Add');
+            return back()->with('false', 'Alumno ' . $request->nombres . ' no guardada, puede que ya exista');
         }
     }
 
@@ -88,10 +85,10 @@ class alumnoController extends Controller
         return view('Administrador/Alumno/Search')->with(['alumno' => $alu, 'txt' => $request->text, 'select' => $request->select]);
     }
 
-    public function eliminarAlumno($codPersona,Request $request)
+    public function eliminarAlumno($codPersona, Request $request)
     {
         $alumno = new alumnomodel();
         $alumno->eliminarAlumno($codPersona);
-        return view('Administrador/Alumno/Search')->with(['nombre'=>$request->nombres]);
+        return view('Administrador/Alumno/Search')->with(['nombre' => $request->nombres]);
     }
 }
