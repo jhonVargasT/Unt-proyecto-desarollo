@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\personalemodel;
+
 use App\personalmodel;
 use App\personamodel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class personalController extends Controller
 {
@@ -47,7 +48,9 @@ class personalController extends Controller
                 $personal->setApellidos($p->apellidos);
             }
         }
+        Session::put(['misession'=>$personal->getNombres().' '.$personal->getApellidos()]);
         if ($personal->getTipoCuenta() == 'Administrador' && $personal->getCuenta() != '') {
+
             return view('/Administrador/body');
 
         } else {
@@ -58,6 +61,12 @@ class personalController extends Controller
             }
         }
 
+    }
+
+    public function logOutPersonal()
+    {
+        Session::forget('misession');
+        return view('Index');
     }
 
     public function cargarPersonal($idPersona)

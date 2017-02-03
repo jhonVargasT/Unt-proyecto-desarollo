@@ -45,6 +45,7 @@
                     <h3>Tesoreria - Administrador</h3>
                 </div>
             </div>
+
         </div>
 
         <div class="col-sm-12 ">
@@ -52,18 +53,17 @@
             <br></div>
         <div class="col-sm-12 ">
             <div class=" col-sm-8">
-
-                <div class="col-sm-6  ">
-                    <h4 align="left">Bienvenido administrador : </h4>
+                <div class="col-sm-5  ">
+                    <h4 align="left">Bienvenido administrador(ra) : </h4>
                 </div>
-                <div class="col-sm-6 " align="left">
-                    <h4> usuario </h4>
+                <div class="col-sm-4 " align="left">
+                    <h4>{{Session::get('misession','No existe session')}} </h4>
                 </div>
             </div>
             <div class="col-sm-4">
 
                 <div class="col-sm-12" align="right">
-                    <h4><a href="/" class="glyphicon  glyphicon-log-out red" style="color: #cf1100"> Salir </a></h4>
+                    <h4><a href="/cerrarSesion" class="glyphicon  glyphicon-log-out red" style="color: #cf1100"> Salir </a></h4>
 
                 </div>
             </div>

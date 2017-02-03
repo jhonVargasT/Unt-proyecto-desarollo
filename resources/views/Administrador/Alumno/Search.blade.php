@@ -6,7 +6,7 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarEstudiante" >Buscar Estudiantes</a>
+                        <a href="/admBuscarEstudiante" style="color: #509f0c" target="_top" >Buscar Estudiantes</a>
                     </td>
                 </tr>
                 <tr>

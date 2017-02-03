@@ -52,12 +52,11 @@
             <br></div>
         <div class="col-sm-12 ">
             <div class=" col-sm-8">
-
-                <div class="col-sm-6  ">
-                    <h4 align="left">Bienvenido cajero : </h4>
+                <div class="col-sm-3  ">
+                    <h4 align="left">Bienvenido(a) : </h4>
                 </div>
-                <div class="col-sm-6 " align="left">
-                    <h4> usuario </h4>
+                <div class="col-sm-4 " align="left">
+                    <h4>{{Session::get('misession','No existe session')}} </h4>
                 </div>
             </div>
             <div class="col-sm-4">
