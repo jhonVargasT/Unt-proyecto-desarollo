@@ -1,4 +1,4 @@
-@extends('Administrador.Body')
+@extends('Administrador/Body')
 @section('body')
     <br>
     <div class="panel panel-primary">

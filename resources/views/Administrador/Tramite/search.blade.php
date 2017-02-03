@@ -1,4 +1,4 @@
-@extends('Administrador.Body')
+@extends('Administrador/Body')
 @section('tramite')
     <div id="collapseFive" class="collapse in">
         <div class="panel-body">
@@ -21,68 +21,83 @@
 @stop
 @section('content')
     <div class="panel panel-primary">
-        <div class="panel-heading">Buscar tramites</div>
+        <div class="panel-heading"> Buscar Tramites</div>
         <div class="panel-body">
-            <div class="col-sm-12 row form-group">
-                <div class="form-group-sm col-sm-6 ">
-                    <span class="col-sm-5 control-label">Buscar por:</span>
-                    <div class="col-sm-7 ">
-                        <select class=" form-control">
-                            <option>Clasificador Siaf</option>
-                            <option>Tipo de recurso</option>
-                            <option>Nombre de tramite</option>
-                            <option>Fuente de financiamiento</option>
-                        </select>
+            <form name="form" action="{{url('TramitesBuscadas')}}" role="form" method="POST" class="Vertical">
+                {{ csrf_field() }}
+                <div class="col-sm-12 row form-group">
+                    <div class="form-group-sm col-sm-6 ">
+                        <span class="col-sm-5 control-label">Buscar por:</span>
+                        <div class="col-sm-7 ">
+                            <select class=" form-control" name="select">
+                                <option>Clasificador Siaf</option>
+                                <option>Tipo de recurso</option>
+                                <option>Nombre de tramite</option>
+                                <option>Fuente de financiamiento</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group-sm input-group col-sm-6">
+                        @if(isset($txt))
+                            <input type="text" name="text" class="form-control" value="{{$txt}}">
+                        @else
+                            <input type="text" name="text" class="form-control" placeholder="Ingresa datos aqui .."
+                                   autocomplete="off">
+                        @endif
+                        <span class="input-group-btn">
+                            <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
+                        </span>
                     </div>
                 </div>
-                <div class="input-group col-sm-6">
-                    <input type="text" class="form-control" placeholder="Escribe el dato aqui .." autocomplete="off">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Buscar</button>
-                        </span>
-                </div>
-            </div>
+            </form>
             <!--tabla-->
+
             <div class="table-responsive col-sm-12">
+                @if(isset($nombre)!=null)
+                    <div class="alert alert-success" role="alert">El tramite {{$nombre}} fue actualizada!!</div>
+                @endif
+
                 <table class="table table-bordered">
-                    <head>
-                        <!--cabecear Tabla-->
-                        <tr class="active">
-
-                            <th><div align="center"><small>Clasificador Siaf</small></div></th>
-                            <th><div align="center"><small>Tipo de recurso</small></div></th>
-                            <th><div align="center"><small>Nombre de tramite</small></div></th>
-                            <th><div align="center"><small>Fuente de financiamiento</small></div></th>
-                            <th><div align="center"><small>Opciones</small></div></th>
-
-                        </tr>
-                    </head>
+                    <thead>
+                    <!--cabecear Tabla-->
+                    <tr class="active">
+                        <th>
+                            <div align="center">Clasificador Siaf</div>
+                        </th>
+                        <th>
+                            <div align="center">Nombre de tramite</div>
+                        </th>
+                        <th>
+                            <div align="center">Fuente de financiamiento</div>
+                        </th>
+                        <th>
+                            <div align="center">Tipo de recurso</div>
+                        </th>
+                        <th>
+                            <div align="center">Opciones</div>
+                        </th>
+                    </tr>
+                    </thead>
                     <body>
-                    <tr>
-                        <td>00001</td>
-                        <td>125.168.129.58</td>
-                        <td>1546568</td>
-                        <td>10/01/2017</td>
+                    @if(isset($tramite))
+                        <!--Contenido-->
+                        @foreach($tramite as $t)
+                            <tr>
+                                <td>{{$t->clasificador}}</td>
+                                <td>{{$t->nombre}}</td>
+                                <td>{{$t->fuentefinanc}}</td>
+                                <td>{{$t->tipoRecurso}}</td>
+                                <td align="center">
+                                    {{ csrf_field() }}
+                                    <a href="TramiteCargar/{{$t->codTramite}}"><span
+                                                class="glyphicon glyphicon-pencil"></span> </a>
+                                    <a href="TramiteEliminar/{{$t->codTramite}}"><span
+                                                class="glyphicon glyphicon-trash"></span> </a>
 
-                        <td>
-                            <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
-                            <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>00002</td>
-                        <td>125.168.129.58</td>
-                        <td>5648665</td>
-                        <td>10/01/2017</td>
-
-                        <td>
-                            <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
-                            <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
-
-                        </td>
-
-                    </tr>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
                     </body>
                 </table>
             </div>
@@ -99,9 +114,7 @@
                     </ul>
                 </div>
                 <div class="col-sm-4"></div>
-
             </div>
-
         </div>
     </div>
 @stop

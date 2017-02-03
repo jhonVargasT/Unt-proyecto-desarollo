@@ -26,7 +26,7 @@ class escuelaController extends Controller
         }
     }
 
-    public function autocomplete(Request $request)
+    public function autocompletee(Request $request)
     {
         $data = DB::table('facultad')->select("nombre as name")->where("nombre", "LIKE", "%{$request->input('query')}%")->get();
 

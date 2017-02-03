@@ -1,4 +1,4 @@
-@extends('Administrador.Body')
+@extends('Administrador/Body')
 @section('personal')
     <div id="collapseFour" class="collapse in">
         <div class="panel-body">
@@ -21,98 +21,86 @@
 @stop
 @section('content')
     <div class="panel panel-primary">
-        <div class="panel-heading">Buscar personal</div>
-        <!--menu Busqueda-->
+        <div class="panel-heading"> Buscar Alumnos</div>
         <div class="panel-body">
-            <div class="col-sm-12 row form-group">
-                <div class="form-group-sm col-sm-6 ">
-                    <span class="col-sm-5 control-label">Buscar por:</span>
-                    <div class="col-sm-7 ">
-                        <select class=" form-control">
-                            <option>Dni</option>
-                            <option>Nombres y apellidos</option>
-                            <option>Codigo personal</option>
-                            <option>Tipo de cuenta</option>
-                            <option>Estado de cuenta</option>
-                        </select>
+            <form name="form" action="{{url('PersonalBuscado')}}" role="form" method="POST" class="Vertical">
+                {{ csrf_field() }}
+                <div class="col-sm-12 row form-group">
+                    <div class="form-group-sm col-sm-6 ">
+                        <span class="col-sm-5 control-label">Buscar por:</span>
+                        <div class="col-sm-7 ">
+                            <select class=" form-control" name="select">
+                                <option>Dni</option>
+                                <option>Apellidos</option>
+                                <option>Codigo personal</option>
+                                <option>Cuenta</option>
+                                <option>Tipo de cuenta</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group-sm input-group col-sm-6">
+                        @if(isset($txt))
+                            <input type="text" name="text" class="form-control" value="{{$txt}}">
+                        @else
+                            <input type="text" name="text" class="form-control" placeholder="Ingresa datos aqui .."
+                                   autocomplete="off">
+                        @endif
+                        <span class="input-group-btn">
+                            <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
+                        </span>
                     </div>
                 </div>
-                <div class="form-group-sm input-group col-sm-6">
-                    <input type="text" class="form-control" placeholder="Ingresa datos aqui .." autocomplete="off">
-                        <span class="input-group-btn">
-                            <button class="btn btn-sm" type="button">Buscar</button>
-                        </span>
-                </div>
-
-            </div>
-
+            </form>
             <!--tabla-->
             <div class="table-responsive col-sm-12">
+                @if(isset($nombre)!=null)
+                    <div class="alert alert-success" role="alert">El alumno {{$nombre}} fue actualizada!!</div>
+                @endif
+
                 <table class="table table-bordered">
                     <thead>
                     <!--cabecear Tabla-->
                     <tr class="active">
-
                         <th>
-                            <div align="center">
-                                <small>Dni</small>
-                            </div>
+                            <div align="center">Dni</div>
                         </th>
                         <th>
-                            <div align="center">
-                                <small>Nombres y apellidos</small>
-                            </div>
+                            <div align="center">Nombres y apellidos</div>
                         </th>
                         <th>
-                            <div align="center">
-                                <small>Codigo personal</small>
-                            </div>
+                            <div align="center">Codigo personal</div>
                         </th>
                         <th>
-                            <div align="center">
-                                <small>Tipo cuenta</small>
-                            </div>
+                            <div align="center">Cuenta</div>
                         </th>
                         <th>
-                            <div align="center">
-                                <small>Usuario</small>
-                            </div>
+                            <div align="center">Tipo cuenta</div>
                         </th>
                         <th>
-                            <div align="center">
-                                <small>Contraseña</small>
-                            </div>
-                        </th>
-                        <th>
-                            <div align="center">
-                                <small>Estado</small>
-                            </div>
-                        </th>
-                        <th>
-                            <div align="center">
-                                <small>Opciones</small>
-                            </div>
+                            <div align="center">Opciones</div>
                         </th>
                     </tr>
                     </thead>
                     <body>
-                    <!--Contenido-->
-                    <tr>
-                        <td>00001</td>
-                        <td>125.168.129.58</td>
-                        <td>Aw32234234</td>
-                        <td>00001</td>
-                        <td>125.168.129.58</td>
-                        <td>Aw32234234</td>
-                        <td>Aw32234234</td>
-
-                        <td align="center">
-                            <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
-                            <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
-                        </td>
-
-                    </tr>
-
+                    @if(isset($personal))
+                        <!--Contenido-->
+                        @foreach($personal as $p)
+                            <tr>
+                                <td>{{$p->dni}}</td>
+                                <td>{{$p->nombres}} {{$p->apellidos}}</td>
+                                <td>{{$p->codPersonal}}</td>
+                                <td>{{$p->cuenta}}</td>
+                                <td>{{$p->tipoCuenta}}</td>
+                                <td align="center">
+                                    {{ csrf_field() }}
+                                    <a href="PersonalCargar/{{$p->idPersona}}"><span
+                                                class="glyphicon glyphicon-pencil"></span> </a>
+                                    <a href="PersonalEliminar/{{$p->idPersona}}"><span
+                                                class="glyphicon glyphicon-trash"></span> </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
                     </body>
                 </table>
             </div>
@@ -129,9 +117,7 @@
                     </ul>
                 </div>
                 <div class="col-sm-4"></div>
-
             </div>
-
         </div>
     </div>
 @stop

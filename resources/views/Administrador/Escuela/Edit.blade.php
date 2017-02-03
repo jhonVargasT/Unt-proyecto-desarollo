@@ -21,58 +21,70 @@
 @stop
 @section('content')
     <fieldset>
-        <form class="Vertical">
-            <legend>Agregar Escuela</legend>
-            <br>
-            <div class="col-sm-12 row form-group">
-                <div class="form-group " align="left">
-                    <span class="col-sm-3 control-label"> Nombre Facultad</span>
-                    <div class="input-group col-sm-6">
-                        <input type="text" class="form-control" name="nombreFacultad" placeholder="Ingresa Nombre de facultad aqui .." autocomplete="off">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Buscar</button>
-                        </span>
-                    </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading"> EditarEscuela</div>
+            <div class="panel-body">
+                @if(session()->has('true'))
+                    <div class="alert alert-success" role="alert">{{session('true')}} </div>
+                @endif
+                @if(session()->has('false'))
+                    <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
+                @endif
+                @if($escuela)
+                    @foreach($escuela as $e)
+                        <form name="form" action="{{ url('EscuelaEditada/' .$e->idEscuela ) }}" role="form" method="Get"
+                              class="Vertical">
+                            {{csrf_field()}}
+                            <div class="col-sm-12 row form-group">
 
-                </div>
+                                <div class="form-group-sm " align="left">
+                                    <span class="col-sm-2 control-label"> Codigo Escuela</span>
+                                    <div class="col-sm-2">
+                                        <input class="form-control input-sm" name="CodigoEscuela" type="text"
+                                               autocomplete="off" onkeypress="return validarNum(event)"
+                                               value="{{$e->codEscuela}}">
+                                    </div>
+                                </div>
+                                <div class=" form-group-sm" align="left">
+                                    <span class="col-sm-2 control-label"> </span>
+                                    <span class="col-sm-2 control-label">Cuenta interna </span>
+                                    <div class="col-sm-3">
+                                        <input class="form-control input-sm" name="CuentaInterna" type="text"
+                                               autocomplete="off"
+                                               onkeypress="return validarNum(event)" value="{{$e->nroCuenta}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 row form-group">
+                                <div class="form-group-sm " align="left">
+                                    <span class="col-sm-2 control-label"> Nombre facultad</span>
+                                    <div class="col-sm-5">
+                                        <input class="form-control input-sm" name="NombreEscuela" type="text"
+                                               autocomplete="off" onkeypress="return validarLetras(event)"
+                                               value="{{$e->nombre}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 row form-group">
+                                <div class="col-md-3"></div>
+                                <a href="{{url('/Layout')}}" class=" col-md-2 btn btn-sm btn-danger"><span
+                                            class="glyphicon glyphicon-ban-circle"></span>
+                                    Regresar
+                                </a>
+                                <div class="col-md-2">
+                                </div>
+                                <div>
+                                    <button href="" type="submit" name="enviar"
+                                            class="col-md-2 btn btn-sm btn-success"><span
+                                                class="glyphicon glyphicon-ok"></span> Guardar
+                                    </button>
+                                </div>
+                                <div class="col-md-3"></div>
+                            </div>
+                        </form>
+                    @endforeach
+                @endif
             </div>
-
-            <div class="col-sm-12 row form-group">
-                <div class="form-group-sm " align="left">
-                    <span class="col-sm-3 control-label"> Codigo escuela</span>
-                    <div class="col-sm-2">
-                        <input class="form-control input-sm" name="codigoEscuela" type="text" autocomplete="off">
-                    </div>
-                  
-                </div>
-                <div class=" form-group-sm" align="left">
-                    <span class="col-sm-2 control-label">Cuenta interna </span>
-                    <div class="col-sm-4">
-                        <input class="form-control" name="nroCuenta" type="text" autocomplete="off">
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="col-sm-12 row form-group">
-                <div class="form-group-sm " align="left">
-
-                    <span class="col-sm-3 control-label"> Nombre escuela</span>
-                    <div class="col-sm-5">
-                        <input class="form-control input-sm" name="nombreEscuela
-                       " type="text" autocomplete="off">
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-12 row form-group">
-                <div class="col-md-3"></div>
-                <a href="#" class=" col-md-2 btn btn-sm btn-danger"><span class="glyphicon glyphicon-ban-circle"></span>
-                    Cancelar</a>
-                <div class="col-md-2"></div>
-                <a href="#" class=" col-md-2 btn btn-success"><span class="glyphicon glyphicon-ok"></span> Aceptar</a>
-                <div class="col-md-3"></div>
-            </div>
-        </form>
+        </div>
     </fieldset>
 @stop
