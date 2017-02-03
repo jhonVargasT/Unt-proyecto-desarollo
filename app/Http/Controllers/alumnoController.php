@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\alumnomodel;
-use App\personalmodel;
-use App\personamodel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class alumnoController extends Controller
 {
     public function registrarAlumno(Request $request)
     {
+        Session::put('personalC', 'asd');
         $alumno = new alumnomodel();
         $alumno->setDni($request->dni);
         $alumno->setNombres($request->nombres);
@@ -19,10 +18,7 @@ class alumnoController extends Controller
         $alumno->setCodAlumno($request->codAlumno);
         $alumno->setCodMatricula($request->codMatricula);
         $alumno->setFecha($request->fecha);
-        $idP = $alumno->bdPersona($request->dni);
-        $alumno->setIdPersona($idP);
         $al = $alumno->savealumno();
-
         if ($al == true) {
             return back()->with('true', 'Alumno ' . $request->nombres . ' guardada con exito')->withInput();
         } else {
@@ -39,6 +35,7 @@ class alumnoController extends Controller
 
     public function editarAlumno($codPersona, Request $request)
     {
+        Session::put('personalC', 'asd');
         $alumno = new alumnomodel();
         $alumno->setDni($request->dni);
         $alumno->setNombres($request->nombres);

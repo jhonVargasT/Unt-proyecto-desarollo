@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\facultadmodel;
+use App\loguntemodel;
 use App\tramitemodel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class tramiteController extends Controller
 {

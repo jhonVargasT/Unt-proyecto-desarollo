@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use PDOException;
 
 class alumnomodel extends personamodel
@@ -99,48 +100,54 @@ class alumnomodel extends personamodel
         }
     }
 
-    public function bdPersona($dni)
-    {
-        $persona = DB::select('select codPersona from persona where dni=:dni', ['dni' => $dni]);
-
-        foreach ($persona as $pers) {
-            return $per = $pers->codPersona;
-        }
-    }
-
-    public function consultarAlumnoPorDni()
-    {
-
-        $alumnos = DB::select('select * from persona left join alumno on persona.codPersona = alumno.idPersona where persona.dni=dni', ['dni' => $this->getDni()]);
-
-        return $alumnos;
-    }
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public function consultarAlumnos()
-    {
-        $alumnos = DB::select('select * from persona left join alumno on persona.codPersona = alumno.idPersona where persona.codPersona= alumno.idPersona 
-                               and persona.dni =123 or persona.nombres=123 or persona.apellidos=123 or alumno.codAlumno=123 or alumno.codMatricula=123');
-        return $alumnos;
-    }
 
     public function savealumno()
     {
+        date_default_timezone_set('Etc/GMT+5');
+        $date = date('Y-m-d H:i:s', time());
+        $logunt = new loguntemodel();
+        $value = Session::get('personalC');
+        $codPers = $logunt->obtenerCodigoPersonal($value);
+        $logunt->setFecha($date);
+        $logunt->setDescripcion('registrarAlumno');
+        $logunt->setCodigoPersonal($codPers);
         try {
-            DB::transaction(function () {
+            DB::transaction(function () use($logunt) {
                 DB::table('persona')->insert(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos()]);
-                DB::table('alumno')->insert(['codAlumno' => $this->codAlumno, 'codMatricula' => $this->codMatricula, 'fecha' => $this->fecha, 'idPersona' => $this->idPersona]);
+                $personabd = DB::table('persona')->where('dni', $this->getDni())->get();
+                foreach ($personabd as $pbd) {
+                    $idp = $pbd->codPersona;
+                    DB::table('alumno')->insert(['codAlumno' => $this->codAlumno, 'codMatricula' => $this->codMatricula, 'fecha' => $this->fecha, 'idPersona' => $idp]);
+                }
+                $logunt->saveLogUnt();
             });
-            return true;
         } catch (PDOException $e) {
             return false;
         }
+        return true;
     }
 
     public function editarAlumno($codPersona)
     {
-        DB::table('persona')->where('codPersona', $codPersona)->update(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos()]);
-        DB::table('alumno')->where('idPersona', $codPersona)->update(['codAlumno' => $this->codAlumno, 'codMatricula' => $this->codMatricula, 'fecha' => $this->fecha]);
+        date_default_timezone_set('Etc/GMT+5');
+        $date = date('Y-m-d H:i:s', time());
+        $logunt = new loguntemodel();
+        $value = Session::get('personalC');
+        $codPers = $logunt->obtenerCodigoPersonal($value);
+        $logunt->setFecha($date);
+        $logunt->setDescripcion('editarAlumno');
+        $logunt->setCodigoPersonal($codPers);
+        try {
+            DB::transaction(function () use ($codPersona,$logunt) {
+                DB::table('persona')->where('codPersona', $codPersona)->update(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos()]);
+                DB::table('alumno')->where('idPersona', $codPersona)->update(['codAlumno' => $this->codAlumno, 'codMatricula' => $this->codMatricula, 'fecha' => $this->fecha]);
+                $logunt->saveLogUnt();
+            });
+        } catch (PDOException $e) {
+            return false;
+        }
+        return true;
     }
 
     public function consultarAlumnoDNI($dni)
@@ -215,7 +222,23 @@ class alumnomodel extends personamodel
 
     public function eliminarAlumno($codPersona)
     {
-        DB::table('persona')->where('codPersona', $codPersona)->update(['estado' => 0]);
-        DB::table('alumno')->where('idPersona', $codPersona)->update(['estado' => 0]);
+        date_default_timezone_set('Etc/GMT+5');
+        $date = date('Y-m-d H:i:s', time());
+        $logunt = new loguntemodel();
+        $value = Session::get('personalC');
+        $codPers = $logunt->obtenerCodigoPersonal($value);
+        $logunt->setFecha($date);
+        $logunt->setDescripcion('eliminarAlumno');
+        $logunt->setCodigoPersonal($codPers);
+        try {
+            DB::transaction(function () use ($codPersona,$logunt) {
+                DB::table('persona')->where('codPersona', $codPersona)->update(['estado' => 0]);
+                DB::table('alumno')->where('idPersona', $codPersona)->update(['estado' => 0]);
+                $logunt->saveLogUnt();
+            });
+        } catch (PDOException $e) {
+            return false;
+        }
+        return true;
     }
 }

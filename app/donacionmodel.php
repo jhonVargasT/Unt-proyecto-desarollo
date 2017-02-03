@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use PDOException;
 
 class donacionmodel
@@ -142,25 +143,66 @@ class donacionmodel
 
     public function saveDonacion()
     {
-        try {
-            DB::transaction(function () {
+        date_default_timezone_set('Etc/GMT+5');
+        $date = date('Y-m-d H:i:s', time());
+        $logunt = new loguntemodel();
+        $value = Session::get('personalC');
+        $codPers = $logunt->obtenerCodigoPersonal($value);
+        $logunt->setFecha($date);
+        $logunt->setDescripcion('registrarDonaciones');
+        $logunt->setCodigoPersonal($codPers);
 
+        try {
+            DB::transaction(function () use($logunt){
                 DB::table('donacion')->insert(['numResolucion' => $this->numResolucion, 'fechaIngreso' => $this->fechaIngreso, 'descripcion' => $this->descripcion, 'monto' => $this->monto, 'idTramite' => $this->idTramite]);
-                return true;
+                $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
             return false;
         }
+        return true;
     }
 
     public function editarDonacion($codDonacion)
     {
-        DB::table('donacion')->where('codDonacion', $codDonacion)->update(['numeroResolucion' => $this->numResolucion, 'descripcion' => $this->descripcion, 'fechaDeIngreso' => $this->fechaIngreso]);
+        date_default_timezone_set('Etc/GMT+5');
+        $date = date('Y-m-d H:i:s', time());
+        $logunt = new loguntemodel();
+        $value = Session::get('personalC');
+        $codPers = $logunt->obtenerCodigoPersonal($value);
+        $logunt->setFecha($date);
+        $logunt->setDescripcion('editarDonacion');
+        $logunt->setCodigoPersonal($codPers);
+        try {
+            DB::transaction(function () use ($codDonacion,$logunt) {
+                DB::table('donacion')->where('codDonacion', $codDonacion)->update(['numeroResolucion' => $this->numResolucion, 'descripcion' => $this->descripcion, 'fechaDeIngreso' => $this->fechaIngreso]);
+                $logunt->saveLogUnt();
+            });
+        } catch (PDOException $e) {
+            return false;
+        }
+        return true;
     }
 
     public function eliminarDonacion($codDonacion)
     {
-        DB::table('donacion')->where('codDonacion', $codDonacion)->update(['estado' => 0]);
+        date_default_timezone_set('Etc/GMT+5');
+        $date = date('Y-m-d H:i:s', time());
+        $logunt = new loguntemodel();
+        $value = Session::get('personalC');
+        $codPers = $logunt->obtenerCodigoPersonal($value);
+        $logunt->setFecha($date);
+        $logunt->setDescripcion('eliminarDonacion');
+        $logunt->setCodigoPersonal($codPers);
+        try {
+            DB::transaction(function () use ($codDonacion,$logunt) {
+                DB::table('donacion')->where('codDonacion', $codDonacion)->update(['estado' => 0]);
+                $logunt->saveLogUnt();
+            });
+        } catch (PDOException $e) {
+            return false;
+        }
+        return true;
     }
 
     public function consultarDonacionid($codTramite)

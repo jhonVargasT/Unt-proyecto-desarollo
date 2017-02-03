@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\DB;
+
 class personamodel
 {
     private $dni;
@@ -65,5 +67,11 @@ class personamodel
     {
         $this->apellidos = $apellidos;
         return $this;
+    }
+
+    public function obtnerId($idPersona)
+    {
+        $persona=DB::table('persona')->where(['codPersona'=>$idPersona,'estado'=>1])->get();
+        return $persona;
     }
 }

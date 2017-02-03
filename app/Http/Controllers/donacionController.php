@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\donacionmodel;
+use App\loguntemodel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class donacionController extends Controller
 {
@@ -78,7 +80,7 @@ class donacionController extends Controller
         return view('Administrador/DonacionesYTransacciones/Search')->with(['donacion' => $don, 'txt' => $request->text, 'select' => $request->select]);
     }
 
-    public function eliminarTramite($codDonacion, Request $request)
+    public function eliminarDonacion($codDonacion, Request $request)
     {
         $donacion = new donacionmodel();
         $donacion->eliminarDonacion($codDonacion);

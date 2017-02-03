@@ -20,10 +20,8 @@ class Logunt extends Migration
 
             $table ->increments('codLog')->unique();
             $table ->string('descripcion');
-            $table ->date('fecha');
+            $table ->dateTime('fecha');
             $table -> boolean('estado')->default('1');
-
-
             $table->integer('codigoPersonal')->unsigned();
         });
 

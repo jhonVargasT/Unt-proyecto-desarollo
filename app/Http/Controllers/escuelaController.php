@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\clientemodel;
 use App\escuelamodel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -50,7 +49,6 @@ class escuelaController extends Controller
         $escuela->setNombre($request->NombreEscuela);
         $escuela->setNroCuenta($request->CuentaInterna);
         $escuela->editarEscuela($idEscuela);
-
         return view('Administrador/Escuela/Search')->with(['nombre' => $request->NombreEscuela]);
     }
 
