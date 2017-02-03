@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-@if( Session::has('misession') )
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,8 +20,8 @@
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="{{asset('assets/ico/favicon.png')}}">
 
-    <script>window.Laravel =" <?php echo json_encode([
-            'csrfToken' => csrf_token(),]); ?>"
+    <script>window.Laravel = <?php echo json_encode([
+                'csrfToken' => csrf_token(),]); ?>
     </script>
 </head>
 <body style="background-color: #ccd0d2">
@@ -46,26 +45,25 @@
                     <h3>Tesoreria - Administrador</h3>
                 </div>
             </div>
-
         </div>
 
         <div class="col-sm-12 ">
             <hr>
             <br></div>
-
         <div class="col-sm-12 ">
             <div class=" col-sm-8">
-                <div class="col-sm-5  ">
-                    <h4 align="left">Bienvenido administrador(ra) : </h4>
+
+                <div class="col-sm-6  ">
+                    <h4 align="left">Bienvenido administrador : </h4>
                 </div>
-                <div class="col-sm-4 " align="left">
-                    <h4>{{Session::get('misession','No existe session')}}</h4>
+                <div class="col-sm-6 " align="left">
+                    <h4> usuario </h4>
                 </div>
             </div>
             <div class="col-sm-4">
 
                 <div class="col-sm-12" align="right">
-                    <h4><a href="/cerrarSesion" class="glyphicon  glyphicon-log-out red" style="color: #cf1100"> Salir </a></h4>
+                    <h4><a href="/" class="glyphicon  glyphicon-log-out red" style="color: #cf1100"> Salir </a></h4>
 
                 </div>
             </div>
@@ -114,8 +112,7 @@
 <script src="{{asset('assets/js/placeholder.js')}}"></script>
 <![endif]-->
 
+
 </body>
-@else
-    @include("index")
-@endif
+
 </html>
