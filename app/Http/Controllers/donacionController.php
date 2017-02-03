@@ -52,7 +52,7 @@ class donacionController extends Controller
         $donacion->editarDonacion($codDonacion);
         return view('Administrador/DonacionesYTransacciones/Search')->with(['nombre' => $request->numeroResolucion]);
     }
-    //Falta buscar desde una fecha hasta otra fecha....
+
     public function listarDonacion(Request $request)
     {
         $don = null;

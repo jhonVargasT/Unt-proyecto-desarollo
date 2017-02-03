@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\personalemodel;
 use App\personalmodel;
 use App\personamodel;
 use Illuminate\Http\Request;
@@ -28,6 +27,12 @@ class personalController extends Controller
         }
     }
 
+    public function logOutPersonal()
+    {
+        Session::forget('misession');
+        return view('Index');
+    }
+
     public function loguearPersonal(Request $request)
     {
         $personal = new personalmodel();
@@ -39,22 +44,21 @@ class personalController extends Controller
             $personal->setCuenta($per->cuenta);
             $personal->setPassword($per->password);
             $personal->setTipoCuenta($per->tipoCuenta);
-            $persona = $perso->obtnerId($per->codPersonal);
+            $persona = $perso->obtnerId($per->idPersona);
             foreach ($persona as $p) {
                 $personal->setNombres($p->nombres);
                 $personal->setApellidos($p->apellidos);
-
             }
         }
+        Session::put(['misession'=>$personal->getNombres().' '.$personal->getApellidos()]);
+        Session::put('personalC', $personal->getCuenta());
         if ($personal->getTipoCuenta() == 'Administrador' && $personal->getCuenta() != '') {
-            Session::put('personalC', $personal->getCuenta());
             return view('/Administrador/body');
         } else {
-            if ($personal->getTipoCuenta() == 'Ventanilla' && $personal->getCuenta() != '') {
-                Session::put('personalC', $personal->getCuenta());
+            if ($personal->getTipoCuenta() == 'Ventanilla'&& $personal->getCuenta() != '') {
                 return view('Ventanilla/Body');
             } else {
-                return back()->with('true', 'Cuenta ' . $personal->getCuenta() . ' no encontrada o contraseña incorrecta')->withInput();
+                return back()->with('true', 'Cuenta ' . $personal->getCuenta(). ' no encontrada o contraseña incorrecta')->withInput();
             }
         }
     }

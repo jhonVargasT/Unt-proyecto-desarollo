@@ -10,7 +10,6 @@ class alumnoController extends Controller
 {
     public function registrarAlumno(Request $request)
     {
-        Session::put('personalC', 'asd');
         $alumno = new alumnomodel();
         $alumno->setDni($request->dni);
         $alumno->setNombres($request->nombres);
@@ -35,7 +34,6 @@ class alumnoController extends Controller
 
     public function editarAlumno($codPersona, Request $request)
     {
-        Session::put('personalC', 'asd');
         $alumno = new alumnomodel();
         $alumno->setDni($request->dni);
         $alumno->setNombres($request->nombres);

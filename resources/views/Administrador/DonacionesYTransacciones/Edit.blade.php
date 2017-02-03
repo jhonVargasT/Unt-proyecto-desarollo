@@ -1,4 +1,4 @@
-@extends('Administrador.Body')
+@extends('Administrador/Body')
 @section('donaciones')
     <div id="collapseSeven" class="collapse in">
         <div class="panel-body">
@@ -28,15 +28,15 @@
             <br>
             <div class="col-sm-12 row form-group">
                 <div class="form-group-sm " align="left">
-                   <span class="col-sm-2 control-label"  > Clasificador Siaf </span>
+                    <span class="col-sm-2 control-label"  > Clasificador Siaf </span>
                     <div class="col-sm-5">
-                        <input class="form-control input-sm" name="clasificadorSiaf" type="text" autocomplete="off" >
+                        <input class="form-control input-sm" name="clasificadorSiaf" type="text" >
                     </div>
                 </div>
                 <div class=" form-group-sm" align="left">
                     <span class="col-sm-2 control-label">Fecha </span>
                     <div class="col-sm-3">
-                        <input class="form-control" name="fechaDeIngreso" type="text" autocomplete="off">
+                        <input class="form-control" name="fechaDeIngreso" type="text">
                     </div>
                 </div>
             </div>
@@ -44,13 +44,13 @@
                 <div class="form-group-sm " align="left">
                     <span class="col-sm-2 control-label">Tipo de recurso </span>
                     <div class="col-sm-5">
-                        <input class="form-control input-sm "name="TipoDeRecurso" type="text" autocomplete="off">
+                        <input class="form-control input-sm "name="TipoDeRecurso" type="text">
                     </div>
                 </div>
                 <div class=" form-group-sm" align="left">
                     <span class="col-sm-2 control-label">Monto </span>
                     <div class="col-sm-3">
-                        <input class="form-control" name="monto" type="text" autocomplete="off">
+                        <input class="form-control" name="monto" type="text">
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@
                 <div class="form-group-sm ">
                     <span class="col-sm-2 control-label">Numero de resolucion </span>
                     <div class="col-sm-3">
-                        <input class="form-control " name="numeroResolucion" type="text" autocomplete="off">
+                        <input class="form-control " name="numeroResolucion" type="text">
                     </div>
                 </div>
 
