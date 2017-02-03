@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use PDOException;
 
 class escuelamodel
@@ -149,23 +150,67 @@ class escuelamodel
 
     public function eliminarEscuela($idEscuela)
     {
-        DB::table('escuela')->where('idEscuela', $idEscuela)->update(['estado' => 0]);
+        date_default_timezone_set('Etc/GMT+5');
+        $date = date('Y-m-d H:i:s', time());
+        $logunt = new loguntemodel();
+        $value = Session::get('personalC');
+        $codPers = $logunt->obtenerCodigoPersonal($value);
+        $logunt->setFecha($date);
+        $logunt->setDescripcion('eliminarEscuela');
+        $logunt->setCodigoPersonal($codPers);
+
+        try {
+            DB::transaction(function () use ($idEscuela,$logunt) {
+                DB::table('escuela')->where('idEscuela', $idEscuela)->update(['estado' => 0]);
+                $logunt->saveLogUnt();
+            });
+        } catch (PDOException $e) {
+            return false;
+        }
+        return true;
     }
 
     public function saveescuela()
     {
+        date_default_timezone_set('Etc/GMT+5');
+        $date = date('Y-m-d H:i:s', time());
+        $logunt = new loguntemodel();
+        $value = Session::get('personalC');
+        $codPers = $logunt->obtenerCodigoPersonal($value);
+        $logunt->setFecha($date);
+        $logunt->setDescripcion('registrarEscuela');
+        $logunt->setCodigoPersonal($codPers);
+
         try {
-            DB::transaction(function () {
+            DB::transaction(function () use ($logunt) {
                 DB::table('escuela')->insert(['codEscuela' => $this->codEscuela, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta, 'codigoFacultad' => $this->facultad]);
+                $logunt->saveLogUnt();
             });
-            return true;
         } catch (PDOException $e) {
             return false;
         }
+        return true;
     }
 
-    public function editarEscuela($idescuela)
+    public function editarEscuela($idEscuela)
     {
-        DB::table('escuela')->where('idEscuela', $idescuela)->update(['nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta]);
+        date_default_timezone_set('Etc/GMT+5');
+        $date = date('Y-m-d H:i:s', time());
+        $logunt = new loguntemodel();
+        $value = Session::get('personalC');
+        $codPers = $logunt->obtenerCodigoPersonal($value);
+        $logunt->setFecha($date);
+        $logunt->setDescripcion('editarEscuela');
+        $logunt->setCodigoPersonal($codPers);
+
+        try {
+            DB::transaction(function () use ($idEscuela,$logunt) {
+                DB::table('escuela')->where('idEscuela', $idEscuela)->update(['nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta]);
+                $logunt->saveLogUnt();
+            });
+        } catch (PDOException $e) {
+            return false;
+        }
+        return true;
     }
 }

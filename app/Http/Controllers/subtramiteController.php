@@ -46,6 +46,7 @@ class subtramiteController extends Controller
         $subtramite->setNombre($request->nombreSubtramite);
         $subtramite->setPrecio($request->precio);
         $subtramite->editarSubtramite($codSubtramite);
+
         return view('Administrador/Subtramite/Search')->with(['nombre' => $request->nombreSubtramite]);
     }
 

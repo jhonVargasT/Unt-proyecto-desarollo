@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\facultadmodel;
+use App\loguntemodel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Validator;
 
 class facultadController extends Controller
@@ -37,7 +39,6 @@ class facultadController extends Controller
         $facultad->setNombre($request->NombreFacultad);
         $facultad->setNroCuenta($request->CuentaInterna);
         $facultad->editarFacultad($idFacultad);
-
         return view('Administrador/Facultad/Search')->with(['nombre' => $request->NombreFacultad]);
     }
 

@@ -4,6 +4,7 @@ namespace App;
 
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use PDOException;
 
 class facultadmodel
@@ -91,38 +92,7 @@ class facultadmodel
         return $this;
     }
 
-    public function consultarNombreFacultades()
-    {
-        $facunombre = array();
-
-        $nombres = DB::table('facultad')->pluck('nombre');
-
-        foreach ($nombres as $nom) {
-            array_push($facunombre, $nom);
-        }
-        return $facunombre;
-
-    }
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    public function consultarFacultad($idFacultad)
-    {
-        $facultadbd = DB::select('select * from facultad ');
-
-        foreach ($facultadbd as $facultad) {
-            $facu = $facultad->todossusatributos;
-        }
-
-        return $facu;
-    }
-
-    public function consultarFacultades()
-    {
-        $facultadbd = DB::select('select * from facultad');
-
-        return $facultadbd;
-    }
 
     public function consultarFacultadid($idFacultad)
     {
@@ -156,25 +126,69 @@ class facultadmodel
 
     public function save()
     {
+        date_default_timezone_set('Etc/GMT+5');
+        $date = date('Y-m-d H:i:s', time());
+        $logunt = new loguntemodel();
+        $value = Session::get('personalC');
+        $codPers = $logunt->obtenerCodigoPersonal($value);
+        $logunt->setFecha($date);
+        $logunt->setDescripcion('registrarFacultad');
+        $logunt->setCodigoPersonal($codPers);
+
         try {
-            DB::transaction(function () {
+            DB::transaction(function () use ($logunt) {
                 DB::table('facultad')->insert(['codFacultad' => $this->codFacultad, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta]);
-                return true;
+                $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
             return false;
         }
+        return true;
     }
 
     public function editarFacultad($idFacultad)
     {
-        DB::table('facultad')->where('idFacultad', $idFacultad)->update(['codFacultad' => $this->codFacultad, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta]);
+        date_default_timezone_set('Etc/GMT+5');
+        $date = date('Y-m-d H:i:s', time());
+        $logunt = new loguntemodel();
+        $value = Session::get('personalC');
+        $codPers = $logunt->obtenerCodigoPersonal($value);
+        $logunt->setFecha($date);
+        $logunt->setDescripcion('editarFacultad');
+        $logunt->setCodigoPersonal($codPers);
+
+        try {
+            DB::transaction(function () use ($idFacultad,$logunt) {
+                DB::table('facultad')->where('idFacultad', $idFacultad)->update(['codFacultad' => $this->codFacultad, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta]);
+                $logunt->saveLogUnt();
+            });
+        } catch (PDOException $e) {
+            return false;
+        }
+        return true;
     }
 
     public function eliminarFacultad($idFacultad)
     {
-        DB::table('facultad')->where('idFacultad', $idFacultad)->update(['estado' => 0]);
-        DB::table('escuela')->where('estado', 1)->update(['estado' => 0]);
+        date_default_timezone_set('Etc/GMT+5');
+        $date = date('Y-m-d H:i:s', time());
+        $logunt = new loguntemodel();
+        $value = Session::get('personalC');
+        $codPers = $logunt->obtenerCodigoPersonal($value);
+        $logunt->setFecha($date);
+        $logunt->setDescripcion('eliminarFacultad');
+        $logunt->setCodigoPersonal($codPers);
+
+        try {
+            DB::transaction(function () use ($idFacultad,$logunt) {
+                DB::table('facultad')->where('idFacultad', $idFacultad)->update(['estado' => 0]);
+                DB::table('escuela')->where('estado', 1)->update(['estado' => 0]);
+                $logunt->saveLogUnt();
+            });
+        } catch (PDOException $e) {
+            return false;
+        }
+        return true;
     }
 
 }

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\clientemodel;
+use App\loguntemodel;
 use App\personamodel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class clienteController extends Controller
 {
@@ -16,8 +18,6 @@ class clienteController extends Controller
         $cliente->setApellidos($request->apellidos);
         $cliente->setRuc($request->ruc);
         $cliente->setRazonSocial($request->razonSocial);
-        $idP = $cliente->bdPersona($request->dni);
-        $cliente->setIdPersona($idP);
         $cli = $cliente->savecliente();
 
         if ($cli == true) {

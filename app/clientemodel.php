@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use PDOException;
 
 class clientemodel extends personamodel
@@ -82,25 +83,53 @@ class clientemodel extends personamodel
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     public function savecliente()
     {
+        date_default_timezone_set('Etc/GMT+5');
+        $date = date('Y-m-d H:i:s', time());
+        $logunt = new loguntemodel();
+        $value = Session::get('personalC');
+        $codPers = $logunt->obtenerCodigoPersonal($value);
+        $logunt->setFecha($date);
+        $logunt->setDescripcion('registrarCliente');
+        $logunt->setCodigoPersonal($codPers);
         try {
-            DB::transaction(function () {
-
+            DB::transaction(function () use($logunt) {
                 DB::table('persona')->insert(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos()]);
-                DB::table('cliente')->insert(['ruc' => $this->ruc, 'razonSocial' => $this->razonSocial, 'idPersona' => $this->idPersona]);
-                return true;
+                $personabd = DB::table('persona')->where('dni', $this->getDni())->get();
+                foreach ($personabd as $pbd) {
+                    $idp = $pbd->codPersona;
+                    DB::table('cliente')->insert(['ruc' => $this->ruc, 'razonSocial' => $this->razonSocial, 'idPersona' => $idp]);
+                }
+                $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
             return false;
         }
+        return true;
     }
+
 
     public function editarCliente($codPersona)
     {
-        DB::table('persona')->where('codPersona', $codPersona)->update(['nombres' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos()]);
-        DB::table('cliente')->where('idPersona', $codPersona)->update(['ruc' => $this->ruc, 'razonSocial' => $this->razonSocial]);
+        date_default_timezone_set('Etc/GMT+5');
+        $date = date('Y-m-d H:i:s', time());
+        $logunt = new loguntemodel();
+        $value = Session::get('personalC');
+        $codPers = $logunt->obtenerCodigoPersonal($value);
+        $logunt->setFecha($date);
+        $logunt->setDescripcion('editarCliente');
+        $logunt->setCodigoPersonal($codPers);
+        try {
+            DB::transaction(function () use ($codPersona,$logunt) {
+                DB::table('persona')->where('codPersona', $codPersona)->update(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos()]);
+                DB::table('cliente')->where('idPersona', $codPersona)->update(['ruc' => $this->ruc, 'razonSocial' => $this->razonSocial]);
+                $logunt->saveLogUnt();
+            });
+        } catch (PDOException $e) {
+            return false;
+        }
+        return true;
     }
 
     public function consultarAlumnoDNI($dni)
@@ -142,7 +171,23 @@ class clientemodel extends personamodel
 
     public function eliminarCliente($codPersona)
     {
-        DB::table('persona')->where('codPersona', $codPersona)->update(['estado' => 0]);
-        DB::table('cliente')->where('idPersona', $codPersona)->update(['estado' => 0]);
+        date_default_timezone_set('Etc/GMT+5');
+        $date = date('Y-m-d H:i:s', time());
+        $logunt = new loguntemodel();
+        $value = Session::get('personalC');
+        $codPers = $logunt->obtenerCodigoPersonal($value);
+        $logunt->setFecha($date);
+        $logunt->setDescripcion('EliminarCliente');
+        $logunt->setCodigoPersonal($codPers);
+        try {
+            DB::transaction(function () use ($codPersona,$logunt) {
+                DB::table('persona')->where('codPersona', $codPersona)->update(['estado' => 0]);
+                DB::table('cliente')->where('idPersona', $codPersona)->update(['estado' => 0]);
+                $logunt->saveLogUnt();
+            });
+        } catch (PDOException $e) {
+            return false;
+        }
+        return true;
     }
 }
