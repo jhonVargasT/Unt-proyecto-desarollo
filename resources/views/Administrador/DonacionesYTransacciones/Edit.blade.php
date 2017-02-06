@@ -64,7 +64,7 @@
                                     <span class="col-sm-2 control-label">Monto </span>
                                     <div class="col-sm-4">
                                         <input class="form-control" name="monto" type="text"
-                                               autocomplete="off" onkeypress="return validarNum(event)"
+                                               autocomplete="off" onkeypress="return validarNumP(event)"
                                                value="{{$d->monto}}">
                                     </div>
                                 </div>
