@@ -35,7 +35,7 @@
                     <span class="col-sm-2 control-label"> Clasificador Siaf </span>
                     <div class="col-sm-5">
                         <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
-                               name="nombreTramite" id="name">
+                               name="nombreTramite" id="name" autocomplete="off" onkeypress="return validarLetras(event)">
                         <script type="text/javascript">
                             var path = "{{ route('autocompletet') }}";
                             $('input.typeahead').typeahead({
@@ -51,7 +51,8 @@
                 <div class=" form-group-sm" align="left">
                     <span class="col-sm-2 control-label">Fecha </span>
                     <div class="col-sm-3">
-                        <input class="form-control" name="fechaIngreso" type="text">
+                        <input class="form-control" name="fechaIngreso" type="text"
+                               autocomplete="off" onkeypress="return validarNumS(event)">
                     </div>
                 </div>
             </div>
@@ -76,7 +77,8 @@
                     <div class=" form-group-sm" align="left">
                         <span class="col-sm-2 control-label">Monto </span>
                         <div class="col-sm-3">
-                            <input class="form-control" name="monto" type="text">
+                            <input class="form-control" name="monto" type="text"
+                                   autocomplete="off" onkeypress="return validarNumP(event)">
                         </div>
                     </div>
                 </div>
@@ -91,7 +93,8 @@
                         <div class=" form-group-sm" align="left">
                             <span class="col-sm-2 control-label">Numero de resolucion </span>
                             <div class="col-sm-3">
-                                <input class="form-control " name="numResolucion" type="text">
+                                <input class="form-control " name="numResolucion" type="text"
+                                       autocomplete="off" onkeypress="return validarNum(event)">
                             </div>
                         </div>
                     </div>

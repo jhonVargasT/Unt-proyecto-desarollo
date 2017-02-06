@@ -29,14 +29,16 @@
                 <div class="form-group-sm " align="left">
                     <span class="col-sm-3 control-label"> Clasificador Siaf</span>
                     <div class="col-sm-3">
-                        <input class="form-control input-sm" name="clasificador" type="text">
+                        <input class="form-control input-sm" name="clasificador" type="text"
+                               autocomplete="off" onkeypress="return validarNumP(event)">
                     </div>
 
                 </div>
                 <div class=" form-group-sm" align="left">
                     <span class="col-sm-2 control-label"> Nombre de tramite</span>
                     <div class="col-sm-4">
-                        <input class="form-control" name="nombre" type="text">
+                        <input class="form-control" name="nombre" type="text"
+                               autocomplete="off" onkeypress="return validarLetras(event)">
                     </div>
                 </div>
 
@@ -46,7 +48,8 @@
                 <div class="form-group-sm " align="left">
                     <span class="col-sm-3 control-label"> tipo de recurso</span>
                     <div class="col-sm-1">
-                        <input class="form-control input-sm" name="tipoRecurso" type="text">
+                        <input class="form-control input-sm" name="tipoRecurso" type="text"
+                               autocomplete="off" onkeypress="return validarLetras(event)">
                     </div>
                     <div class="col-sm-1"></div>
 
@@ -54,10 +57,10 @@
                 <div class=" form-group-sm" align="left">
                     <span class="col-sm-3 control-label"> Fuente de financiamieto</span>
                     <div class="col-sm-1">
-                        <input class="form-control" name="fuentefinanc" type="text">
+                        <input class="form-control" name="fuentefinanc" type="text"
+                               autocomplete="off" onkeypress="return validarLetras(event)">
                     </div>
                 </div>
-                glyphicon glyphicon-ok
             </div>
             <div class="col-sm-12 row form-group">
                 <div class="col-md-3"></div>

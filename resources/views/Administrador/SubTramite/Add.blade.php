@@ -32,7 +32,7 @@
                     <span class="col-sm-3 control-label"> Nombre Tramite</span>
                     <div class="input-group col-sm-6">
                         <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
-                               name="nombreTramite">
+                               name="nombreTramite" autocomplete="off" onkeypress="return validarLetras(event)">
                         <script type="text/javascript">
                             var path = "{{ route('autocomplete') }}";
                             $('input.typeahead').typeahead({
@@ -51,7 +51,8 @@
                 <div class="form-group-sm " align="left">
                     <span class="col-sm-3 control-label"> Cuenta contable</span>
                     <div class="col-sm-3">
-                        <input class="form-control input-sm" name="cuentaContable" type="text">
+                        <input class="form-control input-sm" name="cuentaContable" type="text"
+                               autocomplete="off" onkeypress="return validarNum(event)">
                     </div>
                     <div class="col-sm-1">
 
@@ -61,7 +62,8 @@
                     <span class="col-sm-2">Precio</span>
                     <div class="input-group col-sm-2">
                         <div class="input-group-addon ">S/.</div>
-                        <input type="text" class="form-control " name="precio" >
+                        <input type="text" class="form-control " name="precio"
+                               autocomplete="off" onkeypress="return validarNumP(event)">
 
                     </div>
                 </div>
@@ -74,7 +76,8 @@
                 <div class="form-group-sm " align="left">
                     <span class="col-sm-3 control-label"> Nombre Subtramite</span>
                     <div class="col-sm-4">
-                        <input class="form-control input-sm" name="nombreSubTramite" type="text">
+                        <input class="form-control input-sm" name="nombreSubTramite" type="text"
+                               autocomplete="off" onkeypress="return validarLetras(event)">
                     </div>
                     <div class="col-sm-1"></div>
 
