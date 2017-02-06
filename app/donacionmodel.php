@@ -175,7 +175,7 @@ class donacionmodel
         $logunt->setCodigoPersonal($codPers);
         try {
             DB::transaction(function () use ($codDonacion,$logunt) {
-                DB::table('donacion')->where('codDonacion', $codDonacion)->update(['numeroResolucion' => $this->numResolucion, 'descripcion' => $this->descripcion, 'fechaDeIngreso' => $this->fechaIngreso]);
+                DB::table('donacion')->where('codDonacion', $codDonacion)->update(['numResolucion' => $this->numResolucion, 'descripcion' => $this->descripcion, 'fechaIngreso' => $this->fechaIngreso, 'monto'=>$this->monto]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -213,10 +213,8 @@ class donacionmodel
 
     public function consultarDonacionFecha($fechaIngreso)
     {
-        $donacionbd = DB::table('donacion')
-            ->where('fechaIngreso', $fechaIngreso)
-            ->where('estado', 1)
-            ->orderBy('codDonacion', 'desc')->get();
+        $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
+        tramite.codTramite = donacion.idTramite and donacion.fechaIngreso=:fechaIngreso and tramite.estado=1 and donacion.estado =1', ['fechaIngreso' => $fechaIngreso]);
         return $donacionbd;
     }
 
@@ -243,10 +241,8 @@ class donacionmodel
 
     public function consultarDonacionNumeroResolucion($numResolucion)
     {
-        $donacionbd = DB::table('donacion')
-            ->where('numResolucion', $numResolucion)
-            ->where('estado', 1)
-            ->orderBy('codDonacion', 'desc')->get();
+        $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
+        tramite.codTramite = donacion.idTramite and donacion.numResolucion=:numResolucion and tramite.estado=1 and donacion.estado =1', ['numResolucion' => $numResolucion]);
         return $donacionbd;
     }
 }

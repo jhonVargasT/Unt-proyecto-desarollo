@@ -12,7 +12,8 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarDonaciones" style="color: #509f0c" target="_top">Agregar Donaciones y transacciones</a>
+                        <a href="/admRegistrarDonaciones" style="color: #509f0c" target="_top">Agregar Donaciones y
+                            transacciones</a>
                     </td>
                 </tr>
             </table>
@@ -24,8 +25,6 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
-
-
         <form name="form" action="{{url('DonacionRegistrada')}}" role="form" method="POST" class="Horizontal">
         {{csrf_field()}}
         <!-- Form Name -->
@@ -35,20 +34,18 @@
                 <div class="form-group-sm " align="left">
                     <span class="col-sm-2 control-label"> Clasificador Siaf </span>
                     <div class="col-sm-5">
-                        <div class="input-group col-sm-6">
-                            <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
-                                   name="nombreTramite" id="name">
-                            <script type="text/javascript">
-                                var path = "{{ route('autocompletet') }}";
-                                $('input.typeahead').typeahead({
-                                    source: function (query, process) {
-                                        return $.get(path, {query: query}, function (data) {
-                                            return process(data);
-                                        });
-                                    }
-                                });
-                            </script>
-                        </div>
+                        <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
+                               name="nombreTramite" id="name">
+                        <script type="text/javascript">
+                            var path = "{{ route('autocompletet') }}";
+                            $('input.typeahead').typeahead({
+                                source: function (query, process) {
+                                    return $.get(path, {query: query}, function (data) {
+                                        return process(data);
+                                    });
+                                }
+                            });
+                        </script>
                     </div>
                 </div>
                 <div class=" form-group-sm" align="left">
@@ -61,8 +58,20 @@
             <div class="col-sm-12 row form-group">
                 <div class="form-group-sm " align="left">
                     <span class="col-sm-2 control-label">Tipo de recurso </span>
-                    <div class="col-sm-5">
-                        <input class="form-control input-sm " name="TipoDeRecurso" type="text" value="">
+                    <div class="col-sm-5 ">
+                        <input class="form-control input-sm " name="TipoDeRecurso" type="text" id="tr" disabled>
+                        <script>
+                            $('#name').change(function () {
+                                $.ajax({
+                                    url: '/tipoRecurso',
+                                    type: "get",
+                                    data: {name: $('#name').val()},
+                                    success: function (data) {
+                                        $('#tr').val(data);
+                                    }
+                                });
+                            });
+                        </script>
                     </div>
                     <div class=" form-group-sm" align="left">
                         <span class="col-sm-2 control-label">Monto </span>
@@ -72,22 +81,22 @@
                     </div>
                 </div>
                 <br>
-                <div class="col-sm-12 row form-group" align="left">
-                    <div>
+                <div class="col-sm-12 row form-group">
+                    <div class="form-group-sm " align="left">
                         <span class=" col-sm-2 control-label">Descripcion </span>
                         <div class="col-sm-5">
                         <textarea class="form-control " rows="5" name="descripcion">
                             </textarea>
                         </div>
-                    </div>
-                    <div class="form-group-sm ">
-                        <span class="col-sm-2 control-label">Numero de resolucion </span>
-                        <div class="col-sm-3">
-                            <input class="form-control " name="numResolucion" type="text">
+                        <div class=" form-group-sm" align="left">
+                            <span class="col-sm-2 control-label">Numero de resolucion </span>
+                            <div class="col-sm-3">
+                                <input class="form-control " name="numResolucion" type="text">
+                            </div>
                         </div>
                     </div>
-
                 </div>
+                <br>
                 <div class="col-sm-12 row form-group">
                     <div class="col-md-3"></div>
                     <a href="#" class=" col-md-2 btn btn-sm btn-danger"><span
@@ -102,6 +111,4 @@
             </div>
         </form>
     </fieldset>
-
-
 @stop

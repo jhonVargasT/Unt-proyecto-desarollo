@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 
 Route::resource('/loguear', 'personalController@loguearPersonal');
-Route::resource('/cerrarSesion','personalController@logOutPersonal');
+Route::resource('/cerrarSesion', 'personalController@logOutPersonal');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////ADMINISTRADOR/////////////////////////////////////////////////////////
@@ -69,7 +69,10 @@ Route::get('/admBuscarDonaciones', function () {
 });
 
 Route::resource('DonacionRegistrada', 'donacionController@registrarDonaciones');
-Route::resource('DonacionTR', 'donacionController@llenar');
+Route::resource('DonacionesBuscadas', 'donacionController@listarDonaciones');
+Route::resource('DonacionCargar', 'donacionController@cargarDonacion');
+Route::get('DonacionEditada/{codDonacion}', 'donacionController@editarDonacion');
+Route::get('DonacionEliminar/{codDonacion}', 'donacionController@eliminarDonacion');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -79,7 +82,6 @@ Route::get('/admRegistrarEscuela', function () {
 Route::get('/admBuscarEscuela', function () {
     return view('Administrador/Escuela/Search');
 });
-
 
 Route::resource('EscuelaRegistrada', 'escuelaController@registrarEscuela');
 Route::resource('EscuelasBuscadas', 'escuelaController@listarEscuela');
@@ -191,5 +193,6 @@ Route::get('/ventReportPago', function () {
 Route::get('autocompletee', array('as' => 'autocompletee', 'uses' => 'escuelaController@autocompletee'));
 Route::get('autocomplete', array('as' => 'autocomplete', 'uses' => 'subtramiteController@autocomplete'));
 Route::get('autocompletet', array('as' => 'autocompletet', 'uses' => 'donacionController@autocompletet'));
+Route::get('/tipoRecurso', 'donacionController@tipoRecurso');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

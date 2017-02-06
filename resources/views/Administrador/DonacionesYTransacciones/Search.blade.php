@@ -66,10 +66,13 @@
                             <div align="center">Numero Resolucion</div>
                         </th>
                         <th>
-                            <div align="center">Codigo SIAF</div>
+                            <div align="center">Codigo siaf</div>
                         </th>
                         <th>
                             <div align="center">Tipo de Recurso</div>
+                        </th>
+                        <th>
+                            <div align="center">Fuente de Financiamiento</div>
                         </th>
                         <th>
                             <div align="center">Fecha</div>
@@ -92,14 +95,16 @@
                             <tr>
                                 <td>{{$d->numResolucion}}</td>
                                 <td>{{$d->clasificador}}</td>
+                                <td>{{$d->tipoRecurso}}</td>
+                                <td>{{$d->fuentefinanc}}</td>
                                 <td>{{$d->fechaIngreso}}</td>
                                 <td>{{$d->monto}}</td>
                                 <td>{{$d->descripcion}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}
-                                    <a href="TramiteCargar/{{$d->codDonacion}}"><span
+                                    <a href="DonacionCargar/{{$d->codDonacion}}"><span
                                                 class="glyphicon glyphicon-pencil"></span> </a>
-                                    <a href="TramiteEliminar/{{$d->codDonacion}}"><span
+                                    <a href="DonacionEliminar/{{$d->codDonacion}}"><span
                                                 class="glyphicon glyphicon-trash"></span> </a>
                                 </td>
                             </tr>
