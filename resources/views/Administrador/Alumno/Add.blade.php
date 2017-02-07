@@ -22,6 +22,7 @@
 
 @section('content')
     @if( Session::has('misession') )
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <div class="panel panel-primary">
             <div class="panel-heading"> Agregar Estudiante</div>
             <div class="panel-body">
@@ -68,7 +69,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group-sm " align="left">
-                                    <span class="col-sm-3 control-label"> Codigo matricula</span>
+                                    <span class="col-sm-2 control-label"> Codigo matricula</span>
                                     <div class="col-sm-3">
                                         <input class="form-control input-sm" name="codMatricula" type="text">
                                     </div>
@@ -80,6 +81,13 @@
                                     <div class="col-sm-3">
                                         <input class="form-control input-sm" name="fecha" type="text"
                                                autocomplete="off" onkeypress="return validarNumS(event)">
+                                    </div>
+                                </div>
+                                <div class="form-group-sm " align="left">
+                                    <span class="col-sm-2 control-label">Facultad</span>
+                                    <div class="col-sm-3">
+                                        <div class="selector-facultad">
+                                        </div>
                                     </div>
                                 </div>
                             </div>

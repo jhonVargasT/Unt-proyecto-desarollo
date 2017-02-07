@@ -67,4 +67,16 @@ class facultadController extends Controller
         $facultad->eliminarFacultad($idFacultad);
         return view('Administrador/Facultad/Search')->with(['nombre' => $request->NombreFacultad]);
     }
+
+    public function llenarFacultad()
+    {
+        $var=null;
+        $facultad= new facultadmodel();
+        $nombre = $facultad->llenarFacultadReporte();
+        foreach ($nombre as $nom)
+        {
+           $var = $nom->nombre;
+        }
+        return $var;
+    }
 }
