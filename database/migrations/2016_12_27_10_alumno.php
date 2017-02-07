@@ -25,7 +25,7 @@ class Alumno extends Migration
 
 
             $table->integer('idPersona')-> unsigned();
-            $table->integer('coEscuela')-> unsigned()->nullable();
+            $table->integer('coEscuela')-> unsigned();
 
         });
 
