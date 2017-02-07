@@ -104,15 +104,17 @@ class escuelamodel
 
     public function buscarFacultad($nombre)
     {
-        $facultad = DB::select('select * from facultad left join escuela on facultad.codFacultad=escuela.coFacultad where facultad.codFacultad=escuela.coFacultad and facultad.nombre=:nombre', ['nombre' => $nombre]);
-        return $facultad;
+        $facultad = DB::select('select * from facultad  where nombre=:nombre', ['nombre' => $nombre]);
+        foreach ($facultad as $f) {
+            return $f->idFacultad;
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function llenarEscuelaReporte()
     {
-        $escuelabd =DB::table('escuela')->select('nombre')->where('estado','=',1)->get();
+        $escuelabd = DB::table('escuela')->select('nombre')->where('estado', '=', 1)->get();
         return $escuelabd;
     }
 
@@ -165,7 +167,7 @@ class escuelamodel
         $logunt->setCodigoPersonal($codPers);
 
         try {
-            DB::transaction(function () use ($idEscuela,$logunt) {
+            DB::transaction(function () use ($idEscuela, $logunt) {
                 DB::table('escuela')->where('idEscuela', $idEscuela)->update(['estado' => 0]);
                 $logunt->saveLogUnt();
             });
@@ -185,7 +187,6 @@ class escuelamodel
         $logunt->setFecha($date);
         $logunt->setDescripcion('registrarEscuela');
         $logunt->setCodigoPersonal($codPers);
-
         try {
             DB::transaction(function () use ($logunt) {
                 DB::table('escuela')->insert(['codEscuela' => $this->codEscuela, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta, 'codigoFacultad' => $this->facultad]);
@@ -209,7 +210,7 @@ class escuelamodel
         $logunt->setCodigoPersonal($codPers);
 
         try {
-            DB::transaction(function () use ($idEscuela,$logunt) {
+            DB::transaction(function () use ($idEscuela, $logunt) {
                 DB::table('escuela')->where('idEscuela', $idEscuela)->update(['nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta]);
                 $logunt->saveLogUnt();
             });

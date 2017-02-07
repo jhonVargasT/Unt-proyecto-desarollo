@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\alumnomodel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class alumnoController extends Controller
@@ -85,5 +86,12 @@ class alumnoController extends Controller
         $alumno = new alumnomodel();
         $alumno->eliminarAlumno($codPersona);
         return view('Administrador/Alumno/Search')->with(['nombre' => $request->nombres]);
+    }
+
+    public function autocompletef(Request $request)
+    {
+        $data = DB::table('facultad')->select("nombre as name")->where("nombre", "LIKE", "%{$request->input('query')}%")->get();
+
+        return response()->json($data);
     }
 }

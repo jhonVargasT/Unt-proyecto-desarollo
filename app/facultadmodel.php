@@ -99,6 +99,11 @@ class facultadmodel
         $facultadbd =DB::table('facultad')->select('nombre')->where('estado','=',1)->get();
         return $facultadbd;
     }
+    public function llenarFacultadRegistro()
+    {
+        $facultadbd =DB::table('facultad')->select('nombre')->where('estado','=',1)->get();
+        return $facultadbd;
+    }
 
     public function consultarFacultadid($idFacultad)
     {

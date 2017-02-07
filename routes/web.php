@@ -193,6 +193,7 @@ Route::get('/ventReportPago', function () {
 Route::get('autocompletee', array('as' => 'autocompletee', 'uses' => 'escuelaController@autocompletee'));
 Route::get('autocomplete', array('as' => 'autocomplete', 'uses' => 'subtramiteController@autocomplete'));
 Route::get('autocompletet', array('as' => 'autocompletet', 'uses' => 'donacionController@autocompletet'));
+Route::get('autocompletef', array('as' => 'autocompletef', 'uses' => 'alumnoController@autocompletef'));
 Route::get('/tipoRecurso', 'donacionController@tipoRecurso');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
