@@ -20,7 +20,7 @@ class donacionController extends Controller
         $nombreT = $request->nombreTramite;
         $idD = $donacion->bdTramite($nombreT);
         $donacion->setIdTramite($idD);
-        $dona= $donacion->saveDonacion();
+        $dona = $donacion->saveDonacion();
 
         if ($dona == true) {
             return back()->with('true', 'Donacion ' . $request->numResolucion . ' guardada con exito')->withInput();
@@ -52,6 +52,7 @@ class donacionController extends Controller
         $donacion->editarDonacion($codDonacion);
         return view('Administrador/DonacionesYTransacciones/Search')->with(['nombre' => $request->numeroResolucion]);
     }
+
     //Falta buscar desde una fecha hasta otra fecha....
     public function listarDonacion(Request $request)
     {
@@ -85,6 +86,17 @@ class donacionController extends Controller
         $donacion = new donacionmodel();
         $donacion->eliminarDonacion($codDonacion);
         return view('Administrador/DonacionesYTransacciones/Search')->with(['nombre' => $request->numeroResolucion]);
+    }
+
+    public function tipoRecurso(Request $request)
+    {
+         echo ($name = $request->input('id'));
+        $data = DB::table('donacion')->where('nombre', $name)
+            ->where('estado', 1)
+            ->orderBy('codDonacion', 'desc')->get();
+
+        return response()->json($data);
+
     }
 
 }

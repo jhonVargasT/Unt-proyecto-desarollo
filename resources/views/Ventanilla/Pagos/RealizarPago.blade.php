@@ -18,7 +18,7 @@
             </table>
         </div>
     </div>
-    @stop
+@stop
 @section('content')
 
     <div class="panel panel-primary ">
@@ -35,7 +35,7 @@
                             </select>
                         </div>
                         <div class="col-sm-3">
-                            <input class="form-control input-sm " name="dni" type="text" autocomplete="off">
+                            <input class="form-control input-sm " id="buscar" name="dni" type="text" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group-sm">
@@ -61,11 +61,13 @@
                     <div class="form-group-sm">
                         <span class="col-sm-2">Facultad</span>
                         <div class="col-sm-4">
-                            <input class="form-control input-sm" name="apellido" type="text" autocomplete="off" disabled>
+                            <input class="form-control input-sm" name="apellido" type="text" autocomplete="off"
+                                   disabled>
                         </div>
                         <span class="col-sm-2">Escuela</span>
                         <div class="col-sm-4">
-                            <input class="form-control input-sm" name="tipoTramite" type="text" autocomplete="off" disabled>
+                            <input class="form-control input-sm" name="tipoTramite" type="text" autocomplete="off"
+                                   disabled>
                         </div>
                     </div>
                 </div>
@@ -80,18 +82,18 @@
                     </div>
                 </div>
 
+                <div class="col-sm-12 row form-group">
+                    <div class="col-sm-8"></div>
+                    <div class="col-sm-8">Total boleta : 59 soles:</div>
 
-            </div>
-            <div class="form-group-sm">
-                <span class="col-sm-2">Apellidos</span>
-                <div class="col-sm-4">
-                    <input class="form-control input-sm" name="apellido" type="text" autocomplete="off">
                 </div>
-                <span class="col-sm-2">Tipo tramite</span>
-                <div class="col-sm-4">
-                    <input class="form-control input-sm" name="tipoTramite" type="text" autocomplete="off">
+                <div class="col-sm-12 row form-group">
+                    <div class="col-sm-8"></div>
+                    <div class="col-sm-8">Total pagar : 59 soles:</div>
+
                 </div>
             </div>
+
             <div class="col-sm-12">
                 <br>
                 <div class="col-sm-5">
@@ -107,5 +109,7 @@
             </div>
 
         </div>
+
     </div>
+
 @stop

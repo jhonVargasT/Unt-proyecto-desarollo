@@ -141,11 +141,12 @@ Route::get('/admReportes', function () {
 
 
 
-Route::get('autocompletee',array('as'=>'autocompletee','uses'=>'escuelaController@autocomplete'));
+Route::get('autocompleteescuela',array('as'=>'autocompleteescuela','uses'=>'escuelaController@autocompleteescuela'));
 Route::get('autocomplete',array('as'=>'autocomplete','uses'=>'subtramiteController@autocomplete'));
 Route::get('autocompletet',array('as'=>'autocompletet','uses'=>'donacionController@autocompletet'));
 
-Route::post('/getmsg','donacionController@llenar');
+
+Route::get('/tipoRecurso','donacionController@tipoRecurso');
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////Ventanilla ///////////////////////////
@@ -174,3 +175,4 @@ Route::get('/ventRelizarPago', function () {
 Route::get('/ventReportPago', function () {
     return view('Ventanilla/Pagos/ReportPago');
 });
+//Route::get('autocomplete',array('as'=>'autocomplete','uses'=>'pagoController@autocomplete'));

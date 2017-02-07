@@ -33,10 +33,10 @@
                     <div class="form-group " align="left">
                         <span class="col-sm-3 control-label"> Nombre Facultad</span>
                         <div class="input-group col-sm-6">
-                            <input class=" form-control input-sm" type="text" placeholder="Ingresa datos aqui .."
-                                   name="nombreFacultad" autocomplete="off">
+                            <input class=" typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
+                                   name="nombreFacultad" autocomplete="off" id="id">
                             <script type="text/javascript">
-                                var path = "{{ route('autocompletee') }}";
+                                var path = "{{ route('autocompleteescuela') }}";
                                 $('input.typeahead').typeahead({
                                     source: function (query, process) {
                                         return $.get(path, {query: query}, function (data) {

@@ -23,6 +23,9 @@
     <script>window.Laravel = <?php echo json_encode([
                 'csrfToken' => csrf_token(),]); ?>
     </script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 </head>
 <body style="background-color: #ccd0d2">
 <div class="container container-fluid">
@@ -54,7 +57,7 @@
         <div class="col-sm-12 ">
             <div class=" col-sm-8">
                 <div class="col-sm-5  ">
-                    <h4 align="left">Bienvenido administrador(ra) : </h4>
+                    <h4 align="left">Bienvenido administrador(a) : </h4>
                 </div>
                 <div class="col-sm-4 " align="left">
                     <h4>{{Session::get('misession','No existe session')}} </h4>

@@ -48,6 +48,20 @@
                                             });
                                         }
                                     });
+
+                                </script>
+
+                                <script>
+                                            $.ajax({
+                                                url: '/tipoRecurso',
+                                                type: 'GET',
+                                                data: { id: 'asd' },
+                                                success: function(response)
+                                                {
+                                                    $('#tr').html(response);
+                                                   window.print(response);
+                                                }
+                                            });
                                 </script>
                             </div>
                         </div>
@@ -63,7 +77,7 @@
                     <div class="form-group-sm " align="left">
                         <span class="col-sm-2 control-label">Tipo de recurso </span>
                         <div class="col-sm-5">
-                            <input class="form-control input-sm " name="TipoDeRecurso" type="text" autocomplete="off">
+                            <input class="form-control input-sm " name="TipoDeRecurso" type="text"  id="tr" disabled>
                         </div>
                         <div class=" form-group-sm" align="left">
                             <span class="col-sm-2 control-label">Monto </span>

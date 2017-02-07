@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\personalemodel;
 use App\personalmodel;
 use App\personamodel;
 use Illuminate\Http\Request;
@@ -19,8 +19,6 @@ class personalController extends Controller
         $personal->setCuenta($request->cuenta);
         $personal->setPassword($request->contraseña);
         $personal->setTipoCuenta($request->tipocuenta);
-        $co = $personal->bdPersona($request->dni);
-        $personal->setIdPersona($co);
         $p = $personal->savepersonal();
 
         if ($p == true) {
@@ -37,37 +35,38 @@ class personalController extends Controller
         $personal->setCuenta($request->cuenta);
         $personal->setPassword($request->password);
         $person = $personal->logear();
-
         foreach ($person as $per) {
             $personal->setCuenta($per->cuenta);
             $personal->setPassword($per->password);
             $personal->setTipoCuenta($per->tipoCuenta);
-            $persona = $perso->obtnerId($per->codPersonal);
+            $persona = $perso->obtnerId($per->idPersona);
             foreach ($persona as $p) {
                 $personal->setNombres($p->nombres);
                 $personal->setApellidos($p->apellidos);
+
             }
         }
-        Session::put(['misession'=>$personal->getNombres().' '.$personal->getApellidos()]);
+      
+        Session::put(['misession' => $personal->getNombres() . ' ' . $personal->getApellidos(),'personalC'=>$personal->getCuenta()]);
         if ($personal->getTipoCuenta() == 'Administrador' && $personal->getCuenta() != '') {
-
             return view('/Administrador/body');
-
         } else {
-            if ($personal->getTipoCuenta() == 'Ventanilla'&& $personal->getCuenta() != '') {
+            if ($personal->getTipoCuenta() == 'Ventanilla' && $personal->getCuenta() != '') {
                 return view('Ventanilla/Body');
             } else {
-                return back()->with('true', 'Cuenta ' . $personal->getCuenta(). ' no encontrada o contraseña incorrecta')->withInput();
+                return back()->with('true', 'Cuenta ' . $personal->getCuenta() . ' no encontrada o contraseña incorrecta')->withInput();
             }
         }
 
     }
+
 
     public function logOutPersonal()
     {
         Session::forget('misession');
         return view('Index');
     }
+
 
     public function cargarPersonal($idPersona)
     {
