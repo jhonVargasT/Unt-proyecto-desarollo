@@ -1,4 +1,4 @@
-@extends('Administrador.Body')
+@extends('Administrador/Body')
 @section('subtramite')
     <div id="collapseSix" class="in collapse">
         <div class="panel-body">
@@ -21,71 +21,78 @@
 @stop
 @section('content')
     <div class="panel panel-primary">
-
-        <div class="panel-heading">Buscar subtramites</div>
-        <!--menu Busqueda-->
-
+        <div class="panel-heading"> Buscar Subtramites</div>
         <div class="panel-body">
-            <div class="col-sm-12 row form-group">
-                <div class="form-group-sm col-sm-6 ">
-                    <span class="col-sm-5 control-label">Buscar por:</span>
-                    <div class="col-sm-7 ">
-                        <select class=" form-control">
-                            <option>Nombre Tramite</option>
-                            <option>Cuenta contable</option>
-                            <option>Nombre de subtramite</option>
-                        </select>
+            <form name="form" action="{{url('SubtramitesBuscadas')}}" role="form" method="POST" class="Vertical">
+                {{ csrf_field() }}
+                <div class="col-sm-12 row form-group">
+                    <div class="form-group-sm col-sm-6 ">
+                        <span class="col-sm-5 control-label">Buscar por:</span>
+                        <div class="col-sm-7 ">
+                            <select class=" form-control" name="select">
+                                <option>Tramite</option>
+                                <option>Nombre subtramite</option>
+                                <option>Cuenta contable</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group-sm input-group col-sm-6">
+                        @if(isset($txt))
+                            <input type="text" name="text" class="form-control" value="{{$txt}}">
+                        @else
+                            <input type="text" name="text" class="form-control" placeholder="Ingresa datos aqui .."
+                                   autocomplete="off">
+                        @endif
+                        <span class="input-group-btn">
+                            <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
+                        </span>
                     </div>
                 </div>
-                <div class="form-group-sm input-group col-sm-6">
-                    <input type="text" class="form-control" placeholder="Ingresa datos aqui ..">
-                        <span class="input-group-btn">
-                            <button class="btn btn-sm" type="button">Buscar</button>
-                        </span>
-                </div>
-
-            </div>
+            </form>
             <!--tabla-->
+
             <div class="table-responsive col-sm-12">
+                @if(isset($nombre)!=null)
+                    <div class="alert alert-success" role="alert">El subtramite {{$nombre}} fue actualizada!!</div>
+                @endif
+
                 <table class="table table-bordered">
-                    <head>
-                        <!--cabecear Tabla-->
-                        <tr class="active">
-
-                            <th><div align="center"><small>Nombre Tramite</small></div></th>
-                            <th><div align="center"><small>Cuenta contable</small></div></th>
-                            <th><div align="center"><small>Nombre de subtramite</small></div></th>
-                            <th><div align="center"><small>Precio</small></div></th>
-                            <th><div align="center"><small>Opciones</small></div></th>
-
-                        </tr>
-                    </head>
+                    <thead>
+                    <!--cabecear Tabla-->
+                    <tr class="active">
+                        <th>
+                            <div align="center">Nombre Subtramite</div>
+                        </th>
+                        <th>
+                            <div align="center">Cuenta contable</div>
+                        </th>
+                        <th>
+                            <div align="center">Precio</div>
+                        </th>
+                        <th>
+                            <div align="center">Opciones</div>
+                        </th>
+                    </tr>
+                    </thead>
                     <body>
-                    <tr>
-                        <td>00001</td>
-                        <td>125.168.129.58</td>
-                        <td>1546568</td>
-                        <td>10/01/2017</td>
+                    @if(isset($subtramite))
+                        <!--Contenido-->
+                        @foreach($subtramite as $s)
+                            <tr>
+                                <td>{{$s->nombre}}</td>
+                                <td>{{$s->cuenta}}</td>
+                                <td>{{$s->precio}}</td>
+                                <td align="center">
+                                    {{ csrf_field() }}
+                                    <a href="SubtramiteCargar/{{$s->codSubtramite}}"><span
+                                                class="glyphicon glyphicon-pencil"></span> </a>
+                                    <a href="SubtramiteEliminar/{{$s->codSubtramite}}"><span
+                                                class="glyphicon glyphicon-trash"></span> </a>
 
-                        <td>
-                            <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
-                            <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>00002</td>
-                        <td>125.168.129.58</td>
-                        <td>5648665</td>
-                        <td>10/01/2017</td>
-
-                        <td>
-                            <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
-                            <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
-
-                        </td>
-
-                    </tr>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
                     </body>
                 </table>
             </div>
@@ -102,9 +109,7 @@
                     </ul>
                 </div>
                 <div class="col-sm-4"></div>
-
             </div>
-
         </div>
     </div>
 @stop

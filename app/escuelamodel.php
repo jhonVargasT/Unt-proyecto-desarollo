@@ -110,6 +110,12 @@ class escuelamodel
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public function llenarEscuelaReporte()
+    {
+        $escuelabd =DB::table('escuela')->select('nombre')->where('estado','=',1)->get();
+        return $escuelabd;
+    }
+
     public function consultarEscuelaid($idEscuela)
     {
         $escuelabd = DB::table('escuela')->where('idEscuela', $idEscuela)->get();
@@ -142,7 +148,6 @@ class escuelamodel
 
     public function consultarEscuelasFacultad($nombreF)
     {
-        //$escuelabd = DB::table('facultad')->leftJoin('escuela', 'facultad.idFacultad', '=', 'escuela.codigoFacultad')->where('facultad.nombre', '=',$nombreF)->orderBy('facultad.idFacultad', 'desc')->get();
         $escuelabd = DB::select('select * from facultad left join escuela on facultad.idFacultad = escuela.codigoFacultad where 
         facultad.idFacultad = escuela.codigoFacultad and facultad.nombre=:nombre and facultad.estado=1 and escuela.estado=1', ['nombre' => $nombreF]);
         return $escuelabd;

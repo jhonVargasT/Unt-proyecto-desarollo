@@ -35,8 +35,8 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72"
           href="{{asset('assets/ico/apple-touch-icon-72-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" href="{{asset('assets/ico/apple-touch-icon-57-precomposed.png')}}">
-    <script>window.Laravel = <?php echo json_encode([
-                'csrfToken' => csrf_token(),]); ?>
+    <script>window.Laravel = "<?php echo json_encode([
+                'csrfToken' => csrf_token(),]); ?>"
     </script>
     <script>
         $(document).ready(function () {
@@ -62,7 +62,7 @@
                         <div class="col-sm-12"><strong> UNIVERSIDAD NACIONAL DE TRUJILLO </strong></div>
 
                         <div class="col-sm-12">
-                            <img src="{{ asset('assets/img/index.jpg') }}">
+                            <img src="{{ asset('assets/img/logo.png') }}">
                         </div>
                         <div class="col-sm-12"> Tesoreria</div>
                     </div>
@@ -71,7 +71,7 @@
                             {{csrf_field()}}
                             <div class="col-sm-12" align="left">
                                 <label for="inputEmail">Cuenta :</label>
-                                <input type="text" name="cuenta" class="form-control" placeholder="Ejemp: xvzlo"
+                                <input type="text" name="cuenta" class="form-control" placeholder="Ejemp: admin"
                                        required=""
                                        autofocus="">
                             </div>

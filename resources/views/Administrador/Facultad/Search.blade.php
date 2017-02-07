@@ -1,4 +1,4 @@
-@extends('Administrador.Body')
+@extends('Administrador/Body')
 @section('facultad')
     <div id="collapseThrees" class="collapse in">
         <div class="panel-body">
@@ -21,9 +21,7 @@
 @stop
 @section('content')
     <div class="panel panel-primary">
-        <div class="panel-heading">
-            Buscar Facultades
-        </div>
+        <div class="panel-heading"> Buscar Facultades</div>
         <div class="panel-body">
             <form name="form" action="{{url('FacultadesBuscadas')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
@@ -52,73 +50,62 @@
                 </div>
             </form>
             <!--tabla-->
-
             <div class="table-responsive col-sm-12">
                 @if(isset($nombre)!=null)
                     <div class="alert alert-success" role="alert">La facultad {{$nombre}} fue actualizada!!</div>
-                @endif
-                @if(isset($delete)==true)
-                    <div class="alert alert-success" role="alert"> Facultad eliminada!!</div>
                 @endif
                 <table class="table table-bordered">
                     <thead>
                     <!--cabecear Tabla-->
                     <tr class="active">
                         <th>
-                            <div align="center">
-                                <small><strong>Codigo facultad</strong></small>
-                            </div>
+                            <div align="center">Codigo facultad</div>
                         </th>
                         <th>
-                            <div align="center">
-                                <small><strong>Nombre Facultad</strong></small>
-                            </div>
+                            <div align="center">Nombre Facultad</div>
                         </th>
                         <th>
-                            <div align="center">
-                                <small><strong>Cuenta Interna</strong></small>
-                            </div>
+                            <div align="center">Cuenta Interna</div>
                         </th>
                         <th>
-                            <div align="center">
-                                <small><strong>Opciones</strong></small>
-                            </div>
+                            <div align="center">Opciones</div>
                         </th>
                     </tr>
                     </thead>
                     <body>
                     @if(isset($facultad))
-                            <!--Contenido-->
-                    @foreach($facultad as $f)
-                        <tr>
-                            <td>
-                                <small>{{$f->codFacultad}}</small>
-                            </td>
-                            <td>
-                                <small>{{$f->nombre}}</small>
-                            </td>
-                            <td>
-                                <small>{{$f->nroCuenta}}</small>
-                            </td>
-                            <td align="center">
-                                {{ csrf_field() }}
-                                <a href="FacultadCargar/{{$f->idFacultad}}"><span
-                                            class="glyphicon glyphicon-pencil"></span> </a>
-                                <a href="FacultadEliminar/{{$f->idFacultad}}"><span
-                                            class="glyphicon glyphicon-trash"></span> </a>
-
-                            </td>
-                        </tr>
-                    @endforeach
-
-                    </body>
-
+                        <!--Contenido-->
+                        @foreach($facultad as $f)
+                            <tr>
+                                <td>{{$f->codFacultad}}</td>
+                                <td>{{$f->nombre}}</td>
+                                <td>{{$f->nroCuenta}}</td>
+                                <td align="center">
+                                    {{ csrf_field() }}
+                                    <a href="FacultadCargar/{{$f->idFacultad}}"><span
+                                                class="glyphicon glyphicon-pencil"></span> </a>
+                                    <a href="FacultadEliminar/{{$f->idFacultad}}"><span
+                                                class="glyphicon glyphicon-trash"></span> </a>
+                                </td>
+                            </tr>
+                        @endforeach
                     @endif
+                    </body>
                 </table>
             </div>
             <div class="col-sm-12 row">
-
-
+                <div class="col-sm-4"></div>
+                <!--paginadro-->
+                <div class="col-sm-4" align="center">
+                    <ul class="pagination  pagination-sm">
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4"></div>
             </div>
         </div>
     </div>

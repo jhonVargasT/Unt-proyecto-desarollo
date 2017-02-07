@@ -1,6 +1,7 @@
-@extends('Administrador.Body')
+@extends('Administrador/Body')
 @section('body')
     <br>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <div class="panel panel-primary">
         <div class="panel panel-heading"> Reporte Pagos</div>
         <div class="panel-body">
@@ -29,14 +30,24 @@
                     </div>
                     <div class="form-group-sm col-sm-4 ">
                         <div class="col-sm-6 ">
-                            <select class=" form-control">
-                                <option>Todo</option>
-                                <option>Tramite</option>
-                                <option>SubTramite</option>
+                            <select class=" form-control" id="select" name="select">
+                                <option value="Todo">Todo</option>
+                                <option value="tramite">Tramite</option>
+                                <option value="subtramite">SubTramite</option>
                             </select>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control input-sm " name="tramite" autocomplete="off" disabled >
+                            <input type="text" class="form-control input-sm " id="input" name="input">
+                            <script>
+                                var $select = $('#select'), $input = $('#input');
+                                $select.change(function () {
+                                    if ($select.val() == 'tramite' || $select.val() == 'subtramite') {
+                                        $input.removeAttr('disabled');
+                                    } else {
+                                        $input.attr('disabled', 'disabled').val('');
+                                    }
+                                }).trigger('change');
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -44,49 +55,95 @@
                     <div class="form-group-sm col-sm-4 ">
                         <span class="col-sm-4 control-label">Facultad</span>
                         <div class="col-sm-8 ">
-                            <select class=" form-control" name="facultad">
-                                <option>todo</option>
-                                <option>Ingenieria</option>
-                                <option>Medicina</option>
+                            <select class=" form-control" name="facultad" >
+                                <option>Todo</option>
+                                <?php
+                                use App\facultadmodel;
+                                $facultad = new facultadmodel();
+                                $facultadbd= $facultad->llenarFacultadReporte();
+                                foreach ($facultadbd as $f)
+                                    {
+                                        echo '<option>'.$f->nombre.'</option>';
+                                    }
+                                ?>
                             </select>
                         </div>
                     </div>
                     <div class="form-group-sm col-sm-4 ">
                         <div class="col-sm-5">
-                            <input type="checkbox" value="" autocomplete="off">
+                            <input type="checkbox" id="cb">
                             Escuela
                         </div>
                         <div class="col-sm-7 ">
-                            <select class=" form-control" name="escuela">
-                                <option>Ing software</option>
-                                <option>Anulado</option>
+                            <script>
+                                $('#cb').change(function () {
+                                    if ($(this).is(':checked')) {
+                                        $('#es').prop('disabled', false);
+                                    } else {
+                                        $('#es').prop('disabled', true);
+                                    }
+                                });
+                            </script>
+                            <select class=" form-control" id="es" disabled="true">
+                                <option selected disabled>Seleccionar..</option>
+                                <option>Todo</option>
+                                <?php
+                                use App\escuelamodel;
+                                $escuela = new escuelamodel();
+                                $escuelabd= $escuela->llenarEscuelaReporte();
+                                foreach ($escuelabd as $e)
+                                {
+                                    echo '<option>'.$e->nombre.'</option>';
+                                }
+                                ?>
                             </select>
                         </div>
                     </div>
                     <div class="form-group-sm col-sm-4 ">
                         <div class="col-sm-9">
-                            <input type="checkbox" name="fuenteFin" autocomplete="off">
+                            <input type="checkbox" id="cbff" autocomplete="off">
                             Fuente de financiamiento
                         </div>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control input-sm " name="fuenteFinanciamiento" autocomplete="off" disabled>
+                            <script>
+                                $('#cbff').change(function () {
+                                    if ($(this).is(':checked')) {
+                                        $('#ff').prop('disabled', false);
+                                    } else {
+                                        $('#ff').prop('disabled', true);
+                                    }
+                                });
+                            </script>
+                            <input type="text" class="form-control input-sm " id="ff"
+                                   autocomplete="off" disabled="true">
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm col-sm-4 ">
                         <div class="col-sm-9">
-                            <input type="checkbox" value="" autocomplete="off">
+                            <input type="checkbox" id="cbtr">
                             Tipo de recurso
                         </div>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control input-sm " name="tipoDeRecurso" autocomplete="off" disabled>
+                            <script>
+                                $('#cbtr').change(function () {
+                                    if ($(this).is(':checked')) {
+                                        $('#tr').prop('disabled', false);
+                                    } else {
+                                        $('#tr').prop('disabled', true);
+                                    }
+                                });
+                            </script>
+                            <input type="text" class="form-control input-sm " id="tr" autocomplete="off"
+                                   disabled="true">
                         </div>
                     </div>
                     <div class="form-group-sm col-sm-4 ">
                         <span class="col-sm-6 control-label">Fecha:  </span>
                         <div class="col-sm-6 input-group date" data-provide="datepicker">
-                            <input type="text" name="fechaDesde" class="form-control" placeholder="desde" autocomplete="off">
+                            <input type="text" name="fechaDesde" class="form-control" placeholder="desde"
+                                   autocomplete="off">
                             <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-th"></span>
                             </div>
@@ -94,7 +151,8 @@
                     </div>
                     <div class="form-group-sm col-sm-4 ">
                         <div class="col-sm-6 input-group date" data-provide="datepicker">
-                            <input type="text" name="fechaHasta" class="form-control" placeholder="hasta" autocomplete="off">
+                            <input type="text" name="fechaHasta" class="form-control" placeholder="hasta"
+                                   autocomplete="off">
                             <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-th"></span>
                             </div>
@@ -116,15 +174,16 @@
                         </div>
                     </div>
                 </div>
-                <div  align="center" class="col-sm-12 row form-group " >
-                    <div class="table-responsive col-sm-12" >
-                        <table class="table table-bordered list-inline" >
+                <div align="center" class="col-sm-12 row form-group ">
+                    <div class="table-responsive col-sm-12">
+                        <table class="table table-bordered list-inline">
                             <thead>
                             <!--cabecear Tabla-->
                             <tr class="active">
 
                                 <th>
-                                    <div align="center"><small>Id pago</small>
+                                    <div align="center">
+                                        <small>Id pago</small>
                                     </div>
                                 </th>
                                 <th>
@@ -187,17 +246,17 @@
                             <body>
                             <!--Contenido-->
                             <tr>
-                                <td><h6>00001</h6></td>
-                                <td><h6>125.168.129.58</h6></td>
-                                <td><h6>Aw32234234</h6></td>
-                                <td><h6>125.168.129.58</h6></td>
-                                <td><h6>Aw32234234</h6></td>
-                                <td><h6>Aw32234234</h6></td>
-                                <td><h6>00001</h6></td>
-                                <td><h6>125.168.129.58</h6></td>
-                                <td><h6>Aw32234234</h6></td>
-                                <td><h6>125.168.129.58</h6></td>
-                                <td><h6>Aw32234234</h6></td>
+                                <td><h6></h6></td>
+                                <td><h6></h6></td>
+                                <td><h6></h6></td>
+                                <td><h6></h6></td>
+                                <td><h6></h6></td>
+                                <td><h6></h6></td>
+                                <td><h6></h6></td>
+                                <td><h6></h6></td>
+                                <td><h6></h6></td>
+                                <td><h6></h6></td>
+                                <td><h6></h6></td>
                                 <td align="center">
                                     <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
                                     <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>

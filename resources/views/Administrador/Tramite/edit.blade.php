@@ -1,4 +1,4 @@
-@extends('Administrador.Body')
+@extends('Administrador/Body')
 @section('tramite')
     <div id="collapseFive" class="collapse in">
         <div class="panel-body">
@@ -21,57 +21,75 @@
 @stop
 @section('content')
     <div class="panel panel-primary">
-        <div class="panel-heading">Editar tramite</div>
+        <div class="panel-heading"> EditarTramite</div>
         <div class="panel-body">
-            <form name="form" action="{{url('TramiteRegistrado')}}" role="form" method="POST" class="Vertical">
-                {{csrf_field()}}
-
-                <div class="col-sm-12 row form-group">
-                    <div class="form-group-sm " align="left">
-                        <span class="col-sm-3 control-label"> Clasificador Siaf</span>
-                        <div class="col-sm-3">
-                            <input class="form-control input-sm" name="clasificador" type="text" autocomplete="off">
+            @if(session()->has('true'))
+                <div class="alert alert-success" role="alert">{{session('true')}} </div>
+            @endif
+            @if(session()->has('false'))
+                <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
+            @endif
+            @if($tramite)
+                @foreach($tramite as $t)
+                    <form name="form" action="{{ url('TramiteEditada/' .$t->codTramite ) }}" role="form" method="Get"
+                          class="Vertical">
+                        {{csrf_field()}}
+                        <div class="col-sm-12 row form-group">
+                            <div class="form-group-sm " align="left">
+                                <span class="col-sm-2 control-label"> Clasificador SIAF</span>
+                                <div class="col-sm-2">
+                                    <input class="form-control input-sm" name="clasificadorSiaf" type="text"
+                                           autocomplete="off" onkeypress="return validarNum(event)"
+                                           value="{{$t->clasificador}}">
+                                </div>
+                            </div>
+                            <div class="form-group-sm " align="left">
+                                <span class="col-sm-2 control-label"> Nombre tramite</span>
+                                <div class="col-sm-5">
+                                    <input class="form-control input-sm" name="nombreTramite" type="text"
+                                           autocomplete="off" onkeypress="return validarLetras(event)"
+                                           value="{{$t->nombre}}">
+                                </div>
+                            </div>
                         </div>
-
-                    </div>
-                    <div class=" form-group-sm" align="left">
-                        <span class="col-sm-2 control-label"> Nombre de tramite</span>
-                        <div class="col-sm-4">
-                            <input class="form-control" name="nombre" type="text" autocomplete="off">
+                        <div class="col-sm-12 row form-group">
+                            <div class=" form-group-sm" align="left">
+                                <span class="col-sm-3 control-label">Fuente de financiamiento </span>
+                                <div class="col-sm-2">
+                                    <input class="form-control input-sm" name="fuenteFinaciamiento" type="text"
+                                           autocomplete="off"
+                                           onkeypress="return validarLetras(event)" value="{{$t->fuentefinanc}}">
+                                </div>
+                                <div class="col-sm-1"></div>
+                            </div>
+                            <div class=" form-group-sm" align="left">
+                                <span class="col-sm-3 control-label">Tipo de recurso </span>
+                                <div class="col-sm-2">
+                                    <input class="form-control input-sm" name="tipoDeRecurso" type="text"
+                                           autocomplete="off"
+                                           onkeypress="return validarLetras(event)" value="{{$t->tipoRecurso}}">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 row form-group">
+                                <div class="col-md-3"></div>
+                                <a href="{{url('/Layout')}}" class=" col-md-2 btn btn-sm btn-danger"><span
+                                            class="glyphicon glyphicon-ban-circle"></span>
+                                    Regresar
+                                </a>
+                                <div class="col-md-2">
+                                </div>
+                                <div>
+                                    <button href="" type="submit" name="enviar"
+                                            class="col-md-2 btn btn-sm btn-success"><span
+                                                class="glyphicon glyphicon-ok"></span> Guardar
+                                    </button>
+                                </div>
+                                <div class="col-md-3"></div>
+                            </div>
                         </div>
-                    </div>
-
-                </div>
-
-                <div class="col-sm-12 row form-group">
-                    <div class="form-group-sm " align="left">
-                        <span class="col-sm-3 control-label"> tipo de recurso</span>
-                        <div class="col-sm-1">
-                            <input class="form-control input-sm" name="tipoRecurso" type="text" autocomplete="off">
-                        </div>
-                        <div class="col-sm-1"></div>
-
-                    </div>
-                    <div class=" form-group-sm" align="left">
-                        <span class="col-sm-3 control-label"> Fuente de financiamieto</span>
-                        <div class="col-sm-1">
-                            <input class="form-control" name="fuentefinanc" type="text" autocomplete="off">
-                        </div>
-                    </div>
-                    glyphicon glyphicon-ok
-                </div>
-                <div class="col-sm-12 row form-group">
-                    <div class="col-md-3"></div>
-                    <a href="#" class=" col-md-2 btn btn-sm btn-danger"><span
-                                class="glyphicon glyphicon-ban-circle"></span>
-                        Cancelar</a>
-                    <div class="col-md-2"></div>
-                    <button type="submit" name="enviar" class="col-md-2 btn btn-success"><span
-                                class="glyphicon glyphicon-ok"></span> Guardar
-                    </button>
-                    <div class="col-md-3"></div>
-                </div>
-            </form>
+                    </form>
         </div>
+        @endforeach
+        @endif
     </div>
 @stop

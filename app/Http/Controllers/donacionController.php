@@ -35,6 +35,18 @@ class donacionController extends Controller
         return response()->json($data);
     }
 
+    public function tipoRecurso(Request $request)
+    {
+        $nombreT = $request->name;
+        $tipoRe = DB::select('select * from tramite where nombre=:nombre', ['nombre' => $nombreT]);
+
+        foreach ($tipoRe as $tir) {
+            $tr = $tir->tipoRecurso;
+            return response()->json($tr);
+        }
+
+    }
+
     public function cargarDonacion($codDonacion)
     {
         $donacion = new donacionmodel();
@@ -53,8 +65,7 @@ class donacionController extends Controller
         return view('Administrador/DonacionesYTransacciones/Search')->with(['nombre' => $request->numeroResolucion]);
     }
 
-    //Falta buscar desde una fecha hasta otra fecha....
-    public function listarDonacion(Request $request)
+    public function listarDonaciones(Request $request)
     {
         $don = null;
         $donacion = new donacionmodel();
@@ -62,7 +73,7 @@ class donacionController extends Controller
         if ($request->select == 'Fecha') {
             $don = $donacion->consultarDonacionFecha($request->text);
         } else {
-            if ($request->select == 'Codigo Siaf') {
+            if ($request->select == 'Codigo siaf') {
                 $don = $donacion->consultarDonacionCodigoSiaf($request->text);
             } else {
                 if ($request->select == 'Tipo de recurso') {
@@ -86,17 +97,6 @@ class donacionController extends Controller
         $donacion = new donacionmodel();
         $donacion->eliminarDonacion($codDonacion);
         return view('Administrador/DonacionesYTransacciones/Search')->with(['nombre' => $request->numeroResolucion]);
-    }
-
-    public function tipoRecurso(Request $request)
-    {
-         echo ($name = $request->input('id'));
-        $data = DB::table('donacion')->where('nombre', $name)
-            ->where('estado', 1)
-            ->orderBy('codDonacion', 'desc')->get();
-
-        return response()->json($data);
-
     }
 
 }

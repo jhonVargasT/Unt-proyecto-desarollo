@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+@if( Session::has('misession') )
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,8 +21,8 @@
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="{{asset('assets/ico/favicon.png')}}">
 
-    <script>window.Laravel = <?php echo json_encode([
-                'csrfToken' => csrf_token(),]); ?>
+    <script>window.Laravel =" <?php echo json_encode([
+            'csrfToken' => csrf_token(),]); ?>"
     </script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -54,13 +55,14 @@
         <div class="col-sm-12 ">
             <hr>
             <br></div>
+
         <div class="col-sm-12 ">
             <div class=" col-sm-8">
                 <div class="col-sm-5  ">
                     <h4 align="left">Bienvenido administrador(a) : </h4>
                 </div>
                 <div class="col-sm-4 " align="left">
-                    <h4>{{Session::get('misession','No existe session')}} </h4>
+                    <h4>{{Session::get('misession','No existe session')}}</h4>
                 </div>
             </div>
             <div class="col-sm-4">
@@ -115,7 +117,8 @@
 <script src="{{asset('assets/js/placeholder.js')}}"></script>
 <![endif]-->
 
-
 </body>
-
+@else
+    @include("index")
+@endif
 </html>

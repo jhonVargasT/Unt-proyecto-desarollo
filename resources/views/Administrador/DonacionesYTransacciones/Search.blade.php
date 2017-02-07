@@ -1,4 +1,4 @@
-@extends('Administrador.Body')
+@extends('Administrador/Body')
 @section('donaciones')
     <div id="collapseSeven" class="collapse in">
         <div class="panel-body">
@@ -21,67 +21,95 @@
 @stop
 @section('content')
     <div class="panel panel-primary">
-
-        <div class="panel-heading">Buscar Donaciones y Transacciones</div>
-        <!--menu Busqueda-->
+        <div class="panel-heading"> Buscar Donaciones y Transacciones</div>
         <div class="panel-body">
-            <div class="col-sm-12 row form-group">
-                <div class="form-group-sm col-sm-6 ">
-                    <span class="col-sm-5 control-label">Buscar por:</span>
-                    <div class="col-sm-7 ">
-                        <select class=" form-control">
-                            <option>Fecha</option>
-                            <option>Codigo Siaf</option>
-                            <option>Tipo de recurso</option>
-                            <option>Fecha</option>
-                            <option>Numero Resolucion</option>
-                        </select>
+            <form name="form" action="{{url('DonacionesBuscadas')}}" role="form" method="POST" class="Vertical">
+                {{ csrf_field() }}
+                <div class="col-sm-12 row form-group">
+                    <div class="form-group-sm col-sm-6 ">
+                        <span class="col-sm-5 control-label">Buscar por:</span>
+                        <div class="col-sm-7 ">
+                            <select class=" form-control" name="select">
+                                <option>Fecha</option>
+                                <option>Codigo siaf</option>
+                                <option>Tipo de recurso</option>
+                                <option>Fuente de financiamiento</option>
+                                <option>Numero Resolucion</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group-sm input-group col-sm-6">
+                        @if(isset($txt))
+                            <input type="text" name="text" class="form-control" value="{{$txt}}">
+                        @else
+                            <input type="text" name="text" class="form-control" placeholder="Ingresa datos aqui .."
+                                   autocomplete="off">
+                        @endif
+                        <span class="input-group-btn">
+                            <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
+                        </span>
                     </div>
                 </div>
-                <div class="form-group-sm input-group col-sm-6">
-                    <input type="text" class="form-control" placeholder="Ingresa datos aqui .." autocomplete="off">
-                        <span class="input-group-btn">
-                            <button class="btn btn-sm" type="button">Buscar</button>
-                        </span>
-                </div>
-            </div>
+            </form>
+            <!--tabla-->
+
             <div class="table-responsive col-sm-12">
+                @if(isset($nombre)!=null)
+                    <div class="alert alert-success" role="alert">El tramite {{$nombre}} fue actualizada!!</div>
+                @endif
+
                 <table class="table table-bordered">
                     <thead>
                     <!--cabecear Tabla-->
                     <tr class="active">
-                        <th><div align="center"><small>Numero Resolucion</small></div></th>
-                        <th><div align="center"><small>Codigo Siaf</small></div></th>
-                        <th><div align="center"><small>Tipo Recurso</small></div></th>
-                        <th><div align="center"><small>Fecha</small></div></th>
-                        <th><div align="center"><small>Monto</small></div></th>
-                        <th><div align="center"><small>Descripcion</small></div></th>
-                        <th><div align="center"><small>Opciones</small></div></th>
+                        <th>
+                            <div align="center">Numero Resolucion</div>
+                        </th>
+                        <th>
+                            <div align="center">Codigo siaf</div>
+                        </th>
+                        <th>
+                            <div align="center">Tipo de Recurso</div>
+                        </th>
+                        <th>
+                            <div align="center">Fuente de Financiamiento</div>
+                        </th>
+                        <th>
+                            <div align="center">Fecha</div>
+                        </th>
+                        <th>
+                            <div align="center">Monto</div>
+                        </th>
+                        <th>
+                            <div align="center">Descripcion</div>
+                        </th>
+                        <th>
+                            <div align="center">Opciones</div>
+                        </th>
                     </tr>
                     </thead>
                     <body>
-                    <tr>
-                        <td>00001</td>
-                        <td>125.168.129.58</td>
-                        <td>A</td>
-                        <td>10/01/2017</td>
-                        <td>250</td>
-                        <td> asdqwkeqweoñqiw askdlkwqeopiqweioqwiea sdkqwoeiopqwiepoiqwoepi</td>
-                        <td>
-                            <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
-                            <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
-                    </tr>
-                    <tr>
-                        <td>00001</td>
-                        <td>125.168.129.58</td>
-                        <td>A</td>
-                        <td>10/01/2017</td>
-                        <td>250</td>
-                        <td> asdqwkeqweoñqiw askdlkwqeopiqweioqwiea sdkqwoeiopqwiepoiqwoepi</td>
-                        <td>
-                            <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
-                            <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
-                    </tr>
+                    @if(isset($donacion))
+                        <!--Contenido-->
+                        @foreach($donacion as $d)
+                            <tr>
+                                <td>{{$d->numResolucion}}</td>
+                                <td>{{$d->clasificador}}</td>
+                                <td>{{$d->tipoRecurso}}</td>
+                                <td>{{$d->fuentefinanc}}</td>
+                                <td>{{$d->fechaIngreso}}</td>
+                                <td>{{$d->monto}}</td>
+                                <td>{{$d->descripcion}}</td>
+                                <td align="center">
+                                    {{ csrf_field() }}
+                                    <a href="DonacionCargar/{{$d->codDonacion}}"><span
+                                                class="glyphicon glyphicon-pencil"></span> </a>
+                                    <a href="DonacionEliminar/{{$d->codDonacion}}"><span
+                                                class="glyphicon glyphicon-trash"></span> </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
                     </body>
                 </table>
             </div>
