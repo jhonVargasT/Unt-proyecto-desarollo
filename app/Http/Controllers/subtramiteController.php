@@ -11,8 +11,8 @@ class subtramiteController extends Controller
     public function registrarSubtramite(Request $request)
     {
         $subtramite = new subtramitemodel();
-        $subtramite->setCuenta($request->cuenta);
-        $subtramite->setNombre($request->nombre);
+        $subtramite->setCuenta($request->cuentaContable);
+        $subtramite->setNombre($request->nombreSubTramite);
         $subtramite->setPrecio($request->precio);
         $idTra = $subtramite->bdTramite($request->nombreTramite);
         $subtramite->setIdTramite($idTra);

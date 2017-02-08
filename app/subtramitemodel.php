@@ -131,7 +131,6 @@ class subtramitemodel
         $logunt->setFecha($date);
         $logunt->setDescripcion('registrarSubtramite');
         $logunt->setCodigoPersonal($codPers);
-
         try {
             DB::transaction(function () use ($logunt) {
                 DB::table('subtramite')->insert(['cuenta' => $this->cuenta, 'nombre' => $this->nombre, 'precio' => $this->precio, 'idTramite' => $this->idTramite]);
@@ -139,8 +138,10 @@ class subtramitemodel
             });
         } catch (PDOException $e) {
             return false;
+
         }
         return true;
+
     }
 
     public function editarSubtramite($codSubtramite)
@@ -154,7 +155,7 @@ class subtramitemodel
         $logunt->setDescripcion('editarSubtramite');
         $logunt->setCodigoPersonal($codPers);
         try {
-            DB::transaction(function () use ($codSubtramite,$logunt) {
+            DB::transaction(function () use ($codSubtramite, $logunt) {
                 DB::table('subtramite')->where('codSubtramite', $codSubtramite)->update(['cuenta' => $this->cuenta, 'nombre' => $this->nombre, 'precio' => $this->precio]);
                 $logunt->saveLogUnt();
             });
@@ -207,7 +208,7 @@ class subtramitemodel
         $logunt->setCodigoPersonal($codPers);
 
         try {
-            DB::transaction(function () use ($codSubtramite,$logunt) {
+            DB::transaction(function () use ($codSubtramite, $logunt) {
                 DB::table('subtramite')->where('codSubtramite', $codSubtramite)->update(['estado' => 0]);
                 $logunt->saveLogUnt();
             });
