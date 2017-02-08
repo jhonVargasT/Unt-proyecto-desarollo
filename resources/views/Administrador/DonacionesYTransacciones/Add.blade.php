@@ -30,9 +30,6 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
             <form name="form" action="{{url('DonacionRegistrada')}}" role="form" method="POST" class="Horizontal">
                 {{csrf_field()}}
-                        <!-- Form Name -->
-
-
                 <!-- Search input-->
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm " align="left">
