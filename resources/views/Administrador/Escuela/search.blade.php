@@ -45,7 +45,7 @@
                                    autocomplete="off">
                         @endif
                         <span class="input-group-btn">
-                            <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
+                            <button class="btn btn-sm" type="submit" name="buscar" autocomplete="off">Buscar</button>
                         </span>
                     </div>
                 </div>

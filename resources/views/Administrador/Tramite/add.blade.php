@@ -20,11 +20,12 @@
     </div>
 @stop
 @section('content')
-    <fieldset>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Agregar tramite</div>
+        <div class="panel-body">
         <form name="form" action="{{url('TramiteRegistrado')}}" role="form" method="POST" class="Vertical">
             {{csrf_field()}}
-            <legend>Agregar tramite</legend>
-            <br>
+
             <div class="col-sm-12 row form-group">
                 <div class="form-group-sm " align="left">
                     <span class="col-sm-3 control-label"> Clasificador Siaf</span>
@@ -71,5 +72,6 @@
                 <div class="col-md-3"></div>
             </div>
         </form>
-    </fieldset>
+    </div>
+    </div>
 @stop

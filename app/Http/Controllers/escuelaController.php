@@ -17,12 +17,12 @@ class escuelaController extends Controller
         $escuela->setNroCuenta($request->nroCuenta);
         $coF = $escuela->buscarFacultad($request->nombreFacultad);
         $escuela->setFacultad($coF);
-        $esc = $escuela->saveescuela();
 
+        $esc = $escuela->saveescuela();
         if ($esc == true) {
-            return back()->with('true', 'Escuela ' . $request->nombre . ' guardada con exito')->withInput();
+            return back()->with('true', 'Facultad ' . $request->nombre . ' guardada con exito')->withInput();
         } else {
-            return back()->with('false', 'Escuela ' . $request->nombre . ' no guardada, puede que ya exista');
+            return back()->with('false', 'Facultad ' . $request->nombre . ' no guardada, puede que ya exista');
         }
     }
 

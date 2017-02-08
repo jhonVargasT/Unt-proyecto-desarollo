@@ -74,7 +74,7 @@ Route::resource('DonacionCargar', 'donacionController@cargarDonacion');
 Route::get('DonacionEditada/{codDonacion}', 'donacionController@editarDonacion');
 Route::get('DonacionEliminar/{codDonacion}', 'donacionController@eliminarDonacion');
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////Escuela////////////////////////////////////////////////////////////////////////////
 
 Route::get('/admRegistrarEscuela', function () {
     return view('Administrador/Escuela/Add');

@@ -21,7 +21,7 @@
 @stop
 @section('content')
     <div class="panel panel-primary">
-        <div class="panel-heading"> Buscar Alumnos</div>
+        <div class="panel-heading"> Buscar personal</div>
         <div class="panel-body">
             <form name="form" action="{{url('PersonalBuscado')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}

@@ -6,13 +6,13 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarDonaciones" style="color: #509f0c" target="_top">Buscar Donaciones y transacciones</a>
+                        <a href="/admBuscarDonaciones" style="color: #509f0c" target="_top">Buscar Donaciones y transferencias</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarDonaciones">Agregar Donaciones y transacciones</a>
+                        <a href="/admRegistrarDonaciones">Agregar Donaciones y transaferencias</a>
                     </td>
                 </tr>
             </table>
@@ -21,7 +21,8 @@
 @stop
 @section('content')
     <div class="panel panel-primary">
-        <div class="panel-heading"> Buscar Donaciones y Transacciones</div>
+        <div class="panel-heading"> Buscar Donaciones y
+            transferencias</div>
         <div class="panel-body">
             <form name="form" action="{{url('DonacionesBuscadas')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}

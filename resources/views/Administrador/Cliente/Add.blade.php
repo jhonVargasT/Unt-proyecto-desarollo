@@ -35,7 +35,7 @@
                                 <span class="col-sm-2 control-label"> Numero de Dni</span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="dni" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)">
+                                           autocomplete="off" onkeypress="return validarNum(event)">
                                 </div>
                                 <div class="col-sm-1">
                                 </div>

@@ -90,6 +90,7 @@ class clientemodel extends personamodel
         $logunt = new loguntemodel();
         $value = Session::get('personalC');
         $codPers = $logunt->obtenerCodigoPersonal($value);
+        echo ($codPers);
         $logunt->setFecha($date);
         $logunt->setDescripcion('registrarCliente');
         $logunt->setCodigoPersonal($codPers);
