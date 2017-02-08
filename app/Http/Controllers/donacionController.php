@@ -14,7 +14,9 @@ class donacionController extends Controller
     {
         $donacion = new donacionmodel();
         $donacion->setNumResolucion($request->numResolucion);
-        $donacion->setFechaIngreso($request->fechaIngreso);
+        $d= $request->fecha;
+        $date= implode("-", array_reverse(explode("/", $d)));
+        $donacion->setFechaIngreso($date);
         $donacion->setDescripcion($request->descripcion);
         $donacion->setMonto($request->monto);
         $nombreT = $request->nombreTramite;

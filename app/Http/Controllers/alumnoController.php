@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\alumnomodel;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 
 class alumnoController extends Controller
 {
@@ -17,7 +17,9 @@ class alumnoController extends Controller
         $alumno->setApellidos($request->apellidos);
         $alumno->setCodAlumno($request->codAlumno);
         $alumno->setCodMatricula($request->codMatricula);
-        $alumno->setFecha($request->fecha);
+        $d= $request->fecha;
+        $date= implode("-", array_reverse(explode("/", $d)));
+        $alumno->setFecha($date);
         $idE = $alumno->bdEscuela($request->nombreEscuela);
         $alumno->setIdEscuela($idE);
         $al = $alumno->savealumno();

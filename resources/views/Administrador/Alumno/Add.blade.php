@@ -71,7 +71,7 @@
                                         <input class="form-control input-sm" name="codAlumno" type="text">
                                     </div>
                                 </div>
-                                <div class="form-group-sm " align="left">
+                                <div class="form-group-sm " align="right">
                                     <span class="col-sm-2 control-label"> Codigo matricula</span>
                                     <div class="col-sm-3">
                                         <input class="form-control input-sm" name="codMatricula" type="text">
@@ -82,16 +82,21 @@
                                 <div class="form-group-sm " align="left">
                                     <span class="col-sm-2 control-label"> Fecha matricula</span>
                                     <div class="col-sm-3">
-                                        <input class="form-control input-sm" name="fecha" type="text"
-                                               autocomplete="off" onkeypress="return validarNumS(event)">
+                                        <div class="col-sm-12 input-group date" data-provide="datepicker">
+                                            <input type="text" name="fecha" class="form-control">
+                                            <div class="input-group-addon">
+                                                <span class="glyphicon glyphicon-th"></span>
+                                            </div>
+                                        </div>
                                     </div>
+
                                 </div>
-                                <div class="form-group-sm " align="left">
+                                <div class="form-group-sm " align="right">
                                     <span class="col-sm-2 control-label">Escuela</span>
                                     <div class="col-sm-3">
                                         <input class="typeahead form-control" type="text"
                                                placeholder="Ingresa datos aqui .." name="nombreEscuela" id="ne"
-                                                onkeypress="return validarLetras(event)">
+                                               onkeypress="return validarLetras(event)">
                                         <script type="text/javascript">
                                             var path = "{{ route('escuela') }}";
                                             $('input.typeahead').typeahead({
@@ -109,7 +114,7 @@
                                 <div class="form-group-sm " align="left">
                                     <span class="col-sm-2 control-label">Facultad</span>
                                     <div class="col-sm-3">
-                                        <input class="form-control input-sm" name="fecha" type="text" id="f" disabled>
+                                        <input class="form-control input-sm" name=" " type="text" id="f" disabled>
                                         <script>
                                             $('#ne').change(function () {
                                                 $.ajax({

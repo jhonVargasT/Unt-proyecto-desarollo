@@ -91,7 +91,7 @@
                             <div class="form-group-sm">
                                 <span class="col-sm-2">Contraseña</span>
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="contraseña" type="text">
+                                    <input class="form-control input-sm" name="contraseña" type="password">
                                 </div>
                             </div>
                         </div>
