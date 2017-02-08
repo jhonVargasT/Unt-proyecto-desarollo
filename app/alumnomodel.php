@@ -12,6 +12,7 @@ class alumnomodel extends personamodel
     private $codMatricula;
     private $fecha;
     private $idPersona;
+    private $idEscuela;
 
     function __construct()
     {
@@ -100,6 +101,25 @@ class alumnomodel extends personamodel
         }
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIdEscuela()
+    {
+        return $this->idEscuela;
+    }
+
+    /**
+     * @param mixed $idEscuela
+     * @return alumnomodel
+     */
+    public function setIdEscuela($idEscuela)
+    {
+        $this->idEscuela = $idEscuela;
+        return $this;
+    }
+
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function savealumno()
@@ -113,12 +133,12 @@ class alumnomodel extends personamodel
         $logunt->setDescripcion('registrarAlumno');
         $logunt->setCodigoPersonal($codPers);
         try {
-            DB::transaction(function () use($logunt) {
+            DB::transaction(function () use ($logunt) {
                 DB::table('persona')->insert(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos()]);
                 $personabd = DB::table('persona')->where('dni', $this->getDni())->get();
                 foreach ($personabd as $pbd) {
                     $idp = $pbd->codPersona;
-                    DB::table('alumno')->insert(['codAlumno' => $this->codAlumno, 'codMatricula' => $this->codMatricula, 'fecha' => $this->fecha, 'idPersona' => $idp]);
+                    DB::table('alumno')->insert(['codAlumno' => $this->codAlumno, 'codMatricula' => $this->codMatricula, 'fecha' => $this->fecha, 'idPersona' => $idp, 'coEscuela'=>$this->idEscuela]);
                 }
                 $logunt->saveLogUnt();
             });
@@ -139,7 +159,7 @@ class alumnomodel extends personamodel
         $logunt->setDescripcion('editarAlumno');
         $logunt->setCodigoPersonal($codPers);
         try {
-            DB::transaction(function () use ($codPersona,$logunt) {
+            DB::transaction(function () use ($codPersona, $logunt) {
                 DB::table('persona')->where('codPersona', $codPersona)->update(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos()]);
                 DB::table('alumno')->where('idPersona', $codPersona)->update(['codAlumno' => $this->codAlumno, 'codMatricula' => $this->codMatricula, 'fecha' => $this->fecha]);
                 $logunt->saveLogUnt();
@@ -231,7 +251,7 @@ class alumnomodel extends personamodel
         $logunt->setDescripcion('eliminarAlumno');
         $logunt->setCodigoPersonal($codPers);
         try {
-            DB::transaction(function () use ($codPersona,$logunt) {
+            DB::transaction(function () use ($codPersona, $logunt) {
                 DB::table('persona')->where('codPersona', $codPersona)->update(['estado' => 0]);
                 DB::table('alumno')->where('idPersona', $codPersona)->update(['estado' => 0]);
                 $logunt->saveLogUnt();

@@ -87,19 +87,39 @@
                                     </div>
                                 </div>
                                 <div class="form-group-sm " align="left">
-                                    <span class="col-sm-2 control-label">Facultad</span>
+                                    <span class="col-sm-2 control-label">Escuela</span>
                                     <div class="col-sm-3">
                                         <input class="typeahead form-control" type="text"
-                                               placeholder="Ingresa datos aqui .." name="nombreFacultad"
+                                               placeholder="Ingresa datos aqui .." name="nombreEscuela" id="ne"
                                                 onkeypress="return validarLetras(event)">
                                         <script type="text/javascript">
-                                            var path = "{{ route('autocompletef') }}";
+                                            var path = "{{ route('escuela') }}";
                                             $('input.typeahead').typeahead({
                                                 source: function (query, process) {
                                                     return $.get(path, {query: query}, function (data) {
                                                         return process(data);
                                                     });
                                                 }
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 row form-group">
+                                <div class="form-group-sm " align="left">
+                                    <span class="col-sm-2 control-label">Facultad</span>
+                                    <div class="col-sm-3">
+                                        <input class="form-control input-sm" name="fecha" type="text" id="f" disabled>
+                                        <script>
+                                            $('#ne').change(function () {
+                                                $.ajax({
+                                                    url: '/facultad',
+                                                    type: "get",
+                                                    data: {name: $('#ne').val()},
+                                                    success: function (data) {
+                                                        $('#f').val(data);
+                                                    }
+                                                });
                                             });
                                         </script>
                                     </div>

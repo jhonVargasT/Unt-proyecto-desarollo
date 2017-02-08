@@ -18,6 +18,8 @@ class alumnoController extends Controller
         $alumno->setCodAlumno($request->codAlumno);
         $alumno->setCodMatricula($request->codMatricula);
         $alumno->setFecha($request->fecha);
+        $idE = $alumno->bdEscuela($request->nombreEscuela);
+        $alumno->setIdEscuela($idE);
         $al = $alumno->savealumno();
         if ($al == true) {
             return back()->with('true', 'Alumno ' . $request->nombres . ' guardada con exito')->withInput();
@@ -88,10 +90,21 @@ class alumnoController extends Controller
         return view('Administrador/Alumno/Search')->with(['nombre' => $request->nombres]);
     }
 
-    public function autocompletef(Request $request)
+    public function escuela(Request $request)
     {
-        $data = DB::table('facultad')->select("nombre as name")->where("nombre", "LIKE", "%{$request->input('query')}%")->get();
-
+        $data = DB::table('escuela')->select("nombre as name")->where("nombre", "LIKE", "%{$request->input('query')}%")->get();
         return response()->json($data);
+    }
+
+    public function facultad(Request $request)
+    {
+        $nombreE = $request->name;
+        $facultadnombre = DB::select('select facultad.nombre from facultad left join escuela on facultad.idFacultad=escuela.codigoFacultad where facultad.idFacultad=escuela.codigoFacultad and escuela.nombre=:nombre', ['nombre' => $nombreE]);
+
+        foreach ($facultadnombre as $fnom) {
+            $fn = $fnom->nombre;
+            return response()->json($fn);
+        }
+
     }
 }
