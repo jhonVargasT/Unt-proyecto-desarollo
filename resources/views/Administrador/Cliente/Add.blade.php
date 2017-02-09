@@ -72,7 +72,7 @@
                             </div>
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label"> Razon social</span>
-                                <textarea class="col-sm-4" name="razonSocial"  autocomplete="off" onkeypress="return validarLetras(event)">
+                                <textarea class="col-sm-4" name="razonSocial"  placeholder="Razon Social" onkeypress="return validarLetras(event)" value="Razon Social">
                             </textarea>
                             </div>
                         </div>

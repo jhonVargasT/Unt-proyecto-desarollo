@@ -188,15 +188,18 @@ Route::get('/ventReportPago', function () {
 });
 
 Route::get('/buscarNombresD', 'pagoController@buscarNombresD');
-Route::get('/buscarNombresR', 'pagoController@buscarNombresR');
-Route::get('/buscarNombresC', 'pagoController@buscarNombresC');
 Route::get('/buscarApellidosD', 'pagoController@buscarApellidosD');
-Route::get('/buscarApellidosR', 'pagoController@buscarApellidosR');
-Route::get('/buscarApellidosC', 'pagoController@buscarApellidosC');
-Route::get('/buscarEscuelaD', 'pagoController@buscarEscuelaD');
-Route::get('/buscarEscuelaC', 'pagoController@buscarEscuelaC');
 Route::get('/buscarFacultadD', 'pagoController@buscarFacultadD');
+Route::get('/buscarEscuelaD', 'pagoController@buscarEscuelaD');
+
+Route::get('/buscarNombresR', 'pagoController@buscarNombresR');
+Route::get('/buscarApellidosR', 'pagoController@buscarApellidosR');
+
+Route::get('/buscarNombresC', 'pagoController@buscarNombresC');
+Route::get('/buscarApellidosC', 'pagoController@buscarApellidosC');
+Route::get('/buscarEscuelaC', 'pagoController@buscarEscuelaC');
 Route::get('/buscarFacultadC', 'pagoController@buscarFacultadC');
+
 Route::get('/precioSubtramite', 'pagoController@precioSubtramite');
 
 

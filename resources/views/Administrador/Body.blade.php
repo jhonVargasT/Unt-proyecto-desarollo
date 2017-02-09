@@ -1,7 +1,7 @@
 @extends('Administrador/LayoutAdm')
 @section('body')
     <!--barra de navegacion -->
-    @if( Session::has('misession') )
+    @if(  Session::has('tipoCuentaA') )
         <div class=" col-sm-12 ">
             <br>
             <div class="row">

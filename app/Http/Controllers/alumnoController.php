@@ -6,6 +6,7 @@ use App\alumnomodel;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class alumnoController extends Controller
 {
@@ -17,17 +18,18 @@ class alumnoController extends Controller
         $alumno->setApellidos($request->apellidos);
         $alumno->setCodAlumno($request->codAlumno);
         $alumno->setCodMatricula($request->codMatricula);
-        $d= $request->fecha;
-        $date= implode("-", array_reverse(explode("/", $d)));
+        $d = $request->fecha;
+        $date = implode("-", array_reverse(explode("/", $d)));
         $alumno->setFecha($date);
         $idE = $alumno->bdEscuela($request->nombreEscuela);
         $alumno->setIdEscuela($idE);
         $al = $alumno->savealumno();
-        if ($al == true) {
-            return back()->with('true', 'Alumno ' . $request->nombres . ' guardada con exito')->withInput();
-        } else {
-            return back()->with('false', 'Alumno ' . $request->nombres . ' no guardada, puede que ya exista');
-        }
+
+            if ($al == true) {
+                return back()->with('true', 'Alumno ' . $request->nombres . ' guardada con exito')->withInput();
+            } else {
+                return back()->with('false', 'Alumno ' . $request->nombres . ' no guardada, puede que ya exista');
+            }
     }
 
     public function cargarAlumno($codPersona)
