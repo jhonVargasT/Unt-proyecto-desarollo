@@ -107,6 +107,5 @@ class alumnoController extends Controller
             $fn = $fnom->nombre;
             return response()->json($fn);
         }
-
     }
 }

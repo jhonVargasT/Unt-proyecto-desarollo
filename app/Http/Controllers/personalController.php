@@ -51,15 +51,15 @@ class personalController extends Controller
                 $personal->setApellidos($p->apellidos);
             }
         }
-        Session::put(['misession'=>$personal->getNombres().' '.$personal->getApellidos()]);
+        Session::put(['misession' => $personal->getNombres() . ' ' . $personal->getApellidos()]);
         Session::put('personalC', $personal->getCuenta());
         if ($personal->getTipoCuenta() == 'Administrador' && $personal->getCuenta() != '') {
             return view('/Administrador/body');
         } else {
-            if ($personal->getTipoCuenta() == 'Ventanilla'&& $personal->getCuenta() != '') {
+            if ($personal->getTipoCuenta() == 'Ventanilla' && $personal->getCuenta() != '') {
                 return view('Ventanilla/Body');
             } else {
-                return back()->with('true', 'Cuenta ' . $personal->getCuenta(). ' no encontrada o contraseña incorrecta')->withInput();
+                return back()->with('true', 'Cuenta ' . $personal->getCuenta() . ' no encontrada o contraseña incorrecta')->withInput();
             }
         }
     }
