@@ -72,8 +72,9 @@
                             </div>
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label"> Razon social</span>
-                                <textarea class="col-sm-4" name="razonSocial"  placeholder="Razon Social" onkeypress="return validarLetras(event)" value="Razon Social">
-                            </textarea>
+                                <div class="col-sm-4">
+                                <input class="form-control input-sm" name="razonSocial" onkeypress="return validarLetras(event)">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -89,7 +90,6 @@
                     </button>
                     <div class="col-md-3"></div>
                 </div>
-
             </form>
         </div>
     </div>

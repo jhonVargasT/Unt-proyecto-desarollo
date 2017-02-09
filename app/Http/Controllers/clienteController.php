@@ -29,13 +29,23 @@ class clienteController extends Controller
 
     public function cargarCliente($codPersona)
     {
+        $valueA = Session::get('tipoCuentaA');
+        $valueV = Session::get('tipoCuentaV');
+
         $cliente = new clientemodel();
         $cli = $cliente->consultarClienteid($codPersona);
-        return view('Administrador/Cliente/Edit')->with(['cliente' => $cli]);
+
+        if ($valueA == 'Administrador')
+            return view('Administrador/Cliente/Edit')->with(['cliente' => $cli]);
+        if ($valueV == 'Ventanilla')
+            return view('Ventanilla/Cliente/Edit')->with(['cliente' => $cli]);
     }
 
     public function editarCliente($codPersona, Request $request)
     {
+        $valueA = Session::get('tipoCuentaA');
+        $valueV = Session::get('tipoCuentaV');
+
         $cliente = new clientemodel();
         $cliente->setDni($request->dni);
         $cliente->setNombres($request->nombres);
@@ -43,11 +53,17 @@ class clienteController extends Controller
         $cliente->setRuc($request->ruc);
         $cliente->setRazonSocial($request->razonSocial);
         $cliente->editarCliente($codPersona);
-        return view('Administrador/Cliente/Search')->with(['nombre' => $request->nombres]);
+
+        if ($valueA == 'Administrador')
+            return view('Administrador/Cliente/Search')->with(['nombre' => $request->nombres]);
+        if ($valueV == 'Ventanilla')
+            return view('Ventanilla/Cliente/Search')->with(['nombre' => $request->nombres]);
     }
 
     public function listarCliente(Request $request)
     {
+        $valueA = Session::get('tipoCuentaA');
+        $valueV = Session::get('tipoCuentaV');
         $cli = null;
         $cliente = new clientemodel();
 
@@ -66,13 +82,23 @@ class clienteController extends Controller
                 }
             }
         }
-        return view('Administrador/Cliente/Search')->with(['cliente' => $cli, 'txt' => $request->text, 'select' => $request->select]);
+        if ($valueA == 'Administrador')
+            return view('Ventanilla/Cliente/Search')->with(['cliente' => $cli, 'txt' => $request->text, 'select' => $request->select]);
+        if ($valueV == 'Ventanilla')
+            return view('Ventanilla/Cliente/Search')->with(['cliente' => $cli, 'txt' => $request->text, 'select' => $request->select]);
     }
 
-    public function eliminarCliente($codPersona,Request $request)
+    public function eliminarCliente($codPersona, Request $request)
     {
+        $valueA = Session::get('tipoCuentaA');
+        $valueV = Session::get('tipoCuentaV');
+
         $cliente = new clientemodel();
         $cliente->eliminarCliente($codPersona);
-        return view('Administrador/Cliente/Search')->with(['nombre'=>$request->nombres]);
+
+        if ($valueA == 'Administrador')
+            return view('Administrador/Cliente/Search')->with(['nombre' => $request->nombres]);
+        if ($valueV == 'Ventanilla')
+            return view('Ventanilla/Cliente/Search')->with(['nombre' => $request->nombres]);
     }
 }
