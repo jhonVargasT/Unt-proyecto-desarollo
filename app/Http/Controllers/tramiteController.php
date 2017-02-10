@@ -22,7 +22,7 @@ class tramiteController extends Controller
         if ($tram == true) {
             return back()->with('true', 'Tramite ' . $request->nombre . ' guardada con exito')->withInput();
         } else {
-            return back()->with('false', 'Tramite ' . $request->nombre . ' no guardada, puede que ya exista');
+            return back()->with('false', 'Tramite ' . $request->nombre . ' no guardada, puede que ya exista ');
         }
     }
 

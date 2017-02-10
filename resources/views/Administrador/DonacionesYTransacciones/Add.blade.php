@@ -30,6 +30,12 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
             <form name="form" action="{{url('DonacionRegistrada')}}" role="form" method="POST" class="Horizontal">
                 {{csrf_field()}}
+                @if(session()->has('true'))
+                    <div class="alert alert-success" role="alert">{{session('true')}} </div>
+                @endif
+                @if(session()->has('false'))
+                    <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
+                    @endif
                 <!-- Search input-->
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm " align="left">
@@ -53,8 +59,13 @@
                     <div class=" form-group-sm" align="left">
                         <span class="col-sm-2 control-label">Fecha </span>
                         <div class="col-sm-3">
-                            <input class="form-control" name="fechaIngreso" type="text"
-                                   autocomplete="off" onkeypress="return validarNumS(event)">
+                            <div class="col-sm-12 input-group date" data-provide="datepicker">
+                                <input type="text" name="fechaDesde" class="form-control" placeholder="desde"
+                                       autocomplete="off">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

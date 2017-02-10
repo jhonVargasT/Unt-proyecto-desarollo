@@ -28,15 +28,29 @@
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm col-sm-6 ">
                         <span class="col-sm-5 control-label">Buscar por:</span>
-                        <div class="col-sm-7 ">
-                            <select class=" form-control" name="select">
-                                <option>Dni</option>
-                                <option>Apellidos</option>
-                                <option>Codigo personal</option>
-                                <option>Cuenta</option>
-                                <option>Tipo de cuenta</option>
-                            </select>
-                        </div>
+                        @if(isset($select)=='Dni')
+
+                            <div class="col-sm-7 ">
+                                <select class=" form-control" name="select">
+                                    <option selected>Dni</option>
+                                    <option>Apellidos</option>
+                                    <option>Codigo personal</option>
+                                    <option>Cuenta</option>
+                                    <option>Tipo de cuenta</option>
+                                </select>
+                            </div>
+
+                        @else
+                            <div class="col-sm-7 ">
+                                <select class=" form-control" name="select">
+                                    <option>Dni</option>
+                                    <option>Apellidos</option>
+                                    <option>Codigo personal</option>
+                                    <option>Cuenta</option>
+                                    <option>Tipo de cuenta</option>
+                                </select>
+                            </div>
+                        @endif
                     </div>
                     <div class="form-group-sm input-group col-sm-6">
                         @if(isset($txt))
@@ -83,41 +97,28 @@
                     </thead>
                     <body>
                     @if(isset($personal))
-                        <!--Contenido-->
-                        @foreach($personal as $p)
-                            <tr>
-                                <td>{{$p->dni}}</td>
-                                <td>{{$p->nombres}} {{$p->apellidos}}</td>
-                                <td>{{$p->codPersonal}}</td>
-                                <td>{{$p->cuenta}}</td>
-                                <td>{{$p->tipoCuenta}}</td>
-                                <td align="center">
-                                    {{ csrf_field() }}
-                                    <a href="PersonalCargar/{{$p->idPersona}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
-                                    <a href="PersonalEliminar/{{$p->idPersona}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
-                                </td>
-                            </tr>
-                        @endforeach
+                            <!--Contenido-->
+                    @foreach($personal as $p)
+                        <tr>
+                            <td>{{$p->dni}}</td>
+                            <td>{{$p->nombres}} {{$p->apellidos}}</td>
+                            <td>{{$p->codPersonal}}</td>
+                            <td>{{$p->cuenta}}</td>
+                            <td>{{$p->tipoCuenta}}</td>
+                            <td align="center">
+                                {{ csrf_field() }}
+                                <a href="PersonalCargar/{{$p->idPersona}}"><span
+                                            class="glyphicon glyphicon-pencil"></span> </a>
+                                <a href="PersonalEliminar/{{$p->idPersona}}"><span
+                                            class="glyphicon glyphicon-trash"></span> </a>
+                            </td>
+                        </tr>
+                    @endforeach
                     @endif
                     </body>
                 </table>
             </div>
-            <div class="col-sm-12 row">
-                <div class="col-sm-4"></div>
-                <!--paginadro-->
-                <div class="col-sm-4" align="center">
-                    <ul class="pagination  pagination-sm">
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-4"></div>
-            </div>
+
         </div>
     </div>
 @stop

@@ -277,7 +277,7 @@
                 if (tecla == 8) {
                     return true;
                 }
-                patron = /[A-Za-z]/;
+                patron = /[A-Za-z ]/;
                 tecla_final = String.fromCharCode(tecla);
                 return patron.test(tecla_final);
             }

@@ -39,14 +39,14 @@
                                 <span class="col-sm-2 control-label"> Numero de Dni</span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="dni" type="text"
-                                           autocomplete="off" onkeypress="return validarNum(event)">
+                                           autocomplete="off" onkeypress="return validarNum(event)" required>
                                 </div>
                             </div>
                             <div class="form-group-sm">
                                 <span class="col-sm-2">Nombres</span>
                                 <div class="col-sm-4">
                                     <input class="form-control input-sm" name="nombres" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)">
+                                           autocomplete="off" onkeypress="return validarLetras(event)" required>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                                 <span class="col-sm-2">Apellidos</span>
                                 <div class="col-sm-4">
                                     <input class="form-control input-sm" name="apellidos" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)">
+                                           autocomplete="off" onkeypress="return validarLetras(event)" required>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                             <div class="form-group-sm">
                                 <span class="col-sm-2">Codigo personal</span>
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="codigoPersonal" type="text">
+                                    <input class="form-control input-sm" name="codigoPersonal" type="text" required>
                                 </div>
                             </div>
                         </div>
@@ -85,13 +85,13 @@
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label"> Cuenta</span>
                                 <div class="col-sm-3">
-                                    <input class="form-control input-sm" name="cuenta" type="text">
+                                    <input class="form-control input-sm" name="cuenta" type="text" required>
                                 </div>
                             </div>
                             <div class="form-group-sm">
                                 <span class="col-sm-2">Contraseña</span>
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="contraseña" type="text">
+                                    <input class="form-control input-sm" name="contraseña" type="text" required>
                                 </div>
                             </div>
                         </div>

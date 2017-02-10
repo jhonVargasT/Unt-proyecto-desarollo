@@ -53,7 +53,7 @@
                             <div class="col-sm-12 row form-group">
                                 <div class="form-group-sm">
                                     <span class="col-sm-2">Apellidos</span>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <input class="form-control input-sm" name="apellidos" type="text"
                                                autocomplete="off" onkeypress="return validarLetras(event)">
                                     </div>
@@ -81,9 +81,13 @@
                             <div class="col-sm-12 row form-group">
                                 <div class="form-group-sm " align="left">
                                     <span class="col-sm-2 control-label"> Fecha matricula</span>
-                                    <div class="col-sm-3">
-                                        <input class="form-control input-sm" name="fecha" type="text"
-                                               autocomplete="off" onkeypress="return validarNumS(event)">
+                                    <div class="col-sm-3 input-group date" data-provide="datepicker">
+                                        <input type="text" name="fechaDesde" class="form-control"
+                                               placeholder="click "
+                                               autocomplete="off">
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group-sm " align="left">
@@ -91,7 +95,7 @@
                                     <div class="col-sm-3">
                                         <input class="typeahead form-control" type="text"
                                                placeholder="Ingresa datos aqui .." name="nombreEscuela" id="ne"
-                                                onkeypress="return validarLetras(event)">
+                                               onkeypress="return validarLetras(event)">
                                         <script type="text/javascript">
                                             var path = "{{ route('escuela') }}";
                                             $('input.typeahead').typeahead({
