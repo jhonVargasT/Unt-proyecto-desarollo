@@ -12,11 +12,13 @@ class donacionController extends Controller
 {
     public function registrarDonaciones(Request $request)
     {
-        if ($request->nombreTramite!=' ') {
+
             $donacion = new donacionmodel();
             $donacion->setNumResolucion($request->numResolucion);
             $d = $request->fecha;
             $date = implode("-", array_reverse(explode("/", $d)));
+            echo $date;
+
             $donacion->setFechaIngreso($date);
             $donacion->setDescripcion($request->descripcion);
             $donacion->setMonto($request->monto);
@@ -24,8 +26,7 @@ class donacionController extends Controller
             $idD = $donacion->bdTramite($nombreT);
             $donacion->setIdTramite($idD);
             $dona = $donacion->saveDonacion();
-        }
-        else $dona=false;
+        
         if ($dona == true) {
             return back()->with('true', 'Donacion ' . $request->numResolucion . ' guardada con exito')->withInput();
         } else {

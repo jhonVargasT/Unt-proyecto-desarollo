@@ -45,14 +45,14 @@
                                     <span class="col-sm-2 control-label"> Numero de Dni</span>
                                     <div class="col-sm-3">
                                         <input class="form-control input-sm" name="dni" type="text"
-                                               autocomplete="off" onkeypress="return validarNum(event)">
+                                               autocomplete="off" onkeypress="return validarNum(event)" placeholder="Ejem: 72978792" required>
                                     </div>
                                 </div>
                                 <div class="form-group-sm">
                                     <span class="col-sm-2">Nombres</span>
                                     <div class="col-sm-4">
                                         <input class="form-control input-sm" name="nombres" type="text"
-                                               autocomplete="off" onkeypress="return validarLetras(event)">
+                                               autocomplete="off" onkeypress="return validarLetras(event)" placeholder="Ejm:Jose Carlos" required>
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                                     <span class="col-sm-2">Apellidos</span>
                                     <div class="col-sm-4">
                                         <input class="form-control input-sm" name="apellidos" type="text"
-                                               autocomplete="off" onkeypress="return validarLetras(event)">
+                                               autocomplete="off" onkeypress="return validarLetras(event)" placeholder="Ejem: Terenas Lory" required>
                                     </div>
                                 </div>
                             </div>
@@ -74,13 +74,13 @@
                                 <div class="form-group-sm " align="left">
                                     <span class="col-sm-2 control-label"> Codigo alumno</span>
                                     <div class="col-sm-3">
-                                        <input class="form-control input-sm" name="codAlumno" type="text">
+                                        <input class="form-control input-sm" name="codAlumno" type="text" autocomplete="off" placeholder="Ejm: 000104499" required>
                                     </div>
                                 </div>
                                 <div class="form-group-sm " align="right">
                                     <span class="col-sm-2 control-label"> Codigo matricula</span>
                                     <div class="col-sm-3">
-                                        <input class="form-control input-sm" name="codMatricula" type="text">
+                                        <input class="form-control input-sm" name="codMatricula" type="text" autocomplete="off" placeholder="Ejm: 78961233" required>
                                     </div>
                                 </div>
                             </div>
@@ -89,9 +89,9 @@
                                     <span class="col-sm-2 control-label"> Fecha matricula</span>
                                     <div class="col-sm-3">
                                         <div class="col-sm-12 input-group date" data-provide="datepicker">
-                                            <input type="text" name="fecha" class="form-control">
+                                            <input autocomplete="off" type="text" name="fecha" class="form-control" placeholder="obligatorio" required>
                                             <div class="input-group-addon">
-                                                <span class="glyphicon glyphicon-th"></span>
+                                                <span class="glyphicon glyphicon-th" ></span>
                                             </div>
                                         </div>
                                     </div>
@@ -101,8 +101,8 @@
                                     <span class="col-sm-2 control-label">Escuela</span>
                                     <div class="col-sm-3">
                                         <input class="typeahead form-control" type="text"
-                                               placeholder="Ingresa datos aqui .." name="nombreEscuela" id="ne"
-                                               onkeypress="return validarLetras(event)">
+                                               placeholder="Ejm: Mecanica" name="nombreEscuela" id="ne"
+                                               onkeypress="return validarLetras(event)" autocomplete="off"  required>
                                         <script type="text/javascript">
                                             var path = "{{ route('escuela') }}";
                                             $('input.typeahead').typeahead({

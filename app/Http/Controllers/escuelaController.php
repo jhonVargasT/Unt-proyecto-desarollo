@@ -71,7 +71,11 @@ class escuelaController extends Controller
                     $esc = $escuela->consultarEscuelasCuentaInterna($request->text);
                 } else {
                     if ($request->select == 'Facultad') {
-                        $esc = $escuela->consultarEscuelasFacultad($request->text);
+                     //   $esc = $escuela->consultarEscuelasFacultad($request->text);
+                    }
+                    else
+                    {
+                       $esc=$escuela->consultarEscuelas();
                     }
                 }
             }

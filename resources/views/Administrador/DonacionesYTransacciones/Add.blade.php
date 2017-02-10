@@ -26,25 +26,25 @@
             transferencias
         </div>
         <div class="panel-body">
-            @if(session()->has('true'))
-                <div class="alert alert-success" role="alert">{{session('true')}} </div>
-            @endif
-            @if(session()->has('false'))
-                <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
-            @endif
             <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
             <form name="form" action="{{url('DonacionRegistrada')}}" role="form" method="POST" class="Horizontal">
             {{csrf_field()}}
+                @if(session()->has('true'))
+                    <div class="alert alert-success" role="alert">{{session('true')}} </div>
+                @endif
+                @if(session()->has('false'))
+                    <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
+                    @endif
             <!-- Search input-->
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm " align="left">
-                        <span class="col-sm-2 control-label"> Clasificador Siaf </span>
+                        <span class="col-sm-2 control-label"> Nombre tramite </span>
                         <div class="col-sm-5">
                             <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
                                    name="nombreTramite" id="name" autocomplete="off"
-                                    required>
+                                   onkeypress="return validarLetras(event)" required>
                             <script type="text/javascript">
                                 var path = "{{ route('autocompletet') }}";
                                 $('input.typeahead').typeahead({
@@ -73,7 +73,7 @@
                     <div class="form-group-sm " align="left">
                         <span class="col-sm-2 control-label">Tipo de recurso </span>
                         <div class="col-sm-5 ">
-                            <input class="form-control input-sm " name="TipoDeRecurso" type="text" id="tr" disabled>
+                            <input class="form-control input-sm " name="TipoDeRecurso" type="text" id="tr" required disabled>
                             <script>
                                 $('#name').change(function () {
                                     $.ajax({
@@ -92,7 +92,7 @@
                             <div class="input-group col-sm-2">
                                 <div class="input-group-addon ">S/.</div>
                                 <input type="text" class="form-control " name="monto"
-                                       autocomplete="off" onkeypress="return validarDouble(event)" placeholder="ejmp: 2.50"required>
+                                       autocomplete="off" onkeypress="return validarNum(event)" placeholder="ejmp: 2.50"required>
 
                             </div>
                         </div>
@@ -108,7 +108,7 @@
                                 <span class="col-sm-2 control-label">Numero de resolucion </span>
                                 <div class="col-sm-3">
                                     <input class="form-control " name="numResolucion" type="text"
-                                           autocomplete="off" onkeypress="return validarNum(event)" placeholder="Ejmp: 124578" required>
+                                           autocomplete="off" onkeypress="return validarNum(event)" placeholder="jmp: 124578" required>
                                 </div>
                             </div>
                         </div>

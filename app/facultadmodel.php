@@ -114,7 +114,7 @@ class facultadmodel
     public function consultarFacultadesCodigo($codigo)
     {
         $facultadbd = DB::table('facultad')
-            ->where('codFacultad', $codigo)
+            ->where('codFacultad', 'like','%' . $codigo. '%')
             ->where('estado', 1)->orderBy('idFacultad', 'desc')->get();
         return $facultadbd;
     }
@@ -127,6 +127,12 @@ class facultadmodel
         return $facultadbd;
     }
 
+    public function consultarFacultades()
+    {
+        $facultadbd = DB::table('facultad')
+            ->where('estado', 1)->orderBy('idFacultad', 'desc')->get();
+        return $facultadbd;
+    }
     public function consultarFacultadesCuentaInterna($nroCuenta)
     {
         $facultadbd = DB::table('facultad')

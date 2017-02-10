@@ -88,6 +88,9 @@
                             <div align="center">Cuenta</div>
                         </th>
                         <th>
+                            <div align="center">Contraseña</div>
+                        </th>
+                        <th>
                             <div align="center">Tipo cuenta</div>
                         </th>
                         <th>
@@ -104,6 +107,7 @@
                             <td>{{$p->nombres}} {{$p->apellidos}}</td>
                             <td>{{$p->codPersonal}}</td>
                             <td>{{$p->cuenta}}</td>
+                            <td>{{$p->password}}</td>
                             <td>{{$p->tipoCuenta}}</td>
                             <td align="center">
                                 {{ csrf_field() }}

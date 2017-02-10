@@ -127,9 +127,10 @@ class escuelamodel
     public function consultarEscuelaCodigo($codigo)
     {
         $escuelabd = DB::table('escuela')
-            ->where('codEscuela', $codigo)
+            ->where('codEscuela','like','%' .$codigo.'%')
             ->where('estado', 1)->orderBy('codEscuela', 'desc')->get();
         return $escuelabd;
+        
     }
 
     public function consultarEscuelasNombre($nombre)
@@ -147,12 +148,16 @@ class escuelamodel
             ->where('estado', 1)->orderBy('idEscuela', 'desc')->get();
         return $escuelabd;
     }
+    public function consultarEscuelas()
+    {
+        $escuelabd = DB::table('escuela')
+            ->where('estado', 1)->orderBy('idEscuela', 'desc')->get();
+        return $escuelabd;
+    }
 
     public function consultarEscuelasFacultad($nombreF)
     {
-        $escuelabd = DB::select('select * from facultad left join escuela on facultad.idFacultad = escuela.codigoFacultad where 
-        facultad.idFacultad = escuela.codigoFacultad and facultad.nombre=:nombre and facultad.estado=1 and escuela.estado=1', ['nombre' => $nombreF]);
-        return $escuelabd;
+
     }
 
     public function eliminarEscuela($idEscuela)

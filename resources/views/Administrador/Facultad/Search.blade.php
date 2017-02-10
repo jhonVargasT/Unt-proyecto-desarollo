@@ -29,16 +29,17 @@
                     <div class="form-group-sm col-sm-6 ">
                         <span class="col-sm-5 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
-                            <select class=" form-control" name="select">
-                                <option>Codigo facultad</option>
-                                <option selected>Cuenta Interna</option>
-                                <option>Nombre Facultad</option>
+                            <select class=" form-control" name="select">}
+                                    <option selected>Todo</option>
+                                    <option>Codigo Facultad</option>
+                                    <option>Cuenta Interna</option>
+                                    <option>Nombre Facultad</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group-sm input-group col-sm-6">
                         @if(isset($txt))
-                            <input type="text" name="text" class="form-control" value="{{$txt}}">
+                            <input type="text" name="text" class="form-control" value="{{$txt}}" autocomplete="off">
                         @else
                             <input type="text" name="text" class="form-control" placeholder="Ingresa datos aqui .."
                                    autocomplete="off">
@@ -74,39 +75,26 @@
                     </thead>
                     <body>
                     @if(isset($facultad))
-                        <!--Contenido-->
-                        @foreach($facultad as $f)
-                            <tr>
-                                <td>{{$f->codFacultad}}</td>
-                                <td>{{$f->nombre}}</td>
-                                <td>{{$f->nroCuenta}}</td>
-                                <td align="center">
-                                    {{ csrf_field() }}
-                                    <a href="FacultadCargar/{{$f->idFacultad}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
-                                    <a href="FacultadEliminar/{{$f->idFacultad}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
-                                </td>
-                            </tr>
-                        @endforeach
+                            <!--Contenido-->
+                    @foreach($facultad as $f)
+                        <tr>
+                            <td>{{$f->codFacultad}}</td>
+                            <td>{{$f->nombre}}</td>
+                            <td>{{$f->nroCuenta}}</td>
+                            <td align="center">
+                                {{ csrf_field() }}
+                                <a href="FacultadCargar/{{$f->idFacultad}}"><span
+                                            class="glyphicon glyphicon-pencil"></span> </a>
+                                <a href="FacultadEliminar/{{$f->idFacultad}}"><span
+                                            class="glyphicon glyphicon-trash"></span> </a>
+                            </td>
+                        </tr>
+                    @endforeach
                     @endif
                     </body>
                 </table>
             </div>
-            <div class="col-sm-12 row">
-                <div class="col-sm-4"></div>
-                <!--paginadro-->
-                <div class="col-sm-4" align="center">
-                    <ul class="pagination  pagination-sm">
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-4"></div>
-            </div>
+
         </div>
     </div>
 

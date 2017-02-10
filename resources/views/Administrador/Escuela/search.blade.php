@@ -30,7 +30,8 @@
                         <span class="col-sm-5 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
                             <select class=" form-control" name="select">
-                                <option selected>Facultad</option>
+                                <option selected>Todo</option>
+                                <option>Facultad</option>
                                 <option>Codigo Escuela</option>
                                 <option>Nombre Escuela</option>
                                 <option>Cuenta Interna</option>
@@ -39,13 +40,13 @@
                     </div>
                     <div class="form-group-sm input-group col-sm-6">
                         @if(isset($txt))
-                            <input type="text" name="text" class="form-control" value="{{$txt}}">
+                            <input type="text" name="text" class="form-control" value="{{$txt}}" placeholder="Ingresa datos aqui .." autocomplete="off">
                         @else
                             <input type="text" name="text" class="form-control" placeholder="Ingresa datos aqui .."
                                    autocomplete="off">
                         @endif
                         <span class="input-group-btn">
-                            <button class="btn btn-sm" type="submit" name="buscar" autocomplete="off">Buscar</button>
+                            <button class="btn btn-sm" type="submit" name="buscar" autocomplete="off" >Buscar</button>
                         </span>
                     </div>
                 </div>
@@ -58,9 +59,10 @@
                         <thead>
                         <!--cabecear Tabla-->
                         <tr>
-                            <th>Codigo Escuela</th>
+                            <th>Facultad</th>
+                            <th>Codigo escuela</th>
                             <th>Cuenta interna</th>
-                            <th>Nombre Escuela</th>
+                            <th>Nombre escuela</th>
                             <th>Opciones</th>
                         </tr>
                         </thead>
@@ -69,6 +71,7 @@
                             <!--Contenido-->
                             @foreach($escuela as $e)
                                 <tr>
+                                    <td>{{$e->nombre}}</td>
                                     <td>{{$e->codEscuela}}</td>
                                     <td>{{$e->nroCuenta}}</td>
                                     <td>{{$e->nombre}}</td>
