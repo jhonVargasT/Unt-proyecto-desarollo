@@ -35,18 +35,18 @@
                     <div class="panel-heading">Datos persona</div>
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
-                            <div class="form-group-sm " align="right">
+                            <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label"> Numero de Dni</span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="dni" type="text"
-                                           autocomplete="off" onkeypress="return validarNum(event)">
+                                           autocomplete="off" onkeypress="return validarNum(event)" placeholder="ejmp:75879887" required>
                                 </div>
                             </div>
                             <div class="form-group-sm">
                                 <span class="col-sm-2">Nombres</span>
                                 <div class="col-sm-4">
                                     <input class="form-control input-sm" name="nombres" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)">
+                                           autocomplete="off" onkeypress="return validarLetras(event)" placeholder="ejmp:Juan Fernando"required>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                                 <span class="col-sm-2">Apellidos</span>
                                 <div class="col-sm-4">
                                     <input class="form-control input-sm" name="apellidos" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)">
+                                           autocomplete="off" onkeypress="return validarLetras(event)" placeholder="ejmp: Benites Alaya" required>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                             <div class="form-group-sm">
                                 <span class="col-sm-2">Codigo personal</span>
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="codigoPersonal" type="text">
+                                    <input class="form-control input-sm" name="codigoPersonal" type="text" onkeypress="return validarNum(event)" placeholder="ejmp: 00025487" required>
                                 </div>
                             </div>
                         </div>

@@ -36,7 +36,7 @@
                     <span class="col-sm-3 control-label"> Clasificador Siaf</span>
                     <div class="col-sm-3">
                         <input class="form-control input-sm" name="clasificador" type="text"
-                               autocomplete="off" onkeypress="return validarNumP(event)">
+                               autocomplete="off" onkeypress="return validarCodigoSiaf(event)" placeholder="Ejm: 192.154.1.1" required>
                     </div>
 
                 </div>
@@ -44,7 +44,7 @@
                     <span class="col-sm-2 control-label"> Nombre de tramite</span>
                     <div class="col-sm-4">
                         <input class="form-control" name="nombre" type="text"
-                               autocomplete="off" onkeypress="return validarLetras(event)">
+                               autocomplete="off" onkeypress="return validarLetras(event)" placeholder="ejmp: Carnet" required>
                     </div>
                 </div>
 
@@ -55,7 +55,7 @@
                     <span class="col-sm-3 control-label"> tipo de recurso</span>
                     <div class="col-sm-1">
                         <input class="form-control input-sm" name="tipoRecurso" type="text"
-                               autocomplete="off" onkeypress="return validarLetras(event)">
+                               autocomplete="off" onkeypress="return validarLetras(event)" placeholder="A" required>
                     </div>
                     <div class="col-sm-1"></div>
 
@@ -64,7 +64,7 @@
                     <span class="col-sm-3 control-label"> Fuente de financiamieto</span>
                     <div class="col-sm-1">
                         <input class="form-control" name="fuentefinanc" type="text"
-                               autocomplete="off" onkeypress="return validarLetras(event)">
+                               autocomplete="off" onkeypress="return validarLetras(event)" placeholder="H" required>
                     </div>
                 </div>
             </div>

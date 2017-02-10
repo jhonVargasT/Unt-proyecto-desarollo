@@ -39,9 +39,9 @@
                     <div class="form-group " align="left">
                         <span class="col-sm-3 control-label"> Nombre Facultad</span>
                         <div class="input-group col-sm-6">
-                            <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
+                            <input class="typeahead form-control" type="text" placeholder="ejmp : Ingenieria"
                                    name="nombreFacultad"
-                                   autocomplete="off" onkeypress="return validarLetras(event)">
+                                   autocomplete="off" required>
                             <script type="text/javascript">
                                 var path = "{{ route('autocompletee') }}";
                                 $('input.typeahead').typeahead({
@@ -61,7 +61,7 @@
                     <div class="form-group-sm " align="left">
                         <span class="col-sm-3 control-label"> Codigo escuela</span>
                         <div class="col-sm-2">
-                            <input class="form-control input-sm" name="codEscuela" type="text">
+                            <input class="form-control input-sm" name="codEscuela" type="text"  onkeypress="return validarNum(event)" placeholder="ejmp: 14843" required>
                         </div>
 
                     </div>
@@ -69,7 +69,7 @@
                         <span class="col-sm-2 control-label">Cuenta interna </span>
                         <div class="col-sm-4">
                             <input class="form-control" name="nroCuenta" type="text"
-                                   autocomplete="off" onkeypress="return validarNum(event)">
+                                   autocomplete="off" onkeypress="return validarNum(event)" placeholder="ejmp: 14843"  required>
                         </div>
                     </div>
 
@@ -81,7 +81,7 @@
                         <span class="col-sm-3 control-label"> Nombre escuela</span>
                         <div class="col-sm-5">
                             <input class="form-control input-sm" name="nombre" type="text"
-                                   autocomplete="off" onkeypress="return validarLetras(event)">
+                                   autocomplete="off" onkeypress="return validarLetras(event)" placeholder="ejmp: electronica" required>
                         </div>
                     </div>
                 </div>

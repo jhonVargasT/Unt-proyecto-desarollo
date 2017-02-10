@@ -24,6 +24,12 @@
 
         <div class="panel panel-heading"> Agregar cliente</div>
         <div class="panel-body">
+            @if(session()->has('true'))
+                <div class="alert alert-success" role="alert">{{session('true')}} </div>
+            @endif
+            @if(session()->has('false'))
+                <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
+            @endif
             <form name="form" action="{{url('ClienteRegistrado')}}" role="form" method="POST" class="Horizontal">
                 {{csrf_field()}}
 
@@ -35,7 +41,8 @@
                                 <span class="col-sm-2 control-label"> Numero de Dni</span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="dni" type="text"
-                                           autocomplete="off" onkeypress="return validarNum(event)">
+                                           autocomplete="off" onkeypress="return validarNum(event)"
+                                           placeholder="Ejm:72978754" required>
                                 </div>
                                 <div class="col-sm-1">
                                 </div>
@@ -44,7 +51,8 @@
                                 <span class="col-sm-2">Nombres</span>
                                 <div class="col-sm-4">
                                     <input class="form-control input-sm" name="nombres" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)">
+                                           autocomplete="off" onkeypress="return validarLetras(event)"
+                                           placeholder="Ejm: Jose Fernando" required>
                                 </div>
                             </div>
                         </div>
@@ -53,7 +61,8 @@
                                 <span class="col-sm-2">Apellidos</span>
                                 <div class="col-sm-4">
                                     <input class="form-control input-sm" name="apellidos" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)">
+                                           autocomplete="off" onkeypress="return validarLetras(event)"
+                                           placeholder="Ejm: Lopez Torres" required>
                                 </div>
                             </div>
                         </div>
@@ -67,13 +76,15 @@
                                 <span class="col-sm-2 control-label"> Ruc:</span>
                                 <div class="col-sm-4">
                                     <input class="form-control input-sm" name="ruc" type="text"
-                                           autocomplete="off" onkeypress="return validarNum(event)">
+                                           autocomplete="off" onkeypress="return validarNum(event)"
+                                           placeholder="Ejm: 0729787548">
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label"> Razon social</span>
                                 <div class="col-sm-4">
-                                <input class="form-control input-sm" name="razonSocial" onkeypress="return validarLetras(event)">
+                                    <input class="form-control input-sm" name="razonSocial" placeholder="Ejm:
+PRICEWATERHOUSE  " onkeypress="return validarLetras(event)">
                                 </div>
                             </div>
                         </div>

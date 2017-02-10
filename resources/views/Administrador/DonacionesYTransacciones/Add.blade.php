@@ -26,6 +26,12 @@
             transferencias
         </div>
         <div class="panel-body">
+            @if(session()->has('true'))
+                <div class="alert alert-success" role="alert">{{session('true')}} </div>
+            @endif
+            @if(session()->has('false'))
+                <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
+            @endif
             <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
@@ -38,7 +44,7 @@
                         <div class="col-sm-5">
                             <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
                                    name="nombreTramite" id="name" autocomplete="off"
-                                   onkeypress="return validarLetras(event)">
+                                    required>
                             <script type="text/javascript">
                                 var path = "{{ route('autocompletet') }}";
                                 $('input.typeahead').typeahead({
@@ -55,9 +61,9 @@
                         <span class="col-sm-2 control-label">Fecha </span>
                         <div class="col-sm-3">
                             <div class="col-sm-12 input-group date" data-provide="datepicker">
-                                <input type="text" name="fecha" class="form-control">
+                                <input type="text" name="fecha" class="form-control" placeholder="obligatorio" required>
                                 <div class="input-group-addon">
-                                    <span class="glyphicon glyphicon-th"></span>
+                                    <span class="glyphicon glyphicon-th" ></span>
                                 </div>
                             </div>
                         </div>
@@ -86,7 +92,7 @@
                             <div class="input-group col-sm-2">
                                 <div class="input-group-addon ">S/.</div>
                                 <input type="text" class="form-control " name="monto"
-                                       autocomplete="off" onkeypress="return validarNum(event)">
+                                       autocomplete="off" onkeypress="return validarDouble(event)" placeholder="ejmp: 2.50"required>
 
                             </div>
                         </div>
@@ -96,13 +102,13 @@
                         <div class="form-group-sm " align="left">
                             <span class=" col-sm-2 control-label">Descripcion </span>
                             <div class="col-sm-5">
-                        <textarea class="form-control" name="descripcion" placeholder="Descripcion"></textarea>
+                        <textarea class="form-control" name="descripcion" placeholder="Agregue una breve descripcion"></textarea>
                             </div>
                             <div class=" form-group-sm" align="left">
                                 <span class="col-sm-2 control-label">Numero de resolucion </span>
                                 <div class="col-sm-3">
                                     <input class="form-control " name="numResolucion" type="text"
-                                           autocomplete="off" onkeypress="return validarNum(event)">
+                                           autocomplete="off" onkeypress="return validarNum(event)" placeholder="Ejmp: 124578" required>
                                 </div>
                             </div>
                         </div>

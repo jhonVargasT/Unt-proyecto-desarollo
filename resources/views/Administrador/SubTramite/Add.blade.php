@@ -38,8 +38,8 @@
                     <div class="form-group-sm " align="left">
                         <span class="col-sm-3 control-label"> Nombre Tramite</span>
                         <div class="input-group col-sm-6">
-                            <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
-                                   name="nombreTramite" autocomplete="off" onkeypress="return validarLetras(event)">
+                            <input class="typeahead form-control" type="text" placeholder="Ingresa nombre de tramite .."
+                                   name="nombreTramite" autocomplete="off" onkeypress="return validarLetras(event)"  required>
                             <script type="text/javascript">
                                 var path = "{{ route('autocomplete') }}";
                                 $('input.typeahead').typeahead({
@@ -59,7 +59,7 @@
                         <span class="col-sm-3 control-label"> Cuenta contable</span>
                         <div class="col-sm-3">
                             <input class="form-control input-sm" name="cuentaContable" type="text"
-                                   autocomplete="off" onkeypress="return validarNum(event)">
+                                   autocomplete="off" onkeypress="return validarNum(event)" placeholder="Ejmp: 45844874" required>
                         </div>
                         <div class="col-sm-1">
 
@@ -70,7 +70,7 @@
                         <div class="input-group col-sm-2">
                             <div class="input-group-addon ">S/.</div>
                             <input type="text" class="form-control " name="precio"
-                                   autocomplete="off" onkeypress="return validarNum(event)">
+                                   autocomplete="off" onkeypress="return validarDouble(event)" placeholder="ejmp: 2.50" required>
 
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                         <span class="col-sm-3 control-label"> Nombre Subtramite</span>
                         <div class="col-sm-4">
                             <input class="form-control input-sm" name="nombreSubTramite" type="text"
-                                   autocomplete="off" onkeypress="return validarLetras(event)">
+                                   autocomplete="off" onkeypress="return validarLetras(event)" required>
                         </div>
                         <div class="col-sm-1"></div>
 

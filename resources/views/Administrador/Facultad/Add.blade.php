@@ -35,8 +35,8 @@
                     <div class="form-group-sm " align="left">
                         <span class="col-sm-2 control-label"> Codigo Facultad</span>
                         <div class="col-sm-2">
-                            <input class="form-control input-sm" name="CodigoFacultad" type="text" autocomplete="off"
-                                   onkeypress="return validarNum(event)">
+                            <input class="form-control input-sm" name="CodigoFacultad" type="text" autocomplete="off" placeholder="ejmp: 0002548"
+                                   onkeypress="return validarNum(event)" required>
                         </div>
                     </div>
                     <div class=" form-group-sm" align="left">
@@ -44,7 +44,7 @@
                         <span class="col-sm-2 control-label">Cuenta interna </span>
                         <div class="col-sm-3">
                             <input class="form-control input-sm" name="CuentaInterna" type="text" autocomplete="off"
-                                   onkeypress="return validarNum(event)">
+                                   onkeypress="return validarNum(event)" placeholder="ejmp: 0002548" required>
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                         <span class="col-sm-2 control-label"> Nombre facultad</span>
                         <div class="col-sm-5">
                             <input class="form-control input-sm" name="NombreFacultad" type="text" autocomplete="off"
-                                   onkeypress="return validarLetras(event)">
+                                   onkeypress="return validarLetras(event)" placeholder="ejmp: Ingenieria"required>
                         </div>
                     </div>
                 </div>

@@ -11,14 +11,18 @@ class escuelaController extends Controller
 
     public function registrarEscuela(Request $request)
     {
-        $escuela = new escuelamodel();
-        $escuela->setCodEscuela($request->codEscuela);
-        $escuela->setNombre($request->nombre);
-        $escuela->setNroCuenta($request->nroCuenta);
-        $coF = $escuela->buscarFacultad($request->nombreFacultad);
-        $escuela->setFacultad($coF);
+        if($request->nombreFacultad!= ' ') {
+            $escuela = new escuelamodel();
+            $escuela->setCodEscuela($request->codEscuela);
+            $escuela->setNombre($request->nombre);
+            $escuela->setNroCuenta($request->nroCuenta);
+            $coF = $escuela->buscarFacultad($request->nombreFacultad);
+            $escuela->setFacultad($coF);
 
-        $esc = $escuela->saveescuela();
+            $esc = $escuela->saveescuela();
+        }
+        else
+            $esc=false;
         if ($esc == true) {
             return back()->with('true', 'Facultad ' . $request->nombre . ' guardada con exito')->withInput();
         } else {
