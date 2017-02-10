@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\alumnomodel;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -17,10 +18,13 @@ class alumnoController extends Controller
         $alumno->setApellidos($request->apellidos);
         $alumno->setCodAlumno($request->codAlumno);
         $alumno->setCodMatricula($request->codMatricula);
-        $alumno->setFecha($request->fecha);
+        $d = $request->fecha;
+        $date = implode("-", array_reverse(explode("/", $d)));
+        $alumno->setFecha($date);
         $idE = $alumno->bdEscuela($request->nombreEscuela);
         $alumno->setIdEscuela($idE);
         $al = $alumno->savealumno();
+
         if ($al == true) {
             return back()->with('true', 'Alumno ' . $request->nombres . ' guardada con exito')->withInput();
         } else {
@@ -30,13 +34,23 @@ class alumnoController extends Controller
 
     public function cargarAlumno($codPersona)
     {
+        $valueA = Session::get('tipoCuentaA');
+        $valueV = Session::get('tipoCuentaV');
+
         $alumno = new alumnomodel();
         $alu = $alumno->consultarAlumnoid($codPersona);
-        return view('Administrador/Alumno/Edit')->with(['alumno' => $alu]);
+
+        if ($valueA == 'Administrador')
+            return view('Administrador/Alumno/Edit')->with(['alumno' => $alu]);
+        if ($valueV == 'Ventanilla')
+            return view('Ventanilla/Alumno/Edit')->with(['alumno' => $alu]);
     }
 
     public function editarAlumno($codPersona, Request $request)
     {
+        $valueA = Session::get('tipoCuentaA');
+        $valueV = Session::get('tipoCuentaV');
+
         $alumno = new alumnomodel();
         $alumno->setDni($request->dni);
         $alumno->setNombres($request->nombres);
@@ -45,11 +59,17 @@ class alumnoController extends Controller
         $alumno->setCodMatricula($request->codMatricula);
         $alumno->setFecha($request->fecha);
         $alumno->editarAlumno($codPersona);
-        return view('Administrador/Alumno/Search')->with(['nombre' => $request->nombres]);
+
+        if ($valueA == 'Administrador')
+            return view('Administrador/Alumno/Search')->with(['nombre' => $request->nombres]);
+        if ($valueV == 'Ventanilla')
+            return view('Ventanilla/Alumno/Search')->with(['nombre' => $request->nombres]);
     }
 
     public function listarAlumno(Request $request)
     {
+        $valueA = Session::get('tipoCuentaA');
+        $valueV = Session::get('tipoCuentaV');
         $alu = null;
         $alumno = new alumnomodel();
 
@@ -80,14 +100,25 @@ class alumnoController extends Controller
                 }
             }
         }
-        return view('Administrador/Alumno/Search')->with(['alumno' => $alu, 'txt' => $request->text, 'select' => $request->select]);
+
+        if ($valueA == 'Administrador')
+            return view('Administrador/Alumno/Search')->with(['alumno' => $alu, 'txt' => $request->text, 'select' => $request->select]);
+        if ($valueV == 'Ventanilla')
+            return view('Ventanilla/Alumno/Search')->with(['alumno' => $alu, 'txt' => $request->text, 'select' => $request->select]);
     }
 
     public function eliminarAlumno($codPersona, Request $request)
     {
+        $valueA = Session::get('tipoCuentaA');
+        $valueV = Session::get('tipoCuentaV');
+
         $alumno = new alumnomodel();
         $alumno->eliminarAlumno($codPersona);
-        return view('Administrador/Alumno/Search')->with(['nombre' => $request->nombres]);
+
+        if ($valueA == 'Administrador')
+            return view('Administrador/Alumno/Search')->with(['nombre' => $request->nombres]);
+        if ($valueV == 'Ventanilla')
+            return view('Ventanilla/Alumno/Search')->with(['nombre' => $request->nombres]);
     }
 
     public function escuela(Request $request)
@@ -105,6 +136,5 @@ class alumnoController extends Controller
             $fn = $fnom->nombre;
             return response()->json($fn);
         }
-
     }
 }

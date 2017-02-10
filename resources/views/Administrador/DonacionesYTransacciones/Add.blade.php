@@ -23,20 +23,15 @@
 @section('content')
     <div class="panel panel-primary">
         <div class="panel-heading">Agregar Donaciones y
-            transferencias</div>
+            transferencias
+        </div>
         <div class="panel-body">
             <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
             <form name="form" action="{{url('DonacionRegistrada')}}" role="form" method="POST" class="Horizontal">
-                {{csrf_field()}}
-                @if(session()->has('true'))
-                    <div class="alert alert-success" role="alert">{{session('true')}} </div>
-                @endif
-                @if(session()->has('false'))
-                    <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
-                    @endif
-                <!-- Search input-->
+            {{csrf_field()}}
+            <!-- Search input-->
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm " align="left">
                         <span class="col-sm-2 control-label"> Clasificador Siaf </span>
@@ -60,8 +55,7 @@
                         <span class="col-sm-2 control-label">Fecha </span>
                         <div class="col-sm-3">
                             <div class="col-sm-12 input-group date" data-provide="datepicker">
-                                <input type="text" name="fechaDesde" class="form-control" placeholder="desde"
-                                       autocomplete="off">
+                                <input type="text" name="fecha" class="form-control">
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </div>
@@ -87,11 +81,13 @@
                                 });
                             </script>
                         </div>
-                        <div class=" form-group-sm" align="left">
-                            <span class="col-sm-2 control-label">Monto </span>
-                            <div class="col-sm-3">
-                                <input class="form-control" name="monto" type="text"
-                                       autocomplete="off" onkeypress="return validarNumP(event)">
+                        <div class="form-group-sm">
+                            <span class="col-sm-2">Monto</span>
+                            <div class="input-group col-sm-2">
+                                <div class="input-group-addon ">S/.</div>
+                                <input type="text" class="form-control " name="monto"
+                                       autocomplete="off" onkeypress="return validarNum(event)">
+
                             </div>
                         </div>
                     </div>
@@ -100,8 +96,7 @@
                         <div class="form-group-sm " align="left">
                             <span class=" col-sm-2 control-label">Descripcion </span>
                             <div class="col-sm-5">
-                        <textarea class="form-control " rows="5" name="descripcion">
-                            </textarea>
+                        <textarea class="form-control" name="descripcion" placeholder="Descripcion"></textarea>
                             </div>
                             <div class=" form-group-sm" align="left">
                                 <span class="col-sm-2 control-label">Numero de resolucion </span>
@@ -112,6 +107,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
                     <br>
                     <div class="col-sm-12 row form-group">
                         <div class="col-md-3"></div>
@@ -124,7 +120,7 @@
                         </button>
                         <div class="col-md-3"></div>
                     </div>
-                </div>
+
             </form>
         </div>
     </div>

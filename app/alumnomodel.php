@@ -125,7 +125,7 @@ class alumnomodel extends personamodel
     public function savealumno()
     {
         date_default_timezone_set('Etc/GMT+5');
-        $date = date('Y-m-d H:i:s', time());
+        $date = date('Y-d-m H:i:s', time());
         $logunt = new loguntemodel();
         $value = Session::get('personalC');
         $codPers = $logunt->obtenerCodigoPersonal($value);

@@ -21,7 +21,7 @@
 @stop
 
 @section('content')
-    @if( Session::has('misession') )
+    @if( Session::has('tipoCuentaA'))
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
@@ -53,7 +53,7 @@
                             <div class="col-sm-12 row form-group">
                                 <div class="form-group-sm">
                                     <span class="col-sm-2">Apellidos</span>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <input class="form-control input-sm" name="apellidos" type="text"
                                                autocomplete="off" onkeypress="return validarLetras(event)">
                                     </div>
@@ -71,7 +71,7 @@
                                         <input class="form-control input-sm" name="codAlumno" type="text">
                                     </div>
                                 </div>
-                                <div class="form-group-sm " align="left">
+                                <div class="form-group-sm " align="right">
                                     <span class="col-sm-2 control-label"> Codigo matricula</span>
                                     <div class="col-sm-3">
                                         <input class="form-control input-sm" name="codMatricula" type="text">
@@ -81,16 +81,17 @@
                             <div class="col-sm-12 row form-group">
                                 <div class="form-group-sm " align="left">
                                     <span class="col-sm-2 control-label"> Fecha matricula</span>
-                                    <div class="col-sm-3 input-group date" data-provide="datepicker">
-                                        <input type="text" name="fechaDesde" class="form-control"
-                                               placeholder="click "
-                                               autocomplete="off">
-                                        <div class="input-group-addon">
-                                            <span class="glyphicon glyphicon-th"></span>
+                                    <div class="col-sm-3">
+                                        <div class="col-sm-12 input-group date" data-provide="datepicker">
+                                            <input type="text" name="fecha" class="form-control">
+                                            <div class="input-group-addon">
+                                                <span class="glyphicon glyphicon-th"></span>
+                                            </div>
                                         </div>
                                     </div>
+
                                 </div>
-                                <div class="form-group-sm " align="left">
+                                <div class="form-group-sm " align="right">
                                     <span class="col-sm-2 control-label">Escuela</span>
                                     <div class="col-sm-3">
                                         <input class="typeahead form-control" type="text"
@@ -113,7 +114,7 @@
                                 <div class="form-group-sm " align="left">
                                     <span class="col-sm-2 control-label">Facultad</span>
                                     <div class="col-sm-3">
-                                        <input class="form-control input-sm" name="fecha" type="text" id="f" disabled>
+                                        <input class="form-control input-sm" name=" " type="text" id="f" disabled>
                                         <script>
                                             $('#ne').change(function () {
                                                 $.ajax({

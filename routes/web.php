@@ -187,12 +187,28 @@ Route::get('/ventReportPago', function () {
     return view('Ventanilla/Pagos/ReportPago');
 });
 
+Route::get('/buscarNombresD', 'pagoController@buscarNombresD');
+Route::get('/buscarApellidosD', 'pagoController@buscarApellidosD');
+Route::get('/buscarFacultadD', 'pagoController@buscarFacultadD');
+Route::get('/buscarEscuelaD', 'pagoController@buscarEscuelaD');
+
+Route::get('/buscarNombresR', 'pagoController@buscarNombresR');
+Route::get('/buscarApellidosR', 'pagoController@buscarApellidosR');
+
+Route::get('/buscarNombresC', 'pagoController@buscarNombresC');
+Route::get('/buscarApellidosC', 'pagoController@buscarApellidosC');
+Route::get('/buscarEscuelaC', 'pagoController@buscarEscuelaC');
+Route::get('/buscarFacultadC', 'pagoController@buscarFacultadC');
+
+Route::get('/precioSubtramite', 'pagoController@precioSubtramite');
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('autocompletee', array('as' => 'autocompletee', 'uses' => 'escuelaController@autocompletee'));
 Route::get('autocomplete', array('as' => 'autocomplete', 'uses' => 'subtramiteController@autocomplete'));
 Route::get('autocompletet', array('as' => 'autocompletet', 'uses' => 'donacionController@autocompletet'));
+Route::get('autocompletes', array('as' => 'autocompletes', 'uses' => 'pagoController@autocompletes'));
 Route::get('escuela', array('as' => 'escuela', 'uses' => 'alumnoController@escuela'));
 Route::get('/tipoRecurso', 'donacionController@tipoRecurso');
 Route::get('/facultad', 'alumnoController@facultad');

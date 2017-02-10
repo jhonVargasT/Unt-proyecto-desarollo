@@ -2,27 +2,20 @@
 
 namespace App;
 
-
-use Illuminate\Support\Facades\DB;
-
 class pagomodel
 {
-    private $lugar;
-    private $detalle;
-    private $fechaDevolucion;
-    private $estado;
-    private $idPersona;
-    private $idSubtramite;
-    private $idPersonaxNombre;
+  private $lugar;
+  private $detalle;
+  private $fecha;
+  private $idPersona;
+  private $idTramite;
+
 
     /**
      * pagomodel constructor.
      */
-    public function __construct($lugar1, $detalle)
+    public function __construct()
     {
-        $this->lugar = $lugar1;
-        $this->detalle = $detalle;
-
 
     }
 
@@ -65,36 +58,18 @@ class pagomodel
     /**
      * @return mixed
      */
-    public function getFechaDevolucion()
+    public function getFecha()
     {
-        return $this->fechaDevolucion;
+        return $this->fecha;
     }
 
     /**
-     * @param mixed $fechaDevolucion
+     * @param mixed $fecha
      * @return pagomodel
      */
-    public function setFechaDevolucion($fechaDevolucion)
+    public function setFecha($fecha)
     {
-        $this->fechaDevolucion = $fechaDevolucion;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEstado()
-    {
-        return $this->estado;
-    }
-
-    /**
-     * @param mixed $estado
-     * @return pagomodel
-     */
-    public function setEstado($estado)
-    {
-        $this->estado = $estado;
+        $this->fecha = $fecha;
         return $this;
     }
 
@@ -119,79 +94,22 @@ class pagomodel
     /**
      * @return mixed
      */
-    public function getIdSubtramite()
+    public function getIdTramite()
     {
-        return $this->idSubtramite;
+        return $this->idTramite;
     }
 
     /**
-     * @param mixed $idSubtramite
+     * @param mixed $idTramite
      * @return pagomodel
      */
-    public function setIdSubtramite($idSubtramite)
+    public function setIdTramite($idTramite)
     {
-        $this->idSubtramite = $idSubtramite;
+        $this->idTramite = $idTramite;
         return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIdPersonaxNombre()
-    {
-        return $this->idPersonaxNombre;
-    }
-
-    /**
-     * @param mixed $idPersonaxNombre
-     * @return pagomodel
-     */
-    public function setIdPersonaxNombre($idPersonaxNombre)
-    {
-        $this->idPersonaxNombre = $idPersonaxNombre;
-        return $this;
-    }
-
-
-    public function bdPersona($dni)
-    {
-        $idFacultad = DB::select('select idPersona from persona where dni=:dni', ['nombre' => $dni]);
-        foreach ($idFacultad as $if) {
-            $id = $if->idFacultad;
-        }
-        return $id;
-    }
-
-    public function bdPersonaxNombre($nombres, $apellidos)
-    {
-        $idFacultad = DB::select('select idPersona from persona where nombres=:nombres and apellidos=:apellidos', ['nombres' => $nombres, 'apellidos' => $apellidos]);
-        foreach ($idFacultad as $if) {
-            $id = $if->idFacultad;
-        }
-        return $id;
-    }
-
-    public function bdSubtramite($nombre)
-    {
-        $cFacu = DB::select('select codSubtramite from subtramite where nombre=:nombre', ['nombre' => $nombre]);
-        foreach ($cFacu as $cFa) {
-            $cF = $cFa->idFacultad;
-        }
-        return $cF;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    public function save()
-    {
-        $save = DB::table('pago')->insert(['lugar' => $this->lugar, 'detalle' => $this->detalle, 'fechaDevolucion' => $this->fechaDevolucion, 'IdPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite]);
-        return $save;
-    }
-
-    public function consultarPagosEliminadosFacultad()
-    {
-        $sentence = BD::table('');
-    }
 
 
 }
