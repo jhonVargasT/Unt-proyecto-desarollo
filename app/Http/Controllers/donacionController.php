@@ -12,21 +12,18 @@ class donacionController extends Controller
 {
     public function registrarDonaciones(Request $request)
     {
+        $donacion = new donacionmodel();
+        $donacion->setNumResolucion($request->numResolucion);
+        $d = $request->fecha;
+        $date = implode("-", array_reverse(explode("/", $d)));
+        $donacion->setFechaIngreso($date);
+        $donacion->setDescripcion($request->descripcion);
+        $donacion->setMonto($request->monto);
+        $nombreT = $request->nombreTramite;
+        $idD = $donacion->bdTramite($nombreT);
+        $donacion->setIdTramite($idD);
+        $dona = $donacion->saveDonacion();
 
-            $donacion = new donacionmodel();
-            $donacion->setNumResolucion($request->numResolucion);
-            $d = $request->fecha;
-            $date = implode("-", array_reverse(explode("/", $d)));
-            echo $date;
-
-            $donacion->setFechaIngreso($date);
-            $donacion->setDescripcion($request->descripcion);
-            $donacion->setMonto($request->monto);
-            $nombreT = $request->nombreTramite;
-            $idD = $donacion->bdTramite($nombreT);
-            $donacion->setIdTramite($idD);
-            $dona = $donacion->saveDonacion();
-        
         if ($dona == true) {
             return back()->with('true', 'Donacion ' . $request->numResolucion . ' guardada con exito')->withInput();
         } else {
@@ -75,11 +72,11 @@ class donacionController extends Controller
         $don = null;
         $donacion = new donacionmodel();
 
-        if ($request->select == 'Fecha') {
-            $don = $donacion->consultarDonacionFecha($request->text);
+        if ($request->select == 'Tramite') {
+            $don = $donacion->consultarDonacionTramite($request->text);
         } else {
-            if ($request->select == 'Codigo siaf') {
-                $don = $donacion->consultarDonacionCodigoSiaf($request->text);
+            if ($request->select == 'Fecha') {
+                $don = $donacion->consultarDonacionFecha($request->text);
             } else {
                 if ($request->select == 'Tipo de recurso') {
                     $don = $donacion->consultarDonacionTipoRecurso($request->text);

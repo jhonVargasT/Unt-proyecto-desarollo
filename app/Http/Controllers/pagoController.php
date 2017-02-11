@@ -10,20 +10,37 @@ class pagoController extends Controller
 {
     public function registrarPago(Request $request)
     {
+        $var = null;
         $pago = new pagomodel();
         $pago->setLugar($request->lugar);
         $pago->setDetalle($request->detalle);
-        $pago->setFecha($request->fechaDevolucion);
-        $idpd = $pago->bdPersona('dni');
-        $pago->setIdPersona($idpd);
-        $idtr = $pago->bdTramite('subtramite');
-        $pago->setIdTramite($idtr);
-        $pag = $pago->save();
+        date_default_timezone_set('Etc/GMT+5');
+        $date = date('Y-d-m H:i:s', time());
+        $pago->setFecha($date);
+        if ($request->select == 'Dni') {
+            $var = $pago->bdPersonaDni($request->text);
+        } elseif ($request->select == 'Ruc') {
+            $var = $pago->bdPersonaRuc($request->text);
+        } elseif ($request->select == 'Codigo de alumno') {
+            $var = $pago->bdPersonaCodigoAlumno($request->text);
+        }
 
-        if ($pag != null) {
-            return view('pago');
-        } else {
-            return view('pago');
+        $pago->setIdPersona($var);
+        $idtr = $pago->bdSubtramite($request->subtramite);
+        $pago->setIdSubtramite($idtr);
+        $pago->setPago($request->totalpagar);
+
+        if($request->agregrar)
+        {
+
+        }else{
+            $pag = $pago->savePago();
+
+            if ($pag == true) {
+                return back()->with('true', 'Cliente ' . $request->nombres . ' guardada con exito')->withInput();
+            } else {
+                return back()->with('false', 'Cliente ' . $request->nombres . ' no guardada, puede que ya exista');
+            }
         }
     }
 

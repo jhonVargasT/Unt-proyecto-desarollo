@@ -127,10 +127,10 @@ class escuelamodel
     public function consultarEscuelaCodigo($codigo)
     {
         $escuelabd = DB::table('escuela')
-            ->where('codEscuela','like','%' .$codigo.'%')
+            ->where('codEscuela', 'like', '%' . $codigo . '%')
             ->where('estado', 1)->orderBy('codEscuela', 'desc')->get();
         return $escuelabd;
-        
+
     }
 
     public function consultarEscuelasNombre($nombre)
@@ -148,6 +148,7 @@ class escuelamodel
             ->where('estado', 1)->orderBy('idEscuela', 'desc')->get();
         return $escuelabd;
     }
+
     public function consultarEscuelas()
     {
         $escuelabd = DB::table('escuela')

@@ -218,10 +218,10 @@ class donacionmodel
         return $donacionbd;
     }
 
-    public function consultarDonacionCodigoSiaf($clasificador)
+    public function consultarDonacionTramite($nombre)
     {
         $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
-        tramite.codTramite = donacion.idTramite and tramite.clasificador=:clasificador and tramite.estado=1 and donacion.estado =1', ['clasificador' => $clasificador]);
+        tramite.codTramite = donacion.idTramite and tramite.nombre=:nombre and tramite.estado=1 and donacion.estado =1', ['nombre' => $nombre]);
         return $donacionbd;
     }
 

@@ -20,6 +20,10 @@
     </div>
 @stop
 @section('content')
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
     <div class="panel panel-primary">
         <div class="panel-heading"> Buscar Donaciones y
             transferencias</div>
@@ -30,9 +34,9 @@
                     <div class="form-group-sm col-sm-6 ">
                         <span class="col-sm-5 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
-                            <select class=" form-control" name="select">
+                            <select class=" form-control" name="select" id="select">
+                                <option selected value="Tramite">Tramite</option>
                                 <option>Fecha</option>
-                                <option>Codigo siaf</option>
                                 <option>Tipo de recurso</option>
                                 <option>Fuente de financiamiento</option>
                                 <option>Numero Resolucion</option>
@@ -43,8 +47,21 @@
                         @if(isset($txt))
                             <input type="text" name="text" class="form-control" value="{{$txt}}">
                         @else
-                            <input type="text" name="text" class="form-control" placeholder="Ingresa datos aqui .."
-                                   autocomplete="off">
+                            <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
+                                   name="text" id="text" required>
+                            <script>
+                                var path = "{{ route('autocompletet') }}";
+                                $('input.typeahead').typeahead({
+                                    source: function (query, process) {
+                                        return $.get(path, {query: query}, function (data) {
+                                            var value = $('#select option:selected').attr('value');
+                                            if (value == 'Tramite') {
+                                                return process(data);
+                                            }
+                                        });
+                                    }
+                                });
+                            </script>
                         @endif
                         <span class="input-group-btn">
                             <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>

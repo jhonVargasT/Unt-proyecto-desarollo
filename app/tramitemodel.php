@@ -192,7 +192,9 @@ class tramitemodel
 
         try {
             DB::transaction(function () use ($codTramite,$logunt) {
-                DB::table('tramite')->where('codTramite', $codTramite)->update(['clasificador' => $this->clasificador, 'nombre' => $this->nombre, 'fuentefinanc' => $this->fuentefinanc, 'tipoRecurso' => $this->tipoRecurso]);
+                DB::table('pago')
+                    ->where('codTramite', $codTramite)
+                    ->update(['clasificador' => $this->clasificador, 'nombre' => $this->nombre, 'fuentefinanc' => $this->fuentefinanc, 'tipoRecurso' => $this->tipoRecurso]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
