@@ -20,8 +20,12 @@
     </div>
 @stop
 @section('content')
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
     <div class="panel panel-primary">
-        <div class="panel-heading">  Buscar Escuelas  </div>
+        <div class="panel-heading"> Buscar Escuelas</div>
         <div class="panel-body">
             <form name="form" action="{{url('EscuelasBuscadas')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
@@ -29,9 +33,8 @@
                     <div class="form-group-sm col-sm-6 ">
                         <span class="col-sm-5 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
-                            <select class=" form-control" name="select">
-                                <option selected>Todo</option>
-                                <option>Facultad</option>
+                            <select class=" form-control" name="select" id="select">
+                                <option value="Facultad" selected>Facultad</option>
                                 <option>Codigo Escuela</option>
                                 <option>Nombre Escuela</option>
                                 <option>Cuenta Interna</option>
@@ -40,13 +43,26 @@
                     </div>
                     <div class="form-group-sm input-group col-sm-6">
                         @if(isset($txt))
-                            <input type="text" name="text" class="form-control" value="{{$txt}}" placeholder="Ingresa datos aqui .." autocomplete="off">
+                            <input type="text" name="text" class="form-control" value="{{$txt}}">
                         @else
-                            <input type="text" name="text" class="form-control" placeholder="Ingresa datos aqui .."
-                                   autocomplete="off">
+                            <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
+                                   name="text" id="text" required>
+                            <script>
+                                var path = "{{ route('autocompletee') }}";
+                                $('input.typeahead').typeahead({
+                                    source: function (query, process) {
+                                        return $.get(path, {query: query}, function (data) {
+                                            var value = $('#select option:selected').attr('value');
+                                            if (value == 'Facultad') {
+                                                return process(data);
+                                            }
+                                        });
+                                    }
+                                });
+                            </script>
                         @endif
                         <span class="input-group-btn">
-                            <button class="btn btn-sm" type="submit" name="buscar" autocomplete="off" >Buscar</button>
+                            <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
                         </span>
                     </div>
                 </div>
@@ -59,10 +75,9 @@
                         <thead>
                         <!--cabecear Tabla-->
                         <tr>
-                            <th>Facultad</th>
-                            <th>Codigo escuela</th>
+                            <th>Nombre Escuela</th>
+                            <th>Codigo Escuela</th>
                             <th>Cuenta interna</th>
-                            <th>Nombre escuela</th>
                             <th>Opciones</th>
                         </tr>
                         </thead>
@@ -72,9 +87,9 @@
                             @foreach($escuela as $e)
                                 <tr>
                                     <td>{{$e->nombre}}</td>
+                                    <td>{{$e->nombreFacultad}}</td>
                                     <td>{{$e->codEscuela}}</td>
                                     <td>{{$e->nroCuenta}}</td>
-                                    <td>{{$e->nombre}}</td>
                                     <td align="center">
                                         {{ csrf_field() }}
                                         <a href="EscuelaCargar/{{$e->idEscuela}}"><span

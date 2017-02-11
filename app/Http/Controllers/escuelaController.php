@@ -11,7 +11,7 @@ class escuelaController extends Controller
 
     public function registrarEscuela(Request $request)
     {
-        if($request->nombreFacultad!= ' ') {
+        if ($request->nombreFacultad != ' ') {
             $escuela = new escuelamodel();
             $escuela->setCodEscuela($request->codEscuela);
             $escuela->setNombre($request->nombre);
@@ -20,9 +20,8 @@ class escuelaController extends Controller
             $escuela->setFacultad($coF);
 
             $esc = $escuela->saveescuela();
-        }
-        else
-            $esc=false;
+        } else
+            $esc = false;
         if ($esc == true) {
             return back()->with('true', 'Facultad ' . $request->nombre . ' guardada con exito')->withInput();
         } else {
@@ -71,11 +70,9 @@ class escuelaController extends Controller
                     $esc = $escuela->consultarEscuelasCuentaInterna($request->text);
                 } else {
                     if ($request->select == 'Facultad') {
-                     //   $esc = $escuela->consultarEscuelasFacultad($request->text);
-                    }
-                    else
-                    {
-                       $esc=$escuela->consultarEscuelas();
+                        //$esc = $escuela->consultarEscuelasFacultad($request->text);
+                    } else {
+                        $esc = $escuela->consultarEscuelas();
                     }
                 }
             }
@@ -83,10 +80,10 @@ class escuelaController extends Controller
         return view('Administrador/Escuela/search')->with(['escuela' => $esc, 'txt' => $request->text, 'select' => $request->select]);
     }
 
-    public function eliminarEscuela($idEscuela,Request $request)
+    public function eliminarEscuela($idEscuela, Request $request)
     {
         $cliente = new escuelamodel();
         $cliente->eliminarEscuela($idEscuela);
-        return view('Administrador/Escuela/Search')->with(['nombre'=>$request->nombre]);
+        return view('Administrador/Escuela/Search')->with(['nombre' => $request->nombre]);
     }
 }

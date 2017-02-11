@@ -46,7 +46,7 @@ class facultadController extends Controller
     {
         $fac = null;
         $facultad = new facultadmodel();
-        $opciones=['Todo','Codigo facultad','Codigo facultad','Nombre Facultad'];
+        $opciones = ['Todo', 'Codigo facultad', 'Codigo facultad', 'Nombre Facultad'];
         if ($request->select == 'Codigo Facultad') {
             $fac = $facultad->consultarFacultadesCodigo($request->text);
         } else {
@@ -56,11 +56,11 @@ class facultadController extends Controller
                 if ($request->select == 'Cuenta Interna') {
                     $fac = $facultad->consultarFacultadesCuentaInterna($request->text);
                 } else {
-                    $fac=$facultad->consultarFacultades();
+                    $fac = $facultad->consultarFacultades();
                 }
             }
         }
-        return view('Administrador/Facultad/Search')->with(['facultad' => $fac, 'txt' => $request->text, 'select' => $request->select,'opciones'=>$opciones]);
+        return view('Administrador/Facultad/Search')->with(['facultad' => $fac, 'txt' => $request->text, 'select' => $request->select, 'opciones' => $opciones]);
     }
 
     public function eliminarFacultad($idFacultad, Request $request)

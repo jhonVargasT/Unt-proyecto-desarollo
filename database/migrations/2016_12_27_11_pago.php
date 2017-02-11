@@ -19,9 +19,9 @@ class Pago extends Migration
             $table->engine = 'InnoDB';
 
             $table ->increments('codPago')->unique();
-            $table ->string('lugar');
             $table ->string('detalle');
-            $table ->date('fecha');
+            $table ->dateTime('fecha');
+            $table ->double('pago');
             $table -> boolean('estado')->default('1');
 
 
