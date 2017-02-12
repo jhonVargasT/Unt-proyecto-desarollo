@@ -21,7 +21,6 @@
 @stop
 @section('content')
     <div class="panel panel-primary">
-
         <div class="panel panel-heading"> Agregar cliente</div>
         <div class="panel-body">
             @if(session()->has('true'))
@@ -32,7 +31,6 @@
             @endif
             <form name="form" action="{{url('ClienteRegistrado')}}" role="form" method="POST" class="Horizontal">
                 {{csrf_field()}}
-
                 <div class="panel panel-default">
                     <div class="panel-heading">Datos persona</div>
                     <div class="panel-body">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\pagomodel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 
 class pagoController extends Controller
 {
@@ -12,11 +13,11 @@ class pagoController extends Controller
     {
         $var = null;
         $pago = new pagomodel();
-        $pago->setLugar($request->lugar);
         $pago->setDetalle($request->detalle);
         date_default_timezone_set('Etc/GMT+5');
         $date = date('Y-d-m H:i:s', time());
         $pago->setFecha($date);
+
         if ($request->select == 'Dni') {
             $var = $pago->bdPersonaDni($request->text);
         } elseif ($request->select == 'Ruc') {
@@ -29,18 +30,12 @@ class pagoController extends Controller
         $idtr = $pago->bdSubtramite($request->subtramite);
         $pago->setIdSubtramite($idtr);
         $pago->setPago($request->totalpagar);
+        $pag = $pago->savePago();
 
-        if($request->agregrar)
-        {
-
-        }else{
-            $pag = $pago->savePago();
-
-            if ($pag == true) {
-                return back()->with('true', 'Cliente ' . $request->nombres . ' guardada con exito')->withInput();
-            } else {
-                return back()->with('false', 'Cliente ' . $request->nombres . ' no guardada, puede que ya exista');
-            }
+        if ($pag == true) {
+            return back()->with('true', 'Pago ' . $request->nombres . ' guardada con exito')->withInput();
+        } else {
+            return back()->with('false', 'Pago ' . $request->nombres . ' no guardada, puede que ya exista');
         }
     }
 

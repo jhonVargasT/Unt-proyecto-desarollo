@@ -25,11 +25,11 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 
-
     <div class="panel panel-primary ">
         <div class="panel-heading "> Realizar pago</div>
         <div class="panel-body">
-            <form>
+            <form name="form" action="{{url('PagoRegistrado')}}" role="form" method="POST" class="Horizontal">
+                {{csrf_field()}}
                 <div class="col-sm-12">
                     <div class="col-sm-12 row form-group">
                         <div class="form-group-sm " align="right">
@@ -47,7 +47,7 @@
                         <div class="form-group-sm">
                             <span class="col-sm-2">Nombres</span>
                             <div class="col-sm-4">
-                                <input class="form-control input-sm" name="nombres" type="text" id="nombres" disabled>
+                                <input class="form-control input-sm" name="nombres" type="text" id="nombres" readonly>
                                 <script>
                                     $('#buscar').change(function () {
                                         var value = $('#select option:selected').attr('value');
@@ -94,7 +94,7 @@
                             <span class="col-sm-2">Apellidos</span>
                             <div class="col-sm-4">
                                 <input class="form-control input-sm" name="apellidos" type="text" id="apellidos"
-                                       disabled>
+                                       readonly>
                                 <script>
                                     $('#buscar').change(function () {
                                         var value = $('#select option:selected').attr('value');
@@ -154,7 +154,7 @@
                         <div class="form-group-sm">
                             <span class="col-sm-2">Facultad</span>
                             <div class="col-sm-4">
-                                <input class="form-control input-sm" name="facultad" type="text" disabled id="facultad">
+                                <input class="form-control input-sm" name="facultad" type="text" readonly id="facultad">
                                 <script>
                                     $('#buscar').change(function () {
                                         var value = $('#select option:selected').attr('value');
@@ -193,7 +193,7 @@
                             </div>
                             <span class="col-sm-2">Escuela</span>
                             <div class="col-sm-4">
-                                <input class="form-control input-sm" name="escuela" type="text" disabled id="escuela">
+                                <input class="form-control input-sm" name="escuela" type="text" readonly id="escuela">
                                 <script>
                                     $('#buscar').change(function () {
                                         var value = $('#select option:selected').attr('value');
@@ -235,19 +235,19 @@
                         <div class="form-group-sm">
                             <span class="col-sm-2">Detalle </span>
                             <div class="col-sm-4">
-                                <textarea class="form-control input-sm" name="detalle" placeholder="Detalle"></textarea>
+                                <textarea class="form-control input-sm" name="detalle" placeholder="Detalle" id="detalle"></textarea>
                             </div>
                         </div>
                         <span class="col-sm-2">Pago con:</span>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control " name="pagocon" id="pc">
+                            <input type="text" class="form-control " name="pago" id="pago">
                         </div>
                     </div>
                     <div class="col-sm-9 row form-group">
                         <span class="col-sm-3">Total Boleta:</span>
                         <div class="input-group col-sm-4">
                             <div class="input-group-addon ">S/.</div>
-                            <input type="text" class="form-control " name="boletapagar" id="bp" disabled>
+                            <input type="text" class="form-control " name="boletapagar" id="bp" readonly>
                             <script>
                                 $('#st').change(function () {
                                     $.ajax({
@@ -266,27 +266,15 @@
                         <span class="col-sm-3">Total Pagar:</span>
                         <div class="input-group col-sm-4">
                             <div class="input-group-addon ">S/.</div>
-                            <input type="text" class="form-control " name="totalpagar" id="tp" disabled>
+                            <input type="text" class="form-control " name="totalp" id="totalp" readonly>
                         </div>
                     </div>
                     <div class="col-sm-9 row form-group">
                         <span class="col-sm-3">Vuelto:</span>
                         <div class="input-group col-sm-4">
                             <div class="input-group-addon ">S/.</div>
-                            <input type="text" class="form-control " name="vuelto" id="v" disabled>
+                            <input type="text" class="form-control " name="vuelto" id="vuelto" readonly>
                         </div>
-                        <script>
-                            $('#pc').change(function () {
-                                $.ajax({
-                                    success: function () {
-                                        var n1 = $('#pc').val();
-                                        var n2 = $('#tp').val();
-                                        var r = n1 - n2;
-                                        $('#v').val(r);
-                                    }
-                                });
-                            });
-                        </script>
                     </div>
                 </div>
                 <div class="col-sm-12 row form-group">
@@ -295,11 +283,9 @@
                                 class="glyphicon glyphicon-print"></span>
                         Imprimir</a>
                     <div class="col-md-1"></div>
-                    <button type="submit" name="agregar" class="col-md-2 btn btn-warning"><span
-                                class="glyphicon glyphicon-plus"></span> Agregar
-                    </button>
+                    <input type="submit" name="agregar" class="col-md-2 btn btn-warning" value="Agregar">
                     <div class="col-md-1"></div>
-                    <button type="submit" name="enviar" class="col-md-2 btn btn-success"><span
+                    <button type="submit" name="enviar" class="col-md-2 btn btn-success "><span
                                 class="glyphicon glyphicon-usd"></span> Pagar
                     </button>
                 </div>

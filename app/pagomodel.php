@@ -8,12 +8,11 @@ use PDOException;
 
 class pagomodel
 {
-  private $lugar;
-  private $detalle;
-  private $fecha;
-  private $pago;
-  private $idPersona;
-  private $idSubtramite;
+    private $detalle;
+    private $fecha;
+    private $pago;
+    private $idPersona;
+    private $idSubtramite;
 
 
     /**
@@ -22,24 +21,6 @@ class pagomodel
     public function __construct()
     {
 
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLugar()
-    {
-        return $this->lugar;
-    }
-
-    /**
-     * @param mixed $lugar
-     * @return pagomodel
-     */
-    public function setLugar($lugar)
-    {
-        $this->lugar = $lugar;
-        return $this;
     }
 
     /**
@@ -136,10 +117,9 @@ class pagomodel
 
     public function bdPersonaDni($var)
     {
-        $obj=null;
-        $personabd = DB::table('persona')->select('codPersona')->where('dni','=',$var)->get();
-        foreach ($personabd as $per)
-        {
+        $obj = null;
+        $personabd = DB::table('persona')->select('codPersona')->where('dni', '=', $var)->get();
+        foreach ($personabd as $per) {
             $obj = $per->codPersona;
         }
         return $obj;
@@ -147,14 +127,13 @@ class pagomodel
 
     public function bdPersonaRuc($var)
     {
-        $obj=null;
+        $obj = null;
         $personabd = DB::table('persona')
             ->leftJoin('cliente', 'persona.codPersona', '=', 'cliente.idPersona')
-            ->where('cliente.ruc','=', $var)
+            ->where('cliente.ruc', '=', $var)
             ->get();
 
-        foreach ($personabd as $per)
-        {
+        foreach ($personabd as $per) {
             $obj = $per->codPersona;
         }
 
@@ -163,14 +142,13 @@ class pagomodel
 
     public function bdPersonaCodigoAlumno($var)
     {
-        $obj=null;
+        $obj = null;
         $personabd = DB::table('persona')
             ->leftJoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->where('alumno.codigoAlumno','=', $var)
+            ->where('alumno.codigoAlumno', '=', $var)
             ->get();
 
-        foreach ($personabd as $per)
-        {
+        foreach ($personabd as $per) {
             $obj = $per->codPersona;
         }
 
@@ -179,13 +157,9 @@ class pagomodel
 
     public function bdSubtramite($var)
     {
-        $obj=null;
-        $subtramitebd = DB::table('subtramiet')->select('codSubtramite')->where('dni','=',$var)->get();
-        foreach ($subtramitebd as $sub)
-        {
-            $obj = $sub->codPersona;
-        }
-        return $obj;
+        $obj = null;
+        $subtramitebd = DB::table('subtramite')->select('codSubtramite')->where('nombre', '=', $var)->get();
+        return $subtramitebd;
     }
 
     public function savePago()
@@ -200,7 +174,7 @@ class pagomodel
         $logunt->setCodigoPersonal($codPers);
         try {
             DB::transaction(function () use ($logunt) {
-                DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha,'idPersona'=>$this->idPersona,'idSubtramite'=>$this->idSubtramite]);
+                DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {

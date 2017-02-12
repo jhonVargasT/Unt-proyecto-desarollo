@@ -187,6 +187,8 @@ Route::get('/ventReportPago', function () {
     return view('Ventanilla/Pagos/ReportPago');
 });
 
+Route::resource('/PagoRegistrado', 'pagoController@registrarPago');
+
 Route::get('/buscarNombresD', 'pagoController@buscarNombresD');
 Route::get('/buscarApellidosD', 'pagoController@buscarApellidosD');
 Route::get('/buscarFacultadD', 'pagoController@buscarFacultadD');
