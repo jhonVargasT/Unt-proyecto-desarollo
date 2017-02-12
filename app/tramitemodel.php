@@ -115,10 +115,17 @@ class tramitemodel
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public function consultarTramites()
+    {
+        $tramitebd = DB::table('tramite')
+            ->where('estado', 1)
+            ->orderBy('codTramite', 'desc')->get();
+        return $tramitebd;
+    }
     public function consultarTramiteFF($ff)
     {
         $tramitebd = DB::table('tramite')
-            ->where('fuentefinanc', $ff)
+            ->where('fuentefinanc','like','%'.$ff.'%')
             ->where('estado', 1)
             ->orderBy('codTramite', 'desc')->get();
         return $tramitebd;
@@ -127,7 +134,7 @@ class tramitemodel
     public function consultarTramiteCS($cs)
     {
         $tramitebd = DB::table('tramite')
-            ->where('clasificador', $cs)
+            ->where('clasificador','like','%'. $cs.'%')
             ->where('estado', 1)
             ->orderBy('codTramite', 'desc')->get();
         return $tramitebd;
@@ -136,7 +143,7 @@ class tramitemodel
     public function consultarTramiteTR($tr)
     {
         $tramitebd = DB::table('tramite')
-            ->where('tipoRecurso', $tr)
+            ->where('tipoRecurso','like','%'. $tr.'%')
             ->where('estado', 1)
             ->orderBy('codTramite', 'desc')->get();
         return $tramitebd;
@@ -145,7 +152,7 @@ class tramitemodel
     public function consultarTramiteN($nombre)
     {
         $tramitebd = DB::table('tramite')
-            ->where('nombre', $nombre)
+            ->where('nombre','like','%'. $nombre.'%')
             ->where('estado', 1)
             ->orderBy('codTramite', 'desc')->get();
         return $tramitebd;

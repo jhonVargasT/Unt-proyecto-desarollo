@@ -30,7 +30,8 @@
                         <span class="col-sm-5 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
                             <select class=" form-control" name="select">
-                                <option>Clasificador Siaf</option>
+                                <option>Todo </option>
+                                <option>Clasificador siaf</option>
                                 <option>Tipo de recurso</option>
                                 <option>Nombre de tramite</option>
                                 <option>Fuente de financiamiento</option>
