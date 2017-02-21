@@ -74,7 +74,7 @@
                     <table class="table table-bordered">
                         <thead>
                         <!--cabecear Tabla-->
-                        <tr>
+                        <tr class="active">
                             <th>Nombre Escuela</th>
                             <th>Codigo Escuela</th>
                             <th>Cuenta interna</th>
@@ -83,22 +83,21 @@
                         </thead>
                         <body>
                         @if(isset($escuela))
-                            <!--Contenido-->
-                            @foreach($escuela as $e)
-                                <tr>
-                                    <td>{{$e->nombre}}</td>
-                                    <td>{{$e->nombreFacultad}}</td>
-                                    <td>{{$e->codEscuela}}</td>
-                                    <td>{{$e->nroCuenta}}</td>
-                                    <td align="center">
-                                        {{ csrf_field() }}
-                                        <a href="EscuelaCargar/{{$e->idEscuela}}"><span
-                                                    class="glyphicon glyphicon-pencil"></span> </a>
-                                        <a href="EscuelaEliminar/{{$e->idEscuela}}"><span
-                                                    class="glyphicon glyphicon-trash"></span> </a>
-                                    </td>
-                                </tr>
-                            @endforeach
+                                <!--Contenido-->
+                        @foreach($escuela as $es)
+                            <tr>
+                                <td>{{$es->nombre}}</td>
+                                <td>{{$es->codEscuela}}</td>
+                                <td>{{$es->nroCuenta}}</td>
+                                <td align="center">
+                                    {{ csrf_field() }}
+                                    <a href="EscuelaCargar/{{$es->idEscuela}}"><span
+                                                class="glyphicon glyphicon-pencil"></span> </a>
+                                    <a href="EscuelaEliminar/{{$es->idEscuela}}"><span
+                                                class="glyphicon glyphicon-trash"></span> </a>
+                                </td>
+                            </tr>
+                        @endforeach
                         @endif
                         </body>
                     </table>

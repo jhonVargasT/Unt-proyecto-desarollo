@@ -28,21 +28,9 @@
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm col-sm-6 ">
                         <span class="col-sm-5 control-label">Buscar por:</span>
-                        @if(isset($select)=='Dni')
-
                             <div class="col-sm-7 ">
                                 <select class=" form-control" name="select">
-                                    <option selected>Dni</option>
-                                    <option>Apellidos</option>
-                                    <option>Codigo personal</option>
-                                    <option>Cuenta</option>
-                                    <option>Tipo de cuenta</option>
-                                </select>
-                            </div>
-
-                        @else
-                            <div class="col-sm-7 ">
-                                <select class=" form-control" name="select">
+                                    <option selected>Todo</option>
                                     <option>Dni</option>
                                     <option>Apellidos</option>
                                     <option>Codigo personal</option>
@@ -50,7 +38,7 @@
                                     <option>Tipo de cuenta</option>
                                 </select>
                             </div>
-                        @endif
+                      
                     </div>
                     <div class="form-group-sm input-group col-sm-6">
                         @if(isset($txt))

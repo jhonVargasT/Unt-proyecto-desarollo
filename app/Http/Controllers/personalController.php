@@ -116,12 +116,14 @@ class personalController extends Controller
                     } else {
                         if ($request->select == 'Tipo de cuenta') {
                             $pers = $personal->consultaPersonalTipoCuenta($request->text);
+                        } else {
+                            $pers = $personal->consultaPersonales($request->text);
                         }
                     }
                 }
             }
         }
-       return view('Administrador/Personal/Search')->with(['personal' => $pers, 'txt' => $request->text, 'select' => $request->select]);
+        return view('Administrador/Personal/Search')->with(['personal' => $pers, 'txt' => $request->text, 'select' => $request->select]);
     }
 
     public function eliminarPersonal($codPersona, Request $request)

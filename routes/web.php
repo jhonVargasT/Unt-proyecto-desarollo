@@ -104,7 +104,7 @@ Route::resource('FacultadesBuscadas', 'facultadController@listarFacultad');
 Route::resource('FacultadCargar', 'facultadController@cargarFacultad');
 Route::get('FacultadEditada/{idFacultad}', 'facultadController@editarFacultad');
 Route::get('FacultadEliminar/{idFacultad}', 'facultadController@eliminarFacultad');
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////Personal///////////////////////////////////////////////////////////////////////////
 
 Route::get('/admRegistrarPersonal', function () {
     return view('Administrador/Personal/Add');
@@ -186,6 +186,7 @@ Route::get('/ventRelizarPago', function () {
 Route::get('/ventReportPago', function () {
     return view('Ventanilla/Pagos/ReportPago');
 });
+Route::resource('/pagar','pagoController@registrarPago');
 
 Route::resource('/PagoRegistrado', 'pagoController@registrarPago');
 

@@ -233,6 +233,16 @@ class personalmodel extends personamodel
         return $personabd;
     }
 
+    public function consultaPersonales()
+    {
+        $personabd=DB::table('personal')
+            ->join('persona', function ($join) {
+                $join->on('personal.idPersona', '=', 'persona.codPersona');
+            })
+            ->get();
+
+        return $personabd;
+    }
     public function consultaPersonalTipoCuenta($tipoCuenta)
     {
         $personabd=DB::table('personal')

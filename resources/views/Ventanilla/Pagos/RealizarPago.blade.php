@@ -25,10 +25,11 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 
+
     <div class="panel panel-primary ">
         <div class="panel-heading "> Realizar pago</div>
         <div class="panel-body">
-            <form name="form" action="{{url('PagoRegistrado')}}" role="form" method="POST" class="Horizontal">
+            <form name="form" action="{{url('pagar')}}" role="form" method="POST" class="Vertical">
                 {{csrf_field()}}
                 <div class="col-sm-12">
                     <div class="col-sm-12 row form-group">
@@ -41,7 +42,8 @@
                                 </select>
                             </div>
                             <div class="col-sm-4">
-                                <input class="form-control input-sm " id="buscar" name="text" type="text">
+                                <input class="form-control input-sm " id="buscar" name="text" type="text"
+                                       autocomplete="off">
                             </div>
                         </div>
                         <div class="form-group-sm">
@@ -133,21 +135,45 @@
                                     });
                                 </script>
                             </div>
-                            <span class="col-sm-2">Subtramite</span>
+                            <span class="col-sm-2">Escuela</span>
                             <div class="col-sm-4">
-                                <input class="typeahead form-control" type="text" name="subtramite" id="st"
-                                       onkeypress="return validarLetras(event)">
-                                <script type="text/javascript">
-                                    var path = "{{ route('autocompletes') }}";
-                                    $('input.typeahead').typeahead({
-                                        source: function (query, process) {
-                                            return $.get(path, {query: query}, function (data) {
-                                                return process(data);
+                                <input class="form-control input-sm" name="escuela" type="text" readonly id="escuela">
+                                <script>
+                                    $('#buscar').change(function () {
+                                        var value = $('#select option:selected').attr('value');
+                                        if (value == 'Dni') {
+                                            $.ajax({
+                                                url: '/buscarEscuelaD',
+                                                type: "get",
+                                                data: {name: $('#buscar').val()},
+                                                success: function (data) {
+                                                    $('#escuela').val(data);
+                                                }
                                             });
+                                        } else {
+                                            if (value == 'Ruc') {
+                                                $.ajax({
+                                                    success: function () {
+                                                        $('#escuela').val('');
+                                                    }
+                                                });
+                                            } else {
+                                                if (value == 'Codigo de alumno') {
+                                                    $.ajax({
+                                                        url: '/buscarEscuelaC',
+                                                        type: "get",
+                                                        data: {name: $('#buscar').val()},
+                                                        success: function (data) {
+                                                            $('#escuela').val(data);
+                                                        }
+                                                    });
+                                                }
+                                            }
                                         }
                                     });
                                 </script>
                             </div>
+
                         </div>
                     </div>
                     <div class="col-sm-12 row form-group">
@@ -191,105 +217,122 @@
                                     });
                                 </script>
                             </div>
-                            <span class="col-sm-2">Escuela</span>
-                            <div class="col-sm-4">
-                                <input class="form-control input-sm" name="escuela" type="text" readonly id="escuela">
-                                <script>
-                                    $('#buscar').change(function () {
-                                        var value = $('#select option:selected').attr('value');
-                                        if (value == 'Dni') {
-                                            $.ajax({
-                                                url: '/buscarEscuelaD',
-                                                type: "get",
-                                                data: {name: $('#buscar').val()},
-                                                success: function (data) {
-                                                    $('#escuela').val(data);
-                                                }
-                                            });
-                                        } else {
-                                            if (value == 'Ruc') {
-                                                $.ajax({
-                                                    success: function () {
-                                                        $('#escuela').val('');
-                                                    }
-                                                });
-                                            } else {
-                                                if (value == 'Codigo de alumno') {
-                                                    $.ajax({
-                                                        url: '/buscarEscuelaC',
-                                                        type: "get",
-                                                        data: {name: $('#buscar').val()},
-                                                        success: function (data) {
-                                                            $('#escuela').val(data);
-                                                        }
-                                                    });
-                                                }
-                                            }
-                                        }
-                                    });
-                                </script>
-                            </div>
+
+                        </div>
+                        <span class="col-sm-2">Nombre de tramite :</span>
+                        <div class="col-sm-4">
+                            <input class="typeahead form-control" type="text" name="subtramite" id="st"
+                                   onkeypress="return validarLetras(event)" autocomplete="off">
+                            <script type="text/javascript">
+                                var path = "{{ route('autocompletes') }}";
+                                $('input.typeahead').typeahead({
+                                    source: function (query, process) {
+                                        return $.get(path, {query: query}, function (data) {
+                                            return process(data);
+                                        });
+                                    }
+                                });
+                            </script>
                         </div>
                     </div>
                     <div class="col-sm-12 row form-group">
                         <div class="form-group-sm">
                             <span class="col-sm-2">Detalle </span>
                             <div class="col-sm-4">
-                                <textarea class="form-control input-sm" name="detalle" placeholder="Detalle" id="detalle"></textarea>
+                                <textarea class="form-control input-sm" name="detalle" placeholder="Detalle"
+                                          id="detalle"></textarea>
                             </div>
                         </div>
-                        <span class="col-sm-2">Pago con:</span>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control " name="pago" id="pago">
+
+
+                    </div>
+                    <br>
+                    <div class="col-sm-12 row form-group">
+                        <div class="form-group-sm">
+                            <span class="col-sm-2 ">Costo de boleta:</span>
+                            <div class=" col-sm-4">
+                                <div class="col-sm-1">
+                                    S/.
+                                </div>
+                                <div class="col-sm-4">
+                                    <input class="form-control " name="boletapagar" id="bp" readonly>
+                                    <script>
+                                        $('#st').change(function () {
+                                            $.ajax({
+                                                url: '/precioSubtramite',
+                                                type: "get",
+                                                data: {name: $('#st').val()},
+                                                success: function (data) {
+                                                    $('#bp').val(data);
+                                                }
+                                            });
+                                        });
+                                    </script>
+                                </div>
+
+                            </div>
+
+
                         </div>
                     </div>
-                    <div class="col-sm-9 row form-group">
-                        <span class="col-sm-3">Total Boleta:</span>
-                        <div class="input-group col-sm-4">
-                            <div class="input-group-addon ">S/.</div>
-                            <input type="text" class="form-control " name="boletapagar" id="bp" readonly>
+                    <div class="col-sm-12 row form-group">
+                        <div class="form-group-sm">
+                            @if(isset($total))
+                                <span class="col-sm-2">Costo total a pagar:</span>
+                                <div class="col-sm-2">
+                                    <div class="col-sm-1">
+                                        S/.
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="total" id="tp" value="{{$total}}">
+                                    </div>
+                                </div>
+                            @endif
+                            <span class="col-sm-1">Pago con:</span>
+                            <div class="col-sm-1">
+                                <input type="text" class="form-control " name="pagocon" id="pc">
+                            </div>
+                            <span class="col-sm-1">Vuelto :</span>
+                            <div class="col-sm-2">
+                                <div class="col-sm-1">
+                                    S/.
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control " name="vuelto" id="v" readonly
+                                           value="0.00">
+                                </div>
+                            </div>
                             <script>
-                                $('#st').change(function () {
+                                $('#pc').change(function () {
                                     $.ajax({
-                                        url: '/precioSubtramite',
-                                        type: "get",
-                                        data: {name: $('#st').val()},
-                                        success: function (data) {
-                                            $('#bp').val(data);
+                                        success: function () {
+                                            var n1 = $('#pc').val();
+                                            var n2 = $('#tp').val();
+                                            var r = n1 - n2;
+                                            r = r.toFixed(2);
+                                            $('#v').val(r);
                                         }
+
                                     });
                                 });
                             </script>
-                        </div>
-                    </div>
-                    <div class="col-sm-9 row form-group">
-                        <span class="col-sm-3">Total Pagar:</span>
-                        <div class="input-group col-sm-4">
-                            <div class="input-group-addon ">S/.</div>
-                            <input type="text" class="form-control " name="totalp" id="totalp" readonly>
-                        </div>
-                    </div>
-                    <div class="col-sm-9 row form-group">
-                        <span class="col-sm-3">Vuelto:</span>
-                        <div class="input-group col-sm-4">
-                            <div class="input-group-addon ">S/.</div>
-                            <input type="text" class="form-control " name="vuelto" id="vuelto" readonly>
+
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-12 row form-group"></div>
                 <div class="col-sm-12 row form-group">
-                    <div class="col-md-2"></div>
-                    <a href="#" class=" col-md-2 btn btn-sm btn-info"><span
-                                class="glyphicon glyphicon-print"></span>
-                        Imprimir</a>
-                    <div class="col-md-1"></div>
-                    <input type="submit" name="agregar" class="col-md-2 btn btn-warning" value="Agregar">
-                    <div class="col-md-1"></div>
-                    <button type="submit" name="enviar" class="col-md-2 btn btn-success "><span
-                                class="glyphicon glyphicon-usd"></span> Pagar
-                    </button>
+                    <div class="col-md-5"></div>
+                    <div class="col-md-2" align="center">
+                        <button type="submit" name="enviar" class="col-md-12 btn btn-success"><span
+                                    class="glyphicon glyphicon-print"></span> Imprimir
+                        </button>
+                    </div>
+                    <div class="col-md-5"></div>
                 </div>
-            </form>
+
         </div>
+        </form>
+    </div>
     </div>
 @stop

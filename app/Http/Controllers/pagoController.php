@@ -5,38 +5,45 @@ namespace App\Http\Controllers;
 use App\pagomodel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 
 class pagoController extends Controller
 {
     public function registrarPago(Request $request)
+
     {
-        $var = null;
-        $pago = new pagomodel();
-        $pago->setDetalle($request->detalle);
-        date_default_timezone_set('Etc/GMT+5');
-        $date = date('Y-d-m H:i:s', time());
-        $pago->setFecha($date);
-
-        if ($request->select == 'Dni') {
-            $var = $pago->bdPersonaDni($request->text);
-        } elseif ($request->select == 'Ruc') {
-            $var = $pago->bdPersonaRuc($request->text);
-        } elseif ($request->select == 'Codigo de alumno') {
-            $var = $pago->bdPersonaCodigoAlumno($request->text);
-        }
-
-        $pago->setIdPersona($var);
-        $idtr = $pago->bdSubtramite($request->subtramite);
-        $pago->setIdSubtramite($idtr);
-        $pago->setPago($request->totalpagar);
-        $pag = $pago->savePago();
-
-        if ($pag == true) {
-            return back()->with('true', 'Pago ' . $request->nombres . ' guardada con exito')->withInput();
+        $pago= new pagomodel();
+        $val = Session::get('txt', 'no hay session');
+        if ($val == $request->text) {
+            $pago->setLugar($request->lugar);
+            $pago->setDetalle($request->detalle);
+            date_default_timezone_set('Etc/GMT+5');
+            $date = date('Y-d-m H:i:s', time());
+            $pago->setFecha($date);
+            if ($request->select == 'Dni') {
+                $var = $pago->bdPersonaDni($request->text);
+            } elseif ($request->select == 'Ruc') {
+                $var = $pago->bdPersonaRuc($request->text);
+            } elseif ($request->select == 'Codigo de alumno') {
+                $var = $pago->bdPersonaCodigoAlumno($request->text);
+            }
+            $total = $request->total;
+            $pago = $request->boletapagar;
+            $totalp = $total + $pago;
+           $pago->setIdPersona($var);$idtr = $pago->bdSubtramite($request->subtramite);
+            $pago->setIdSubtramite($idtr);
+            $pago->setPago($total);
+            session()->put('text', $request->text);
+            $pag = $pago->savePago();
+            return view('/Ventanilla/Pagos/RealizarPago')->with('total', $totalp);
         } else {
-            return back()->with('false', 'Pago ' . $request->nombres . ' no guardada, puede que ya exista');
+
+            Session::forget('txt');
+            Session::put('txt', $request->text);
+            $total = $request->boletapagar;
+            return view('/Ventanilla/Pagos/RealizarPago')->with('total', $total);
         }
+        
     }
 
     public function buscarNombresD(Request $request)

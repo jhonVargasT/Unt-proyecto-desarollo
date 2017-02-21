@@ -29,7 +29,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 </head>
 <body style="background-color: #ccd0d2">
-<div class="container container-fluid">
+<div >
     <br>
     <div class="col-sm-12 panel panel-default ">
         <div class="col-sm-12 ">

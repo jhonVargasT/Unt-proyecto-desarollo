@@ -29,7 +29,7 @@
     <script  src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 </head>
 <body style="background-color: #ccd0d2">
-<div class="container container-fluid">
+<div >
     <br>
     <div class="col-sm-12 panel panel-default ">
         <div class="col-sm-12 ">
