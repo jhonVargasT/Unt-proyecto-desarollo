@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\facultadmodel;
 use App\loguntemodel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Validator;
 
@@ -16,6 +17,9 @@ class facultadController extends Controller
         $facultad->setCodFacultad($request->CodigoFacultad);
         $facultad->setNombre($request->NombreFacultad);
         $facultad->setNroCuenta($request->CuentaInterna);
+        $codsede = $facultad->bscSedeId($request->nombreSede);
+        $facultad->setCodSede($codsede);
+
         $fac = $facultad->save();
         if ($fac == true) {
             return back()->with('true', 'Facultad ' . $request->NombreFacultad . ' guardada con exito')->withInput();
@@ -79,5 +83,12 @@ class facultadController extends Controller
             $var = $nom->nombre;
         }
         return $var;
+    }
+
+    public function autocompletesede(Request $request)
+    {
+        $data = DB::table('sede')->select("nombresede as name")->where("nombresede", "LIKE", "%{$request->input('query')}%")->get();
+
+        return response()->json($data);
     }
 }

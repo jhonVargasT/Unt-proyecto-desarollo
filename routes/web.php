@@ -191,17 +191,20 @@ Route::resource('/pagar','pagoController@registrarPago');
 Route::resource('/PagoRegistrado', 'pagoController@registrarPago');
 
 Route::get('/buscarNombresD', 'pagoController@buscarNombresD');
-Route::get('/buscarApellidosD', 'pagoController@buscarApellidosD');
-Route::get('/buscarFacultadD', 'pagoController@buscarFacultadD');
-Route::get('/buscarEscuelaD', 'pagoController@buscarEscuelaD');
-
+Route::get('/buscarNombresDR', 'pagoController@buscarNombresDR');
+Route::get('/buscarNombresC', 'pagoController@buscarNombresC');
 Route::get('/buscarNombresR', 'pagoController@buscarNombresR');
+
+Route::get('/buscarApellidosD', 'pagoController@buscarApellidosD');
+Route::get('/buscarApellidosDR', 'pagoController@buscarApellidosDR');
+Route::get('/buscarApellidosC', 'pagoController@buscarApellidosC');
 Route::get('/buscarApellidosR', 'pagoController@buscarApellidosR');
 
-Route::get('/buscarNombresC', 'pagoController@buscarNombresC');
-Route::get('/buscarApellidosC', 'pagoController@buscarApellidosC');
-Route::get('/buscarEscuelaC', 'pagoController@buscarEscuelaC');
+Route::get('/buscarFacultadD', 'pagoController@buscarFacultadD');
 Route::get('/buscarFacultadC', 'pagoController@buscarFacultadC');
+
+Route::get('/buscarEscuelaD', 'pagoController@buscarEscuelaD');
+Route::get('/buscarEscuelaC', 'pagoController@buscarEscuelaC');
 
 Route::get('/precioSubtramite', 'pagoController@precioSubtramite');
 
@@ -212,6 +215,7 @@ Route::get('autocompletee', array('as' => 'autocompletee', 'uses' => 'escuelaCon
 Route::get('autocomplete', array('as' => 'autocomplete', 'uses' => 'subtramiteController@autocomplete'));
 Route::get('autocompletet', array('as' => 'autocompletet', 'uses' => 'donacionController@autocompletet'));
 Route::get('autocompletes', array('as' => 'autocompletes', 'uses' => 'pagoController@autocompletes'));
+Route::get('autocompletesede', array('as' => 'autocompletesede', 'uses' => 'facultadController@autocompletesede'));
 Route::get('escuela', array('as' => 'escuela', 'uses' => 'alumnoController@escuela'));
 Route::get('/tipoRecurso', 'donacionController@tipoRecurso');
 Route::get('/facultad', 'alumnoController@facultad');

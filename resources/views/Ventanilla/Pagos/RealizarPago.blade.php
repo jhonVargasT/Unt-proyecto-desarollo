@@ -25,7 +25,6 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 
-
     <div class="panel panel-primary ">
         <div class="panel-heading "> Realizar pago</div>
         <div class="panel-body">
@@ -54,25 +53,40 @@
                                     $('#buscar').change(function () {
                                         var value = $('#select option:selected').attr('value');
                                         if (value == 'Dni') {
+                                            var id = $('#buscar').val();
                                             $.ajax({
-                                                url: '/buscarNombresD',
+                                                url: "/buscarNombresD",
                                                 type: "get",
-                                                data: {name: $('#buscar').val()},
+                                                data: {name: id},
                                                 success: function (data) {
-                                                    $('#nombres').val(data);
+                                                    if (data == false) {
+                                                        $('#nombres').val(data);
+                                                        $.ajax({
+                                                            url: '/buscarNombresDR',
+                                                            type: "get",
+                                                            data: {name: id},
+                                                            success: function (data) {
+                                                                $('#nombres').val(data)
+                                                            }
+                                                        });
+                                                    }
+                                                    else {
+                                                        $('#nombres').val(data);
+                                                    }
+
                                                 }
                                             });
-                                        }
-                                        else {
+                                        } else {
                                             if (value == 'Ruc') {
                                                 $.ajax({
                                                     url: '/buscarNombresR',
                                                     type: "get",
                                                     data: {name: $('#buscar').val()},
                                                     success: function (data) {
-                                                        $('#nombres').val(data);
+                                                        $('#nombres').val(data)
                                                     }
                                                 });
+
                                             } else {
                                                 if (value == 'Codigo de alumno') {
                                                     $.ajax({
@@ -101,12 +115,26 @@
                                     $('#buscar').change(function () {
                                         var value = $('#select option:selected').attr('value');
                                         if (value == 'Dni') {
+                                            var id = $('#buscar').val();
                                             $.ajax({
                                                 url: '/buscarApellidosD',
                                                 type: "get",
-                                                data: {name: $('#buscar').val()},
+                                                data: {name: id},
                                                 success: function (data) {
-                                                    $('#apellidos').val(data);
+                                                    if (data == false) {
+                                                        $('#apellidos').val(data)
+                                                        $.ajax({
+                                                            url: '/buscarApellidosDR',
+                                                            type: "get",
+                                                            data: {name: id},
+                                                            success: function (data) {
+                                                                $('#apellidos').val(data);
+                                                            }
+                                                        });
+                                                    }
+                                                    else {
+                                                        $('#apellidos').val(data);
+                                                    }
                                                 }
                                             });
                                         } else {
@@ -217,7 +245,6 @@
                                     });
                                 </script>
                             </div>
-
                         </div>
                         <span class="col-sm-2">Nombre de tramite :</span>
                         <div class="col-sm-4">

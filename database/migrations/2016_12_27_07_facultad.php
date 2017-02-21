@@ -24,6 +24,13 @@ class Facultad extends Migration
             $table ->string('nroCuenta')->unique();
             $table -> boolean('estado')->default('1');
 
+            $table->integer('coSede')->unsigned();
+
+        });
+
+        Schema::table('facultad', function( $table) {
+
+            $table->foreign('coSede')->references('codSede')->on('sede');
         });
     }
 

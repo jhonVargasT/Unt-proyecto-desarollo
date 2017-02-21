@@ -20,6 +20,10 @@
     </div>
 @stop
 @section('content')
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
     <div class="panel panel-primary">
         <div class="panel-heading"> Agregar facultad</div>
         <div class="panel-body">
@@ -33,27 +37,50 @@
                 @endif
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm " align="left">
+                        <span class="col-sm-2 control-label"> Sede </span>
+                        <div class="col-sm-4">
+                            <div class="input-group col-sm-12">
+                                <input class="typeahead form-control" type="text" placeholder="ejmp : Trujillo"
+                                       name="nombreSede"
+                                       autocomplete="off" required onkeypress="return validarLetras(event)">
+                                <script type="text/javascript">
+                                    var path = "{{ route('autocompletesede') }}";
+                                    $('input.typeahead').typeahead({
+                                        source: function (query, process) {
+                                            return $.get(path, {query: query}, function (data) {
+                                                return process(data);
+                                            });
+                                        }
+                                    });
+                                </script>
+                            </div>
+                        </div>
                         <span class="col-sm-2 control-label"> Codigo Facultad</span>
-                        <div class="col-sm-2">
+                        <div class="col-sm-4">
                             <input class="form-control input-sm" name="CodigoFacultad" type="text" autocomplete="off" placeholder="ejmp: 0002548"
                                    onkeypress="return validarNum(event)" required>
-                        </div>
-                    </div>
-                    <div class=" form-group-sm" align="left">
-                        <span class="col-sm-2 control-label"> </span>
-                        <span class="col-sm-2 control-label">Cuenta interna </span>
-                        <div class="col-sm-3">
-                            <input class="form-control input-sm" name="CuentaInterna" type="text" autocomplete="off"
-                                   onkeypress="return validarNum(event)" placeholder="ejmp: 0002548" required>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm " align="left">
-                        <span class="col-sm-2 control-label"> Nombre facultad</span>
-                        <div class="col-sm-5">
+                        <span class="col-sm-2 control-label"> Cuenta Interna</span>
+                        <div class="col-sm-4">
+                            <input class="form-control input-sm" name="CuentaInterna" type="text" autocomplete="off" placeholder="ejmp: 0002548"
+                                   onkeypress="return validarNum(event)" required>
+                        </div>
+                    </div>
+                    <div class=" form-group-sm" align="left">
+                        <span class="col-sm-2 control-label">Nombre Facultad </span>
+                        <div class="col-sm-4">
                             <input class="form-control input-sm" name="NombreFacultad" type="text" autocomplete="off"
-                                   onkeypress="return validarLetras(event)" placeholder="ejmp: Ingenieria"required>
+                                   onkeypress="return validarLetras(event)" placeholder="ejmp: Ingenieria" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 row form-group">
+                    <div class="form-group-sm " align="left">
+                        <div class="col-sm-5">
                         </div>
                     </div>
                 </div>

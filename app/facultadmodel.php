@@ -12,6 +12,7 @@ class facultadmodel
     private $nombre;
     private $nroCuenta;
     private $escuelas;
+    private $codSede;
 
     public function __construct()
     {
@@ -91,6 +92,26 @@ class facultadmodel
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCodSede()
+    {
+        return $this->codSede;
+    }
+
+    /**
+     * @param mixed $codSede
+     * @return facultadmodel
+     */
+    public function setCodSede($codSede)
+    {
+        $this->codSede = $codSede;
+        return $this;
+    }
+
+
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function llenarFacultadReporte()
@@ -153,7 +174,7 @@ class facultadmodel
 
         try {
             DB::transaction(function () use ($logunt) {
-                DB::table('facultad')->insert(['codFacultad' => $this->codFacultad, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta]);
+                DB::table('facultad')->insert(['codFacultad' => $this->codFacultad, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta, 'coSede'=>$this->codSede]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -205,6 +226,18 @@ class facultadmodel
             return false;
         }
         return true;
+    }
+
+    public function bscSedeId($nombreSede)
+    {
+        $scod = null;
+        $sedebd =DB::table('sede')->where('nombresede','=',$nombreSede)->get();
+
+        foreach ($sedebd as $sbd)
+        {
+            $scod= $sbd->codSede;
+        }
+        return $scod;
     }
 
 }

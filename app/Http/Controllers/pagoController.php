@@ -49,8 +49,21 @@ class pagoController extends Controller
     public function buscarNombresD(Request $request)
     {
         $var = $request->name;
-        $nombres = DB::select('select * from persona left join alumno on persona.codPersona = alumno.idPersona 
+        $nombresa = DB::select('select * from persona 
+        left join alumno on persona.codPersona = alumno.idPersona 
         where persona.codPersona = alumno.idPersona and persona.dni=:dni and persona.estado=1 and alumno.estado=1', ['dni' => $var]);
+        foreach ($nombresa as $np) {
+            $na = $np->nombres;
+            return response()->json($na);
+        }
+    }
+
+    public function buscarNombresDR(Request $request)
+    {
+        $var = $request->name;
+        $nombres = DB::select('select * from persona 
+        left join cliente on persona.codPersona = cliente.idPersona 
+        where persona.codPersona = cliente.idPersona and persona.dni=:dni and persona.estado=1 and cliente.estado=1', ['dni' => $var]);
 
         foreach ($nombres as $np) {
             $nombres = $np->nombres;
@@ -100,6 +113,19 @@ class pagoController extends Controller
         $nombresP = DB::select('select * from persona 
         left join alumno on persona.codPersona = alumno.idPersona 
         where persona.codPersona = alumno.idPersona and persona.dni=:dni and persona.estado=1 and alumno.estado=1', ['dni' => $var]);
+
+        foreach ($nombresP as $np) {
+            $apellidos = $np->apellidos;
+            return response()->json($apellidos);
+        }
+    }
+
+    public function buscarApellidosDR(Request $request)
+    {
+        $var = $request->name;
+        $nombresP = DB::select('select * from persona 
+        left join cliente on persona.codPersona = cliente.idPersona 
+        where persona.codPersona = cliente.idPersona and persona.dni=:dni and persona.estado=1 and cliente.estado=1', ['dni' => $var]);
 
         foreach ($nombresP as $np) {
             $apellidos = $np->apellidos;
@@ -204,6 +230,37 @@ class pagoController extends Controller
         $data = DB::table('subtramite')->select("nombre as name")->where("nombre", "LIKE", "%{$request->input('query')}%")->get();
 
         return response()->json($data);
+    }
+
+    public function listarPago(Request $request)
+    {
+        $pag = null;
+        $pago = new pagomodel();
+
+        if ($request->select == 'Dni') {
+            $pag = $pago->consultarAlumnoDNI($request->text);
+        } else {
+            if ($request->select == 'Codigo alumno') {
+                $pag = $pago->consultarAlumnoCodigo($request->text);
+            } else {
+                if ($request->select == 'Ruc') {
+                    $pag = $pago->consultarClienteRuc($request->text);
+                } else {
+                    if ($request->select == 'Codigo pago') {
+                        $pag = $pago->consultarCodigoPago($request->text);
+                    }
+                }
+            }
+        }
+        return view('Ventanilla/Pagos/ReportPago')->with(['pago' => $pag, 'txt' => $request->text, 'select' => $request->select]);
+    }
+
+    public function eliminarPago($codPago)
+    {
+        $pago = new pagomodel();
+        $pago->eliminarPago($codPago);
+
+        return view('Ventanilla/Pagos/ReportPago');
     }
 
 }
