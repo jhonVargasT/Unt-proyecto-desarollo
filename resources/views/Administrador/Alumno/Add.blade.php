@@ -41,14 +41,14 @@
                         <div class="panel-heading">Datos persona</div>
                         <div class="panel-body">
                             <div class="col-sm-12 row form-group">
-                                <div class="form-group-sm " align="right">
+                                <div class="form-group-sm " align="left">
                                     <span class="col-sm-2 control-label"> Numero de Dni</span>
                                     <div class="col-sm-3">
                                         <input class="form-control input-sm" name="dni" type="text"
                                                autocomplete="off" onkeypress="return validarNum(event)" placeholder="Ejem: 72978792" required>
                                     </div>
                                 </div>
-                                <div class="form-group-sm">
+                                <div class="form-group-sm" align="right">
                                     <span class="col-sm-2">Nombres</span>
                                     <div class="col-sm-4">
                                         <input class="form-control input-sm" name="nombres" type="text"
@@ -59,7 +59,7 @@
                             <div class="col-sm-12 row form-group">
                                 <div class="form-group-sm">
                                     <span class="col-sm-2">Apellidos</span>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <input class="form-control input-sm" name="apellidos" type="text"
                                                autocomplete="off" onkeypress="return validarLetras(event)" placeholder="Ejem: Terenas Lory" required>
                                     </div>

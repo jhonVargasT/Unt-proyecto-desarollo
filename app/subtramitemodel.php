@@ -174,14 +174,14 @@ class subtramitemodel
     public function consultarSubtramiteTramite($nombreTramite)
     {
         $subtramitebd = DB::select('select * from tramite left join subtramite on tramite.codTramite = subtramite.idTramite where 
-        tramite.codTramite = subtramite.idTramite and tramite.nombre=:nombre and tramite.estado=1 and subtramite.estado=1', ['nombre' => $nombreTramite]);
+        tramite.codTramite = subtramite.idTramite and tramite.nombre like "%'.$nombreTramite.'%" and tramite.estado=1 and subtramite.estado=1');
         return $subtramitebd;
     }
 
     public function consultarSubtramiteNombre($nombreSubtramite)
     {
         $subtramitebd = DB::table('subtramite')
-            ->where('nombre', $nombreSubtramite)
+            ->where('nombre','like', '%' . $nombreSubtramite. '%')
             ->where('estado', 1)
             ->orderBy('codSubtramite', 'desc')->get();
         return $subtramitebd;
@@ -203,7 +203,7 @@ class subtramitemodel
     public function consultarSubtramiteCuenta($cuenta)
     {
         $subtramitebd = DB::table('subtramite')
-            ->where('cuenta', $cuenta)
+            ->where('cuenta','like', '%' . $cuenta. '%')
             ->where('estado', 1)
             ->orderBy('codSubtramite', 'desc')->get();
         return $subtramitebd;

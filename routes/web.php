@@ -158,7 +158,21 @@ Route::get('/admReportes', function () {
     return view('Administrador/Reporte/Report');
 });
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////SEDE//////////////////////////////////////////////////////////////////////////////////
+Route::get('/admRegistrarSede', function () {
+    return view('Administrador/Sede/add');
+});
+Route::get('/admBuscarSede', function () {
+    return view('Administrador/Sede/search');
+});
+
+Route::resource('SedeRegistrada', 'sedeController@registrarSede');
+Route::resource('SedesBuscadas', 'sedeController@listarSede');
+Route::resource('SedeCargar', 'sedeController@cargarSede');
+Route::get('SedeEditada/{codSede}', 'sedeController@editarSede');
+Route::get('SedeEliminar/{codSede}', 'sedeController@eliminarSede');
+
+
 /////////////////////////////////////////////////////CLIENTE////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -188,7 +202,8 @@ Route::get('/ventReportPago', function () {
 });
 Route::resource('/pagar','pagoController@registrarPago');
 
-Route::resource('/PagoRegistrado', 'pagoController@registrarPago');
+Route::resource('PagosBuscados', 'pagoController@listarPago');
+Route::get('PagoEliminar/{codPago}', 'pagoController@eliminarPago');
 
 Route::get('/buscarNombresD', 'pagoController@buscarNombresD');
 Route::get('/buscarNombresDR', 'pagoController@buscarNombresDR');
@@ -219,5 +234,7 @@ Route::get('autocompletesede', array('as' => 'autocompletesede', 'uses' => 'facu
 Route::get('escuela', array('as' => 'escuela', 'uses' => 'alumnoController@escuela'));
 Route::get('/tipoRecurso', 'donacionController@tipoRecurso');
 Route::get('/facultad', 'alumnoController@facultad');
+
+Route::get('pdf/{txt}/{select}', 'PdfController@pdf');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -20,12 +20,11 @@ class Sede extends Migration
 
             $table ->increments('codSede')->unique();
             $table ->string('nombresede')->unique();
+            $table ->string('codigosede')->unique();
             $table ->string('direccion')->unique();
             $table ->boolean('estado')->default('1');
         });
-
     }
-
     /**
      * Reverse the migrations.
      *

@@ -116,6 +116,34 @@
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseSede">
+                                        <spam class="fa fa-building-o"></spam>
+                                        Sedes</a>
+                                </h4>
+                            </div>
+                            @yield('sede')
+                            <div id="collapseSede" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <table class="table">
+                                        <tr>
+                                            <td>
+                                                <span class="glyphicon glyphicon-search"></span>
+                                                <a href="/admBuscarSede">Buscar Sedes</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="glyphicon glyphicon-plus"></span>
+                                                <a href="/admRegistrarSede">Agregar Sede</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
                                         <spam class="fa fa-graduation-cap"></spam>
                                         Escuelas</a>

@@ -35,17 +35,15 @@
                     <div class="panel-heading">Datos persona</div>
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
-                            <div class="form-group-sm " align="right">
+                            <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label"> Numero de Dni</span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="dni" type="text"
                                            autocomplete="off" onkeypress="return validarNum(event)"
                                            placeholder="Ejm:72978754" required>
                                 </div>
-                                <div class="col-sm-1">
-                                </div>
                             </div>
-                            <div class="form-group-sm">
+                            <div class="form-group-sm" align="right">
                                 <span class="col-sm-2">Nombres</span>
                                 <div class="col-sm-4">
                                     <input class="form-control input-sm" name="nombres" type="text"
@@ -57,7 +55,7 @@
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm">
                                 <span class="col-sm-2">Apellidos</span>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <input class="form-control input-sm" name="apellidos" type="text"
                                            autocomplete="off" onkeypress="return validarLetras(event)"
                                            placeholder="Ejm: Lopez Torres" required>
@@ -72,13 +70,13 @@
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label"> Ruc:</span>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <input class="form-control input-sm" name="ruc" type="text"
                                            autocomplete="off" onkeypress="return validarNum(event)"
                                            placeholder="Ejm: 0729787548">
                                 </div>
                             </div>
-                            <div class="form-group-sm " align="left">
+                            <div class="form-group-sm " align="right">
                                 <span class="col-sm-2 control-label"> Razon social</span>
                                 <div class="col-sm-4">
                                     <input class="form-control input-sm" name="razonSocial" placeholder="Ejm:

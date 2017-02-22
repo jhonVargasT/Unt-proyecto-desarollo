@@ -31,7 +31,7 @@
                     <div class="panel-heading">Datos persona</div>
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
-                            <div class="form-group-sm " align="right">
+                            <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label"> Numero de Dni</span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="dni" type="text"
@@ -51,7 +51,7 @@
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm">
                                 <span class="col-sm-2">Apellidos</span>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <input class="form-control input-sm" name="apellidos" type="text"
                                            autocomplete="off" onkeypress="return validarLetras(event)">
                                 </div>
