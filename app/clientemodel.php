@@ -90,12 +90,12 @@ class clientemodel extends personamodel
         $logunt = new loguntemodel();
         $value = Session::get('personalC');
         $codPers = $logunt->obtenerCodigoPersonal($value);
-        echo ($codPers);
+        echo($codPers);
         $logunt->setFecha($date);
         $logunt->setDescripcion('registrarCliente');
         $logunt->setCodigoPersonal($codPers);
         try {
-            DB::transaction(function () use($logunt) {
+            DB::transaction(function () use ($logunt) {
                 DB::table('persona')->insert(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos()]);
                 $personabd = DB::table('persona')->where('dni', $this->getDni())->get();
                 foreach ($personabd as $pbd) {
@@ -122,7 +122,7 @@ class clientemodel extends personamodel
         $logunt->setDescripcion('editarCliente');
         $logunt->setCodigoPersonal($codPers);
         try {
-            DB::transaction(function () use ($codPersona,$logunt) {
+            DB::transaction(function () use ($codPersona, $logunt) {
                 DB::table('persona')->where('codPersona', $codPersona)->update(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos()]);
                 DB::table('cliente')->where('idPersona', $codPersona)->update(['ruc' => $this->ruc, 'razonSocial' => $this->razonSocial]);
                 $logunt->saveLogUnt();
@@ -133,21 +133,21 @@ class clientemodel extends personamodel
         return true;
     }
 
-    public function consultarAlumnoDNI($dni)
+    public function consultarClienteDNI($dni)
     {
         $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
         persona.codPersona = cliente.idPersona and persona.dni=:dni and persona.estado = 1', ['dni' => $dni]);
         return $clientebd;
     }
 
-    public function consultarAlumnoApellidos($apellidos)
+    public function consultarClienteApellidos($apellidos)
     {
         $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
         persona.codPersona = cliente.idPersona and persona.apellidos=:apellidos and persona.estado=1', ['apellidos' => $apellidos]);
         return $clientebd;
     }
 
-    public function consultarAlumnoRUC($ruc)
+    public function consultarClientesRUC($ruc)
     {
         $clientebd = DB::table('persona')->leftJoin('cliente', 'persona.codPersona', '=', 'cliente.idPersona')
             ->where('cliente.ruc', '=', $ruc)
@@ -155,7 +155,19 @@ class clientemodel extends personamodel
         return $clientebd;
     }
 
-    public function consultarAlumnoRazonSocial($razonSocial)
+    public function consultarClienteRUC($ruc)
+    {
+        $clientebd = DB::table('cliente')
+            ->where('ruc', '=', $ruc)
+            ->where('estado', '=', 1)->get();
+        foreach ($clientebd as $cl)
+        {
+            return $client=$cl->idPersona;
+        }
+        
+    }
+
+    public function consultarAlumnoClienteSocial($razonSocial)
     {
         $clientebd = DB::table('persona')->leftJoin('cliente', 'persona.codPersona', '=', 'cliente.idPersona')
             ->where('cliente.razonSocial', '=', $razonSocial)
@@ -181,7 +193,7 @@ class clientemodel extends personamodel
         $logunt->setDescripcion('EliminarCliente');
         $logunt->setCodigoPersonal($codPers);
         try {
-            DB::transaction(function () use ($codPersona,$logunt) {
+            DB::transaction(function () use ($codPersona, $logunt) {
                 DB::table('persona')->where('codPersona', $codPersona)->update(['estado' => 0]);
                 DB::table('cliente')->where('idPersona', $codPersona)->update(['estado' => 0]);
                 $logunt->saveLogUnt();

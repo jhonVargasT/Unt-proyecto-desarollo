@@ -68,16 +68,16 @@ class clienteController extends Controller
         $cliente = new clientemodel();
 
         if ($request->select == 'Dni') {
-            $cli = $cliente->consultarAlumnoDNI($request->text);
+            $cli = $cliente->consultarClienteDNI($request->text);
         } else {
             if ($request->select == 'Apellidos') {
-                $cli = $cliente->consultarAlumnoApellidos($request->text);
+                $cli = $cliente->consultarClienteApellidos($request->text);
             } else {
                 if ($request->select == 'Ruc') {
-                    $cli = $cliente->consultarAlumnoRUC($request->text);
+                    $cli = $cliente->consultarClientesRUC($request->text);
                 } else {
                     if ($request->select == 'Razon social') {
-                        $cli = $cliente->consultarAlumnoRazonSocial($request->text);
+                        $cli = $cliente->consultarClienteRazonSocial($request->text);
                     }
                 }
             }

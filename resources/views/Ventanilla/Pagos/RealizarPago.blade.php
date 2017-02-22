@@ -28,13 +28,19 @@
     <div class="panel panel-primary ">
         <div class="panel-heading "> Realizar pago</div>
         <div class="panel-body">
+            @if(session()->has('true'))
+                <div class="alert alert-success" role="alert">{{session('true')}} </div>
+            @endif
+            @if(session()->has('false'))
+                <div class="alert alert-danger" role="alert">{{session('false')}} </div>
+            @endif
             <form name="form" action="{{url('pagar')}}" role="form" method="POST" class="Vertical">
                 {{csrf_field()}}
                 <div class="col-sm-12">
                     <div class="col-sm-12 row form-group">
                         <div class="form-group-sm " align="right">
                             <div class="col-sm-2 ">
-                                <select class=" form-group-sm form-control" id="select">
+                                <select class=" form-group-sm form-control" id="select" name="select">
                                     <option value="Dni"> Dni</option>
                                     <option value="Ruc">Ruc</option>
                                     <option value="Codigo de alumno">Codigo de alumno</option>
@@ -42,13 +48,13 @@
                             </div>
                             <div class="col-sm-4">
                                 <input class="form-control input-sm " id="buscar" name="text" type="text"
-                                       autocomplete="off">
+                                       autocomplete="off" required>
                             </div>
                         </div>
                         <div class="form-group-sm">
                             <span class="col-sm-2">Nombres</span>
                             <div class="col-sm-4">
-                                <input class="form-control input-sm" name="nombres" type="text" id="nombres" readonly>
+                                <input class="form-control input-sm" name="nombres" type="text" id="nombres" readonly required>
                                 <script>
                                     $('#buscar').change(function () {
                                         var value = $('#select option:selected').attr('value');
@@ -110,7 +116,7 @@
                             <span class="col-sm-2">Apellidos</span>
                             <div class="col-sm-4">
                                 <input class="form-control input-sm" name="apellidos" type="text" id="apellidos"
-                                       readonly>
+                                       readonly required>
                                 <script>
                                     $('#buscar').change(function () {
                                         var value = $('#select option:selected').attr('value');
@@ -165,7 +171,7 @@
                             </div>
                             <span class="col-sm-2">Escuela</span>
                             <div class="col-sm-4">
-                                <input class="form-control input-sm" name="escuela" type="text" readonly id="escuela">
+                                <input class="form-control input-sm" name="escuela" type="text" readonly id="escuela" >
                                 <script>
                                     $('#buscar').change(function () {
                                         var value = $('#select option:selected').attr('value');
@@ -249,7 +255,7 @@
                         <span class="col-sm-2">Nombre de tramite :</span>
                         <div class="col-sm-4">
                             <input class="typeahead form-control" type="text" name="subtramite" id="st"
-                                   onkeypress="return validarLetras(event)" autocomplete="off">
+                                   onkeypress="return validarLetras(event)" autocomplete="off" required>
                             <script type="text/javascript">
                                 var path = "{{ route('autocompletes') }}";
                                 $('input.typeahead').typeahead({
@@ -314,6 +320,16 @@
                                         <input type="text" class="form-control" name="total" id="tp" value="{{$total}}">
                                     </div>
                                 </div>
+                            @else
+                                <span class="col-sm-2">Costo total a pagar:</span>
+                                <div class="col-sm-2">
+                                    <div class="col-sm-1">
+                                        S/.
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="total" id="tp" value="0.00">
+                                    </div>
+                                </div>
                             @endif
                             <span class="col-sm-1">Pago con:</span>
                             <div class="col-sm-1">
@@ -358,8 +374,9 @@
                     <div class="col-md-5"></div>
                 </div>
 
+
+            </form>
         </div>
-        </form>
     </div>
     </div>
 @stop

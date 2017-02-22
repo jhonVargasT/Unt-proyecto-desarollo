@@ -186,6 +186,19 @@ class subtramitemodel
             ->orderBy('codSubtramite', 'desc')->get();
         return $subtramitebd;
     }
+    public function consultarSubtramiteidNombre($nombreSubtramite)
+    {
+        $subtramitebd = DB::table('subtramite')
+            ->where('nombre', $nombreSubtramite)
+            ->where('estado', 1)
+            ->get();
+        $id=null;
+        foreach ($subtramitebd as $su)
+        {
+            $id=$su->codSubtramite;
+        }
+        return $id;
+    }
 
     public function consultarSubtramiteCuenta($cuenta)
     {

@@ -41,10 +41,12 @@ class personalController extends Controller
         $personal->setCuenta($request->cuenta);
         $personal->setPassword($request->password);
         $person = $personal->logear();
+        $idpersonal=null;
         foreach ($person as $per) {
             $personal->setCuenta($per->cuenta);
             $personal->setPassword($per->password);
             $personal->setTipoCuenta($per->tipoCuenta);
+            $idpersonal=$per->idPersonal;
             $persona = $perso->obtnerId($per->idPersona);
             foreach ($persona as $p) {
                 $personal->setNombres($p->nombres);
@@ -54,6 +56,7 @@ class personalController extends Controller
 
         Session::put(['misession' => $personal->getNombres() . ' ' . $personal->getApellidos()]);
         Session::put('personalC', $personal->getCuenta());
+        Session::put('idpersonal', $idpersonal);
         if ($personal->getTipoCuenta() == 'Administrador') {
             Session::put('tipoCuentaA', $personal->getTipoCuenta());
             Session::put('tipoCuentaV', null);

@@ -261,4 +261,16 @@ class alumnomodel extends personamodel
         }
         return true;
     }
+    public function consultaridPersonaAlumno($codAlumno)
+    {
+        $idPer=null;
+        $alumnobd = DB::table('alumno')
+            ->where('codAlumno', '=', $codAlumno)
+            ->where('estado', '=', 1)->get();
+       foreach ($alumnobd as $al)
+       {
+         $idPer=$al->idPersona;
+       }
+        return $idPer;
+    }
 }

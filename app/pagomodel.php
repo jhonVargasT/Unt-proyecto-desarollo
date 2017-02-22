@@ -219,7 +219,7 @@ class pagomodel
             $logunt->setCodigoPersonal($codPers);
             try {
                 DB::transaction(function () use ($logunt) {
-                    DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'pago' => $this->pago, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersona' => $this->coPersonal]);
+                    DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'pago' => $this->pago, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal]);
                     $logunt->saveLogUnt();
                 });
             } catch (PDOException $e) {

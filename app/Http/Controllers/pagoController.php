@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\alumnomodel;
+use App\clientemodel;
 use App\pagomodel;
+use App\personamodel;
+use App\subtramitemodel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -12,38 +16,54 @@ class pagoController extends Controller
     public function registrarPago(Request $request)
 
     {
-        $pago= new pagomodel();
-        $val = Session::get('txt', 'no hay session');
-        if ($val == $request->text) {
-            $pago->setLugar($request->lugar);
-            $pago->setDetalle($request->detalle);
-            date_default_timezone_set('Etc/GMT+5');
-            $date = date('Y-d-m H:i:s', time());
-            $pago->setFecha($date);
-            if ($request->select == 'Dni') {
-                $var = $pago->bdPersonaDni($request->text);
-            } elseif ($request->select == 'Ruc') {
-                $var = $pago->bdPersonaRuc($request->text);
-            } elseif ($request->select == 'Codigo de alumno') {
-                $var = $pago->bdPersonaCodigoAlumno($request->text);
-            }
-            $total = $request->total;
-            $pago = $request->boletapagar;
-            $totalp = $total + $pago;
-           $pago->setIdPersona($var);$idtr = $pago->bdSubtramite($request->subtramite);
-            $pago->setIdSubtramite($idtr);
-            $pago->setPago($total);
-            session()->put('text', $request->text);
-            $pag = $pago->savePago();
-            return view('/Ventanilla/Pagos/RealizarPago')->with('total', $totalp);
+        $pers = new personamodel();
+        $cli = new clientemodel();
+        $al = new alumnomodel();
+        $subt = new subtramitemodel();
+        $codper = null;
+        $codSubtramite = null;
+        if ($request->select == 'Dni') {
+            $codper = $pers->obtnerIdDni($request->text);
         } else {
-
-            Session::forget('txt');
-            Session::put('txt', $request->text);
-            $total = $request->boletapagar;
-            return view('/Ventanilla/Pagos/RealizarPago')->with('total', $total);
+            if ($request->select == 'Ruc') {
+                $codper = $cli->consultarClienteRUC($request->text);
+            } else {
+                if ($request->select == 'Codigo de alumno') {
+                    $codper = $al->consultaridPersonaAlumno($request->text);
+                }
+            }
         }
-        
+
+        $codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);
+
+        date_default_timezone_set('America/Lima');
+        $dato = date('Y-m-d ');
+        $total = $request->total;
+        $pago = $request->boletapagar;
+        $p = new pagomodel();
+        $p->setPago($pago);
+        $p->setDetalle($request->detalle);
+        $p->setFecha($dato);
+        $p->setModalidad('ventanilla');
+        $val = Session::get('idpersonal', 'No existe session');
+        $p->setCoPersonal($val);
+        $p->setIdPersona($codper);
+        $p->setIdSubtramite($codSubtramite);
+        $valid = $p->savePago();
+        if ($valid == true) {
+            if ($val == $request->text) {
+                $totalp = $total + $pago;
+                session()->put('text', $request->text);
+                return view('/Ventanilla/Pagos/RealizarPago')->with('total', $totalp);
+            } else {
+                Session::forget('txt');
+                Session::put('txt', $request->text);
+                return view('/Ventanilla/Pagos/RealizarPago')->with('total', $pago);
+            }
+        } else {
+            return view('/Ventanilla/Pagos/RealizarPago')->with('total', $pago);
+        }
+
     }
 
     public function buscarNombresD(Request $request)
