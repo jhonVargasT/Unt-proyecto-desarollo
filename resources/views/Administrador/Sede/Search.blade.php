@@ -1,18 +1,18 @@
 @extends('Administrador/Body')
-@section('facultad')
+@section('sede')
     <div id="collapseThrees" class="collapse in">
         <div class="panel-body">
             <table class="table">
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarFacultad " style="color: #509f0c">Buscar Facultades</a>
+                        <a href="/admBuscarSede " style="color: #509f0c">Buscar Sedes</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarFacultad" target="_top">Agregar Facultad</a>
+                        <a href="/admRegistrarSede" target="_top">Agregar Sede</a>
                     </td>
                 </tr>
             </table>
@@ -21,19 +21,19 @@
 @stop
 @section('content')
     <div class="panel panel-primary">
-        <div class="panel-heading"> Buscar Facultades</div>
+        <div class="panel-heading"> Buscar Sedes</div>
         <div class="panel-body">
-            <form name="form" action="{{url('FacultadesBuscadas')}}" role="form" method="POST" class="Vertical">
+            <form name="form" action="{{url('SedesBuscadas')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm col-sm-6 ">
                         <span class="col-sm-5 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
-                            <select class=" form-control" name="select">}
+                            <select class=" form-control" name="select">
                                 <option selected>Todo</option>
-                                <option>Codigo Facultad</option>
-                                <option>Cuenta Interna</option>
-                                <option>Nombre Facultad</option>
+                                <option>Nombre Sede</option>
+                                <option>Codigo Sede</option>
+                                <option>Direccion</option>
                             </select>
                         </div>
                     </div>
@@ -53,20 +53,20 @@
             <!--tabla-->
             <div class="table-responsive col-sm-12">
                 @if(isset($nombre)!=null)
-                    <div class="alert alert-success" role="alert">La facultad {{$nombre}} fue actualizada!!</div>
+                    <div class="alert alert-success" role="alert">La sede {{$nombre}} fue actualizada!!</div>
                 @endif
                 <table class="table table-bordered">
                     <thead>
                     <!--cabecear Tabla-->
                     <tr class="active">
                         <th>
-                            <div align="center">Codigo facultad</div>
+                            <div align="center">Codigo Sede</div>
                         </th>
                         <th>
-                            <div align="center">Nombre Facultad</div>
+                            <div align="center">Nombre Sede</div>
                         </th>
                         <th>
-                            <div align="center">Cuenta Interna</div>
+                            <div align="center">Direccion</div>
                         </th>
                         <th>
                             <div align="center">Opciones</div>
@@ -74,18 +74,18 @@
                     </tr>
                     </thead>
                     <body>
-                    @if(isset($facultad))
+                    @if(isset($sede))
                         <!--Contenido-->
-                        @foreach($facultad as $f)
+                        @foreach($sede as $s)
                             <tr>
-                                <td>{{$f->codFacultad}}</td>
-                                <td>{{$f->nombre}}</td>
-                                <td>{{$f->nroCuenta}}</td>
+                                <td>{{$s->codigosede}}</td>
+                                <td>{{$s->nombresede}}</td>
+                                <td>{{$s->direccion}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}
-                                    <a href="FacultadCargar/{{$f->idFacultad}}"><span
+                                    <a href="SedeCargar/{{$s->codSede}}"><span
                                                 class="glyphicon glyphicon-pencil"></span> </a>
-                                    <a href="FacultadEliminar/{{$f->idFacultad}}"><span
+                                    <a href="SedeEliminar/{{$s->codSede}}"><span
                                                 class="glyphicon glyphicon-trash"></span> </a>
                                 </td>
                             </tr>
@@ -96,3 +96,4 @@
             </div>
         </div>
     </div>
+@stop

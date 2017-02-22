@@ -214,35 +214,35 @@ class donacionmodel
     public function consultarDonacionFecha($fechaIngreso)
     {
         $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
-        tramite.codTramite = donacion.idTramite and donacion.fechaIngreso=:fechaIngreso and tramite.estado=1 and donacion.estado =1', ['fechaIngreso' => $fechaIngreso]);
+        tramite.codTramite = donacion.idTramite and donacion.fechaIngreso like "%'.$fechaIngreso.'%" and tramite.estado=1 and donacion.estado =1');
         return $donacionbd;
     }
 
     public function consultarDonacionTramite($nombre)
     {
         $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
-        tramite.codTramite = donacion.idTramite and tramite.nombre=:nombre and tramite.estado=1 and donacion.estado =1', ['nombre' => $nombre]);
+        tramite.codTramite = donacion.idTramite and tramite.nombre like "%'.$nombre.'%" and tramite.estado=1 and donacion.estado =1');
         return $donacionbd;
     }
 
     public function consultarDonacionTipoRecurso($tipoRecurso)
     {
         $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
-        tramite.codTramite = donacion.idTramite and tramite.tipoRecurso=:tipoRecurso and tramite.estado=1 and donacion.estado =1', ['tipoRecurso' => $tipoRecurso]);
+        tramite.codTramite = donacion.idTramite and tramite.tipoRecurso like "%'.$tipoRecurso.'%" and tramite.estado=1 and donacion.estado =1');
         return $donacionbd;
     }
 
     public function consultarDonacionFuenteFinanciamiento($fuentefinanc)
     {
         $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
-        tramite.codTramite = donacion.idTramite and tramite.fuentefinanc=:fuentefinanc and tramite.estado=1 and donacion.estado =1', ['fuentefinanc' => $fuentefinanc]);
+        tramite.codTramite = donacion.idTramite and tramite.fuentefinanc like "%'.$fuentefinanc.'%" and tramite.estado=1 and donacion.estado =1');
         return $donacionbd;
     }
 
     public function consultarDonacionNumeroResolucion($numResolucion)
     {
         $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
-        tramite.codTramite = donacion.idTramite and donacion.numResolucion=:numResolucion and tramite.estado=1 and donacion.estado =1', ['numResolucion' => $numResolucion]);
+        tramite.codTramite = donacion.idTramite and donacion.numResolucion like "%'.$numResolucion.'%" and tramite.estado=1 and donacion.estado =1');
         return $donacionbd;
     }
 }

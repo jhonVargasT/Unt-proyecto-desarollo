@@ -136,21 +136,21 @@ class clientemodel extends personamodel
     public function consultarAlumnoDNI($dni)
     {
         $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
-        persona.codPersona = cliente.idPersona and persona.dni=:dni and persona.estado = 1', ['dni' => $dni]);
+        persona.codPersona = cliente.idPersona and persona.dni like "%'.$dni.'%" and persona.estado = 1');
         return $clientebd;
     }
 
     public function consultarAlumnoApellidos($apellidos)
     {
         $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
-        persona.codPersona = cliente.idPersona and persona.apellidos=:apellidos and persona.estado=1', ['apellidos' => $apellidos]);
+        persona.codPersona = cliente.idPersona and persona.apellidos like "%'.$apellidos.'%" and persona.estado=1');
         return $clientebd;
     }
 
     public function consultarAlumnoRUC($ruc)
     {
         $clientebd = DB::table('persona')->leftJoin('cliente', 'persona.codPersona', '=', 'cliente.idPersona')
-            ->where('cliente.ruc', '=', $ruc)
+            ->where('cliente.ruc', 'like', '%' . $ruc. '%')
             ->where('persona.estado', '=', 1)->orderBy('persona.codPersona', 'desc')->get();
         return $clientebd;
     }
@@ -158,7 +158,7 @@ class clientemodel extends personamodel
     public function consultarAlumnoRazonSocial($razonSocial)
     {
         $clientebd = DB::table('persona')->leftJoin('cliente', 'persona.codPersona', '=', 'cliente.idPersona')
-            ->where('cliente.razonSocial', '=', $razonSocial)
+            ->where('cliente.razonSocial','like', '%' . $razonSocial. '%')
             ->where('persona.estado', '=', 1)->orderBy('persona.codPersona', 'desc')->get();
         return $clientebd;
     }

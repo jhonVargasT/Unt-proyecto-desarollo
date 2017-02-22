@@ -12,7 +12,7 @@ class pagoController extends Controller
     public function registrarPago(Request $request)
 
     {
-        $pago= new pagomodel();
+        $pago = new pagomodel();
         $val = Session::get('txt', 'no hay session');
         if ($val == $request->text) {
             $pago->setLugar($request->lugar);
@@ -30,7 +30,8 @@ class pagoController extends Controller
             $total = $request->total;
             $pago = $request->boletapagar;
             $totalp = $total + $pago;
-           $pago->setIdPersona($var);$idtr = $pago->bdSubtramite($request->subtramite);
+            $pago->setIdPersona($var);
+            $idtr = $pago->bdSubtramite($request->subtramite);
             $pago->setIdSubtramite($idtr);
             $pago->setPago($total);
             session()->put('text', $request->text);
@@ -43,7 +44,7 @@ class pagoController extends Controller
             $total = $request->boletapagar;
             return view('/Ventanilla/Pagos/RealizarPago')->with('total', $total);
         }
-        
+
     }
 
     public function buscarNombresD(Request $request)
@@ -236,6 +237,7 @@ class pagoController extends Controller
     {
         $pag = null;
         $pago = new pagomodel();
+        $total = 0;
 
         if ($request->select == 'Dni') {
             $pag = $pago->consultarAlumnoDNI($request->text);
@@ -252,14 +254,18 @@ class pagoController extends Controller
                 }
             }
         }
-        return view('Ventanilla/Pagos/ReportPago')->with(['pago' => $pag, 'txt' => $request->text, 'select' => $request->select]);
+        foreach ($pag as $p)
+        {
+            $total = $total + $p->pago;
+        }
+
+        return view('Ventanilla/Pagos/ReportPago')->with(['pago' => $pag, 'txt' => $request->text, 'select' => $request->select, 'total'=>$total]);
     }
 
     public function eliminarPago($codPago)
     {
         $pago = new pagomodel();
         $pago->eliminarPago($codPago);
-
         return view('Ventanilla/Pagos/ReportPago');
     }
 

@@ -314,10 +314,24 @@
                                         <input type="text" class="form-control" name="total" id="tp" value="{{$total}}">
                                     </div>
                                 </div>
+                                <script>
+                                    $('#pc').change(function () {
+                                        $.ajax({
+                                            success: function () {
+                                                var n1 = $('#pc').val();
+                                                var n2 = $('#tp').val();
+                                                var r = n1 - n2;
+                                                var res = r.toFixed(2);
+                                                $('#v').val(res);
+                                            }
+
+                                        });
+                                    });
+                                </script>
                             @endif
                             <span class="col-sm-1">Pago con:</span>
                             <div class="col-sm-1">
-                                <input type="text" class="form-control " name="pagocon" id="pc">
+                                <input type="text" class="form-control " name="pagocon" id="pc" onkeypress="return validarNum(event)">
                             </div>
                             <span class="col-sm-1">Vuelto :</span>
                             <div class="col-sm-2">
@@ -325,8 +339,7 @@
                                     S/.
                                 </div>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control " name="vuelto" id="v" readonly
-                                           value="0.00">
+                                    <input type="text" class="form-control " name="vuelto" id="v" readonly>
                                 </div>
                             </div>
                             <script>
@@ -334,10 +347,10 @@
                                     $.ajax({
                                         success: function () {
                                             var n1 = $('#pc').val();
-                                            var n2 = $('#tp').val();
+                                            var n2 = $('#bp').val();
                                             var r = n1 - n2;
-                                            r = r.toFixed(2);
-                                            $('#v').val(r);
+                                            var res = r.toFixed(2);
+                                            $('#v').val(res);
                                         }
 
                                     });
