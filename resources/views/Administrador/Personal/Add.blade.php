@@ -53,7 +53,7 @@
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm">
                                 <span class="col-sm-2">Apellidos</span>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <input class="form-control input-sm" name="apellidos" type="text"
                                            autocomplete="off" onkeypress="return validarLetras(event)" placeholder="ejmp: Benites Alaya" required>
                                 </div>

@@ -33,7 +33,7 @@
             @endif
             <div class="col-sm-12 row form-group">
                 <div class="form-group-sm " align="left">
-                    <span class="col-sm-3 control-label"> Clasificador Siaf</span>
+                    <span class="col-sm-2 control-label"> Clasificador Siaf</span>
                     <div class="col-sm-3">
                         <input class="form-control input-sm" name="clasificador" type="text"
                                autocomplete="off" onkeypress="return validarCodigoSiaf(event)" placeholder="Ejm: 192.154.1.1" required>
@@ -52,16 +52,17 @@
 
             <div class="col-sm-12 row form-group">
                 <div class="form-group-sm " align="left">
-                    <span class="col-sm-3 control-label"> tipo de recurso</span>
+                    <span class="col-sm-2 control-label"> tipo de recurso</span>
                     <div class="col-sm-1">
                         <input class="form-control input-sm" name="tipoRecurso" type="text"
                                autocomplete="off" onkeypress="return validarLetras(event)" placeholder="A" required>
                     </div>
                     <div class="col-sm-1"></div>
-
+                    <div class="col-sm-1">
+                    </div>
                 </div>
                 <div class=" form-group-sm" align="left">
-                    <span class="col-sm-3 control-label"> Fuente de financiamieto</span>
+                    <span class="col-sm-2 control-label"> Fuente de financiamieto</span>
                     <div class="col-sm-1">
                         <input class="form-control" name="fuentefinanc" type="text"
                                autocomplete="off" onkeypress="return validarLetras(event)" placeholder="H" required>
