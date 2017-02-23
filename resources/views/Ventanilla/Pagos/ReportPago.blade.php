@@ -34,6 +34,7 @@
                                 <option>Codigo alumno</option>
                                 <option>Ruc</option>
                                 <option>Codigo pago</option>
+                                <option selected>Codigo personal</option>
                             </select>
                         </div>
                     </div>

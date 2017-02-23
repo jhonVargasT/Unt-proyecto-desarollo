@@ -23,17 +23,20 @@ class PdfController extends Controller
                 } else {
                     if ($select == 'Codigo pago') {
                         $pag = $pago->consultarCodigoPago($txt);
+                    } else {
+                        if ($select == 'Codigo personal') {
+                            $pag = $pago->consultarCodigoPersonal($txt);
+                        }
                     }
                 }
             }
         }
 
-        foreach ($pag as $p)
-        {
+        foreach ($pag as $p) {
             $total = $total + $p->pago;
         }
 
-        view()->share(['pago'=>$pag,'total'=>$total]);
+        view()->share(['pago' => $pag, 'total' => $total]);
 
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('Ventanilla/Pagos/reporte');

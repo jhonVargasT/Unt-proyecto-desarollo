@@ -30,18 +30,18 @@
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
             <form name="form" action="{{url('DonacionRegistrada')}}" role="form" method="POST" class="Horizontal">
-            {{csrf_field()}}
+                {{csrf_field()}}
                 @if(session()->has('true'))
                     <div class="alert alert-success" role="alert">{{session('true')}} </div>
                 @endif
                 @if(session()->has('false'))
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
-                    @endif
+            @endif
             <!-- Search input-->
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm " align="left">
                         <span class="col-sm-2 control-label"> Nombre tramite </span>
-                        <div class="col-sm-5">
+                        <div class="col-sm-4">
                             <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
                                    name="nombreTramite" id="name" autocomplete="off"
                                    onkeypress="return validarLetras(event)" required>
@@ -57,7 +57,7 @@
                             </script>
                         </div>
                     </div>
-                    <div class=" form-group-sm" align="left">
+                    <div class=" form-group-sm" align="right">
                         <span class="col-sm-2 control-label">Fecha </span>
                         <div class="col-sm-3">
                             <div class="col-sm-12 input-group date" data-provide="datepicker">
@@ -72,7 +72,7 @@
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm " align="left">
                         <span class="col-sm-2 control-label">Tipo de recurso </span>
-                        <div class="col-sm-5 ">
+                        <div class="col-sm-4">
                             <input class="form-control input-sm " name="TipoDeRecurso" type="text" id="tr" required disabled>
                             <script>
                                 $('#name').change(function () {
@@ -87,7 +87,7 @@
                                 });
                             </script>
                         </div>
-                        <div class="form-group-sm">
+                        <div class="form-group-sm" align="right">
                             <span class="col-sm-2">Monto</span>
                             <div class="input-group col-sm-2">
                                 <div class="input-group-addon ">S/.</div>
@@ -101,8 +101,8 @@
                     <div class="col-sm-12 row form-group">
                         <div class="form-group-sm " align="left">
                             <span class=" col-sm-2 control-label">Descripcion </span>
-                            <div class="col-sm-5">
-                        <textarea class="form-control" name="descripcion" placeholder="Agregue una breve descripcion"></textarea>
+                            <div class="col-sm-4">
+                                <textarea class="form-control" name="descripcion" placeholder="Agregue una breve descripcion"></textarea>
                             </div>
                             <div class=" form-group-sm" align="left">
                                 <span class="col-sm-2 control-label">Numero de resolucion </span>
@@ -114,18 +114,18 @@
                         </div>
                     </div>
                 </div>
-                    <br>
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-md-3"></div>
-                        <a href="#" class=" col-md-2 btn btn-sm btn-danger"><span
-                                    class="glyphicon glyphicon-ban-circle"></span>
-                            Cancelar</a>
-                        <div class="col-md-2"></div>
-                        <button type="submit" name="enviar" class="col-md-2 btn btn-success"><span
-                                    class="glyphicon glyphicon-ok"></span> Guardar
-                        </button>
-                        <div class="col-md-3"></div>
-                    </div>
+                <br>
+                <div class="col-sm-12 row form-group">
+                    <div class="col-md-3"></div>
+                    <a href="#" class=" col-md-2 btn btn-sm btn-danger"><span
+                                class="glyphicon glyphicon-ban-circle"></span>
+                        Cancelar</a>
+                    <div class="col-md-2"></div>
+                    <button type="submit" name="enviar" class="col-md-2 btn btn-success"><span
+                                class="glyphicon glyphicon-ok"></span> Guardar
+                    </button>
+                    <div class="col-md-3"></div>
+                </div>
 
             </form>
         </div>

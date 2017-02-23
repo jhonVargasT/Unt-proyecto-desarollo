@@ -37,7 +37,7 @@ class pagoController extends Controller
         $codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);
 
         date_default_timezone_set('America/Lima');
-        $dato = date('Y-m-d ');
+        $dato = date('Y-m-d');
         $total = $request->total;
         $pago = $request->boletapagar;
         $p = new pagomodel();
@@ -63,7 +63,6 @@ class pagoController extends Controller
         } else {
             return view('/Ventanilla/Pagos/RealizarPago')->with('total', $pago);
         }
-
     }
 
     public function buscarNombresD(Request $request)
@@ -254,6 +253,7 @@ class pagoController extends Controller
 
     public function listarPago(Request $request)
     {
+        $total = 0;
         $pag = null;
         $pago = new pagomodel();
 
@@ -269,10 +269,21 @@ class pagoController extends Controller
                     if ($request->select == 'Codigo pago') {
                         $pag = $pago->consultarCodigoPago($request->text);
                     }
+                    else{
+                        if($request->select == 'Codigo personal'){
+                            $pag = $pago->consultarCodigoPersonal($request->text);
+                        }
+                    }
                 }
             }
         }
-        return view('Ventanilla/Pagos/ReportPago')->with(['pago' => $pag, 'txt' => $request->text, 'select' => $request->select]);
+
+        foreach ($pag as $p)
+        {
+            $total = $total + $p->pago;
+        }
+
+        return view('Ventanilla/Pagos/ReportPago')->with(['pago' => $pag, 'txt' => $request->text, 'select' => $request->select, 'total'=>$total]);
     }
 
     public function eliminarPago($codPago)

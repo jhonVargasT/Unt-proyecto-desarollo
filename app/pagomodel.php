@@ -306,6 +306,25 @@ class pagomodel
         return $pagobd;
     }
 
+    public function consultarCodigoPersonal($codPersonal)
+    {
+        date_default_timezone_set('America/Lima');
+        $dato = date('Y-m-d');
+
+        $pagobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,pago.pago, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos from pago
+        left join subtramite on pago.idSubtramite = subtramite.codSubtramite
+        left join personal on pago.coPersonal = personal.idPersona
+        left join persona as p1 on p1.codPersona = pago.idPersona
+        left join persona as p2 on p2.codPersona = personal.idPersona
+        where pago.idSubtramite = subtramite.codSubtramite
+        and pago.coPersonal = personal.idPersona
+        and p1.codPersona = pago.idPersona
+        and p2.codPersona = personal.idPersona
+        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and personal.codPersonal like "%'.$codPersonal.'%" and pago.fecha like "%'.$dato.'%"');
+
+        return $pagobd;
+    }
+
     public function eliminarPago($codPago)
     {
         date_default_timezone_set('Etc/GMT+5');
