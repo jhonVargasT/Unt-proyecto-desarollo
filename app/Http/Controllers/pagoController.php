@@ -37,7 +37,7 @@ class pagoController extends Controller
         $codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);
 
         date_default_timezone_set('America/Lima');
-        $dato = date('Y-m-d');
+        $dato = date('Y-m-d ');
         $total = $request->total;
         $pago = $request->boletapagar;
         $p = new pagomodel();
@@ -45,11 +45,12 @@ class pagoController extends Controller
         $p->setDetalle($request->detalle);
         $p->setFecha($dato);
         $p->setModalidad('ventanilla');
-        $val = Session::get('idpersonal', 'No existe session');
-        $p->setCoPersonal($val);
+        $idper = Session::get('idpersonal', 'No existe session');
+        $p->setCoPersonal($idper);
         $p->setIdPersona($codper);
         $p->setIdSubtramite($codSubtramite);
         $valid = $p->savePago();
+        $val = Session::get('txt', 'No existe session');
         if ($valid == true) {
             if ($val == $request->text) {
                 $totalp = $total + $pago;
@@ -61,8 +62,9 @@ class pagoController extends Controller
                 return view('/Ventanilla/Pagos/RealizarPago')->with('total', $pago);
             }
         } else {
-            return view('/Ventanilla/Pagos/RealizarPago')->with('total', $pago);
+            return view('/Ventanilla/Pagos/RealizarPago');
         }
+
     }
 
     public function buscarNombresD(Request $request)
@@ -253,7 +255,6 @@ class pagoController extends Controller
 
     public function listarPago(Request $request)
     {
-        $total = 0;
         $pag = null;
         $pago = new pagomodel();
 
@@ -269,21 +270,11 @@ class pagoController extends Controller
                     if ($request->select == 'Codigo pago') {
                         $pag = $pago->consultarCodigoPago($request->text);
                     }
-                    else{
-                        if($request->select == 'Codigo personal'){
-                            $pag = $pago->consultarCodigoPersonal($request->text);
-                        }
-                    }
                 }
             }
         }
-
-        foreach ($pag as $p)
-        {
-            $total = $total + $p->pago;
-        }
-
-        return view('Ventanilla/Pagos/ReportPago')->with(['pago' => $pag, 'txt' => $request->text, 'select' => $request->select, 'total'=>$total]);
+      
+        return view('Ventanilla/Pagos/ReportPago')->with(['pago' => $pag, 'txt' => $request->text, 'select' => $request->select]);
     }
 
     public function eliminarPago($codPago)
