@@ -33,8 +33,6 @@ class Pago extends Migration
         });
 
         Schema::table('pago', function( $table) {
-
-
             $table->foreign('idPersona')->references('codPersona')->on('persona');
             $table->foreign('coPersonal')->references('idPersonal')->on('personal');
             $table->foreign('idSubtramite')->references('codSubtramite')->on('subtramite');

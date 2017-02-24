@@ -208,6 +208,14 @@ class pagomodel
 
     public function savePago()
     {
+        date_default_timezone_set('Etc/GMT+5');
+        $date = date('Y-m-d H:i:s', time());
+        $logunt = new loguntemodel();
+        $value = Session::get('personalC');
+        $codPers = $logunt->obtenerCodigoPersonal($value);
+        $logunt->setFecha($date);
+        $logunt->setDescripcion('GuardarPago');
+        $logunt->setCodigoPersonal($codPers);
         if (Session::has('personalC')) {
             date_default_timezone_set('Etc/GMT+5');
             $date = date('Y-m-d H:i:s', time());
@@ -345,6 +353,18 @@ class pagomodel
         }
         return true;
     }
-
+    // pago,personal,subtramite,escuela,facultad
+    public  function listarPagosfacultad($estado,$modalidad,$fechaDesde,$fechaHasta,$facultad,$subtramite)
+    {
+        
+        $pago = DB::table('pago')
+            ->join('subtramite', 'subtramite.codSubtramite', '=', 'pago.idSubtramite')
+            ->join('personal', 'users.idPersonal', '=', 'pago.coPersonal')
+            ->select('users.*', 'contacts.phone', 'pago.price')
+            ->where(['estado'=>$estado,'modalidad'=>$modalidad])
+            ->get();
+    }
+    
+    
 
 }

@@ -104,6 +104,9 @@
             </div>
         </div>
         <script>
+
+
+
             function validarNum(e) {
                 tecla = (document.all) ? e.keyCode : e.which;
 

@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Session;
 class pagoController extends Controller
 {
     public function registrarPago(Request $request)
-
     {
         $pers = new personamodel();
         $cli = new clientemodel();
@@ -33,9 +32,7 @@ class pagoController extends Controller
                 }
             }
         }
-
         $codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);
-
         date_default_timezone_set('America/Lima');
         $dato = date('Y-m-d ');
         $total = $request->total;
@@ -50,21 +47,21 @@ class pagoController extends Controller
         $p->setIdPersona($codper);
         $p->setIdSubtramite($codSubtramite);
         $valid = $p->savePago();
+        $buscar=$request->text;
         $val = Session::get('txt', 'No existe session');
         if ($valid == true) {
             if ($val == $request->text) {
                 $totalp = $total + $pago;
                 session()->put('text', $request->text);
-                return view('/Ventanilla/Pagos/RealizarPago')->with('total', $totalp);
+                return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar'=>$buscar,'total'=>$totalp,'nombre'=>$request->nombres,'apellidos'=>$request->apellidos,'escuela'=>$request->escuela,'facultad'=>$request->facultad]);
             } else {
                 Session::forget('txt');
                 Session::put('txt', $request->text);
-                return view('/Ventanilla/Pagos/RealizarPago')->with('total', $pago);
+                return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar'=>$buscar,'total'=>$total,'nombre'=>$request->nombres,'apellidos'=>$request->apellidos,'escuela'=>$request->escuela,'facultad'=>$request->facultad]);
             }
         } else {
-            return view('/Ventanilla/Pagos/RealizarPago');
+            return back()->with('false', 'Error cliente o alumno no registrador');
         }
-
     }
 
     public function buscarNombresD(Request $request)
@@ -255,6 +252,7 @@ class pagoController extends Controller
 
     public function listarPago(Request $request)
     {
+        $total = 0;
         $pag = null;
         $pago = new pagomodel();
 
@@ -269,13 +267,22 @@ class pagoController extends Controller
                 } else {
                     if ($request->select == 'Codigo pago') {
                         $pag = $pago->consultarCodigoPago($request->text);
+                    } else {
+                        if ($request->select == 'Codigo personal') {
+                            $pag = $pago->consultarCodigoPersonal($request->text);
+                        }
                     }
                 }
             }
         }
-      
-        return view('Ventanilla/Pagos/ReportPago')->with(['pago' => $pag, 'txt' => $request->text, 'select' => $request->select]);
+
+        foreach ($pag as $p) {
+            $total = $total + $p->pago;
+        }
+
+        return view('Ventanilla/Pagos/ReportPago')->with(['pago' => $pag, 'txt' => $request->text, 'select' => $request->select, 'total' => $total]);
     }
+
 
     public function eliminarPago($codPago)
     {
@@ -285,4 +292,9 @@ class pagoController extends Controller
         return view('Ventanilla/Pagos/ReportPago');
     }
 
+    public function reportePagos(Request $request)
+    {
+
+    }
+   
 }

@@ -46,15 +46,23 @@
                                     <option value="Codigo de alumno">Codigo de alumno</option>
                                 </select>
                             </div>
-                            <div class="col-sm-4">
-                                <input class="form-control input-sm " id="buscar" name="text" type="text"
-                                       autocomplete="off" required>
-                            </div>
+                            @if(isset($buscar))
+                                <div class="col-sm-4">
+                                    <input class="form-control input-sm " id="buscar" name="text" type="text"
+                                           autocomplete="off" value="{{$buscar}}" required>
+                                </div>
+                            @else
+                                <div class="col-sm-4">
+                                    <input class="form-control input-sm " id="buscar" name="text" type="text"
+                                           autocomplete="off" required>
+                                </div>
+                            @endif
                         </div>
                         <div class="form-group-sm">
                             <span class="col-sm-2">Nombres</span>
                             <div class="col-sm-4">
-                                <input class="form-control input-sm" name="nombres" type="text" id="nombres" readonly required>
+                                <input class="form-control input-sm" name="nombres" type="text" id="nombres"
+                                       @if(isset($nombre))value="{{$nombre}}" @endif readonly>
                                 <script>
                                     $('#buscar').change(function () {
                                         var value = $('#select option:selected').attr('value');
@@ -116,7 +124,8 @@
                             <span class="col-sm-2">Apellidos</span>
                             <div class="col-sm-4">
                                 <input class="form-control input-sm" name="apellidos" type="text" id="apellidos"
-                                       readonly required>
+                                       @if(isset($apellidos))value="{{$apellidos}}" @endif
+                                       readonly>
                                 <script>
                                     $('#buscar').change(function () {
                                         var value = $('#select option:selected').attr('value');
@@ -171,7 +180,8 @@
                             </div>
                             <span class="col-sm-2">Escuela</span>
                             <div class="col-sm-4">
-                                <input class="form-control input-sm" name="escuela" type="text" readonly id="escuela" >
+                                <input class="form-control input-sm" name="escuela" type="text" readonly id="escuela"
+                                       @if(isset($escuela)) value="{{$escuela}}" @endif >
                                 <script>
                                     $('#buscar').change(function () {
                                         var value = $('#select option:selected').attr('value');
@@ -214,7 +224,8 @@
                         <div class="form-group-sm">
                             <span class="col-sm-2">Facultad</span>
                             <div class="col-sm-4">
-                                <input class="form-control input-sm" name="facultad" type="text" readonly id="facultad">
+                                <input class="form-control input-sm" name="facultad" type="text" readonly id="facultad"
+                                       @if(isset($facultad)) value="{{$facultad}}" @endif >
                                 <script>
                                     $('#buscar').change(function () {
                                         var value = $('#select option:selected').attr('value');
@@ -317,7 +328,8 @@
                                         S/.
                                     </div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="total" id="tp" value="{{$total}}">
+                                        <input type="text" class="form-control" name="total" id="tp" value="{{$total}}"
+                                               readonly>
                                     </div>
                                 </div>
                             @else
@@ -327,10 +339,16 @@
                                         S/.
                                     </div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="total" id="tp" value="0.00">
+                                        <input type="text" class="form-control" name="total" id="tp"
+                                               readonly>
                                     </div>
                                 </div>
                             @endif
+                                    <script>
+                                        $('#buscar').change(function () {
+                                            $('#tp').val(' ');
+                                        });
+                                    </script>
                             <span class="col-sm-1">Pago con:</span>
                             <div class="col-sm-1">
                                 <input type="text" class="form-control " name="pagocon" id="pc">
@@ -347,18 +365,17 @@
                             </div>
                             <script>
                                 $('#pc').change(function () {
-                                    $.ajax({
-                                        success: function () {
-                                            var n1 = $('#pc').val();
-                                            var n2 = $('#tp').val();
-                                            var r = n1 - n2;
-                                            r = r.toFixed(2);
-                                            $('#v').val(r);
-                                        }
-
-                                    });
+                                    var n1 = $('#pc').val();
+                                    var n2 = $('#tp').val();
+                                    var r = n1 - n2;
+                                    r = r.toFixed(2);
+                                    $('#v').val(r);
                                 });
+
+
+
                             </script>
+
 
                         </div>
                     </div>
