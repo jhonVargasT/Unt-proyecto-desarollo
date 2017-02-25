@@ -204,6 +204,8 @@ Route::resource('/pagar','pagoController@registrarPago');
 
 Route::resource('PagosBuscados', 'pagoController@listarPago');
 Route::get('PagoEliminar/{codPago}', 'pagoController@eliminarPago');
+Route::get('PagoImprimir/{codPago}', 'pdfController@PagosBoletaAlumno');
+Route::get('pdf/{txt}/{select}', 'PdfController@pdf');
 
 Route::get('/buscarNombresD', 'pagoController@buscarNombresD');
 Route::get('/buscarNombresDR', 'pagoController@buscarNombresDR');
@@ -235,6 +237,6 @@ Route::get('escuela', array('as' => 'escuela', 'uses' => 'alumnoController@escue
 Route::get('/tipoRecurso', 'donacionController@tipoRecurso');
 Route::get('/facultad', 'alumnoController@facultad');
 
-Route::get('pdf/{txt}/{select}', 'PdfController@pdf');
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

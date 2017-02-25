@@ -34,7 +34,7 @@
                                 <option>Codigo alumno</option>
                                 <option>Ruc</option>
                                 <option>Codigo pago</option>
-                                <option selected>Codigo personal</option>
+                                <option>Codigo personal</option>
                             </select>
                         </div>
                     </div>
@@ -118,11 +118,13 @@
                                 <td>{{$p->p1nombres}} {{$p->p1apellidos}}</td>
                                 <td>{{$p->nombre}}</td>
                                 <td>{{$p->pfecha}}</td>
-                                <td>{{$p->pago}}</td>
+                                <td>{{$p->precio}}</td>
                                 <td>{{$p->modalidad}}</td>
                                 <td>{{$p->pnombres}} {{$p->papellidos}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}
+                                    <a href="PagoImprimir/{{$p->codPago}}"><span
+                                                class="glyphicon glyphicon-print"></span> </a>
                                     <a href="PagoEliminar/{{$p->codPago}}"><span
                                                 class="glyphicon glyphicon-trash"></span> </a>
                                 </td>

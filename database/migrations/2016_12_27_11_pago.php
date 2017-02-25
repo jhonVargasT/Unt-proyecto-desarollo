@@ -21,7 +21,6 @@ class Pago extends Migration
             $table ->increments('codPago')->unique();
             $table ->string('detalle');
             $table ->dateTime('fecha');
-            $table ->double('pago');
             $table ->string('modalidad');
             $table -> boolean('estado')->default('1');
 

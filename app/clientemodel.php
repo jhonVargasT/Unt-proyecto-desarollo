@@ -136,21 +136,21 @@ class clientemodel extends personamodel
     public function consultarClienteDNI($dni)
     {
         $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
-        persona.codPersona = cliente.idPersona and persona.dni like "%'.$dni.'%" and persona.estado = 1');
+        persona.codPersona = cliente.idPersona and persona.dni like "%' . $dni . '%" and persona.estado = 1');
         return $clientebd;
     }
 
     public function consultarClienteApellidos($apellidos)
     {
         $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
-        persona.codPersona = cliente.idPersona and persona.apellidos like "%'.$apellidos.'%" and persona.estado=1');
+        persona.codPersona = cliente.idPersona and persona.apellidos like "%' . $apellidos . '%" and persona.estado=1');
         return $clientebd;
     }
 
     public function consultarClientesRUC($ruc)
     {
         $clientebd = DB::table('persona')->leftJoin('cliente', 'persona.codPersona', '=', 'cliente.idPersona')
-            ->where('cliente.ruc', 'like', '%' . $ruc. '%')
+            ->where('cliente.ruc', 'like', '%' . $ruc . '%')
             ->where('persona.estado', '=', 1)->orderBy('persona.codPersona', 'desc')->get();
         return $clientebd;
     }
@@ -160,17 +160,16 @@ class clientemodel extends personamodel
         $clientebd = DB::table('cliente')
             ->where('ruc', '=', $ruc)
             ->where('estado', '=', 1)->get();
-        foreach ($clientebd as $cl)
-        {
-            return $client=$cl->idPersona;
+        foreach ($clientebd as $cl) {
+            return $client = $cl->idPersona;
         }
-        
+
     }
 
     public function consultarAlumnoClienteSocial($razonSocial)
     {
         $clientebd = DB::table('persona')->leftJoin('cliente', 'persona.codPersona', '=', 'cliente.idPersona')
-            ->where('cliente.razonSocial','like', '%' . $razonSocial. '%')
+            ->where('cliente.razonSocial', 'like', '%' . $razonSocial . '%')
             ->where('persona.estado', '=', 1)->orderBy('persona.codPersona', 'desc')->get();
         return $clientebd;
     }

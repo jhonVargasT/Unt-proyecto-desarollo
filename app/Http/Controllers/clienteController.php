@@ -77,7 +77,7 @@ class clienteController extends Controller
                     $cli = $cliente->consultarClientesRUC($request->text);
                 } else {
                     if ($request->select == 'Razon social') {
-                        $cli = $cliente->consultarClienteRazonSocial($request->text);
+                        $cli = $cliente->consultarAlumnoClienteSocial($request->text);
                     }
                 }
             }

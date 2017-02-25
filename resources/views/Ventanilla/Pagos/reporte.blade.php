@@ -58,7 +58,7 @@
                         <td>{{$p->p1nombres}} {{$p->p1apellidos}}</td>
                         <td>{{$p->nombre}}</td>
                         <td>{{$p->pfecha}}</td>
-                        <td>{{$p->pago}}</td>
+                        <td>{{$p->precio}}</td>
                         <td>{{$p->modalidad}}</td>
                         <td>{{$p->pnombres}} {{$p->papellidos}}</td>
                     </tr>

@@ -228,7 +228,7 @@ class alumnomodel extends personamodel
         where persona.codPersona = alumno.idPersona 
         and escuela.idEscuela = alumno.coEscuela 
         and facultad.idFacultad = escuela.codigoFacultad
-        and facultad.nombre= like "%'.$nombreFacultad.'%"
+        and facultad.nombre like "%'.$nombreFacultad.'%"
         and persona.estado=1');
         return $alumnobd;
     }

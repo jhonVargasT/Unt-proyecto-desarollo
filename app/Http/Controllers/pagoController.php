@@ -38,7 +38,6 @@ class pagoController extends Controller
         $total = $request->total;
         $pago = $request->boletapagar;
         $p = new pagomodel();
-        $p->setPago($pago);
         $p->setDetalle($request->detalle);
         $p->setFecha($dato);
         $p->setModalidad('ventanilla');
@@ -277,7 +276,7 @@ class pagoController extends Controller
         }
 
         foreach ($pag as $p) {
-            $total = $total + $p->pago;
+            $total = $total + $p->precio;
         }
 
         return view('Ventanilla/Pagos/ReportPago')->with(['pago' => $pag, 'txt' => $request->text, 'select' => $request->select, 'total' => $total]);

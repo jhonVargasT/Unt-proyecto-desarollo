@@ -33,7 +33,26 @@ class PdfController extends Controller
         }
 
         foreach ($pag as $p) {
-            $total = $total + $p->pago;
+            $total = $total + $p->precio;
+        }
+
+        view()->share(['pago' => $pag, 'total' => $total]);
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('Ventanilla/Pagos/reporte');
+        return $pdf->stream('documento.pdf');
+
+    }
+
+    public function PagosBoletaAlumno($codPago)
+    {
+        $total = 0;
+        $pag = null;
+        $pago = new pagomodel();
+        $pag = $pago->consultarCodigoPago($codPago);
+
+        foreach ($pag as $p) {
+            $total = $total + $p->precio;
         }
 
         view()->share(['pago' => $pag, 'total' => $total]);
