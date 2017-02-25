@@ -158,7 +158,10 @@ class escuelamodel
 
     public function consultarEscuelasFacultad($nombreF)
     {
+        $escuelabd = DB::select('SELECT idEscuela, escuela.nombre as nombre, codEscuela, escuela.nroCuenta as nroCuenta FROM escuela LEFT JOIN facultad ON escuela.codigoFacultad = facultad.idFacultad WHERE
+        escuela.codigoFacultad = facultad.idFacultad AND facultad.nombre like "%'.$nombreF.'%"');
 
+        return $escuelabd;
     }
 
     public function eliminarEscuela($idEscuela)

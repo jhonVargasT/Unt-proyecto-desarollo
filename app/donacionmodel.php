@@ -245,4 +245,11 @@ class donacionmodel
         tramite.codTramite = donacion.idTramite and donacion.numResolucion like "%'.$numResolucion.'%" and tramite.estado=1 and donacion.estado =1');
         return $donacionbd;
     }
+
+    public function consultarDonaciones()
+    {
+        $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
+        tramite.codTramite = donacion.idTramite and tramite.estado=1 and donacion.estado =1');
+        return $donacionbd;
+    }
 }

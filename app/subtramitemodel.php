@@ -209,6 +209,13 @@ class subtramitemodel
         return $subtramitebd;
     }
 
+    public function consultarSubtramites()
+    {
+        $subtramitebd = DB::table('subtramite')
+            ->orderBy('codSubtramite', 'desc')->get();
+        return $subtramitebd;
+    }
+
     public function eliminarSubtramite($codSubtramite)
     {
         date_default_timezone_set('Etc/GMT+5');

@@ -34,7 +34,8 @@
                         <span class="col-sm-5 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
                             <select class=" form-control" name="select" id="select">
-                                <option value="Facultad" selected>Facultad</option>
+                                <option>Todo</option>
+                                <option value="Facultad">Facultad</option>
                                 <option>Codigo Escuela</option>
                                 <option>Nombre Escuela</option>
                                 <option>Cuenta Interna</option>
@@ -46,7 +47,7 @@
                             <input type="text" name="text" class="form-control" value="{{$txt}}">
                         @else
                             <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
-                                   name="text" id="text" required>
+                                   name="text" id="text" >
                             <script>
                                 var path = "{{ route('autocompletee') }}";
                                 $('input.typeahead').typeahead({

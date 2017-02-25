@@ -67,6 +67,8 @@ class subtramiteController extends Controller
             } else {
                 if ($request->select == 'Cuenta contable') {
                     $sub = $subtramite->consultarSubtramiteCuenta($request->text);
+                } else {
+                        $sub = $subtramite->consultarSubtramites($request->text);
                 }
             }
         }

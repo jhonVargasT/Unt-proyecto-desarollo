@@ -86,6 +86,9 @@ class donacionController extends Controller
                     } else {
                         if ($request->select == 'Numero Resolucion') {
                             $don = $donacion->consultarDonacionNumeroResolucion($request->text);
+                        } else {
+
+                                $don = $donacion->consultarDonaciones($request->text);
                         }
                     }
                 }

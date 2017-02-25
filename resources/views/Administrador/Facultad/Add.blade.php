@@ -1,4 +1,4 @@
-@extends('Administrador/Body')
+@extends('Administrador.Body')
 @section('facultad')
     <div id="collapseThrees" class="collapse in">
         <div class="panel-body">

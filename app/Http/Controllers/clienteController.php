@@ -83,7 +83,7 @@ class clienteController extends Controller
             }
         }
         if ($valueA == 'Administrador')
-            return view('Ventanilla/Cliente/Search')->with(['cliente' => $cli, 'txt' => $request->text, 'select' => $request->select]);
+            return view('Administrador/Cliente/Search')->with(['cliente' => $cli, 'txt' => $request->text, 'select' => $request->select]);
         if ($valueV == 'Ventanilla')
             return view('Ventanilla/Cliente/Search')->with(['cliente' => $cli, 'txt' => $request->text, 'select' => $request->select]);
     }

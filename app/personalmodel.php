@@ -244,6 +244,12 @@ class personalmodel extends personamodel
 
         return $personabd;
     }
+    public function consultaPersonales()
+    {
+        $alumnobd = DB::select('select * from persona left join personal on persona.codPersona = personal.idPersona where 
+        persona.codPersona = personal.idPersona');
+        return $alumnobd;
+    }
 
     public function eliminarPersonal($codPersona)
     {
