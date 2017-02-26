@@ -46,17 +46,17 @@ class pagoController extends Controller
         $p->setIdPersona($codper);
         $p->setIdSubtramite($codSubtramite);
         $valid = $p->savePago();
-        $buscar=$request->text;
+        $buscar = $request->text;
         $val = Session::get('txt', 'No existe session');
         if ($valid == true) {
             if ($val == $request->text) {
                 $totalp = $total + $pago;
                 session()->put('text', $request->text);
-                return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar'=>$buscar,'total'=>$totalp,'nombre'=>$request->nombres,'apellidos'=>$request->apellidos,'escuela'=>$request->escuela,'facultad'=>$request->facultad]);
+                return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $totalp, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela, 'facultad' => $request->facultad]);
             } else {
                 Session::forget('txt');
                 Session::put('txt', $request->text);
-                return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar'=>$buscar,'total'=>$total,'nombre'=>$request->nombres,'apellidos'=>$request->apellidos,'escuela'=>$request->escuela,'facultad'=>$request->facultad]);
+                return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $total, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela, 'facultad' => $request->facultad]);
             }
         } else {
             return back()->with('false', 'Error cliente o alumno no registrador');
@@ -293,7 +293,22 @@ class pagoController extends Controller
 
     public function reportePagos(Request $request)
     {
+        $pagoModel = new pagomodel();
+        $estado = $request->estado;
+        $modalidad = $request->modalidad;
+
+        $fechaDesde = $request->fechaDesde; // El formato que te entrega MySQL es Y-m-d
+        $fechaDesde = date("Y-m-d", strtotime($fechaDesde));
+        $fechaHasta = $request->fechaHasta; // El formato que te entrega MySQL es Y-m-d
+         $fechaHasta = date("Y-m-d", strtotime($fechaHasta));
+         $result=$pagoModel->listarPagosfacultad($estado,$modalidad,$fechaDesde,$fechaHasta,null,null);
+        foreach ($result as $res)
+        {
+            echo 'codPago'. $res->codPago.'fecha'.$res->fechaPago;
+            echo '<br>';
+        }
+       // return view('Administrador/Reporte/report')->with('result',$result);*/
 
     }
-   
+
 }

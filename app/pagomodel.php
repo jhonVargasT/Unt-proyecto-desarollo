@@ -234,8 +234,7 @@ class pagomodel
                 return false;
             }
             return true;
-        }
-        else{
+        } else {
             try {
                 DB::transaction(function () {
                     DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite]);
@@ -259,7 +258,7 @@ class pagomodel
         and pago.coPersonal = personal.idPersona
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
-        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and p1.dni like "%'.$dni.'%"');
+        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and p1.dni like "%' . $dni . '%"');
         return $alumnobd;
     }
 
@@ -276,7 +275,7 @@ class pagomodel
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
         and p1.codPersona=alumno.idPersona
-        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and alumno.estado=1 and alumno.codAlumno like "%'.$codAlumno.'%"');
+        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and alumno.estado=1 and alumno.codAlumno like "%' . $codAlumno . '%"');
 
         return $alumnobd;
     }
@@ -294,7 +293,7 @@ class pagomodel
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
         and p1.codPersona=cliente.idPersona
-        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and cliente.estado=1 and cliente.ruc like "%'.$ruc.'%"');
+        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and cliente.estado=1 and cliente.ruc like "%' . $ruc . '%"');
         return $clientebd;
     }
 
@@ -309,7 +308,7 @@ class pagomodel
         and pago.coPersonal = personal.idPersona
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
-        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and pago.codPago like "%'.$codPago.'%"');
+        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and pago.codPago like "%' . $codPago . '%"');
 
         return $pagobd;
     }
@@ -328,7 +327,7 @@ class pagomodel
         and pago.coPersonal = personal.idPersona
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
-        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and personal.codPersonal like "%'.$codPersonal.'%" and pago.fecha like "%'.$dato.'%"');
+        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and personal.codPersonal like "%' . $codPersonal . '%" and pago.fecha like "%' . $dato . '%"');
 
         return $pagobd;
     }
@@ -353,18 +352,30 @@ class pagomodel
         }
         return true;
     }
+
     // pago,personal,subtramite,escuela,facultad
-    public  function listarPagosfacultad($estado,$modalidad,$fechaDesde,$fechaHasta,$facultad,$subtramite)
+    public function listarPagosfacultad($estado, $modalidad, $fechaDesde, $fechaHasta, $facultad, $subtramite)
     {
-        
-        $pago = DB::table('pago')
-            ->join('subtramite', 'subtramite.codSubtramite', '=', 'pago.idSubtramite')
-            ->join('personal', 'users.idPersonal', '=', 'pago.coPersonal')
-            ->select('users.*', 'contacts.phone', 'pago.price')
-            ->where(['estado'=>$estado,'modalidad'=>$modalidad])
-            ->get();
+        if ($estado == 'Anulado') {
+            $estado = 0;
+        } else {
+            $estado = 1;
+        }
+        $pago = DB::table('pago')->select('codPago as codPago', 'fecha as fechaPago')
+            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
+            ->leftjoin('tramite', 'subtramite.idTramite', '=', 'tramite.codTramite')
+            ->leftjoin('persona', 'pago.idPersona', '=', 'persona.codPersona')
+            ->leftjoin('personal', 'pago.coPersonal', '=', 'personal.idPersonal')
+            ->where([
+                ['pago.estado', $estado],
+                ['pago.modalidad', $modalidad],
+                ['pago.fecha', '>=', $fechaDesde],
+                ['pago.fecha', '<=', $fechaHasta],
+            ])->orderBy('fecha')->get();;
+
+
+        return $pago;
     }
-    
-    
+
 
 }

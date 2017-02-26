@@ -6,7 +6,8 @@
         <div class="panel panel-heading"> Reporte Pagos</div>
         <div class="panel-body">
             <div class="panel-body form-group ">
-                <form  action=""  role="form" method="POST" class="Vertical">
+                <form action="{{'reportePago'}}" role="form" method="POST" class="Vertical">
+                    <input type="hidden" name="_token" value="{{csrf_token() }}"/>
                     <div class="col-sm-12 row form-group">
                         <div class="form-group-sm col-sm-4 ">
                             <span class="col-sm-4 control-label">Estado </span>
@@ -21,7 +22,7 @@
                         <div class="form-group-sm col-sm-4 ">
                             <span class="col-sm-5 control-label">Modalidad</span>
                             <div class="col-sm-7 ">
-                                <select class=" form-control">
+                                <select class=" form-control" name="modalidad">
                                     <option>Todo</option>
                                     <option>Banco</option>
                                     <option>Online</option>
@@ -30,25 +31,13 @@
                             </div>
                         </div>
                         <div class="form-group-sm col-sm-4 ">
-                            <div class="col-sm-6 ">
-                                <select class=" form-control" id="select" name="select">
-                                    <option value="Todo">Todo</option>
-                                    <option value="tramite">Tramite</option>
-                                    <option value="subtramite">SubTramite</option>
+                            <span class="col-sm-5 control-label">Tipo de persona</span>
+                            <div class="col-sm-7 ">
+                                <select class=" form-control" name="modalidad">
+                                    <option>Todo</option>
+                                    <option>Clientes</option>
+                                    <option>Alumnos</option>
                                 </select>
-                            </div>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control input-sm " id="input" name="input">
-                                <script>
-                                    var $select = $('#select'), $input = $('#input');
-                                    $select.change(function () {
-                                        if ($select.val() == 'tramite' || $select.val() == 'subtramite') {
-                                            $input.removeAttr('disabled');
-                                        } else {
-                                            $input.attr('disabled', 'disabled').val('');
-                                        }
-                                    }).trigger('change');
-                                </script>
                             </div>
                         </div>
                     </div>
@@ -99,11 +88,52 @@
                             </div>
                         </div>
                         <div class="form-group-sm col-sm-4 ">
-                            <div class="col-sm-9">
+                            <div class="col-sm-6 ">
+                                <select class=" form-control" id="select" name="select">
+                                    <option value="Todo">Todo</option>
+                                    <option value="tramite">Tramite</option>
+                                    <option value="subtramite">SubTramite</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control input-sm " id="input" name="input">
+                                <script>
+                                    var $select = $('#select'), $input = $('#input');
+                                    $select.change(function () {
+                                        if ($select.val() == 'tramite' || $select.val() == 'subtramite') {
+                                            $input.removeAttr('disabled');
+                                        } else {
+                                            $input.attr('disabled', 'disabled').val('');
+                                        }
+                                    }).trigger('change');
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 row form-group">
+                        <div class="form-group-sm col-sm-4 ">
+                            <div class="col-sm-4">
+                                <input type="checkbox" id="cbtr">
+                                Tipo de recurso
+                            </div>
+                            <div class="col-sm-2">
+                                <script>
+                                    $('#cbtr').change(function () {
+                                        if ($(this).is(':checked')) {
+                                            $('#tr').prop('disabled', false);
+                                        } else {
+                                            $('#tr').prop('disabled', true);
+                                        }
+                                    });
+                                </script>
+                                <input type="text" class="form-control input-sm " id="tr" autocomplete="off"
+                                       disabled="true">
+                            </div>
+                            <div class="col-sm-4">
                                 <input type="checkbox" id="cbff" autocomplete="off">
                                 Fuente de financiamiento
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                                 <script>
                                     $('#cbff').change(function () {
                                         if ($(this).is(':checked')) {
@@ -117,46 +147,40 @@
                                        autocomplete="off" disabled="true">
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-12 row form-group">
-                        <div class="form-group-sm col-sm-4 ">
-                            <div class="col-sm-9">
-                                <input type="checkbox" id="cbtr">
-                                Tipo de recurso
-                            </div>
-                            <div class="col-sm-3">
-                                <script>
-                                    $('#cbtr').change(function () {
-                                        if ($(this).is(':checked')) {
-                                            $('#tr').prop('disabled', false);
-                                        } else {
-                                            $('#tr').prop('disabled', true);
-                                        }
-                                    });
-                                </script>
-                                <input type="text" class="form-control input-sm " id="tr" autocomplete="off"
-                                       disabled="true">
-                            </div>
+
+                        <div class="form-group-sm col-sm-1 ">
+                            <span class="col-sm-12 control-label">Fecha:  </span>
                         </div>
-                        <div class="form-group-sm col-sm-4 ">
-                            <span class="col-sm-6 control-label">Fecha:  </span>
-                            <div class="col-sm-6 input-group date" data-provide="datepicker">
+                        <div class="form-group-sm col-sm-2 ">
+                            <div class="col-sm-8 input-group date" data-provide="datepicker">
                                 <input type="text" name="fechaDesde" class="form-control" placeholder="desde"
                                        autocomplete="off">
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </div>
+
                             </div>
                         </div>
-                        <div class="form-group-sm col-sm-4 ">
-                            <div class="col-sm-6 input-group date" data-provide="datepicker">
-                                <input type="text" name="fechaHasta" class="form-control" placeholder="hasta"
+                        <div class="form-group-sm col-sm-2 ">
+                            <div class="col-sm-8 input-group date" data-provide="datepicker">
+                                <input type="text" name="fechaHasta" class="form-control"
+                                       placeholder="hasta"
                                        autocomplete="off">
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <div class=" col-sm-5"></div>
+                        <div class="col-md-2">
+
+                            <button type="submit" name="enviar" class="col-lg-6 btn btn-success"><span
+                                        class="glyphicon glyphicon-search"></span> Buscar
+                            </button>
+                        </div>
+                        <div class="col-sm-5"></div>
                     </div>
                 </form>
                 <!--Tabla-->
