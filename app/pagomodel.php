@@ -354,7 +354,7 @@ class pagomodel
     }
 
     // pago,personal,subtramite,escuela,facultad
-    public function listarPagosfacultad($estado, $modalidad, $fechaDesde, $fechaHasta, $facultad, $subtramite)
+    public function listarPagosfacultadCliente($estado, $modalidad, $fechaDesde, $fechaHasta, $facultad, $subtramite)
     {
         if ($estado == 'Anulado') {
             $estado = 0;
@@ -365,6 +365,7 @@ class pagomodel
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
             ->leftjoin('tramite', 'subtramite.idTramite', '=', 'tramite.codTramite')
             ->leftjoin('persona', 'pago.idPersona', '=', 'persona.codPersona')
+           ->leftjoin('cliente','cliente.idPersona','=','persona.codPersona')
             ->leftjoin('personal', 'pago.coPersonal', '=', 'personal.idPersonal')
             ->where([
                 ['pago.estado', $estado],

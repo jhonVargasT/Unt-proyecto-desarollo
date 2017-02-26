@@ -301,7 +301,7 @@ class pagoController extends Controller
         $fechaDesde = date("Y-m-d", strtotime($fechaDesde));
         $fechaHasta = $request->fechaHasta; // El formato que te entrega MySQL es Y-m-d
          $fechaHasta = date("Y-m-d", strtotime($fechaHasta));
-         $result=$pagoModel->listarPagosfacultad($estado,$modalidad,$fechaDesde,$fechaHasta,null,null);
+         $result=$pagoModel->listarPagosfacultadCliente($estado,$modalidad,$fechaDesde,$fechaHasta,null,null);
         foreach ($result as $res)
         {
             echo 'codPago'. $res->codPago.'fecha'.$res->fechaPago;
