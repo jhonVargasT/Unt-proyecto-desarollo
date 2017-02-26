@@ -200,11 +200,19 @@ Route::get('/ventRelizarPago', function () {
 Route::get('/ventReportPago', function () {
     return view('Ventanilla/Pagos/ReportPago');
 });
+
+Route::get('/ventBoleta', function () {
+    return view('Ventanilla/Pagos/boleta');
+});
+
 Route::resource('/pagar','pagoController@registrarPago');
 
 Route::resource('PagosBuscados', 'pagoController@listarPago');
 Route::get('PagoEliminar/{codPago}', 'pagoController@eliminarPago');
 Route::get('PagoImprimir/{codPago}', 'pdfController@PagosBoletaAlumno');
+Route::get('ventBoleta', 'pdfController@PagosBoleta');
+
+Route::get('pdf/{txt}/{select}', 'PdfController@pdf');
 Route::get('pdf/{txt}/{select}', 'PdfController@pdf');
 
 Route::get('/buscarNombresD', 'pagoController@buscarNombresD');
