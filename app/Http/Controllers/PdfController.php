@@ -26,6 +26,8 @@ class PdfController extends Controller
                     } else {
                         if ($select == 'Codigo personal') {
                             $pag = $pago->consultarCodigoPersonal($txt);
+                        } else {
+                            $pag = $pago->consultarPagos();
                         }
                     }
                 }
@@ -40,7 +42,7 @@ class PdfController extends Controller
 
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('Ventanilla/Pagos/reporte');
-        return $pdf->stream('documento.pdf');
+        return $pdf->download('pagos.pdf');
 
     }
 
@@ -59,7 +61,26 @@ class PdfController extends Controller
 
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('Ventanilla/Pagos/reporte');
-        return $pdf->stream('documento.pdf');
+        return $pdf->download('pagoAlumno.pdf');
+
+    }
+
+    public function PagosBoleta()
+    {
+        /*$total = 0;
+        $pag = null;
+        $pago = new pagomodel();
+        $pag = $pago->consultarCodigoPago($codPago);
+
+        foreach ($pag as $p) {
+            $total = $total + $p->precio;
+        }
+
+        view()->share(['pago' => $pag, 'total' => $total]);*/
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('Ventanilla/Pagos/boleta');
+        return $pdf->stream('boleta.pdf');
 
     }
 }

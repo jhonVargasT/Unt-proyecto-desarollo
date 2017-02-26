@@ -98,6 +98,11 @@
                         </th>
                         <th>
                             <div align="center">
+                                <small>Detalle</small>
+                            </div>
+                        </th>
+                        <th>
+                            <div align="center">
                                 <small>Nombre cajero</small>
                             </div>
                         </th>
@@ -119,7 +124,7 @@
                                 <td>{{$p->nombre}}</td>
                                 <td>{{$p->pfecha}}</td>
                                 <td>{{$p->precio}}</td>
-                                <td>{{$p->modalidad}}</td>
+                                <td>{{$p->detalle}}</td>
                                 <td>{{$p->pnombres}} {{$p->papellidos}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}

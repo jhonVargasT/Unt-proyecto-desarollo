@@ -24,7 +24,6 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
-
     <div class="panel panel-primary ">
         <div class="panel-heading "> Realizar pago</div>
         <div class="panel-body">
@@ -87,7 +86,6 @@
                                                     else {
                                                         $('#nombres').val(data);
                                                     }
-
                                                 }
                                             });
                                         } else {
@@ -100,7 +98,6 @@
                                                         $('#nombres').val(data)
                                                     }
                                                 });
-
                                             } else {
                                                 if (value == 'Codigo de alumno') {
                                                     $.ajax({
@@ -217,7 +214,6 @@
                                     });
                                 </script>
                             </div>
-
                         </div>
                     </div>
                     <div class="col-sm-12 row form-group">
@@ -263,7 +259,7 @@
                                 </script>
                             </div>
                         </div>
-                        <span class="col-sm-2">Nombre de tramite :</span>
+                        <span class="col-sm-2">Nombre de subtramite :</span>
                         <div class="col-sm-4">
                             <input class="typeahead form-control" type="text" name="subtramite" id="st"
                                    onkeypress="return validarLetras(event)" autocomplete="off" required>
@@ -287,8 +283,6 @@
                                           id="detalle"></textarea>
                             </div>
                         </div>
-
-
                     </div>
                     <br>
                     <div class="col-sm-12 row form-group">
@@ -313,10 +307,7 @@
                                         });
                                     </script>
                                 </div>
-
                             </div>
-
-
                         </div>
                     </div>
                     <div class="col-sm-12 row form-group">
@@ -344,11 +335,11 @@
                                     </div>
                                 </div>
                             @endif
-                                    <script>
-                                        $('#buscar').change(function () {
-                                            $('#tp').val(' ');
-                                        });
-                                    </script>
+                            <script>
+                                $('#buscar').change(function () {
+                                    $('#tp').val(' ');
+                                });
+                            </script>
                             <span class="col-sm-1">Pago con:</span>
                             <div class="col-sm-1">
                                 <input type="text" class="form-control " name="pagocon" id="pc">
@@ -371,12 +362,7 @@
                                     r = r.toFixed(2);
                                     $('#v').val(r);
                                 });
-
-
-
                             </script>
-
-
                         </div>
                     </div>
                 </div>
@@ -385,15 +371,12 @@
                     <div class="col-md-5"></div>
                     <div class="col-md-2" align="center">
                         <button type="submit" name="enviar" class="col-md-12 btn btn-success"><span
-                                    class="glyphicon glyphicon-print"></span> Imprimir
+                                    class="glyphicon glyphicon-check"></span> Guardar
                         </button>
                     </div>
                     <div class="col-md-5"></div>
                 </div>
-
-
             </form>
         </div>
-    </div>
     </div>
 @stop
