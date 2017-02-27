@@ -13,7 +13,6 @@
                             <span class="col-sm-4 control-label">Estado </span>
                             <div class="col-sm-8 ">
                                 <select class="form-control" name="estado">
-                                    <option>Todo</option>
                                     <option>Pagado</option>
                                     <option>Anulado</option>
                                 </select>
@@ -33,7 +32,7 @@
                         <div class="form-group-sm col-sm-4 ">
                             <span class="col-sm-5 control-label">Tipo de persona</span>
                             <div class="col-sm-7 ">
-                                <select class=" form-control" name="modalidad">
+                                <select class=" form-control" name="tipPersona">
                                     <option>Todo</option>
                                     <option>Clientes</option>
                                     <option>Alumnos</option>
@@ -190,131 +189,189 @@
                     <br>
                     <div class="col-sm-9"></div>
                     <div class="col-sm-3">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6"></div>
+                        <div class="col-sm-3">
                             Total :
                         </div>
-                        <div class="col-sm-6">
-                            Cantidad
+                        <div class="col-sm-2">
+                            {{$total}}
                         </div>
                     </div>
                 </div>
                 <div align="center" class="col-sm-12 row form-group ">
                     <div class="table-responsive col-sm-12">
                         <table class="table table-bordered list-inline">
-                            <thead>
-                            <!--cabecear Tabla-->
-                            <tr class="active">
+                            @if(isset($tipo)=='Clientes' )
+                                <thead align="center">
+                                <!--cabecear Tabla-->
+                                <tr class="active">
 
-                                <th>
-                                    <div align="center">
-                                        <small>Id pago</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>Tipo tramite</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>boucherl</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>fecha de pago</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>cuenta SIAF</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>Cuenta contable</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>Facultad</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>Escuela</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>Monto</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>Mondalidad</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>Nombre Cajero</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>Opciones</small>
-                                    </div>
-                                </th>
-                            </tr>
-                            </thead>
-                            <body>
-                            <!--Contenido-->
-                            <tr>
-                                <td><h6></h6></td>
-                                <td><h6></h6></td>
-                                <td><h6></h6></td>
-                                <td><h6></h6></td>
-                                <td><h6></h6></td>
-                                <td><h6></h6></td>
-                                <td><h6></h6></td>
-                                <td><h6></h6></td>
-                                <td><h6></h6></td>
-                                <td><h6></h6></td>
-                                <td><h6></h6></td>
-                                <td align="center">
-                                    <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
-                                    <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
-                                </td>
+                                    <th>
+                                        <div align="center">
+                                            <small>Id pago</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Tramite</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Tipo tramite</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>cuenta SIAF</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Mondalidad</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Fecha</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Monto</small>
+                                        </div>
+                                    </th>
 
-                            </tr>
+                                    <th>
+                                        <div align="center">
+                                            <small>Opciones</small>
+                                        </div>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <body>
+                                <!--Contenido-->
+                                @foreach($result as $r)
+                                    <tr>
+                                        <td><h6 align="center">{{$r->codPago}}</h6></td>
+                                        <td><h6 align="center">{{$r-> nombreTramite}}</h6></td>
+                                        <td><h6 align="center">{{$r-> nombreSubTramite}}</h6></td>
+                                        <td><h6 align="center">{{$r->clasificadorSiaf}}</h6></td>
+                                        <td><h6 align="center">{{$r->modalidad}}</h6></td>
+                                        <td><h6 align="center">{{$r-> fechaPago}}</h6></td>
+                                        <td><h6 align="center">{{$r-> precio}}</h6></td>
+                                        <td align="center">
+                                            <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
+                                            <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
+                                        </td>
 
-                            </body>
+                                    </tr>
+                                @endforeach
+                                </body>
+                            @elseif(($tipo)=='Alumnos')
+                                <thead>
+
+                                <!--cabecear Tabla-->
+                                <tr class="active">
+
+                                    <th>
+                                        <div align="center">
+                                            <small>Id pago</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Tipo tramite</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>boucherl</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>fecha de pago</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>cuenta SIAF</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Cuenta contable</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Facultad</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Escuela</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Monto</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Mondalidad</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Nombre Cajero</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Opciones</small>
+                                        </div>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <body>
+                                <!--Contenido-->
+                                <tr>
+                                    <td><h6></h6></td>
+                                    <td><h6></h6></td>
+                                    <td><h6></h6></td>
+                                    <td><h6></h6></td>
+                                    <td><h6></h6></td>
+                                    <td><h6></h6></td>
+                                    <td><h6></h6></td>
+                                    <td><h6></h6></td>
+                                    <td><h6></h6></td>
+                                    <td><h6></h6></td>
+                                    <td><h6></h6></td>
+                                    <td align="center">
+                                        <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
+                                        <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
+                                    </td>
+
+                                </tr>
+
+                                </body>
+                            @endif
                         </table>
                     </div>
-                    <div class="col-sm-12 row">
-                        <div class="col-sm-4"></div>
-                        <!--paginadro-->
-                        <div class="col-sm-4" align="center">
-                            <ul class="pagination  pagination-sm">
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-4"></div>
-
-                    </div>
                     <div class="col-sm-12 row form-group">
-                        <div class="col-md-3"></div>
+                        </div>
+                    <div class="col-sm-12 row form-group">
+                        <div class="col-md-4"></div>
                         <div class="col-md-2">
                             <a href="/Adm" class="btn  btn-primary"><span
                                         class="glyphicon glyphicon-arrow-left"></span> Regresar
                             </a>
                         </div>
 
-                        <div class="col-md-2"></div>
+                        <div class="col-md-1"></div>
                         <div class="col-md-2">
                             <button href="#" class="btn  btn-primary">Imprimir <span
                                         class="glyphicon glyphicon-print"></span></button>

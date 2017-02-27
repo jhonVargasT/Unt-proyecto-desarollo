@@ -34,7 +34,7 @@ class pagoController extends Controller
         }
         $codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);
         date_default_timezone_set('America/Lima');
-        $dato = date('Y-m-d ');
+        $dato = date('Y-m-d H:i:s');
         $total = $request->total;
         $pago = $request->boletapagar;
         $p = new pagomodel();
@@ -269,6 +269,8 @@ class pagoController extends Controller
                     } else {
                         if ($request->select == 'Codigo personal') {
                             $pag = $pago->consultarCodigoPersonal($request->text);
+                        } else {
+                            $pag = $pago->consultarPagos();
                         }
                     }
                 }
@@ -294,21 +296,38 @@ class pagoController extends Controller
     public function reportePagos(Request $request)
     {
         $pagoModel = new pagomodel();
-        $estado = $request->estado;
-        $modalidad = $request->modalidad;
-
         $fechaDesde = $request->fechaDesde; // El formato que te entrega MySQL es Y-m-d
         $fechaDesde = date("Y-m-d", strtotime($fechaDesde));
         $fechaHasta = $request->fechaHasta; // El formato que te entrega MySQL es Y-m-d
-         $fechaHasta = date("Y-m-d", strtotime($fechaHasta));
-         $result=$pagoModel->listarPagosfacultadCliente($estado,$modalidad,$fechaDesde,$fechaHasta,null,null);
-        foreach ($result as $res)
-        {
-            echo 'codPago'. $res->codPago.'fecha'.$res->fechaPago;
-            echo '<br>';
+        $fechaHasta = date("Y-m-d", strtotime($fechaHasta));
+        $estado = $request->estado;
+        $modalidad = $request->modalidad;
+        $tipoCliente = $request->tipPersona;
+        $tipo=null;
+        $result=null;
+        $total=0;
+        if ($estado == 'Anulado') {
+            $estado = 0;
+        } else {
+            $estado = 1;
         }
-       // return view('Administrador/Reporte/report')->with('result',$result);*/
-
+        if ($tipoCliente == 'Clientes') {
+            $result = $pagoModel->listarPagosClientes($estado, $modalidad, $fechaDesde, $fechaHasta, null, null);
+            $tipo=$tipoCliente;
+        } else {
+            if ($tipoCliente == 'Alumnos') {
+                $result=$pagoModel->listarPagosAlumnos($estado, $modalidad, $fechaDesde, $fechaHasta, null, null);
+                $tipo=$tipoCliente;
+            } else {
+                $tipo=$tipoCliente;
+            }
+        }
+        foreach ($result as $sum)
+        {
+            $total=$total+$sum->precio;
+        }
+        echo $total;
+        return view('Administrador/Reporte/report')->with(['result'=>$result,'tipo'=>$tipo,'total'=>$total]);
     }
 
 }

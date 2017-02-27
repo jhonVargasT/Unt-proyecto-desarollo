@@ -249,7 +249,7 @@ class pagomodel
 
     public function consultarAlumnoDNI($dni)
     {
-        $alumnobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos from pago
+        $alumnobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
         left join personal on pago.coPersonal = personal.idPersona
         left join persona as p1 on p1.codPersona = pago.idPersona
@@ -264,7 +264,7 @@ class pagomodel
 
     public function consultarAlumnoCodigo($codAlumno)
     {
-        $alumnobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos from pago
+        $alumnobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
         left join personal on pago.coPersonal = personal.idPersona
         left join persona as p1 on p1.codPersona = pago.idPersona
@@ -282,7 +282,7 @@ class pagomodel
 
     public function consultarClienteRuc($ruc)
     {
-        $clientebd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos from pago
+        $clientebd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
         left join personal on pago.coPersonal = personal.idPersona
         left join persona as p1 on p1.codPersona = pago.idPersona
@@ -299,7 +299,7 @@ class pagomodel
 
     public function consultarCodigoPago($codPago)
     {
-        $pagobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos from pago
+        $pagobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
         left join personal on pago.coPersonal = personal.idPersona
         left join persona as p1 on p1.codPersona = pago.idPersona
@@ -318,7 +318,7 @@ class pagomodel
         date_default_timezone_set('America/Lima');
         $dato = date('Y-m-d');
 
-        $pagobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos from pago
+        $pagobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
         left join personal on pago.coPersonal = personal.idPersona
         left join persona as p1 on p1.codPersona = pago.idPersona
@@ -330,6 +330,21 @@ class pagomodel
         and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and personal.codPersonal like "%' . $codPersonal . '%" and pago.fecha like "%' . $dato . '%"');
 
         return $pagobd;
+    }
+
+    public function consultarPagos()
+    {
+        $alumnobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos from pago
+        left join subtramite on pago.idSubtramite = subtramite.codSubtramite
+        left join personal on pago.coPersonal = personal.idPersona
+        left join persona as p1 on p1.codPersona = pago.idPersona
+        left join persona as p2 on p2.codPersona = personal.idPersona
+        where pago.idSubtramite = subtramite.codSubtramite
+        and pago.coPersonal = personal.idPersona
+        and p1.codPersona = pago.idPersona
+        and p2.codPersona = personal.idPersona
+        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1');
+        return $alumnobd;
     }
 
     public function eliminarPago($codPago)
@@ -354,19 +369,28 @@ class pagomodel
     }
 
     // pago,personal,subtramite,escuela,facultad
-    public function listarPagosfacultadCliente($estado, $modalidad, $fechaDesde, $fechaHasta, $facultad, $subtramite)
+    public function listarPagosfacultad($estado, $modalidad, $fechaDesde, $fechaHasta, $facultad, $subtramite)
     {
-        if ($estado == 'Anulado') {
-            $estado = 0;
-        } else {
-            $estado = 1;
-        }
-        $pago = DB::table('pago')->select('codPago as codPago', 'fecha as fechaPago')
+
+        $pago = DB::table('pago')
+            ->join('subtramite', 'subtramite.codSubtramite', '=', 'pago.idSubtramite')
+            ->join('personal', 'users.idPersonal', '=', 'pago.coPersonal')
+            ->select('users.*', 'contacts.phone', 'pago.price')
+            ->where(['estado' => $estado, 'modalidad' => $modalidad])
+            ->get();
+    }
+
+    // pago,personal,subtramite,escuela,facultad
+    public function listarPagosClientes($estado, $modalidad, $fechaDesde, $fechaHasta)
+    {
+
+        $pago = DB::table('pago')->select('pago.codPago as codPago', 'pago.fecha as fechaPago', 'pago.modalidad as modalidad',
+            'tramite.clasificador as clasificadorSiaf', 'tramite.nombre as nombreTramite', 'subtramite.nombre as nombreSubTramite', 'subTramite.precio as precio')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
             ->leftjoin('tramite', 'subtramite.idTramite', '=', 'tramite.codTramite')
             ->leftjoin('persona', 'pago.idPersona', '=', 'persona.codPersona')
-           ->leftjoin('cliente','cliente.idPersona','=','persona.codPersona')
             ->leftjoin('personal', 'pago.coPersonal', '=', 'personal.idPersonal')
+            // ->leftjoin('persona','personal.idPersona','=','persona.coPpersona')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.modalidad', $modalidad],
@@ -374,9 +398,24 @@ class pagomodel
                 ['pago.fecha', '<=', $fechaHasta],
             ])->orderBy('fecha')->get();;
 
+        return $pago;
+    }
+    public function listarPagosAlumnos($estado, $modalidad, $fechaDesde, $fechaHasta)
+    {
+
+        $pago = DB::table('pago')->select('pago.codPago as codPago', 'pago.fecha as fechaPago','pago.modalidad as modalidad',
+            'tramite.clasificador as clasificadorSiaf','tramite.nombre as nombreTramite','subtramite.nombre as nombreSubTramite','subTramite.precio as precio')
+            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
+            ->leftjoin('tramite', 'subtramite.idTramite', '=', 'tramite.codTramite')
+            ->leftjoin('personal', 'pago.coPersonal', '=', 'personal.idPersonal')
+            ->leftjoin('persona','pago.idPersona','=','persona.codPersona')
+            ->where([
+                ['pago.estado', $estado],
+                ['pago.modalidad', $modalidad],
+                ['pago.fecha', '>=', $fechaDesde],
+                ['pago.fecha', '<=', $fechaHasta],
+            ])->orderBy('fecha')->get();;
 
         return $pago;
     }
-
-
 }
