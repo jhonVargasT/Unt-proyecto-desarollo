@@ -194,7 +194,9 @@
                             Total :
                         </div>
                         <div class="col-sm-2">
-                            {{$total}}
+                            @if(isset($total) )
+                                {{$total}}
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -268,7 +270,97 @@
                                     </tr>
                                 @endforeach
                                 </body>
-                            @elseif(($tipo)=='Alumnos')
+                            @elseif(isset($tipo)=='Alumnos')
+                                <thead>
+
+                                <!--cabecear Tabla-->
+                                <tr class="active">
+
+                                    <th>
+                                        <div align="center">
+                                            <small>Id pago</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Tipo tramite</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>boucherl</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>fecha de pago</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>cuenta SIAF</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Cuenta contable</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Facultad</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Escuela</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Monto</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Mondalidad</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Nombre Cajero</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Opciones</small>
+                                        </div>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <body>
+                                <!--Contenido-->
+                                <tr>
+                                    <td><h6></h6></td>
+                                    <td><h6></h6></td>
+                                    <td><h6></h6></td>
+                                    <td><h6></h6></td>
+                                    <td><h6></h6></td>
+                                    <td><h6></h6></td>
+                                    <td><h6></h6></td>
+                                    <td><h6></h6></td>
+                                    <td><h6></h6></td>
+                                    <td><h6></h6></td>
+                                    <td><h6></h6></td>
+                                    <td align="center">
+                                        <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
+                                        <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
+                                    </td>
+
+                                </tr>
+
+                                </body>
+                            @else
                                 <thead>
 
                                 <!--cabecear Tabla-->
@@ -362,7 +454,7 @@
                         </table>
                     </div>
                     <div class="col-sm-12 row form-group">
-                        </div>
+                    </div>
                     <div class="col-sm-12 row form-group">
                         <div class="col-md-4"></div>
                         <div class="col-md-2">
