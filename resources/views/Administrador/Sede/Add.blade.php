@@ -68,7 +68,7 @@
                 </div>
                 <div class="col-sm-12 row form-group">
                     <div class="col-md-3"></div>
-                    <a href="{{url('/Layout')}}" class=" col-md-2 btn btn-sm btn-danger"><span
+                    <a href="{{url('Body')}}" class=" col-md-2 btn btn-sm btn-danger"><span
                                 class="glyphicon glyphicon-ban-circle"></span>
                         Regresar
                     </a>
