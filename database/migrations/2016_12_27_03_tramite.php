@@ -20,8 +20,8 @@ class Tramite extends Migration
             $table->increments('codTramite')->unique();
             $table->string('clasificador')->unique();
             $table->string('nombre')->unique();
-            $table->string('fuentefinanc');
-            $table->char('tipoRecurso');
+            $table->string('fuentefinanc')->nullable();
+            $table->char('tipoRecurso')->nullable();
             $table->boolean('estado')->default('1');
         });
     }

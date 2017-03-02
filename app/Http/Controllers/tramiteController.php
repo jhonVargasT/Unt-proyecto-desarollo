@@ -30,7 +30,7 @@ class tramiteController extends Controller
     {
         $tramite = new tramitemodel();
         $tra = $tramite->consultarTramiteid($codTramite);
-        return view('Administrador/Tramite/Edit')->with(['tramite' => $tra]);
+        return view('Administrador/Tramite/edit')->with(['tramite' => $tra]);
     }
 
     public function editarTramite($codTramite, Request $request)
@@ -41,7 +41,7 @@ class tramiteController extends Controller
         $tramite->setFuentefinanc($request->fuenteFinaciamiento);
         $tramite->setTipoRecurso($request->tipoDeRecurso);
         $tramite->editarTramite($codTramite);
-        return view('Administrador/Tramite/Search')->with(['nombre' => $request->nombreTramite]);
+        return view('Administrador/Tramite/search')->with(['nombre' => $request->nombreTramite]);
     }
 
     public function listarTramite(Request $request)
@@ -66,14 +66,14 @@ class tramiteController extends Controller
                 }
             }
         }
-        return view('Administrador/Tramite/Search')->with(['tramite' => $tra, 'txt' => $request->text, 'select' => $request->select]);
+        return view('Administrador/Tramite/search')->with(['tramite' => $tra, 'txt' => $request->text, 'select' => $request->select]);
     }
 
     public function eliminarTramite($codTramite, Request $request)
     {
         $tramite = new tramitemodel();
         $tramite->eliminarTramite($codTramite);
-        return view('Administrador/Tramite/Search')->with(['nombre' => $request->nombre]);
+        return view('Administrador/Tramite/search')->with(['nombre' => $request->nombre]);
     }
 
 }

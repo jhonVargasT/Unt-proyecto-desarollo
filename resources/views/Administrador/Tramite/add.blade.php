@@ -55,7 +55,7 @@
                     <span class="col-sm-2 control-label"> tipo de recurso</span>
                     <div class="col-sm-1">
                         <input class="form-control input-sm" name="tipoRecurso" type="text"
-                               autocomplete="off" onkeypress="return validarLetras(event)" placeholder="A" required>
+                               autocomplete="off" onkeypress="return validarLetras(event)" placeholder="A">
                     </div>
                     <div class="col-sm-1"></div>
                     <div class="col-sm-1">
@@ -65,7 +65,7 @@
                     <span class="col-sm-2 control-label"> Fuente de financiamieto</span>
                     <div class="col-sm-1">
                         <input class="form-control" name="fuentefinanc" type="text"
-                               autocomplete="off" onkeypress="return validarLetras(event)" placeholder="H" required>
+                               autocomplete="off" onkeypress="return validarLetras(event)" placeholder="H">
                     </div>
                 </div>
             </div>
