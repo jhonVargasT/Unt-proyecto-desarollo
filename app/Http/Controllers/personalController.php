@@ -31,7 +31,7 @@ class personalController extends Controller
     public function logOutPersonal()
     {
         Session::forget('misession');
-        return view('Index');
+        return view('index');
     }
 
     public function loguearPersonal(Request $request)
