@@ -119,6 +119,6 @@
 
 </body>
 @else
-    @include("index")
+    @include("indeix")
 @endif
 </html>

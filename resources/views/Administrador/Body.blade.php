@@ -331,6 +331,6 @@
             }
         </script>
     @else
-        @include("index")
+        @include("indeix")
     @endif
 @stop

@@ -153,6 +153,6 @@
             </div>
         </div>
     @else
-        @include("index")
+        @include("indeix")
     @endif
 @stop
