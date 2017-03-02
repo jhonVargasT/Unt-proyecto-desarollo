@@ -160,7 +160,7 @@ Route::get('/admReportes', function () {
 Route::resource('reportePago','pagoController@reportePagos');
 //////////////////////////////////SEDE//////////////////////////////////////////////////////////////////////////////////
 Route::get('/admRegistrarSede', function () {
-    return view('Administrador/Sede/add');
+    return view('Administrador/Sede/Add');
 });
 Route::get('/admBuscarSede', function () {
     return view('Administrador/Sede/search');
