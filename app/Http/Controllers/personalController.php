@@ -15,8 +15,8 @@ class personalController extends Controller
         $personal->setDni($request->dni);
         $personal->setNombres($request->nombres);
         $personal->setApellidos($request->apellidos);
-        $personal->setCuenta($request->cuenta);
-        $personal->setPassword($request->contraseña);
+        $personal->setCuenta($request->cuentaAgregar);
+        $personal->setPassword($request->contraseñaAgregar);
         $personal->setTipoCuenta($request->tipocuenta);
         $personal->setCodPersonal($request->codigoPersonal);
         $p = $personal->savepersonal();
