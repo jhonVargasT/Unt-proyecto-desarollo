@@ -30,11 +30,11 @@ Route::get('/Layout', function () {
 });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::get('/admRegistrarEstudiante', function () {
-    return view('/Administrador/Alumno/Add');
+    return view('/administrador/Alumno/Add');
 });
 
 Route::get('/admBuscarEstudiante', function () {
-    return view('Administrador/Alumno/Search');
+    return view('administrador/Alumno/Search');
 });
 
 Route::resource('AlumnoRegistrado', 'alumnoController@registrarAlumno');
@@ -46,10 +46,10 @@ Route::get('AlumnoEliminar/{codPersona}', 'alumnoController@eliminarAlumno');
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/admRegistrarCliente', function () {
-    return view('Administrador/Cliente/Add');
+    return view('administrador/Cliente/Add');
 });
 Route::get('/admBuscarCliente', function () {
-    return view('Administrador/Cliente/Search');
+    return view('administrador/Cliente/Search');
 });
 
 Route::resource('ClienteRegistrado', 'clienteController@registrarCliente');
@@ -62,10 +62,10 @@ Route::get('ClienteEliminar/{codPersona}', 'clienteController@eliminarCliente');
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/admRegistrarDonaciones', function () {
-    return view('Administrador/DonacionesYTransacciones/Add');
+    return view('administrador/DonacionesYTransacciones/Add');
 });
 Route::get('/admBuscarDonaciones', function () {
-    return view('Administrador/DonacionesYTransacciones/Search');
+    return view('administrador/DonacionesYTransacciones/Search');
 });
 
 Route::resource('DonacionRegistrada', 'donacionController@registrarDonaciones');
@@ -77,10 +77,10 @@ Route::get('DonacionEliminar/{codDonacion}', 'donacionController@eliminarDonacio
 ////////////////////////////////////////////Escuela////////////////////////////////////////////////////////////////////////////
 
 Route::get('/admRegistrarEscuela', function () {
-    return view('Administrador/Escuela/Add');
+    return view('/administrador/Escuela/Add');
 });
 Route::get('/admBuscarEscuela', function () {
-    return view('Administrador/Escuela/Search');
+    return view('/administrador/Escuela/Search');
 });
 
 Route::resource('EscuelaRegistrada', 'escuelaController@registrarEscuela');
@@ -93,10 +93,10 @@ Route::get('EscuelaEliminar/{idEscuela}', 'escuelaController@eliminarEscuela');
 ////////////////////////////////// Facultad //////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/admRegistrarFacultad', function () {
-    return view('Administrador/Facultad/Add');
+    return view('/administrador/Facultad/Add');
 });
 Route::get('/admBuscarFacultad', function () {
-    return view('Administrador/Facultad/Search');
+    return view('/Administrador/Facultad/Search');
 });
 
 Route::resource('FacultadRegistrada', 'facultadController@registrarFacultad');
@@ -107,10 +107,10 @@ Route::get('FacultadEliminar/{idFacultad}', 'facultadController@eliminarFacultad
 /////////////////////////////////////////////Personal///////////////////////////////////////////////////////////////////////////
 
 Route::get('/admRegistrarPersonal', function () {
-    return view('Administrador/Personal/Add');
+    return view('/administrador/Personal/Add');
 });
 Route::get('admBuscarPersonal', function () {
-    return view('Administrador/Personal/Search');
+    return view('/administrador/Personal/Search');
 });
 
 Route::resource('PersonalRegistrado', 'personalController@registrarPersonal');
@@ -123,10 +123,10 @@ Route::get('PersonalEliminar/{codPersona}', 'personalController@eliminarPersonal
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/admRegistrarSubtramite', function () {
-    return view('Administrador/SubTramite/Add');
+    return view('/administrador/SubTramite/Add');
 });
 Route::get('/admBuscarSubtramite', function () {
-    return view('Administrador/SubTramite/Search');
+    return view('/administrador/SubTramite/Search');
 });
 
 Route::resource('SubtramiteRegistrado', 'subtramiteController@registrarSubtramite');
@@ -139,10 +139,10 @@ Route::get('SubtramiteEliminar/{codSubtramite}', 'subtramiteController@eliminarS
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/admRegistrarTramite', function () {
-    return view('Administrador/Tramite/add');
+    return view('/administrador/Tramite/add');
 });
 Route::get('/admBuscarTramite', function () {
-    return view('Administrador/Tramite/search');
+    return view('/administrador/Tramite/search');
 });
 
 Route::resource('TramiteRegistrado', 'tramiteController@registrarTramite');
