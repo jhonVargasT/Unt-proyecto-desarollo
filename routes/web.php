@@ -163,7 +163,7 @@ Route::get('/admRegistrarSede', function () {
     return view('Administrador/Sede/Add');
 });
 Route::get('/admBuscarSede', function () {
-    return view('Administrador/Sede/search');
+    return view('Administrador/Sede/Search');
 });
 
 Route::resource('SedeRegistrada', 'sedeController@registrarSede');
