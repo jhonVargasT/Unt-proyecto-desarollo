@@ -102,6 +102,6 @@
             </div>
         </div>
     @else
-        @include("indeix")
+        @include("index")
     @endif
 @stop

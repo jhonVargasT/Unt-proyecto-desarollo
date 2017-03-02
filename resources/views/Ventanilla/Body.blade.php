@@ -129,6 +129,6 @@
             }
         </script>
     @else
-        @include("indeix")
+        @include("index")
     @endif
 @stop
