@@ -40,7 +40,7 @@ class subtramiteController extends Controller
     {
         $subtramite = new subtramitemodel();
         $sub = $subtramite->consultarSubtramiteid($codTramite);
-        return view('Administrador/Subtramite/Edit')->with(['subtramite' => $sub]);
+        return view('Administrador/SubTramite/Edit')->with(['subtramite' => $sub]);
     }
 
     public function editarSubtramite($codSubtramite, Request $request)
@@ -51,7 +51,7 @@ class subtramiteController extends Controller
         $subtramite->setPrecio($request->precio);
         $subtramite->editarSubtramite($codSubtramite);
 
-        return view('Administrador/Subtramite/search')->with(['nombre' => $request->nombreSubtramite]);
+        return view('Administrador/SubTramite/search')->with(['nombre' => $request->nombreSubtramite]);
     }
 
     public function listarSubtramite(Request $request)
@@ -72,13 +72,13 @@ class subtramiteController extends Controller
                 }
             }
         }
-        return view('Administrador/Subtramite/search')->with(['subtramite' => $sub, 'txt' => $request->text, 'select' => $request->select]);
+        return view('Administrador/SubTramite/search')->with(['subtramite' => $sub, 'txt' => $request->text, 'select' => $request->select]);
     }
 
     public function eliminarSubtramite($codSubtramite, Request $request)
     {
         $subtramite = new subtramitemodel();
         $subtramite->eliminarSubtramite($codSubtramite);
-        return view('Administrador/Subtramite/search')->with(['nombre' => $request->nombre]);
+        return view('Administrador/SubTramite/search')->with(['nombre' => $request->nombre]);
     }
 }
