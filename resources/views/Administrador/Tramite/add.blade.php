@@ -71,7 +71,7 @@
             </div>
             <div class="col-sm-12 row form-group">
                 <div class="col-md-3"></div>
-                <a href="#" class=" col-md-2 btn btn-sm btn-danger"><span class="glyphicon glyphicon-ban-circle"></span>
+                <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span class="glyphicon glyphicon-ban-circle"></span>
                     Cancelar</a>
                 <div class="col-md-2"></div>
                 <button type="submit" name="enviar" class="col-md-2 btn btn-success"><span class="glyphicon glyphicon-ok"></span> Guardar </button>

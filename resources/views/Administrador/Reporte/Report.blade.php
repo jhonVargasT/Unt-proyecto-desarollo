@@ -458,7 +458,7 @@
                     <div class="col-sm-12 row form-group">
                         <div class="col-md-4"></div>
                         <div class="col-md-2">
-                            <a href="/Adm" class="btn  btn-primary"><span
+                            <a href="{{url('/Adm')}}" class="btn  btn-primary"><span
                                         class="glyphicon glyphicon-arrow-left"></span> Regresar
                             </a>
                         </div>
