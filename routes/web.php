@@ -80,7 +80,7 @@ Route::get('/admRegistrarEscuela', function () {
     return view('Administrador/Escuela/Add');
 });
 Route::get('/admBuscarEscuela', function () {
-    return view('Administrador/Escuela/Search');
+    return view('Administrador/Escuela/search');
 });
 
 Route::resource('EscuelaRegistrada', 'escuelaController@registrarEscuela');
