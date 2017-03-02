@@ -26,15 +26,15 @@ Route::resource('/cerrarSesion', 'personalController@logOutPersonal');
 //////////////////////////////////////////////////ADMINISTRADOR/////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::get('/Layout', function () {
-    return view('/administrador/Body');
+    return view('Administrador/Body');
 });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::get('/admRegistrarEstudiante', function () {
-    return view('/administrador/Alumno/Add');
+    return view('Administrador/Alumno/Add');
 });
 
 Route::get('/admBuscarEstudiante', function () {
-    return view('administrador/Alumno/Search');
+    return view('Administrador/Alumno/Search');
 });
 
 Route::resource('AlumnoRegistrado', 'alumnoController@registrarAlumno');
