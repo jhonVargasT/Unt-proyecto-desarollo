@@ -51,7 +51,7 @@ class subtramiteController extends Controller
         $subtramite->setPrecio($request->precio);
         $subtramite->editarSubtramite($codSubtramite);
 
-        return view('Administrador/Subtramite/Search')->with(['nombre' => $request->nombreSubtramite]);
+        return view('Administrador/Subtramite/search')->with(['nombre' => $request->nombreSubtramite]);
     }
 
     public function listarSubtramite(Request $request)
@@ -68,17 +68,17 @@ class subtramiteController extends Controller
                 if ($request->select == 'Cuenta contable') {
                     $sub = $subtramite->consultarSubtramiteCuenta($request->text);
                 } else {
-                        $sub = $subtramite->consultarSubtramites($request->text);
+                        $sub = $subtramite->consultarSubtramites();
                 }
             }
         }
-        return view('Administrador/Subtramite/Search')->with(['subtramite' => $sub, 'txt' => $request->text, 'select' => $request->select]);
+        return view('Administrador/Subtramite/search')->with(['subtramite' => $sub, 'txt' => $request->text, 'select' => $request->select]);
     }
 
     public function eliminarSubtramite($codSubtramite, Request $request)
     {
         $subtramite = new subtramitemodel();
         $subtramite->eliminarSubtramite($codSubtramite);
-        return view('Administrador/Subtramite/Search')->with(['nombre' => $request->nombre]);
+        return view('Administrador/Subtramite/search')->with(['nombre' => $request->nombre]);
     }
 }
