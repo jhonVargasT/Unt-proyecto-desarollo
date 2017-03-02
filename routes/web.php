@@ -126,7 +126,7 @@ Route::get('/admRegistrarSubtramite', function () {
     return view('Administrador/SubTramite/Add');
 });
 Route::get('/admBuscarSubtramite', function () {
-    return view('Administrador/SubTramite/Search');
+    return view('Administrador/SubTramite/search');
 });
 
 Route::resource('SubtramiteRegistrado', 'subtramiteController@registrarSubtramite');
