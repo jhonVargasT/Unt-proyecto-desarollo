@@ -67,7 +67,7 @@ class personalController extends Controller
 
         if ($personal->getTipoCuenta() == 'Administrador' && $personal->getCuenta() != '') {
 
-            return view('/administrador/Body');
+            return view('administrador/Body');
         } else {
             if ($personal->getTipoCuenta() == 'Ventanilla' && $personal->getCuenta() != '') {
 
