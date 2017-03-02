@@ -85,13 +85,13 @@
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label"> Cuenta</span>
                                 <div class="col-sm-3">
-                                    <input class="form-control input-sm" name="cuenta" type="text">
+                                    <input class="form-control input-sm" name="cuenta" type="text" autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group-sm">
                                 <span class="col-sm-2">Contraseña</span>
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="contraseña" type="password">
+                                    <input class="form-control input-sm" name="contraseña" type="password" autocomplete="off">
                                 </div>
                             </div>
                         </div>
