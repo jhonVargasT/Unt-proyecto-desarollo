@@ -30,6 +30,7 @@
                         <span class="col-sm-5 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
                             <select class=" form-control" name="select">
+                                <option>Todo</option>
                                 <option>Dni</option>
                                 <option>Codigo alumno</option>
                                 <option>Ruc</option>
@@ -43,7 +44,7 @@
                             <input type="text" name="text" class="form-control" value="{{$txt}}">
                         @else
                             <input type="text" name="text" class="form-control" placeholder="Ingresa datos aqui .."
-                                   autocomplete="off">
+                                   autocomplete="off" value=" ">
                         @endif
                         <span class="input-group-btn">
                             <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
@@ -124,6 +125,7 @@
                                 <td>{{$p->nombre}}</td>
                                 <td>{{$p->pfecha}}</td>
                                 <td>{{$p->precio}}</td>
+                                <td>{{$p->modalidad}}</td>
                                 <td>{{$p->detalle}}</td>
                                 <td>{{$p->pnombres}} {{$p->papellidos}}</td>
                                 <td align="center">

@@ -303,9 +303,9 @@ class pagoController extends Controller
         $estado = $request->estado;
         $modalidad = $request->modalidad;
         $tipoCliente = $request->tipPersona;
-        $tipo=null;
-        $result=null;
-        $total=0;
+        $tipo = null;
+        $result = null;
+        $total = 0;
         if ($estado == 'Anulado') {
             $estado = 0;
         } else {
@@ -313,21 +313,26 @@ class pagoController extends Controller
         }
         if ($tipoCliente == 'Clientes') {
             $result = $pagoModel->listarPagosClientes($estado, $modalidad, $fechaDesde, $fechaHasta, null, null);
-            $tipo=$tipoCliente;
+            $tipo = $tipoCliente;
         } else {
             if ($tipoCliente == 'Alumnos') {
-                $result=$pagoModel->listarPagosAlumnos($estado, $modalidad, $fechaDesde, $fechaHasta, null, null);
-                $tipo=$tipoCliente;
+                $result = $pagoModel->listarPagosAlumnos($estado, $modalidad, $fechaDesde, $fechaHasta, null, null);
+                $tipo = $tipoCliente;
             } else {
-                $tipo=$tipoCliente;
+                $tipo = $tipoCliente;
             }
         }
-        foreach ($result as $sum)
-        {
-            $total=$total+$sum->precio;
+        foreach ($result as $sum) {
+            $total = $total + $sum->precio;
         }
         echo $total;
-        return view('Administrador/Reporte/report')->with(['result'=>$result,'tipo'=>$tipo,'total'=>$total]);
+        return view('Administrador/Reporte/report')->with(['result' => $result, 'tipo' => $tipo, 'total' => $total]);
     }
 
+    public function obtenerDatos(Request $request)
+    {
+        return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $request->buscar, 'total' => $request->total,
+            'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
+            'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $request->fecha]);
+    }
 }

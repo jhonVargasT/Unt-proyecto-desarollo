@@ -213,7 +213,7 @@ Route::get('PagoImprimir/{codPago}', 'pdfController@PagosBoletaAlumno');
 Route::get('ventBoleta', 'pdfController@PagosBoleta');
 
 Route::get('pdf/{txt}/{select}', 'PdfController@pdf');
-Route::get('pdf/{txt}/{select}', 'PdfController@pdf');
+//Route::get('pdf/{txt}/{select}', 'PdfController@pdf');
 
 Route::get('/buscarNombresD', 'pagoController@buscarNombresD');
 Route::get('/buscarNombresDR', 'pagoController@buscarNombresDR');
