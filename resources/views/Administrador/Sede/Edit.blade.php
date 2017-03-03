@@ -39,7 +39,6 @@
                                 <span class="col-sm-2 control-label"> Codigo Sede</span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="codigoSede" type="text"
-                                           autocomplete="off" onkeypress="return validarNum(event)"
                                            value="{{$s->codigosede}}">
                                 </div>
                             </div>

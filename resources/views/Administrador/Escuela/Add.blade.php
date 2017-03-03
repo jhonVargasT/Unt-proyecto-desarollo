@@ -68,7 +68,7 @@
                                 <span class="col-sm-2 control-label"> Codigo Escuela</span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="codEscuela" type="text"
-                                           autocomplete="off" onkeypress="return validarNum(event)"
+
                                            placeholder="Ejm: 0729787548">
                                 </div>
                             </div>
@@ -87,7 +87,7 @@
                                 <span class="col-sm-2 control-label">Cuenta Interna</span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="nroCuenta" type="text"
-                                           autocomplete="off" onkeypress="return validarNum(event)"
+                                           autocomplete="off" onkeypress="return validarCodigoSiaf(event)"
                                            placeholder="Ejm: 0729787548">
                                 </div>
                             </div>

@@ -41,7 +41,6 @@
                                     <span class="col-sm-2 control-label"> Codigo Escuela</span>
                                     <div class="col-sm-2">
                                         <input class="form-control input-sm" name="CodigoEscuela" type="text"
-                                               autocomplete="off" onkeypress="return validarNum(event)"
                                                value="{{$e->codEscuela}}">
                                     </div>
                                 </div>
@@ -51,7 +50,7 @@
                                     <div class="col-sm-3">
                                         <input class="form-control input-sm" name="CuentaInterna" type="text"
                                                autocomplete="off"
-                                               onkeypress="return validarNum(event)" value="{{$e->nroCuenta}}">
+                                               onkeypress="return validarCodigoSiaf(event)" value="{{$e->nroCuenta}}">
                                     </div>
                                 </div>
                             </div>

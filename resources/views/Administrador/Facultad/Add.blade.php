@@ -58,7 +58,7 @@
                         <span class="col-sm-2 control-label"> Codigo Facultad</span>
                         <div class="col-sm-4">
                             <input class="form-control input-sm" name="CodigoFacultad" type="text" autocomplete="off" placeholder="ejmp: 0002548"
-                                   onkeypress="return validarNum(event)" required>
+                                    required>
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                         <span class="col-sm-2 control-label"> Cuenta Interna</span>
                         <div class="col-sm-4">
                             <input class="form-control input-sm" name="CuentaInterna" type="text" autocomplete="off" placeholder="ejmp: 0002548"
-                                   onkeypress="return validarNum(event)" required>
+                                   onkeypress="return validarCodigoSiaf(event)" required>
                         </div>
                     </div>
                     <div class=" form-group-sm" align="left">

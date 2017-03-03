@@ -45,7 +45,7 @@
                         <div class="col-sm-4">
                             <input class="form-control input-sm" name="codigoSede" type="text" autocomplete="off"
                                    placeholder="ejmp: 0002548"
-                                   onkeypress="return validarNum(event)" required>
+                                  required>
                         </div>
                     </div>
                 </div>
