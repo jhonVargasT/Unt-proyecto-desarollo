@@ -83,7 +83,7 @@ class personalController extends Controller
     {
         $personal = new personalmodel();
         $pers = $personal->consultarPersonalid($idPersona);
-        return view('Administrador/Personal/Edit')->with(['personal' => $pers]);
+        return view('Administrador/Personal/edit')->with(['personal' => $pers]);
     }
 
     public function editarPersonal($idPersonal, Request $request)
@@ -120,7 +120,7 @@ class personalController extends Controller
                         if ($request->select == 'Tipo de cuenta') {
                             $pers = $personal->consultaPersonalTipoCuenta($request->text);
                         } else {
-                            $pers = $personal->consultaPersonales($request->text);
+                            $pers = $personal->consultaPersonales();
                         }
                     }
                 }

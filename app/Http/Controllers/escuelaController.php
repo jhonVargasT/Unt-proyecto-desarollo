@@ -52,7 +52,7 @@ class escuelaController extends Controller
         $escuela->setNombre($request->NombreEscuela);
         $escuela->setNroCuenta($request->CuentaInterna);
         $escuela->editarEscuela($idEscuela);
-        return view('Administrador/Escuela/Search')->with(['nombre' => $request->NombreEscuela]);
+        return view('Administrador/Escuela/search')->with(['nombre' => $request->NombreEscuela]);
     }
 
     public function listarEscuela(Request $request)
@@ -84,6 +84,6 @@ class escuelaController extends Controller
     {
         $cliente = new escuelamodel();
         $cliente->eliminarEscuela($idEscuela);
-        return view('Administrador/Escuela/Search')->with(['nombre' => $request->nombre]);
+        return view('Administrador/Escuela/search')->with(['nombre' => $request->nombre]);
     }
 }

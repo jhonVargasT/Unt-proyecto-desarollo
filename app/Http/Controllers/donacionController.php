@@ -88,7 +88,7 @@ class donacionController extends Controller
                             $don = $donacion->consultarDonacionNumeroResolucion($request->text);
                         } else {
 
-                                $don = $donacion->consultarDonaciones($request->text);
+                                $don = $donacion->consultarDonaciones();
                         }
                     }
                 }
