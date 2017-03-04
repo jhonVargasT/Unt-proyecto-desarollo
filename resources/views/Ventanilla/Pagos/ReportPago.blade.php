@@ -115,7 +115,7 @@
                     </tr>
                     </thead>
                     <body>
-                    @if(isset($pago))
+                    @if(isset($pagos))
                         @foreach($pago as $p)
                             <tr>
                                 <td>{{$p->codPago}}</td>
@@ -162,7 +162,7 @@
                 </div>
                 <div class="col-sm-2">
                     <!--Contenido-->
-                    @if(isset($txt)&&isset($select)&&isset($pago))
+                    @if(isset($txt)&&isset($select)&&isset($pagos))
                         <a href="pdf/{{$txt}}/{{$select}}" class="btn btn-sm btn-primary"><span
                                     class="glyphicon glyphicon-print"></span> Imprimir
                         </a>

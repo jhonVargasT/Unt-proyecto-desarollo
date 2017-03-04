@@ -281,7 +281,7 @@ class pagoController extends Controller
             $total = $total + $p->precio;
         }
 
-        return view('Ventanilla/Pagos/ReportPago')->with(['pago' => $pag, 'txt' => $request->text, 'select' => $request->selected, 'total' => $total]);
+        return view('Ventanilla/Pagos/ReportPago')->with(['pagos' => $pag, 'txt' => $request->text, 'select' => $request->selected, 'total' => $total]);
     }
 
 
