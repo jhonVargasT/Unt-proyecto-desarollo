@@ -71,7 +71,7 @@
                                 <div class=" form-group-sm" align="left">
                                     <span class=" col-sm-2 control-label">Descripcion </span>
                                     <div class="col-sm-4">
-                                        <textarea class="form-control " rows="5"
+                                        <textarea class="form-control " rows="2"
                                                   name="descripcion">{{$d->descripcion}}</textarea>
                                     </div>
                                 </div>

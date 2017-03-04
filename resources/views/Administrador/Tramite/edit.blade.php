@@ -37,7 +37,7 @@
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label"> Clasificador SIAF</span>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <input class="form-control input-sm" name="clasificadorSiaf" type="text"
                                            autocomplete="off" onkeypress="return validarNum(event)"
                                            value="{{$t->clasificador}}">
@@ -45,7 +45,7 @@
                             </div>
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label"> Nombre tramite</span>
-                                <div class="col-sm-5">
+                                <div class="col-sm-3">
                                     <input class="form-control input-sm" name="nombreTramite" type="text"
                                            autocomplete="off" onkeypress="return validarLetras(event)"
                                            value="{{$t->nombre}}">
@@ -54,38 +54,38 @@
                         </div>
                         <div class="col-sm-12 row form-group">
                             <div class=" form-group-sm" align="left">
-                                <span class="col-sm-3 control-label">Fuente de financiamiento </span>
-                                <div class="col-sm-2">
-                                    <input class="form-control input-sm" name="fuenteFinaciamiento" type="text"
-                                           autocomplete="off"
-                                           onkeypress="return validarLetras(event)" value="{{$t->fuentefinanc}}">
-                                </div>
-                                <div class="col-sm-1"></div>
-                            </div>
-                            <div class=" form-group-sm" align="left">
-                                <span class="col-sm-3 control-label">Tipo de recurso </span>
-                                <div class="col-sm-2">
+                                <span class="col-sm-2 control-label">Tipo de recurso </span>
+                                <div class="col-sm-1">
                                     <input class="form-control input-sm" name="tipoDeRecurso" type="text"
                                            autocomplete="off"
                                            onkeypress="return validarLetras(event)" value="{{$t->tipoRecurso}}">
                                 </div>
                             </div>
-                            <div class="col-sm-12 row form-group">
-                                <div class="col-md-3"></div>
-                                <a href="{{url('/Layout')}}" class=" col-md-2 btn btn-sm btn-danger"><span
-                                            class="glyphicon glyphicon-ban-circle"></span>
-                                    Regresar
-                                </a>
-                                <div class="col-md-2">
+                            <div class="col-sm-2"></div>
+                            <div class=" form-group-sm" align="left">
+                                <span class="col-sm-2 control-label">Fuente de financiamiento </span>
+                                <div class="col-sm-1">
+                                    <input class="form-control input-sm" name="fuenteFinaciamiento" type="text"
+                                           autocomplete="off"
+                                           onkeypress="return validarLetras(event)" value="{{$t->fuentefinanc}}">
                                 </div>
-                                <div>
-                                    <button href="" type="submit" name="enviar"
-                                            class="col-md-2 btn btn-sm btn-success"><span
-                                                class="glyphicon glyphicon-ok"></span> Guardar
-                                    </button>
-                                </div>
-                                <div class="col-md-3"></div>
                             </div>
+                        </div>
+                        <div class="col-sm-12 row form-group">
+                            <div class="col-md-3"></div>
+                            <a href="{{url('/Layout')}}" class=" col-md-2 btn btn-sm btn-danger"><span
+                                        class="glyphicon glyphicon-ban-circle"></span>
+                                Regresar
+                            </a>
+                            <div class="col-md-2">
+                            </div>
+                            <div>
+                                <button href="" type="submit" name="enviar"
+                                        class="col-md-2 btn btn-sm btn-success"><span
+                                            class="glyphicon glyphicon-ok"></span> Guardar
+                                </button>
+                            </div>
+                            <div class="col-md-3"></div>
                         </div>
                     </form>
         </div>

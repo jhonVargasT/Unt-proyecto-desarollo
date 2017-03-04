@@ -35,43 +35,37 @@
                           method="Get"
                           class="Vertical">
                         {{csrf_field()}}
-                        <legend>Agregar subtramite</legend>
+                        <legend>Editar subtramite</legend>
                         <br>
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-3 control-label"> Nombre Subramite</span>
-                                <div class="input-group col-sm-6">
-                                    <input type="text" class="form-control" name="nombreSubtramite"
+                                <span class="col-sm-2 control-label"> Nombre Subramite</span>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control input-sm" name="nombreSubtramite"
                                            placeholder="Ingresa Nombre de Tramite aqui .." autocomplete="off"
                                            onkeypress="return validarLetras(event)"
                                            value="{{$s->nombre}}">
-                                    <span class="input-group-btn">
-                            <button class="btn btn-sm" type="button">Buscar</button>
-                        </span>
                                 </div>
-
                             </div>
                         </div>
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-3 control-label"> Cuenta contable</span>
+                                <span class="col-sm-2 control-label"> Cuenta contable</span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="cuentaContable" type="text"
                                            autocomplete="off" onkeypress="return validarNum(event)"
                                            value="{{$s->cuenta}}">
                                 </div>
                                 <div class="col-sm-1">
-
                                 </div>
                             </div>
                             <div class="form-group-sm">
-                                <span class="col-sm-2">Precio</span>
+                                <span class="col-sm-1">Precio</span>
                                 <div class="input-group col-sm-2">
                                     <div class="input-group-addon ">S/.</div>
                                     <input type="text" class="form-control " name="precio" autocomplete="off"
                                            onkeypress="return validarNum(event)"
                                            value="{{$s->precio}}">
-
                                 </div>
                             </div>
                         </div>
@@ -96,6 +90,4 @@
         @endforeach
         @endif
     </div>
-    </div>
-
 @stop

@@ -38,13 +38,13 @@
 
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label"> Codigo Facultad</span>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <input class="form-control input-sm" name="CodigoFacultad" type="text"
                                            value="{{$f->codFacultad}}">
                                 </div>
                             </div>
                             <div class=" form-group-sm" align="left">
-                                <span class="col-sm-2 control-label"> </span>
+                                <span class="col-sm-1 control-label"> </span>
                                 <span class="col-sm-2 control-label">Cuenta interna </span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="CuentaInterna" type="text"
@@ -57,7 +57,7 @@
                             <div class="form-group-sm " align="left">
 
                                 <span class="col-sm-2 control-label"> Nombre facultad</span>
-                                <div class="col-sm-5">
+                                <div class="col-sm-3">
                                     <input class="form-control input-sm" name="NombreFacultad" type="text"
                                            autocomplete="off" onkeypress="return validarLetras(event)"
                                            value="{{$f->nombre}}">
