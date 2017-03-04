@@ -29,7 +29,7 @@
                     <div class="form-group-sm col-sm-6 ">
                         <span class="col-sm-5 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
-                            <select class=" form-control" name="select">
+                            <select class=" form-control" name="selected">
                                 <option>Todo</option>
                                 <option>Dni</option>
                                 <option>Codigo alumno</option>
@@ -116,7 +116,6 @@
                     </thead>
                     <body>
                     @if(isset($pago))
-                        <!--Contenido-->
                         @foreach($pago as $p)
                             <tr>
                                 <td>{{$p->codPago}}</td>
@@ -165,7 +164,7 @@
                     <!--Contenido-->
                     @if(isset($txt)&&isset($select)&&isset($pago))
                         <a href="pdf/{{$txt}}/{{$select}}" class="btn btn-sm btn-primary"><span
-                                    class="glyphicon glyphicon-print"></span>Imprimir
+                                    class="glyphicon glyphicon-print"></span> Imprimir
                         </a>
                     @endif
                 </div>

@@ -255,19 +255,19 @@ class pagoController extends Controller
         $pag = null;
         $pago = new pagomodel();
 
-        if ($request->select == 'Dni') {
+        if ($request->selected == 'Dni') {
             $pag = $pago->consultarAlumnoDNI($request->text);
         } else {
-            if ($request->select == 'Codigo alumno') {
+            if ($request->selected == 'Codigo alumno') {
                 $pag = $pago->consultarAlumnoCodigo($request->text);
             } else {
-                if ($request->select == 'Ruc') {
+                if ($request->selected == 'Ruc') {
                     $pag = $pago->consultarClienteRuc($request->text);
                 } else {
-                    if ($request->select == 'Codigo pago') {
+                    if ($request->selected == 'Codigo pago') {
                         $pag = $pago->consultarCodigoPago($request->text);
                     } else {
-                        if ($request->select == 'Codigo personal') {
+                        if ($request->selected == 'Codigo personal') {
                             $pag = $pago->consultarCodigoPersonal($request->text);
                         } else {
                             $pag = $pago->consultarPagos();
@@ -281,7 +281,7 @@ class pagoController extends Controller
             $total = $total + $p->precio;
         }
 
-        return view('Ventanilla/Pagos/ReportPago')->with(['pago' => $pag, 'txt' => $request->text, 'select' => $request->select, 'total' => $total]);
+        return view('Ventanilla/Pagos/ReportPago')->with(['pago' => $pag, 'txt' => $request->text, 'select' => $request->selected, 'total' => $total]);
     }
 
 
