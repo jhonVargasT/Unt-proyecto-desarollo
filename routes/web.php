@@ -210,7 +210,7 @@ Route::resource('/pagar','pagoController@registrarPago');
 Route::resource('PagosBuscados', 'pagoController@listarPago');
 Route::get('PagoEliminar/{codPago}', 'pagoController@eliminarPago');
 Route::get('PagoImprimir/{codPago}', 'PdfController@PagosBoletaAlumno');
-Route::get('ventBoleta', 'pdfController@PagosBoleta');
+Route::get('ventBoleta', 'PdfController@PagosBoleta');
 
 Route::get('pdf/{txt}/{select}', 'PdfController@pdf');
 
