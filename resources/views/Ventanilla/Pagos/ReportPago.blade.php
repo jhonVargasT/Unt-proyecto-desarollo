@@ -116,7 +116,7 @@
                     </thead>
                     <body>
                     @if(isset($pagos))
-                        @foreach($pago as $p)
+                        @foreach($pagos as $p)
                             <tr>
                                 <td>{{$p->codPago}}</td>
                                 <td>{{$p->p1dni}}</td>
