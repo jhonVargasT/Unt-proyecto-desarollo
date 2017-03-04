@@ -163,7 +163,7 @@
                 </div>
                 <div class="col-sm-2">
                     <!--Contenido-->
-                    @if(isset($txt)&&isset($select))
+                    @if(isset($txt)&&isset($select)&&isset($pago))
                         <a href="pdf/{{$txt}}/{{$select}}" class="btn btn-sm btn-primary"><span
                                     class="glyphicon glyphicon-print"></span>Imprimir
                         </a>
