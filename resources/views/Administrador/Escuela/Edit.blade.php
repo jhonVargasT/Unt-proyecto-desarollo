@@ -56,7 +56,7 @@
                             </div>
                             <div class="col-sm-12 row form-group">
                                 <div class="form-group-sm " align="left">
-                                    <span class="col-sm-2 control-label"> Nombre facultad</span>
+                                    <span class="col-sm-2 control-label"> Nombre escuela</span>
                                     <div class="col-sm-3">
                                         <input class="form-control input-sm" name="NombreEscuela" type="text"
                                                autocomplete="off" onkeypress="return validarLetras(event)"
