@@ -70,7 +70,6 @@ class sedeController extends Controller
         return view('Administrador/Sede/Search')->with(['nombre' => $request->NombreFacultad]);
     }
 
-
     public function autocompletesede(Request $request)
     {
         $data = DB::table('sede')->select("nombresede as name")->where("nombresede", "LIKE", "%{$request->input('query')}%")->get();
