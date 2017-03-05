@@ -251,7 +251,7 @@ class pagomodel
     {
         $alumnobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
-        left join personal on pago.coPersonal = personal.idPersona
+        left join personal on pago.coPersonal = personal.idPersonal
         left join persona as p1 on p1.codPersona = pago.idPersona
         left join persona as p2 on p2.codPersona = personal.idPersona
         where pago.idSubtramite = subtramite.codSubtramite
@@ -266,7 +266,7 @@ class pagomodel
     {
         $alumnobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
-        left join personal on pago.coPersonal = personal.idPersona
+        left join personal on pago.coPersonal = personal.idPersonal
         left join persona as p1 on p1.codPersona = pago.idPersona
         left join persona as p2 on p2.codPersona = personal.idPersona
         left join alumno on p1.codPersona=alumno.idPersona
@@ -284,7 +284,7 @@ class pagomodel
     {
         $clientebd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
-        left join personal on pago.coPersonal = personal.idPersona
+        left join personal on pago.coPersonal = personal.idPersonal
         left join persona as p1 on p1.codPersona = pago.idPersona
         left join persona as p2 on p2.codPersona = personal.idPersona
         left join cliente on p1.codPersona=cliente.idPersona
@@ -301,7 +301,7 @@ class pagomodel
     {
         $pagobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
-        left join personal on pago.coPersonal = personal.idPersona
+        left join personal on pago.coPersonal = personal.idPersonal
         left join persona as p1 on p1.codPersona = pago.idPersona
         left join persona as p2 on p2.codPersona = personal.idPersona
         where pago.idSubtramite = subtramite.codSubtramite
@@ -317,7 +317,7 @@ class pagomodel
     {
         $pagobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
-        left join personal on pago.coPersonal = personal.idPersona
+        left join personal on pago.coPersonal = personal.idPersonal
         left join persona as p1 on p1.codPersona = pago.idPersona
         left join persona as p2 on p2.codPersona = personal.idPersona
         where pago.idSubtramite = subtramite.codSubtramite
@@ -336,7 +336,7 @@ class pagomodel
 
         $pagobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
-        left join personal on pago.coPersonal = personal.idPersona
+        left join personal on pago.coPersonal = personal.idPersonal
         left join persona as p1 on p1.codPersona = pago.idPersona
         left join persona as p2 on p2.codPersona = personal.idPersona
         where pago.idSubtramite = subtramite.codSubtramite
@@ -350,12 +350,12 @@ class pagomodel
 
     public function consultarPagos()
     {
-        $alumnobd = DB::select(' SELECT pago.codPago, p1.dni AS p1dni, p1.nombres AS p1nombres, p1.apellidos AS p1apellidos, subtramite.nombre, pago.fecha AS pfecha, subtramite.precio, pago.modalidad, detalle, p2.nombres AS pnombres, p2.apellidos AS papellidos FROM pago
+        $alumnobd = DB::select(' SELECT pago.codPago, p1.dni AS p1dni,p1.nombres AS p1nombres, p1.apellidos AS p1apellidos,subtramite.nombre, pago.fecha AS pfecha, subtramite.precio, pago.modalidad, detalle, p2.nombres AS pnombres,p2.apellidos AS papellidos FROM pago 
         LEFT JOIN subtramite ON pago.idSubtramite = subtramite.codSubtramite
         LEFT JOIN personal ON pago.coPersonal = personal.idPersonal
         LEFT JOIN persona AS p1 ON p1.codPersona = pago.idPersona
         LEFT JOIN persona AS p2 ON p2.codPersona = personal.idPersona
-        WHERE pago.estado = 1;');
+        WHERE pago.idSubtramite = subtramite.codSubtramite AND pago.coPersonal = personal.idPersonal AND p1.codPersona = pago.idPersona AND p2.codPersona = personal.idPersona AND pago.estado = 1');
         return $alumnobd;
     }
 
