@@ -249,16 +249,13 @@ class pagomodel
 
     public function consultarAlumnoDNI($dni)
     {
-        $alumnobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle from pago
-        left join subtramite on pago.idSubtramite = subtramite.codSubtramite
-        left join personal on pago.coPersonal = personal.idPersonal
-        left join persona as p1 on p1.codPersona = pago.idPersona
-        left join persona as p2 on p2.codPersona = personal.idPersona
-        where pago.idSubtramite = subtramite.codSubtramite
-        and pago.coPersonal = personal.idPersona
-        and p1.codPersona = pago.idPersona
-        and p2.codPersona = personal.idPersona
-        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and p1.dni like "%' . $dni . '%"');
+        $alumnobd = DB::select('SELECT pago.codPago, p1.dni AS p1dni, p1.nombres AS p1nombres, p1.apellidos AS p1apellidos, subtramite.nombre, pago.fecha AS pfecha, subtramite.precio, pago.modalidad, detalle,
+        p2.nombres AS pnombres, p2.apellidos AS papellidos FROM pago
+        LEFT JOIN subtramite ON pago.idSubtramite = subtramite.codSubtramite
+        LEFT JOIN personal ON pago.coPersonal = personal.idPersonal
+        LEFT JOIN persona AS p1 ON p1.codPersona = pago.idPersona
+        LEFT JOIN persona AS p2 ON p2.codPersona = personal.idPersona
+        WHERE pago.idSubtramite = subtramite.codSubtramite AND pago.coPersonal = personal.idPersonal AND p1.codPersona = pago.idPersona AND p2.codPersona = personal.idPersona AND pago.estado = 1 AND p1.dni = ' . $dni . ' ');
         return $alumnobd;
     }
 
@@ -271,11 +268,11 @@ class pagomodel
         left join persona as p2 on p2.codPersona = personal.idPersona
         left join alumno on p1.codPersona=alumno.idPersona
         where pago.idSubtramite = subtramite.codSubtramite
-        and pago.coPersonal = personal.idPersona
+        and pago.coPersonal = personal.idPersonal
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
         and p1.codPersona=alumno.idPersona
-        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and alumno.estado=1 and alumno.codAlumno like "%' . $codAlumno . '%"');
+        and pago.estado=1 and alumno.codAlumno = ' . $codAlumno . ' ');
 
         return $alumnobd;
     }
@@ -289,11 +286,11 @@ class pagomodel
         left join persona as p2 on p2.codPersona = personal.idPersona
         left join cliente on p1.codPersona=cliente.idPersona
         where pago.idSubtramite = subtramite.codSubtramite
-        and pago.coPersonal = personal.idPersona
+        and pago.coPersonal = personal.idPersonal
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
         and p1.codPersona=cliente.idPersona
-        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and cliente.estado=1 and cliente.ruc like "%' . $ruc . '%"');
+        and pago.estado=1  and cliente.ruc = ' . $ruc . ' ');
         return $clientebd;
     }
 
@@ -305,10 +302,10 @@ class pagomodel
         left join persona as p1 on p1.codPersona = pago.idPersona
         left join persona as p2 on p2.codPersona = personal.idPersona
         where pago.idSubtramite = subtramite.codSubtramite
-        and pago.coPersonal = personal.idPersona
+        and pago.coPersonal = personal.idPersonal
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
-        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and pago.codPago like "%' . $codPago . '%"');
+        and pago.estado=1 and pago.codPago = ' . $codPago . ' ');
 
         return $pagobd;
     }
@@ -321,7 +318,7 @@ class pagomodel
         left join persona as p1 on p1.codPersona = pago.idPersona
         left join persona as p2 on p2.codPersona = personal.idPersona
         where pago.idSubtramite = subtramite.codSubtramite
-        and pago.coPersonal = personal.idPersona
+        and pago.coPersonal = personal.idPersonal
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
         and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and pago.codPago = ' . $codPago . ' ');
@@ -340,10 +337,10 @@ class pagomodel
         left join persona as p1 on p1.codPersona = pago.idPersona
         left join persona as p2 on p2.codPersona = personal.idPersona
         where pago.idSubtramite = subtramite.codSubtramite
-        and pago.coPersonal = personal.idPersona
+        and pago.coPersonal = personal.idPersonal
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
-        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and personal.codPersonal like "%' . $codPersonal . '%" and pago.fecha like "%' . $dato . '%"');
+        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and personal.codPersonal = ' . $codPersonal . ' and pago.fecha like "%' . $dato . '%"');
 
         return $pagobd;
     }
