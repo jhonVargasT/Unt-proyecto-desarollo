@@ -35,6 +35,7 @@ class pagoController extends Controller
         $codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);
         date_default_timezone_set('America/Lima');
         $dato = date('Y-m-d H:i:s');
+        $convertd = substr($dato, 0, 10);
         $total = $request->total;
         $pago = $request->boletapagar;
         $p = new pagomodel();
@@ -52,11 +53,16 @@ class pagoController extends Controller
             if ($val == $request->text) {
                 $totalp = $total + $pago;
                 session()->put('text', $request->text);
-                return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $totalp, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela, 'facultad' => $request->facultad]);
+
+                return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' => $totalp,
+                    'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
+                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $convertd, 'boleta'=>$request->boletapagar]);
             } else {
                 Session::forget('txt');
                 Session::put('txt', $request->text);
-                return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $total, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela, 'facultad' => $request->facultad]);
+                return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' => $total,
+                    'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
+                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $convertd, 'boleta'=>$request->boletapagar]);
             }
         } else {
             return back()->with('false', 'Error cliente o alumno no registrador');
