@@ -367,7 +367,8 @@ class pagomodel
         $logunt->setDescripcion('eliminarPago');
         $logunt->setCodigoPersonal($codPers);
         try {
-            DB::transaction(function () use ($codPago, $logunt) {
+            DB::transaction(function () use ($codPago, $logunt,$date) {
+                DB::table('pago')->where('codPago', $codPago)->update(['fechaDevolucion' =>$date]);
                 DB::table('pago')->where('codPago', $codPago)->update(['estado' => 0]);
                 $logunt->saveLogUnt();
             });

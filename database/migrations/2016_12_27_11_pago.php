@@ -23,6 +23,7 @@ class Pago extends Migration
             $table ->dateTime('fecha');
             $table ->string('modalidad');
             $table -> boolean('estado')->default('1');
+            $table ->dateTime('fechaDevolucion');
 
 
 
