@@ -323,7 +323,7 @@
                                                readonly>
                                     </div>
                                 </div>
-                            @else
+                            @elseif(isset($boleta))
                                 <span class="col-sm-2">Costo total a pagar:</span>
                                 <div class="col-sm-2">
                                     <div class="col-sm-1">
@@ -331,7 +331,7 @@
                                     </div>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" name="total" id="tp"
-                                               readonly>
+                                               readonly value="{{$boleta}}">
                                     </div>
                                 </div>
                             @endif
