@@ -35,7 +35,7 @@ class pagoController extends Controller
         $codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);
         date_default_timezone_set('America/Lima');
         $dato = date('Y-m-d H:i:s');
-        $convertd = substr($dato, 0, 10);
+        //$convertd = substr($dato, 0, 10);
         $total = $request->total;
         $pago = $request->boletapagar;
         $p = new pagomodel();
@@ -56,13 +56,13 @@ class pagoController extends Controller
 
                 return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' => $totalp,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
-                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $convertd, 'boleta'=>$request->boletapagar]);
+                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar]);
             } else {
                 Session::forget('txt');
                 Session::put('txt', $request->text);
-                return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' => $total,
+                return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' =>$request->boletapagar,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
-                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $convertd, 'boleta'=>$request->boletapagar]);
+                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar]);
             }
         } else {
             return back()->with('false', 'Error cliente o alumno no registrador');
@@ -337,8 +337,17 @@ class pagoController extends Controller
 
     public function obtenerDatos(Request $request)
     {
-        return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $request->buscar, 'total' => $request->total,
-            'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
-            'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $request->fecha]);
+        $buscar = $request->buscar;
+        $total = $request->total;
+        $nombre = $request->nombres;
+        $apellidos = $request->apellidos;
+        $escuela = $request->escuela;
+        $facultad = $request->facultad;
+        $detalle = $request->detalle;
+        $fecha = $request->fecha;
+
+        return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $total,
+            'nombre' => $nombre, 'apellidos' => $apellidos, 'escuela' => $escuela,
+            'facultad' => $facultad, 'detalle' => $detalle, 'fecha' => $fecha]);
     }
 }

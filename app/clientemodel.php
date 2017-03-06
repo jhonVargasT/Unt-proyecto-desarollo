@@ -157,9 +157,8 @@ class clientemodel extends personamodel
 
     public function consultarClienteRUC($ruc)
     {
-        $clientebd = DB::table('cliente')
-            ->where('ruc', '=', $ruc)
-            ->where('estado', '=', 1)->get();
+        $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
+        persona.codPersona = cliente.idPersona and cliente.ruc=:ruc and persona.estado=1 and cliente.estado =1', ['ruc' => $ruc]);
         foreach ($clientebd as $cl) {
             return $client = $cl->idPersona;
         }
@@ -176,9 +175,9 @@ class clientemodel extends personamodel
 
     public function consultarClienteid($codPersona)
     {
-        $alumnobd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
+        $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
         persona.codPersona = cliente.idPersona and persona.codPersona=:codPersona', ['codPersona' => $codPersona]);
-        return $alumnobd;
+        return $clientebd;
     }
 
     public function eliminarCliente($codPersona)

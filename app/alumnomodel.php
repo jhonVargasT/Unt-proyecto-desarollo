@@ -264,9 +264,8 @@ class alumnomodel extends personamodel
     public function consultaridPersonaAlumno($codAlumno)
     {
         $idPer=null;
-        $alumnobd = DB::table('alumno')
-            ->where('codAlumno', '=', $codAlumno)
-            ->where('estado', '=', 1)->get();
+        $alumnobd = DB::select('select * from persona left join alumno on persona.codPersona = alumno.idPersona where 
+        persona.codPersona = alumno.idPersona and alumno.codAlumno=:codAlumno', ['codAlumno' => $codAlumno]);
        foreach ($alumnobd as $al)
        {
          $idPer=$al->idPersona;
