@@ -255,7 +255,7 @@ class pagomodel
         LEFT JOIN personal ON pago.coPersonal = personal.idPersonal
         LEFT JOIN persona AS p1 ON p1.codPersona = pago.idPersona
         LEFT JOIN persona AS p2 ON p2.codPersona = personal.idPersona
-        WHERE pago.idSubtramite = subtramite.codSubtramite AND pago.coPersonal = personal.idPersonal AND p1.codPersona = pago.idPersona AND p2.codPersona = personal.idPersona AND pago.estado = 1 AND p1.dni = ' . $dni . ' ');
+        WHERE pago.idSubtramite = subtramite.codSubtramite AND pago.coPersonal = personal.idPersonal AND p1.codPersona = pago.idPersona AND p2.codPersona = personal.idPersona AND pago.estado = 1 AND p1.dni = ' . $dni . ' order by pago.codPago desc ');
         return $alumnobd;
     }
 
@@ -272,7 +272,7 @@ class pagomodel
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
         and p1.codPersona=alumno.idPersona
-        and pago.estado=1 and alumno.codAlumno = ' . $codAlumno . ' ');
+        and pago.estado=1 and alumno.codAlumno = ' . $codAlumno . ' order by pago.codPago desc ');
 
         return $alumnobd;
     }
@@ -290,7 +290,7 @@ class pagomodel
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
         and p1.codPersona=cliente.idPersona
-        and pago.estado=1  and cliente.ruc = ' . $ruc . ' ');
+        and pago.estado=1  and cliente.ruc = ' . $ruc . ' order by pago.codPago desc ');
         return $clientebd;
     }
 
@@ -305,7 +305,7 @@ class pagomodel
         and pago.coPersonal = personal.idPersonal
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
-        and pago.estado=1 and pago.codPago = ' . $codPago . ' ');
+        and pago.estado=1 and pago.codPago = ' . $codPago . ' order by pago.codPago desc');
 
         return $pagobd;
     }
@@ -321,7 +321,7 @@ class pagomodel
         and pago.coPersonal = personal.idPersonal
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
-        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and pago.codPago = ' . $codPago . ' ');
+        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and pago.codPago = ' . $codPago . ' order by pago.codPago desc');
 
         return $pagobd;
     }
@@ -340,7 +340,7 @@ class pagomodel
         and pago.coPersonal = personal.idPersonal
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
-        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and personal.codPersonal = ' . $codPersonal . ' and pago.fecha like "%' . $dato . '%"');
+        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and personal.codPersonal = ' . $codPersonal . ' and pago.fecha like "%' . $dato . '%" order by pago.fecha desc');
 
         return $pagobd;
     }
@@ -352,7 +352,7 @@ class pagomodel
         LEFT JOIN personal ON pago.coPersonal = personal.idPersonal
         LEFT JOIN persona AS p1 ON p1.codPersona = pago.idPersona
         LEFT JOIN persona AS p2 ON p2.codPersona = personal.idPersona
-        WHERE pago.idSubtramite = subtramite.codSubtramite AND pago.coPersonal = personal.idPersonal AND p1.codPersona = pago.idPersona AND p2.codPersona = personal.idPersona AND pago.estado = 1');
+        WHERE pago.idSubtramite = subtramite.codSubtramite AND pago.coPersonal = personal.idPersonal AND p1.codPersona = pago.idPersona AND p2.codPersona = personal.idPersona AND pago.estado = 1 order by pago.codPago desc ');
         return $alumnobd;
     }
 
@@ -367,8 +367,8 @@ class pagomodel
         $logunt->setDescripcion('eliminarPago');
         $logunt->setCodigoPersonal($codPers);
         try {
-            DB::transaction(function () use ($codPago, $logunt,$date) {
-                DB::table('pago')->where('codPago', $codPago)->update(['fechaDevolucion' =>$date]);
+            DB::transaction(function () use ($codPago, $logunt, $date) {
+                DB::table('pago')->where('codPago', $codPago)->update(['fechaDevolucion' => $date]);
                 DB::table('pago')->where('codPago', $codPago)->update(['estado' => 0]);
                 $logunt->saveLogUnt();
             });
