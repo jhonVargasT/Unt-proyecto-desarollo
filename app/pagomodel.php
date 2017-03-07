@@ -225,16 +225,16 @@ class pagomodel
             $logunt->setFecha($date);
             $logunt->setDescripcion('registrarPago');
             $logunt->setCodigoPersonal($codPers);
-            //try {
-             //   DB::transaction(function () use ($logunt) {
+            try {
+                DB::transaction(function () use ($logunt) {
                     DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal]);
                     $logunt->saveLogUnt();
-             //   });
-          //  } catch (PDOException $e) {
-            //    return false;
-          //  }
+                });
+            } catch (PDOException $e) {
+                return false;
+            }
             return true;
-        } /*else {
+        } else {
             try {
                 DB::transaction(function () {
                     DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite]);
@@ -244,7 +244,7 @@ class pagomodel
             }
             return true;
 
-        }*/
+        }
     }
 
     public function consultarAlumnoDNI($dni)

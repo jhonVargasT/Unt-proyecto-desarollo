@@ -36,18 +36,37 @@
             <form name="form" action="{{url('EscuelaRegistrada')}}" role="form" method="POST" class="Horizontal">
                 {{csrf_field()}}
                 <div class="panel panel-default">
-                    <div class="panel-heading">Datos facultad</div>
+                    <div class="panel-heading">Datos Sede y Facultad</div>
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label">Facultad</span>
+                                <span class="col-sm-2 control-label">Sede</span>
                                 <div class="col-sm-3">
-                                    <input class="typeahead form-control input-sm" type="text" placeholder="ejmp : Ingenieria"
+                                    <input class="typesede form-control input-sm" type="text" placeholder="ejmp : Trujillo"
+                                           name="nombreSede"
+                                           autocomplete="off" required>
+                                    <script type="text/javascript">
+                                        var paths = "{{ route('autocompletesede') }}";
+                                        $('input.typesede').typeahead({
+                                            source: function (querys, processe) {
+                                                return $.get(paths, {query: querys}, function (data) {
+                                                    return processe(data);
+                                                });
+                                            }
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                            <div class="col-sm-1"></div>
+                            <div class="form-group-sm " align="left">
+                                <span class="col-sm-1 control-label">Facultad</span>
+                                <div class="col-sm-4">
+                                    <input class="facultad form-control input-sm" type="text" placeholder="ejmp : Ingenieria"
                                            name="nombreFacultad"
                                            autocomplete="off" required>
                                     <script type="text/javascript">
                                         var path = "{{ route('autocompletee') }}";
-                                        $('input.typeahead').typeahead({
+                                        $('input.facultad').typeahead({
                                             source: function (query, process) {
                                                 return $.get(path, {query: query}, function (data) {
                                                     return process(data);

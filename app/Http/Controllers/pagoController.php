@@ -36,7 +36,6 @@ class pagoController extends Controller
         $csiaf = $subt->consultarSiafNombreSubtramite($request->subtramite);
         date_default_timezone_set('America/Lima');
         $dato = date('Y-m-d H:i:s');
-        //$convertd = substr($dato, 0, 10);
         $total = $request->total;
         $pago = $request->boletapagar;
         $p = new pagomodel();

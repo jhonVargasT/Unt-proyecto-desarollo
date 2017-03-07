@@ -102,12 +102,17 @@ class escuelamodel
         return $this;
     }
 
-    public function buscarFacultad($nombre)
+    public function buscarFacultad($nombref, $nombres)
     {
-        $facultad = DB::select('select * from facultad  where nombre=:nombre', ['nombre' => $nombre]);
+        $fa = null;
+        $facultad = DB::select('select idFacultad from facultad
+        left join sede  on facultad.coSede=sede.codSede
+        where facultad.coSede=sede.codSede and facultad.estado=1
+        and sede.estado=1 and facultad.nombre =:nombref and sede.nombresede=:nombres', ['nombref' => $nombref, 'nombres' => $nombres]);
         foreach ($facultad as $f) {
-            return $f->idFacultad;
+            $fa = $f->idFacultad;
         }
+        return $fa;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -130,7 +135,7 @@ class escuelamodel
         left join facultad on escuela.codigoFacultad=facultad.idFacultad
         left join sede on facultad.coSede=sede.codSede 
         where escuela.codigoFacultad=facultad.idFacultad and facultad.coSede=sede.codSede and sede.estado=1
-        and facultad.estado=1 and escuela.estado=1 and escuela.codEscuela like "%'.$codigo.'%" ');
+        and facultad.estado=1 and escuela.estado=1 and escuela.codEscuela like "%' . $codigo . '%" ');
         return $escuelabd;
     }
 
@@ -140,7 +145,7 @@ class escuelamodel
         left join facultad on escuela.codigoFacultad=facultad.idFacultad
         left join sede on facultad.coSede=sede.codSede 
         where escuela.codigoFacultad=facultad.idFacultad and facultad.coSede=sede.codSede and sede.estado=1
-        and facultad.estado=1 and escuela.estado=1 and escuela.nombre like "%'.$nombre.'%" ');
+        and facultad.estado=1 and escuela.estado=1 and escuela.nombre like "%' . $nombre . '%" ');
         return $escuelabd;
     }
 
@@ -150,7 +155,7 @@ class escuelamodel
         left join facultad on escuela.codigoFacultad=facultad.idFacultad
         left join sede on facultad.coSede=sede.codSede 
         where escuela.codigoFacultad=facultad.idFacultad and facultad.coSede=sede.codSede and sede.estado=1
-        and facultad.estado=1 and escuela.estado=1 and escuela.nroCuenta like "%'.$nroCuenta.'%" ');
+        and facultad.estado=1 and escuela.estado=1 and escuela.nroCuenta like "%' . $nroCuenta . '%" ');
         return $escuelabd;
     }
 
@@ -170,7 +175,7 @@ class escuelamodel
         LEFT JOIN facultad ON escuela.codigoFacultad = facultad.idFacultad
         LEFT JOIN sede ON facultad.coSede= sede.codSede
         WHERE escuela.codigoFacultad = facultad.idFacultad and facultad.coSede= sede.codSede
-        and escuela.estado=1 and sede.estado=1 and facultad.estado=1 and facultad.nombre like "%'.$nombreF.'%"');
+        and escuela.estado=1 and sede.estado=1 and facultad.estado=1 and facultad.nombre like "%' . $nombreF . '%"');
 
         return $escuelabd;
     }
@@ -207,14 +212,14 @@ class escuelamodel
         $logunt->setFecha($date);
         $logunt->setDescripcion('registrarEscuela');
         $logunt->setCodigoPersonal($codPers);
-        try {
-            DB::transaction(function () use ($logunt) {
-                DB::table('escuela')->insert(['codEscuela' => $this->codEscuela, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta, 'codigoFacultad' => $this->facultad]);
-                $logunt->saveLogUnt();
-            });
-        } catch (PDOException $e) {
-            return false;
-        }
+        //try {
+        //DB::transaction(function () use ($logunt) {
+        DB::table('escuela')->insert(['codEscuela' => $this->codEscuela, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta, 'codigoFacultad' => $this->facultad]);
+        $logunt->saveLogUnt();
+        //});
+        //} catch (PDOException $e) {
+        //return false;
+        //}
         return true;
     }
 
