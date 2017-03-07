@@ -126,40 +126,51 @@ class escuelamodel
 
     public function consultarEscuelaCodigo($codigo)
     {
-        $escuelabd = DB::table('escuela')
-            ->where('codEscuela', 'like', '%' . $codigo . '%')
-            ->where('estado', 1)->orderBy('codEscuela', 'desc')->get();
+        $escuelabd = DB::select('select idEscuela, escuela.nombre as nombre, codEscuela, escuela.nroCuenta, sede.nombresede from escuela
+        left join facultad on escuela.codigoFacultad=facultad.idFacultad
+        left join sede on facultad.coSede=sede.codSede 
+        where escuela.codigoFacultad=facultad.idFacultad and facultad.coSede=sede.codSede and sede.estado=1
+        and facultad.estado=1 and escuela.estado=1 and escuela.codEscuela like "%'.$codigo.'%" ');
         return $escuelabd;
-
     }
 
     public function consultarEscuelasNombre($nombre)
     {
-        $escuelabd = DB::table('escuela')
-            ->where('nombre', 'like', '%' . $nombre . '%')
-            ->where('estado', 1)->orderBy('idEscuela', 'desc')->get();
+        $escuelabd = DB::select('select idEscuela, escuela.nombre as nombre, codEscuela, escuela.nroCuenta, sede.nombresede from escuela
+        left join facultad on escuela.codigoFacultad=facultad.idFacultad
+        left join sede on facultad.coSede=sede.codSede 
+        where escuela.codigoFacultad=facultad.idFacultad and facultad.coSede=sede.codSede and sede.estado=1
+        and facultad.estado=1 and escuela.estado=1 and escuela.nombre like "%'.$nombre.'%" ');
         return $escuelabd;
     }
 
     public function consultarEscuelasCuentaInterna($nroCuenta)
     {
-        $escuelabd = DB::table('escuela')
-            ->where('nroCuenta', 'like', '%' . $nroCuenta . '%')
-            ->where('estado', 1)->orderBy('idEscuela', 'desc')->get();
+        $escuelabd = DB::select('select idEscuela, escuela.nombre as nombre, codEscuela, escuela.nroCuenta, sede.nombresede from escuela
+        left join facultad on escuela.codigoFacultad=facultad.idFacultad
+        left join sede on facultad.coSede=sede.codSede 
+        where escuela.codigoFacultad=facultad.idFacultad and facultad.coSede=sede.codSede and sede.estado=1
+        and facultad.estado=1 and escuela.estado=1 and escuela.nroCuenta like "%'.$nroCuenta.'%" ');
         return $escuelabd;
     }
 
     public function consultarEscuelas()
     {
-        $escuelabd = DB::table('escuela')
-            ->where('estado', 1)->orderBy('idEscuela', 'desc')->get();
+        $escuelabd = DB::select('select idEscuela, escuela.nombre as nombre, codEscuela, escuela.nroCuenta, sede.nombresede from escuela
+        left join facultad on escuela.codigoFacultad=facultad.idFacultad
+        left join sede on facultad.coSede=sede.codSede 
+        where escuela.codigoFacultad=facultad.idFacultad and facultad.coSede=sede.codSede and sede.estado=1
+        and facultad.estado=1 and escuela.estado=1');
         return $escuelabd;
     }
 
     public function consultarEscuelasFacultad($nombreF)
     {
-        $escuelabd = DB::select('SELECT idEscuela, escuela.nombre as nombre, codEscuela, escuela.nroCuenta as nroCuenta FROM escuela LEFT JOIN facultad ON escuela.codigoFacultad = facultad.idFacultad WHERE
-        escuela.codigoFacultad = facultad.idFacultad AND facultad.nombre like "%'.$nombreF.'%"');
+        $escuelabd = DB::select('SELECT idEscuela, escuela.nombre as nombre, codEscuela, escuela.nroCuenta as nroCuenta, nombresede FROM escuela 
+        LEFT JOIN facultad ON escuela.codigoFacultad = facultad.idFacultad
+        LEFT JOIN sede ON facultad.coSede= sede.codSede
+        WHERE escuela.codigoFacultad = facultad.idFacultad and facultad.coSede= sede.codSede
+        and escuela.estado=1 and sede.estado=1 and facultad.estado=1 and facultad.nombre like "%'.$nombreF.'%"');
 
         return $escuelabd;
     }

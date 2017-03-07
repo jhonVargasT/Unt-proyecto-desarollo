@@ -67,7 +67,7 @@
                                 <div class="col-sm-1">
                                     <input class="form-control input-sm" name="fuenteFinaciamiento" type="text"
                                            autocomplete="off"
-                                           onkeypress="return validarLetras(event)" value="{{$t->fuentefinanc}}">
+                                           onkeypress="return validarNum(event)" value="{{$t->fuentefinanc}}">
                                 </div>
                             </div>
                         </div>

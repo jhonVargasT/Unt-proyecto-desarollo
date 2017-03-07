@@ -33,6 +33,7 @@ class pagoController extends Controller
             }
         }
         $codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);
+        $csiaf = $subt->consultarSiafNombreSubtramite($request->subtramite);
         date_default_timezone_set('America/Lima');
         $dato = date('Y-m-d H:i:s');
         //$convertd = substr($dato, 0, 10);
@@ -56,13 +57,13 @@ class pagoController extends Controller
 
                 return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' => $totalp,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
-                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar]);
+                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar, 'siaf' => $csiaf]);
             } else {
                 Session::forget('txt');
                 Session::put('txt', $request->text);
-                return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' =>$request->boletapagar,
+                return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' => $request->boletapagar,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
-                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar]);
+                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar, 'siaf' => $csiaf]);
             }
         } else {
             return back()->with('false', 'Error cliente o alumno no registrador');

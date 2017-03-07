@@ -10,11 +10,16 @@
 <form name="form" action="{{url('datos')}}" role="form" method="POST" class="Vertical">
     {{csrf_field()}}
     <div align="center" id="printableArea">
-
         <table class="table">
             <tbody>
             <td><input type="hidden" name="buscar" value="{{$buscar}}" readonly></td>
             <td><input type="hidden" name="facultad" value="{{$facultad}}" readonly></td>
+            <tr>
+                <th>SIAF:</th>
+                <td>
+                    <input name="siaf" value="{{$siaf}}" readonly>
+                </td>
+            </tr>
             <tr>
                 <th>HE RECIBIDO DE:</th>
                 <td>
@@ -25,7 +30,7 @@
             </tr>
             <tr>
                 <th>ESCUELA</th>
-                <td><input name="escuela" value="Software" readonly></td>
+                <td><input name="escuela" value="{{$escuela}}" readonly></td>
             </tr>
             <tr>
                 <th>POR CONCEPTO DE:</th>

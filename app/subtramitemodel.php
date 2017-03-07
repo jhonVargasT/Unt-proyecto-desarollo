@@ -174,36 +174,48 @@ class subtramitemodel
     public function consultarSubtramiteTramite($nombreTramite)
     {
         $subtramitebd = DB::select('select * from tramite left join subtramite on tramite.codTramite = subtramite.idTramite where 
-        tramite.codTramite = subtramite.idTramite and tramite.nombre like "%'.$nombreTramite.'%" and tramite.estado=1 and subtramite.estado=1');
+        tramite.codTramite = subtramite.idTramite and tramite.nombre like "%' . $nombreTramite . '%" and tramite.estado=1 and subtramite.estado=1');
         return $subtramitebd;
     }
 
     public function consultarSubtramiteNombre($nombreSubtramite)
     {
         $subtramitebd = DB::table('subtramite')
-            ->where('nombre','like', '%' . $nombreSubtramite. '%')
+            ->where('nombre', 'like', '%' . $nombreSubtramite . '%')
             ->where('estado', 1)
             ->orderBy('codSubtramite', 'desc')->get();
         return $subtramitebd;
     }
+
     public function consultarSubtramiteidNombre($nombreSubtramite)
     {
         $subtramitebd = DB::table('subtramite')
             ->where('nombre', $nombreSubtramite)
             ->where('estado', 1)
             ->get();
-        $id=null;
-        foreach ($subtramitebd as $su)
-        {
-            $id=$su->codSubtramite;
+        $id = null;
+        foreach ($subtramitebd as $su) {
+            $id = $su->codSubtramite;
         }
         return $id;
+    }
+
+    public function consultarSiafNombreSubtramite($nombreSubtramite)
+    {
+        $clas = null;
+        $subtramitebd = DB::select('select clasificador from tramite left join subtramite on tramite.codTramite = subtramite.idTramite where 
+        tramite.codTramite = subtramite.idTramite and tramite.estado=1 and subtramite.estado=1 and subtramite.nombre =:nombre',['nombre'=>$nombreSubtramite]);
+
+        foreach ($subtramitebd as $sub) {
+            $clas = $sub->clasificador;
+        }
+        return $clas;
     }
 
     public function consultarSubtramiteCuenta($cuenta)
     {
         $subtramitebd = DB::table('subtramite')
-            ->where('cuenta','like', '%' . $cuenta. '%')
+            ->where('cuenta', 'like', '%' . $cuenta . '%')
             ->where('estado', 1)
             ->orderBy('codSubtramite', 'desc')->get();
         return $subtramitebd;

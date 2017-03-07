@@ -18,7 +18,7 @@ class Tramite extends Migration
             $table->engine = 'InnoDB';
 
             $table->increments('codTramite')->unique();
-            $table->string('clasificador')->unique();
+            $table->string('clasificador');
             $table->string('nombre')->unique();
             $table->string('fuentefinanc')->nullable();
             $table->char('tipoRecurso')->nullable();

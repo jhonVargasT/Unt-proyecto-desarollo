@@ -76,6 +76,7 @@
                         <thead>
                         <!--cabecear Tabla-->
                         <tr class="active">
+                            <th>Sede</th>
                             <th>Nombre Escuela</th>
                             <th>Codigo Escuela</th>
                             <th>Cuenta interna</th>
@@ -87,6 +88,7 @@
                                 <!--Contenido-->
                         @foreach($escuela as $es)
                             <tr>
+                                <td>{{$es->nombresede}}</td>
                                 <td>{{$es->nombre}}</td>
                                 <td>{{$es->codEscuela}}</td>
                                 <td>{{$es->nroCuenta}}</td>

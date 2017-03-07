@@ -62,7 +62,7 @@
                         <span class="col-sm-2 control-label"> Fuente de financiamieto</span>
                         <div class="col-sm-1">
                             <input class="form-control" name="fuentefinanc" type="text"
-                                   autocomplete="off" onkeypress="return validarLetras(event)" placeholder="H">
+                                   autocomplete="off" onkeypress="return validarNum(event)" placeholder="H">
                         </div>
                     </div>
                 </div>

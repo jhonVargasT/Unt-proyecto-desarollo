@@ -68,13 +68,13 @@
                                 <div class="form-group-sm " align="left">
                                     <span class="col-sm-2 control-label"> Codigo alumno</span>
                                     <div class="col-sm-3">
-                                        <input class="form-control input-sm" name="codAlumno" type="text" onkeypress="return validarNum(event)">
+                                        <input class="form-control input-sm" name="codAlumno" type="text">
                                     </div>
                                 </div>
                                 <div class="form-group-sm " align="right">
                                     <span class="col-sm-2 control-label"> Codigo matricula</span>
                                     <div class="col-sm-3">
-                                        <input class="form-control input-sm" name="codMatricula" type="text" onkeypress="return validarNum(event)">
+                                        <input class="form-control input-sm" name="codMatricula" type="text">
                                     </div>
                                 </div>
                             </div>
@@ -82,8 +82,11 @@
                                 <div class="form-group-sm " align="left">
                                     <span class="col-sm-2 control-label"> Fecha matricula</span>
                                     <div class="col-sm-3">
-                                        <div class="col-sm-12 input-group date" data-provide="datepicker" >
-                                            <input type="text" name="fecha" class="form-control">
+                                        <div class="col-sm-12 input-group date" data-provide="datepicker">
+                                            <input type="text" name="fecha" class="form-control"
+                                                   value="<?php date_default_timezone_set('America/Lima');
+                                                   $date = date('m/d/Y');
+                                                   echo $date ?>">
                                             <div class="input-group-addon">
                                                 <span class="glyphicon glyphicon-th"></span>
                                             </div>

@@ -61,9 +61,12 @@
                         <span class="col-sm-2 control-label">Fecha </span>
                         <div class="col-sm-3">
                             <div class="col-sm-12 input-group date" data-provide="datepicker">
-                                <input type="text" name="fecha" class="form-control" placeholder="obligatorio" required>
+                                <input type="text" name="fecha" class="form-control" placeholder="obligatorio"
+                                       value="<?php date_default_timezone_set('America/Lima');
+                                       $date = date('m/d/Y');
+                                       echo $date ?>" required>
                                 <div class="input-group-addon">
-                                    <span class="glyphicon glyphicon-th" ></span>
+                                    <span class="glyphicon glyphicon-th"></span>
                                 </div>
                             </div>
                         </div>
@@ -73,7 +76,8 @@
                     <div class="form-group-sm " align="left">
                         <span class="col-sm-2 control-label">Tipo de recurso </span>
                         <div class="col-sm-4">
-                            <input class="form-control input-sm " name="TipoDeRecurso" type="text" id="tr" required disabled>
+                            <input class="form-control input-sm " name="TipoDeRecurso" type="text" id="tr" required
+                                   disabled>
                             <script>
                                 $('#name').change(function () {
                                     $.ajax({
@@ -92,7 +96,8 @@
                             <div class="input-group col-sm-2">
                                 <div class="input-group-addon ">S/.</div>
                                 <input type="text" class="form-control " name="monto"
-                                       autocomplete="off" onkeypress="return validarNum(event)" placeholder="ejmp: 2.50"required>
+                                       autocomplete="off" onkeypress="return validarNum(event)" placeholder="ejmp: 2.50"
+                                       required>
                             </div>
                         </div>
                     </div>
@@ -101,14 +106,16 @@
                         <div class="form-group-sm " align="left">
                             <span class=" col-sm-2 control-label">Descripcion </span>
                             <div class="col-sm-4">
-                                <textarea class="form-control" rows="2" name="descripcion" placeholder="Agregue una breve descripcion"></textarea>
+                                <textarea class="form-control" rows="2" name="descripcion"
+                                          placeholder="Agregue una breve descripcion"></textarea>
                             </div>
                             <div class="col-md-1"></div>
                             <div class=" form-group-sm" align="left">
                                 <span class="col-sm-2 control-label">Numero de resolucion</span>
                                 <div class="col-sm-2">
                                     <input class="form-control " name="numResolucion" type="text"
-                                           autocomplete="off" onkeypress="return validarNum(event)" placeholder="jmp: 124578" required>
+                                           autocomplete="off" onkeypress="return validarNum(event)"
+                                           placeholder="jmp: 124578" required>
                                 </div>
                             </div>
                         </div>

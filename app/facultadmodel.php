@@ -111,17 +111,17 @@ class facultadmodel
     }
 
 
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function llenarFacultadReporte()
     {
-        $facultadbd =DB::table('facultad')->select('nombre')->where('estado','=',1)->get();
+        $facultadbd = DB::table('facultad')->select('nombre')->where('estado', '=', 1)->get();
         return $facultadbd;
     }
+
     public function llenarFacultadRegistro()
     {
-        $facultadbd =DB::table('facultad')->select('nombre')->where('estado','=',1)->get();
+        $facultadbd = DB::table('facultad')->select('nombre')->where('estado', '=', 1)->get();
         return $facultadbd;
     }
 
@@ -133,31 +133,44 @@ class facultadmodel
 
     public function consultarFacultadesCodigo($codigo)
     {
-        $facultadbd = DB::table('facultad')
-            ->where('codFacultad', 'like','%' . $codigo. '%')
-            ->where('estado', 1)->orderBy('idFacultad', 'desc')->get();
+        $facultadbd = DB::select('SELECT idFacultad, codFacultad,nombre, nroCuenta, nombresede FROM facultad 
+        LEFT JOIN sede ON facultad.coSede= sede.codSede
+        WHERE facultad.coSede= sede.codSede
+        and sede.estado=1 and facultad.estado=1 and facultad.codFacultad like "%' . $codigo . '%"');
         return $facultadbd;
     }
 
     public function consultarFacultadesNombre($nombre)
     {
-        $facultadbd = DB::table('facultad')
-            ->where('nombre', 'like', '%' . $nombre . '%')
-            ->where('estado', 1)->orderBy('idFacultad', 'desc')->get();
+        $facultadbd = DB::select('SELECT  idFacultad,codFacultad,nombre, nroCuenta, nombresede FROM facultad 
+        LEFT JOIN sede ON facultad.coSede= sede.codSede
+        WHERE facultad.coSede= sede.codSede
+        and sede.estado=1 and facultad.estado=1 and facultad.nombre like "%' . $nombre . '%"');
         return $facultadbd;
     }
 
     public function consultarFacultades()
     {
-        $facultadbd = DB::table('facultad')
-            ->where('estado', 1)->orderBy('idFacultad', 'desc')->get();
+        $facultadbd = DB::select('SELECT  idFacultad,codFacultad,nombre, nroCuenta, nombresede FROM facultad 
+        LEFT JOIN sede ON facultad.coSede= sede.codSede
+        WHERE facultad.coSede= sede.codSede
+        and sede.estado=1 and facultad.estado=1');
         return $facultadbd;
     }
+
+    public function consultarFacultadesSede($sede)
+    {
+        $facultadbd = DB::select('SELECT  idFacultad,codFacultad,nombre, nroCuenta, nombresede FROM facultad LEFT JOIN sede ON facultad.idFacultad = sede.codSede WHERE
+        facultad.idFacultad = sede.codSede and sede.nombresede like "%' . $sede . '%" ');
+        return $facultadbd;
+    }
+
     public function consultarFacultadesCuentaInterna($nroCuenta)
     {
-        $facultadbd = DB::table('facultad')
-            ->where('nroCuenta', 'like', '%' . $nroCuenta . '%')
-            ->where('estado', 1)->orderBy('idFacultad', 'desc')->get();
+        $facultadbd = DB::select('SELECT  idFacultad,codFacultad,nombre, nroCuenta, nombresede FROM facultad 
+        LEFT JOIN sede ON facultad.coSede= sede.codSede
+        WHERE facultad.coSede= sede.codSede
+        and sede.estado=1 and facultad.estado=1 and facultad.nroCuenta like "%' . $nroCuenta . '%"');
         return $facultadbd;
     }
 
@@ -174,7 +187,7 @@ class facultadmodel
 
         try {
             DB::transaction(function () use ($logunt) {
-                DB::table('facultad')->insert(['codFacultad' => $this->codFacultad, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta, 'coSede'=>$this->codSede]);
+                DB::table('facultad')->insert(['codFacultad' => $this->codFacultad, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta, 'coSede' => $this->codSede]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -195,7 +208,7 @@ class facultadmodel
         $logunt->setCodigoPersonal($codPers);
 
         try {
-            DB::transaction(function () use ($idFacultad,$logunt) {
+            DB::transaction(function () use ($idFacultad, $logunt) {
                 DB::table('facultad')->where('idFacultad', $idFacultad)->update(['codFacultad' => $this->codFacultad, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta]);
                 $logunt->saveLogUnt();
             });
@@ -217,7 +230,7 @@ class facultadmodel
         $logunt->setCodigoPersonal($codPers);
 
         try {
-            DB::transaction(function () use ($idFacultad,$logunt) {
+            DB::transaction(function () use ($idFacultad, $logunt) {
                 DB::table('facultad')->where('idFacultad', $idFacultad)->update(['estado' => 0]);
                 DB::table('escuela')->where('estado', 1)->update(['estado' => 0]);
                 $logunt->saveLogUnt();
@@ -231,11 +244,10 @@ class facultadmodel
     public function bscSedeId($nombreSede)
     {
         $scod = null;
-        $sedebd =DB::table('sede')->where('nombresede','=',$nombreSede)->get();
+        $sedebd = DB::table('sede')->where('nombresede', '=', $nombreSede)->get();
 
-        foreach ($sedebd as $sbd)
-        {
-            $scod= $sbd->codSede;
+        foreach ($sedebd as $sbd) {
+            $scod = $sbd->codSede;
         }
         return $scod;
     }

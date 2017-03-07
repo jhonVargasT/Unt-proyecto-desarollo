@@ -60,7 +60,11 @@ class facultadController extends Controller
                 if ($request->select == 'Cuenta Interna') {
                     $fac = $facultad->consultarFacultadesCuentaInterna($request->text);
                 } else {
-                    $fac = $facultad->consultarFacultades();
+                    if ($request->select == 'Sede') {
+                        $fac = $facultad->consultarFacultadesSede($request->text);
+                    } else {
+                        $fac = $facultad->consultarFacultades();
+                    }
                 }
             }
         }

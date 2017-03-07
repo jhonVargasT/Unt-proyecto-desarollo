@@ -89,9 +89,12 @@
                                     <span class="col-sm-2 control-label"> Fecha matricula</span>
                                     <div class="col-sm-3">
                                         <div class="col-sm-12 input-group date" data-provide="datepicker">
-                                            <input autocomplete="off" type="text" name="fecha" class="form-control" placeholder="obligatorio" required>
+                                            <input type="text" name="fecha" class="form-control"
+                                                   value="<?php date_default_timezone_set('America/Lima');
+                                                   $date = date('m/d/Y');
+                                                   echo $date ?>">
                                             <div class="input-group-addon">
-                                                <span class="glyphicon glyphicon-th" ></span>
+                                                <span class="glyphicon glyphicon-th"></span>
                                             </div>
                                         </div>
                                     </div>

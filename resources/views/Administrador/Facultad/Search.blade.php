@@ -34,6 +34,7 @@
                                 <option>Codigo Facultad</option>
                                 <option>Cuenta Interna</option>
                                 <option>Nombre Facultad</option>
+                                <option>Sede</option>
                             </select>
                         </div>
                     </div>
@@ -60,6 +61,9 @@
                     <!--cabecear Tabla-->
                     <tr class="active">
                         <th>
+                            <div align="center">Sede</div>
+                        </th>
+                        <th>
                             <div align="center">Codigo facultad</div>
                         </th>
                         <th>
@@ -78,6 +82,7 @@
                         <!--Contenido-->
                         @foreach($facultad as $f)
                             <tr>
+                                <td>{{$f->nombresede}}</td>
                                 <td>{{$f->codFacultad}}</td>
                                 <td>{{$f->nombre}}</td>
                                 <td>{{$f->nroCuenta}}</td>
