@@ -213,7 +213,9 @@ Route::get('PagoImprimir/{codPago}', 'PdfController@PagosBoletaAlumno');
 Route::get('ventBoleta', 'PdfController@PagosBoleta');
 Route::resource('datos', 'pagoController@obtenerDatos');
 
-Route::get('pdf/{txt}/{select}', 'PdfController@pdf');
+//Route::get('pdf/{txt}/{select}', 'PdfController@pdf');
+Route::get('excel/{txt}/{select}','ExcelController@reportePago');
+//Route::get('excel/{codPago}', 'PdfController@PagosBoletaAlumno');
 
 Route::get('/buscarNombresD', 'pagoController@buscarNombresD');
 Route::get('/buscarNombresDR', 'pagoController@buscarNombresDR');

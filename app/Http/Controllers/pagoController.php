@@ -69,6 +69,7 @@ class pagoController extends Controller
         }
     }
 
+
     public function buscarNombresD(Request $request)
     {
         $var = $request->name;

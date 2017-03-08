@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use NumberFormatter;
 use PDOException;
 
 class pagomodel

@@ -163,7 +163,7 @@
                 <div class="col-sm-2">
                     <!--Contenido-->
                     @if(isset($pagos))
-                        <a href="pdf/{{$txt}}/{{$select}}" class="btn btn-sm btn-primary"><span
+                        <a href="excel/{{$txt}}/{{$select}}" class="btn btn-sm btn-primary"><span
                                     class="glyphicon glyphicon-print"></span> Imprimir
                         </a>
                     @endif

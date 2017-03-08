@@ -1,17 +1,28 @@
 table {
-    border: 1px solid #333;
-    width: 50%;
+    width: 40%;
+    float:left;
+    margin-left:40px;
 }
 
 td {
-    padding: 7px;
+
     text-align: center;
     font-family: "Times New Roman", Times, serif;
-    font-size: 12px;
+    font-size: 10px;
 }
-th{
+
+th {
     padding: 5px;
     text-align: center;
     font-family: "Times New Roman", Times, serif;
-    font-size: 12px;
+    font-size: 15px;
+}
+
+input{
+    border:none;
+}
+
+.thing {
+    padding: 230px;
+    word-break:break-all;
 }
