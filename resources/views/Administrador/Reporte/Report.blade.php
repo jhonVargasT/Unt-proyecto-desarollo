@@ -32,7 +32,7 @@
                         <div class="form-group-sm col-sm-4 ">
                             <span class="col-sm-5 control-label">Tipo de persona</span>
                             <div class="col-sm-7 ">
-                                <select class=" form-control" name="tipPersona">
+                                <select class=" form-control" name="tipPersona" id="tipPerson">
                                     <option>Todo</option>
                                     <option>Clientes</option>
                                     <option>Alumnos</option>
@@ -44,16 +44,9 @@
                         <div class="form-group-sm col-sm-4 ">
                             <span class="col-sm-4 control-label">Facultad</span>
                             <div class="col-sm-8 ">
-                                <select class=" form-control" name="facultad">
+                                <select class=" form-control" name="facultad" id="fac">
                                     <option>Todo</option>
-                                    <?php
-                                    use App\facultadmodel;
-                                    $facultad = new facultadmodel();
-                                    $facultadbd = $facultad->llenarFacultadReporte();
-                                    foreach ($facultadbd as $f) {
-                                        echo '<option>' . $f->nombre . '</option>';
-                                    }
-                                    ?>
+
                                 </select>
                             </div>
                         </div>
@@ -69,6 +62,55 @@
                                             $('#es').prop('disabled', false);
                                         } else {
                                             $('#es').prop('disabled', true);
+                                        }
+                                    });
+                                    $('#cb').change(function () {
+                                        var value = $('#select option:selected').attr('value');
+                                        if (value == 'Dni') {
+                                            var id = $('#buscar').val();
+                                            $.ajax({
+                                                url: "/buscarNombresD",
+                                                type: "get",
+                                                data: {name: id},
+                                                success: function (data) {
+                                                    if (data == false) {
+                                                        $('#nombres').val(data);
+                                                        $.ajax({
+                                                            url: '/buscarNombresDR',
+                                                            type: "get",
+                                                            data: {name: id},
+                                                            success: function (data) {
+                                                                $('#nombres').val(data)
+                                                            }
+                                                        });
+                                                    }
+                                                    else {
+                                                        $('#nombres').val(data);
+                                                    }
+                                                }
+                                            });
+                                        } else {
+                                            if (value == 'Ruc') {
+                                                $.ajax({
+                                                    url: '/buscarNombresR',
+                                                    type: "get",
+                                                    data: {name: $('#buscar').val()},
+                                                    success: function (data) {
+                                                        $('#nombres').val(data)
+                                                    }
+                                                });
+                                            } else {
+                                                if (value == 'Codigo de alumno') {
+                                                    $.ajax({
+                                                        url: '/buscarNombresC',
+                                                        type: "get",
+                                                        data: {name: $('#buscar').val()},
+                                                        success: function (data) {
+                                                            $('#nombres').val(data);
+                                                        }
+                                                    });
+                                                }
+                                            }
                                         }
                                     });
                                 </script>
@@ -141,6 +183,7 @@
                                             $('#ff').prop('disabled', true);
                                         }
                                     });
+
                                 </script>
                                 <input type="text" class="form-control input-sm " id="ff"
                                        autocomplete="off" disabled="true">
@@ -465,7 +508,7 @@
 
                         <div class="col-md-1"></div>
                         <div class="col-md-2">
-                            <button href="#" class="btn  btn-primary">Imprimir <span
+                            <button href="#" class="btn  btn-primary" id="imp">Imprimir <span
                                         class="glyphicon glyphicon-print"></span></button>
                         </div>
 
@@ -476,3 +519,26 @@
         </div>
     </div>
 @stop
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+           $('#fac').click(function () {
+               $(get('LlenarFacultad',data,function (result) {
+                   alert('123123');
+               }));
+           });
+        });
+
+        $('#fac').change(function () {
+            $.ajax({
+                url: 'LlenarFacultad',
+                type: "get",
+                data: {name: $('#fac').val()},
+                success: function (data) {
+                    $('#fac').val(data);
+                }
+            });
+        });
+    </script>
+
+@endsection
