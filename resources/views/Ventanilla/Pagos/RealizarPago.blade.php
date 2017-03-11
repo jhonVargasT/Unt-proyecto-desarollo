@@ -283,6 +283,11 @@
                                           id="detalle"></textarea>
                             </div>
                         </div>
+                        <div class="form-group-sm">
+                            <div class="col-sm-4">
+                                <input type="checkbox" name="checkbox" value="1"> Deuda<br>
+                            </div>
+                        </div>
                     </div>
                     <br>
                     <div class="col-sm-12 row form-group">
