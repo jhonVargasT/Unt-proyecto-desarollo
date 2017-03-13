@@ -254,6 +254,11 @@
                                     </th>
                                     <th>
                                         <div align="center">
+                                            <small>NOMBRE SEDE</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
                                             <small>NOMBRE FACULTAD</small>
                                         </div>
                                     </th>
@@ -295,7 +300,8 @@
                                 @foreach($result as $r)
                                     <tr>
                                         <td><h6 align="center">{{$r->codigoPago}}</h6></td>
-                                        <td><h6 align="center">{{$r->modalidad }}</h6></td>
+                                        <td><h6 align="center">{{$r->modalidad}}</h6></td>
+                                        <td><h6 align="center"></h6></td>
                                         <td><h6 align="center">{{$r->NombreFacultad }}</h6></td>
                                         <td><h6 align="center">{{$r->nombreEscuela}}</h6></td>
                                         <td><h6 align="center">{{$r->fechaPago}}</h6></td>

@@ -267,26 +267,25 @@ class pagoController extends Controller
         $pago = new pagomodel();
         $op = '=';
 
-        if($request->checkbox==1)
-        {
+        if ($request->checkbox == 1) {
             $op = '>';
         }
         if ($request->selected == 'Dni') {
-            $pag = $pago->consultarAlumnoDNI($request->text,$val,$op);
+            $pag = $pago->consultarAlumnoDNI($request->text, $val, $op);
         } else {
             if ($request->selected == 'Codigo alumno') {
-                $pag = $pago->consultarAlumnoCodigo($request->text,$val,$op);
+                $pag = $pago->consultarAlumnoCodigo($request->text, $val, $op);
             } else {
                 if ($request->selected == 'Ruc') {
-                    $pag = $pago->consultarClienteRuc($request->text,$val,$op);
+                    $pag = $pago->consultarClienteRuc($request->text, $val, $op);
                 } else {
                     if ($request->selected == 'Codigo pago') {
-                        $pag = $pago->consultarCodigoPago($request->text,$val,$op);
+                        $pag = $pago->consultarCodigoPago($request->text, $val, $op);
                     } else {
                         if ($request->selected == 'Codigo personal') {
                             $pag = $pago->consultarCodigoPersonal($request->text);
                         } else {
-                            $pag = $pago->consultarPagos($val,$op);
+                            $pag = $pago->consultarPagos($val, $op);
                         }
                     }
                 }
@@ -318,26 +317,42 @@ class pagoController extends Controller
     public function reportePagos(Request $request)
     {
         $pagoModel = new pagomodel();
-       $fechaDesde = $request->fechaDesde; // El formato que te entrega MySQL es Y-m-d
+        $fechaDesde = $request->fechaDesde; // El formato que te entrega MySQL es Y-m-d
         $fechaDesde = date("Y-m-d", strtotime($fechaDesde));
         $fechaHasta = $request->fechaHasta; // El formato que te entrega MySQL es Y-m-d
         $fechaHasta = date("Y-m-d", strtotime($fechaHasta));
         $estado = $request->estado;
         $modalidad = $request->modalidad;
-        $id=null;
+        $id = null;
         $total = 0;
         if ($estado == 'Anulado') {
             $estado = 0;
         } else {
             $estado = 1;
         }
+        if ($request->selectTram=='Todo') {
             $result = $pagoModel->listarporTramite($estado, $modalidad, $fechaDesde, $fechaHasta);
-
-        foreach ($result as $sum) {
-            echo $sum->NombreFacultad;
-            $total = $total + $sum->precio;
+            foreach ($result as $sum) {
+                $total = $total + $sum->precio;
+            }
         }
-       return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total]);
+        elseif ($request->selectTram=='Tramite')
+        {
+            $result =null;
+        }
+        else{
+            $result =null;
+        }
+
+
+        if($result!=null)
+        {
+            return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total]);
+
+        }
+        else{
+            return view('../errors/trabajando');
+        }
     }
 
     public function obtenerDatos(Request $request)
