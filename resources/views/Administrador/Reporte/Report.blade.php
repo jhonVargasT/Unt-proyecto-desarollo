@@ -315,8 +315,83 @@
 
                                     </tr>
                                 @endforeach
+                                @endif
+                                <thead align="center">
+                                <!--cabecear Tabla-->
+                                <tr class="active">
+
+                                    <th>
+                                        <div align="center">
+                                            <small>ID PAGO</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>MODALIDAD</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>NOMBRE SEDE</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>NOMBRE FACULTAD</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>NOMBRE ESCUELA</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>FECHA PAGO</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>NOMBRE TRAMITE</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>NOMBRE SUB TRAMITE</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>PRECIO</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Opciones</small>
+                                        </div>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <body>
+                                <!--Contenido-->
+
+                                <tr>
+                                    <td><h6 align="center"></h6></td>
+                                    <td><h6 align="center"></h6></td>
+                                    <td><h6 align="center"></h6></td>
+                                    <td><h6 align="center"></h6></td>
+                                    <td><h6 align="center"></h6></td>
+                                    <td><h6 align="center"></h6></td>
+                                    <td><h6 align="center"></h6></td>
+                                    <td><h6 align="center"></h6></td>
+                                    <td><h6 align="center"></h6></td>
+                                    <td align="center">
+
+                                    </td>
+
+                                </tr>
                                 </body>
-                            @endif
+
                         </table>
                     </div>
                     <div class="col-sm-12 row form-group">
