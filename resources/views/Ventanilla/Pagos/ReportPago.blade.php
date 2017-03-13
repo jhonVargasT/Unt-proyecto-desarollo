@@ -27,28 +27,45 @@
                 {{ csrf_field() }}
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm col-sm-6 ">
-                        <span class="col-sm-5 control-label">Buscar por:</span>
+                        <span class="col-sm-3 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
-                            <select class=" form-control" name="selected">
-                                <option>Todo</option>
-                                <option>Dni</option>
-                                <option>Codigo alumno</option>
-                                <option>Ruc</option>
-                                <option>Codigo pago</option>
-                                <option>Codigo personal</option>
+                            <select class=" form-control" name="selected" id="selected">
+                                <option value="Dni">Dni</option>
+                                <option value="Codigo alumno">Codigo alumno</option>
+                                <option value="Ruc">Ruc</option>
+                                <option value="Codigo pago">Codigo pago</option>
+                                <option value="Codigo personal">Codigo personal</option>
+                                <option value="Todo">Todo</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group-sm input-group col-sm-6">
-                        @if(isset($txt))
-                            <input type="text" name="text" class="form-control" value="{{$txt}}">
-                        @else
-                            <input type="text" name="text" class="form-control" placeholder="Ingresa datos aqui .."
-                                   autocomplete="off" value=" ">
-                        @endif
+                        <input type="text" name="text" class="form-control" @if(isset($txt)) value="{{$txt}}"
+                               @endif id="text" required>
+                        <script>
+                            $('#text').prop('required',true);
+                            document.getElementById("text").value = "";
+                            $('#selected').change(function () {
+                                var value = $('#selected option:selected').attr('value');
+                                if (value == 'Todo') {
+                                    $('#text').prop('required',false);
+                                    document.getElementById("text").value = " ";
+                                }
+                                else {
+                                    $('#text').prop('required',true);
+                                }
+                            });
+                        </script>
                         <span class="input-group-btn">
                             <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
                         </span>
+                    </div>
+                </div>
+                <div class="col-sm-7 row form-group">
+                    <div class="form-group-sm col-sm-6 ">
+                        <div class="col-sm-7 ">
+                            <input type="checkbox" name="checkbox" value="1"> Deudas<br>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -129,6 +146,10 @@
                                 <td>{{$p->pnombres}} {{$p->papellidos}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}
+                                    @if($p->deuda > 0)
+                                        <a href="PagoDeuda/{{$p->codPago}}"><span
+                                                    class="glyphicon glyphicon-usd"></span> </a>
+                                    @endif
                                     <a href="PagoImprimir/{{$p->codPago}}"><span
                                                 class="glyphicon glyphicon-print"></span> </a>
                                     <a href="PagoEliminar/{{$p->codPago}}"><span

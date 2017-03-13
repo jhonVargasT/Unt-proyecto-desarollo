@@ -47,6 +47,9 @@ class pagoController extends Controller
         $p->setCoPersonal($idper);
         $p->setIdPersona($codper);
         $p->setIdSubtramite($codSubtramite);
+        if ($request->checkbox == 1) {
+            $p->setDeuda($request->boletapagar);
+        }
         $valid = $p->savePago();
         $buscar = $request->text;
         $val = Session::get('txt', 'No existe session');
@@ -69,7 +72,6 @@ class pagoController extends Controller
             return back()->with('false', 'Error cliente o alumno no registrador');
         }
     }
-
 
     public function buscarNombresD(Request $request)
     {
@@ -259,36 +261,40 @@ class pagoController extends Controller
 
     public function listarPago(Request $request)
     {
+        $val = 0;
         $total = 0;
         $pag = null;
         $pago = new pagomodel();
+        $op = '=';
 
+        if($request->checkbox==1)
+        {
+            $op = '>';
+        }
         if ($request->selected == 'Dni') {
-            $pag = $pago->consultarAlumnoDNI($request->text);
+            $pag = $pago->consultarAlumnoDNI($request->text,$val,$op);
         } else {
             if ($request->selected == 'Codigo alumno') {
-                $pag = $pago->consultarAlumnoCodigo($request->text);
+                $pag = $pago->consultarAlumnoCodigo($request->text,$val,$op);
             } else {
                 if ($request->selected == 'Ruc') {
-                    $pag = $pago->consultarClienteRuc($request->text);
+                    $pag = $pago->consultarClienteRuc($request->text,$val,$op);
                 } else {
                     if ($request->selected == 'Codigo pago') {
-                        $pag = $pago->consultarCodigoPago($request->text);
+                        $pag = $pago->consultarCodigoPago($request->text,$val,$op);
                     } else {
                         if ($request->selected == 'Codigo personal') {
                             $pag = $pago->consultarCodigoPersonal($request->text);
                         } else {
-                            $pag = $pago->consultarPagos();
+                            $pag = $pago->consultarPagos($val,$op);
                         }
                     }
                 }
             }
         }
-
         foreach ($pag as $p) {
             $total = $total + $p->precio;
         }
-
         return view('Ventanilla/Pagos/ReportPago')->with(['pagos' => $pag, 'txt' => $request->text, 'select' => $request->selected, 'total' => $total]);
     }
 
@@ -297,6 +303,14 @@ class pagoController extends Controller
     {
         $pago = new pagomodel();
         $pago->eliminarPago($codPago);
+
+        return view('Ventanilla/Pagos/ReportPago');
+    }
+
+    public function eliminarDeuda($codPago)
+    {
+        $pago = new pagomodel();
+        $pago->eliminarDeuda($codPago);
 
         return view('Ventanilla/Pagos/ReportPago');
     }

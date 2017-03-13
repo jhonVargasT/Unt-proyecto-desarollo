@@ -212,6 +212,7 @@ Route::resource('/pagar','pagoController@registrarPago');
 Route::resource('PagosBuscados', 'pagoController@listarPago');
 Route::get('PagoEliminar/{codPago}', 'pagoController@eliminarPago');
 Route::get('PagoImprimir/{codPago}', 'PdfController@PagosBoletaAlumno');
+Route::get('PagoDeuda/{codPago}', 'pagoController@eliminarDeuda');
 Route::get('ventBoleta', 'PdfController@PagosBoleta');
 Route::resource('datos', 'pagoController@obtenerDatos');
 
