@@ -337,7 +337,7 @@ class pagoController extends Controller
             echo $sum->NombreFacultad;
             $total = $total + $sum->precio;
         }
-       return view('Administrador/Reporte/report')->with(['result' => $result, 'total' => $total]);
+       return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total]);
     }
 
     public function obtenerDatos(Request $request)
