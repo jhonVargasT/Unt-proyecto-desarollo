@@ -88,6 +88,12 @@ class facultadController extends Controller
         }
         return $var;
     }
+    public function autocomplete(Request $request)
+    {
+        $facultad = new facultadmodel();
+        $data = $facultad->llenarFacultadReporte( $request->input('query'));
+        return response()->json($data);
+    }
 
     public function autocompletesede(Request $request)
     {

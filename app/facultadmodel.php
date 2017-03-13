@@ -113,9 +113,9 @@ class facultadmodel
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function llenarFacultadReporte()
+    public function llenarFacultadReporte($nombre)
     {
-        $facultadbd = DB::table('facultad')->select('nombre')->where('estado', '=', 1)->get();
+        $facultadbd = DB::table('facultad')->select('nombre')->where([['estado', '=', 1],['nombre','like','%'.$nombre.'%']])->where('nombre')->get();
         return $facultadbd;
     }
 

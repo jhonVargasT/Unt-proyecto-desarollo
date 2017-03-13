@@ -116,7 +116,7 @@
 <!--[if lt IE 10]>
 <script src="{{asset('assets/js/placeholder.js')}}"></script>
 <![endif]-->
-
+@yield('scripts')
 </body>
 @else
     @include("index")
