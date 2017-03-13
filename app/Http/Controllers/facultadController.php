@@ -92,7 +92,6 @@ class facultadController extends Controller
     public function autocompletesede(Request $request)
     {
         $data = DB::table('sede')->select("nombresede as name")->where("nombresede", "LIKE", "%{$request->input('query')}%")->get();
-
         return response()->json($data);
     }
 }

@@ -137,4 +137,22 @@ class alumnoController extends Controller
             return response()->json($fn);
         }
     }
+
+    public function autoComplete(Request $request)
+    {
+        $products = DB::select('select escuela.nombre as nombre from escuela
+        left join facultad on escuela.codigoFacultad=facultad.idFacultad
+        left join sede on facultad.coSede=sede.codSede 
+        where escuela.codigoFacultad=facultad.idFacultad and facultad.coSede=sede.codSede and sede.estado=1
+        and facultad.estado=1 and escuela.estado=1 and sede.nombresede = "'.$request->sede.'"   and escuela.nombre like "%' . $request->term . '%" ');
+
+        $data = array();
+        foreach ($products as $product) {
+            $data[] = array('value' => $product->nombre);
+        }
+        if (count($data))
+            return $data;
+        else
+            return ['value' => 'No se encuentra'];
+    }
 }
