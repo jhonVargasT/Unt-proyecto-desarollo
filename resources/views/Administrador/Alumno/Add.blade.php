@@ -153,7 +153,7 @@
                                                         }
                                                     });
                                                 },
-                                                min_length: 1
+                                                min_length: 3
                                             });
                                         </script>
                                     </div>

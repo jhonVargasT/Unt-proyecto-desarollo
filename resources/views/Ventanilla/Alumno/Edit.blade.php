@@ -37,8 +37,8 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">Datos persona</div>
                             <div class="panel-body">
-                                <div class="col-sm-12 row form-group">
-                                    <div class="form-group-sm " align="right">
+                                <div class="col-sm-12 row form-group" align="left">
+                                    <div class="form-group-sm " align="">
                                         <span class="col-sm-2 control-label"> Numero de Dni</span>
                                         <div class="col-sm-3">
                                             <input class="form-control input-sm" name="dni" type="text"
@@ -46,7 +46,7 @@
                                                    value="{{$a->dni}}">
                                         </div>
                                     </div>
-                                    <div class="form-group-sm">
+                                    <div class="form-group-sm" align="right">
                                         <span class="col-sm-2">Nombres</span>
                                         <div class="col-sm-4">
                                             <input class="form-control input-sm" name="nombres" type="text"
@@ -56,9 +56,9 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12 row form-group">
-                                    <div class="form-group-sm">
+                                    <div class="form-group-sm" align="left">
                                         <span class="col-sm-2">Apellidos</span>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
                                             <input class="form-control input-sm" name="apellidos" type="text"
                                                    autocomplete="off" onkeypress="return validarLetras(event)"
                                                    value="{{$a->apellidos}}">
@@ -67,20 +67,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="panel panel-default">
+                        <div class="panel panel-default" align="left">
                             <div class="panel-heading">Datos Alumno</div>
                             <div class="panel-body">
                                 <div class="col-sm-12 row form-group">
-                                    <div class="form-group-sm " align="left">
+                                    <div class="form-group-sm " align="">
                                         <span class="col-sm-2 control-label"> Codigo alumno</span>
                                         <div class="col-sm-3">
                                             <input class="form-control input-sm" name="codAlumno" type="text"
                                                    autocomplete="off" value="{{$a->codAlumno}}">
                                         </div>
                                     </div>
-                                    <div class="form-group-sm " align="left">
-                                        <span class="col-sm-3 control-label"> Codigo matricula</span>
-                                        <div class="col-sm-3">
+                                    <div class="form-group-sm " align="right">
+                                        <span class="col-sm-2 control-label"> Codigo matricula</span>
+                                        <div class="col-sm-4">
                                             <input class="form-control input-sm" name="codMatricula" type="text"
                                                    autocomplete="off" value="{{$a->codMatricula}}">
                                         </div>
