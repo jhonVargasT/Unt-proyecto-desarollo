@@ -444,6 +444,8 @@ class pagomodel
     // pago,personal,subtramite,escuela,facultad
     public function listarporTramite($estado, $modalidad, $fechaDesde, $fechaHasta)
     {
+        if($modalidad=='Todo')
+        {
         $pago = DB::table('pago')->select(['pago.codpago as codigoPago','pago.modalidad as modalidad' ,'facultad.nombre as NombreFacultad',
            'escuela.nombre as nombreEscuela','pago.fecha as fechaPago','tramite.nombre as nombreTramite','subtramite.nombre as nombreSubTramite', 'subtramite.precio as precio'])
 
@@ -458,13 +460,34 @@ class pagomodel
             ->leftjoin('sede','facultad.coSede','=','sede.codSede')
             ->where([
                 ['pago.estado', $estado],
-                ['pago.modalidad', $modalidad],
                ['pago.fecha', '>', $fechaDesde],
               //  ['pago.fecha', '=', $fechaDesde],
                ['pago.fecha', '<', $fechaHasta],
              //   ['pago.fecha', '=', $fechaHasta]
             ])->get();
-     
+            }
+        else{
+            $pago = DB::table('pago')->select(['pago.codpago as codigoPago','pago.modalidad as modalidad' ,'facultad.nombre as NombreFacultad',
+                'escuela.nombre as nombreEscuela','pago.fecha as fechaPago','tramite.nombre as nombreTramite','subtramite.nombre as nombreSubTramite', 'subtramite.precio as precio'])
+
+                ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
+                ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
+                ->leftjoin('subtramite','pago.idSubtramite', '=', 'subtramite.codSubtramite')
+                ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+                ->leftjoin('persona as p','pago.idpersona','=','p.codPersona')
+                ->leftjoin('alumno','persona.codPersona','=','alumno.idPersona')
+                ->leftjoin('escuela','alumno.coEscuela','=','escuela.idEscuela')
+                ->leftjoin('facultad','escuela.codigoFacultad','=','facultad.idFacultad')
+                ->leftjoin('sede','facultad.coSede','=','sede.codSede')
+                ->where([
+                    ['pago.estado', $estado],
+                    ['pago.modalidad', $modalidad],
+                    ['pago.fecha', '>', $fechaDesde],
+                    //  ['pago.fecha', '=', $fechaDesde],
+                    ['pago.fecha', '<', $fechaHasta],
+                    //   ['pago.fecha', '=', $fechaHasta]
+                ])->get();
+        }
         return $pago;
 
     }
