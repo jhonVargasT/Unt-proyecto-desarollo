@@ -105,6 +105,7 @@ Route::resource('FacultadesBuscadas', 'facultadController@listarFacultad');
 Route::resource('LlenarFacultad', 'facultadController@llenarFacultad');
 Route::get('FacultadEditada/{idFacultad}', 'facultadController@editarFacultad');
 Route::get('FacultadEliminar/{idFacultad}', 'facultadController@eliminarFacultad');
+Route::resource('autocomplete', 'facultadController@autocomplete');
 /////////////////////////////////////////////Personal///////////////////////////////////////////////////////////////////////////
 
 Route::get('/admRegistrarPersonal', function () {

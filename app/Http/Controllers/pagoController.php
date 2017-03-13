@@ -7,6 +7,7 @@ use App\clientemodel;
 use App\pagomodel;
 use App\personamodel;
 use App\subtramitemodel;
+use App\tramitemodel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -303,37 +304,26 @@ class pagoController extends Controller
     public function reportePagos(Request $request)
     {
         $pagoModel = new pagomodel();
-        $fechaDesde = $request->fechaDesde; // El formato que te entrega MySQL es Y-m-d
+       $fechaDesde = $request->fechaDesde; // El formato que te entrega MySQL es Y-m-d
         $fechaDesde = date("Y-m-d", strtotime($fechaDesde));
         $fechaHasta = $request->fechaHasta; // El formato que te entrega MySQL es Y-m-d
         $fechaHasta = date("Y-m-d", strtotime($fechaHasta));
         $estado = $request->estado;
         $modalidad = $request->modalidad;
-        $tipoCliente = $request->tipPersona;
-        $tipo = null;
-        $result = null;
+        $id=null;
         $total = 0;
         if ($estado == 'Anulado') {
             $estado = 0;
         } else {
             $estado = 1;
         }
-        if ($tipoCliente == 'Clientes') {
-            $result = $pagoModel->listarPagosClientes($estado, $modalidad, $fechaDesde, $fechaHasta, null, null);
-            $tipo = $tipoCliente;
-        } else {
-            if ($tipoCliente == 'Alumnos') {
-                $result = $pagoModel->listarPagosAlumnos($estado, $modalidad, $fechaDesde, $fechaHasta, null, null);
-                $tipo = $tipoCliente;
-            } else {
-                $tipo = $tipoCliente;
-            }
-        }
+            $result = $pagoModel->listarporTramite($estado, $modalidad, $fechaDesde, $fechaHasta);
+
         foreach ($result as $sum) {
+            echo $sum->NombreFacultad;
             $total = $total + $sum->precio;
         }
-        echo $total;
-        return view('Administrador/Reporte/report')->with(['result' => $result, 'tipo' => $tipo, 'total' => $total]);
+       return view('Administrador/Reporte/report')->with(['result' => $result, 'total' => $total]);
     }
 
     public function obtenerDatos(Request $request)

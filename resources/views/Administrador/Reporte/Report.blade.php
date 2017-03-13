@@ -30,13 +30,25 @@
                             </div>
                         </div>
                         <div class="form-group-sm col-sm-4 ">
-                            <span class="col-sm-5 control-label">Tipo de persona</span>
-                            <div class="col-sm-7 ">
-                                <select class=" form-control" name="tipPersona" id="tipPerson">
-                                    <option>Todo</option>
-                                    <option>Clientes</option>
-                                    <option>Alumnos</option>
+                            <div class="col-sm-6 ">
+                                <select class=" form-control" id="select" name="selectTram">
+                                    <option value="Todo">Todo</option>
+                                    <option value="tramite">Tramite</option>
+                                    <option value="subtramite">SubTramite</option>
                                 </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control input-sm " id="input" name="inputTram">
+                                <script>
+                                    var $select = $('#select'), $input = $('#input');
+                                    $select.change(function () {
+                                        if ($select.val() == 'tramite' || $select.val() == 'subtramite') {
+                                            $input.removeAttr('disabled');
+                                        } else {
+                                            $input.attr('disabled', 'disabled').val('');
+                                        }
+                                    }).trigger('change');
+                                </script>
                             </div>
                         </div>
                     </div>
@@ -44,10 +56,8 @@
                         <div class="form-group-sm col-sm-4 ">
                             <span class="col-sm-4 control-label">Facultad</span>
                             <div class="col-sm-8 ">
-                                <select class=" form-control" name="facultad" id="fac">
-                                    <option>Todo</option>
+                                <input class="typeahead form-control " name="facultad" id="fac" autocomplete="off">
 
-                                </select>
                             </div>
                         </div>
                         <div class="form-group-sm col-sm-4 ">
@@ -129,26 +139,7 @@
                             </div>
                         </div>
                         <div class="form-group-sm col-sm-4 ">
-                            <div class="col-sm-6 ">
-                                <select class=" form-control" id="select" name="select">
-                                    <option value="Todo">Todo</option>
-                                    <option value="tramite">Tramite</option>
-                                    <option value="subtramite">SubTramite</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control input-sm " id="input" name="input">
-                                <script>
-                                    var $select = $('#select'), $input = $('#input');
-                                    $select.change(function () {
-                                        if ($select.val() == 'tramite' || $select.val() == 'subtramite') {
-                                            $input.removeAttr('disabled');
-                                        } else {
-                                            $input.attr('disabled', 'disabled').val('');
-                                        }
-                                    }).trigger('change');
-                                </script>
-                            </div>
+
                         </div>
                     </div>
                     <div class="col-sm-12 row form-group">
@@ -196,7 +187,7 @@
                         <div class="form-group-sm col-sm-2 ">
                             <div class="col-sm-8 input-group date" data-provide="datepicker">
                                 <input type="text" name="fechaDesde" class="form-control" placeholder="desde"
-                                       autocomplete="off">
+                                       autocomplete="off" required>
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </div>
@@ -207,7 +198,7 @@
                             <div class="col-sm-8 input-group date" data-provide="datepicker">
                                 <input type="text" name="fechaHasta" class="form-control"
                                        placeholder="hasta"
-                                       autocomplete="off">
+                                       autocomplete="off" required>
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </div>
@@ -246,47 +237,51 @@
                 <div align="center" class="col-sm-12 row form-group ">
                     <div class="table-responsive col-sm-12">
                         <table class="table table-bordered list-inline">
-                            @if(isset($tipo)=='Clientes' )
+                            @if(isset($result) )
                                 <thead align="center">
                                 <!--cabecear Tabla-->
                                 <tr class="active">
 
                                     <th>
                                         <div align="center">
-                                            <small>Id pago</small>
+                                            <small>ID PAGO</small>
                                         </div>
                                     </th>
                                     <th>
                                         <div align="center">
-                                            <small>Tramite</small>
+                                            <small>MODALIDAD</small>
                                         </div>
                                     </th>
                                     <th>
                                         <div align="center">
-                                            <small>Tipo tramite</small>
+                                            <small>NOMBRE FACULTAD</small>
                                         </div>
                                     </th>
                                     <th>
                                         <div align="center">
-                                            <small>cuenta SIAF</small>
+                                            <small>NOMBRE ESCUELA</small>
                                         </div>
                                     </th>
                                     <th>
                                         <div align="center">
-                                            <small>Mondalidad</small>
+                                            <small>FECHA PAGO</small>
                                         </div>
                                     </th>
                                     <th>
                                         <div align="center">
-                                            <small>Fecha</small>
+                                            <small>NOMBRE TRAMITE</small>
                                         </div>
                                     </th>
                                     <th>
                                         <div align="center">
-                                            <small>Monto</small>
+                                            <small>NOMBRE SUB TRAMITE</small>
                                         </div>
                                     </th>
-
+                                    <th>
+                                        <div align="center">
+                                            <small>PRECIO</small>
+                                        </div>
+                                    </th>
                                     <th>
                                         <div align="center">
                                             <small>Opciones</small>
@@ -296,15 +291,17 @@
                                 </thead>
                                 <body>
                                 <!--Contenido-->
+
                                 @foreach($result as $r)
                                     <tr>
-                                        <td><h6 align="center">{{$r->codPago}}</h6></td>
+                                        <td><h6 align="center">{{$r->codigoPago}}</h6></td>
+                                        <td><h6 align="center">{{$r->modalidad }}</h6></td>
+                                        <td><h6 align="center">{{$r->NombreFacultad }}</h6></td>
+                                        <td><h6 align="center">{{$r->nombreEscuela}}</h6></td>
+                                        <td><h6 align="center">{{$r->fechaPago}}</h6></td>
                                         <td><h6 align="center">{{$r-> nombreTramite}}</h6></td>
-                                        <td><h6 align="center">{{$r-> nombreSubTramite}}</h6></td>
-                                        <td><h6 align="center">{{$r->clasificadorSiaf}}</h6></td>
-                                        <td><h6 align="center">{{$r->modalidad}}</h6></td>
-                                        <td><h6 align="center">{{$r-> fechaPago}}</h6></td>
-                                        <td><h6 align="center">{{$r-> precio}}</h6></td>
+                                        <td><h6 align="center">{{$r->nombreSubTramite }}</h6></td>
+                                        <td><h6 align="center">{{$r->precio}}</h6></td>
                                         <td align="center">
                                             <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
                                             <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
@@ -312,186 +309,6 @@
 
                                     </tr>
                                 @endforeach
-                                </body>
-                            @elseif(isset($tipo)=='Alumnos')
-                                <thead>
-
-                                <!--cabecear Tabla-->
-                                <tr class="active">
-
-                                    <th>
-                                        <div align="center">
-                                            <small>Id pago</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>Tipo tramite</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>boucherl</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>fecha de pago</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>cuenta SIAF</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>Cuenta contable</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>Facultad</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>Escuela</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>Monto</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>Mondalidad</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>Nombre Cajero</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>Opciones</small>
-                                        </div>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <body>
-                                <!--Contenido-->
-                                <tr>
-                                    <td><h6></h6></td>
-                                    <td><h6></h6></td>
-                                    <td><h6></h6></td>
-                                    <td><h6></h6></td>
-                                    <td><h6></h6></td>
-                                    <td><h6></h6></td>
-                                    <td><h6></h6></td>
-                                    <td><h6></h6></td>
-                                    <td><h6></h6></td>
-                                    <td><h6></h6></td>
-                                    <td><h6></h6></td>
-                                    <td align="center">
-                                        <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
-                                        <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
-                                    </td>
-
-                                </tr>
-
-                                </body>
-                            @else
-                                <thead>
-
-                                <!--cabecear Tabla-->
-                                <tr class="active">
-
-                                    <th>
-                                        <div align="center">
-                                            <small>Id pago</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>Tipo tramite</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>boucherl</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>fecha de pago</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>cuenta SIAF</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>Cuenta contable</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>Facultad</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>Escuela</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>Monto</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>Mondalidad</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>Nombre Cajero</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>Opciones</small>
-                                        </div>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <body>
-                                <!--Contenido-->
-                                <tr>
-                                    <td><h6></h6></td>
-                                    <td><h6></h6></td>
-                                    <td><h6></h6></td>
-                                    <td><h6></h6></td>
-                                    <td><h6></h6></td>
-                                    <td><h6></h6></td>
-                                    <td><h6></h6></td>
-                                    <td><h6></h6></td>
-                                    <td><h6></h6></td>
-                                    <td><h6></h6></td>
-                                    <td><h6></h6></td>
-                                    <td align="center">
-                                        <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
-                                        <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
-                                    </td>
-
-                                </tr>
-
                                 </body>
                             @endif
                         </table>
@@ -520,13 +337,23 @@
     </div>
 @stop
 @section('scripts')
+    <script type="text/javascript">
+        var path = "{{ route('autocomplete') }}";
+        $('#fac').typeahead({
+            source: function (query, process) {
+                return $.get(path, {query: query}, function (data) {
+                    return process(data);
+                });
+            }
+        });
+    </script>
     <script>
         $(document).ready(function () {
-           $('#fac').click(function () {
-               $(get('LlenarFacultad',data,function (result) {
-                   alert('123123');
-               }));
-           });
+            $('#fac').click(function () {
+                $(get('LlenarFacultad', data, function (result) {
+                    alert('123123');
+                }));
+            });
         });
 
         $('#fac').change(function () {

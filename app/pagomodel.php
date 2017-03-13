@@ -24,7 +24,7 @@ class pagomodel
     {
 
     }
-    
+
 
     /**
      * @return mixed
@@ -393,42 +393,32 @@ class pagomodel
     }
 
     // pago,personal,subtramite,escuela,facultad
-    public function listarPagosClientes($estado, $modalidad, $fechaDesde, $fechaHasta)
+    public function listarporTramite($estado, $modalidad, $fechaDesde, $fechaHasta)
     {
+        $pago = DB::table('pago')->select(['pago.codpago as codigoPago','pago.modalidad as modalidad' ,'facultad.nombre as NombreFacultad',
+           'escuela.nombre as nombreEscuela','pago.fecha as fechaPago','tramite.nombre as nombreTramite','subtramite.nombre as nombreSubTramite', 'subtramite.precio as precio'])
 
-        $pago = DB::table('pago')->select('pago.codPago as codPago', 'pago.fecha as fechaPago', 'pago.modalidad as modalidad',
-            'tramite.clasificador as clasificadorSiaf', 'tramite.nombre as nombreTramite', 'subtramite.nombre as nombreSubTramite', 'subTramite.precio as precio')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'subtramite.idTramite', '=', 'tramite.codTramite')
-            ->leftjoin('persona', 'pago.idPersona', '=', 'persona.codPersona')
-            ->leftjoin('personal', 'pago.coPersonal', '=', 'personal.idPersonal')
-            // ->leftjoin('persona','personal.idPersona','=','persona.coPpersona')
+            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
+            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
+            ->leftjoin('subtramite','pago.idSubtramite', '=', 'subtramite.codSubtramite')
+            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('persona as p','pago.idpersona','=','p.codPersona')
+            ->leftjoin('alumno','persona.codPersona','=','alumno.idPersona')
+            ->leftjoin('escuela','alumno.coEscuela','=','escuela.idEscuela')
+            ->leftjoin('facultad','escuela.codigoFacultad','=','facultad.idFacultad')
+            ->leftjoin('sede','facultad.coSede','=','sede.codSede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.modalidad', $modalidad],
-                ['pago.fecha', '>=', $fechaDesde],
-                ['pago.fecha', '<=', $fechaHasta],
-            ])->orderBy('fecha')->get();;
-
+               ['pago.fecha', '>', $fechaDesde],
+              //  ['pago.fecha', '=', $fechaDesde],
+               ['pago.fecha', '<', $fechaHasta],
+             //   ['pago.fecha', '=', $fechaHasta]
+            ])->get();
+     
         return $pago;
+
     }
 
-    public function listarPagosAlumnos($estado, $modalidad, $fechaDesde, $fechaHasta)
-    {
 
-        $pago = DB::table('pago')->select('pago.codPago as codPago', 'pago.fecha as fechaPago', 'pago.modalidad as modalidad',
-            'tramite.clasificador as clasificadorSiaf', 'tramite.nombre as nombreTramite', 'subtramite.nombre as nombreSubTramite', 'subTramite.precio as precio')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'subtramite.idTramite', '=', 'tramite.codTramite')
-            ->leftjoin('personal', 'pago.coPersonal', '=', 'personal.idPersonal')
-            ->leftjoin('persona', 'pago.idPersona', '=', 'persona.codPersona')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.modalidad', $modalidad],
-                ['pago.fecha', '>=', $fechaDesde],
-                ['pago.fecha', '<=', $fechaHasta],
-            ])->orderBy('fecha')->get();;
-
-        return $pago;
-    }
 }
