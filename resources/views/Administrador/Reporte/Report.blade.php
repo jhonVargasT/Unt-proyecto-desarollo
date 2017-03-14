@@ -315,7 +315,7 @@
 
                                     </tr>
                                 @endforeach
-                                @endif
+                                @else
                                 <thead align="center">
                                 <!--cabecear Tabla-->
                                 <tr class="active">
@@ -391,7 +391,7 @@
 
                                 </tr>
                                 </body>
-
+                                @endif
                         </table>
                     </div>
                     <div class="col-sm-12 row form-group">
