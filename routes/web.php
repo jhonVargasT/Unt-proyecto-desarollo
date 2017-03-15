@@ -216,9 +216,9 @@ Route::get('PagoDeuda/{codPago}', 'pagoController@eliminarDeuda');
 Route::get('ventBoleta', 'PdfController@PagosBoleta');
 Route::resource('datos', 'pagoController@obtenerDatos');
 
-//Route::get('pdf/{txt}/{select}', 'PdfController@pdf');
+
 Route::get('excel/{txt}/{select}','ExcelController@reportePago');
-//Route::get('excel/{codPago}', 'PdfController@PagosBoletaAlumno');
+
 
 Route::get('/buscarNombresD', 'pagoController@buscarNombresD');
 Route::get('/buscarNombresDR', 'pagoController@buscarNombresDR');
@@ -247,9 +247,10 @@ Route::get('autocompletet', array('as' => 'autocompletet', 'uses' => 'donacionCo
 Route::get('autocompletes', array('as' => 'autocompletes', 'uses' => 'pagoController@autocompletes'));
 Route::get('autocompletesede', array('as' => 'autocompletesede', 'uses' => 'facultadController@autocompletesede'));
 Route::get('escuela', array('as' => 'escuela', 'uses' => 'alumnoController@escuela'));
+
+Route::get('searchajax',array('as'=>'searchajax','uses'=>'alumnoController@autoComplete'));
+
 Route::get('/tipoRecurso', 'donacionController@tipoRecurso');
 Route::get('/facultad', 'alumnoController@facultad');
-
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

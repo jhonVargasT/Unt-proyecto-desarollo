@@ -38,15 +38,15 @@
                             <div class="panel-heading">Datos persona</div>
                             <div class="panel-body">
                                 <div class="col-sm-12 row form-group">
-                                    <div class="form-group-sm " align="right">
+                                    <div class="form-group-sm " align="left">
                                         <span class="col-sm-2 control-label"> Numero de Dni</span>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <input class="form-control input-sm" name="dni" type="text"
                                                    autocomplete="off" onkeypress="return validarNum(event)"
                                                    value="{{$a->dni}}">
                                         </div>
                                     </div>
-                                    <div class="form-group-sm">
+                                    <div class="form-group-sm" align="right">
                                         <span class="col-sm-2">Nombres</span>
                                         <div class="col-sm-4">
                                             <input class="form-control input-sm" name="nombres" type="text"
@@ -73,14 +73,14 @@
                                 <div class="col-sm-12 row form-group">
                                     <div class="form-group-sm " align="left">
                                         <span class="col-sm-2 control-label"> Codigo alumno</span>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <input class="form-control input-sm" name="codAlumno" type="text"
                                                    autocomplete="off" value="{{$a->codAlumno}}">
                                         </div>
                                     </div>
-                                    <div class="form-group-sm " align="left">
-                                        <span class="col-sm-3 control-label"> Codigo matricula</span>
-                                        <div class="col-sm-3">
+                                    <div class="form-group-sm " align="right">
+                                        <span class="col-sm-2 control-label"> Codigo matricula</span>
+                                        <div class="col-sm-4">
                                             <input class="form-control input-sm" name="codMatricula" type="text"
                                                    autocomplete="off" value="{{$a->codMatricula}}">
                                         </div>
@@ -89,7 +89,7 @@
                                 <div class="col-sm-12 row form-group">
                                     <div class="form-group-sm " align="left">
                                         <span class="col-sm-2 control-label"> Fecha matricula</span>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <input class="form-control input-sm" name="fecha" type="text"
                                                    autocomplete="off" value="{{$a->fecha}}">
                                         </div>

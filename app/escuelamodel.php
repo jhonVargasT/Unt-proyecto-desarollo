@@ -212,14 +212,14 @@ class escuelamodel
         $logunt->setFecha($date);
         $logunt->setDescripcion('registrarEscuela');
         $logunt->setCodigoPersonal($codPers);
-        //try {
-        //DB::transaction(function () use ($logunt) {
-        DB::table('escuela')->insert(['codEscuela' => $this->codEscuela, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta, 'codigoFacultad' => $this->facultad]);
-        $logunt->saveLogUnt();
-        //});
-        //} catch (PDOException $e) {
-        //return false;
-        //}
+        try {
+            DB::transaction(function () use ($logunt) {
+                DB::table('escuela')->insert(['codEscuela' => $this->codEscuela, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta, 'codigoFacultad' => $this->facultad]);
+                $logunt->saveLogUnt();
+            });
+        } catch (PDOException $e) {
+            return false;
+        }
         return true;
     }
 
