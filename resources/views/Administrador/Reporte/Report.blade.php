@@ -38,7 +38,7 @@
                                 </select>
                             </div>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control input-sm " id="input" name="inputTram">
+                                <input type="text" class="form-control input-sm " id="input" name="inputTram" autocomplete="off">
                                 <script>
                                     var $select = $('#select'), $input = $('#input');
                                     $select.change(function () {
@@ -56,7 +56,7 @@
                         <div class="form-group-sm col-sm-4 ">
                             <span class="col-sm-4 control-label">Facultad</span>
                             <div class="col-sm-8 ">
-                                <input class="typeahead form-control " name="facultad" id="fac" autocomplete="off">
+                                <input class="typeahead form-control " name="facultad" id="tags" autocomplete="off" >
 
                             </div>
                         </div>
@@ -237,7 +237,7 @@
                 <div align="center" class="col-sm-12 row form-group ">
                     <div class="table-responsive col-sm-12">
                         <table class="table table-bordered list-inline">
-                            @if(isset($result) )
+                            @if(isset($result))
                                 <thead align="center">
                                 <!--cabecear Tabla-->
                                 <tr class="active">
@@ -316,82 +316,82 @@
                                     </tr>
                                 @endforeach
                                 @else
-                                <thead align="center">
-                                <!--cabecear Tabla-->
-                                <tr class="active">
+                                    <thead align="center">
+                                    <!--cabecear Tabla-->
+                                    <tr class="active">
 
-                                    <th>
-                                        <div align="center">
-                                            <small>ID PAGO</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>MODALIDAD</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>NOMBRE SEDE</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>NOMBRE FACULTAD</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>NOMBRE ESCUELA</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>FECHA PAGO</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>NOMBRE TRAMITE</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>NOMBRE SUB TRAMITE</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>PRECIO</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>Opciones</small>
-                                        </div>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <body>
-                                <!--Contenido-->
+                                        <th>
+                                            <div align="center">
+                                                <small>ID PAGO</small>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div align="center">
+                                                <small>MODALIDAD</small>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div align="center">
+                                                <small>NOMBRE SEDE</small>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div align="center">
+                                                <small>NOMBRE FACULTAD</small>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div align="center">
+                                                <small>NOMBRE ESCUELA</small>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div align="center">
+                                                <small>FECHA PAGO</small>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div align="center">
+                                                <small>NOMBRE TRAMITE</small>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div align="center">
+                                                <small>NOMBRE SUB TRAMITE</small>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div align="center">
+                                                <small>PRECIO</small>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div align="center">
+                                                <small>Opciones</small>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <body>
+                                    <!--Contenido-->
 
-                                <tr>
-                                    <td><h6 align="center"></h6></td>
-                                    <td><h6 align="center"></h6></td>
-                                    <td><h6 align="center"></h6></td>
-                                    <td><h6 align="center"></h6></td>
-                                    <td><h6 align="center"></h6></td>
-                                    <td><h6 align="center"></h6></td>
-                                    <td><h6 align="center"></h6></td>
-                                    <td><h6 align="center"></h6></td>
-                                    <td><h6 align="center"></h6></td>
-                                    <td align="center">
+                                    <tr>
+                                        <td><h6 align="center"></h6></td>
+                                        <td><h6 align="center"></h6></td>
+                                        <td><h6 align="center"></h6></td>
+                                        <td><h6 align="center"></h6></td>
+                                        <td><h6 align="center"></h6></td>
+                                        <td><h6 align="center"></h6></td>
+                                        <td><h6 align="center"></h6></td>
+                                        <td><h6 align="center"></h6></td>
+                                        <td><h6 align="center"></h6></td>
+                                        <td align="center">
 
-                                    </td>
+                                        </td>
 
-                                </tr>
-                                </body>
-                                @endif
+                                    </tr>
+                                    </body>
+                            @endif
                         </table>
                     </div>
                     <div class="col-sm-12 row form-group">
@@ -427,7 +427,9 @@
                 });
             }
         });
+
     </script>
+
     <script>
         $(document).ready(function () {
             $('#fac').click(function () {

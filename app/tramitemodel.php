@@ -122,6 +122,15 @@ class tramitemodel
             ->orderBy('codTramite', 'desc')->get();
         return $tramitebd;
     }
+    public function consultarNombre($nombre)
+    {
+        $tramitebd = DB::table('tramite')->select('codPago')
+            ->where('nombre',$nombre)
+            ->where('estado', 1)->first();
+
+           echo $tramitebd;
+        
+    }
     public function consultarTramiteFF($ff)
     {
         $tramitebd = DB::table('tramite')

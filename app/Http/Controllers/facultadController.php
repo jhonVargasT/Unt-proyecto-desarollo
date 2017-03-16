@@ -86,7 +86,7 @@ class facultadController extends Controller
         foreach ($nombre as $nom) {
             $var = $nom->nombre;
         }
-        return $var;
+        return Response::json($var);
     }
     public function autocomplete(Request $request)
     {

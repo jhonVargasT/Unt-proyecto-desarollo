@@ -23,10 +23,8 @@ class Pago extends Migration
             $table ->dateTime('fecha');
             $table ->string('modalidad');
             $table -> boolean('estado')->default('1');
-            $table ->dateTime('fechaDevolucion');
-
-
-
+            $table ->dateTime('fechaDevolucion')->nullable();
+            
             $table->integer('idPersona')->unsigned();
             $table->integer('coPersonal')->unsigned()->nullable();
             $table->integer('idSubtramite')->unsigned();

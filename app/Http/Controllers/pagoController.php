@@ -314,43 +314,45 @@ class pagoController extends Controller
         return view('Ventanilla/Pagos/ReportPago');
     }
 
+
     public function reportePagos(Request $request)
     {
         $pagoModel = new pagomodel();
+        $tramite= new  tramitemodel();
         $fechaDesde = $request->fechaDesde; // El formato que te entrega MySQL es Y-m-d
-        $fechaDesde = date("Y-m-d", strtotime($fechaDesde));
+        $fechaDesde = date("Y-m-d H:i:s", strtotime($fechaDesde));
         $fechaHasta = $request->fechaHasta; // El formato que te entrega MySQL es Y-m-d
-        $fechaHasta = date("Y-m-d", strtotime($fechaHasta));
+        $fechaHasta = date("Y-m-d H:i:s", strtotime($fechaHasta));
         $estado = $request->estado;
         $modalidad = $request->modalidad;
         $id = null;
         $total = 0;
+
         if ($estado == 'Anulado') {
             $estado = 0;
         } else {
             $estado = 1;
         }
-        if ($request->selectTram=='Todo') {
-            $result = $pagoModel->listarporTramite($estado, $modalidad, $fechaDesde, $fechaHasta);
-            foreach ($result as $sum) {
-                $total = $total + $sum->precio;
-            }
+
+        if ($request->selectTram == 'Todo') {
+            $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta);
         }
-        elseif ($request->selectTram=='Tramite')
+        elseif ($request->selectTram == 'Tramite')
         {
-            $result =null;
+           $result=null;
         }
         else{
-            $result =null;
-        }
+                $result = null;
+            }
 
+        foreach ($result as $sum) {
+     $total = $total + $sum->precio;
+       }
 
-        if($result!=null)
-        {
+        if ($result != null) {
             return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total]);
 
-        }
-        else{
+        } else {
             return view('../errors/trabajando');
         }
     }

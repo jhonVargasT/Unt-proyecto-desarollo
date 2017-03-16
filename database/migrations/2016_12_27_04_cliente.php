@@ -23,7 +23,7 @@ class Cliente extends Migration
             $table -> string('razonSocial')->nullable();
             $table -> boolean('estado')->default('1');
 
-            $table->integer('idPersona')->unsigned();
+            $table->integer('idPersona')->unique();
 
 
         });
