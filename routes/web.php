@@ -211,13 +211,13 @@ Route::resource('/pagar','pagoController@registrarPago');
 
 Route::resource('PagosBuscados', 'pagoController@listarPago');
 Route::get('PagoEliminar/{codPago}', 'pagoController@eliminarPago');
-Route::get('PagoImprimir/{codPago}', 'PdfController@PagosBoletaAlumno');
+Route::get('PagoImprimir/{codPago}/{estadoimprimir}', 'PdfController@PagosBoletaAlumno');
 Route::get('PagoDeuda/{codPago}', 'pagoController@eliminarDeuda');
 Route::get('ventBoleta', 'PdfController@PagosBoleta');
 Route::resource('datos', 'pagoController@obtenerDatos');
 
 
-Route::get('excel/{txt}/{select}','ExcelController@reportePago');
+Route::get('excel/{txt}/{select}/{val}','ExcelController@reportePago');
 
 
 Route::get('/buscarNombresD', 'pagoController@buscarNombresD');

@@ -6,12 +6,13 @@ use App\pagomodel;
 
 class PdfController extends Controller
 {
-    public function PagosBoletaAlumno($codPago)
+    public function PagosBoletaAlumno($codPago,$val)
     {
         $total = 0;
         $pag = null;
         $pago = new pagomodel();
-        $pag = $pago->consultarCodigoPagoReporte($codPago);
+
+        $pag = $pago->consultarCodigoPagoReporte($codPago,$val);
 
         foreach ($pag as $p) {
             $total = $total + $p->precio;

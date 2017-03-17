@@ -43,16 +43,16 @@
                         <input type="text" name="text" class="form-control" @if(isset($txt)) value="{{$txt}}"
                                @endif id="text" required>
                         <script>
-                            $('#text').prop('required',true);
+                            $('#text').prop('required', true);
                             document.getElementById("text").value = "";
                             $('#selected').change(function () {
                                 var value = $('#selected option:selected').attr('value');
                                 if (value == 'Todo') {
-                                    $('#text').prop('required',false);
+                                    $('#text').prop('required', false);
                                     document.getElementById("text").value = " ";
                                 }
                                 else {
-                                    $('#text').prop('required',true);
+                                    $('#text').prop('required', true);
                                 }
                             });
                         </script>
@@ -146,11 +146,11 @@
                                 <td>{{$p->pnombres}} {{$p->papellidos}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}
-                                    @if($p->deuda > 0)
+                                    @if($p->estadodeuda == 1)
                                         <a href="PagoDeuda/{{$p->codPago}}"><span
                                                     class="glyphicon glyphicon-usd"></span> </a>
                                     @endif
-                                    <a href="PagoImprimir/{{$p->codPago}}"><span
+                                    <a href="PagoImprimir/{{$p->codPago}}/{{$p->estadodeuda}}"><span
                                                 class="glyphicon glyphicon-print"></span> </a>
                                     <a href="PagoEliminar/{{$p->codPago}}"><span
                                                 class="glyphicon glyphicon-trash"></span> </a>
@@ -184,7 +184,14 @@
                 <div class="col-sm-2">
                     <!--Contenido-->
                     @if(isset($pagos))
-                        <a href="excel/{{$txt}}/{{$select}}" class="btn btn-sm btn-primary"><span
+                        @foreach($pagos as $p)
+                            @if($p->estadodeuda==1)
+                                <?php $var = 1; ?>
+                            @elseif($p->estadodeuda==0)
+                                <?php $var = 0; ?>
+                            @endif
+                        @endforeach
+                        <a href="excel/{{$txt}}/{{$select}}/{{$var}}" class="btn btn-sm btn-primary"><span
                                     class="glyphicon glyphicon-print"></span> Imprimir
                         </a>
                     @endif

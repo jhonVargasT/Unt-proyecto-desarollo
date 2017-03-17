@@ -250,7 +250,7 @@ class pagomodel
                     if ($this->deuda == 0) {
                         DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal]);
                     } elseif ($this->deuda != 0) {
-                        DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal, 'deuda' => $this->deuda]);
+                        DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal, 'estadodeuda' => $this->deuda]);
                     }
                     $logunt->saveLogUnt();
                 });
@@ -271,9 +271,9 @@ class pagomodel
         }
     }
 
-    public function consultarAlumnoDNI($dni, $val, $op)
+    public function consultarAlumnoDNI($dni, $val)
     {
-        $alumnobd = DB::select('SELECT pago.codPago, p1.dni AS p1dni, p1.nombres AS p1nombres, p1.apellidos AS p1apellidos, subtramite.nombre, pago.fecha AS pfecha, subtramite.precio, pago.modalidad, detalle, deuda,
+        $alumnobd = DB::select('SELECT pago.codPago, p1.dni AS p1dni, p1.nombres AS p1nombres, p1.apellidos AS p1apellidos, subtramite.nombre, pago.fecha AS pfecha, subtramite.precio, pago.modalidad, detalle, estadodeuda,
         p2.nombres AS pnombres, p2.apellidos AS papellidos FROM pago
         LEFT JOIN subtramite ON pago.idSubtramite = subtramite.codSubtramite
         LEFT JOIN personal ON pago.coPersonal = personal.idPersonal
@@ -281,14 +281,14 @@ class pagomodel
         LEFT JOIN persona AS p2 ON p2.codPersona = personal.idPersona
         WHERE pago.idSubtramite = subtramite.codSubtramite AND pago.coPersonal = personal.idPersonal 
         AND p1.codPersona = pago.idPersona AND p2.codPersona = personal.idPersona AND pago.estado = 1 
-        and pago.deuda ' . $op . ' ' . $val . '
+        and pago.estadodeuda = ' . $val . '
         AND p1.dni = ' . $dni . ' order by pago.codPago desc ');
         return $alumnobd;
     }
 
-    public function consultarAlumnoCodigo($codAlumno, $val, $op)
+    public function consultarAlumnoCodigo($codAlumno, $val)
     {
-        $alumnobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle, deuda from pago
+        $alumnobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle, estadodeuda from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
         left join personal on pago.coPersonal = personal.idPersonal
         left join persona as p1 on p1.codPersona = pago.idPersona
@@ -299,15 +299,15 @@ class pagomodel
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
         and p1.codPersona=alumno.idPersona
-        and pago.deuda ' . $op . ' ' . $val . '
+        and pago.estadodeuda = ' . $val . '
         and pago.estado=1 and alumno.codAlumno = ' . $codAlumno . ' order by pago.codPago desc ');
 
         return $alumnobd;
     }
 
-    public function consultarClienteRuc($ruc, $val, $op)
+    public function consultarClienteRuc($ruc, $val)
     {
-        $clientebd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle, deuda from pago
+        $clientebd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle, estadodeuda from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
         left join personal on pago.coPersonal = personal.idPersonal
         left join persona as p1 on p1.codPersona = pago.idPersona
@@ -318,14 +318,14 @@ class pagomodel
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
         and p1.codPersona=cliente.idPersona
-        and pago.deuda ' . $op . ' ' . $val . '
+        and pago.estadodeuda = ' . $val . '
         and pago.estado=1  and cliente.ruc = ' . $ruc . ' order by pago.codPago desc ');
         return $clientebd;
     }
 
-    public function consultarCodigoPago($codPago, $val, $op)
+    public function consultarCodigoPago($codPago, $val)
     {
-        $pagobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle, deuda from pago
+        $pagobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle, estadodeuda from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
         left join personal on pago.coPersonal = personal.idPersonal
         left join persona as p1 on p1.codPersona = pago.idPersona
@@ -334,14 +334,14 @@ class pagomodel
         and pago.coPersonal = personal.idPersonal
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
-        and pago.estado=1 and pago.deuda ' . $op . ' ' . $val . ' and pago.codPago = ' . $codPago . ' order by pago.codPago desc');
+        and pago.estado=1 and pago.estadodeuda = ' . $val . ' and pago.codPago = ' . $codPago . ' order by pago.codPago desc');
 
         return $pagobd;
     }
 
-    public function consultarCodigoPagoReporte($codPago, $val, $op)
+    public function consultarCodigoPagoReporte($codPago, $val)
     {
-        $pagobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle, deuda from pago
+        $pagobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle, estadodeuda from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
         left join personal on pago.coPersonal = personal.idPersonal
         left join persona as p1 on p1.codPersona = pago.idPersona
@@ -350,7 +350,7 @@ class pagomodel
         and pago.coPersonal = personal.idPersonal
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
-        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and pago.deuda ' . $op . ' ' . $val . ' and p2.estado=1 and pago.codPago = ' . $codPago . ' order by pago.codPago desc');
+        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and pago.estadodeuda = ' . $val . ' and p2.estado=1 and pago.codPago = ' . $codPago . ' order by pago.codPago desc');
 
         return $pagobd;
     }
@@ -374,15 +374,15 @@ class pagomodel
         return $pagobd;
     }
 
-    public function consultarPagos($val, $op)
+    public function consultarPagos($val)
     {
-        $alumnobd = DB::select(' SELECT pago.codPago, p1.dni AS p1dni,p1.nombres AS p1nombres, p1.apellidos AS p1apellidos,subtramite.nombre, pago.fecha AS pfecha, subtramite.precio, pago.modalidad, detalle, p2.nombres AS pnombres,p2.apellidos AS papellidos, deuda FROM pago 
+        $alumnobd = DB::select(' SELECT pago.codPago, p1.dni AS p1dni,p1.nombres AS p1nombres, p1.apellidos AS p1apellidos,subtramite.nombre, pago.fecha AS pfecha, subtramite.precio, pago.modalidad, detalle, p2.nombres AS pnombres,p2.apellidos AS papellidos, estadodeuda FROM pago 
         LEFT JOIN subtramite ON pago.idSubtramite = subtramite.codSubtramite
         LEFT JOIN personal ON pago.coPersonal = personal.idPersonal
         LEFT JOIN persona AS p1 ON p1.codPersona = pago.idPersona
         LEFT JOIN persona AS p2 ON p2.codPersona = personal.idPersona
         WHERE pago.idSubtramite = subtramite.codSubtramite AND pago.coPersonal = personal.idPersonal 
-        AND p1.codPersona = pago.idPersona and pago.deuda ' . $op . ' ' . $val . ' AND p2.codPersona = personal.idPersona AND pago.estado = 1 order by pago.codPago desc ');
+        AND p1.codPersona = pago.idPersona and pago.estadodeuda = ' . $val . ' AND p2.codPersona = personal.idPersona AND pago.estado = 1 order by pago.codPago desc ');
         return $alumnobd;
     }
 
@@ -420,7 +420,7 @@ class pagomodel
         $logunt->setCodigoPersonal($codPers);
         try {
             DB::transaction(function () use ($codPago, $logunt) {
-                DB::table('pago')->where('codPago', $codPago)->update(['deuda' => 0]);
+                DB::table('pago')->where('codPago', $codPago)->update(['estadodeuda' => 0]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {

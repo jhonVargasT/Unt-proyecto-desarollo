@@ -7,30 +7,29 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ExcelController extends Controller
 {
-    public function reportePago($txt, $select)
+    public function reportePago($txt, $select, $val)
     {
-        Excel::create('Laravel Excel', function ($excel) use ($txt, $select) {
-            $excel->sheet('Productos', function ($sheet) use ($txt, $select) {
+        Excel::create('Laravel Excel', function ($excel) use ($txt, $select,$val) {
+            $excel->sheet('Productos', function ($sheet) use ($txt, $select,$val) {
                 $data = null;
-                $total = 0;
                 $pag = null;
                 $pago = new pagomodel();
                 if ($select == 'Dni') {
-                    $pag = $pago->consultarAlumnoDNI($txt);
+                    $pag = $pago->consultarAlumnoDNI($txt,$val);
                 } else {
                     if ($select == 'Codigo alumno') {
-                        $pag = $pago->consultarAlumnoCodigo($txt);
+                        $pag = $pago->consultarAlumnoCodigo($txt,$val);
                     } else {
                         if ($select == 'Ruc') {
-                            $pag = $pago->consultarClienteRuc($txt);
+                            $pag = $pago->consultarClienteRuc($txt,$val);
                         } else {
                             if ($select == 'Codigo pago') {
-                                $pag = $pago->consultarCodigoPago($txt);
+                                $pag = $pago->consultarCodigoPago($txt,$val);
                             } else {
                                 if ($select == 'Codigo personal') {
                                     $pag = $pago->consultarCodigoPersonal($txt);
                                 } else {
-                                    $pag = $pago->consultarPagos();
+                                    $pag = $pago->consultarPagos($val);
                                 }
                             }
                         }

@@ -48,7 +48,7 @@ class pagoController extends Controller
         $p->setIdPersona($codper);
         $p->setIdSubtramite($codSubtramite);
         if ($request->checkbox == 1) {
-            $p->setDeuda($request->boletapagar);
+            $p->setDeuda(1);
         }
         $valid = $p->savePago();
         $buscar = $request->text;
@@ -265,27 +265,26 @@ class pagoController extends Controller
         $total = 0;
         $pag = null;
         $pago = new pagomodel();
-        $op = '=';
 
         if ($request->checkbox == 1) {
-            $op = '>';
+            $val = 1;
         }
         if ($request->selected == 'Dni') {
-            $pag = $pago->consultarAlumnoDNI($request->text, $val, $op);
+            $pag = $pago->consultarAlumnoDNI($request->text, $val);
         } else {
             if ($request->selected == 'Codigo alumno') {
-                $pag = $pago->consultarAlumnoCodigo($request->text, $val, $op);
+                $pag = $pago->consultarAlumnoCodigo($request->text, $val);
             } else {
                 if ($request->selected == 'Ruc') {
-                    $pag = $pago->consultarClienteRuc($request->text, $val, $op);
+                    $pag = $pago->consultarClienteRuc($request->text, $val);
                 } else {
                     if ($request->selected == 'Codigo pago') {
-                        $pag = $pago->consultarCodigoPago($request->text, $val, $op);
+                        $pag = $pago->consultarCodigoPago($request->text, $val);
                     } else {
                         if ($request->selected == 'Codigo personal') {
                             $pag = $pago->consultarCodigoPersonal($request->text);
                         } else {
-                            $pag = $pago->consultarPagos($val, $op);
+                            $pag = $pago->consultarPagos($val);
                         }
                     }
                 }
