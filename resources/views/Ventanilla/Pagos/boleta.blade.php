@@ -50,7 +50,7 @@
             </tr>
             <tr>
                 <th></th>
-                <td><input size="40" id="wo"></td>
+                <td><input size="30" id="wo"></td>
             </tr>
             <tr>
                 <th>CAJERO</th>
@@ -98,7 +98,7 @@
             </tr>
             <tr>
                 <th></th>
-                <td><input size="40" id="wo2"></td>
+                <td><input size="30" id="wo2"></td>
             </tr>
             <tr>
                 <th>CAJERO</th>
