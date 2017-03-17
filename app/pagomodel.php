@@ -445,7 +445,7 @@ class pagomodel
     public function listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta)
     {
         if ($modalidad == 'Todo') {
-            $pago = DB::table('pago')->select(['pago.codpago as codigoPago', 'pago.modalidad as modalidad', 'facultad.nombre as NombreFacultad',
+            $pago = DB::table('pago')->select(['pago.codpago as codigoPago', 'pago.modalidad as modalidad', 'sede.nombresede as nombreSede', 'facultad.nombre as NombreFacultad',
                 'escuela.nombre as nombreEscuela', 'pago.fecha as fechaPago', 'tramite.nombre as nombreTramite', 'subtramite.nombre as nombreSubTramite', 'subtramite.precio as precio'])
                 ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
                 ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')

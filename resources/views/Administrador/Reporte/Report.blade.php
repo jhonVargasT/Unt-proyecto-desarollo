@@ -38,7 +38,8 @@
                                 </select>
                             </div>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control input-sm " id="input" name="inputTram" autocomplete="off">
+                                <input type="text" class="form-control input-sm " id="input" name="inputTram"
+                                       autocomplete="off">
                                 <script>
                                     var $select = $('#select'), $input = $('#input');
                                     $select.change(function () {
@@ -56,7 +57,7 @@
                         <div class="form-group-sm col-sm-4 ">
                             <span class="col-sm-4 control-label">Facultad</span>
                             <div class="col-sm-8 ">
-                                <input class="typeahead form-control " name="facultad" id="tags" autocomplete="off" >
+                                <input class="typeahead form-control " name="facultad" id="tags" autocomplete="off">
 
                             </div>
                         </div>
@@ -301,7 +302,7 @@
                                     <tr>
                                         <td><h6 align="center">{{$r->codigoPago}}</h6></td>
                                         <td><h6 align="center">{{$r->modalidad}}</h6></td>
-                                        <td><h6 align="center"></h6></td>
+                                        <td><h6 align="center">{{$r->nombreSede}}</h6></td>
                                         <td><h6 align="center">{{$r->NombreFacultad }}</h6></td>
                                         <td><h6 align="center">{{$r->nombreEscuela}}</h6></td>
                                         <td><h6 align="center">{{$r->fechaPago}}</h6></td>
@@ -315,8 +316,84 @@
 
                                     </tr>
                                 @endforeach
+                                @else
+                                    <thead align="center">
+                                    <!--cabecear Tabla-->
+                                    <tr class="active">
 
-                            @endif
+                                        <th>
+                                            <div align="center">
+                                                <small>ID PAGO</small>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div align="center">
+                                                <small>MODALIDAD</small>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div align="center">
+                                                <small>NOMBRE SEDE</small>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div align="center">
+                                                <small>NOMBRE FACULTAD</small>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div align="center">
+                                                <small>NOMBRE ESCUELA</small>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div align="center">
+                                                <small>FECHA PAGO</small>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div align="center">
+                                                <small>NOMBRE TRAMITE</small>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div align="center">
+                                                <small>NOMBRE SUB TRAMITE</small>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div align="center">
+                                                <small>PRECIO</small>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div align="center">
+                                                <small>Opciones</small>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <body>
+                                    <!--Contenido-->
+
+                                    <tr>
+                                        <td><h6 align="center"></h6></td>
+                                        <td><h6 align="center"></h6></td>
+                                        <td><h6 align="center"></h6></td>
+                                        <td><h6 align="center"></h6></td>
+                                        <td><h6 align="center"></h6></td>
+                                        <td><h6 align="center"></h6></td>
+                                        <td><h6 align="center"></h6></td>
+                                        <td><h6 align="center"></h6></td>
+                                        <td><h6 align="center"></h6></td>
+                                        <td align="center">
+
+                                        </td>
+
+                                    </tr>
+                                    @endif
+                                    </body>
+
                         </table>
                     </div>
                     <div class="col-sm-12 row form-group">
