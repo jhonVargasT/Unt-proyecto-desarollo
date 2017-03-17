@@ -1,28 +1,23 @@
-table {
-    width: 40%;
-    float:left;
-    margin-left:40px;
+#printableArea{
+    margin: 25px 0;
+    background: white;
+    padding: 30px;
+    clear: both;
+    text-align: center;
+    overflow:hidden;
 }
 
-td {
-
-    text-align: center;
-    font-family: "Times New Roman", Times, serif;
+table{
+    display:inline-block;
+    border:none;
+}
+td,th{
+    padding: 10px;
     font-size: 10px;
 }
-
-th {
-    padding: 5px;
-    text-align: center;
-    font-family: "Times New Roman", Times, serif;
-    font-size: 15px;
-}
-
 input{
     border:none;
 }
-
-.thing {
-    padding: 230px;
-    word-break:break-all;
+textarea{
+    border:none;
 }
