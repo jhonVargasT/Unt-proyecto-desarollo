@@ -35,6 +35,7 @@ class pagoController extends Controller
         }
         $codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);
         $csiaf = $subt->consultarSiafNombreSubtramite($request->subtramite);
+        $cuentaS = $subt->consultarCuentaSubtramiteCodSubtramite($codSubtramite);
         date_default_timezone_set('America/Lima');
         $dato = date('Y-m-d H:i:s');
         $total = $request->total;
@@ -47,10 +48,13 @@ class pagoController extends Controller
         $p->setCoPersonal($idper);
         $p->setIdPersona($codper);
         $p->setIdSubtramite($codSubtramite);
+        $cont = $this->contadorSubtramite($request->subtramite);
+        $contaux = $cont + 1;
         if ($request->checkbox == 1) {
             $p->setDeuda(1);
         }
-        $valid = $p->savePago();
+        $valid = $p->savePago($contaux, $codSubtramite);
+        $contador = $cuentaS . '-' . $contaux;
         $buscar = $request->text;
         $val = Session::get('txt', 'No existe session');
         if ($valid == true) {
@@ -60,17 +64,29 @@ class pagoController extends Controller
 
                 return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' => $totalp,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
-                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar, 'siaf' => $csiaf]);
+                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador]);
             } else {
                 Session::forget('txt');
+
                 Session::put('txt', $request->text);
                 return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' => $request->boletapagar,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
-                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar, 'siaf' => $csiaf]);
+                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador]);
             }
         } else {
             return back()->with('false', 'Error cliente o alumno no registrador');
         }
+    }
+
+    public function contadorSubtramite($nombreSubtramite)
+    {
+        $cont = null;
+        $contador = DB::select('select contador from subtramite where subtramite.estado=1 and subtramite.nombre="' . $nombreSubtramite . '"');
+
+        foreach ($contador as $c) {
+            $cont = $c->contador;
+        }
+        return $cont;
     }
 
     public function buscarNombresD(Request $request)
@@ -317,7 +333,7 @@ class pagoController extends Controller
     public function reportePagos(Request $request)
     {
         $pagoModel = new pagomodel();
-        $tramite= new  tramitemodel();
+        $tramite = new  tramitemodel();
         $fechaDesde = $request->fechaDesde; // El formato que te entrega MySQL es Y-m-d
         $fechaDesde = date("Y-m-d H:i:s", strtotime($fechaDesde));
         $fechaHasta = $request->fechaHasta; // El formato que te entrega MySQL es Y-m-d
@@ -335,18 +351,15 @@ class pagoController extends Controller
 
         if ($request->selectTram == 'Todo') {
             $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta);
+        } elseif ($request->selectTram == 'Tramite') {
+            $result = null;
+        } else {
+            $result = null;
         }
-        elseif ($request->selectTram == 'Tramite')
-        {
-           $result=null;
-        }
-        else{
-                $result = null;
-            }
 
         foreach ($result as $sum) {
-     $total = $total + $sum->precio;
-       }
+            $total = $total + $sum->precio;
+        }
 
         if ($result != null) {
             return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total]);

@@ -204,7 +204,7 @@ class subtramitemodel
     {
         $clas = null;
         $subtramitebd = DB::select('select clasificador from tramite left join subtramite on tramite.codTramite = subtramite.idTramite where 
-        tramite.codTramite = subtramite.idTramite and tramite.estado=1 and subtramite.estado=1 and subtramite.nombre =:nombre',['nombre'=>$nombreSubtramite]);
+        tramite.codTramite = subtramite.idTramite and tramite.estado=1 and subtramite.estado=1 and subtramite.nombre =:nombre', ['nombre' => $nombreSubtramite]);
 
         foreach ($subtramitebd as $sub) {
             $clas = $sub->clasificador;
@@ -219,6 +219,16 @@ class subtramitemodel
             ->where('estado', 1)
             ->orderBy('codSubtramite', 'desc')->get();
         return $subtramitebd;
+    }
+
+    public function consultarCuentaSubtramiteCodSubtramite($codSubtramite)
+    {
+        $sub = null;
+        $subtramitebd = DB::select('select cuenta from subtramite where codSubtramite = "' . $codSubtramite . '"');
+        foreach ($subtramitebd as $s) {
+            $sub = $s->cuenta;
+        }
+        return $sub;
     }
 
     public function consultarSubtramites()

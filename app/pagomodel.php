@@ -226,7 +226,7 @@ class pagomodel
         return $obj;
     }
 
-    public function savePago()
+    public function savePago($contaux, $codSubtramite)
     {
         date_default_timezone_set('Etc/GMT+5');
         $date = date('Y-m-d H:i:s', time());
@@ -246,11 +246,14 @@ class pagomodel
             $logunt->setDescripcion('registrarPago');
             $logunt->setCodigoPersonal($codPers);
             try {
-                DB::transaction(function () use ($logunt) {
+                DB::transaction(function () use ($logunt, $contaux, $codSubtramite) {
                     if ($this->deuda == 0) {
                         DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal]);
+                        DB::table('subtramite')->where('codSubtramite', $codSubtramite)->update(['contador' => $contaux]);
+
                     } elseif ($this->deuda != 0) {
                         DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal, 'estadodeuda' => $this->deuda]);
+                        DB::table('subtramite')->where('codSubtramite', $codSubtramite)->update(['contador' => $contaux]);
                     }
                     $logunt->saveLogUnt();
                 });
@@ -267,7 +270,6 @@ class pagomodel
                 return false;
             }
             return true;
-
         }
     }
 
@@ -488,27 +490,27 @@ class pagomodel
 
     }
 
-    public function listarTramite($estado, $modalidad, $fechaDesde, $fechaHasta,$idTramite)
+    public function listarTramite($estado, $modalidad, $fechaDesde, $fechaHasta, $idTramite)
     {
 
-            $pago = DB::table('pago')->select(['pago.codpago as codigoPago', 'pago.modalidad as modalidad', 'facultad.nombre as NombreFacultad',
-                'escuela.nombre as nombreEscuela', 'pago.fecha as fechaPago', 'tramite.nombre as nombreTramite', 'subtramite.nombre as nombreSubTramite', 'subtramite.precio as precio'])
-                ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-                ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-                ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-                ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
-                ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-                ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-                ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-                ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-                ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
-                ->where([
-                    ['pago.estado', $estado],
-                    ['pago.fecha', '>', $fechaDesde],
-                    //  ['pago.fecha', '=', $fechaDesde],
-                    ['pago.fecha', '<', $fechaHasta],
-                    //   ['pago.fecha', '=', $fechaHasta]
-                ])->get();
+        $pago = DB::table('pago')->select(['pago.codpago as codigoPago', 'pago.modalidad as modalidad', 'facultad.nombre as NombreFacultad',
+            'escuela.nombre as nombreEscuela', 'pago.fecha as fechaPago', 'tramite.nombre as nombreTramite', 'subtramite.nombre as nombreSubTramite', 'subtramite.precio as precio'])
+            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
+            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
+            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
+            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
+            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
+            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
+            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->where([
+                ['pago.estado', $estado],
+                ['pago.fecha', '>', $fechaDesde],
+                //  ['pago.fecha', '=', $fechaDesde],
+                ['pago.fecha', '<', $fechaHasta],
+                //   ['pago.fecha', '=', $fechaHasta]
+            ])->get();
 
 
         return $pago;

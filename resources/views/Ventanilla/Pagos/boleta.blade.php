@@ -16,9 +16,15 @@
             <td><input type="hidden" name="buscar" value="{{$buscar}}" readonly></td>
             <td><input type="hidden" name="facultad" value="{{$facultad}}" readonly></td>
             <tr>
+                <th></th>
+                <td>
+                    <input name="contador" value="{{$contador}}" readonly>
+                </td>
+            </tr>
+            <tr>
                 <th>SIAF:</th>
                 <td>
-                    <input name="siaf" value="{{$siaf}}" readonly>
+                    <input type="text" name="siaf" value="{{$siaf}}" readonly>
                 </td>
             </tr>
             <tr>
@@ -63,6 +69,12 @@
             <tbody>
             <td><input type="hidden" name="buscar" value="{{$buscar}}" readonly></td>
             <td><input type="hidden" name="facultad" value="{{$facultad}}" readonly></td>
+            <tr>
+                <th></th>
+                <td>
+                    <input name="contador" value="{{$contador}}" readonly>
+                </td>
+            </tr>
             <tr>
                 <th>SIAF:</th>
                 <td>

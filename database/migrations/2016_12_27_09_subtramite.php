@@ -23,7 +23,7 @@ class Subtramite extends Migration
             $table ->string('nombre')->unique();
             $table ->double('precio');
             $table -> boolean('estado')->default('1');
-
+            $table ->string('contador');
 
             $table->integer('idTramite')->unsigned();
         });
