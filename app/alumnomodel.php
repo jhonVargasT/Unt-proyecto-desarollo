@@ -8,6 +8,7 @@ use PDOException;
 
 class alumnomodel extends personamodel
 {
+  
     private $codAlumno;
     private $codMatricula;
     private $fecha;

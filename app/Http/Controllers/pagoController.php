@@ -332,37 +332,65 @@ class pagoController extends Controller
 
     public function reportePagos(Request $request)
     {
+        $subTramiteModel = new subtramitemodel();
         $pagoModel = new pagomodel();
+
         $tramite = new  tramitemodel();
+
+        $tramiteModel= new  tramitemodel();
+
         $fechaDesde = $request->fechaDesde; // El formato que te entrega MySQL es Y-m-d
         $fechaDesde = date("Y-m-d H:i:s", strtotime($fechaDesde));
         $fechaHasta = $request->fechaHasta; // El formato que te entrega MySQL es Y-m-d
         $fechaHasta = date("Y-m-d H:i:s", strtotime($fechaHasta));
         $estado = $request->estado;
+        //$tramite=$request->opcTramite;
         $modalidad = $request->modalidad;
-        $id = null;
         $total = 0;
 
+        $imput=$request->inputTram;
         if ($estado == 'Anulado') {
             $estado = 0;
         } else {
             $estado = 1;
         }
+        if ($request->opcTramite =='Tramite') {
 
-        if ($request->selectTram == 'Todo') {
-            $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta);
-        } elseif ($request->selectTram == 'Tramite') {
-            $result = null;
+
+            if ($request->selectTram == 'Todo') {
+                $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta);
+            } elseif ($request->selectTram == 'Tramite') {
+                $result = null;
+            } else {
+                $result = null;
+            }
+
+
+            $tramites= $tramiteModel->consultarId($imput);
+            $tram='tramite.codTramite';
         } else {
-            $result = null;
+            if($request->opcTramite=='SubTramite'){
+
+                $tramites = $subTramiteModel->consultarId($imput);
+                $tram='subtramite.codSubtramite';
+            }
+            else{
+                $tramites=null;
+                $tram='Todo';
+            }
         }
+
+        $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta,$tram,$tramites);
+
+
+
 
         foreach ($result as $sum) {
             $total = $total + $sum->precio;
         }
 
         if ($result != null) {
-            return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total]);
+            return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total,'Tram'=>$request->inputTram,'moda'=>$modalidad,'est'=>$estado,'tramite'=>$request->opcTramite,'caja'=>$imput]);
 
         } else {
             return view('../errors/trabajando');

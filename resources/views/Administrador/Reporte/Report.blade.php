@@ -1,3 +1,4 @@
+
 @extends('Administrador/Body')
 @section('body')
     <br>
@@ -10,8 +11,8 @@
                     <input type="hidden" name="_token" value="{{csrf_token() }}"/>
                     <div class="col-sm-12 row form-group">
                         <div class="form-group-sm col-sm-4 ">
-                            <span class="col-sm-4 control-label">Estado </span>
-                            <div class="col-sm-8 ">
+                            <span class="col-sm-5 control-label">Estado </span>
+                            <div class="col-sm-7 ">
                                 <select class="form-control" name="estado">
                                     <option>Pagado</option>
                                     <option>Anulado</option>
@@ -30,37 +31,43 @@
                             </div>
                         </div>
                         <div class="form-group-sm col-sm-4 ">
-                            <div class="col-sm-6 ">
-                                <select class=" form-control" id="select" name="selectTram">
-                                    <option value="Todo">Todo</option>
-                                    <option value="tramite">Tramite</option>
-                                    <option value="subtramite">SubTramite</option>
+                            <div class="col-sm-4 ">
+                                <select class=" form-control" name="opcTramite">
+                                    <option>Todo</option>
+                                    <option>Tramite</option>
+                                    <option>SubTramite</option>
                                 </select>
+                            </div><div class="col-sm-1 ">
+
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-7">
                                 <input type="text" class="form-control input-sm " id="input" name="inputTram"
                                        autocomplete="off">
-                                <script>
-                                    var $select = $('#select'), $input = $('#input');
-                                    $select.change(function () {
-                                        if ($select.val() == 'tramite' || $select.val() == 'subtramite') {
-                                            $input.removeAttr('disabled');
-                                        } else {
-                                            $input.attr('disabled', 'disabled').val('');
-                                        }
-                                    }).trigger('change');
-                                </script>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-12 row form-group ">
                         <div class="form-group-sm col-sm-4 ">
-                            <span class="col-sm-4 control-label">Facultad</span>
-                            <div class="col-sm-8 ">
+                            <div class="col-sm-5">
+                                <input type="checkbox" id="cb">
+                                Sede
+                            </div>
+                            <div class="col-sm-7 ">
                                 <input class="typeahead form-control " name="facultad" id="tags" autocomplete="off">
 
                             </div>
                         </div>
+                        <div class="form-group-sm col-sm-4 ">
+                            <div class="col-sm-5">
+                                <input type="checkbox" id="cb">
+                                facultad
+                            </div>
+                            <div class="col-sm-7 ">
+                                <input class="typeahead form-control " name="facultad" id="tags" autocomplete="off">
+
+                            </div>
+                        </div>
+
                         <div class="form-group-sm col-sm-4 ">
                             <div class="col-sm-5">
                                 <input type="checkbox" id="cb">
@@ -75,58 +82,10 @@
                                             $('#es').prop('disabled', true);
                                         }
                                     });
-                                    $('#cb').change(function () {
-                                        var value = $('#select option:selected').attr('value');
-                                        if (value == 'Dni') {
-                                            var id = $('#buscar').val();
-                                            $.ajax({
-                                                url: "/buscarNombresD",
-                                                type: "get",
-                                                data: {name: id},
-                                                success: function (data) {
-                                                    if (data == false) {
-                                                        $('#nombres').val(data);
-                                                        $.ajax({
-                                                            url: '/buscarNombresDR',
-                                                            type: "get",
-                                                            data: {name: id},
-                                                            success: function (data) {
-                                                                $('#nombres').val(data)
-                                                            }
-                                                        });
-                                                    }
-                                                    else {
-                                                        $('#nombres').val(data);
-                                                    }
-                                                }
-                                            });
-                                        } else {
-                                            if (value == 'Ruc') {
-                                                $.ajax({
-                                                    url: '/buscarNombresR',
-                                                    type: "get",
-                                                    data: {name: $('#buscar').val()},
-                                                    success: function (data) {
-                                                        $('#nombres').val(data)
-                                                    }
-                                                });
-                                            } else {
-                                                if (value == 'Codigo de alumno') {
-                                                    $.ajax({
-                                                        url: '/buscarNombresC',
-                                                        type: "get",
-                                                        data: {name: $('#buscar').val()},
-                                                        success: function (data) {
-                                                            $('#nombres').val(data);
-                                                        }
-                                                    });
-                                                }
-                                            }
-                                        }
-                                    });
+
                                 </script>
                                 <select class=" form-control" id="es" disabled="true">
-                                    <option selected disabled>Seleccionar..</option>
+                                    <option selected disabled>Seleccionar</option>
                                     <option>Todo</option>
                                     <?php
                                     use App\escuelamodel;
@@ -245,6 +204,111 @@
 
                                     <th>
                                         <div align="center">
+                                            <small>ID</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>MODALIDAD</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>SEDE</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>FACULTAD</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>ESCUELA</small>
+                                        </div>
+                                    </th>
+
+                                    <th>
+                                        <div align="center">
+                                            <small>CLASIFICADOR S.I.A.F</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>FUE FIN</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>TIP REC</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>TRAMITE</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>SUB TRAMITE</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>FECHA </small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>PRECIO</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>DETALLE</small>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div align="center">
+                                            <small>Opciones</small>
+                                        </div>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!--Contenido-->
+
+                                @foreach($result as $r)
+                                    <tr>
+                                        <td><h6 align="center">{{$r->codigoPago}}</h6></td>
+                                        <td><h6 align="left">{{$r->modalidad}}</h6></td>
+                                        <td><h6 align="left">{{$r->nombreSede}}</h6></td>
+                                        <td><h6 align="left">{{$r->NombreFacultad }}</h6></td>
+                                        <td><h6 align="left">{{$r->nombreEscuela}}</h6></td>
+                                        <td><h6 align="left">{{$r->clasi}}</h6></td>
+                                        <td><h6 align="center">{{$r->fuente }}</h6></td>
+                                        <td><h6 align="center">{{$r->tipRe}}</h6></td>
+                                        <td><h6 align="left">{{$r-> nombreTramite}}</h6></td>
+                                        <td><h6 align="left">{{$r->nombreSubTramite }}</h6></td>
+                                        <td><h6 align="left">{{$r->fechaPago}}</h6></td>
+                                        <td><h6 align="left">{{$r->precio}}</h6></td>
+                                        <td><h6 align="left">{{$r->pagoDetalle}}</h6></td>
+                                        <td align="center">
+                                            <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
+                                            <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                                @endforeach
+
+                            @else
+                                <thead align="center">
+                                <!--cabecear Tabla-->
+                                <tr class="active">
+
+                                    <th>
+                                        <div align="center">
                                             <small>ID PAGO</small>
                                         </div>
                                     </th>
@@ -295,104 +359,28 @@
                                     </th>
                                 </tr>
                                 </thead>
-                                <body>
+                                <tbody>
                                 <!--Contenido-->
 
-                                @foreach($result as $r)
-                                    <tr>
-                                        <td><h6 align="center">{{$r->codigoPago}}</h6></td>
-                                        <td><h6 align="center">{{$r->modalidad}}</h6></td>
-                                        <td><h6 align="center">{{$r->nombreSede}}</h6></td>
-                                        <td><h6 align="center">{{$r->NombreFacultad }}</h6></td>
-                                        <td><h6 align="center">{{$r->nombreEscuela}}</h6></td>
-                                        <td><h6 align="center">{{$r->fechaPago}}</h6></td>
-                                        <td><h6 align="center">{{$r-> nombreTramite}}</h6></td>
-                                        <td><h6 align="center">{{$r->nombreSubTramite }}</h6></td>
-                                        <td><h6 align="center">{{$r->precio}}</h6></td>
-                                        <td align="center">
-                                            <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
-                                            <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
-                                        </td>
+                                <tr>
+                                    <td><h6 align="center"></h6></td>
+                                    <td><h6 align="center"></h6></td>
+                                    <td><h6 align="center"></h6></td>
+                                    <td><h6 align="center"></h6></td>
+                                    <td><h6 align="center"></h6></td>
+                                    <td><h6 align="center"></h6></td>
+                                    <td><h6 align="center"></h6></td>
+                                    <td><h6 align="center"></h6></td>
+                                    <td><h6 align="center"></h6></td>
+                                    <td align="center">
 
-                                    </tr>
-                                @endforeach
-                                @else
-                                    <thead align="center">
-                                    <!--cabecear Tabla-->
-                                    <tr class="active">
+                                    </td>
 
-                                        <th>
-                                            <div align="center">
-                                                <small>ID PAGO</small>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            <div align="center">
-                                                <small>MODALIDAD</small>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            <div align="center">
-                                                <small>NOMBRE SEDE</small>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            <div align="center">
-                                                <small>NOMBRE FACULTAD</small>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            <div align="center">
-                                                <small>NOMBRE ESCUELA</small>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            <div align="center">
-                                                <small>FECHA PAGO</small>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            <div align="center">
-                                                <small>NOMBRE TRAMITE</small>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            <div align="center">
-                                                <small>NOMBRE SUB TRAMITE</small>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            <div align="center">
-                                                <small>PRECIO</small>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            <div align="center">
-                                                <small>Opciones</small>
-                                            </div>
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <body>
-                                    <!--Contenido-->
+                                </tr>
+                                </tbody>
 
-                                    <tr>
-                                        <td><h6 align="center"></h6></td>
-                                        <td><h6 align="center"></h6></td>
-                                        <td><h6 align="center"></h6></td>
-                                        <td><h6 align="center"></h6></td>
-                                        <td><h6 align="center"></h6></td>
-                                        <td><h6 align="center"></h6></td>
-                                        <td><h6 align="center"></h6></td>
-                                        <td><h6 align="center"></h6></td>
-                                        <td><h6 align="center"></h6></td>
-                                        <td align="center">
+                            @endif
 
-                                        </td>
-
-                                    </tr>
-                                    @endif
-                                    </body>
 
                         </table>
                     </div>
