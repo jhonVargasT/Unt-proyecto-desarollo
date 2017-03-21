@@ -30,7 +30,19 @@ class tramitemodel
     {
         return $this->clasificador;
     }
-
+    public function consultarId($nombre)
+    {
+        $val=null;
+        $tramiteDB=DB::table('tramite')
+            ->select('codTramite as codigo')
+            ->where('nombre','=',$nombre)
+            ->first();
+        foreach ($tramiteDB as $tr)
+        {
+            $val=$tr;
+        }
+        return $val;
+    }
     /**
      * @param mixed $clasificador
      * @return tramitemodel
