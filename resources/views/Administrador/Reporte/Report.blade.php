@@ -280,19 +280,19 @@
 
                                 @foreach($result as $r)
                                     <tr>
-                                        <td><h6 align="center">{{$r->codigoPago}}</h6></td>
+                                        <td><h6 align="center">{{$r->codigopago}}</h6></td>
                                         <td><h6 align="left">{{$r->modalidad}}</h6></td>
-                                        <td><h6 align="left">{{$r->nombreSede}}</h6></td>
-                                        <td><h6 align="left">{{$r->NombreFacultad }}</h6></td>
-                                        <td><h6 align="left">{{$r->nombreEscuela}}</h6></td>
+                                        <td><h6 align="left">{{$r->nombresede}}</h6></td>
+                                        <td><h6 align="left">{{$r->nombrefacultad }}</h6></td>
+                                        <td><h6 align="left">{{$r->nombreescuela}}</h6></td>
                                         <td><h6 align="left">{{$r->clasi}}</h6></td>
                                         <td><h6 align="center">{{$r->fuente }}</h6></td>
-                                        <td><h6 align="center">{{$r->tipRe}}</h6></td>
-                                        <td><h6 align="left">{{$r-> nombreTramite}}</h6></td>
-                                        <td><h6 align="left">{{$r->nombreSubTramite }}</h6></td>
-                                        <td><h6 align="left">{{$r->fechaPago}}</h6></td>
+                                        <td><h6 align="center">{{$r->tipre}}</h6></td>
+                                        <td><h6 align="left">{{$r-> nombretramite}}</h6></td>
+                                        <td><h6 align="left">{{$r->nombresubtramite }}</h6></td>
+                                        <td><h6 align="left">{{$r->fechapago}}</h6></td>
                                         <td><h6 align="left">{{$r->precio}}</h6></td>
-                                        <td><h6 align="left">{{$r->pagoDetalle}}</h6></td>
+                                        <td><h6 align="left">{{$r->pagodetalle}}</h6></td>
                                         <td align="center">
                                             <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
                                             <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>

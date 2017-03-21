@@ -449,9 +449,9 @@ class pagomodel
 
 
         if ($modalidad == 'Todo' && $tram == 'Todo') {
-            $pago = DB::table('pago')->select(['pago.codpago as codigoPago', 'pago.modalidad as modalidad', 'sede.nombresede as nombreSede', 'facultad.nombre as NombreFacultad',
-                'escuela.nombre as nombreEscuela', 'pago.fecha as fechaPago', 'tramite.nombre as nombreTramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-                'tramite.tipoRecurso as tipRe', 'subtramite.nombre as nombreSubTramite', 'subtramite.precio as precio', 'pago.detalle as pagoDetalle'])
+            $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
+                'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
+                'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
                 ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
                 ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
                 ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
