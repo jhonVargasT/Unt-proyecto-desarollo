@@ -253,4 +253,8 @@ Route::get('searchajax',array('as'=>'searchajax','uses'=>'alumnoController@autoC
 Route::get('/tipoRecurso', 'donacionController@tipoRecurso');
 Route::get('/facultad', 'alumnoController@facultad');
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////CULQI///////////////////////////////////////////////////////////////////////////////////////////
+Route::get('/culqi', function () {
+    return view('Ventanilla/Culqi/PagoCulqi');
+});
+Route::post('pagoculqi', 'culqiController@culqi');
