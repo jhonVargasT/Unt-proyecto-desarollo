@@ -53,7 +53,7 @@
                                 Sede
                             </div>
                             <div class="col-sm-7 ">
-                                <input class="typeahead form-control " name="facultad" id="tags" autocomplete="off">
+                                <input class="typeahead form-control " name="sed" id="sede" autocomplete="off">
 
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                                 facultad
                             </div>
                             <div class="col-sm-7 ">
-                                <input class="typeahead form-control " name="facultad" id="tags" autocomplete="off">
+                                <input class="typeahead form-control " name="fac" id="fac" autocomplete="off">
 
                             </div>
                         </div>
@@ -74,28 +74,8 @@
                                 Escuela
                             </div>
                             <div class="col-sm-7 ">
-                                <script>
-                                    $('#cb').change(function () {
-                                        if ($(this).is(':checked')) {
-                                            $('#es').prop('disabled', false);
-                                        } else {
-                                            $('#es').prop('disabled', true);
-                                        }
-                                    });
+                                <input class="typeahead form-control " name="esc" id="esc" autocomplete="off">
 
-                                </script>
-                                <select class=" form-control" id="es" disabled="true">
-                                    <option selected disabled>Seleccionar</option>
-                                    <option>Todo</option>
-                                    <?php
-                                    use App\escuelamodel;
-                                    $escuela = new escuelamodel();
-                                    $escuelabd = $escuela->llenarEscuelaReporte();
-                                    foreach ($escuelabd as $e) {
-                                        echo '<option>' . $e->nombre . '</option>';
-                                    }
-                                    ?>
-                                </select>
                             </div>
                         </div>
                         <div class="form-group-sm col-sm-4 ">
@@ -118,26 +98,16 @@
                                         }
                                     });
                                 </script>
-                                <input type="text" class="form-control input-sm " id="tr" autocomplete="off"
+                                <input type="text" class="form-control input-sm " id="tr" name="tr" autocomplete="off"
                                        disabled="true">
                             </div>
                             <div class="col-sm-4">
-                                <input type="checkbox" id="cbff" autocomplete="off">
+                                <input type="checkbox" id="fuf"  autocomplete="off">
                                 Fuente de financiamiento
                             </div>
                             <div class="col-sm-2">
-                                <script>
-                                    $('#cbff').change(function () {
-                                        if ($(this).is(':checked')) {
-                                            $('#ff').prop('disabled', false);
-                                        } else {
-                                            $('#ff').prop('disabled', true);
-                                        }
-                                    });
-
-                                </script>
-                                <input type="text" class="form-control input-sm " id="ff"
-                                       autocomplete="off" disabled="true">
+                                <input type="text" class="form-control input-sm " id="ff" name="fuf"
+                                       autocomplete="off" >
                             </div>
                         </div>
 
@@ -147,7 +117,7 @@
                         <div class="form-group-sm col-sm-2 ">
                             <div class="col-sm-8 input-group date" data-provide="datepicker">
                                 <input type="text" name="fechaDesde" class="form-control" placeholder="desde"
-                                       autocomplete="off" required>
+                                       autocomplete="off" value="03/01/2017" required>
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </div>
@@ -158,7 +128,7 @@
                             <div class="col-sm-8 input-group date" data-provide="datepicker">
                                 <input type="text" name="fechaHasta" class="form-control"
                                        placeholder="hasta"
-                                       autocomplete="off" required>
+                                       autocomplete="off"  value="03/18/2017" required>
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </div>

@@ -244,4 +244,15 @@ class escuelamodel
         }
         return true;
     }
+
+    public function obtenerId($nombre)
+    {
+        $esc=null;
+        $data=DB::table('escuela')->select('idEscuela')->where('nombre','=',$nombre)->get();
+        foreach ($data as $dat)
+        {
+         $esc=$dat->idEscuela ;
+        }
+        return $esc;
+    }
 }

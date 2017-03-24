@@ -197,4 +197,13 @@ class sedemodel
             ->where('estado', 1)->orderBy('codSede', 'desc')->get();
         return $sedebd;
     }
+    public  function obtenerId($nombre)
+    {
+        $data=DB::table('sede')->select('codSede')->where('nombresede','=',$nombre)->get();
+        $var=null;
+        foreach ($data as $c){
+            $var=$c->codSede;
+        }
+        return $var;
+    }
 }

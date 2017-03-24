@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class sedeController extends Controller
 {
+    
     public function registrarSede(Request $request)
     {
         $sede = new sedemodel();
@@ -76,4 +77,6 @@ class sedeController extends Controller
 
         return response()->json($data);
     }
+
+   
 }

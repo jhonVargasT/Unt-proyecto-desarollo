@@ -252,4 +252,13 @@ class facultadmodel
         return $scod;
     }
 
+    public function obtenerId($nombre)
+    {
+        $scod=null;
+        $fac=DB::table('facultad')->select('idFacultad')->where('nombre','=',$nombre)->get();
+        foreach ($fac as $sbd) {
+            $scod = $sbd->idFacultad;
+        }
+        return $scod;
+    }
 }
