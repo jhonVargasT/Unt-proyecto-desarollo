@@ -41,8 +41,13 @@
 
                             </div>
                             <div class="col-sm-7">
+                                @if(isset($Tram))
                                 <input type="text" class="form-control input-sm " id="input" name="inputTram"
-                                       autocomplete="off">
+                                       autocomplete="off" value="{{$Tram}}">
+                                    @else
+                                    <input type="text" class="form-control input-sm " id="input" name="inputTram"
+                                           autocomplete="off">
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -53,8 +58,11 @@
                                 Sede
                             </div>
                             <div class="col-sm-7 ">
-                                <input class="typeahead form-control " name="sed" id="sede" autocomplete="off">
-
+                                @if(isset($sede))
+                                    <input class="typeahead form-control " name="sed"  value="{{$sede}}" id="sede" autocomplete="off">
+                                    @else
+                                    <input class="typeahead form-control " name="sed" id="sede" autocomplete="off">
+                                    @endif
                             </div>
                         </div>
                         <div class="form-group-sm col-sm-4 ">
@@ -63,8 +71,11 @@
                                 facultad
                             </div>
                             <div class="col-sm-7 ">
-                                <input class="typeahead form-control " name="fac" id="fac" autocomplete="off">
-
+                                @if(isset($fac))
+                                    <input class="typeahead form-control " name="fac" id="fac" autocomplete="off" value="{{$fac}}">
+                                @else
+                                    <input class="typeahead form-control " name="fac" id="fac" autocomplete="off">
+                                @endif
                             </div>
                         </div>
 
@@ -74,8 +85,11 @@
                                 Escuela
                             </div>
                             <div class="col-sm-7 ">
-                                <input class="typeahead form-control " name="esc" id="esc" autocomplete="off">
-
+                                @if(isset($esc))
+                                    <input class="typeahead form-control " name="esc" id="esc" autocomplete="off" value="{{$esc}}">
+                                @else
+                                    <<input class="typeahead form-control " name="esc" id="esc" autocomplete="off">
+                                @endif
                             </div>
                         </div>
                         <div class="form-group-sm col-sm-4 ">
@@ -238,11 +252,6 @@
                                             <small>DETALLE</small>
                                         </div>
                                     </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>Opciones</small>
-                                        </div>
-                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -252,9 +261,9 @@
                                     <tr>
                                         <td><h6 align="center">{{$r->codigopago}}</h6></td>
                                         <td><h6 align="left">{{$r->modalidad}}</h6></td>
-                                        <td><h6 align="left">{{$r->nombresede}}</h6></td>
-                                        <td><h6 align="left">{{$r->nombrefacultad }}</h6></td>
-                                        <td><h6 align="left">{{$r->nombreescuela}}</h6></td>
+                                        <td><h6 align="left"></h6></td>
+                                        <td><h6 align="left"></h6></td>
+                                        <td><h6 align="left"></h6></td>
                                         <td><h6 align="left">{{$r->clasi}}</h6></td>
                                         <td><h6 align="center">{{$r->fuente }}</h6></td>
                                         <td><h6 align="center">{{$r->tipre}}</h6></td>
@@ -263,10 +272,7 @@
                                         <td><h6 align="left">{{$r->fechapago}}</h6></td>
                                         <td><h6 align="left">{{$r->precio}}</h6></td>
                                         <td><h6 align="left">{{$r->pagodetalle}}</h6></td>
-                                        <td align="center">
-                                            <a href="#"><span class="glyphicon glyphicon-pencil"></span> </a>
-                                            <a href="#"><span class="glyphicon glyphicon-trash"></span> </a>
-                                        </td>
+
 
                                     </tr>
                                 </tbody>
