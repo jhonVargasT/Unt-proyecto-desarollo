@@ -184,14 +184,13 @@
                 <div class="col-sm-2">
                     <!--Contenido-->
                     @if(isset($pagos))
+                        <?php $var = 1; ?>
                         @foreach($pagos as $p)
-                            @if($p->estadodeuda==1)
-                                <?php $var = 1; ?>
-                            @elseif($p->estadodeuda==0)
+                            @if($p->estadodeuda==0)
                                 <?php $var = 0; ?>
                             @endif
                         @endforeach
-                        <a href="excel/{{$txt}}/{{$select}}/{{$var}}" class="btn btn-sm btn-primary"><span
+                        <a href="excel/{{$txt}}/{{$select}}/{{ $var }}" class="btn btn-sm btn-primary"><span
                                     class="glyphicon glyphicon-print"></span> Imprimir
                         </a>
                     @endif
