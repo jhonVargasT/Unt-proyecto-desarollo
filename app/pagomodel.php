@@ -521,7 +521,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -547,7 +547,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -571,7 +571,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -594,7 +594,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -616,7 +616,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -638,7 +638,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -662,7 +662,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -685,7 +685,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -708,7 +708,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -730,7 +730,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -756,7 +756,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -782,7 +782,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -807,7 +807,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -832,7 +832,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -856,7 +856,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -880,7 +880,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -904,7 +904,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -928,7 +928,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -953,7 +953,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -976,7 +976,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -1001,7 +1001,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -1025,7 +1025,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -1052,7 +1052,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -1077,7 +1077,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -1102,7 +1102,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
@@ -1127,7 +1127,7 @@ class pagomodel
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
             ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
             ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
             ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
