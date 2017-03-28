@@ -260,7 +260,7 @@
                                     <tr>
                                         <td><h6 align="center">{{$r->codigopago}}</h6></td>
                                         <td><h6 align="left">{{$r->modalidad}}</h6></td>
-                                        <td><h6 align="left">fsdfsdf@if(is_null($r->nombresede))
+                                        <td><h6 align="left">@if(is_null($r->nombresede))
                                                     *
                                                 @else
                                                     {{$r->nombresede}}
