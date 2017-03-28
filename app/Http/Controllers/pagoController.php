@@ -355,16 +355,14 @@ class pagoController extends Controller
         if (empty($request->sed) != true) {
             if (empty($request->fac) != true) {
                 if (empty($request->esc) != true) {
-                    echo 'asdasdasd';
+          
                     $codigo = $esc->obtenerId($request->esc);
                     $lugar = 'escuela.idEscuela';
                 } else {
-                    echo 'asdasdasd';
                     $codigo = $fac->obtenerId($request->fac);
                     $lugar = 'facultad.idFacultad';
                 }
             } else {
-                echo 'asdasdasd';
                 $codigo = $sede->obtenerId($request->sed);
                 $lugar = 'sede.codSede';
             }
@@ -399,17 +397,17 @@ class pagoController extends Controller
         } else {
             $tipRe = null;
         }
-        $suma=0;
+    
         $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo);
         if (!is_null($result)&& empty($result)!=true) {
             foreach ($result as $sum) {
                 $total = $total + $sum->precio;
-                $suma=$suma+1;
+
             }
         } else {
             $total = 0;
         }
-        echo ''.$suma;
+
         if ($result != null) {
             return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total, 'Tram' => $request->inputTram, 'sede' => $request->sed, 'fac'=>$request->fac,'esc'=>$request->esc, 'tramite' => $request->opcTramite, ]);
         } else {
