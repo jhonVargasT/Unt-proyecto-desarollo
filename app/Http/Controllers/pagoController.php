@@ -405,10 +405,9 @@ class pagoController extends Controller
 
             }
         } else {
-            $total = 0;
-        }
+            $total = 0;}
 
-        if ($result != null) {
+       if ($result != null) {
             return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total, 'Tram' => $request->inputTram, 'sede' => $request->sed, 'fac'=>$request->fac,'esc'=>$request->esc, 'tramite' => $request->opcTramite, ]);
         } else {
             return view('../errors/trabajando');

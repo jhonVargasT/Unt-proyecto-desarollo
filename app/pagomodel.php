@@ -512,8 +512,8 @@ class pagomodel
     public function listarTodo($estado, $fechaDesde, $fechaHasta,$modalidad,$tipre,$fuefi,$local, $valloc,$tram, $valtra)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tipoRecurso as tiporecursod', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -538,8 +538,8 @@ class pagomodel
     public function listarMoTiLo($estado, $fechaDesde, $fechaHasta,$modalidad,$tipre,$local, $valloc)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -562,8 +562,8 @@ class pagomodel
     public function listarFueLo($estado, $fechaDesde, $fechaHasta,$fue,$local, $valloc)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -585,8 +585,8 @@ class pagomodel
     public function listarTraLo($estado, $fechaDesde, $fechaHasta,$tram, $valtra,$local, $valloc)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -607,8 +607,8 @@ class pagomodel
     }
     public function listarLoc($estado, $fechaDesde, $fechaHasta,$local, $valloc){
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -629,8 +629,8 @@ class pagomodel
     public function listarMoTraFu($estado, $fechaDesde, $fechaHasta,$modalidad, $tram, $valtra,$fuen)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -653,8 +653,8 @@ class pagomodel
     public function listarTraFu($estado, $fechaDesde, $fechaHasta, $tram, $valtra,$fuen)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -676,8 +676,8 @@ class pagomodel
     public function listarMoFu($estado, $fechaDesde, $fechaHasta,$modalidad,$fuen)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -699,8 +699,8 @@ class pagomodel
     public function listarFu($estado, $fechaDesde, $fechaHasta,$fuen)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -721,8 +721,8 @@ class pagomodel
     public function listarMoTraTiLo($estado, $fechaDesde, $fechaHasta, $tipore, $modalidad, $tram, $valtra, $local, $valloc)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -747,8 +747,8 @@ class pagomodel
     public function listarMoTraFuTi($estado, $fechaDesde, $fechaHasta, $tipore, $modalidad, $fuefi, $tram, $valtra)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -773,8 +773,8 @@ class pagomodel
     public function listarMoFueTipFu($estado, $fechaDesde, $fechaHasta, $tipore, $modalidad, $fuefi)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -798,8 +798,8 @@ class pagomodel
     public function listarTip($estado, $fechaDesde, $fechaHasta, $tipore, $modalidad, $tram, $valTram)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -823,8 +823,8 @@ class pagomodel
     public function listarTipLo($estado, $fechaDesde, $fechaHasta, $tipore, $local, $valloc)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -847,8 +847,8 @@ class pagomodel
     public function listarFueTip($estado, $fechaDesde, $fechaHasta, $tipRe, $fuefi)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -871,8 +871,8 @@ class pagomodel
     public function listarTraTip($estado, $fechaDesde, $fechaHasta, $tram, $valtra, $tipRe)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -895,8 +895,8 @@ class pagomodel
     public function listarTipoRe($estado, $fechaDesde, $fechaHasta, $tipRe)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -919,8 +919,8 @@ class pagomodel
     public function listarMoTrFuLo($estado, $fechaDesde, $fechaHasta, $tram, $valtra, $fuefi, $local, $valLoc)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -944,8 +944,8 @@ class pagomodel
     public function listarTr($estado, $fechaDesde, $fechaHasta, $tram, $valtra)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -967,8 +967,8 @@ class pagomodel
     public function listarMoFuLo($estado, $modalidad, $fechaDesde, $fechaHasta, $fuefi, $local, $valLoc)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -992,8 +992,8 @@ class pagomodel
     public function listarMoLo($estado, $modalidad, $fechaDesde, $fechaHasta, $local, $valLoc)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -1016,8 +1016,8 @@ class pagomodel
     public function listarMoTiFuLo($estado, $modalidad, $fechaDesde, $fechaHasta, $tipRe, $fuenteFin, $local, $valLoc)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -1043,8 +1043,8 @@ class pagomodel
     public function listarModTip($estado, $modalidad, $fechaDesde, $fechaHasta, $tipRe)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -1068,8 +1068,8 @@ class pagomodel
     public function listarTramModLoc($estado, $modalidad, $tramite, $tramiteVal, $fechaDesde, $fechaHasta, $local, $valLoc)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -1093,8 +1093,8 @@ class pagomodel
     public function listarModTram($estado, $modalidad, $tramite, $tramiteVal, $fechaDesde, $fechaHasta)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -1118,8 +1118,8 @@ class pagomodel
     {
         
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
@@ -1141,8 +1141,8 @@ class pagomodel
     public function listarPagoNada($estado, $fechaDesde, $fechaHasta)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuente',
-            'tramite.tipoRecurso as tipre', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
+            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
+            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
             ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
