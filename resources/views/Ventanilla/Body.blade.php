@@ -3,16 +3,14 @@
     <!--barra de navegacion -->
     @if(  Session::has('tipoCuentaV') )
         <div class=" col-sm-12 ">
-            <br>
             <div class="row">
                 <div class="col-sm-2">
-                    <div class="panel-group" id="accordion">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
+                    <div class="panel-group" id="accordion">}
+                        <div >
+                            <div >
+                                <h4 >
                                     <span class="fa fa-money"></span>
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-
                                         Pagos</a>
                                 </h4>
                             </div>
@@ -36,7 +34,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -94,11 +91,9 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
-                <div class="col-sm-10  ">
+                <div class="col-sm-9" style="align-items: center">
                     @yield('content')
                 </div>
             </div>

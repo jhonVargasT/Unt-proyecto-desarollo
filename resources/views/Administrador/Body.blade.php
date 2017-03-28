@@ -3,9 +3,8 @@
     <!--barra de navegacion -->
     @if(  Session::has('tipoCuentaA') )
         <div class=" col-sm-12 ">
-            <br>
             <div class="row">
-                <div class="col-sm-2">
+                <div class="col-sm-2 panel ">
                     <div class="panel-group" id="accordion">
                         <div class="panel panel-primary">
                             <div class="panel-heading">

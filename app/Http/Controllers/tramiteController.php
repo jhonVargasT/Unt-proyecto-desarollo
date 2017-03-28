@@ -76,4 +76,18 @@ class tramiteController extends Controller
         return view('Administrador/Tramite/search')->with(['nombre' => $request->nombre]);
     }
 
+    public function autocompletar(Request $request)
+    {
+        $tramite = new tramitemodel();
+        $term=$request->term;
+        $data = $tramite->consultarTramiteNombre($term)
+            ->take(10)
+            ->get();
+        $result=array();
+        foreach ($data as $dat){
+            $result[]=$dat;
+        }
+        return response()->json($result);
+    }
+
 }

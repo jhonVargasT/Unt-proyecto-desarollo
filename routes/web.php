@@ -238,7 +238,6 @@ Route::get('/buscarEscuelaC', 'pagoController@buscarEscuelaC');
 
 Route::get('/precioSubtramite', 'pagoController@precioSubtramite');
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('autocompletee', array('as' => 'autocompletee', 'uses' => 'escuelaController@autocompletee'));
@@ -258,3 +257,4 @@ Route::get('/culqi', function () {
     return view('Ventanilla/Culqi/PagoCulqi');
 });
 Route::post('pagoculqi', 'culqiController@culqi');
+Route::get("autocompleteTram",array('as'=>'autocomplete','uses'=> 'tramiteController@autocompletar'));

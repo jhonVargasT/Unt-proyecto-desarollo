@@ -105,20 +105,20 @@
                     <div class="col-sm-12 row form-group">
                         <div class="form-group-sm col-sm-4 ">
                             <div class="col-sm-4">
-                                <input type="checkbox" id="cbtr">
+                                <input type="checkbox"  onclick=" habilitartr(this.checked)">
                                 Tipo de recurso
                             </div>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control input-sm " id="tr" name="tr" autocomplete="off"
-                                       disabled="true">
+                                <input type="text" class="form-control input-sm " id="trinp" name="tr" autocomplete="off"
+                                       disabled>
                             </div>
                             <div class="col-sm-4">
-                                <input type="checkbox" id="fuf" autocomplete="off">
+                                <input type="checkbox"  onclick="habilitarff(this.checked)">
                                 Fuente de financiamiento
                             </div>
                             <div class="col-sm-2">
                                 <input type="text" class="form-control input-sm " id="ff" name="fuf"
-                                       autocomplete="off">
+                                       autocomplete="off" disabled>
                             </div>
                         </div>
 
@@ -149,8 +149,8 @@
                     <div class="form-group col-lg-12">
                         <div class=" col-sm-4"></div>
                         <div class="col-md-4">
-                            <button class="col-lg-4 btn btn-warning"><span
-                                        class="glyphicon glyphicon-search" ></span> Limpiar
+                            <button class="col-lg-4 btn btn-warning" onclick=" limpiarCampos()"><span
+                                              class="glyphicon glyphicon-erase" ></span> Limpiar
                                 campos
                             </button>
                             <div class="col-lg-4"></div>
@@ -384,39 +384,34 @@
 @stop
 @section('scripts')
     <script type="text/javascript">
-        $('#opcTramite').change(function () {
-            var value = $('#opcTramite option:selected').attr('value');
-            if (value == 'Dni') {
-                $.ajax({
-                    url: '/buscarEscuelaD',
-                    type: "get",
-                    data: {name: $('#buscar').val()},
-                    success: function (data) {
-                        $('#escuela').val(data);
-                    }
-                });
-            } else {
-                if (value == 'Ruc') {
-                    $.ajax({
-                        success: function () {
-                            $('#escuela').val('');
-                        }
-                    });
-                } else {
-                    if (value == 'Codigo de alumno') {
-                        $.ajax({
-                            url: '/buscarEscuelaC',
-                            type: "get",
-                            data: {name: $('#buscar').val()},
-                            success: function (data) {
-                                $('#escuela').val(data);
-                            }
-                        });
-                    }
-                }
+        $('#inputTram').autocomplete({
+            source : 'autocompleteTram',
+            minlenght:1,
+            autoFocus:true,
+            select:function(e,ui){
+                alert(ui);
             }
         });
-
+        function limpiarCampos() {
+            var x='1';
+            document.getElementById("fac").innerHTML = x;
+            document.getElementById("sede").innerHTML = x;
+            document.getElementById("esc").innerHTML = x;
+        }
+        function habilitarff(value) {
+            if (value == true) {
+                document.getElementById("ff").disabled = false;
+            } else if (value == false) {
+                document.getElementById("ff").disabled = true;
+            }
+        }
+        function habilitartr(value) {
+            if (value == true) {
+                document.getElementById("trinp").disabled = false;
+            } else if (value == false) {
+                document.getElementById("trinp").disabled = true;
+            }
+        }
         function habilitarsed(value) {
             if (value == true) {
                 document.getElementById("sede").disabled = false;
