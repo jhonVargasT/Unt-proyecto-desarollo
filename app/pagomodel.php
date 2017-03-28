@@ -516,13 +516,13 @@ class pagomodel
             'tramite.tipoRecurso as tiporecursod', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>', $fechaDesde],
@@ -542,13 +542,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>', $fechaDesde],
@@ -566,13 +566,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>=', $fechaDesde],
@@ -589,13 +589,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>', $fechaDesde],
@@ -611,13 +611,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>', $fechaDesde],
@@ -633,13 +633,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>', $fechaDesde],
@@ -657,13 +657,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>', $fechaDesde],
@@ -680,13 +680,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>', $fechaDesde],
@@ -703,13 +703,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>', $fechaDesde],
@@ -725,13 +725,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>', $fechaDesde],
@@ -751,13 +751,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>', $fechaDesde],
@@ -777,13 +777,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>=', $fechaDesde],
@@ -802,13 +802,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>=', $fechaDesde],
@@ -827,13 +827,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>=', $fechaDesde],
@@ -851,13 +851,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>=', $fechaDesde],
@@ -875,13 +875,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>=', $fechaDesde],
@@ -899,13 +899,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>=', $fechaDesde],
@@ -923,13 +923,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>=', $fechaDesde],
@@ -948,13 +948,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>=', $fechaDesde],
@@ -971,13 +971,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>=', $fechaDesde],
@@ -996,13 +996,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>=', $fechaDesde],
@@ -1020,13 +1020,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>=', $fechaDesde],
@@ -1047,13 +1047,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>=', $fechaDesde],
@@ -1072,13 +1072,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>=', $fechaDesde],
@@ -1097,13 +1097,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>=', $fechaDesde],
@@ -1122,13 +1122,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.iddacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>=', $fechaDesde],
@@ -1145,13 +1145,13 @@ class pagomodel
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
             ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
             ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idSubtramite', '=', 'subtramite.codSubtramite')
-            ->leftjoin('tramite', 'tramite.codTramite', '=', 'subtramite.idTramite')
+            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
+            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
             ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->leftjoin('escuela', 'alumno.coEscuela', '=', 'escuela.idEscuela')
-            ->leftjoin('facultad', 'escuela.codigoFacultad', '=', 'facultad.idFacultad')
-            ->leftjoin('sede', 'facultad.coSede', '=', 'sede.codSede')
+            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
+            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
+            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
+            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
             ->where([
                 ['pago.estado', $estado],
                 ['pago.fecha', '>=', $fechaDesde],
