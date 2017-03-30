@@ -61,47 +61,43 @@ class ExcelController extends Controller
         })->export('xls');
     }
 
-    public function importExcel()
+    public function importExcel(Request $request)
     {
         $val = null;
         $contaux = null;
         $persona = new personamodel();
         $subtramite = new subtramitemodel();
         $pago = new pagomodel();
-        //if ($request->hasFile('import_file')) {
-        $path = Input::file('import_file')->getRealPath();
-        $data = Excel::load($path, function ($reader) {
-        })->get();
-        //if (!empty($data) && $data->count()) {
-        foreach ($data->toArray() as $key => $value) {
-            //if (!empty($value)) {
-            foreach ($value as $v) {
-                $codPer = $persona->obtnerId($v['dni']);
-                $codSubt = $subtramite->consultarId($v['tasa']);
-                $cont = $this->contadorSubtramite($v['tasa']);
-                $contaux = $cont + 1;
-                $pago->setDetalle($v['detalle']);
-                $date = implode("-", array_reverse(explode("/", $v['fecha'])));
-                $pago->setFecha($date);
-                $pago->setModalidad($v['modalidad']);
-                $pago->setIdPersona($codPer);
-                $pago->setIdSubtramite($codSubt);
-            }
-            $val = $pago->saveExcel($contaux);
-            if ($val == false) {
-                return back()->with('true', 'Guardada con exito')->withInput();
-            } else {
-                return back()->with('false', 'No guardada');
+        if ($request->hasFile('import_file')) {
+            $path = Input::file('import_file')->getRealPath();
+            $data = Excel::load($path, function ($reader) {
+            })->get();
+            if (!empty($data) && $data->count()) {
+                foreach ($data->toArray() as $key => $value) {
+                    if (!empty($value)) {
+                        foreach ($value as $v) {
+                            $codPer = $persona->obtnerId($v['dni']);
+                            $codSubt = $subtramite->consultarId($v['tasa']);
+                            $cont = $this->contadorSubtramite($v['tasa']);
+                            $contaux = $cont + 1;
+                            $pago->setDetalle($v['detalle']);
+                            $date = implode("-", array_reverse(explode("/", $v['fecha'])));
+                            $pago->setFecha($date);
+                            $pago->setModalidad('Banco');
+                            $pago->setIdPersona($codPer);
+                            $pago->setIdSubtramite($codSubt);
+                        }
+                        $val = $pago->saveExcel($contaux);
+                        if ($val == false) {
+                            return back()->with('true', 'Guardada con exito')->withInput();
+                        } else {
+                            return back()->with('false', 'No guardada');
+                        }
+                    }
+                }
             }
         }
-        //}
-        /*if (!empty($insert)) {
-            Item::insert($insert);
-            return back()->with('success', 'Insert Record successfully.');
-        }*/
-        //}
-        //}
-        //return back()->with('error', 'Please Check your file, Something is wrong there.');
+        return back()->with('error', 'Please Check your file, Something is wrong there.');
     }
 
     public function contadorSubtramite($nombreSubtramite)
