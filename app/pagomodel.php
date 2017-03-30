@@ -386,7 +386,7 @@ class pagomodel
         and pago.coPersonal = personal.idPersonal
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
-        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and pago.estadodeuda = ' . $val . ' and p2.estado=1 and pago.codPago = ' . $codPago . ' order by pago.codPago desc');
+        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and pago.estadodeuda = '. $val .' and p2.estado=1 and pago.codPago = ' . $codPago . ' order by pago.codPago desc');
 
         return $pagobd;
     }
@@ -396,7 +396,7 @@ class pagomodel
         date_default_timezone_set('America/Lima');
         $dato = date('Y-m-d');
 
-        $pagobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle from pago
+        $pagobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle, estadodeuda from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
         left join personal on pago.coPersonal = personal.idPersonal
         left join persona as p1 on p1.codPersona = pago.idPersona
@@ -405,7 +405,7 @@ class pagomodel
         and pago.coPersonal = personal.idPersonal
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
-        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and personal.codPersonal = ' . $codPersonal . ' and pago.fecha like "%' . $dato . '%" order by pago.fecha desc');
+        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and personal.codPersonal =:codPersonal and pago.fecha like "%'.$dato.'%" order by pago.fecha desc',['codPersonal'=>$codPersonal]);
 
         return $pagobd;
     }
