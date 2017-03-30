@@ -226,7 +226,7 @@ class pagomodel
         return $obj;
     }
 
-    public function savePago($contaux, $codSubtramite)
+    public function savePago($contaux)
     {
         date_default_timezone_set('Etc/GMT+5');
         $date = date('Y-m-d H:i:s', time());
@@ -246,14 +246,14 @@ class pagomodel
             $logunt->setDescripcion('registrarPago');
             $logunt->setCodigoPersonal($codPers);
             try {
-                DB::transaction(function () use ($logunt, $contaux, $codSubtramite) {
+                DB::transaction(function () use ($logunt, $contaux) {
                     if ($this->deuda == 0) {
                         DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal]);
-                        DB::table('subtramite')->where('codSubtramite', $codSubtramite)->update(['contador' => $contaux]);
+                        DB::table('subtramite')->where('codSubtramite',  $this->idSubtramite)->update(['contador' => $contaux]);
 
                     } elseif ($this->deuda != 0) {
                         DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal, 'estadodeuda' => $this->deuda]);
-                        DB::table('subtramite')->where('codSubtramite', $codSubtramite)->update(['contador' => $contaux]);
+                        DB::table('subtramite')->where('codSubtramite',  $this->idSubtramite)->update(['contador' => $contaux]);
                     }
                     $logunt->saveLogUnt();
                 });
@@ -270,6 +270,40 @@ class pagomodel
                 return false;
             }
             return true;
+        }
+    }
+
+    public function saveExcel($contaux)
+    {
+        date_default_timezone_set('Etc/GMT+5');
+        $date = date('Y-m-d H:i:s', time());
+        if (Session::has('personalC')) {
+            $logunt = new loguntemodel();
+            $value = Session::get('personalC');
+            $codPers = $logunt->obtenerCodigoPersonal($value);
+            $logunt->setFecha($date);
+            $logunt->setDescripcion('ImportExcel');
+            $logunt->setCodigoPersonal($codPers);
+            date_default_timezone_set('Etc/GMT+5');
+            $date = date('Y-m-d H:i:s', time());
+            $logunt = new loguntemodel();
+            $value = Session::get('personalC');
+            $codPers = $logunt->obtenerCodigoPersonal($value);
+            $logunt->setFecha($date);
+            $logunt->setDescripcion('registrarPago');
+            $logunt->setCodigoPersonal($codPers);
+            //try {
+            //DB::transaction(function () use ($logunt, $contaux) {
+            DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => 0, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal]);
+            DB::table('subtramite')->where('codSubtramite', $this->idSubtramite)->update(['contador' => $contaux]);
+            $logunt->saveLogUnt();
+            //});
+            //} catch (PDOException $e) {
+            //return false;
+            //}
+            return true;
+        } else {
+            return false;
         }
     }
 

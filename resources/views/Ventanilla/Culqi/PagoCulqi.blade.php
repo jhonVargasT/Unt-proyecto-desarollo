@@ -353,10 +353,13 @@
                     data: {
                         '_token': '{!! csrf_token() !!}',
                         token: token,
+                        buscar: $('#buscar').val(),
                         precio: $('#p').val(),
-                        descripcion: $('#detalle').val(),
+                        select: $('#select').val(),
+                        subtramite: $('#st').val(),
                         nombres: $('#names').val(),
-                        apellidos: $('#lastname').val()
+                        apellidos: $('#lastname').val(),
+                        detalle: $('#detalle').val()
                     },
                     success: function (data) {
                         if (data == 'ok')
