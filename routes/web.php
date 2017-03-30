@@ -207,7 +207,7 @@ Route::get('/ventBoleta', function () {
     return view('Ventanilla/Pagos/boleta');
 });
 
-Route::get('/import', function () {
+Route::get('/admImportarExcel', function () {
     return view('Administrador/Excel/import');
 });
 
