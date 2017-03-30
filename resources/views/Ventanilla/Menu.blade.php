@@ -35,7 +35,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -63,7 +62,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -96,7 +94,6 @@
                     </div>
                 </div>
                 <div class="col-sm-9  ">
-
                     @yield('content')
                 </div>
             </div>
