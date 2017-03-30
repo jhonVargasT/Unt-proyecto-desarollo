@@ -170,7 +170,7 @@ class subtramitemodel
 
         $tramite= DB::table('subtramite')
             ->select('codSubtramite as codigo')
-            ->where('nombre','=',$nombre)->first();
+            ->where('nombre','=',$nombre)->get();
         foreach ($tramite as $tr)
         {
             $val= $tr->codigo;
