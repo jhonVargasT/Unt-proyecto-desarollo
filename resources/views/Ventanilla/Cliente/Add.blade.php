@@ -40,8 +40,8 @@
                                 <div class="col-sm-1">
                                 </div>
                             </div>
-                            <div class="form-group-sm">
-                                <span class="col-sm-2">Nombres</span>
+                            <div class="form-group-sm" >
+                                <span class="col-sm-1">Nombres</span>
                                 <div class="col-sm-4">
                                     <input class="form-control input-sm" name="nombres" type="text"
                                            autocomplete="off" onkeypress="return validarLetras(event)">
@@ -65,12 +65,12 @@
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label"> Ruc:</span>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <input class="form-control input-sm" name="ruc" type="text"
                                            autocomplete="off" onkeypress="return validarNum(event)">
                                 </div>
                             </div>
-                            <div class="form-group-sm " align="left">
+                            <div class="form-group-sm " align="right">
                                 <span class="col-sm-2 control-label"> Razon social</span>
                                 <div class="col-sm-4">
                                     <input class="form-control input-sm" name="razonSocial" onkeypress="return validarLetras(event)">
