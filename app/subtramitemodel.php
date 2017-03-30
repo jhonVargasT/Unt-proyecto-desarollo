@@ -167,8 +167,8 @@ class subtramitemodel
     public function consultarId($nombre){
         $val = null;
         $subtramitebd = DB::table('subtramite')
-            ->where('nombre','=', $nombre)
-            ->where('estado','=' ,1)
+            ->where('nombre', $nombre)
+            ->where('estado', 1)
             ->get();
 
         foreach ($subtramitebd as $tr)
