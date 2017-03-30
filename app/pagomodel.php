@@ -294,7 +294,7 @@ class pagomodel
             $logunt->setCodigoPersonal($codPers);
             //try {
             //DB::transaction(function () use ($logunt, $contaux) {
-            DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad,'idSubtramite' => $this->idSubtramite]);
+            DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad,'codSubtramite' => $this->idSubtramite]);
             DB::table('subtramite')->where('codSubtramite', $this->idSubtramite)->update(['contador' => $contaux]);
             $logunt->saveLogUnt();
             //});
