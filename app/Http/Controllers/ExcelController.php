@@ -76,7 +76,7 @@ class ExcelController extends Controller
                 foreach ($data->toArray() as $key => $value) {
                     if (!empty($value)) {
                         foreach ($value as $v) {
-                            $codPer = $persona->obtnerId($v['dni']);
+                            $codPer = $persona->obtnerIdDni($v['dni']);
                             $codSubt = $subtramite->consultarId($v['tasa']);
                             $cont = $this->contadorSubtramite($v['tasa']);
                             $contaux = $cont + 1;

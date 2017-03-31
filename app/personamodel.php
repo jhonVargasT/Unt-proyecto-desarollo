@@ -1,7 +1,9 @@
 <?php
 
 namespace App;
+
 use Illuminate\Support\Facades\DB;
+
 class personamodel
 {
     private $dni;
@@ -66,19 +68,22 @@ class personamodel
         $this->apellidos = $apellidos;
         return $this;
     }
+
     public function obtnerId($idPersona)
     {
         /* Jhon Vargas*/
-        $persona=DB::table('persona')->where(['codPersona'=>$idPersona,'estado'=>1])->get();
+        $persona = DB::table('persona')->where(['codPersona' => $idPersona, 'estado' => 1])->get();
         return $persona;
     }
+
     public function obtnerIdDni($dni)
     {
         /* Jhon Vargas*/
-        $persona=DB::table('persona')->where(['dni'=>$dni,'estado'=>1])->get();
-        foreach ($persona as $p)
-        {
-            return $p->codPersona;
+        $cp = null;
+        $persona = DB::table('persona')->where(['dni' => $dni, 'estado' => 1])->get();
+        foreach ($persona as $p) {
+            $cp = $p->codPersona;
         }
+        return $cp;
     }
 }
