@@ -86,8 +86,8 @@ class ExcelController extends Controller
                             $pago->setModalidad('Banco');
                             $pago->setIdPersona($codPer);
                             $pago->setIdSubtramite($codSubt);
+                            $val = $pago->saveExcel($contaux);
                         }
-                        $val = $pago->saveExcel($contaux);
                         if ($val == true) {
                             return back()->with('true', 'Guardada con exito')->withInput();
                         } else {
