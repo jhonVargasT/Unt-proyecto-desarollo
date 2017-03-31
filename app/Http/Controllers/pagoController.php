@@ -357,14 +357,14 @@ class pagoController extends Controller
                 if (empty($request->esc) != true) {
 
                     $codigo = $esc->obtenerId($request->esc);
-                    $lugar = 'escuela.idEscuela';
+                    $lugar = 'es.idEscuela';
                 } else {
                     $codigo = $fac->obtenerId($request->fac);
-                    $lugar = 'facultad.idFacultad';
+                    $lugar = 'fac.idFacultad';
                 }
             } else {
                 $codigo = $sede->obtenerId($request->sed);
-                $lugar = 'sede.codSede';
+                $lugar = 'se.codSede';
             }
         } else {
             $lugar = null;
@@ -377,11 +377,11 @@ class pagoController extends Controller
         }
         if ($request->opcTramite == 'Tramite') {
             $tramites = $tramiteModel->consultarId($imput);
-            $tram = 'tramite.codTramite';
+            $tram = 'tr.codTramite';
         } else {
             if ($request->opcTramite == 'SubTramite') {
                 $tramites = $subTramiteModel->consultarId($imput);
-                $tram = 'subtramite.codSubtramite';
+                $tram = 'st.codSubtramite';
             } else {
                 $tramites = null;
                 $tram = 'Todo';
@@ -408,11 +408,10 @@ class pagoController extends Controller
             $total = 0;
         }
 
-        if ($result != null) {
             return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total, 'Tram' => $request->inputTram, 'sede' => $request->sed, 'fac' => $request->fac, 'esc' => $request->esc, 'tramite' => $request->opcTramite,]);
-        } else {
-            return view('../errors/trabajando');
-        }
+
+
+
     }
 
     public function obtenerDatos(Request $request)

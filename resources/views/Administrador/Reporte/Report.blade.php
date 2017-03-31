@@ -260,24 +260,9 @@
                                     <tr>
                                         <td><h6 align="center">{{$r->codigopago}}</h6></td>
                                         <td><h6 align="left">{{$r->modalidad}}</h6></td>
-                                        <td><h6 align="left">@if(is_null($r->nombresede))
-                                                    *
-                                                @else
-                                                    {{$r->nombresede}}
-                                                @endif</h6></td>
-                                        <td><h6 align="left">
-                                            @if(is_null($r->nombrefacultad))
-                                                    *
-                                             @else
-                                                    {{$r->nombrefacultad}}
-                                                @endif
-                                            </h6></td>
-                                        <td><h6 align="left">
-                                                @if(is_null($r->nombreescuela))
-                                                    *
-                                                @else
-                                                    {{$r->nombreescuela}}
-                                                @endif</h6></td>
+                                        <td><h6 align="left">{{$r->nombresede}}</h6></td>
+                                        <td><h6 align="left">{{$r->nombrefacultad}}</h6></td>
+                                        <td><h6 align="left">{{$r->nombreescuela}}</h6></td>
                                         <td><h6 align="left">{{$r->clasi}}</h6></td>
                                         <td><h6 align="center">{{$r->tiporecurso }}</h6></td>
                                         <td><h6 align="center">{{$r->fuentefinanc}}</h6></td>
