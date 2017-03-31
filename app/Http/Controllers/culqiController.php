@@ -46,7 +46,7 @@ class culqiController extends Controller
         $cont = $this->contadorSubtramite($request->subtramite);
         $contaux = $cont + 1;
 
-        $valid = $p->savePago($contaux, $codSubtramite);
+        $valid = $p->savePago($contaux);
         if ($valid == true) {
             try {
                 // Configurar tu API Key y autenticación
