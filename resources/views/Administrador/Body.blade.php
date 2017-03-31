@@ -22,6 +22,11 @@
                                                 <a href="/admReportes">Reporte Pagos</a>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="/ventreportresumido">Reporte Resumido</a>
+                                            </td>
+                                        </tr>
                                     </table>
                                 </div>
                             </div>
