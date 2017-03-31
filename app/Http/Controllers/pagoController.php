@@ -57,7 +57,7 @@ class pagoController extends Controller
         if ($request->checkbox == 1) {
             $p->setDeuda(1);
         }
-        $valid = $p->savePago($contaux, $codSubtramite);
+        $valid = $p->savePago($contaux);
         $contador = $cuentaS . '-' . $contaux;
         $buscar = $request->text;
         $val = Session::get('txt', 'No existe session');
@@ -355,7 +355,7 @@ class pagoController extends Controller
         if (empty($request->sed) != true) {
             if (empty($request->fac) != true) {
                 if (empty($request->esc) != true) {
-          
+
                     $codigo = $esc->obtenerId($request->esc);
                     $lugar = 'escuela.idEscuela';
                 } else {
@@ -397,18 +397,19 @@ class pagoController extends Controller
         } else {
             $tipRe = null;
         }
-    
+
         $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo);
-        if (!is_null($result)&& empty($result)!=true) {
+        if (!is_null($result) && empty($result) != true) {
             foreach ($result as $sum) {
                 $total = $total + $sum->precio;
 
             }
         } else {
-            $total = 0;}
+            $total = 0;
+        }
 
-       if ($result != null) {
-            return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total, 'Tram' => $request->inputTram, 'sede' => $request->sed, 'fac'=>$request->fac,'esc'=>$request->esc, 'tramite' => $request->opcTramite, ]);
+        if ($result != null) {
+            return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total, 'Tram' => $request->inputTram, 'sede' => $request->sed, 'fac' => $request->fac, 'esc' => $request->esc, 'tramite' => $request->opcTramite,]);
         } else {
             return view('../errors/trabajando');
         }

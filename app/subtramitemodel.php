@@ -165,13 +165,11 @@ class subtramitemodel
         return true;
     }
     public function consultarId($nombre){
-
-        $tramite= DB::table('subtramite')
-            ->select('codSubtramite as codigo')
-            ->where('nombre','=',$nombre)->first();
-        foreach ($tramite as $tr)
+        $val = null;
+        $subtramitebd = DB::select('select codSubtramite from  subtramite where estado = 1 and nombre=:nombre',['nombre'=>$nombre]);
+        foreach ($subtramitebd as $tr)
         {
-            $val= $tr;
+            $val= $tr->codSubtramite;
         }
         return $val;
     }

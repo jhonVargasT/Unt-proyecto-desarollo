@@ -1,0 +1,42 @@
+@extends('Administrador.Body')
+@section('excel')
+    <div id="collapseTwo" class="collapse in">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <a href="/admImportarExcel" style="color: #509f0c" target="_top">Importar Excel</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+@stop
+@section('content')
+    @if( Session::has('tipoCuentaA'))
+        <div class="panel panel-primary">
+            <div class="panel-heading"> Importar Excel</div>
+            <div class="panel-body">
+                @if(session()->has('true'))
+                    <div class="alert alert-success" role="alert">{{session('true')}} </div>
+                @endif
+                @if(session()->has('false'))
+                    <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
+                @endif
+                <div class="container">
+                    <form style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 10px;"
+                          action="{{url('importExcel')}}" class="form-horizontal" method="post"
+                          enctype="multipart/form-data">
+                        {!!   csrf_field() !!}
+                        <input type="file" name="import_file">
+                        <br>
+                        <button type="submit" class="btn btn-primary">Importar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @else
+        @include("index")
+    @endif
+@stop

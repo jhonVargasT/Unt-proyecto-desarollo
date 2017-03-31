@@ -322,15 +322,13 @@
 
     <!-- Configurando el checkout-->
     <script>
-        //$('#detalle').change(function () {
-        Culqi.settings({
-            title: 'Tesoreria UNT',
-            currency: 'PEN',
-            description: 'polo',
-            amount: 12300
-            //description: $('#st').val(),
-            //amount: $('#p').val()
-            //});
+        $('#detalle').change(function () {
+            Culqi.settings({
+                title: 'Tesoreria UNT',
+                currency: 'PEN',
+                description: $('#st').val(),
+                amount: $('#p').val()
+            });
         });
     </script>
     <script>
@@ -353,10 +351,13 @@
                     data: {
                         '_token': '{!! csrf_token() !!}',
                         token: token,
+                        buscar: $('#buscar').val(),
                         precio: $('#p').val(),
-                        descripcion: $('#detalle').val(),
+                        select: $('#select').val(),
+                        subtramite: $('#st').val(),
                         nombres: $('#names').val(),
-                        apellidos: $('#lastname').val()
+                        apellidos: $('#lastname').val(),
+                        detalle: $('#detalle').val()
                     },
                     success: function (data) {
                         if (data == 'ok')

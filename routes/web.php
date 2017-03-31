@@ -207,7 +207,13 @@ Route::get('/ventBoleta', function () {
     return view('Ventanilla/Pagos/boleta');
 });
 
+Route::get('/admImportarExcel', function () {
+    return view('Administrador/Excel/import');
+});
+
 Route::resource('/pagar','pagoController@registrarPago');
+
+Route::resource('importExcel', 'ExcelController@importExcel');
 
 Route::resource('PagosBuscados', 'pagoController@listarPago');
 Route::get('PagoEliminar/{codPago}', 'pagoController@eliminarPago');

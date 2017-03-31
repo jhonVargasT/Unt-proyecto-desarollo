@@ -3,14 +3,16 @@
     <!--barra de navegacion -->
     @if(  Session::has('tipoCuentaV') )
         <div class=" col-sm-12 ">
+            <br>
             <div class="row">
                 <div class="col-sm-2">
-                    <div class="panel-group" id="accordion">}
-                        <div >
-                            <div >
-                                <h4 >
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
                                     <span class="fa fa-money"></span>
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+
                                         Pagos</a>
                                 </h4>
                             </div>
@@ -99,7 +101,6 @@
             </div>
         </div>
         <script>
-
 
 
             function validarNum(e) {
