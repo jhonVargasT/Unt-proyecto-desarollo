@@ -249,11 +249,11 @@ class pagomodel
                 DB::transaction(function () use ($logunt, $contaux) {
                     if ($this->deuda == 0) {
                         DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal]);
-                        DB::table('subtramite')->where('codSubtramite',  $this->idSubtramite)->update(['contador' => $contaux]);
+                        DB::table('subtramite')->where('codSubtramite', $this->idSubtramite)->update(['contador' => $contaux]);
 
                     } elseif ($this->deuda != 0) {
                         DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal, 'estadodeuda' => $this->deuda]);
-                        DB::table('subtramite')->where('codSubtramite',  $this->idSubtramite)->update(['contador' => $contaux]);
+                        DB::table('subtramite')->where('codSubtramite', $this->idSubtramite)->update(['contador' => $contaux]);
                     }
                     $logunt->saveLogUnt();
                 });
@@ -292,15 +292,15 @@ class pagomodel
             $logunt->setFecha($date);
             $logunt->setDescripcion('registrarPago');
             $logunt->setCodigoPersonal($codPers);
-            //try {
-            //DB::transaction(function () use ($logunt, $contaux) {
-            DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad,'idSubtramite' => $this->idSubtramite]);
-            DB::table('subtramite')->where('codSubtramite', $this->idSubtramite)->update(['contador' => $contaux]);
-            $logunt->saveLogUnt();
-            //});
-            //} catch (PDOException $e) {
-            //return false;
-            //}
+            try {
+                DB::transaction(function () use ($logunt, $contaux) {
+                    DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idSubtramite' => $this->idSubtramite]);
+                    DB::table('subtramite')->where('codSubtramite', $this->idSubtramite)->update(['contador' => $contaux]);
+                    $logunt->saveLogUnt();
+                });
+            } catch (PDOException $e) {
+                return false;
+            }
             return true;
         } else {
             return false;
@@ -386,7 +386,7 @@ class pagomodel
         and pago.coPersonal = personal.idPersonal
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
-        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and pago.estadodeuda = '. $val .' and p2.estado=1 and pago.codPago = ' . $codPago . ' order by pago.codPago desc');
+        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and pago.estadodeuda = ' . $val . ' and p2.estado=1 and pago.codPago = ' . $codPago . ' order by pago.codPago desc');
 
         return $pagobd;
     }
@@ -405,7 +405,7 @@ class pagomodel
         and pago.coPersonal = personal.idPersonal
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona
-        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and personal.codPersonal =:codPersonal and pago.fecha like "%'.$dato.'%" order by pago.fecha desc',['codPersonal'=>$codPersonal]);
+        and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and personal.codPersonal =:codPersonal and pago.fecha like "%' . $dato . '%" order by pago.fecha desc', ['codPersonal' => $codPersonal]);
 
         return $pagobd;
     }
@@ -519,31 +519,30 @@ class pagomodel
         } elseif ($modalidad != 'Todo' && $tram != 'Todo' && is_null($fuefin) && !is_null($tipoRe) && !is_null($local)) {
             $pago = $this->listarMoTraTiLo($estado, $fechaDesde, $fechaHasta, $tipoRe, $modalidad, $tram, $valtram, $local, $vallocal);
         } elseif ($modalidad == 'Todo' && $tram == 'Todo' && !is_null($fuefin) && is_null($tipoRe) && is_null($local)) {
-            $pago=$this->listarFu($estado, $fechaDesde, $fechaHasta,$fuefin);
+            $pago = $this->listarFu($estado, $fechaDesde, $fechaHasta, $fuefin);
         } elseif ($modalidad != 'Todo' && $tram == 'Todo' && is_null($tipoRe) && is_null($local) && !is_null($fuefin)) {
-            $pago=$this->listarMoFu($estado, $fechaDesde, $fechaHasta,$modalidad,$fuefin);
+            $pago = $this->listarMoFu($estado, $fechaDesde, $fechaHasta, $modalidad, $fuefin);
         } elseif ($modalidad == 'Todo' && $tram != 'Todo' && is_null($tipoRe) && is_null($local) && !is_null($fuefin)) {
-            $pago=$this->listarTraFu($estado, $fechaDesde, $fechaHasta, $tram, $valtram,$fuefin);
+            $pago = $this->listarTraFu($estado, $fechaDesde, $fechaHasta, $tram, $valtram, $fuefin);
         } elseif ($modalidad != 'Todo' && $tram != 'Todo' && is_null($tipoRe) && is_null($local) && !is_null($fuefin)) {
-            $pago=$this->listarMoTraFu($estado, $fechaDesde, $fechaHasta,$modalidad, $tram, $valtram,$fuefin);
+            $pago = $this->listarMoTraFu($estado, $fechaDesde, $fechaHasta, $modalidad, $tram, $valtram, $fuefin);
         } elseif ($modalidad == 'Todo' && $tram == 'Todo' && is_null($tipoRe) && is_null($fuefin) && !is_null($local)) {
-            $pago=$this->listarLoc($estado, $fechaDesde, $fechaHasta,$local, $vallocal);
+            $pago = $this->listarLoc($estado, $fechaDesde, $fechaHasta, $local, $vallocal);
         } elseif ($modalidad == 'Todo' && $tram != 'Todo' && is_null($tipoRe) && is_null($fuefin) && !is_null($local)) {
-            $pago=$this->listarTraLo($estado, $fechaDesde, $fechaHasta,$tram, $valtram,$local, $vallocal);
+            $pago = $this->listarTraLo($estado, $fechaDesde, $fechaHasta, $tram, $valtram, $local, $vallocal);
         } elseif ($modalidad == 'Todo' && $tram == 'Todo' && is_null($tipoRe) && !is_null($fuefin) && !is_null($local)) {
-            $pago=$this->listarFueLo($estado, $fechaDesde, $fechaHasta,$fuefin,$local, $vallocal);
+            $pago = $this->listarFueLo($estado, $fechaDesde, $fechaHasta, $fuefin, $local, $vallocal);
         } elseif ($modalidad != 'Todo' && $tram == 'Todo' && !is_null($tipoRe) && is_null($fuefin) && !is_null($local)) {
-            $pago=$this->listarMoTiLo($estado, $fechaDesde, $fechaHasta,$modalidad,$tipoRe,$local, $vallocal);
-        } elseif($modalidad != 'Todo' && $tram != 'Todo' && !is_null($tipoRe) && !is_null($fuefin) && !is_null($local)) {
-            $pago=$this->listarTodo($estado, $fechaDesde, $fechaHasta,$modalidad,$tipoRe,$fuefin,$local, $vallocal,$tram, $valtram);
-        }
-        else
-        {
-            $pago=null;
+            $pago = $this->listarMoTiLo($estado, $fechaDesde, $fechaHasta, $modalidad, $tipoRe, $local, $vallocal);
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && !is_null($tipoRe) && !is_null($fuefin) && !is_null($local)) {
+            $pago = $this->listarTodo($estado, $fechaDesde, $fechaHasta, $modalidad, $tipoRe, $fuefin, $local, $vallocal, $tram, $valtram);
+        } else {
+            $pago = null;
         }
         return $pago;
     }
-    public function listarTodo($estado, $fechaDesde, $fechaHasta,$modalidad,$tipre,$fuefi,$local, $valloc,$tram, $valtra)
+
+    public function listarTodo($estado, $fechaDesde, $fechaHasta, $modalidad, $tipre, $fuefi, $local, $valloc, $tram, $valtra)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
             'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
@@ -569,7 +568,8 @@ class pagomodel
             ])->paginate(30);
         return $pago;
     }
-    public function listarMoTiLo($estado, $fechaDesde, $fechaHasta,$modalidad,$tipre,$local, $valloc)
+
+    public function listarMoTiLo($estado, $fechaDesde, $fechaHasta, $modalidad, $tipre, $local, $valloc)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
             'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
@@ -593,7 +593,8 @@ class pagomodel
             ])->paginate(30);
         return $pago;
     }
-    public function listarFueLo($estado, $fechaDesde, $fechaHasta,$fue,$local, $valloc)
+
+    public function listarFueLo($estado, $fechaDesde, $fechaHasta, $fue, $local, $valloc)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
             'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
@@ -616,7 +617,8 @@ class pagomodel
             ])->paginate(30);
         return $pago;
     }
-    public function listarTraLo($estado, $fechaDesde, $fechaHasta,$tram, $valtra,$local, $valloc)
+
+    public function listarTraLo($estado, $fechaDesde, $fechaHasta, $tram, $valtra, $local, $valloc)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
             'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
@@ -639,7 +641,9 @@ class pagomodel
             ])->paginate(30);
         return $pago;
     }
-    public function listarLoc($estado, $fechaDesde, $fechaHasta,$local, $valloc){
+
+    public function listarLoc($estado, $fechaDesde, $fechaHasta, $local, $valloc)
+    {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
             'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
@@ -660,7 +664,8 @@ class pagomodel
             ])->paginate(30);
         return $pago;
     }
-    public function listarMoTraFu($estado, $fechaDesde, $fechaHasta,$modalidad, $tram, $valtra,$fuen)
+
+    public function listarMoTraFu($estado, $fechaDesde, $fechaHasta, $modalidad, $tram, $valtra, $fuen)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
             'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
@@ -684,7 +689,8 @@ class pagomodel
             ])->paginate(30);
         return $pago;
     }
-    public function listarTraFu($estado, $fechaDesde, $fechaHasta, $tram, $valtra,$fuen)
+
+    public function listarTraFu($estado, $fechaDesde, $fechaHasta, $tram, $valtra, $fuen)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
             'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
@@ -707,7 +713,8 @@ class pagomodel
             ])->paginate(30);
         return $pago;
     }
-    public function listarMoFu($estado, $fechaDesde, $fechaHasta,$modalidad,$fuen)
+
+    public function listarMoFu($estado, $fechaDesde, $fechaHasta, $modalidad, $fuen)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
             'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
@@ -730,7 +737,8 @@ class pagomodel
             ])->paginate(30);
         return $pago;
     }
-    public function listarFu($estado, $fechaDesde, $fechaHasta,$fuen)
+
+    public function listarFu($estado, $fechaDesde, $fechaHasta, $fuen)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
             'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
@@ -752,6 +760,7 @@ class pagomodel
             ])->paginate(30);
         return $pago;
     }
+
     public function listarMoTraTiLo($estado, $fechaDesde, $fechaHasta, $tipore, $modalidad, $tram, $valtra, $local, $valloc)
     {
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
@@ -1150,7 +1159,7 @@ class pagomodel
 
     public function listarPagoModalidad($estado, $modalidad, $fechaDesde, $fechaHasta)
     {
-        
+
         $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
             'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
             'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
