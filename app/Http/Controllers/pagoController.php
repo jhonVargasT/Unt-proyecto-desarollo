@@ -316,7 +316,6 @@ class pagoController extends Controller
         return view('Ventanilla/Pagos/ReportPago')->with(['pagos' => $pag, 'txt' => $request->text, 'select' => $request->selected, 'total' => $total]);
     }
 
-
     public function eliminarPago($codPago)
     {
         $pago = new pagomodel();
@@ -332,7 +331,6 @@ class pagoController extends Controller
 
         return view('Ventanilla/Pagos/ReportPago');
     }
-
 
     public function reportePagos(Request $request)
     {
@@ -408,10 +406,7 @@ class pagoController extends Controller
             $total = 0;
         }
 
-            return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total, 'Tram' => $request->inputTram, 'sede' => $request->sed, 'fac' => $request->fac, 'esc' => $request->esc, 'tramite' => $request->opcTramite,]);
-
-
-
+        return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total, 'Tram' => $request->inputTram, 'sede' => $request->sed, 'fac' => $request->fac, 'esc' => $request->esc, 'tramite' => $request->opcTramite,]);
     }
 
     public function obtenerDatos(Request $request)

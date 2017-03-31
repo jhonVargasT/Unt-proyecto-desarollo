@@ -315,8 +315,8 @@ class pagomodel
         LEFT JOIN personal ON pago.coPersonal = personal.idPersonal
         LEFT JOIN persona AS p1 ON p1.codPersona = pago.idPersona
         LEFT JOIN persona AS p2 ON p2.codPersona = personal.idPersona
-        WHERE pago.idSubtramite = subtramite.codSubtramite AND pago.coPersonal = personal.idPersonal 
-        AND p1.codPersona = pago.idPersona AND p2.codPersona = personal.idPersona AND pago.estado = 1 
+        WHERE pago.idSubtramite = subtramite.codSubtramite
+        AND p1.codPersona = pago.idPersona AND pago.estado = 1 
         and pago.estadodeuda = ' . $val . '
         AND p1.dni = ' . $dni . ' order by pago.codPago desc ');
         return $alumnobd;
@@ -331,12 +331,10 @@ class pagomodel
         left join persona as p2 on p2.codPersona = personal.idPersona
         left join alumno on p1.codPersona=alumno.idPersona
         where pago.idSubtramite = subtramite.codSubtramite
-        and pago.coPersonal = personal.idPersonal
         and p1.codPersona = pago.idPersona
-        and p2.codPersona = personal.idPersona
         and p1.codPersona=alumno.idPersona
         and pago.estadodeuda = ' . $val . '
-        and pago.estado=1 and alumno.codAlumno = ' . $codAlumno . ' order by pago.codPago desc ');
+        and pago.estado=1 and alumno.codAlumno =:codAlumno order by pago.codPago desc ',['codAlumno'=>$codAlumno]);
 
         return $alumnobd;
     }
@@ -350,9 +348,7 @@ class pagomodel
         left join persona as p2 on p2.codPersona = personal.idPersona
         left join cliente on p1.codPersona=cliente.idPersona
         where pago.idSubtramite = subtramite.codSubtramite
-        and pago.coPersonal = personal.idPersonal
         and p1.codPersona = pago.idPersona
-        and p2.codPersona = personal.idPersona
         and p1.codPersona=cliente.idPersona
         and pago.estadodeuda = ' . $val . '
         and pago.estado=1  and cliente.ruc = ' . $ruc . ' order by pago.codPago desc ');
@@ -367,9 +363,7 @@ class pagomodel
         left join persona as p1 on p1.codPersona = pago.idPersona
         left join persona as p2 on p2.codPersona = personal.idPersona
         where pago.idSubtramite = subtramite.codSubtramite
-        and pago.coPersonal = personal.idPersonal
         and p1.codPersona = pago.idPersona
-        and p2.codPersona = personal.idPersona
         and pago.estado=1 and pago.estadodeuda = ' . $val . ' and pago.codPago = ' . $codPago . ' order by pago.codPago desc');
 
         return $pagobd;
@@ -383,9 +377,7 @@ class pagomodel
         left join persona as p1 on p1.codPersona = pago.idPersona
         left join persona as p2 on p2.codPersona = personal.idPersona
         where pago.idSubtramite = subtramite.codSubtramite
-        and pago.coPersonal = personal.idPersonal
         and p1.codPersona = pago.idPersona
-        and p2.codPersona = personal.idPersona
         and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and pago.estadodeuda = ' . $val . ' and p2.estado=1 and pago.codPago = ' . $codPago . ' order by pago.codPago desc');
 
         return $pagobd;
@@ -417,8 +409,8 @@ class pagomodel
         LEFT JOIN personal ON pago.coPersonal = personal.idPersonal
         LEFT JOIN persona AS p1 ON p1.codPersona = pago.idPersona
         LEFT JOIN persona AS p2 ON p2.codPersona = personal.idPersona
-        WHERE pago.idSubtramite = subtramite.codSubtramite AND pago.coPersonal = personal.idPersonal 
-        AND p1.codPersona = pago.idPersona and pago.estadodeuda = ' . $val . ' AND p2.codPersona = personal.idPersona AND pago.estado = 1 order by pago.codPago desc ');
+        WHERE pago.idSubtramite = subtramite.codSubtramite
+        AND p1.codPersona = pago.idPersona and pago.estadodeuda = ' . $val . '  AND pago.estado = 1 order by pago.codPago desc ');
         return $alumnobd;
     }
 
