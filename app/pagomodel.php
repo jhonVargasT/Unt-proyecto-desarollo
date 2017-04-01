@@ -536,541 +536,468 @@ class pagomodel
 
     public function listarTodo($estado, $fechaDesde, $fechaHasta, $modalidad, $tipre, $fuefi, $local, $valloc, $tram, $valtra)
     {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tipoRecurso as tiporecursod', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>', $fechaDesde],
-                ['pago.fecha', '<', $fechaHasta],
-                ['tramite.tipoRecurso', '=', $tipre],
-                ['pago.modalidad', '=', $modalidad],
-                ['tramite.fuentefinanc', '=', $fuefi],
-                [$local, '=', $valloc],
-                [$tram, '=', $valtra]
-            ])->paginate(30);
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
+                             and ' . $local . '=\'' . $valloc . '\' and tr.fuentefinanc=\''.$fuefi.'\'
+                             and tr.tipoRecurso=\''. $tipre .'\' and ' . $tram. '= \''.$valtra .'\'');
         return $pago;
     }
 
     public function listarMoTiLo($estado, $fechaDesde, $fechaHasta, $modalidad, $tipre, $local, $valloc)
     {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>', $fechaDesde],
-                ['pago.fecha', '<', $fechaHasta],
-                ['tramite.tipoRecurso', '=', $tipre],
-                ['pago.modalidad', '=', $modalidad],
-                [$local, '=', $valloc]
-            ])->paginate(30);
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
+                             and ' . $local . '=\'' . $valloc . '\' 
+                             and tr.tipoRecurso=\''. $tipre .'\' ');
         return $pago;
     }
 
     public function listarFueLo($estado, $fechaDesde, $fechaHasta, $fue, $local, $valloc)
     {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>=', $fechaDesde],
-                ['pago.fecha', '<=', $fechaHasta],
-                ['tramite.fuentefinanc', '=', $fue],
-                [$local, '=', $valloc]
-            ])->paginate(30);
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . '  and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
+                             and ' . $local . '=\'' . $valloc. '\' and tr.fuentefinanc=\''.$fue.'\'
+                            ');
         return $pago;
     }
 
     public function listarTraLo($estado, $fechaDesde, $fechaHasta, $tram, $valtra, $local, $valloc)
     {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>', $fechaDesde],
-                ['pago.fecha', '<', $fechaHasta],
-                [$local, '=', $valloc],
-                [$tram, '=', $valtra]
-            ])->paginate(30);
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . '  and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
+                             and ' . $local . '=\'' . $valloc . '\' and ' . $tram . '= \''.$valtra .'\'');
         return $pago;
     }
 
     public function listarLoc($estado, $fechaDesde, $fechaHasta, $local, $valloc)
     {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>', $fechaDesde],
-                ['pago.fecha', '<', $fechaHasta],
-                [$local, '=', $valloc]
-            ])->paginate(30);
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . ' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
+                             and ' . $local . '=\'' . $valloc . '\'');
         return $pago;
     }
 
     public function listarMoTraFu($estado, $fechaDesde, $fechaHasta, $modalidad, $tram, $valtra, $fuen)
     {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>', $fechaDesde],
-                ['pago.fecha', '<', $fechaHasta],
-                ['tramite.fuentefinanc', '=', $fuen],
-                ['pago.modalidad', '=', $modalidad],
-                [$tram, '=', $valtra]
-            ])->paginate(30);
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
+                             and tr.fuentefinanc=\''.$fuen.'\'and ' . $tram . '= \''.$valtra .'\'');
         return $pago;
     }
 
     public function listarTraFu($estado, $fechaDesde, $fechaHasta, $tram, $valtra, $fuen)
     {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>', $fechaDesde],
-                ['pago.fecha', '<', $fechaHasta],
-                ['tramite.fuentefinanc', '=', $fuen],
-                [$tram, '=', $valtra]
-            ])->paginate(30);
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . '  and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
+                             and tr.fuentefinanc=\''.$fuen.'\'and ' . $tram. '= \''.$valtra .'\'');
         return $pago;
     }
 
     public function listarMoFu($estado, $fechaDesde, $fechaHasta, $modalidad, $fuen)
     {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>', $fechaDesde],
-                ['pago.fecha', '<', $fechaHasta],
-                ['tramite.fuentefinanc', '=', $fuen],
-                ['pago.modalidad', '=', $modalidad]
-            ])->paginate(30);
-        return $pago;
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
+                            and tr.fuentefinanc=\''.$fuen.'\'');
     }
 
     public function listarFu($estado, $fechaDesde, $fechaHasta, $fuen)
     {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>', $fechaDesde],
-                ['pago.fecha', '<', $fechaHasta],
-                ['tramite.fuentefinanc', '=', $fuen]
-            ])->paginate(30);
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . ' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
+                              and tr.fuentefinanc=\''.$fuen.'\'');
         return $pago;
     }
 
     public function listarMoTraTiLo($estado, $fechaDesde, $fechaHasta, $tipore, $modalidad, $tram, $valtra, $local, $valloc)
     {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>', $fechaDesde],
-                ['pago.fecha', '<', $fechaHasta],
-                ['tramite.tipoRecurso', '=', $tipore],
-                ['pago.modalidad', '=', $modalidad],
-                [$tram, '=', $valtra],
-                [$local, '=', $valloc]
-            ])->paginate(30);
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
+                             and ' . $local . '=\'' . $valloc . '\' 
+                             and tr.tipoRecurso=\''. $tipore .'\' and ' . $tram. '= \''.$valtra .'\'');
         return $pago;
     }
 
     public function listarMoTraFuTi($estado, $fechaDesde, $fechaHasta, $tipore, $modalidad, $fuefi, $tram, $valtra)
     {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>', $fechaDesde],
-                ['pago.fecha', '<', $fechaHasta],
-                ['tramite.tipoRecurso', '=', $tipore],
-                ['pago.modalidad', '=', $modalidad],
-                ['tramite.fuentefinanc', '=', $fuefi],
-                [$tram, '=', $valtra]
-            ])->paginate(30);
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\'  and tr.fuentefinanc=\''.$fuefi.'\'
+                             and tr.tipoRecurso=\''. $tipore .'\' and ' . $tram . '= \''.$valtra .'\'');
         return $pago;
     }
 
     public function listarMoFueTipFu($estado, $fechaDesde, $fechaHasta, $tipore, $modalidad, $fuefi)
     {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>=', $fechaDesde],
-                ['pago.fecha', '<=', $fechaHasta],
-                ['tramite.tipoRecurso', '=', $tipore],
-                ['pago.modalidad', '=', $modalidad],
-                ['tramite.fuentefinanc', '=', $fuefi]
-            ])->paginate(30);
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' and tr.fuentefinanc=\''.$fuefi.'\'
+                             and tr.tipoRecurso=\''. $tipore .'\' ');
         return $pago;
     }
 
     public function listarTip($estado, $fechaDesde, $fechaHasta, $tipore, $modalidad, $tram, $valTram)
     {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>=', $fechaDesde],
-                ['pago.fecha', '<=', $fechaHasta],
-                ['tramite.tipoRecurso', '=', $tipore],
-                ['pago.modalidad', '=', $modalidad],
-                [$tram, '=', $valTram]
-            ])->paginate(30);
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
+                             and tr.tipoRecurso=\''. $tipore .'\' and ' . $tram . '= \''.$valTram .'\'');
         return $pago;
     }
 
     public function listarTipLo($estado, $fechaDesde, $fechaHasta, $tipore, $local, $valloc)
     {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>=', $fechaDesde],
-                ['pago.fecha', '<=', $fechaHasta],
-                ['tramite.tipoRecurso', '=', $tipore],
-                [$local, '=', $valloc]
-            ])->paginate(30);
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado='.$estado .' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
+                             and ' . $local . '=\''. $valloc .'\' 
+                             and tr.tipoRecurso=\''. $tipore .'\'');
         return $pago;
     }
 
     public function listarFueTip($estado, $fechaDesde, $fechaHasta, $tipRe, $fuefi)
-    {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>=', $fechaDesde],
-                ['pago.fecha', '<=', $fechaHasta],
-                ['tramite.tipoRecurso', '=', $tipRe],
-                ['tramite.fuentefinanc', '=', $fuefi]
-            ])->paginate(30);
+    { $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . ' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
+                             and tr.fuentefinanc=\''.$fuefi.'\'
+                             and tr.tipoRecurso=\''. $tipRe .'\' ');
         return $pago;
     }
 
     public function listarTraTip($estado, $fechaDesde, $fechaHasta, $tram, $valtra, $tipRe)
     {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>=', $fechaDesde],
-                ['pago.fecha', '<=', $fechaHasta],
-                ['tramite.tipoRecurso', '=', $tipRe],
-                [$tram, '=', $valtra],
-            ])->paginate(30);
-        return $pago;
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . 'and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
+                             and tr.tipoRecurso=\''. $tipRe .'\' and ' . $tram . '= \''.$valtra .'\'');
     }
 
     public function listarTipoRe($estado, $fechaDesde, $fechaHasta, $tipRe)
     {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>=', $fechaDesde],
-                ['pago.fecha', '<=', $fechaHasta],
-                ['tramite.tipoRecurso', '=', $tipRe],
-
-            ])->paginate(30);
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . ' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
+                             and tr.tipoRecurso=\''. $tipRe .'\'');
         return $pago;
     }
 
     public function listarMoTrFuLo($estado, $fechaDesde, $fechaHasta, $tram, $valtra, $fuefi, $local, $valLoc)
     {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>=', $fechaDesde],
-                ['pago.fecha', '<=', $fechaHasta],
-                ['tramite.fuentefinanc', '=', $fuefi],
-                [$tram, '=', $valtra],
-                [$local, '=', $valLoc]
-            ])->paginate(30);
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . '  and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
+                             and ' . $local . '=\'' . $valLoc . '\' and tr.fuentefinanc=\''.$fuefi.'\' and ' . $tram . '= \''.$valtra .'\'');
         return $pago;
     }
 
     public function listarTr($estado, $fechaDesde, $fechaHasta, $tram, $valtra)
     {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>=', $fechaDesde],
-                ['pago.fecha', '<=', $fechaHasta],
-                [$tram, '=', $valtra]
-            ])->paginate(30);
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . ' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
+                             and ' . $tram . '= \''.$valtra .'\'');
         return $pago;
     }
 
     public function listarMoFuLo($estado, $modalidad, $fechaDesde, $fechaHasta, $fuefi, $local, $valLoc)
     {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>=', $fechaDesde],
-                ['pago.fecha', '<=', $fechaHasta],
-                ['pago.modalidad', '=', $modalidad],
-                ['tramite.fuentefinanc', '=', $fuefi],
-                [$local, '=', $valLoc]
-            ])->paginate(30);
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
+                             and ' . $local . '=\'' . $valLoc . '\' and tr.fuentefinanc=\''.$fuefi.'\'');
         return $pago;
     }
 
     public function listarMoLo($estado, $modalidad, $fechaDesde, $fechaHasta, $local, $valLoc)
     {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>=', $fechaDesde],
-                ['pago.fecha', '<=', $fechaHasta],
-                ['pago.modalidad', '=', $modalidad],
-                [$local, '=', $valLoc]
-            ])->paginate(30);
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
+                             and ' . $local . '=\'' . $valLoc . '\'');
         return $pago;
     }
 
     public function listarMoTiFuLo($estado, $modalidad, $fechaDesde, $fechaHasta, $tipRe, $fuenteFin, $local, $valLoc)
     {
-        $pago = DB::table('pago')->select(['pago.codpago as codigopago', 'pago.modalidad as modalidad', 'sede.nombresede as nombresede', 'facultad.nombre as nombrefacultad',
-            'escuela.nombre as nombreescuela', 'pago.fecha as fechapago', 'tramite.nombre as nombretramite', 'tramite.clasificador as clasi', 'tramite.fuentefinanc as fuentefinanc',
-            'tramite.tiporecurso as tiporecurso', 'subtramite.nombre as nombresubtramite', 'subtramite.precio as precio', 'pago.detalle as pagodetalle'])
-            ->leftjoin('personal', 'pago.copersonal', '=', 'personal.idpersonal')
-            ->leftjoin('persona', 'personal.idpersona', '=', 'persona.codPersona')
-            ->leftjoin('subtramite', 'pago.idsubtramite', '=', 'subtramite.codsubtramite')
-            ->leftjoin('tramite', 'tramite.codtramite', '=', 'subtramite.idtramite')
-            ->leftjoin('persona as p', 'pago.idpersona', '=', 'p.codPersona')
-            ->leftjoin('alumno', 'persona.codPersona', '=', 'alumno.idpersona')
-            ->leftjoin('escuela', 'alumno.coescuela', '=', 'escuela.idescuela')
-            ->leftjoin('facultad', 'escuela.codigofacultad', '=', 'facultad.idfacultad')
-            ->leftjoin('sede', 'facultad.cosede', '=', 'sede.codsede')
-            ->where([
-                ['pago.estado', $estado],
-                ['pago.fecha', '>=', $fechaDesde],
-                ['pago.fecha', '<=', $fechaHasta],
-                ['pago.modalidad', '=', $modalidad],
-                ['tramite.tipoRecurso', '=', $tipRe],
-                ['tramite.fuentefinanc', '=', $fuenteFin],
-                [$local, '=', $valLoc]
-            ])->paginate(30);
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
+                             and ' . $local . '=\'' . $valLoc . '\' and tr.fuentefinanc=\''.$fuenteFin.'\'
+                             and tr.tipoRecurso=\''. $tipRe .'\'');
+
         return $pago;
     }
 
@@ -1092,9 +1019,8 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE po.estado=' . $estado . ' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
-                             and tr.tipoRecurso=' . $tipRe . '
-                              and po.modalidad = \'' . $modalidad . '\'');
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' 
+                             and tr.tipoRecurso=\''. $tipRe .'\'');
 
         return $pago;
     }
@@ -1116,8 +1042,8 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE po.estado=' . $estado . ' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' and ' . $tramite . '=' . $tramiteVal . '
-                             and ' . $local . '=' . $valLoc . '
+                            WHERE po.estado=' . $estado . ' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' and ' . $tramite . '= \''.$tramiteVal .'\'
+                             and ' . $local . '=\'' . $valLoc . '\'
                               and po.modalidad = \'' . $modalidad . '\'');
 
         return $pago;
@@ -1140,7 +1066,7 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE po.estado='.$estado.' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' and '.$tramite.'='.$tramiteVal.'
+                            WHERE po.estado= \''.$estado.'\' and po.fecha >= \'2000-02-23\' and po.fecha <=\'2017-03-31\' and '.$tramite.'= \''.$tramiteVal.'\'
                               and po.modalidad = \''.$modalidad.'\'' );
 
         return $pago;
