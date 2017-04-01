@@ -128,7 +128,7 @@
                         <div class="form-group-sm col-sm-2 ">
                             <div class="col-sm-8 input-group date" data-provide="datepicker">
                                 <input type="text" name="fechaDesde" class="form-control" placeholder="desde"
-                                       autocomplete="off" value="03/01/2017" required>
+                                       autocomplete="off"  required>
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </div>
@@ -139,7 +139,7 @@
                             <div class="col-sm-8 input-group date" data-provide="datepicker">
                                 <input type="text" name="fechaHasta" class="form-control"
                                        placeholder="hasta"
-                                       autocomplete="off" value="03/18/2017" required>
+                                       autocomplete="off" required>
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </div>
