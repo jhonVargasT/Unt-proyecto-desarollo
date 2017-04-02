@@ -149,10 +149,6 @@
                     <div class="form-group col-lg-12">
                         <div class=" col-sm-4"></div>
                         <div class="col-md-4">
-                            <button class="col-lg-4 btn btn-warning" onclick=" limpiarCampos()"><span
-                                              class="glyphicon glyphicon-erase" ></span> Limpiar
-                                campos
-                            </button>
                             <div class="col-lg-4"></div>
                             <button type="submit" name="enviar" class="col-lg-4 btn btn-success"><span
                                         class="glyphicon glyphicon-refresh"></span> Actualizar lista
@@ -371,8 +367,6 @@
 
                         <div class="col-md-1"></div>
                         <div class="col-md-2">
-                            <button href="#" class="btn  btn-primary" id="imp">Imprimir <span
-                                        class="glyphicon glyphicon-print"></span></button>
                         </div>
 
                         <div class="col-md-3"></div>
@@ -384,14 +378,7 @@
 @stop
 @section('scripts')
     <script type="text/javascript">
-        $('#inputTram').autocomplete({
-            source : 'autocompleteTram',
-            minlenght:1,
-            autoFocus:true,
-            select:function(e,ui){
-                alert(ui);
-            }
-        });
+
         function limpiarCampos() {
             var x='1';
             document.getElementById("fac").innerHTML = x;

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\escuelamodel;
+use App\facultadmodel;
 use App\pagomodel;
 use App\personamodel;
+use App\sedemodel;
 use App\subtramitemodel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -100,16 +103,107 @@ class ExcelController extends Controller
         return back()->with('error', 'Please Check your file, Something is wrong there.');
     }
 
-    public function reportePagoresu($tipo, $fecha, $valor)
+    public function reportepagodetalle($estado, $modalidad, $opctram, $valtram, $sede, $facultad, $escuela, $tipre, $fuefi, $fechades, $fechahas)
     {
         date_default_timezone_set('America/Lima');
         $fechahoy = date('Y-m-d');
-        Excel::create('Reporte resumido  :  '.$fechahoy.'', function ($excel) use ($tipo, $fecha, $valor) {
+        Excel::create('Reporte detallado :  ' . $fechahoy . '', function ($excel) use ($estado, $modalidad, $opctram, $valtram, $sede, $facultad, $escuela, $tipre, $fuefi, $fechades, $fechahas) {
+            $excel->sheet('resumen', function ($sheet) use ($estado, $modalidad, $opctram, $valtram, $sede, $facultad, $escuela, $tipre, $fuefi, $fechades, $fechahas) {
+
+                $sede = new sedemodel();
+                $fac = new facultadmodel();
+                $esc = new escuelamodel();
+                $subTramiteModel = new subtramitemodel();
+                $pagoModel = new pagomodel();
+                $tramiteModel = new  tramitemodel();
+                $fechaDesde = date("Y-m-d H:i:s", strtotime($fechades));
+                $fechaHasta = date("Y-m-d H:i:s", strtotime($fechahas));
+                $total = 0;
+                $lugar = null;
+                $codigo = null;
+                if (empty($sede) != true) {
+                    if (empty($facultad) != true) {
+                        if (empty($escuela) != true) {
+
+                            $codigo = $esc->obtenerId($escuela);
+                            $lugar = 'es.idEscuela';
+                        } else {
+                            $codigo = $fac->obtenerId($facultad);
+                            $lugar = 'fac.idFacultad';
+                        }
+                    } else {
+                        $codigo = $sede->obtenerId($sede);
+                        $lugar = 'se.codSede';
+                    }
+                } else {
+                    $lugar = null;
+                }
+
+                if ($estado == 'Anulado') {
+                    $estado = 0;
+                } else {
+                    $estado = 1;
+                }
+                if ($opctram == 'Tramite') {
+                    $tramites = $tramiteModel->consultarId($valtram);
+                    $tram = 'tr.codTramite';
+                } else {
+                    if ($opctram == 'SubTramite') {
+                        $tramites = $subTramiteModel->consultarId($valtram);
+                        $tram = 'st.codSubtramite';
+                    } else {
+                        $tramites = null;
+                        $tram = 'Todo';
+                    }
+                }
+                if (empty($fuefi) != true) {
+                    $fuenfin = $fuefi;
+                } else {
+                    $fuenfin = null;
+                }
+                if (empty($tipre) != true) {
+                    $tipRe = $tipre;
+                } else {
+                    $tipRe = null;
+                }
+
+                $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo);
+                if (!is_null($result) && empty($result) != true) {
+                    foreach ($result as $sum) {
+                        $total = $total + $sum->precio;
+                    }
+                } else {
+                    $total = 0;
+                }
+
+                foreach ($result as $p) {
+                    $data[] = array(
+                        "CLASIFICADOR S.I.A.F" => $p->clasificadorsiaf,
+                        "NOMBRE DE TRAMITE" => $p->nombreTramite,
+                        "CUENTA" => $p->cuenta,
+                        "NOMBRE DE SUBTRAMITE" => $p->nombresubtramite,
+                        "IMPORTE" => $p->precio,
+                        "NRO PAGOS" => $p->nurPagos,
+                    );
+                }
+
+                $sheet->FromArray($data);
+
+
+            });
+        })->export('xls');
+    }
+
+    function reportePagoresu($tipo, $fecha, $valor)
+    {
+        date_default_timezone_set('America/Lima');
+        $fechahoy = date('Y-m-d');
+        Excel::create('Reporte resumido  :  ' . $fechahoy . '', function ($excel) use ($tipo, $fecha, $valor) {
             $excel->sheet('resumen', function ($sheet) use ($tipo, $fecha, $valor) {
                 $pagoModel = new pagomodel();
 
                 if ($tipo == 'Resumen total') {
-                    $data=null;
+                    $data = null;
                     $tiempo = null;
                     if ($fecha == 'Año') {
                         $tiempo = 'where Year(po.fecha) = ' . $valor . '';
@@ -127,17 +221,18 @@ class ExcelController extends Controller
                     }
 
 
-
                     foreach ($result as $p) {
+
                         $data[] = array(
                             "CLASIFICADOR S.I.A.F" => $p->clasificadorsiaf,
                             "NOMBRE DE TRAMITE" => $p->nombreTramite,
                             "IMPORTE" => $p->importe,
                         );
                     }
+                    $sheet->setTitle('Lista de reportes');
                     $sheet->FromArray($data);
                 } elseif ($tipo == 'Codigo S.I.A.F') {
-                    $data=null;
+                    $data = null;
                     $tiempo = null;
                     if ($fecha == 'Año') {
                         $tiempo = 'where Year(po.fecha) = ' . $valor . '';
@@ -157,7 +252,7 @@ class ExcelController extends Controller
 
                     foreach ($result as $p) {
                         $data[] = array(
-                            "total"=> $total,
+                            "total" => $total,
                             "CLASIFICADOR S.I.A.F" => $p->clasificadorsiaf,
                             "NOMBRE DE TRAMITE" => $p->nombreTramite,
                             "CUENTA" => $p->cuenta,
@@ -174,7 +269,8 @@ class ExcelController extends Controller
         })->export('xls');
     }
 
-    public function contadorSubtramite($nombreSubtramite)
+
+    function contadorSubtramite($nombreSubtramite)
     {
         $cont = null;
         $contador = DB::select('select contador from subtramite where subtramite.estado=1 and subtramite.nombre="' . $nombreSubtramite . '"');
@@ -184,4 +280,5 @@ class ExcelController extends Controller
         }
         return $cont;
     }
+
 }

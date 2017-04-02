@@ -447,7 +447,7 @@ class pagoController extends Controller
             foreach ($result as $r) {
                 $total += $r->importe;
             }
-            return view('Administrador/Reporte/reporteresumido')->with(['resultresu' => $result, 'fecha' => $request->fecha, 'total' => $total,'tiprep'=>$request->tipreporte,'tiempo'=>$request->tiempo]);
+            return view('Administrador/Reporte/reporteresumido')->with(['resultresu' => $result, 'fecha' => $request->fecha, 'total' => $total,'tiempo'=>$request->tiempo,'tiprep'=>$request->tipreporte]);
         } elseif ($request->tipreporte == 'Codigo S.I.A.F') {
 
             $tiempo = null;

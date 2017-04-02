@@ -1,5 +1,24 @@
-@extends('Administrador/Body')
-@section('body')
+@extends('Administrador.Body')
+@section('reportes')
+    <div  id="collapseOne" class="collapse in">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>
+                        <a href="/admReportres" style="color: #509f0c" target="_top"><span class="glyphicon glyphicon-book"></span> Reporte Resumido</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="/admReportes"> <span class="glyphicon glyphicon-list-alt"></span> Reporte pagos detallado</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+@stop
+@section('content')
+    @if( Session::has('tipoCuentaA'))
     <br>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <div class="panel panel-primary">
@@ -210,16 +229,13 @@
             </div>
         </div>
     </div>
+    @else
+        @include("index")
+    @endif
 @stop
 @section('scripts')
     <script type="text/javascript">
 
-        function limpiarCampos() {
-            var x = '1';
-            document.getElementById("fac").innerHTML = x;
-            document.getElementById("sede").innerHTML = x;
-            document.getElementById("esc").innerHTML = x;
-        }
         function habilitarff(value) {
             if (value == true) {
                 document.getElementById("ff").disabled = false;

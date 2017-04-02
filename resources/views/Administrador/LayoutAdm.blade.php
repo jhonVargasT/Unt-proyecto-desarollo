@@ -30,6 +30,7 @@
 <div >
 
     <div class="col-sm-12 panel panel-default ">
+        <br>
         <div class="col-sm-12 ">
             <div class="col-sm-3 ">
                 <div>
@@ -73,7 +74,7 @@
         </div>
         <div class="col-sm-12 "><br></div>
     </div>
-    <div class=" col-sm-12 ">
+    <div class=" col-sm-12 panel ">
         @yield('body')
     </div>
     <footer class="footer row col-sm-12">

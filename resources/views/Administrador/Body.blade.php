@@ -3,8 +3,9 @@
     <!--barra de navegacion -->
     @if(  Session::has('tipoCuentaA') )
         <div class=" col-sm-12 ">
+            <br>
             <div class="row">
-                <div class="col-sm-2 panel ">
+                <div class="col-sm-2 panel  ">
                     <div class="panel-group" id="accordion">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
@@ -14,6 +15,7 @@
                                     </span> Reportes</a>
                                 </h4>
                             </div>
+                            @yield('reportes')
                             <div id="collapseOne" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <table class="table">
