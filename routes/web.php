@@ -159,7 +159,12 @@ Route::get('TramiteEliminar/{codTramite}', 'tramiteController@eliminarTramite');
 Route::get('/admReportes', function () {
     return view('Administrador/Reporte/Report');
 });
+Route::get('/admReportres', function () {
+    return view('Administrador/Reporte/reporteresumido');
+});
+
 Route::resource('reportePago','pagoController@reportePagos');
+Route::resource('admReporteresumido', 'pagoController@obtenerPagosresumen');
 //////////////////////////////////SEDE//////////////////////////////////////////////////////////////////////////////////
 Route::get('/admRegistrarSede', function () {
     return view('Administrador/Sede/Add');

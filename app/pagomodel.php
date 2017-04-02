@@ -226,6 +226,23 @@ class pagomodel
         return $obj;
     }
 
+    public function obtenerPagosresumen($fecha)
+    {
+        try {
+            $pago = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.cuenta as cuenta, st.nombre as nombresubtramite,sum(st.precio) as precio, count(po.codPago) as nurPagos
+                    FROM tramite as tr
+                    LEFT JOIN subtramite st ON (tr.codTramite = st.idTramite)
+                    LEFT JOIN pago po ON (st.codSubtramite=po.idSubtramite )
+                    ' . $fecha . '
+                    group by st.codSubtramite order by tr.nombre;');
+
+        }catch (\mysqli_sql_exception $e)
+        {
+            $pago=null;
+        }
+        return $pago;
+    }
+
     public function savePago($contaux)
     {
         date_default_timezone_set('Etc/GMT+5');
@@ -294,7 +311,7 @@ class pagomodel
             $logunt->setCodigoPersonal($codPers);
             try {
                 DB::transaction(function () use ($logunt, $contaux) {
-                    DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad,'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite]);
+                    DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite]);
                     DB::table('subtramite')->where('codSubtramite', $this->idSubtramite)->update(['contador' => $contaux]);
                     $logunt->saveLogUnt();
                 });
@@ -334,7 +351,7 @@ class pagomodel
         and p1.codPersona = pago.idPersona
         and p1.codPersona=alumno.idPersona
         and pago.estadodeuda = ' . $val . '
-        and pago.estado=1 and alumno.codAlumno =:codAlumno order by pago.codPago desc ',['codAlumno'=>$codAlumno]);
+        and pago.estado=1 and alumno.codAlumno =:codAlumno order by pago.codPago desc ', ['codAlumno' => $codAlumno]);
 
         return $alumnobd;
     }
@@ -550,9 +567,9 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\' 
-                             and ' . $local . '=\'' . $valloc . '\' and tr.fuentefinanc=\''.$fuefi.'\'
-                             and tr.tipoRecurso=\''. $tipre .'\' and ' . $tram. '= \''.$valtra .'\'');
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                             and ' . $local . '=\'' . $valloc . '\' and tr.fuentefinanc=\'' . $fuefi . '\'
+                             and tr.tipoRecurso=\'' . $tipre . '\' and ' . $tram . '= \'' . $valtra . '\'');
         return $pago;
     }
 
@@ -572,9 +589,9 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\' 
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
                              and ' . $local . '=\'' . $valloc . '\' 
-                             and tr.tipoRecurso=\''. $tipre .'\' ');
+                             and tr.tipoRecurso=\'' . $tipre . '\' ');
         return $pago;
     }
 
@@ -594,8 +611,8 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\' 
-                             and ' . $local . '=\'' . $valloc. '\' and tr.fuentefinanc=\''.$fue.'\'
+                            WHERE  po.estado=' . $estado . ' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                             and ' . $local . '=\'' . $valloc . '\' and tr.fuentefinanc=\'' . $fue . '\'
                             ');
         return $pago;
     }
@@ -616,8 +633,8 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . '  and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\' 
-                             and ' . $local . '=\'' . $valloc . '\' and ' . $tram . '= \''.$valtra .'\'');
+                            WHERE  po.estado=' . $estado . '  and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                             and ' . $local . '=\'' . $valloc . '\' and ' . $tram . '= \'' . $valtra . '\'');
         return $pago;
     }
 
@@ -637,7 +654,7 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\' 
+                            WHERE  po.estado=' . $estado . ' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
                              and ' . $local . '=\'' . $valloc . '\'');
         return $pago;
     }
@@ -658,8 +675,8 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\'  
-                             and tr.fuentefinanc=\''.$fuen.'\'and ' . $tram . '= \''.$valtra .'\'');
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  
+                             and tr.fuentefinanc=\'' . $fuen . '\'and ' . $tram . '= \'' . $valtra . '\'');
         return $pago;
     }
 
@@ -679,8 +696,8 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . '  and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\' 
-                             and tr.fuentefinanc=\''.$fuen.'\'and ' . $tram. '= \''.$valtra .'\'');
+                            WHERE  po.estado=' . $estado . '  and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                             and tr.fuentefinanc=\'' . $fuen . '\'and ' . $tram . '= \'' . $valtra . '\'');
         return $pago;
     }
 
@@ -700,8 +717,8 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\'  
-                            and tr.fuentefinanc=\''.$fuen.'\'');
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  
+                            and tr.fuentefinanc=\'' . $fuen . '\'');
     }
 
     public function listarFu($estado, $fechaDesde, $fechaHasta, $fuen)
@@ -720,8 +737,8 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\' 
-                              and tr.fuentefinanc=\''.$fuen.'\'');
+                            WHERE  po.estado=' . $estado . ' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                              and tr.fuentefinanc=\'' . $fuen . '\'');
         return $pago;
     }
 
@@ -741,9 +758,9 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\'  
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valloc . '\' 
-                             and tr.tipoRecurso=\''. $tipore .'\' and ' . $tram. '= \''.$valtra .'\'');
+                             and tr.tipoRecurso=\'' . $tipore . '\' and ' . $tram . '= \'' . $valtra . '\'');
         return $pago;
     }
 
@@ -763,8 +780,8 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\'   and tr.fuentefinanc=\''.$fuefi.'\'
-                             and tr.tipoRecurso=\''. $tipore .'\' and ' . $tram . '= \''.$valtra .'\'');
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'   and tr.fuentefinanc=\'' . $fuefi . '\'
+                             and tr.tipoRecurso=\'' . $tipore . '\' and ' . $tram . '= \'' . $valtra . '\'');
         return $pago;
     }
 
@@ -784,8 +801,8 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\'  and tr.fuentefinanc=\''.$fuefi.'\'
-                             and tr.tipoRecurso=\''. $tipore .'\' ');
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  and tr.fuentefinanc=\'' . $fuefi . '\'
+                             and tr.tipoRecurso=\'' . $tipore . '\' ');
         return $pago;
     }
 
@@ -805,8 +822,8 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\'  
-                             and tr.tipoRecurso=\''. $tipore .'\' and ' . $tram . '= \''.$valTram .'\'');
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  
+                             and tr.tipoRecurso=\'' . $tipore . '\' and ' . $tram . '= \'' . $valTram . '\'');
         return $pago;
     }
 
@@ -826,14 +843,15 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado='.$estado .' and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\' 
-                             and ' . $local . '=\''. $valloc .'\' 
-                             and tr.tipoRecurso=\''. $tipore .'\'');
+                            WHERE  po.estado=' . $estado . ' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                             and ' . $local . '=\'' . $valloc . '\' 
+                             and tr.tipoRecurso=\'' . $tipore . '\'');
         return $pago;
     }
 
     public function listarFueTip($estado, $fechaDesde, $fechaHasta, $tipRe, $fuefi)
-    { $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+    {
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -847,9 +865,9 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\' 
-                             and tr.fuentefinanc=\''.$fuefi.'\'
-                             and tr.tipoRecurso=\''. $tipRe .'\' ');
+                            WHERE  po.estado=' . $estado . ' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                             and tr.fuentefinanc=\'' . $fuefi . '\'
+                             and tr.tipoRecurso=\'' . $tipRe . '\' ');
         return $pago;
     }
 
@@ -869,8 +887,8 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . 'and and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\' 
-                             and tr.tipoRecurso=\''. $tipRe .'\' and ' . $tram . '= \''.$valtra .'\'');
+                            WHERE  po.estado=' . $estado . 'and and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                             and tr.tipoRecurso=\'' . $tipRe . '\' and ' . $tram . '= \'' . $valtra . '\'');
     }
 
     public function listarTipoRe($estado, $fechaDesde, $fechaHasta, $tipRe)
@@ -889,8 +907,8 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\'  
-                             and tr.tipoRecurso=\''. $tipRe .'\'');
+                            WHERE  po.estado=' . $estado . ' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  
+                             and tr.tipoRecurso=\'' . $tipRe . '\'');
         return $pago;
     }
 
@@ -910,8 +928,8 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . '  and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\'  
-                             and ' . $local . '=\'' . $valLoc . '\' and tr.fuentefinanc=\''.$fuefi.'\' and ' . $tram . '= \''.$valtra .'\'');
+                            WHERE  po.estado=' . $estado . '  and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  
+                             and ' . $local . '=\'' . $valLoc . '\' and tr.fuentefinanc=\'' . $fuefi . '\' and ' . $tram . '= \'' . $valtra . '\'');
         return $pago;
     }
 
@@ -931,8 +949,8 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\'  
-                             and ' . $tram . '= \''.$valtra .'\'');
+                            WHERE  po.estado=' . $estado . ' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  
+                             and ' . $tram . '= \'' . $valtra . '\'');
         return $pago;
     }
 
@@ -952,8 +970,8 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\'and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\' 
-                             and ' . $local . '=\'' . $valLoc . '\' and tr.fuentefinanc=\''.$fuefi.'\'');
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\'and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                             and ' . $local . '=\'' . $valLoc . '\' and tr.fuentefinanc=\'' . $fuefi . '\'');
         return $pago;
     }
 
@@ -973,7 +991,7 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\' 
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
                              and ' . $local . '=\'' . $valLoc . '\'');
         return $pago;
     }
@@ -994,9 +1012,9 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\' 
-                             and ' . $local . '=\'' . $valLoc . '\' and tr.fuentefinanc=\''.$fuenteFin.'\'
-                             and tr.tipoRecurso=\''. $tipRe .'\'');
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                             and ' . $local . '=\'' . $valLoc . '\' and tr.fuentefinanc=\'' . $fuenteFin . '\'
+                             and tr.tipoRecurso=\'' . $tipRe . '\'');
 
         return $pago;
     }
@@ -1019,8 +1037,8 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\' 
-                             and tr.tipoRecurso=\''. $tipRe .'\'');
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                             and tr.tipoRecurso=\'' . $tipRe . '\'');
 
         return $pago;
     }
@@ -1042,7 +1060,7 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE po.estado=' . $estado . ' and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\'  and ' . $tramite . '= \''.$tramiteVal .'\'
+                            WHERE po.estado=' . $estado . ' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  and ' . $tramite . '= \'' . $tramiteVal . '\'
                              and ' . $local . '=\'' . $valLoc . '\'
                               and po.modalidad = \'' . $modalidad . '\'');
 
@@ -1052,7 +1070,7 @@ class pagomodel
     public function listarModTram($estado, $modalidad, $tramite, $tramiteVal, $fechaDesde, $fechaHasta)
     {
 
-        $pago= DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1066,8 +1084,8 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE po.estado= \''.$estado.'\'and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\'  and '.$tramite.'= \''.$tramiteVal.'\'
-                              and po.modalidad = \''.$modalidad.'\'' );
+                            WHERE po.estado= \'' . $estado . '\'and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  and ' . $tramite . '= \'' . $tramiteVal . '\'
+                              and po.modalidad = \'' . $modalidad . '\'');
 
         return $pago;
 
@@ -1075,7 +1093,7 @@ class pagomodel
 
     public function listarPagoModalidad($estado, $modalidad, $fechaDesde, $fechaHasta)
     {
-        $pago= DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1089,13 +1107,13 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE po.estado='.$estado.' and and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\'  and po.modalidad = \''.$modalidad.'\'' );
+                            WHERE po.estado=' . $estado . ' and and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  and po.modalidad = \'' . $modalidad . '\'');
         return $pago;
     }
 
     public function listarPagoNada($estado, $fechaDesde, $fechaHasta)
     {
-        $pago= DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1109,9 +1127,19 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE po.estado='.$estado.' and po.fecha >= \''.$fechaDesde.'\' and po.fecha <=\''.$fechaHasta.'\'  ');
+                            WHERE po.estado=' . $estado . ' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  ');
         return $pago;
     }
 
-
+    public function listarPagosPersonal($fecha, $codPersonal)
+    {
+        $pago = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.cuenta as cuenta, st.nombre,sum(st.precio) as precio, count(po.codPago) as nurPagos
+                            FROM unt.tramite as tr
+                            LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
+                            LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )
+                            LEFT JOIN unt.personal pl ON (pl.idPersonal=po.coPersonal )
+                            where po.fecha = \'' . $fecha . '\' and pl.idPersonal=' . $codPersonal . '
+                            group by (st.codSubtramite) order by (tr.nombre);');
+        return $pago;
+    }
 }

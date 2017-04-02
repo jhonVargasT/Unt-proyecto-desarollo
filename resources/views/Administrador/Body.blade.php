@@ -24,7 +24,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="/ventreportresumido">Reporte Resumido</a>
+                                                <a href="/admReportres">Reporte Resumido</a>
                                             </td>
                                         </tr>
                                     </table>

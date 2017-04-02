@@ -409,6 +409,7 @@ class pagoController extends Controller
         return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total, 'Tram' => $request->inputTram, 'sede' => $request->sed, 'fac' => $request->fac, 'esc' => $request->esc, 'tramite' => $request->opcTramite,]);
     }
 
+
     public function obtenerDatos(Request $request)
     {
         $buscar = $request->buscar;
@@ -423,5 +424,37 @@ class pagoController extends Controller
         return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $total,
             'nombre' => $nombre, 'apellidos' => $apellidos, 'escuela' => $escuela,
             'facultad' => $facultad, 'detalle' => $detalle, 'fecha' => $fecha]);
+    }
+    public function obtenerPagosresumen(Request $request)
+    {
+        $pagoModel = new pagomodel();
+        $tiempo=null;
+        if($request->tiempo == 'Año')
+        {
+            $tiempo='where Year(po.fecha) = '.$request->fecha.'';
+            $result=$pagoModel->obtenerPagosresumen($tiempo);
+        }
+        elseif ($request->tiempo == 'Mes'){
+            $tiempo='where MONTH(po.fecha) = '.$request->fecha.'';
+            $result=$pagoModel->obtenerPagosresumen($tiempo);
+        }elseif ($request->tiempo == 'Dia')
+        {
+            $tiempo='where DAY(po.fecha) ='.$request->fecha.'';
+            $result=$pagoModel->obtenerPagosresumen($tiempo);
+        }
+        $total=0;
+        foreach ($result as $r)
+        {
+            $total+=$r->precio;
+        }
+        return view('Administrador/Reporte/reporteresumido')->with(['result' => $result,'fecha'=>$request->fecha,'total'=>$total]);
+
+
+    }
+    //macartur
+    public function obtenerPagosDiariosPersonal()
+    {
+        $pagoModel = new pagomodel();
+        $result=$pagoModel->listarPagosPersonal(null,null);
     }
 }
