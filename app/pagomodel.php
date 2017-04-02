@@ -226,14 +226,14 @@ class pagomodel
         return $obj;
     }
 
-    public function obtenerPagosresumen($fecha)
+    public function obtenerPagosresumensiaf($fecha)
     {
         try {
             $pago = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.cuenta as cuenta, st.nombre as nombresubtramite,sum(st.precio) as precio, count(po.codPago) as nurPagos
                     FROM tramite as tr
                     LEFT JOIN subtramite st ON (tr.codTramite = st.idTramite)
                     LEFT JOIN pago po ON (st.codSubtramite=po.idSubtramite )
-                    ' . $fecha . '
+                    ' . $fecha . ' 
                     group by st.codSubtramite order by tr.nombre;');
 
         }catch (\mysqli_sql_exception $e)
@@ -324,6 +324,16 @@ class pagomodel
         }
     }
 
+    public function listarpagosresumen($tiempo)
+    {
+        $result=DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,sum(st.precio) as importe
+                            FROM unt.tramite as tr
+                            LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
+                            LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )
+                            '.$tiempo.'
+                            group by (tr.codTramite) ');
+        return $result;
+    }
     public function consultarAlumnoDNI($dni, $val)
     {
         $alumnobd = DB::select('SELECT pago.codPago, p1.dni AS p1dni, p1.nombres AS p1nombres, p1.apellidos AS p1apellidos, subtramite.nombre, pago.fecha AS pfecha, subtramite.precio, pago.modalidad, detalle, estadodeuda,
@@ -530,7 +540,7 @@ class pagomodel
         } elseif ($modalidad == 'Todo' && $tram == 'Todo' && !is_null($fuefin) && is_null($tipoRe) && is_null($local)) {
             $pago = $this->listarFu($estado, $fechaDesde, $fechaHasta, $fuefin);
         } elseif ($modalidad != 'Todo' && $tram == 'Todo' && is_null($tipoRe) && is_null($local) && !is_null($fuefin)) {
-            $pago = $this->listarMoFu($estado, $fechaDesde, $fechaHasta, $modalidad, $fuefin);
+            $pago = $this->listarMoFu($estado, $fechaDesde, $fechaHasta, $modalidad,$fuefin);
         } elseif ($modalidad == 'Todo' && $tram != 'Todo' && is_null($tipoRe) && is_null($local) && !is_null($fuefin)) {
             $pago = $this->listarTraFu($estado, $fechaDesde, $fechaHasta, $tram, $valtram, $fuefin);
         } elseif ($modalidad != 'Todo' && $tram != 'Todo' && is_null($tipoRe) && is_null($local) && !is_null($fuefin)) {
@@ -551,6 +561,27 @@ class pagomodel
         return $pago;
     }
 
+    public function listarFueTipLo($estado, $fechaDesde, $fechaHasta, $tipoRe, $local, $vallocal)
+    {
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                            FROM unt.pago as po
+                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            WHERE  po.estado=' . $estado . '  and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                             and ' . $local . '=\'' . $vallocal . '\'
+                             and tr.tipoRecurso=\'' . $tipoRe . '\' ');
+        return $pago;
+    }
     public function listarTodo($estado, $fechaDesde, $fechaHasta, $modalidad, $tipre, $fuefi, $local, $valloc, $tram, $valtra)
     {
         $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
@@ -719,6 +750,7 @@ class pagomodel
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  
                             and tr.fuentefinanc=\'' . $fuen . '\'');
+        return $pago;
     }
 
     public function listarFu($estado, $fechaDesde, $fechaHasta, $fuen)
@@ -889,6 +921,7 @@ class pagomodel
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . 'and and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
                              and tr.tipoRecurso=\'' . $tipRe . '\' and ' . $tram . '= \'' . $valtra . '\'');
+    return $pago;
     }
 
     public function listarTipoRe($estado, $fechaDesde, $fechaHasta, $tipRe)

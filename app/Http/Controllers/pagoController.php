@@ -425,36 +425,57 @@ class pagoController extends Controller
             'nombre' => $nombre, 'apellidos' => $apellidos, 'escuela' => $escuela,
             'facultad' => $facultad, 'detalle' => $detalle, 'fecha' => $fecha]);
     }
+
     public function obtenerPagosresumen(Request $request)
     {
         $pagoModel = new pagomodel();
-        $tiempo=null;
-        if($request->tiempo == 'Año')
-        {
-            $tiempo='where Year(po.fecha) = '.$request->fecha.'';
-            $result=$pagoModel->obtenerPagosresumen($tiempo);
+
+        if ($request->tipreporte == 'Resumen total') {
+
+            $tiempo = null;
+            if ($request->tiempo == 'Año') {
+                $tiempo = 'where Year(po.fecha) = ' . $request->fecha . '';
+                $result = $pagoModel->listarpagosresumen($tiempo);
+            } elseif ($request->tiempo == 'Mes') {
+                $tiempo = 'where MONTH(po.fecha) = ' . $request->fecha . ' and Year(po.fecha)=(select Year (NOW()))';
+                $result = $pagoModel->listarpagosresumen($tiempo);
+            } elseif ($request->tiempo == 'Dia') {
+                $tiempo = 'where DAY(po.fecha) =' . $request->fecha . ' and Month(po.fecha)=(select MONTH (NOW()))';
+                $result = $pagoModel->listarpagosresumen($tiempo);
+            }
+            $total = 0;
+            foreach ($result as $r) {
+                $total += $r->importe;
+            }
+            return view('Administrador/Reporte/reporteresumido')->with(['resultresu' => $result, 'fecha' => $request->fecha, 'total' => $total]);
+        } elseif ($request->tipreporte == 'Codigo S.I.A.F') {
+
+            $tiempo = null;
+            if ($request->tiempo == 'Año') {
+                $tiempo = 'where Year(po.fecha) = ' . $request->fecha . '';
+                $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
+            } elseif ($request->tiempo == 'Mes') {
+                $tiempo = 'where MONTH(po.fecha) = ' . $request->fecha . ' and Year(po.fecha)=(select Year (NOW()))';
+                $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
+            } elseif ($request->tiempo == 'Dia') {
+                $tiempo = 'where DAY(po.fecha) =' . $request->fecha . ' and Month(po.fecha)=(select MONTH (NOW()))';
+                $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
+            }
+            $total = 0;
+            foreach ($result as $r) {
+                $total += $r->precio;
+            }
+            return view('Administrador/Reporte/reporteresumido')->with(['resultsiaf' => $result, 'fecha' => $request->fecha, 'total' => $total]);
         }
-        elseif ($request->tiempo == 'Mes'){
-            $tiempo='where MONTH(po.fecha) = '.$request->fecha.'';
-            $result=$pagoModel->obtenerPagosresumen($tiempo);
-        }elseif ($request->tiempo == 'Dia')
-        {
-            $tiempo='where DAY(po.fecha) ='.$request->fecha.'';
-            $result=$pagoModel->obtenerPagosresumen($tiempo);
-        }
-        $total=0;
-        foreach ($result as $r)
-        {
-            $total+=$r->precio;
-        }
-        return view('Administrador/Reporte/reporteresumido')->with(['result' => $result,'fecha'=>$request->fecha,'total'=>$total]);
+       
 
 
     }
+
     //macartur
     public function obtenerPagosDiariosPersonal()
     {
         $pagoModel = new pagomodel();
-        $result=$pagoModel->listarPagosPersonal(null,null);
+        $result = $pagoModel->listarPagosPersonal(null, null);
     }
 }

@@ -13,6 +13,7 @@
                             <span class="col-sm-5 control-label">Tipo de reporte para :</span>
                             <div class="col-sm-7 ">
                                 <select class="form-control" name="tipreporte">
+
                                     <option>Codigo S.I.A.F</option>
                                     <option>Resumen total</option>
                                 </select>
@@ -31,8 +32,8 @@
                                 <div class="col-sm-6">
 
                                     <input type="text" @if(isset($fecha) )
-                                     value="{{$fecha}}"
-                                    @endif name="fecha">
+                                    value="{{$fecha}}"
+                                           @endif name="fecha" required>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +63,7 @@
                     </div>
                     <div class="table-responsive col-sm-12">
                         <table class="table table-bordered list-inline">
-                            @if(isset($result))
+                            @if(isset($resultsiaf))
                                 <thead align="center">
                                 <!--cabecear Tabla-->
                                 <tr class="active">
@@ -104,7 +105,7 @@
                                 <tbody>
                                 <!--Contenido-->
 
-                                @foreach($result as $r)
+                                @foreach($resultsiaf as $r)
                                     <tr>
                                         <td><h6 align="center">{{$r->clasificadorsiaf}}</h6></td>
                                         <td><h6 align="left">{{$r->nombreTramite}}</h6></td>
@@ -117,26 +118,63 @@
                                 @endforeach
 
                             @else
-                                <thead align="center">
-                                <!--cabecear Tabla-->
-                                <tr class="active">
+                                @if(isset($resultresu))
+                                    <thead align="center">
+                                    <!--cabecear Tabla-->
+                                    <tr class="active">
 
-                                    <th>
-                                        <div align="center">
-                                            <small>NINGUNA TABLA</small>
-                                        </div>
-                                    </th>
+                                        <th>
+                                            <div align="center">
+                                                <small>CLASIFICADOR S.I.A.F</small>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div align="center">
+                                                <small>NOMBRE DE TRAMITE</small>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div align="center">
+                                                <small>IMPORTE</small>
+                                            </div>
+                                        </th>
 
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <!--Contenido-->
 
-                                <tr>
-                                    <td><h6 align="center"></h6>ningun dato</td>
-                                </tr>
-                                </tbody>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!--Contenido-->
 
+                                    @foreach($resultresu as $r)
+                                        <tr>
+                                            <td><h6 align="center">{{$r->clasificadorsiaf}}</h6></td>
+                                            <td><h6 align="left">{{$r->nombreTramite}}</h6></td>
+                                            <td><h6 align="center">{{$r-> importe}}</h6></td>
+
+                                        </tr>
+                                    </tbody>
+                                    @endforeach
+                                @else
+                                    <thead align="center">
+                                    <!--cabecear Tabla-->
+                                    <tr class="active">
+
+                                        <th>
+                                            <div align="center">
+                                                <small>NINGUNA TABLA</small>
+                                            </div>
+                                        </th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!--Contenido-->
+
+                                    <tr>
+                                        <td><h6 align="center"></h6>ningun dato</td>
+                                    </tr>
+                                    </tbody>
+                                @endif
                             @endif
 
 
