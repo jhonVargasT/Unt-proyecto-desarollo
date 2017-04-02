@@ -100,6 +100,80 @@ class ExcelController extends Controller
         return back()->with('error', 'Please Check your file, Something is wrong there.');
     }
 
+    public function reportePagoresu($tipo, $fecha, $valor)
+    {
+        date_default_timezone_set('America/Lima');
+        $fechahoy = date('Y-m-d');
+        Excel::create('Reporte resumido  :  '.$fechahoy.'', function ($excel) use ($tipo, $fecha, $valor) {
+            $excel->sheet('resumen', function ($sheet) use ($tipo, $fecha, $valor) {
+                $pagoModel = new pagomodel();
+
+                if ($tipo == 'Resumen total') {
+                    $data=null;
+                    $tiempo = null;
+                    if ($fecha == 'Año') {
+                        $tiempo = 'where Year(po.fecha) = ' . $valor . '';
+                        $result = $pagoModel->listarpagosresumen($tiempo);
+                    } elseif ($fecha == 'Mes') {
+                        $tiempo = 'where MONTH(po.fecha) = ' . $valor . ' and Year(po.fecha)=(select Year (NOW()))';
+                        $result = $pagoModel->listarpagosresumen($tiempo);
+                    } elseif ($fecha == 'Dia') {
+                        $tiempo = 'where DAY(po.fecha) =' . $valor . ' and Month(po.fecha)=(select MONTH (NOW()))';
+                        $result = $pagoModel->listarpagosresumen($tiempo);
+                    }
+                    $total = 0;
+                    foreach ($result as $r) {
+                        $total += $r->importe;
+                    }
+
+
+
+                    foreach ($result as $p) {
+                        $data[] = array(
+                            "CLASIFICADOR S.I.A.F" => $p->clasificadorsiaf,
+                            "NOMBRE DE TRAMITE" => $p->nombreTramite,
+                            "IMPORTE" => $p->importe,
+                        );
+                    }
+                    $sheet->FromArray($data);
+                } elseif ($tipo == 'Codigo S.I.A.F') {
+                    $data=null;
+                    $tiempo = null;
+                    if ($fecha == 'Año') {
+                        $tiempo = 'where Year(po.fecha) = ' . $valor . '';
+                        $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
+                    } elseif ($fecha == 'Mes') {
+                        $tiempo = 'where MONTH(po.fecha) = ' . $valor . ' and Year(po.fecha)=(select Year (NOW()))';
+                        $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
+                    } elseif ($fecha == 'Dia') {
+                        $tiempo = 'where DAY(po.fecha) =' . $valor . ' and Month(po.fecha)=(select MONTH (NOW()))';
+                        $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
+                    }
+                    $total = 0;
+                    foreach ($result as $r) {
+                        $total += $r->precio;
+                    }
+
+
+                    foreach ($result as $p) {
+                        $data[] = array(
+                            "total"=> $total,
+                            "CLASIFICADOR S.I.A.F" => $p->clasificadorsiaf,
+                            "NOMBRE DE TRAMITE" => $p->nombreTramite,
+                            "CUENTA" => $p->cuenta,
+                            "NOMBRE DE SUBTRAMITE" => $p->nombresubtramite,
+                            "IMPORTE" => $p->precio,
+                            "NRO PAGOS" => $p->nurPagos,
+                        );
+                    }
+
+                    $sheet->FromArray($data);
+                }
+
+            });
+        })->export('xls');
+    }
+
     public function contadorSubtramite($nombreSubtramite)
     {
         $cont = null;

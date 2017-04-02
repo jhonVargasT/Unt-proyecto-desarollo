@@ -7,7 +7,7 @@
         <div class="panel-body">
             <div class="panel-body form-group ">
                 <form id="miform" action="{{'admReporteresumido'}}" role="form" method="POST" class="Vertical">
-                    <input type="hidden" name="_token" value="{{csrf_token() }}"/>
+                    {{csrf_field()}}
                     <div class="col-sm-12 row form-group">
                         <div class="form-group-sm col-sm-4 ">
                             <span class="col-sm-5 control-label">Tipo de reporte para :</span>
@@ -192,8 +192,16 @@
 
                         <div class="col-md-1"></div>
                         <div class="col-md-2">
-                            <button href="#" class="btn  btn-primary" id="imp">Imprimir <span
-                                        class="glyphicon glyphicon-print"></span></button>
+                            <!--Contenido-->
+                            @if(isset($tiprep))
+                                <a href="excelresum/{{$tiprep}}/{{$tiempo}}/{{$fecha }}" class="btn btn-sm btn-primary"><span
+                                            class="glyphicon glyphicon-print"></span> Imprimir
+                                </a>
+                            @else
+                                <a  class="btn btn-sm btn-primary"><span
+                                            class="glyphicon glyphicon-print"></span> Imprimir
+                                </a>
+                            @endif
                         </div>
 
                         <div class="col-md-3"></div>
@@ -205,14 +213,7 @@
 @stop
 @section('scripts')
     <script type="text/javascript">
-        $('#inputTram').autocomplete({
-            source: 'autocompleteTram',
-            minlenght: 1,
-            autoFocus: true,
-            select: function (e, ui) {
-                alert(ui);
-            }
-        });
+
         function limpiarCampos() {
             var x = '1';
             document.getElementById("fac").innerHTML = x;

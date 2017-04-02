@@ -21,9 +21,7 @@
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="{{asset('assets/ico/favicon.png')}}">
 
-    <script>window.Laravel =" <?php echo json_encode([
-            'csrfToken' => csrf_token(),]); ?>"
-    </script>
+
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>

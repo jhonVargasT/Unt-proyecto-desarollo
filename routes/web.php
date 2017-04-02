@@ -227,7 +227,7 @@ Route::get('PagoDeuda/{codPago}', 'pagoController@eliminarDeuda');
 Route::get('ventBoleta', 'PdfController@PagosBoleta');
 Route::resource('datos', 'pagoController@obtenerDatos');
 
-
+Route::get('excelresum/{tipo}/{fecha}/{valor}','ExcelController@reportePagoresu');
 Route::get('excel/{txt}/{select}/{val}','ExcelController@reportePago');
 
 
