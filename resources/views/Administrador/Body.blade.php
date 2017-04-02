@@ -19,14 +19,16 @@
                                     <table class="table">
                                         <tr>
                                             <td>
-                                                <a href="/admReportes">Reporte Pagos</a>
+
+                                                <a href="/admReportres"><span class="glyphicon glyphicon-book"></span> Reporte Resumido</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="/admReportres">Reporte Resumido</a>
+                                                <a href="/admReportes"> <span class="glyphicon glyphicon-list-alt"></span> Reporte pagos detallado</a>
                                             </td>
                                         </tr>
+
                                     </table>
                                 </div>
                             </div>
