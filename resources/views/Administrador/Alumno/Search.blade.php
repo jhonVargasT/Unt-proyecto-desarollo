@@ -6,7 +6,7 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarEstudiante" style="color: #509f0c" target="_top" >Buscar Estudiantes</a>
+                        <a href="/admBuscarEstudiante" style="color: #509f0c" target="_top">Buscar Estudiantes</a>
                     </td>
                 </tr>
                 <tr>
@@ -33,7 +33,6 @@
                                 <option>Dni</option>
                                 <option>Apellidos</option>
                                 <option>Codigo alumno</option>
-                                <option>Codigo Matricula</option>
                                 <option>Fecha de Matricula</option>
                                 <option>Escuela</option>
                                 <option>Facultad</option>
@@ -91,7 +90,6 @@
                                 <td>{{$a->dni}}</td>
                                 <td>{{$a->nombres}} {{$a->apellidos}}</td>
                                 <td>{{$a->codAlumno}}</td>
-                                <td>{{$a->codMatricula}}</td>
                                 <td>{{$a->fecha}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}
@@ -109,15 +107,6 @@
             <div class="col-sm-12 row">
                 <div class="col-sm-4"></div>
                 <!--paginadro-->
-                <div class="col-sm-4" align="center">
-                    <ul class="pagination  pagination-sm">
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                    </ul>
-                </div>
                 <div class="col-sm-4"></div>
             </div>
         </div>

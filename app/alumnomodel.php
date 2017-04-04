@@ -10,7 +10,6 @@ class alumnomodel extends personamodel
 {
   
     private $codAlumno;
-    private $codMatricula;
     private $fecha;
     private $idPersona;
     private $idEscuela;
@@ -36,24 +35,6 @@ class alumnomodel extends personamodel
     public function setCodAlumno($codAlumno)
     {
         $this->codAlumno = $codAlumno;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCodMatricula()
-    {
-        return $this->codMatricula;
-    }
-
-    /**
-     * @param mixed $codMatricula
-     * @return alumnomodel
-     */
-    public function setCodMatricula($codMatricula)
-    {
-        $this->codMatricula = $codMatricula;
         return $this;
     }
 
@@ -139,7 +120,7 @@ class alumnomodel extends personamodel
                 $personabd = DB::table('persona')->where('dni', $this->getDni())->get();
                 foreach ($personabd as $pbd) {
                     $idp = $pbd->codPersona;
-                    DB::table('alumno')->insert(['codAlumno' => $this->codAlumno, 'codMatricula' => $this->codMatricula, 'fecha' => $this->fecha, 'idPersona' => $idp, 'coEscuela'=>$this->idEscuela]);
+                    DB::table('alumno')->insert(['codAlumno' => $this->codAlumno, 'fecha' => $this->fecha, 'idPersona' => $idp, 'coEscuela'=>$this->idEscuela]);
                 }
                 $logunt->saveLogUnt();
             });
@@ -162,7 +143,7 @@ class alumnomodel extends personamodel
         try {
             DB::transaction(function () use ($codPersona, $logunt) {
                 DB::table('persona')->where('codPersona', $codPersona)->update(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos()]);
-                DB::table('alumno')->where('idPersona', $codPersona)->update(['codAlumno' => $this->codAlumno, 'codMatricula' => $this->codMatricula, 'fecha' => $this->fecha]);
+                DB::table('alumno')->where('idPersona', $codPersona)->update(['codAlumno' => $this->codAlumno, 'fecha' => $this->fecha]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -188,22 +169,6 @@ class alumnomodel extends personamodel
     public function consultarAlumnoCodigo($codAlumno)
     {
         $alumnobd = DB::table('persona')->leftJoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')->where('alumno.codAlumno', 'like','%' . $codAlumno. '%')
-            ->where('persona.estado', '=', 1)->orderBy('persona.codPersona', 'desc')->get();
-        return $alumnobd;
-    }
-
-    public function consultarAlumnoCodigoMatricula($codMatricula)
-    {
-        $alumnobd = DB::table('persona')->leftJoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->where('alumno.codMatricula','like','%' . $codMatricula. '%')
-            ->where('persona.estado', '=', 1)->orderBy('persona.codPersona', 'desc')->get();
-        return $alumnobd;
-    }
-
-    public function consultarAlumnoFechaMatricula($fecha)
-    {
-        $alumnobd = DB::table('persona')->leftJoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->where('alumno.fecha', 'like','%' . $fecha. '%')
             ->where('persona.estado', '=', 1)->orderBy('persona.codPersona', 'desc')->get();
         return $alumnobd;
     }
