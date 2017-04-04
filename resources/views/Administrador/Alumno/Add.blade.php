@@ -49,9 +49,15 @@
                                 <div class="form-group-sm " align="left">
                                     <span class="col-sm-2 control-label"> Numero de Dni</span>
                                     <div class="col-sm-3">
-                                        <input class="form-control input-sm" name="dni" type="text"
-                                               autocomplete="off" onkeypress="return validarNum(event)"
-                                               placeholder="Ejem: 72978792" required>
+                                        @if(isset($dni))
+                                            <input class="form-control input-sm" name="dni" type="text"
+                                                   autocomplete="off" onkeypress="return validarNum(event)"
+                                                   placeholder="Ejem: 72978792" value="{{$dni}}" required>
+                                        @else
+                                            <input class="form-control input-sm" name="dni" type="text"
+                                                   autocomplete="off" onkeypress="return validarNum(event)"
+                                                   placeholder="Ejem: 72978792" required>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="form-group-sm" align="right">
@@ -59,7 +65,9 @@
                                     <div class="col-sm-4">
                                         <input class="form-control input-sm" name="nombres" type="text"
                                                autocomplete="off" onkeypress="return validarLetras(event)"
-                                               placeholder="Ejm:Jose Carlos" required>
+                                               placeholder="Ejm:Jose Carlos" @if(isset($nombres))value="{{$nombres}}"
+                                               @endif
+                                               required>
                                     </div>
                                 </div>
                             </div>
@@ -67,9 +75,15 @@
                                 <div class="form-group-sm">
                                     <span class="col-sm-2">Apellidos</span>
                                     <div class="col-sm-3">
-                                        <input class="form-control input-sm" name="apellidos" type="text"
-                                               autocomplete="off" onkeypress="return validarLetras(event)"
-                                               placeholder="Ejem: Terenas Lory" required>
+                                        @if(isset($apeliidos))
+                                            <input class="form-control input-sm" name="apellidos" type="text"
+                                                   autocomplete="off" onkeypress="return validarLetras(event)"
+                                                   placeholder="Ejem: Terenas Lory" value="{{$apellidos}}" required>
+                                        @else
+                                            <input class="form-control input-sm" name="apellidos" type="text"
+                                                   autocomplete="off" onkeypress="return validarLetras(event)"
+                                                   placeholder="Ejem: Terenas Lory" required>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -82,8 +96,14 @@
                                 <div class="form-group-sm " align="left">
                                     <span class="col-sm-2 control-label"> Codigo alumno</span>
                                     <div class="col-sm-3">
-                                        <input class="form-control input-sm" name="codAlumno" type="text"
-                                               autocomplete="off" placeholder="Ejm: 000104499" required>
+                                        @if(isset($codAlumno))
+                                            <input class="form-control input-sm" name="codAlumno" type="text"
+                                                   autocomplete="off" placeholder="Ejm: 000104499"
+                                                   value="{{$codAlumno}}" required>
+                                        @else
+                                            <input class="form-control input-sm" name="codAlumno" type="text"
+                                                   autocomplete="off" placeholder="Ejm: 000104499" required>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -101,14 +121,20 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="form-group-sm " align="right">
                                     <span class="col-sm-2 control-label">Sede</span>
                                     <div class="col-sm-3">
-                                        <input class="typeahead form-control" type="text"
-                                               placeholder="Ejm: Trujillo" name="nombreSede" id="ns"
-                                               onkeypress="return validarLetras(event)" autocomplete="off" required>
+                                        @if(isset($sede))
+                                            <input class="typeahead form-control" type="text"
+                                                   placeholder="Ejm: Trujillo" name="nombreSede" id="ns"
+                                                   onkeypress="return validarLetras(event)" autocomplete="off"
+                                                   value="{{$sede}}" required>
+                                        @else
+                                            <input class="typeahead form-control" type="text"
+                                                   placeholder="Ejm: Trujillo" name="nombreSede" id="ns"
+                                                   onkeypress="return validarLetras(event)" autocomplete="off" required>
+                                        @endif
                                         <script type="text/javascript">
                                             var paths = "{{ route('autocompletesede')}}";
                                             $('input.typeahead').typeahead({
@@ -126,9 +152,16 @@
                                 <div class="form-group-sm " align="left">
                                     <span class="col-sm-2 control-label">Escuela</span>
                                     <div class="col-sm-3">
-                                        <input class="form-control input-sm" type="text"
-                                               placeholder="Ejm: Mecanica" name="nombreEscuela" id="ne"
-                                               onkeypress="return validarLetras(event)" required disabled>
+                                        @if(isset($escuela))
+                                            <input class="form-control input-sm" type="text"
+                                                   placeholder="Ejm: Mecanica" name="nombreEscuela" id="ne"
+                                                   onkeypress="return validarLetras(event)" required
+                                                   value="{{$escuela}}" readonly>
+                                        @else
+                                            <input class="form-control input-sm" type="text"
+                                                   placeholder="Ejm: Mecanica" name="nombreEscuela" id="ne"
+                                                   onkeypress="return validarLetras(event)" required readonly>
+                                        @endif
                                         <script>
                                             src = "{{ route('searchajax') }}";
                                             $("#ne").autocomplete({
@@ -154,7 +187,13 @@
                                 <div class="form-group-sm " align="right">
                                     <span class="col-sm-2 control-label">Facultad</span>
                                     <div class="col-sm-3">
-                                        <input class="form-control input-sm" name=" " type="text" id="f" disabled>
+                                        @if(isset($facultad))
+                                            <input class="form-control input-sm" name="facultad" type="text" id="f"
+                                                   value="{{$facultad}}" readonly>
+                                        @else
+                                            <input class="form-control input-sm" name="facultad" type="text" id="f"
+                                                   readonly>
+                                        @endif
                                         <script>
                                             $('#ne').change(function () {
                                                 $.ajax({
@@ -168,12 +207,12 @@
                                             });
                                         </script>
                                         <script>
-                                            $('#ns').on('input', function() {
+                                            $('#ns').on('input', function () {
 
-                                                if($(this).val().length)
-                                                    $('#ne').prop('disabled', false);
+                                                if ($(this).val().length)
+                                                    $('#ne').prop('readonly', false);
                                                 else
-                                                    $('#ne').prop('disabled', true);
+                                                    $('#ne').prop('readonly', true);
                                             });
                                         </script>
                                     </div>

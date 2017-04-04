@@ -25,9 +25,12 @@ class alumnoController extends Controller
         $al = $alumno->savealumno();
 
         if ($al == true) {
-            return back()->with('true', 'Alumno ' . $request->nombres . ' guardada con exito')->withInput();
+            return back()->with('true', 'Alumno ' . $request->nombres . ' guardada con exito', $request->dni, $request->apellidos, $request->codAlumno, $request->nombreEscuela
+                , $request->facultad)->withInput();
         } else {
-            return back()->with('false', 'Alumno ' . $request->nombres . ' no guardada, puede que ya exista');
+            return back()->with(['nombres' => $request->nombres,
+                'dni' => $request->dni, 'apellidos' => $request->apellidos, 'codAlumno' => $request->codAlumno, 'escuela' => $request->nombreEscuela,
+                'facultad' => $request->facultad]);
         }
     }
 
