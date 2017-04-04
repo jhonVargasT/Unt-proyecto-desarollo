@@ -249,7 +249,10 @@ Route::get('/buscarEscuelaC', 'pagoController@buscarEscuelaC');
 
 Route::get('/precioSubtramite', 'pagoController@precioSubtramite');
 
+Route::get('/nombreSCT', 'subtramiteController@nombreSCT');
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 Route::get('autocompletee', array('as' => 'autocompletee', 'uses' => 'escuelaController@autocompletee'));
 Route::get('autocomplete', array('as' => 'autocomplete', 'uses' => 'subtramiteController@autocomplete'));
