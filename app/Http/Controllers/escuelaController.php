@@ -16,7 +16,7 @@ class escuelaController extends Controller
             $escuela->setCodEscuela($request->codEscuela);
             $escuela->setNombre($request->nombre);
             $escuela->setNroCuenta($request->nroCuenta);
-            $coF = $escuela->buscarFacultad($request->nombreFacultad,$request->nombreSede);
+            $coF = $escuela->buscarFacultad($request->nombreFacultad, $request->nombreSede);
             $escuela->setFacultad($coF);
 
             $esc = $escuela->saveescuela();
@@ -85,5 +85,22 @@ class escuelaController extends Controller
         $cliente = new escuelamodel();
         $cliente->eliminarEscuela($idEscuela);
         return view('Administrador/Escuela/search')->with(['nombre' => $request->nombre]);
+    }
+
+    public function searchE(Request $request)
+    {
+        $products = DB::select('select escuela.nombre as nombre from escuela
+        left join facultad on facultad.idFacultad = escuela.codigoFacultad 
+        where  facultad.idFacultad = escuela.codigoFacultad  and escuela.estado=1
+        and facultad.estado=1 and facultad.nombre = "' . $request->facultad . '"   and escuela.nombre like "%' . $request->term . '%" ');
+
+        $data = array();
+        foreach ($products as $product) {
+            $data[] = array('value' => $product->nombre);
+        }
+        if (count($data))
+            return $data;
+        else
+            return ['value' => 'No se encuentra'];
     }
 }

@@ -2,6 +2,14 @@
 @section('body')
     <br>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <div class="panel panel-primary">
         <div class="panel panel-heading"> Reporte Pagos</div>
         <div class="panel-body">
@@ -32,23 +40,51 @@
                         <div class="form-group-sm col-sm-4 ">
                             <div class="col-sm-4 ">
                                 <select class=" form-control" id="opcTramite" name="opcTramite">
-                                    <option>Todo</option>
-                                    <option>Tramite</option>
-                                    <option>SubTramite</option>
+                                    <option value="Todo">Todo</option>
+                                    <option value="Tramite">Tramite</option>
+                                    <option value="SubTramite">SubTramite</option>
                                 </select>
                             </div>
+                            <script>
+                                $('#opcTramite').change(function () {
+                                    var value = $('#opcTramite option:selected').attr('value');
+                                    document.getElementById("input").readOnly = value == 'Todo';
+                                });
+                            </script>
                             <div class="col-sm-1 ">
-
                             </div>
                             <div class="col-sm-7">
                                 @if(isset($Tram))
-                                    <input type="text" class="form-control input-sm " id="input" name="inputTram"
-                                           autocomplete="off" value="{{$Tram}}">
+                                    <input type="text" class="typeahead form-control input-sm " id="input"
+                                           name="inputTram"
+                                           autocomplete="off" value="{{$Tram}}" readonly>
                                 @else
-                                    <input type="text" class="form-control input-sm " id="input" name="inputTram"
-                                           autocomplete="off">
+                                    <input type="text" class="typeahead form-control input-sm " id="input"
+                                           name="inputTram"
+                                           autocomplete="off" readonly>
                                 @endif
                             </div>
+                            <script>
+                                var path = "{{ route('autocompletet') }}";
+                                var path2 = "{{ route('autocompletes') }}";
+                                $('input.typeahead').typeahead({
+                                    source: function (query, process) {
+                                        var value = $('#opcTramite option:selected').attr('value');
+                                        if (value == 'Tramite') {
+                                            return $.get(path, {query: query}, function (data) {
+                                                return process(data);
+                                            });
+                                        }
+                                        else {
+                                            if (value == 'SubTramite') {
+                                                return $.get(path2, {query: query}, function (data) {
+                                                    return process(data);
+                                                });
+                                            }
+                                        }
+                                    }
+                                });
+                            </script>
                         </div>
                     </div>
                     <div class="col-sm-12 row form-group ">
@@ -59,12 +95,22 @@
                             </div>
                             <div class="col-sm-7 ">
                                 @if(isset($sede))
-                                    <input class="typeahead form-control " name="sed" value="{{$sede}}" id="sede"
-                                           autocomplete="off" disabled>
+                                    <input class="typeaheads form-control " name="sed" value="{{$sede}}" id="sede"
+                                           autocomplete="off" readonly>
                                 @else
-                                    <input class="typeahead form-control " name="sed" id="sede" autocomplete="off"
-                                           disabled>
+                                    <input class="typeaheads form-control " name="sed" id="sede" autocomplete="off"
+                                           readonly>
                                 @endif
+                                <script>
+                                    var pathsede = "{{ route('autocompletesede')}}";
+                                    $('input.typeaheads').typeahead({
+                                        source: function (querys, processsede) {
+                                            return $.get(pathsede, {query: querys}, function (datasede) {
+                                                return processsede(datasede);
+                                            });
+                                        }
+                                    });
+                                </script>
                             </div>
                         </div>
                         <div class="form-group-sm col-sm-4 ">
@@ -74,12 +120,32 @@
                             </div>
                             <div class="col-sm-7 ">
                                 @if(isset($fac))
-                                    <input class="typeahead form-control " name="fac" id="fac" autocomplete="off"
-                                           value="{{$fac}}" disabled>
+                                    <input class="form-control " name="fac" id="fac"
+                                           value="{{$fac}}" readOnly>
                                 @else
-                                    <input class="typeahead form-control " name="fac" id="fac" autocomplete="off"
-                                           disabled>
+                                    <input class="form-control " name="fac" id="fac"
+                                           readOnly>
                                 @endif
+                                <script>
+                                    src = "{{ route('searchF') }}";
+                                    $('#fac').autocomplete({
+                                        source: function (request, response) {
+                                            $.ajax({
+                                                url: src,
+                                                type: 'get',
+                                                dataType: "json",
+                                                data: {
+                                                    term: $('#fac').val(),
+                                                    sede: $('#sede').val()
+                                                },
+                                                success: function (data) {
+                                                    response(data);
+                                                }
+                                            });
+                                        },
+                                        min_length: 2
+                                    });
+                                </script>
                             </div>
                         </div>
 
@@ -91,11 +157,31 @@
                             <div class="col-sm-7 ">
                                 @if(isset($esc))
                                     <input class="typeahead form-control " name="esc" id="esc" autocomplete="off"
-                                           value="{{$esc}}" disabled>
+                                           value="{{$esc}}" readOnly>
                                 @else
                                     <input class="typeahead form-control " name="esc" id="esc" autocomplete="off"
-                                           disabled>
+                                           readOnly>
                                 @endif
+                                    <script>
+                                        srcE = "{{ route('searchE') }}";
+                                        $('#esc').autocomplete({
+                                            source: function (requestE, responseE) {
+                                                $.ajax({
+                                                    url: srcE,
+                                                    type: 'get',
+                                                    dataType: "json",
+                                                    data: {
+                                                        term: $('#esc').val(),
+                                                        facultad: $('#fac').val()
+                                                    },
+                                                    success: function (dataE) {
+                                                        responseE(dataE);
+                                                    }
+                                                });
+                                            },
+                                            min_length: 2
+                                        });
+                                    </script>
                             </div>
                         </div>
                         <div class="form-group-sm col-sm-4 ">
@@ -105,20 +191,21 @@
                     <div class="col-sm-12 row form-group">
                         <div class="form-group-sm col-sm-4 ">
                             <div class="col-sm-4">
-                                <input type="checkbox"  onclick=" habilitartr(this.checked)">
+                                <input type="checkbox" onclick=" habilitartr(this.checked)">
                                 Tipo de recurso
                             </div>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control input-sm " id="trinp" name="tr" autocomplete="off"
-                                       disabled>
+                                <input type="text" class="form-control input-sm " id="trinp" name="tr"
+                                       autocomplete="off"
+                                       readOnly>
                             </div>
                             <div class="col-sm-4">
-                                <input type="checkbox"  onclick="habilitarff(this.checked)">
+                                <input type="checkbox" onclick="habilitarff(this.checked)">
                                 Fuente de financiamiento
                             </div>
                             <div class="col-sm-2">
                                 <input type="text" class="form-control input-sm " id="ff" name="fuf"
-                                       autocomplete="off" disabled>
+                                       autocomplete="off" readOnly>
                             </div>
                         </div>
 
@@ -128,7 +215,7 @@
                         <div class="form-group-sm col-sm-2 ">
                             <div class="col-sm-8 input-group date" data-provide="datepicker">
                                 <input type="text" name="fechaDesde" class="form-control" placeholder="desde"
-                                       autocomplete="off"  required>
+                                       autocomplete="off" required>
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </div>
@@ -380,57 +467,57 @@
     <script type="text/javascript">
 
         function limpiarCampos() {
-            var x='1';
+            var x = '1';
             document.getElementById("fac").innerHTML = x;
             document.getElementById("sede").innerHTML = x;
             document.getElementById("esc").innerHTML = x;
         }
         function habilitarff(value) {
             if (value == true) {
-                document.getElementById("ff").disabled = false;
+                document.getElementById("ff").readOnly = false;
             } else if (value == false) {
-                document.getElementById("ff").disabled = true;
+                document.getElementById("ff").readOnly = true;
             }
         }
         function habilitartr(value) {
             if (value == true) {
-                document.getElementById("trinp").disabled = false;
+                document.getElementById("trinp").readOnly = false;
             } else if (value == false) {
-                document.getElementById("trinp").disabled = true;
+                document.getElementById("trinp").readOnly = true;
             }
         }
         function habilitarsed(value) {
             if (value == true) {
-                document.getElementById("sede").disabled = false;
+                document.getElementById("sede").readOnly = false;
             } else if (value == false) {
-                document.getElementById("sede").disabled = true;
+                document.getElementById("sede").readOnly = true;
             }
         }
         function habilitarfac(value) {
 
             if (value == true) {
                 document.getElementById("sed").checked = true;
-                document.getElementById("fac").disabled = false;
-                document.getElementById("sede").disabled = false;
+                document.getElementById("fac").readOnly = false;
+                document.getElementById("sede").readOnly = false;
             } else if (value == false) {
                 document.getElementById("sed").checked = false;
-                document.getElementById("fac").disabled = true;
-                document.getElementById("sede").disabled = true;
+                document.getElementById("fac").readOnly = true;
+                document.getElementById("sede").readOnly = true;
             }
         }
         function habilitaresc(value) {
             if (value == true) {
                 document.getElementById("sed").checked = true;
                 document.getElementById("cfac").checked = true;
-                document.getElementById("fac").disabled = false;
-                document.getElementById("sede").disabled = false;
-                document.getElementById("esc").disabled = false;
+                document.getElementById("fac").readOnly = false;
+                document.getElementById("sede").readOnly = false;
+                document.getElementById("esc").readOnly = false;
             } else if (value == false) {
                 document.getElementById("sed").checked = false;
                 document.getElementById("cfac").checked = false;
-                document.getElementById("esc").disabled = true;
-                document.getElementById("fac").disabled = true;
-                document.getElementById("sede").disabled = true;
+                document.getElementById("esc").readOnly = true;
+                document.getElementById("fac").readOnly = true;
+                document.getElementById("sede").readOnly = true;
             }
         }
     </script>

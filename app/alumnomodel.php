@@ -173,6 +173,14 @@ class alumnomodel extends personamodel
         return $alumnobd;
     }
 
+    public function consultarAlumnoFechaMatricula($fecha)
+    {
+        $alumnobd = DB::table('persona')->leftJoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
+            ->where('alumno.fecha', 'like','%' . $fecha. '%')
+            ->where('persona.estado', '=', 1)->orderBy('persona.codPersona', 'desc')->get();
+        return $alumnobd;
+    }
+
     public function consultarAlumnoEscuela($nombreEscuela)
     {
         $alumnobd = DB::select('select * from persona 
