@@ -143,7 +143,7 @@
                                                 }
                                             });
                                         },
-                                        min_length: 2
+                                        min_length: 1
                                     });
                                 </script>
                             </div>
@@ -179,7 +179,7 @@
                                                     }
                                                 });
                                             },
-                                            min_length: 2
+                                            min_length: 1
                                         });
                                     </script>
                             </div>
