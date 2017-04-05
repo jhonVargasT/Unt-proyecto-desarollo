@@ -78,13 +78,6 @@
                                                    autocomplete="off" value="{{$a->codAlumno}}">
                                         </div>
                                     </div>
-                                    <div class="form-group-sm " align="right">
-                                        <span class="col-sm-2 control-label"> Codigo matricula</span>
-                                        <div class="col-sm-4">
-                                            <input class="form-control input-sm" name="codMatricula" type="text"
-                                                   autocomplete="off" value="{{$a->codMatricula}}">
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="col-sm-12 row form-group">
                                     <div class="form-group-sm " align="left">

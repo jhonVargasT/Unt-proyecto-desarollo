@@ -17,7 +17,6 @@ class alumnoController extends Controller
         $alumno->setNombres($request->nombres);
         $alumno->setApellidos($request->apellidos);
         $alumno->setCodAlumno($request->codAlumno);
-        $alumno->setCodMatricula($request->codMatricula);
         $d = $request->fecha;
         $date = implode("-", array_reverse(explode("/", $d)));
         $alumno->setFecha($date);
@@ -26,9 +25,12 @@ class alumnoController extends Controller
         $al = $alumno->savealumno();
 
         if ($al == true) {
-            return back()->with('true', 'Alumno ' . $request->nombres . ' guardada con exito')->withInput();
+            return back()->with('true', 'Alumno ' . $request->nombres . ' guardada con exito', $request->dni, $request->apellidos, $request->codAlumno, $request->nombreEscuela
+                , $request->facultad)->withInput();
         } else {
-            return back()->with('false', 'Alumno ' . $request->nombres . ' no guardada, puede que ya exista');
+            return back()->with(['nombres' => $request->nombres,
+                'dni' => $request->dni, 'apellidos' => $request->apellidos, 'codAlumno' => $request->codAlumno, 'escuela' => $request->nombreEscuela,
+                'facultad' => $request->facultad]);
         }
     }
 
@@ -56,7 +58,6 @@ class alumnoController extends Controller
         $alumno->setNombres($request->nombres);
         $alumno->setApellidos($request->apellidos);
         $alumno->setCodAlumno($request->codAlumno);
-        $alumno->setCodMatricula($request->codMatricula);
         $alumno->setFecha($request->fecha);
         $alumno->editarAlumno($codPersona);
 
@@ -82,18 +83,14 @@ class alumnoController extends Controller
                 if ($request->select == 'Codigo alumno') {
                     $alu = $alumno->consultarAlumnoCodigo($request->text);
                 } else {
-                    if ($request->select == 'Codigo Matricula') {
-                        $alu = $alumno->consultarAlumnoCodigoMatricula($request->text);
+                    if ($request->select == 'Fecha de Matricula') {
+                        $alu = $alumno->consultarAlumnoFechaMatricula($request->text);
                     } else {
-                        if ($request->select == 'Fecha de Matricula') {
-                            $alu = $alumno->consultarAlumnoFechaMatricula($request->text);
+                        if ($request->select == 'Escuela') {
+                            $alu = $alumno->consultarAlumnoEscuela($request->text);
                         } else {
-                            if ($request->select == 'Escuela') {
-                                $alu = $alumno->consultarAlumnoEscuela($request->text);
-                            } else {
-                                if ($request->select == 'Facultad') {
-                                    $alu = $alumno->consultarAlumnoFacultad($request->text);
-                                }
+                            if ($request->select == 'Facultad') {
+                                $alu = $alumno->consultarAlumnoFacultad($request->text);
                             }
                         }
                     }
@@ -144,7 +141,7 @@ class alumnoController extends Controller
         left join facultad on escuela.codigoFacultad=facultad.idFacultad
         left join sede on facultad.coSede=sede.codSede 
         where escuela.codigoFacultad=facultad.idFacultad and facultad.coSede=sede.codSede and sede.estado=1
-        and facultad.estado=1 and escuela.estado=1 and sede.nombresede = "'.$request->sede.'"   and escuela.nombre like "%' . $request->term . '%" ');
+        and facultad.estado=1 and escuela.estado=1 and sede.nombresede = "' . $request->sede . '"   and escuela.nombre like "%' . $request->term . '%" ');
 
         $data = array();
         foreach ($products as $product) {

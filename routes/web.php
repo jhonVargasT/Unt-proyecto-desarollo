@@ -249,7 +249,10 @@ Route::get('/buscarEscuelaC', 'pagoController@buscarEscuelaC');
 
 Route::get('/precioSubtramite', 'pagoController@precioSubtramite');
 
+Route::get('/nombreSCT', 'subtramiteController@nombreSCT');
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 Route::get('autocompletee', array('as' => 'autocompletee', 'uses' => 'escuelaController@autocompletee'));
 Route::get('autocomplete', array('as' => 'autocomplete', 'uses' => 'subtramiteController@autocomplete'));
@@ -259,6 +262,8 @@ Route::get('autocompletesede', array('as' => 'autocompletesede', 'uses' => 'facu
 Route::get('escuela', array('as' => 'escuela', 'uses' => 'alumnoController@escuela'));
 
 Route::get('searchajax',array('as'=>'searchajax','uses'=>'alumnoController@autoComplete'));
+Route::get('searchF',array('as'=>'searchF','uses'=>'facultadController@searchF'));
+Route::get('searchE',array('as'=>'searchE','uses'=>'escuelaController@searchE'));
 
 Route::get('/tipoRecurso', 'donacionController@tipoRecurso');
 Route::get('/facultad', 'alumnoController@facultad');

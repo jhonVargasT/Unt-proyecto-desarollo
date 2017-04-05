@@ -60,8 +60,8 @@
                                                         type: "get",
                                                         data: {name: id},
                                                         success: function (data) {
-                                                            $('#nombres').val(data)
-                                                            $('#names').val(data)
+                                                            $('#nombres').val(data);
+                                                            $('#names').val(data);
                                                         }
                                                     });
                                                 }
@@ -249,23 +249,91 @@
                             </script>
                         </div>
                     </div>
-                    <span class="col-sm-2">Nombre de subtramite :</span>
+                    <div class="col-sm-2 ">
+                        <select class=" form-group-sm form-control" id="selectt" name="selectt">
+                            <option value="Codigo tasa"> Codigo tasa</option>
+                            <option value="Nombre tasa"> Nombre tasa</option>
+                        </select>
+                    </div>
                     <div class="col-sm-4">
-                        <input class="typeahead form-control" type="text" name="subtramite" id="st"
-                               onkeypress="return validarLetras(event)" autocomplete="off" required>
-                        <script type="text/javascript">
+                        <input class="typeahead form-control" type="text" name="txtsub" id="ts" required>
+                        <script>
                             var path = "{{ route('autocompletes') }}";
                             $('input.typeahead').typeahead({
                                 source: function (query, process) {
                                     return $.get(path, {query: query}, function (data) {
-                                        return process(data);
+                                        var value = $('#selectt option:selected').attr('value');
+                                        if (value == 'Nombre tasa') {
+                                            return process(data);
+                                        }
                                     });
                                 }
                             });
                         </script>
                     </div>
+                    <script>
+                        $('#selectt').change(function () {
+                            var value = $('#selectt option:selected').attr('value');
+                            if (value == 'Codigo tasa') {
+                                var y = document.getElementById("st");
+                                y.type = "text";
+                                document.getElementById("nsub").style.visibility = "visible";
+                            }
+                            else {
+                                if (value == 'Nombre tasa') {
+                                    var x = document.getElementById("st");
+                                    x.type = "hidden";
+                                    document.getElementById("nsub").style.visibility = "hidden";
+                                }
+                            }
+                        });
+                    </script>
+                    <script>
+                        $('#ts').change(function () {
+                            var value = $('#selectt option:selected').attr('value');
+                            if (value == 'Codigo tasa') {
+                                var id = $('#ts').val();
+                                $.ajax({
+                                    url: "/nombreSCT",
+                                    type: "get",
+                                    data: {ct: id},
+                                    success: function (data) {
+                                        $('#st').val(data);
+                                        $.ajax({
+                                            url: '/precioSubtramite',
+                                            type: "get",
+                                            data: {name: $('#st').val()},
+                                            success: function (data) {
+                                                $('#bp').val(data);
+                                                var val = data * 100;
+                                                $('#p').val(val);
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                            else {
+                                if (value == 'Nombre tasa') {
+                                    $.ajax({
+                                        url: '/precioSubtramite',
+                                        type: "get",
+                                        data: {name: $('#ts').val()},
+                                        success: function (data) {
+                                            $('#bp').val(data);
+                                            var val = data * 100;
+                                            $('#p').val(val);
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    </script>
                 </div>
                 <div class="col-sm-12 row form-group">
+                    <span class="col-sm-2" id="nsub">Nombre de subtramite :</span>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" name="subtramite" id="st" required readonly>
+                    </div>
                     <div class="form-group-sm">
                         <span class="col-sm-2">Detalle </span>
                         <div class="col-sm-4">
@@ -286,7 +354,7 @@
                                 <input class="form-control " name="boletapagar" id="bp" readonly>
                                 <input type="hidden" id="p" readonly>
                                 <script>
-                                    $('#st').change(function () {
+                                    $('#st').load(function () {
                                         $.ajax({
                                             url: '/precioSubtramite',
                                             type: "get",
@@ -315,7 +383,7 @@
         <script src="https://checkout.culqi.com/v2"></script>
         <!-- Configurando el checkout-->
         <script>
-            Culqi.publicKey = 'pk_test_kenUEv1GL5NAM7OO';
+            Culqi.publicKey = 'pk_live_cCUgWQaZkdXPKP6j';
         </script>
 
         <!-- Configurando el checkout-->

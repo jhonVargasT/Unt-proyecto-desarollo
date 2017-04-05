@@ -33,7 +33,6 @@
                                 <option>Dni</option>
                                 <option>Apellidos</option>
                                 <option>Codigo alumno</option>
-                                <option>Codigo Matricula</option>
                                 <option>Fecha de Matricula</option>
                                 <option>Escuela</option>
                                 <option>Facultad</option>
@@ -73,9 +72,6 @@
                             <div align="center">Codigo alumno</div>
                         </th>
                         <th>
-                            <div align="center">Codigo matricula</div>
-                        </th>
-                        <th>
                             <div align="center">Fecha de matricula</div>
                         </th>
                         <th>
@@ -91,7 +87,6 @@
                                 <td>{{$a->dni}}</td>
                                 <td>{{$a->nombres}} {{$a->apellidos}}</td>
                                 <td>{{$a->codAlumno}}</td>
-                                <td>{{$a->codMatricula}}</td>
                                 <td>{{$a->fecha}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}
@@ -108,16 +103,6 @@
             </div>
             <div class="col-sm-12 row">
                 <div class="col-sm-4"></div>
-                <!--paginadro-->
-                <div class="col-sm-4" align="center">
-                    <ul class="pagination  pagination-sm">
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                    </ul>
-                </div>
                 <div class="col-sm-4"></div>
             </div>
         </div>

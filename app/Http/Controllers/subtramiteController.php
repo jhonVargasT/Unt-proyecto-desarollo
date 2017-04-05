@@ -68,17 +68,28 @@ class subtramiteController extends Controller
                 if ($request->select == 'Cuenta contable') {
                     $sub = $subtramite->consultarSubtramiteCuenta($request->text);
                 } else {
-                        $sub = $subtramite->consultarSubtramites();
+                    $sub = $subtramite->consultarSubtramites();
                 }
             }
         }
         return view('Administrador/SubTramite/search')->with(['subtramite' => $sub, 'txt' => $request->text, 'select' => $request->select]);
     }
-  
+
     public function eliminarSubtramite($codSubtramite, Request $request)
     {
         $subtramite = new subtramitemodel();
         $subtramite->eliminarSubtramite($codSubtramite);
         return view('Administrador/SubTramite/search')->with(['nombre' => $request->nombre]);
+    }
+
+    public function nombreSCT(Request $request)
+    {
+        $sbnombre = null;
+        $subtramitebd = DB::select('select nombre from subtramite where codSubtramite = "' . $request->ct. '"');
+
+        foreach ($subtramitebd as $sb) {
+            $sbnombre = $sb->nombre;
+        }
+        return $sbnombre;
     }
 }
