@@ -383,7 +383,7 @@
         <script src="https://checkout.culqi.com/v2"></script>
         <!-- Configurando el checkout-->
         <script>
-            Culqi.publicKey = 'pk_test_kenUEv1GL5NAM7OO';
+            Culqi.publicKey = 'pk_live_cCUgWQaZkdXPKP6j';
         </script>
 
         <!-- Configurando el checkout-->
