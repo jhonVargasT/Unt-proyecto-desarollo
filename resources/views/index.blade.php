@@ -24,10 +24,8 @@
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="{{asset('assets/ico/favicon.png')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.min.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
     <link rel="apple-touch-icon-precomposed" sizes="144x144"
           href="{{asset('assets/ico/apple-touch-icon-144-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" sizes="114x114"
@@ -35,14 +33,8 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72"
           href="{{asset('assets/ico/apple-touch-icon-72-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" href="{{asset('assets/ico/apple-touch-icon-57-precomposed.png')}}">
-    <script>window.Laravel = "<?php echo json_encode([
-                'csrfToken' => csrf_token(),]); ?>"
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('#fecha').datepicker();
-        });
-    </script>
+
+
 </head>
 
 <body style="background-color:  #ccd0d2">
@@ -117,7 +109,6 @@
 <script src="{{asset('assets/js/jquery.metisMenu.js')}}"></script>
 <!-- MORRIS CHART SCRIPTS -->
 <script src="{{asset('assets/js/morris/raphael-2.1.0.min.js')}}"></script>
-<script src="{{asset('assets/js/morris/morris.js')}}"></script>
 <!-- CUSTOM SCRIPTS -->
 <script src="{{asset('assets/js/custom.js')}}"></script>
 <!-- Extra JavaScript/CSS added manually in "Settings" tab -->
@@ -125,10 +116,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
 <!-- Include Date Range Picker -->
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
 <!-- Javascript -->
 <script src="{{asset('assets/js/jquery-1.11.1.min.js')}}"></script>
 <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>

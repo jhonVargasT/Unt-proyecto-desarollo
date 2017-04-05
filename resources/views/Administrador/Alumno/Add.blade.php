@@ -100,9 +100,7 @@
                                     <div class="col-sm-3">
                                         <div class="col-sm-12 input-group date" data-provide="datepicker">
                                             <input type="text" name="fecha" class="form-control"
-                                                   value="<?php date_default_timezone_set('America/Lima');
-                                                   $date = date('d/m/Y');
-                                                   echo $date ?>">
+                                                   >
                                             <div class="input-group-addon">
                                                 <span class="glyphicon glyphicon-th"></span>
                                             </div>
@@ -135,7 +133,7 @@
                                     <div class="col-sm-3">
                                         <input class="form-control input-sm" type="text"
                                                placeholder="Ejm: Mecanica" name="nombreEscuela" id="ne"
-                                               onkeypress="return validarLetras(event)" required disabled>
+                                               onkeypress="return validarLetras(event)" required >
                                         <script>
                                             src = "{{ route('searchajax') }}";
                                             $("#ne").autocomplete({
@@ -161,7 +159,7 @@
                                 <div class="form-group-sm " align="right">
                                     <span class="col-sm-2 control-label">Facultad</span>
                                     <div class="col-sm-3">
-                                        <input class="form-control input-sm" name=" " type="text" id="f" disabled>
+                                        <input class="form-control input-sm" name=" " type="text" id="f" >
                                         <script>
                                             $('#ne').change(function () {
                                                 $.ajax({
