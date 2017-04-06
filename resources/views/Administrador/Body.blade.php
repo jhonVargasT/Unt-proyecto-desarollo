@@ -238,7 +238,7 @@
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
                                 <span class="glyphicon glyphicon-pushpin">
-                            </span> SubTramites</a>
+                            </span> Subtramites</a>
                                 </h4>
                             </div>
                             @yield('subtramite')
@@ -248,13 +248,13 @@
                                         <tr>
                                             <td>
                                                 <span class="glyphicon glyphicon-search"></span>
-                                                <a href="/admBuscarSubtramite">Buscar SubTramites</a>
+                                                <a href="/admBuscarSubtramite">Buscar Subtramites</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <span class="glyphicon glyphicon-plus"></span>
-                                                <a href="/admRegistrarSubtramite">Agregar SubTramite</a>
+                                                <a href="/admRegistrarSubtramite">Agregar Subtramites</a>
                                             </td>
                                         </tr>
                                     </table>
@@ -266,7 +266,7 @@
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven"><span
                                                 class="fa fa-money">
-                            </span> Donaciones y Transacciones</a>
+                            </span> Donaciones y transferencias</a>
                                 </h4>
                             </div>
                             @yield('donaciones')
@@ -276,13 +276,13 @@
                                         <tr>
                                             <td>
                                                 <span class="glyphicon glyphicon-search"></span>
-                                                <a href="/admBuscarDonaciones">Buscar Donaciones y transacciones</a>
+                                                <a href="/admBuscarDonaciones">Buscar Donaciones y transferencias</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <span class="glyphicon glyphicon-plus"></span>
-                                                <a href="/admRegistrarDonaciones">Agregar Donaciones y transacciones</a>
+                                                <a href="/admRegistrarDonaciones">Agregar Donaciones y transferencias</a>
                                             </td>
                                         </tr>
                                     </table>
