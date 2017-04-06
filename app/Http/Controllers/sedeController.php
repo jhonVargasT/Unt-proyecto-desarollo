@@ -39,8 +39,12 @@ class sedeController extends Controller
         $sede->setCodigoSede($request->codigoSede);
         $sede->setNombreSede($request->nombreSede);
         $sede->setDireccion($request->direccion);
-        $sede->editarSede($codSede);
-        return view('Administrador/Sede/Search')->with(['nombre' => $request->NombreFacultad]);
+        $val = $sede->editarSede($codSede);
+        if ($val == true) {
+            return back()->with('true', 'Sede ' . $request->nombreSede . ' editada con exito')->withInput();
+        } else {
+            return back()->with('false', 'Sede ' . $request->nombreSede . ' no editada');
+        }
     }
 
     public function listarSede(Request $request)
@@ -67,8 +71,12 @@ class sedeController extends Controller
     public function eliminarSede($codSede, Request $request)
     {
         $sede = new sedemodel();
-        $sede->eliminarSede($codSede);
-        return view('Administrador/Sede/Search')->with(['nombre' => $request->NombreFacultad]);
+        $val = $sede->eliminarSede($codSede);
+        if ($val == true) {
+            return back()->with('true', 'Sede ' . $request->nombreSede . ' eliminado con exito')->withInput();
+        } else {
+            return back()->with('false', 'Sede ' . $request->nombreSede . ' no eliminada');
+        }
     }
 
     public function autocompletesede(Request $request)

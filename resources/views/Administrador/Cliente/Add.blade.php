@@ -20,6 +20,7 @@
     </div>
 @stop
 @section('content')
+
     <div class="panel panel-primary">
         <div class="panel panel-heading"> Agregar cliente</div>
         <div class="panel-body">

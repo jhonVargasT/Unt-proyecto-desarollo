@@ -94,11 +94,23 @@ class clienteController extends Controller
         $valueV = Session::get('tipoCuentaV');
 
         $cliente = new clientemodel();
-        $cliente->eliminarCliente($codPersona);
+        $val = $cliente->eliminarCliente($codPersona);
 
-        if ($valueA == 'Administrador')
-            return view('Administrador/Cliente/Search')->with(['nombre' => $request->nombres]);
-        if ($valueV == 'Ventanilla')
-            return view('Ventanilla/Cliente/Search')->with(['nombre' => $request->nombres]);
+        if ($valueA == 'Administrador') {
+            if ($val == true) {
+                return back()->with('true', 'Cliente ' . $request->nombres . ' eliminada con exito')->withInput();
+            } else {
+                return back()->with('false', 'Cliente ' . $request->nombres . ' no se elimino')->withInput();
+            }
+        } else {
+            if ($valueV == 'Ventanilla') {
+                if ($val == true) {
+                    return back()->with('true', 'Cliente ' . $request->nombres . ' eliminada con exito')->withInput();
+                } else {
+                    return back()->with('false', 'Cliente ' . $request->nombres . ' no se elimino')->withInput();
+                }
+            }
+
+        }
     }
 }

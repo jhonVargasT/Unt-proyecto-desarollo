@@ -42,8 +42,13 @@ class facultadController extends Controller
         $facultad->setCodFacultad($request->CodigoFacultad);
         $facultad->setNombre($request->NombreFacultad);
         $facultad->setNroCuenta($request->CuentaInterna);
-        $facultad->editarFacultad($idFacultad);
-        return view('Administrador/Facultad/Search')->with(['nombre' => $request->NombreFacultad]);
+        $val = $facultad->editarFacultad($idFacultad);
+        if ($val == true) {
+            return back()->with('true', 'Escuela ' . $request->NombreFacultad . ' editada con exito')->withInput();
+        }
+        else{
+            return back()->with('false', 'Escuela ' . $request->NombreFacultad . ' no se edito')->withInput();
+        }
     }
 
     public function listarFacultad(Request $request)
@@ -74,8 +79,12 @@ class facultadController extends Controller
     public function eliminarFacultad($idFacultad, Request $request)
     {
         $facultad = new facultadmodel();
-        $facultad->eliminarFacultad($idFacultad);
-        return view('Administrador/Facultad/Search')->with(['nombre' => $request->NombreFacultad]);
+        $val = $facultad->eliminarFacultad($idFacultad);
+        if ($val == true) {
+            return back()->with('true', 'Facultad ' . $request->NombreFacultad . ' eliminada con exito')->withInput();
+        } else {
+            return back()->with('false', 'Facultad ' . $request->NombreFacultad . ' no se elimino')->withInput();
+        }
     }
 
     public function llenarFacultad()
@@ -88,10 +97,11 @@ class facultadController extends Controller
         }
         return Response::json($var);
     }
+
     public function autocomplete(Request $request)
     {
         $facultad = new facultadmodel();
-        $data = $facultad->llenarFacultadReporte( $request->input('query'));
+        $data = $facultad->llenarFacultadReporte($request->input('query'));
         return response()->json($data);
     }
 
