@@ -2,6 +2,8 @@
 <meta name="_token" content="{{ csrf_token() }}">
 <title>Pago Tarjeta</title>
 @section('content')
+
+    <link rel="stylesheet" type="text/css" href="css/boleta.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -334,12 +336,15 @@
                     <div class="col-sm-4">
                         <input class="form-control" type="text" name="subtramite" id="st" required readonly>
                     </div>
-                    <div class="form-group-sm">
-                        <span class="col-sm-2">Detalle </span>
-                        <div class="col-sm-4">
+                    <div class="form-group-sm ">
+                        <span class="col-sm-2 required" >Detalle </span>
+                        <div class="col-sm-4 ">
                                 <textarea class="form-control input-sm" name="detalle" placeholder="Detalle"
                                           id="detalle"></textarea>
                         </div>
+                        <style>
+                            .required:after { content:" (*) ";  color: #C00;}
+                        </style>
                     </div>
                 </div>
                 <br>

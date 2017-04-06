@@ -345,11 +345,14 @@
                             <input class="form-control" type="text" name="subtramite" id="st" required readonly>
                         </div>
                         <div class="form-group-sm">
-                            <span class="col-sm-2">Detalle </span>
+                            <span class="col-sm-2 required">Detalle </span>
                             <div class="col-sm-4">
                                 <textarea class="form-control input-sm" name="detalle" placeholder="Detalle"
                                           id="detalle"></textarea>
                             </div>
+                            <style>
+                                .required:after { content:" (*) ";  color: #C00;}
+                            </style>
                         </div>
                         <div class="form-group-sm">
                             <div class="col-sm-4">
