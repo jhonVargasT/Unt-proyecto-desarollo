@@ -442,7 +442,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 row form-group"></div>
                 <div class="col-sm-12 row form-group">
                     <div class="col-md-5"></div>
                     <div class="col-md-2" align="center">
