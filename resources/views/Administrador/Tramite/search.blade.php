@@ -36,7 +36,7 @@
                         <span class="col-sm-5 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
                             <select class=" form-control" name="select">
-                                <option>Todo </option>
+                                <option>Todo</option>
                                 <option>Clasificador siaf</option>
                                 <option>Tipo de recurso</option>
                                 <option>Nombre de tramite</option>
@@ -112,13 +112,6 @@
                 <div class="col-sm-4"></div>
                 <!--paginadro-->
                 <div class="col-sm-4" align="center">
-                    <ul class="pagination  pagination-sm">
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                    </ul>
                 </div>
                 <div class="col-sm-4"></div>
             </div>
