@@ -82,9 +82,14 @@ class escuelaController extends Controller
 
     public function eliminarEscuela($idEscuela, Request $request)
     {
-        $cliente = new escuelamodel();
-        $cliente->eliminarEscuela($idEscuela);
-        return view('Administrador/Escuela/search')->with(['nombre' => $request->nombre]);
+        $escuela = new escuelamodel();
+        $esc=$escuela->eliminarEscuela($idEscuela);
+
+        if ($esc == true) {
+            return back()->with('true', 'Escuela ' . $request->nombre . ' se elimino con exito')->withInput();
+        } else {
+            return back()->with('false', 'Escuela ' . $request->nombre . ' no se elimino');
+        }
     }
 
     public function searchE(Request $request)

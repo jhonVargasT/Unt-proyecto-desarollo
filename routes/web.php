@@ -122,7 +122,6 @@ Route::resource('PersonalCargar', 'personalController@cargarPersonal');
 Route::get('PersonalEditado/{codPersona}', 'personalController@editarPersonal');
 Route::get('PersonalEliminar/{codPersona}', 'personalController@eliminarPersonal');
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/admRegistrarSubtramite', function () {

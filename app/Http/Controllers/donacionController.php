@@ -88,7 +88,7 @@ class donacionController extends Controller
                             $don = $donacion->consultarDonacionNumeroResolucion($request->text);
                         } else {
 
-                                $don = $donacion->consultarDonaciones();
+                            $don = $donacion->consultarDonaciones();
                         }
                     }
                 }
@@ -100,8 +100,13 @@ class donacionController extends Controller
     public function eliminarDonacion($codDonacion, Request $request)
     {
         $donacion = new donacionmodel();
-        $donacion->eliminarDonacion($codDonacion);
-        return view('Administrador/DonacionesYTransacciones/Search')->with(['nombre' => $request->numeroResolucion]);
+        $dona = $donacion->eliminarDonacion($codDonacion);
+
+        if ($dona == true) {
+            return back()->with('true', 'Donacion ' . $request->numResolucion . ' se elimino con exito')->withInput();
+        } else {
+            return back()->with('false', 'Donacion ' . $request->numResolucion . ' no elimno');
+        }
     }
 
 }

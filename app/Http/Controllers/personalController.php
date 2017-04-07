@@ -86,7 +86,7 @@ class personalController extends Controller
         return view('Administrador/Personal/edit')->with(['personal' => $pers]);
     }
 
-    public function editarPersonal($idPersonal, Request $request)
+    public function editarPersonal ($idPersonal, Request $request)
     {
         $personal = new personalmodel();
         $personal->setDni($request->dni);
@@ -132,7 +132,11 @@ class personalController extends Controller
     public function eliminarPersonal($codPersona, Request $request)
     {
         $personal = new personalmodel();
-        $personal->eliminarPersonal($codPersona);
-        return view('Administrador/Personal/Search')->with(['nombre' => $request->nombres]);
+        $p=$personal->eliminarPersonal($codPersona);
+        if ($p == true) {
+            return back()->with('true', 'Personal ' . $request->nombres . ' se elimino con exito')->withInput();
+        } else {
+            return back()->with('false', 'Personal ' . $request->nombres . ' no elimino');
+        }
     }
 }

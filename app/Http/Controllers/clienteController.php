@@ -110,7 +110,6 @@ class clienteController extends Controller
                     return back()->with('false', 'Cliente ' . $request->nombres . ' no se elimino')->withInput();
                 }
             }
-
         }
     }
 }

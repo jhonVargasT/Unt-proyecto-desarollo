@@ -25,12 +25,9 @@ class alumnoController extends Controller
         $al = $alumno->savealumno();
 
         if ($al == true) {
-            return back()->with('true', 'Alumno ' . $request->nombres . ' guardada con exito', $request->dni, $request->apellidos, $request->codAlumno, $request->nombreEscuela
-                , $request->facultad)->withInput();
+            return back()->with('true', 'Alumno ' . $request->nombres . ' guardada con exito')->withInput();
         } else {
-            return back()->with(['nombres' => $request->nombres,
-                'dni' => $request->dni, 'apellidos' => $request->apellidos, 'codAlumno' => $request->codAlumno, 'escuela' => $request->nombreEscuela,
-                'facultad' => $request->facultad]);
+            return back()->with('true', 'Alumno ' . $request->nombres . ' no se guardado');
         }
     }
 
@@ -110,12 +107,24 @@ class alumnoController extends Controller
         $valueV = Session::get('tipoCuentaV');
 
         $alumno = new alumnomodel();
-        $alumno->eliminarAlumno($codPersona);
+        $val=$alumno->eliminarAlumno($codPersona);
 
-        if ($valueA == 'Administrador')
-            return view('Administrador/Alumno/Search')->with(['nombre' => $request->nombres]);
-        if ($valueV == 'Ventanilla')
-            return view('Ventanilla/Alumno/Search')->with(['nombre' => $request->nombres]);
+        if ($valueA == 'Administrador') {
+            if ($val == true) {
+                return back()->with('true', 'Alumno ' . $request->nombres . ' eliminada con exito')->withInput();
+            } else {
+                return back()->with('false', 'Alumno ' . $request->nombres . ' no se elimino')->withInput();
+            }
+        } else {
+            if ($valueV == 'Ventanilla') {
+                if ($val == true) {
+                    return back()->with('true', 'Alumno ' . $request->nombres . ' eliminada con exito')->withInput();
+                } else {
+                    return back()->with('false', 'Alumno ' . $request->nombres . ' no se elimino')->withInput();
+                }
+            }
+
+        }
     }
 
     public function escuela(Request $request)

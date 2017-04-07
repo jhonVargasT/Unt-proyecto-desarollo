@@ -138,20 +138,19 @@ class personalmodel extends personamodel
         $logunt->setDescripcion('registrarPersonal');
         $logunt->setCodigoPersonal($codPers);
 
-            try {
-                DB::transaction(function () use ($logunt) {
-                    DB::table('persona')->insert(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos()]);
-                    $personabd = DB::table('persona')->where('dni', $this->getDni())->get();
-                    foreach ($personabd as $pbd) {
-                        $idp = $pbd->codPersona;
-                        DB::table('personal')->insert(['cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta, 'idPersona' => $idp, 'codPersonal' => $this->codPersonal]);
-                        $logunt->saveLogUnt();
-                    }
-                });
-            }catch (PDOException $e)
-            {
-                return false;
-            }
+        try {
+            DB::transaction(function () use ($logunt) {
+                DB::table('persona')->insert(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos()]);
+                $personabd = DB::table('persona')->where('dni', $this->getDni())->get();
+                foreach ($personabd as $pbd) {
+                    $idp = $pbd->codPersona;
+                    DB::table('personal')->insert(['cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta, 'idPersona' => $idp, 'codPersonal' => $this->codPersonal]);
+                    $logunt->saveLogUnt();
+                }
+            });
+        } catch (PDOException $e) {
+            return false;
+        }
         return true;
 
     }
@@ -187,10 +186,10 @@ class personalmodel extends personamodel
 
     public function consultarPersonalDNI($dni)
     {
-        $personabd=DB::table('personal')
-            ->join('persona', function ($join) use ($dni){
+        $personabd = DB::table('personal')
+            ->join('persona', function ($join) use ($dni) {
                 $join->on('personal.idPersona', '=', 'persona.codPersona')
-                    ->where('persona.dni', 'like', '%'.$dni.'%')->where(['persona.estado'=>1,'personal.estado'=>1]);
+                    ->where('persona.dni', 'like', '%' . $dni . '%')->where(['persona.estado' => 1, 'personal.estado' => 1]);
             })
             ->get();
 
@@ -199,10 +198,10 @@ class personalmodel extends personamodel
 
     public function consultarPersonalApellidos($apellidos)
     {
-        $personabd=DB::table('personal')
-            ->join('persona', function ($join) use ($apellidos){
+        $personabd = DB::table('personal')
+            ->join('persona', function ($join) use ($apellidos) {
                 $join->on('personal.idPersona', '=', 'persona.codPersona')
-                    ->where('persona.apellidos', 'like', '%'.$apellidos.'%');
+                    ->where('persona.apellidos', 'like', '%' . $apellidos . '%');
             })
             ->get();
 
@@ -211,10 +210,10 @@ class personalmodel extends personamodel
 
     public function consultarPersonalCodigo($codPersonal)
     {
-        $personabd=DB::table('personal')
-            ->join('persona', function ($join) use ($codPersonal){
+        $personabd = DB::table('personal')
+            ->join('persona', function ($join) use ($codPersonal) {
                 $join->on('personal.idPersona', '=', 'persona.codPersona')
-                    ->where('personal.codPersonal', 'like', '%'.$codPersonal.'%');
+                    ->where('personal.codPersonal', 'like', '%' . $codPersonal . '%');
             })
             ->get();
 
@@ -223,10 +222,10 @@ class personalmodel extends personamodel
 
     public function consultarPersonalCuenta($cuenta)
     {
-        $personabd=DB::table('personal')
-            ->join('persona', function ($join) use ($cuenta){
+        $personabd = DB::table('personal')
+            ->join('persona', function ($join) use ($cuenta) {
                 $join->on('personal.idPersona', '=', 'persona.codPersona')
-                    ->where('personal.cuenta', 'like', '%'.$cuenta.'%');
+                    ->where('personal.cuenta', 'like', '%' . $cuenta . '%');
             })
             ->get();
 
@@ -235,15 +234,16 @@ class personalmodel extends personamodel
 
     public function consultaPersonalTipoCuenta($tipoCuenta)
     {
-        $personabd=DB::table('personal')
-            ->join('persona', function ($join) use ($tipoCuenta){
+        $personabd = DB::table('personal')
+            ->join('persona', function ($join) use ($tipoCuenta) {
                 $join->on('personal.idPersona', '=', 'persona.codPersona')
-                    ->where('personal.tipoCuenta', 'like', '%'.$tipoCuenta.'%');
+                    ->where('personal.tipoCuenta', 'like', '%' . $tipoCuenta . '%');
             })
             ->get();
 
         return $personabd;
     }
+
     public function consultaPersonales()
     {
         $alumnobd = DB::select('select * from persona left join personal on persona.codPersona = personal.idPersona where 
@@ -262,7 +262,7 @@ class personalmodel extends personamodel
         $logunt->setDescripcion('eliminarPersonal');
         $logunt->setCodigoPersonal($codPers);
         try {
-            DB::transaction(function () use ($codPersona,$logunt) {
+            DB::transaction(function () use ($codPersona, $logunt) {
                 DB::table('persona')->where('codPersona', $codPersona)->update(['estado' => 0]);
                 DB::table('personal')->where('idPersona', $codPersona)->update(['estado' => 0]);
                 $logunt->saveLogUnt();
