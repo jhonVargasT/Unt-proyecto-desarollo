@@ -71,14 +71,19 @@ class subtramiteController extends Controller
     public function eliminarSubtramite($codSubtramite, Request $request)
     {
         $subtramite = new subtramitemodel();
-        $subtramite->eliminarSubtramite($codSubtramite);
-        return view('Administrador/SubTramite/search')->with(['nombre' => $request->nombre]);
+        $sub = $subtramite->eliminarSubtramite($codSubtramite);
+
+        if ($sub == true) {
+            return back()->with('true', 'Subtramite ' . $request->nombre . ' se elimino con exito')->withInput();
+        } else {
+            return back()->with('false', 'Subtramite ' . $request->nombre . ' no se elimino');
+        }
     }
 
     public function nombreSCT(Request $request)
     {
         $sbnombre = null;
-        $subtramitebd = DB::select('select nombre from subtramite where codSubtramite = "' . $request->ct. '"');
+        $subtramitebd = DB::select('select nombre from subtramite where codSubtramite = "' . $request->ct . '"');
 
         foreach ($subtramitebd as $sb) {
             $sbnombre = $sb->nombre;

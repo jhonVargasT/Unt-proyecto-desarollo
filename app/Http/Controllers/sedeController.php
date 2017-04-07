@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class sedeController extends Controller
 {
-    
+
     public function registrarSede(Request $request)
     {
         $sede = new sedemodel();
@@ -39,12 +39,8 @@ class sedeController extends Controller
         $sede->setCodigoSede($request->codigoSede);
         $sede->setNombreSede($request->nombreSede);
         $sede->setDireccion($request->direccion);
-        $val = $sede->editarSede($codSede);
-        if ($val == true) {
-            return back()->with('true', 'Sede ' . $request->nombreSede . ' editada con exito')->withInput();
-        } else {
-            return back()->with('false', 'Sede ' . $request->nombreSede . ' no editada');
-        }
+        $sede->editarSede($codSede);
+        return view('Administrador/Sede/search')->with(['nombre' => $request->nombreSede]);
     }
 
     public function listarSede(Request $request)
@@ -86,5 +82,5 @@ class sedeController extends Controller
         return response()->json($data);
     }
 
-   
+
 }

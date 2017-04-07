@@ -72,20 +72,24 @@ class tramiteController extends Controller
     public function eliminarTramite($codTramite, Request $request)
     {
         $tramite = new tramitemodel();
-        $tramite->eliminarTramite($codTramite);
-        return view('Administrador/Tramite/search')->with(['nombre' => $request->nombre]);
+        $tram = $tramite->eliminarTramite($codTramite);
+        if ($tram == true) {
+            return back()->with('true', 'Tramite ' . $request->nombre . ' se eliminado con exito')->withInput();
+        } else {
+            return back()->with('false', 'Tramite ' . $request->nombre . ' no se elimino');
+        }
     }
 
     public function autocompletar(Request $request)
     {
         $tramite = new tramitemodel();
-        $term=$request->term;
+        $term = $request->term;
         $data = $tramite->consultarTramiteNombre($term)
             ->take(10)
             ->get();
-        $result=array();
-        foreach ($data as $dat){
-            $result[]=$dat;
+        $result = array();
+        foreach ($data as $dat) {
+            $result[] = $dat;
         }
         return response()->json($result);
     }

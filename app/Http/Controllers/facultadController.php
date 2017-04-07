@@ -43,12 +43,8 @@ class facultadController extends Controller
         $facultad->setNombre($request->NombreFacultad);
         $facultad->setNroCuenta($request->CuentaInterna);
         $val = $facultad->editarFacultad($idFacultad);
-        if ($val == true) {
-            return back()->with('true', 'Escuela ' . $request->NombreFacultad . ' editada con exito')->withInput();
-        }
-        else{
-            return back()->with('false', 'Escuela ' . $request->NombreFacultad . ' no se edito')->withInput();
-        }
+
+        return view('Administrador/Facultad/search')->with(['nombre' => $request->NombreFacultad]);
     }
 
     public function listarFacultad(Request $request)
