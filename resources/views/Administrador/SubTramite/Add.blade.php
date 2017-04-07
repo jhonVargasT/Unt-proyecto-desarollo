@@ -42,11 +42,12 @@
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label">Nombre Tramite</span>
                                 <div class="col-sm-3">
-                                    <input class="typeahead form-control input-sm" type="text" placeholder="ejmp : Carnet"
+                                    <input class="typeahead form-control input-sm" type="text"
+                                           placeholder="ejmp : Carnet"
                                            name="nombreTramite"
                                            autocomplete="off" required>
                                     <script type="text/javascript">
-                                        var path = "{{ route('autocomplete') }}";
+                                        var path = "{{ route('autocompletet') }}";
                                         $('input.typeahead').typeahead({
                                             source: function (query, process) {
                                                 return $.get(path, {query: query}, function (data) {
@@ -77,7 +78,8 @@
                                 <div class="input-group col-sm-2">
                                     <div class="input-group-addon ">S/.</div>
                                     <input type="text" class="form-control " name="precio"
-                                           autocomplete="off" onkeypress="return validarDouble(event)" placeholder="ejmp: 2.50" required>
+                                           autocomplete="off" onkeypress="return validarDouble(event)"
+                                           placeholder="ejmp: 2.50" required>
                                 </div>
                             </div>
                         </div>
@@ -89,7 +91,7 @@
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="nombreSubTramite" type="text"
                                            autocomplete="off" onkeypress="return validarLetras(event)" required
-                                    placeholder="ejmp: Biblioteca">
+                                           placeholder="ejmp: Biblioteca">
                                 </div>
                             </div>
                         </div>

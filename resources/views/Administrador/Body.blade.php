@@ -294,7 +294,7 @@
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseExcel"><span
                                                 class="fa fa-file">
-                            </span> Importar Excel</a>
+                            </span> Importar Pagos</a>
                                 </h4>
                             </div>
                             @yield('excel')
@@ -304,7 +304,7 @@
                                         <tr>
                                             <td>
                                                 <span class="glyphicon glyphicon-plus"></span>
-                                                <a href="/admImportarExcel"> Importar Excel</a>
+                                                <a href="/admImportarExcel"> Importar Pagos</a>
                                             </td>
                                         </tr>
                                     </table>

@@ -29,13 +29,6 @@ class subtramiteController extends Controller
         }
     }
 
-    public function autocomplete(Request $request)
-    {
-        $data = DB::table('tramite')->select("nombre as name")->where("nombre", "LIKE", "%{$request->input('query')}%")->get();
-
-        return response()->json($data);
-    }
-
     public function cargarSubtramite($codTramite)
     {
         $subtramite = new subtramitemodel();

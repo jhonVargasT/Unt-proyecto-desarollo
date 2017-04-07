@@ -6,7 +6,7 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarEstudiante" style="color: #509f0c" target="_top" >Buscar Estudiantes</a>
+                        <a href="/admBuscarEstudiante" style="color: #509f0c" target="_top">Buscar Estudiantes</a>
                     </td>
                 </tr>
                 <tr>
@@ -39,7 +39,6 @@
                                 <option>Dni</option>
                                 <option>Apellidos</option>
                                 <option>Codigo alumno</option>
-                                <option>Codigo Matricula</option>
                                 <option>Fecha de Matricula</option>
                                 <option>Escuela</option>
                                 <option>Facultad</option>
@@ -79,9 +78,6 @@
                             <div align="center">Codigo alumno</div>
                         </th>
                         <th>
-                            <div align="center">Codigo matricula</div>
-                        </th>
-                        <th>
                             <div align="center">Fecha de matricula</div>
                         </th>
                         <th>
@@ -97,7 +93,6 @@
                                 <td>{{$a->dni}}</td>
                                 <td>{{$a->nombres}} {{$a->apellidos}}</td>
                                 <td>{{$a->codAlumno}}</td>
-                                <td>{{$a->codMatricula}}</td>
                                 <td>{{$a->fecha}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}
