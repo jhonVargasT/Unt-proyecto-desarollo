@@ -13,12 +13,13 @@ use App\tramitemodel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use PhpParser\Node\Expr\Empty_;
+
 
 class pagoController extends Controller
 {
     public function registrarPago(Request $request)
     {
+        $cont = 0;
         $pers = new personamodel();
         $cli = new clientemodel();
         $al = new alumnomodel();
@@ -36,8 +37,20 @@ class pagoController extends Controller
                 }
             }
         }
-        $codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);
-        $csiaf = $subt->consultarSiafNombreSubtramite($request->subtramite);
+        if($request->subtramite)
+        {
+            $codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);
+            $csiaf = $subt->consultarSiafNombreSubtramite($request->subtramite);
+            $cont = $this->contadorSubtramite($request->subtramite);
+        }
+        elseif ($request->txtsub)
+        {
+            $codSubtramite = $subt->consultarSubtramiteidNombre($request->txtsub);
+            $csiaf = $subt->consultarSiafNombreSubtramite($request->txtsub);
+            $cont = $this->contadorSubtramite($request->txtsub);
+        }
+        /*$codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);
+        $csiaf = $subt->consultarSiafNombreSubtramite($request->subtramite);*/
         $cuentaS = $subt->consultarCuentaSubtramiteCodSubtramite($codSubtramite);
         date_default_timezone_set('America/Lima');
         $dato = date('Y-m-d H:i:s');
@@ -50,7 +63,7 @@ class pagoController extends Controller
         $p->setCoPersonal($idper);
         $p->setIdPersona($codper);
         $p->setIdSubtramite($codSubtramite);
-        $cont = $this->contadorSubtramite($request->subtramite);
+        //$cont = $this->contadorSubtramite($request->subtramite);
         $contaux = $cont + 1;
         if ($request->checkbox == 1) {
             $p->setDeuda(1);
