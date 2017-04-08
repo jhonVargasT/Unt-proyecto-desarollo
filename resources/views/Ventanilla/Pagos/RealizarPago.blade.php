@@ -348,7 +348,7 @@
                             <span class="col-sm-2 required">Detalle </span>
                             <div class="col-sm-4">
                                 <textarea class="form-control input-sm" name="detalle" placeholder="Detalle"
-                                          id="detalle"></textarea>
+                                          id="detalle" required></textarea>
                             </div>
                             <style>
                                 .required:after { content:" (*) ";  color: #C00;}

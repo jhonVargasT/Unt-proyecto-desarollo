@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\alumnomodel;
@@ -42,7 +41,6 @@ class pagoController extends Controller
         $cuentaS = $subt->consultarCuentaSubtramiteCodSubtramite($codSubtramite);
         date_default_timezone_set('America/Lima');
         $dato = date('Y-m-d H:i:s');
-        $total = $request->total;
         $pago = $request->boletapagar;
         $p = new pagomodel();
         $p->setDetalle($request->detalle);
@@ -63,15 +61,13 @@ class pagoController extends Controller
         $val = Session::get('txt', 'No existe session');
         if ($valid == true) {
             if ($val == $request->text) {
-                $totalp = $total + $pago;
+                $totalp = $total = $request->totalpago + $pago;
                 session()->put('text', $request->text);
-
                 return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' => $totalp,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
                     'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador]);
             } else {
                 Session::forget('txt');
-
                 Session::put('txt', $request->text);
                 return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' => $request->boletapagar,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
@@ -86,7 +82,6 @@ class pagoController extends Controller
     {
         $cont = null;
         $contador = DB::select('select contador from subtramite where subtramite.estado=1 and subtramite.nombre="' . $nombreSubtramite . '"');
-
         foreach ($contador as $c) {
             $cont = $c->contador;
         }
@@ -111,7 +106,6 @@ class pagoController extends Controller
         $nombres = DB::select('select * from persona 
         left join cliente on persona.codPersona = cliente.idPersona 
         where persona.codPersona = cliente.idPersona and persona.dni=:dni and persona.estado=1 and cliente.estado=1', ['dni' => $var]);
-
         foreach ($nombres as $np) {
             $nombres = $np->nombres;
             return response()->json($nombres);
@@ -123,7 +117,6 @@ class pagoController extends Controller
         $var = $request->name;
         $nombres = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona 
         where persona.codPersona = cliente.idPersona and cliente.ruc=:ruc and persona.estado=1 and cliente.estado=1', ['ruc' => $var]);
-
         foreach ($nombres as $np) {
             $nombres = $np->nombres;
             return response()->json($nombres);
@@ -135,7 +128,6 @@ class pagoController extends Controller
         $var = $request->name;
         $nombres = DB::select('select * from persona left join alumno on persona.codPersona = alumno.idPersona 
         where persona.codPersona = alumno.idPersona and alumno.codAlumno=:codAlumno and persona.estado=1 and alumno.estado=1', ['codAlumno' => $var]);
-
         foreach ($nombres as $np) {
             $nombres = $np->nombres;
             return response()->json($nombres);
@@ -147,7 +139,6 @@ class pagoController extends Controller
         $var = $request->name;
         $nombres = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona 
         where persona.codPersona = cliente.idPersona and cliente.ruc=:ruc and persona.estado=1 and cliente.estado=1', ['ruc' => $var]);
-
         foreach ($nombres as $np) {
             $apellidos = $np->apellidos;
             return response()->json($apellidos);
@@ -160,7 +151,6 @@ class pagoController extends Controller
         $nombresP = DB::select('select * from persona 
         left join alumno on persona.codPersona = alumno.idPersona 
         where persona.codPersona = alumno.idPersona and persona.dni=:dni and persona.estado=1 and alumno.estado=1', ['dni' => $var]);
-
         foreach ($nombresP as $np) {
             $apellidos = $np->apellidos;
             return response()->json($apellidos);
@@ -173,7 +163,6 @@ class pagoController extends Controller
         $nombresP = DB::select('select * from persona 
         left join cliente on persona.codPersona = cliente.idPersona 
         where persona.codPersona = cliente.idPersona and persona.dni=:dni and persona.estado=1 and cliente.estado=1', ['dni' => $var]);
-
         foreach ($nombresP as $np) {
             $apellidos = $np->apellidos;
             return response()->json($apellidos);
@@ -186,7 +175,6 @@ class pagoController extends Controller
         $nombresP = DB::select('select * from persona 
         left join alumno on persona.codPersona = alumno.idPersona 
         where persona.codPersona = alumno.idPersona and alumno.codAlumno=:codAlumno and persona.estado=1 and alumno.estado=1', ['codAlumno' => $var]);
-
         foreach ($nombresP as $np) {
             $apellidos = $np->apellidos;
             return response()->json($apellidos);
@@ -202,7 +190,6 @@ class pagoController extends Controller
         where persona.codPersona = alumno.idPersona 
         and escuela.idEscuela = alumno.coEscuela 
         and persona.dni=:dni and persona.estado=1 and alumno.estado=1 and escuela.estado =1', ['dni' => $var]);
-
         foreach ($nombresE as $ne) {
             $escuelan = $ne->nombre;
             return response()->json($escuelan);
@@ -218,7 +205,6 @@ class pagoController extends Controller
         where persona.codPersona = alumno.idPersona 
         and escuela.idEscuela = alumno.coEscuela 
         and alumno.codAlumno=:codAlumno and persona.estado=1 and alumno.estado=1 and escuela.estado =1', ['codAlumno' => $var]);
-
         foreach ($nombresE as $ne) {
             $escuelan = $ne->nombre;
             return response()->json($escuelan);
@@ -236,7 +222,6 @@ class pagoController extends Controller
         and escuela.idEscuela = alumno.coEscuela
         and facultad.idFacultad = escuela.codigoFacultad
         and persona.dni=:dni and persona.estado=1 and alumno.estado=1 and escuela.estado =1 and facultad.estado=1', ['dni' => $var]);
-
         foreach ($nombresF as $nf) {
             $facultadn = $nf->nombre;
             return response()->json($facultadn);
@@ -254,7 +239,6 @@ class pagoController extends Controller
         and escuela.idEscuela = alumno.coEscuela
         and facultad.idFacultad = escuela.codigoFacultad
         and alumno.codAlumno=:codAlumno and persona.estado=1 and alumno.estado=1 and escuela.estado =1 and facultad.estado=1', ['codAlumno' => $var]);
-
         foreach ($nombresF as $nf) {
             $facultadn = $nf->nombre;
             return response()->json($facultadn);
@@ -275,7 +259,6 @@ class pagoController extends Controller
     public function autocompletes(Request $request)
     {
         $data = DB::table('subtramite')->select("nombre as name")->where("nombre", "LIKE", "%{$request->input('query')}%")->get();
-
         return response()->json($data);
     }
 
@@ -285,7 +268,6 @@ class pagoController extends Controller
         $total = 0;
         $pag = null;
         $pago = new pagomodel();
-
         if ($request->checkbox == 1) {
             $val = 1;
         }
@@ -320,7 +302,6 @@ class pagoController extends Controller
     {
         $pago = new pagomodel();
         $pago->eliminarPago($codPago);
-
         return view('Ventanilla/Pagos/ReportPago');
     }
 
@@ -328,7 +309,6 @@ class pagoController extends Controller
     {
         $pago = new pagomodel();
         $pago->eliminarDeuda($codPago);
-
         return view('Ventanilla/Pagos/ReportPago');
     }
 
@@ -353,7 +333,6 @@ class pagoController extends Controller
         if (empty($request->sed) != true) {
             if (empty($request->fac) != true) {
                 if (empty($request->esc) != true) {
-
                     $codigo = $esc->obtenerId($request->esc);
                     $lugar = 'es.idEscuela';
                 } else {
@@ -367,7 +346,6 @@ class pagoController extends Controller
         } else {
             $lugar = null;
         }
-
         if ($estado == 'Anulado') {
             $estado = 0;
         } else {
@@ -395,20 +373,16 @@ class pagoController extends Controller
         } else {
             $tipRe = null;
         }
-
         $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo);
         if (!is_null($result) && empty($result) != true) {
             foreach ($result as $sum) {
                 $total = $total + $sum->precio;
-
             }
         } else {
             $total = 0;
         }
-
         return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total, 'Tram' => $request->inputTram, 'sede' => $request->sed, 'fac' => $request->fac, 'esc' => $request->esc, 'tramite' => $request->opcTramite,]);
     }
-
 
     public function obtenerDatos(Request $request)
     {
@@ -420,7 +394,6 @@ class pagoController extends Controller
         $facultad = $request->facultad;
         $detalle = $request->detalle;
         $fecha = $request->fecha;
-
         return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $total,
             'nombre' => $nombre, 'apellidos' => $apellidos, 'escuela' => $escuela,
             'facultad' => $facultad, 'detalle' => $detalle, 'fecha' => $fecha]);
@@ -429,9 +402,7 @@ class pagoController extends Controller
     public function obtenerPagosresumen(Request $request)
     {
         $pagoModel = new pagomodel();
-
         if ($request->tipreporte == 'Resumen total') {
-
             $tiempo = null;
             if ($request->tiempo == 'Año') {
                 $tiempo = 'where Year(po.fecha) = ' . $request->fecha . '';
@@ -447,9 +418,8 @@ class pagoController extends Controller
             foreach ($result as $r) {
                 $total += $r->importe;
             }
-            return view('Administrador/Reporte/reporteresumido')->with(['resultresu' => $result, 'fecha' => $request->fecha, 'total' => $total,'tiempo'=>$request->tiempo,'tiprep'=>$request->tipreporte]);
+            return view('Administrador/Reporte/reporteresumido')->with(['resultresu' => $result, 'fecha' => $request->fecha, 'total' => $total, 'tiempo' => $request->tiempo, 'tiprep' => $request->tipreporte]);
         } elseif ($request->tipreporte == 'Codigo S.I.A.F') {
-
             $tiempo = null;
             if ($request->tiempo == 'Año') {
                 $tiempo = 'where Year(po.fecha) = ' . $request->fecha . '';
@@ -465,10 +435,8 @@ class pagoController extends Controller
             foreach ($result as $r) {
                 $total += $r->precio;
             }
-            return view('Administrador/Reporte/reporteresumido')->with(['resultsiaf' => $result, 'fecha' => $request->fecha, 'total' => $total,'tiprep'=>$request->tipreporte,'tiempo'=>$request->tiempo]);
+            return view('Administrador/Reporte/reporteresumido')->with(['resultsiaf' => $result, 'fecha' => $request->fecha, 'total' => $total, 'tiprep' => $request->tipreporte, 'tiempo' => $request->tiempo]);
         }
-       
-
 
     }
 

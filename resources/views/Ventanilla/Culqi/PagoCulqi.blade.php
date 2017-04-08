@@ -381,8 +381,7 @@
                 </div>
                 <div class="col-md-12" align="center">
                     <div class="col-md-5"></div>
-                    <button id="buyButton" type="submit" name="enviar" class="col-md-2 btn btn-success"
-                            disabled="disabled"><span
+                    <button id="buyButton" type="submit" name="enviar" class="col-md-2 btn btn-success"><span
                                 class="glyphicon glyphicon-check"></span> Pagar ahora
                     </button>
                 </div>
