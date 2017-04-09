@@ -180,7 +180,7 @@ class personalmodel extends personamodel
     public function consultarPersonalid($codPersona)
     {
         $alumnobd = DB::select('select * from persona left join personal on persona.codPersona = personal.idPersona where 
-        persona.codPersona = personal.idPersona and persona.codPersona=:codPersona', ['codPersona' => $codPersona]);
+        persona.codPersona = personal.idPersona and persona.codPersona=:codPersona and persona.estado = 1 and personal.estado=1', ['codPersona' => $codPersona]);
         return $alumnobd;
     }
 
@@ -201,7 +201,7 @@ class personalmodel extends personamodel
         $personabd = DB::table('personal')
             ->join('persona', function ($join) use ($apellidos) {
                 $join->on('personal.idPersona', '=', 'persona.codPersona')
-                    ->where('persona.apellidos', 'like', '%' . $apellidos . '%');
+                    ->where('persona.apellidos', 'like', '%' . $apellidos . '%')->where(['persona.estado' => 1,'personal.estado' => 1]);
             })
             ->get();
 
@@ -213,7 +213,7 @@ class personalmodel extends personamodel
         $personabd = DB::table('personal')
             ->join('persona', function ($join) use ($codPersonal) {
                 $join->on('personal.idPersona', '=', 'persona.codPersona')
-                    ->where('personal.codPersonal', 'like', '%' . $codPersonal . '%');
+                    ->where('personal.codPersonal', 'like', '%' . $codPersonal . '%')->where(['persona.estado' => 1,'personal.estado' => 1]);
             })
             ->get();
 
@@ -225,7 +225,7 @@ class personalmodel extends personamodel
         $personabd = DB::table('personal')
             ->join('persona', function ($join) use ($cuenta) {
                 $join->on('personal.idPersona', '=', 'persona.codPersona')
-                    ->where('personal.cuenta', 'like', '%' . $cuenta . '%');
+                    ->where('personal.cuenta', 'like', '%' . $cuenta . '%')->where(['persona.estado' => 1,'personal.estado' => 1]);
             })
             ->get();
 
@@ -237,7 +237,7 @@ class personalmodel extends personamodel
         $personabd = DB::table('personal')
             ->join('persona', function ($join) use ($tipoCuenta) {
                 $join->on('personal.idPersona', '=', 'persona.codPersona')
-                    ->where('personal.tipoCuenta', 'like', '%' . $tipoCuenta . '%');
+                    ->where(['personal.tipoCuenta', 'like', '%' . $tipoCuenta . '%','persona.estado' => 1,'personal.estado' => 1]);
             })
             ->get();
 
@@ -247,7 +247,7 @@ class personalmodel extends personamodel
     public function consultaPersonales()
     {
         $alumnobd = DB::select('select * from persona left join personal on persona.codPersona = personal.idPersona where 
-        persona.codPersona = personal.idPersona');
+        persona.codPersona = personal.idPersona and persona.estado = 1 and persona.estado=1');
         return $alumnobd;
     }
 

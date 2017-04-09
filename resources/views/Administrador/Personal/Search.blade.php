@@ -62,7 +62,7 @@
             <!--tabla-->
             <div class="table-responsive col-sm-12">
                 @if(isset($nombre)!=null)
-                    <div class="alert alert-success" role="alert">El alumno {{$nombre}} fue actualizada!!</div>
+                    <div class="alert alert-success" role="alert">El personal {{$nombre}} fue actualizada!!</div>
                 @endif
 
                 <table class="table table-bordered">
