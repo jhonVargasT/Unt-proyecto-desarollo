@@ -107,14 +107,18 @@
                     </body>
                 </table>
             </div>
-            <div class="col-sm-12 row">
-                <div class="col-sm-4"></div>
-                <!--paginadro-->
-                <div class="col-sm-4" align="center">
+            <div id="dataList">
 
-                </div>
-                <div class="col-sm-4"></div>
             </div>
         </div>
     </div>
+    <script>
+
+    </script>
+    <script src="{{asset('assets/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('assets/datatables/dataTables.bootstrap.js')}}"></script>
+
+    <script src="{{asset('assets/sweetalert2/sweetalert.min.js')}}"></script>
+
+    <script src="{{asset('assets/js/jquery.tool.js')}}"></script>
 @stop

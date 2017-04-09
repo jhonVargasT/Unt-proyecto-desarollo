@@ -6,13 +6,13 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarSubtramite" style="color: #509f0c" target="_top">Buscar SubTramites</a>
+                        <a href="/admBuscarSubtramite" style="color: #509f0c" target="_top">Buscar SubTasa</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarSubtramite">Agregar SubTramite</a>
+                        <a href="/admRegistrarSubtramite">Agregar SubTasa</a>
                     </td>
                 </tr>
             </table>
@@ -21,7 +21,7 @@
 @stop
 @section('content')
     <div class="panel panel-primary">
-        <div class="panel-heading"> Editar Subtramite</div>
+        <div class="panel-heading"> Editar SubTasa</div>
         <div class="panel-body">
             @if(session()->has('true'))
                 <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -35,11 +35,11 @@
                           method="Get"
                           class="Vertical">
                         {{csrf_field()}}
-                        <legend>Editar subtramite</legend>
+                        <legend>Editar SubTasa</legend>
                         <br>
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label"> Nombre Subramite</span>
+                                <span class="col-sm-2 control-label"> Nombre SubTasa</span>
                                 <div class="col-sm-3">
                                     <input type="text" class="form-control input-sm" name="nombreSubtramite"
                                            placeholder="Ingresa Nombre de Tramite aqui .." autocomplete="off"

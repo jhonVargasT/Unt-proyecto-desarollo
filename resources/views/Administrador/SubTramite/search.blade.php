@@ -6,13 +6,13 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarSubtramite" style="color: #509f0c" target="_top" autocomplete="off">Buscar SubTramites</a>
+                        <a href="/admBuscarSubtramite" style="color: #509f0c" target="_top" autocomplete="off">Buscar SubTasa</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarSubtramite">Agregar SubTramite</a>
+                        <a href="/admRegistrarSubtramite">Agregar SubTasa</a>
                     </td>
                 </tr>
             </table>
@@ -31,7 +31,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 
     <div class="panel panel-primary">
-        <div class="panel-heading"> Buscar Subtramites</div>
+        <div class="panel-heading"> Buscar SubTasa</div>
         <div class="panel-body">
             <form name="form" action="{{url('SubtramitesBuscadas')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
@@ -41,8 +41,8 @@
                         <div class="col-sm-7 ">
                             <select class=" form-control" name="select" id="select">
                                 <option>Todo</option>
-                                <option value="Tramite">Tramite</option>
-                                <option>Nombre subtramite</option>
+                                <option value="Tramite">Nombre tasa</option>
+                                <option>Nombre SubTasa</option>
                                 <option>Cuenta contable</option>
                             </select>
                         </div>

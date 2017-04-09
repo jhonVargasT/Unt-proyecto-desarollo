@@ -21,12 +21,6 @@
     </div>
 @stop
 @section('content')
-    @if(session()->has('true'))
-        <div class="alert alert-success" role="alert">{{session('true')}} </div>
-    @endif
-    @if(session()->has('false'))
-        <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
-    @endif
     <div class="panel panel-primary">
         <div class="panel-heading">Agregar Donaciones y
             transferencias
@@ -102,7 +96,7 @@
                             <div class="input-group col-sm-2">
                                 <div class="input-group-addon ">S/.</div>
                                 <input type="text" class="form-control " name="monto"
-                                       autocomplete="off" onkeypress="return validarNum(event)" placeholder="ejmp: 2.50"
+                                       autocomplete="off" onkeypress="return validarDouble(event)" placeholder="ejmp: 2.50"
                                        required>
                             </div>
                         </div>

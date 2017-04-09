@@ -6,13 +6,13 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarTramite" style="color: #509f0c" target="_top">Buscar Tramites</a>
+                        <a href="/admBuscarTramite" style="color: #509f0c" target="_top">Buscar Tasa</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarTramite">Agregar Tramite</a>
+                        <a href="/admRegistrarTramite">Agregar Tasa</a>
                     </td>
                 </tr>
             </table>
@@ -27,7 +27,7 @@
         <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
     @endif
     <div class="panel panel-primary">
-        <div class="panel-heading"> Buscar Tramites</div>
+        <div class="panel-heading"> Buscar Tasa</div>
         <div class="panel-body">
             <form name="form" action="{{url('TramitesBuscadas')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
@@ -39,7 +39,7 @@
                                 <option>Todo</option>
                                 <option>Clasificador siaf</option>
                                 <option>Tipo de recurso</option>
-                                <option>Nombre de tramite</option>
+                                <option>Nombre de Tasa</option>
                                 <option>Fuente de financiamiento</option>
                             </select>
                         </div>
@@ -61,7 +61,7 @@
 
             <div class="table-responsive col-sm-12">
                 @if(isset($nombre)!=null)
-                    <div class="alert alert-success" role="alert">El tramite {{$nombre}} fue actualizada!!</div>
+                    <div class="alert alert-success" role="alert">La tasa {{$nombre}} fue actualizada!!</div>
                 @endif
 
                 <table class="table table-bordered">
@@ -72,7 +72,7 @@
                             <div align="center">Clasificador Siaf</div>
                         </th>
                         <th>
-                            <div align="center">Nombre de tramite</div>
+                            <div align="center">Nombre de tasa</div>
                         </th>
                         <th>
                             <div align="center">Fuente de financiamiento</div>

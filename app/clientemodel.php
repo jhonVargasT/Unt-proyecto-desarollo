@@ -15,7 +15,6 @@ class clientemodel extends personamodel
     function __construct()
     {
         parent::__construct();
-
     }
 
     /**

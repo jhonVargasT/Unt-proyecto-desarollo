@@ -6,13 +6,13 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarTramite" style="color: #509f0c" target="_top">Buscar Tramites</a>
+                        <a href="/admBuscarTramite" style="color: #509f0c" target="_top">Buscar Tasa</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarTramite">Agregar Tramite</a>
+                        <a href="/admRegistrarTramite">Agregar Tasa</a>
                     </td>
                 </tr>
             </table>
@@ -21,7 +21,7 @@
 @stop
 @section('content')
     <div class="panel panel-primary">
-        <div class="panel-heading"> EditarTramite</div>
+        <div class="panel-heading"> Editar Tasa</div>
         <div class="panel-body">
             @if(session()->has('true'))
                 <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -44,7 +44,7 @@
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label"> Nombre tramite</span>
+                                <span class="col-sm-2 control-label"> Nombre tasa</span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="nombreTramite" type="text"
                                            autocomplete="off" onkeypress="return validarLetras(event)"
