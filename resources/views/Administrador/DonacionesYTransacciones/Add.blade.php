@@ -21,12 +21,6 @@
     </div>
 @stop
 @section('content')
-    @if(session()->has('true'))
-        <div class="alert alert-success" role="alert">{{session('true')}} </div>
-    @endif
-    @if(session()->has('false'))
-        <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
-    @endif
     <div class="panel panel-primary">
         <div class="panel-heading">Agregar Donaciones y
             transferencias

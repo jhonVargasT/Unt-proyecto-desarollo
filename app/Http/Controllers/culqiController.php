@@ -17,6 +17,7 @@ class culqiController extends Controller
 {
     public function culqi(Request $request)
     {
+        $cont = 0;
         $pers = new personamodel();
         $cli = new clientemodel();
         $al = new alumnomodel();
@@ -34,7 +35,14 @@ class culqiController extends Controller
                 }
             }
         }
-        $codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);
+        if ($request->subtramite) {
+            $codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);
+            $cont = $this->contadorSubtramite($request->subtramite);
+        } elseif ($request->text) {
+            $codSubtramite = $subt->consultarSubtramiteidNombre($request->text);
+            $cont = $this->contadorSubtramite($request->text);
+        }
+
         date_default_timezone_set('America/Lima');
         $dato = date('Y-m-d H:i:s');
         $p = new pagomodel();
@@ -43,14 +51,13 @@ class culqiController extends Controller
         $p->setModalidad('Online');
         $p->setIdPersona($codper);
         $p->setIdSubtramite($codSubtramite);
-        $cont = $this->contadorSubtramite($request->subtramite);
         $contaux = $cont + 1;
 
         $valid = $p->savePago($contaux);
         if ($valid == true) {
             try {
                 // Configurar tu API Key y autenticación
-                $SECRET_KEY = "sk_live_FZMiNSBwrCkfUicS";
+                $SECRET_KEY = "sk_test_Z1aMDe3V3b7BkYIi";
                 $culqi = new Culqi(array('api_key' => $SECRET_KEY));
                 // Creando Cargo a una tarjeta
 
@@ -61,8 +68,7 @@ class culqiController extends Controller
                         "currency_code" => "PEN",
                         "description" => $request->st,
                         "installments" => 0,
-                        "email" => "test@culqi.com",
-                        "metadata" => array("test" => "test"),
+                        "email" => $request->email,
                         "source_id" => $request->token,
                     )
                 );

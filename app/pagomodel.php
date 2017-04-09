@@ -423,7 +423,7 @@ class pagomodel
         where pago.idSubtramite = subtramite.codSubtramite
         and pago.coPersonal = personal.idPersonal
         and p1.codPersona = pago.idPersona
-        and p2.codPersona = personal.idPersona
+        and p2.codPersona = personal.idPersona and pago.modalidad= "ventanilla"
         and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and personal.codPersonal =:codPersonal and pago.fecha like "%' . $dato . '%" order by pago.fecha desc', ['codPersonal' => $codPersonal]);
 
         return $pagobd;
