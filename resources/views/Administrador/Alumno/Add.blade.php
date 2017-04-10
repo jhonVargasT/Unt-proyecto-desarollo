@@ -86,13 +86,7 @@
                                                autocomplete="off" placeholder="Ejm: 000104499" required>
                                     </div>
                                 </div>
-                                <div class="form-group-sm " align="right">
-                                    <span class="col-sm-2 control-label"> Codigo matricula</span>
-                                    <div class="col-sm-3">
-                                        <input class="form-control input-sm" name="codMatricula" type="text"
-                                               autocomplete="off" placeholder="Ejm: 78961233" required>
-                                    </div>
-                                </div>
+
                             </div>
                             <div class="col-sm-12 row form-group">
                                 <div class="form-group-sm " align="left">
@@ -159,7 +153,7 @@
                                 <div class="form-group-sm " align="right">
                                     <span class="col-sm-2 control-label">Facultad</span>
                                     <div class="col-sm-3">
-                                        <input class="form-control input-sm" name=" " type="text" id="f" >
+                                        <input class="form-control input-sm" name=" " type="text" id="f" readonly>
                                         <script>
                                             $('#ne').change(function () {
                                                 $.ajax({
