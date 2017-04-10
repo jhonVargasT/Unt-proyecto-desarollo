@@ -24,6 +24,10 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <div class="panel panel-primary">
         <div class="panel panel-heading"> Agregar Escuela</div>
         <div class="panel-body">
@@ -42,8 +46,9 @@
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label">Sede</span>
                                 <div class="col-sm-3">
-                                    <input class="typesede form-control input-sm" type="text" placeholder="ejmp : Trujillo"
-                                           name="nombreSede"
+                                    <input class="typesede form-control input-sm" type="text"
+                                           placeholder="ejmp : Trujillo"
+                                           name="nombreSede" id="ns"
                                            autocomplete="off" required>
                                     <script type="text/javascript">
                                         var paths = "{{ route('autocompletesede') }}";
@@ -61,17 +66,28 @@
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-1 control-label">Facultad</span>
                                 <div class="col-sm-4">
-                                    <input class="facultad form-control input-sm" type="text" placeholder="ejmp : Ingenieria"
-                                           name="nombreFacultad"
+                                    <input class="facultad form-control input-sm" type="text"
+                                           placeholder="ejmp : Ingenieria"
+                                           name="nombreFacultad" id="fa"
                                            autocomplete="off" required>
-                                    <script type="text/javascript">
-                                        var path = "{{ route('autocompletee') }}";
-                                        $('input.facultad').typeahead({
-                                            source: function (query, process) {
-                                                return $.get(path, {query: query}, function (data) {
-                                                    return process(data);
+                                    <script>
+                                        src = "{{ route('searchsedeescuela') }}";
+                                        $("#fa").autocomplete({
+                                            source: function (request, response) {
+                                                $.ajax({
+                                                    url: src,
+                                                    type: 'get',
+                                                    dataType: "json",
+                                                    data: {
+                                                        term: $('#fa').val(),
+                                                        sede: $('#ns').val()
+                                                    },
+                                                    success: function (data) {
+                                                        response(data);
+                                                    }
                                                 });
-                                            }
+                                            },
+                                            min_length: 1
                                         });
                                     </script>
                                 </div>
@@ -87,13 +103,15 @@
                                 <span class="col-sm-2 control-label"> Codigo Escuela</span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="codEscuela" type="text"
-                                           placeholder="Ejm: 0729787548" autocomplete="off" onkeypress="return validarNum(event)">
+                                           placeholder="Ejm: 0729787548" autocomplete="off"
+                                           onkeypress="return validarNum(event)">
                                 </div>
                             </div>
                             <div class="form-group-sm " align="right">
                                 <span class="col-sm-2 control-label">Nombre Escuela</span>
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="nombre" placeholder="Ejm: Electronica" onkeypress="return validarLetras(event)">
+                                    <input class="form-control input-sm" name="nombre" placeholder="Ejm: Electronica"
+                                           onkeypress="return validarLetras(event)">
                                 </div>
                             </div>
                         </div>
