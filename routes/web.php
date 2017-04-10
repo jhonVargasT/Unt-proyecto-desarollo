@@ -261,6 +261,8 @@ Route::get('autocompletesede', array('as' => 'autocompletesede', 'uses' => 'facu
 Route::get('escuela', array('as' => 'escuela', 'uses' => 'alumnoController@escuela'));
 
 Route::get('searchajax',array('as'=>'searchajax','uses'=>'alumnoController@autoComplete'));
+Route::get('searchsedeescuela',array('as'=>'searchsedeescuela','uses'=>'escuelaController@autoCompleteEscuelaSede'));
+
 Route::get('searchF',array('as'=>'searchF','uses'=>'facultadController@searchF'));
 Route::get('searchE',array('as'=>'searchE','uses'=>'escuelaController@searchE'));
 

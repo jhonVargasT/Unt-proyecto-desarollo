@@ -37,14 +37,11 @@ class pagoController extends Controller
                 }
             }
         }
-        if($request->subtramite)
-        {
+        if ($request->subtramite) {
             $codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);
             $csiaf = $subt->consultarSiafNombreSubtramite($request->subtramite);
             $cont = $this->contadorSubtramite($request->subtramite);
-        }
-        elseif ($request->txtsub)
-        {
+        } elseif ($request->txtsub) {
             $codSubtramite = $subt->consultarSubtramiteidNombre($request->txtsub);
             $csiaf = $subt->consultarSiafNombreSubtramite($request->txtsub);
             $cont = $this->contadorSubtramite($request->txtsub);
@@ -414,6 +411,7 @@ class pagoController extends Controller
 
     public function obtenerPagosresumen(Request $request)
     {
+        $result = null;
         $pagoModel = new pagomodel();
         if ($request->tipreporte == 'Resumen total') {
             $tiempo = null;

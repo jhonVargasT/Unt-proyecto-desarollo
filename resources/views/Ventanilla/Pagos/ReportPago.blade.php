@@ -52,7 +52,16 @@
                                     document.getElementById("text").value = " ";
                                 }
                                 else {
-                                    $('#text').prop('required', true);
+                                    if(value == 'Codigo personal')
+                                    {
+                                        var x = document.getElementById("text");
+                                        x.setAttribute("type", "hidden");
+                                        document.getElementById("text").value = '{{Session::get('codPersonal')}}';
+                                    }
+                                    else {
+                                        $('#text').prop('required', true);
+                                    }
+
                                 }
                             });
                         </script>

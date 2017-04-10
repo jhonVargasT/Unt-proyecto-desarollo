@@ -108,4 +108,21 @@ class escuelaController extends Controller
         else
             return ['value' => 'No se encuentra'];
     }
+
+    public function autoCompleteEscuelaSede(Request $request)
+    {
+        $products = DB::select('select facultad.nombre as nombre from facultad
+        left join sede on facultad.coSede=sede.codSede 
+        where facultad.coSede=sede.codSede and sede.estado=1
+        and facultad.estado=1  and sede.nombresede = "' . $request->sede . '"   and facultad.nombre like "%' . $request->term . '%" ');
+
+        $data = array();
+        foreach ($products as $product) {
+            $data[] = array('value' => $product->nombre);
+        }
+        if (count($data))
+            return $data;
+        else
+            return ['value' => 'No se encuentra'];
+    }
 }
