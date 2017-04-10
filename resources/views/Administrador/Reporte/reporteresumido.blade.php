@@ -95,7 +95,7 @@
                                         </th>
                                         <th>
                                             <div align="center">
-                                                <small>NOMBRE DE TRAMITE</small>
+                                                <small>NOMBRE DE TASA</small>
                                             </div>
                                         </th>
                                         <th>
@@ -106,7 +106,7 @@
 
                                         <th>
                                             <div align="center">
-                                                <small>NOMBRE DE SUBTRAMITE</small>
+                                                <small>NOMBRE DE SUBTASA</small>
                                             </div>
                                         </th>
                                         <th>
@@ -150,7 +150,7 @@
                                             </th>
                                             <th>
                                                 <div align="center">
-                                                    <small>NOMBRE DE TRAMITE</small>
+                                                    <small>NOMBRE DE TASA</small>
                                                 </div>
                                             </th>
                                             <th>

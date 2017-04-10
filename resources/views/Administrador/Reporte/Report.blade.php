@@ -397,12 +397,12 @@
                                     </th>
                                     <th>
                                         <div align="center">
-                                            <small>NOMBRE TRAMITE</small>
+                                            <small>NOMBRE TASA</small>
                                         </div>
                                     </th>
                                     <th>
                                         <div align="center">
-                                            <small>NOMBRE SUB TRAMITE</small>
+                                            <small>NOMBRE SUBTASA</small>
                                         </div>
                                     </th>
                                     <th>
