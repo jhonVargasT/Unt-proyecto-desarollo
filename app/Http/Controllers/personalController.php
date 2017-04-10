@@ -46,6 +46,7 @@ class personalController extends Controller
             $personal->setCuenta($per->cuenta);
             $personal->setPassword($per->password);
             $personal->setTipoCuenta($per->tipoCuenta);
+            Session::put('codPersonal', $per->codPersonal);
             $idpersonal=$per->idPersonal;
             $persona = $perso->obtnerId($per->idPersona);
             foreach ($persona as $p) {
