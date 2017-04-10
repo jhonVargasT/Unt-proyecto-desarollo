@@ -271,5 +271,8 @@ Route::get('/facultad', 'alumnoController@facultad');
 Route::get('/culqi', function () {
     return view('Ventanilla/Culqi/PagoCulqi');
 });
+Route::get('/pagoonline', function () {
+    return view('Ventanilla/Culqi/pagoonline');
+});
 Route::post('pagoculqi', 'culqiController@culqi');
 Route::get("autocompleteTram",array('as'=>'autocomplete','uses'=> 'tramiteController@autocompletar'));
