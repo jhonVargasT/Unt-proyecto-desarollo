@@ -48,6 +48,8 @@
                             $('#selected').change(function () {
                                 var value = $('#selected option:selected').attr('value');
                                 if (value == 'Todo') {
+                                    var x = document.getElementById("text");
+                                    x.setAttribute("type", "text");
                                     $('#text').prop('required', false);
                                     document.getElementById("text").value = " ";
                                 }
@@ -58,6 +60,9 @@
                                         document.getElementById("text").value = '{{Session::get('codPersonal')}}';
                                     }
                                     else {
+                                        var x = document.getElementById("text");
+                                        x.setAttribute("type", "text");
+                                        document.getElementById("text").value = '';
                                         $('#text').prop('required', true);
                                     }
 
