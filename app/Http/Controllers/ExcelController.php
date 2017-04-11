@@ -216,21 +216,117 @@ class ExcelController extends Controller
                         $result = $pagoModel->listarpagosresumen($tiempo);
                     }
                     $total = 0;
+                    $cont=0;
                     foreach ($result as $r) {
+
                         $total += $r->importe;
                     }
 
-
                     foreach ($result as $p) {
-
+                        $cont++;
                         $data[] = array(
                             "CLASIFICADOR S.I.A.F" => $p->clasificadorsiaf,
                             "NOMBRE DE TRAMITE" => $p->nombreTramite,
                             "IMPORTE" => $p->importe,
                         );
                     }
-                    $sheet->setTitle('Lista de reportes');
-                    $sheet->FromArray($data, 'A2');
+                    $var='CAPTACION DE INGRESOS DEL '.strtoupper($fecha).' - '.$valor;
+                    //************************Cabeza de hoja
+                    //titulo
+                    $sheet->mergeCells('B1:D1');
+
+                    $sheet->cell('B1', function($cell) {
+                        $cell->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12',
+                            'bold' => true
+                        ));
+                        $cell->setValue('UNIVERSIDAD NACIONAL DE TRUJILLO');
+                        $cell->setAlignment('center');
+                    });
+
+                    $sheet->mergeCells('B2:D2');
+
+                    $sheet->cell('B2', function($cell) use ($var) {
+                        $cell->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12',
+                            'bold' => true
+                        ));
+                        $cell->setValue($var);
+                        $cell->setAlignment('center');
+                    });
+                    //total
+                    $sheet->cell('C'.($cont+4).'', function($cell) {
+                        $cell->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12',
+                            'bold' => true
+                        ));
+                        $cell->setValue('Total :');
+                        $cell->setAlignment('right');
+                    });
+                    $sheet->cell('D'.($cont+4).'', function($cell) use($total) {
+                        $cell->setValue($total);
+                    });
+
+                    //*************************************************
+                    //*******************cabecera de tabla
+                    $sheet->cells('B3:D3', function ($cells) {
+                        $cells->setBackground('#006600');
+                        $cells->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12',
+                            'bold' => true
+                        ));
+                        $cells->setBorder(array(
+                            'top' => array(
+                                'style' => 'solid'
+                            ),
+                        ));
+                        $cells->setAlignment('center');
+                    });
+                    //*****************************************
+                    //*******************************cuerpo de tabla
+                    //estilos
+                    $sheet->cells('B6:B'.($cont+6).'', function ($cells) {
+                        $cells->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12'
+                        ));
+                        $cells->setAlignment('center');
+                    });
+                    $sheet->cells('D6:D'.($cont+6).'', function ($cells) {
+                        $cells->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12'
+                        ));
+                        $cells->setAlignment('center');
+                    });
+                    $sheet->cells('F6:F'.($cont+6).'', function ($cells) {
+                        $cells->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12'
+                        ));
+                        $cells->setAlignment('center');
+                    });
+                    $sheet->cells('G6:G'.($cont+6).'', function ($cells) {
+                        $cells->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12'
+                        ));
+                        $cells->setAlignment('center');
+                    });
+                    //bordes de la hoja
+                    $sheet->setBorder('B3:B'.($cont+3).'');
+                    $sheet->setBorder('C3:C'.($cont+3).'');
+                    $sheet->setBorder('D3:D'.($cont+3).'');
+                    //ubicacion de la data
+                    $sheet->fromArray($data, null, 'B3', false);
+                    //nombre de hoja
+                    $sheet->setTitle('Lista de reportes resumido');
+                    //par que la data se ajuste
+                    $sheet->setAutoSize(true);
 
                 } elseif ($tipo == 'Codigo S.I.A.F') {
                     $data = null;
