@@ -36,13 +36,13 @@
 
 
 <div class="row panel panel-default ">
-    <div class="col-sm-12 ">
-        <div class="col-sm-3 ">
+    <div class="col-sm-12 col-lg-12 col-xs-12">
+        <div class="col-sm-3 col-lg-3 col-xs-3">
             <div>
                 <img src="{{ asset('assets/img/logo.png') }}">
             </div>
         </div>
-        <div class="col-sm-9  " align="center">
+        <div class="col-sm-9  col-lg-9 col-xs-9" align="center">
             <br>
             <br>
             <br>
@@ -57,7 +57,7 @@
 
 </div>
 
-<div class="panel panel-primary " style="width: 80%;margin-left : 10%;">
+<div class="panel panel-primary ">
     <div class="panel-heading "> Pago con tarjeta</div>
     <div class="panel-body">
         @if(session()->has('true'))
@@ -68,7 +68,7 @@
         @endif
         <div class="row form-group">
 
-            <div class="col-sm-2 ">
+            <div class="col-sm-2 col-lg-2 col-xs-2">
                 <select class=" form-group-sm form-control" id="select" name="select">
                     <option value="Dni"> Dni</option>
                     <option value="Ruc">Ruc</option>
@@ -76,18 +76,18 @@
                 </select>
             </div>
             @if(isset($buscar))
-                <div class="col-sm-2">
+                <div class="col-sm-2 col-lg-2 col-xs-2">
                     <input class="form-control input-sm " id="buscar" name="text" type="text"
                            autocomplete="off" value="{{$buscar}}" required>input class="form-control input-sm "
                 </div>
             @else
-                <div class="col-sm-2">
+                <div class="col-sm-2 col-lg-2 col-xs-2">
                     <input class="form-control input-sm " id="buscar" name="text" type="text"
                            autocomplete="off" required>
                 </div>
             @endif
-            <span class="col-sm-2">Nombres :</span>
-            <div class="col-sm-2">
+            <span class="col-sm-2 col-lg-2 col-xs-2">Nombres :</span>
+            <div class="col-sm-2 col-lg-2 col-xs-2">
                 <input class="form-control input-sm" name="nombres" type="text" id="nombres"
                        @if(isset($nombre)) value="{{$nombre}}" @endif readonly>
                 <input type="hidden" id="names">
@@ -148,8 +148,8 @@
                 </script>
             </div>
 
-            <span class="col-sm-2">Apellidos :</span>
-            <div class="col-sm-2">
+            <span class="col-sm-2 col-lg-2 col-xs-2">Apellidos :</span>
+            <div class="col-sm-2 col-lg-2 col-xs-2">
                 <input class="form-control input-sm" name="apellidos" type="text" id="apellidos"
                        @if(isset($apellidos))value="{{$apellidos}}" @endif
                        readonly>
@@ -216,8 +216,8 @@
 
 
         <div class="row form-group">
-            <span class="col-sm-2">Escuela :</span>
-            <div class="col-sm-2">
+            <span class="col-sm-2 col-lg-2 col-xs-2">Escuela :</span>
+            <div class="col-sm-2 col-lg-2 col-xs-2">
                 <input class="form-control input-sm" name="escuela" type="text" readonly
                        id="escuela"
                        @if(isset($escuela)) value="{{$escuela}}" @endif >
@@ -257,8 +257,8 @@
                 </script>
             </div>
             <div class="form-group-sm">
-                <span class="col-sm-2">Facultad :</span>
-                <div class="col-sm-2">
+                <span class="col-sm-2 col-lg-2 col-xs-2">Facultad :</span>
+                <div class="col-sm-2 col-lg-2 col-xs-2">
                     <input class="form-control input-sm" name="facultad" type="text" readonly
                            id="facultad"
                            @if(isset($facultad)) value="{{$facultad}}" @endif >
@@ -299,13 +299,13 @@
                     </script>
                 </div>
             </div>
-            <div class="col-sm-2 ">
+            <div class="col-sm-2 col-lg-2 col-xs-2">
                 <select class=" form-group-sm form-control" id="selectt" name="selectt">
                     <option value="Codigo tasa"> Codigo tasa</option>
                     <option value="Nombre tasa"> Nombre tasa</option>
                 </select>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-2 col-lg-2 col-xs-2">
                 <input class="typeahead form-control" type="text" name="txtsub" id="ts" required>
                 <script>
                     var path = "{{ route('autocompletes') }}";
@@ -380,8 +380,8 @@
             </script>
         </div>
         <div class="row form-group">
-            <span class="col-sm-2" id="nsub">Nombre de tasa :</span>
-            <div class="col-sm-2">
+            <span class="col-sm-2 col-lg-2 col-xs-2" id="nsub">Nombre de tasa :</span>
+            <div class="col-sm-2 col-lg-2 col-xs-2">
                 <input class="form-control" type="text" name="subtramite" id="st" required readonly>
             </div>
             <span class="col-sm-2 required ">Detalle :</span>
@@ -396,12 +396,12 @@
                 }
             </style>
 
-            <span class="col-sm-2 ">Costo de boleta:</span>
-            <div class=" col-sm-2">
-                <div class="col-sm-2">
+            <span class="col-sm-2 col-lg-2 col-xs-2">Costo de boleta:</span>
+            <div class=" col-sm-2 col-lg-2 col-xs-2">
+                <div class="col-sm-2 col-lg-2 col-xs-2">
                     S/.
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-8 col-lg-8 col-xs-8">
                     <input class="form-control " name="boletapagar" id="bp" readonly>
                     <input type="hidden" id="p" readonly>
                     <script>
@@ -424,7 +424,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-4"></div>
+            <div class="col-sm-4 col-lg-4 col-xs-4"></div>
 
             <a href="http://www.google.com.pe" class=" btn btn-danger col-sm-2"> <span
                         class="glyphicon glyphicon-ban-circle"></span> Cancelar
@@ -436,7 +436,7 @@
             </button>
         </div>
         <div class="row">
-            <footer class="footer row col-sm-12">
+            <footer class="footer row col-sm-12 col-lg-12 col-xs-12">
                 <p align="right">© 2016 ÑuxtuSoft, S.A.C.</p>
             </footer>
         </div>
