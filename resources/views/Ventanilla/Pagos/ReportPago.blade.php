@@ -52,8 +52,7 @@
                                     document.getElementById("text").value = " ";
                                 }
                                 else {
-                                    if(value == 'Codigo personal')
-                                    {
+                                    if (value == 'Codigo personal') {
                                         var x = document.getElementById("text");
                                         x.setAttribute("type", "hidden");
                                         document.getElementById("text").value = '{{Session::get('codPersonal')}}';
@@ -166,8 +165,8 @@
                                 </td>
                             </tr>
                         @endforeach
-                    @endif
                     </body>
+                    @endif
                 </table>
             </div>
             <div class="col-sm-12 row">

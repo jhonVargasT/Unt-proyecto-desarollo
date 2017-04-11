@@ -104,9 +104,9 @@
                                 </td>
                             </tr>
                         @endforeach
-                    @endif
                     </body>
                 </table>
+                @endif
             </div>
             <div class="col-sm-12 row">
                 <div class="col-sm-4"></div>
