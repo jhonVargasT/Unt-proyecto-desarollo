@@ -236,9 +236,8 @@ class pagomodel
                     ' . $fecha . ' 
                     group by st.codSubtramite order by tr.nombre;');
 
-        }catch (\mysqli_sql_exception $e)
-        {
-            $pago=null;
+        } catch (\mysqli_sql_exception $e) {
+            $pago = null;
         }
         return $pago;
     }
@@ -326,14 +325,15 @@ class pagomodel
 
     public function listarpagosresumen($tiempo)
     {
-        $result=DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,sum(st.precio) as importe
+        $result = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,sum(st.precio) as importe
                             FROM unt.tramite as tr
                             LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
                             LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )
-                            '.$tiempo.'
+                            ' . $tiempo . '
                             group by (tr.codTramite) ');
         return $result;
     }
+
     public function consultarAlumnoDNI($dni, $val)
     {
         $alumnobd = DB::select('SELECT pago.codPago, p1.dni AS p1dni, p1.nombres AS p1nombres, p1.apellidos AS p1apellidos, subtramite.nombre, pago.fecha AS pfecha, subtramite.precio, pago.modalidad, detalle, estadodeuda,
@@ -414,7 +414,6 @@ class pagomodel
     {
         date_default_timezone_set('America/Lima');
         $dato = date('Y-m-d');
-
         $pagobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle, estadodeuda from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
         left join personal on pago.coPersonal = personal.idPersonal
@@ -425,7 +424,6 @@ class pagomodel
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona and pago.modalidad= "ventanilla"
         and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and personal.codPersonal =:codPersonal and pago.fecha like "%' . $dato . '%" order by pago.fecha desc', ['codPersonal' => $codPersonal]);
-
         return $pagobd;
     }
 
@@ -540,7 +538,7 @@ class pagomodel
         } elseif ($modalidad == 'Todo' && $tram == 'Todo' && !is_null($fuefin) && is_null($tipoRe) && is_null($local)) {
             $pago = $this->listarFu($estado, $fechaDesde, $fechaHasta, $fuefin);
         } elseif ($modalidad != 'Todo' && $tram == 'Todo' && is_null($tipoRe) && is_null($local) && !is_null($fuefin)) {
-            $pago = $this->listarMoFu($estado, $fechaDesde, $fechaHasta, $modalidad,$fuefin);
+            $pago = $this->listarMoFu($estado, $fechaDesde, $fechaHasta, $modalidad, $fuefin);
         } elseif ($modalidad == 'Todo' && $tram != 'Todo' && is_null($tipoRe) && is_null($local) && !is_null($fuefin)) {
             $pago = $this->listarTraFu($estado, $fechaDesde, $fechaHasta, $tram, $valtram, $fuefin);
         } elseif ($modalidad != 'Todo' && $tram != 'Todo' && is_null($tipoRe) && is_null($local) && !is_null($fuefin)) {
@@ -582,6 +580,7 @@ class pagomodel
                              and tr.tipoRecurso=\'' . $tipoRe . '\' ');
         return $pago;
     }
+
     public function listarTodo($estado, $fechaDesde, $fechaHasta, $modalidad, $tipre, $fuefi, $local, $valloc, $tram, $valtra)
     {
         $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
@@ -921,7 +920,7 @@ class pagomodel
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . 'and  po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
                              and tr.tipoRecurso=\'' . $tipRe . '\' and ' . $tram . '= \'' . $valtra . '\'');
-    return $pago;
+        return $pago;
     }
 
     public function listarTipoRe($estado, $fechaDesde, $fechaHasta, $tipRe)
@@ -1164,15 +1163,17 @@ class pagomodel
         return $pago;
     }
 
-    public function listarPagosPersonal($fecha, $codPersonal)
+    public function listarPagosPersonal($codPersonal)
     {
+        date_default_timezone_set('America/Lima');
+        $date = date('Y-m-d');
         $pago = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.cuenta as cuenta, st.nombre,sum(st.precio) as precio, count(po.codPago) as nurPagos
                             FROM unt.tramite as tr
                             LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
                             LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )
                             LEFT JOIN unt.personal pl ON (pl.idPersonal=po.coPersonal )
-                            where po.fecha = \'' . $fecha . '\' and pl.idPersonal=' . $codPersonal . '
-                            group by (st.codSubtramite) order by (tr.nombre);');
+                            where po.fecha like "%' . $date . '%" and pl.codPersonal="' . $codPersonal . '"
+                            group by (st.codSubtramite) order by (tr.nombre)');
         return $pago;
     }
 }

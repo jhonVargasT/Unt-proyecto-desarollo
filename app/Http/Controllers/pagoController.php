@@ -13,6 +13,7 @@ use App\tramitemodel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class pagoController extends Controller
@@ -46,8 +47,6 @@ class pagoController extends Controller
             $csiaf = $subt->consultarSiafNombreSubtramite($request->txtsub);
             $cont = $this->contadorSubtramite($request->txtsub);
         }
-        /*$codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);
-        $csiaf = $subt->consultarSiafNombreSubtramite($request->subtramite);*/
         $cuentaS = $subt->consultarCuentaSubtramiteCodSubtramite($codSubtramite);
         date_default_timezone_set('America/Lima');
         $dato = date('Y-m-d H:i:s');
@@ -60,7 +59,6 @@ class pagoController extends Controller
         $p->setCoPersonal($idper);
         $p->setIdPersona($codper);
         $p->setIdSubtramite($codSubtramite);
-        //$cont = $this->contadorSubtramite($request->subtramite);
         $contaux = $cont + 1;
         if ($request->checkbox == 1) {
             $p->setDeuda(1);
@@ -294,7 +292,27 @@ class pagoController extends Controller
                         $pag = $pago->consultarCodigoPago($request->text, $val);
                     } else {
                         if ($request->selected == 'Codigo personal') {
-                            $pag = $pago->consultarCodigoPersonal($request->text);
+                            //$pag = $pago->consultarCodigoPersonal($request->text);
+
+                            Excel::create('Laravel Excel', function ($excel) use ($request)  {
+                                $excel->sheet('Reporte Diario', function ($sheet) use($request) {
+                                    $data = null;
+                                    $pag = null;
+                                    $pago = new pagomodel();
+                                    $pag = $pago->listarPagosPersonal($request->text);
+                                    foreach ($pag as $p) {
+                                        $data[] = array(
+                                            "Clasificador" => $p->clasificadorsiaf,
+                                            "Nombre de Clasificador" => $p->nombreTramite,
+                                            "Cuenta" => $p->cuenta,
+                                            "Tasa" => $p->nombre,
+                                            "Total" => $p->precio,
+                                            "Numero de Pagos" => $p->nurPagos,
+                                        );
+                                    }
+                                    $sheet->FromArray($data);
+                                });
+                            })->export('xls');
                         } else {
                             $pag = $pago->consultarPagos($val);
                         }

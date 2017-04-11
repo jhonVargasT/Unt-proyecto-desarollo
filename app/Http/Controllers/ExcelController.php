@@ -36,8 +36,6 @@ class ExcelController extends Controller
                                 $pag = $pago->consultarCodigoPago($txt, $val);
                             } else {
                                 if ($select == 'Codigo personal') {
-                                    $pag = $pago->consultarCodigoPersonal($txt);
-                                } else {
                                     $pag = $pago->consultarPagos($val);
                                 }
                             }
@@ -198,8 +196,8 @@ class ExcelController extends Controller
     {
         date_default_timezone_set('America/Lima');
         $fechahoy = date('Y-m-d');
-        Excel::create('Reporte resumido  :  ' . $fechahoy . '', function ($excel) use ($tipo, $fecha, $valor,$fechahoy) {
-            $excel->sheet('resumen', function ($sheet) use ($tipo, $fecha, $valor,$fechahoy) {
+        Excel::create('Reporte resumido  :  ' . $fechahoy . '', function ($excel) use ($tipo, $fecha, $valor, $fechahoy) {
+            $excel->sheet('resumen', function ($sheet) use ($tipo, $fecha, $valor, $fechahoy) {
                 $pagoModel = new pagomodel();
 
                 if ($tipo == 'Resumen total') {
@@ -211,14 +209,14 @@ class ExcelController extends Controller
                     } elseif ($fecha == 'Mes') {
                         $tiempo = 'where MONTH(po.fecha) = ' . $valor . ' and Year(po.fecha)=(select Year (NOW()))';
                         $result = $pagoModel->listarpagosresumen($tiempo);
-                        $meses = array("ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE");
-                        $valor=$meses[$valor-1];
+                        $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
+                        $valor = $meses[$valor - 1];
                     } elseif ($fecha == 'Dia') {
                         $tiempo = 'where DAY(po.fecha) =' . $valor . ' and Month(po.fecha)=(select MONTH (NOW()))';
                         $result = $pagoModel->listarpagosresumen($tiempo);
                     }
                     $total = 0;
-                    $cont=0;
+                    $cont = 0;
                     foreach ($result as $r) {
 
                         $total += $r->importe;
@@ -233,12 +231,12 @@ class ExcelController extends Controller
                         );
                     }
 
-                    $var='CAPTACION DE INGRESOS DEL '.strtoupper($fecha).' - '.$valor;
+                    $var = 'CAPTACION DE INGRESOS DEL ' . strtoupper($fecha) . ' - ' . $valor;
                     //************************Cabeza de hoja
                     //titulo
                     $sheet->mergeCells('B1:D1');
 
-                    $sheet->cell('B1', function($cell) {
+                    $sheet->cell('B1', function ($cell) {
                         $cell->setFont(array(
                             'family' => 'Arial',
                             'size' => '12',
@@ -248,7 +246,7 @@ class ExcelController extends Controller
                         $cell->setAlignment('center');
                     });
                     $sheet->mergeCells('B2:D2');
-                    $sheet->cell('B2', function($cell) {
+                    $sheet->cell('B2', function ($cell) {
                         $cell->setFont(array(
                             'family' => 'Arial',
                             'size' => '12',
@@ -259,7 +257,7 @@ class ExcelController extends Controller
                     });
                     $sheet->mergeCells('B3:D3');
 
-                    $sheet->cell('B3', function($cell) use ($var) {
+                    $sheet->cell('B3', function ($cell) use ($var) {
                         $cell->setFont(array(
                             'family' => 'Arial',
                             'size' => '12',
@@ -269,7 +267,7 @@ class ExcelController extends Controller
                         $cell->setAlignment('center');
                     });
                     //total
-                    $sheet->cell('C'.($cont+5).'', function($cell) {
+                    $sheet->cell('C' . ($cont + 5) . '', function ($cell) {
                         $cell->setFont(array(
                             'family' => 'Arial',
                             'size' => '12',
@@ -278,10 +276,10 @@ class ExcelController extends Controller
                         $cell->setValue('Total de ingresos :');
                         $cell->setAlignment('right');
                     });
-                    $sheet->cell('D'.($cont+5).'', function($cell) use($total) {
+                    $sheet->cell('D' . ($cont + 5) . '', function ($cell) use ($total) {
                         $cell->setValue($total);
                     });
-                    $sheet->cells('D'.($cont+5).'', function ($cells) {
+                    $sheet->cells('D' . ($cont + 5) . '', function ($cells) {
                         $cells->setFont(array(
                             'family' => 'Arial',
                             'size' => '12'
@@ -308,14 +306,14 @@ class ExcelController extends Controller
                     //*****************************************
                     //*******************************cuerpo de tabla
                     //estilos
-                    $sheet->cells('B4:B'.($cont+4).'', function ($cells) {
+                    $sheet->cells('B4:B' . ($cont + 4) . '', function ($cells) {
                         $cells->setFont(array(
                             'family' => 'Arial',
                             'size' => '12'
                         ));
                         $cells->setAlignment('center');
                     });
-                    $sheet->cells('D4:D'.($cont+4).'', function ($cells) {
+                    $sheet->cells('D4:D' . ($cont + 4) . '', function ($cells) {
                         $cells->setFont(array(
                             'family' => 'Arial',
                             'size' => '12'
@@ -325,9 +323,9 @@ class ExcelController extends Controller
 
 
                     //bordes de la hoja
-                    $sheet->setBorder('B4:B'.($cont+3).'');
-                    $sheet->setBorder('C4:C'.($cont+3).'');
-                    $sheet->setBorder('D4:D'.($cont+3).'');
+                    $sheet->setBorder('B4:B' . ($cont + 3) . '');
+                    $sheet->setBorder('C4:C' . ($cont + 3) . '');
+                    $sheet->setBorder('D4:D' . ($cont + 3) . '');
                     //ubicacion de la data
                     $sheet->fromArray($data, null, 'B4', false);
                     //nombre de hoja
@@ -337,7 +335,7 @@ class ExcelController extends Controller
 
                 } elseif ($tipo == 'Codigo S.I.A.F') {
                     $data = null;
-                    $var='';
+                    $var = '';
                     $tiempo = null;
                     if ($fecha == 'Año') {
                         $tiempo = 'where Year(po.fecha) = ' . $valor . '';
@@ -346,13 +344,13 @@ class ExcelController extends Controller
                     } elseif ($fecha == 'Mes') {
                         $tiempo = 'where MONTH(po.fecha) = ' . $valor . ' and Year(po.fecha)=(select Year (NOW()))';
                         $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
-                        $meses = array("ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE");
-                        $valor=$meses[$valor-1];
+                        $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
+                        $valor = $meses[$valor - 1];
                     } elseif ($fecha == 'Dia') {
                         $tiempo = 'where DAY(po.fecha) =' . $valor . ' and Month(po.fecha)=(select MONTH (NOW()))';
                         $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
                     }
-                    $var='RESUMEN DEL '.strtoupper($fecha).' - '.$valor;
+                    $var = 'RESUMEN DEL ' . strtoupper($fecha) . ' - ' . $valor;
                     $total = 0;
                     $cont = 0;
                     foreach ($result as $r) {
@@ -378,7 +376,7 @@ class ExcelController extends Controller
                     //titulo
                     $sheet->mergeCells('B1:G1');
 
-                    $sheet->cell('B1', function($cell) {
+                    $sheet->cell('B1', function ($cell) {
                         $cell->setFont(array(
                             'family' => 'Arial',
                             'size' => '12',
@@ -388,7 +386,7 @@ class ExcelController extends Controller
                         $cell->setAlignment('center');
                     });
                     $sheet->mergeCells('B2:G2');
-                    $sheet->cell('B2', function($cell) {
+                    $sheet->cell('B2', function ($cell) {
                         $cell->setFont(array(
                             'family' => 'Arial',
                             'size' => '12',
@@ -398,7 +396,7 @@ class ExcelController extends Controller
                         $cell->setAlignment('center');
                     });
                     $sheet->mergeCells('B3:G3');
-                    $sheet->cell('B3', function($cell) {
+                    $sheet->cell('B3', function ($cell) {
                         $cell->setFont(array(
                             'family' => 'Arial',
                             'size' => '12',
@@ -408,7 +406,7 @@ class ExcelController extends Controller
                         $cell->setAlignment('center');
                     });
                     $sheet->mergeCells('B4:G4');
-                    $sheet->cell('B4', function($cell) use ($var) {
+                    $sheet->cell('B4', function ($cell) use ($var) {
                         $cell->setFont(array(
                             'family' => 'Arial',
                             'size' => '12',
@@ -419,7 +417,7 @@ class ExcelController extends Controller
                     });
 
                     //cuerpo
-                    $sheet->cell('B5', function($cell) {
+                    $sheet->cell('B5', function ($cell) {
                         $cell->setFont(array(
                             'family' => 'Arial',
                             'size' => '12',
@@ -428,7 +426,7 @@ class ExcelController extends Controller
                         $cell->setValue('FECHA DE IMPRESION :');
                         $cell->setAlignment('left');
                     });
-                    $sheet->cell('C5', function($cell) use ($fechahoy) {
+                    $sheet->cell('C5', function ($cell) use ($fechahoy) {
                         $cell->setFont(array(
                             'family' => 'Arial',
                             'size' => '12',
@@ -439,7 +437,7 @@ class ExcelController extends Controller
                     });
 
                     //total
-                    $sheet->cell('F5', function($cell) {
+                    $sheet->cell('F5', function ($cell) {
                         $cell->setFont(array(
                             'family' => 'Arial',
                             'size' => '12',
@@ -455,7 +453,7 @@ class ExcelController extends Controller
                         ));
                         $cells->setAlignment('center');
                     });
-                    $sheet->cell('G5', function($cell) use($total) {
+                    $sheet->cell('G5', function ($cell) use ($total) {
                         $cell->setValue($total);
                     });
 
@@ -478,28 +476,28 @@ class ExcelController extends Controller
                     //*****************************************
                     //*******************************uerpo de tabla
                     //estilos
-                    $sheet->cells('B6:B'.($cont+6).'', function ($cells) {
+                    $sheet->cells('B6:B' . ($cont + 6) . '', function ($cells) {
                         $cells->setFont(array(
                             'family' => 'Arial',
                             'size' => '12'
                         ));
                         $cells->setAlignment('center');
                     });
-                    $sheet->cells('D6:D'.($cont+6).'', function ($cells) {
+                    $sheet->cells('D6:D' . ($cont + 6) . '', function ($cells) {
                         $cells->setFont(array(
                             'family' => 'Arial',
                             'size' => '12'
                         ));
                         $cells->setAlignment('center');
                     });
-                    $sheet->cells('F6:F'.($cont+6).'', function ($cells) {
+                    $sheet->cells('F6:F' . ($cont + 6) . '', function ($cells) {
                         $cells->setFont(array(
                             'family' => 'Arial',
                             'size' => '12'
                         ));
                         $cells->setAlignment('center');
                     });
-                    $sheet->cells('G6:G'.($cont+6).'', function ($cells) {
+                    $sheet->cells('G6:G' . ($cont + 6) . '', function ($cells) {
                         $cells->setFont(array(
                             'family' => 'Arial',
                             'size' => '12'
@@ -507,12 +505,12 @@ class ExcelController extends Controller
                         $cells->setAlignment('center');
                     });
                     //bordes de la hoja
-                    $sheet->setBorder('B6:B'.($cont+6).'');
-                    $sheet->setBorder('C6:C'.($cont+6).'');
-                    $sheet->setBorder('D6:D'.($cont+6).'');
-                    $sheet->setBorder('E6:E'.($cont+6).'');
-                    $sheet->setBorder('F6:F'.($cont+6).'');
-                    $sheet->setBorder('G6:G'.($cont+6).'');
+                    $sheet->setBorder('B6:B' . ($cont + 6) . '');
+                    $sheet->setBorder('C6:C' . ($cont + 6) . '');
+                    $sheet->setBorder('D6:D' . ($cont + 6) . '');
+                    $sheet->setBorder('E6:E' . ($cont + 6) . '');
+                    $sheet->setBorder('F6:F' . ($cont + 6) . '');
+                    $sheet->setBorder('G6:G' . ($cont + 6) . '');
                     //ubicacion de la data
                     $sheet->fromArray($data, null, 'B6', false);
                     //nombre de hoja
