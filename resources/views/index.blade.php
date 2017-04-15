@@ -39,63 +39,62 @@
 
 <body style="background-color:  #ccd0d2">
 <!-- Top content -->
-<div class="container col-sm-12">
-    <div class="container col-sm-12"><br> <br> <br> <br> <br> <br> <br> <br><br></div>
-    <div class="container col-sm-12">
-        <div class="col-sm-4"></div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading" align="left">Por favor ingrese sus datos</div>
-                <div class="panel-body">
-                    @if(session()->has('true'))
-                        <div class="alert alert-danger" role="alert">{{session('true')}} </div>
-                    @endif
-                    <div class="col-sm-5">
-                        <div class="col-sm-12"><strong> UNIVERSIDAD NACIONAL DE TRUJILLO </strong></div>
+<div class="row">
+    <div class="row" style="width:100px; height:100px">
 
-                        <div class="col-sm-12">
-                            <img src="{{ asset('assets/img/logo.png') }}">
-                        </div>
-                        <div class="col-sm-12"> Tesoreria</div>
-                    </div>
-                    <div class="col-sm-7">
-                        <form action="{{url('/loguear')}}" role="form" method="POST" class="Vertical">
-                            {{csrf_field()}}
-                            <div class="col-sm-12" align="left">
-                                <label for="inputEmail">Cuenta :</label>
-                                <input type="text" name="cuenta" class="form-control" placeholder="Ejemp: admin"
-                                       required=""
-                                       autofocus="">
-                            </div>
-                            <div class="col-sm-12" align="left">
-                                <label for="inputPassword">Contraseña :</label>
-                                <input align="center" type="password" name="password" class="form-control"
-                                       placeholder="Contraseña" required="">
-                                <br>
-                            </div>
-
-                            <div class="col-sm-12">
-                                <div class="col-sm-3"></div>
-                                <div class="col-sm-6">
-                                    <button class="btn btn-sm btn-primary btn-block " type="submit">Ingresar</button>
-                                </div>
-                                <div class="col-sm-3"></div>
-
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-                <br>
-            </div>
-            <footer class="footer row col-xs-12">
-                <p align="right">© 2016 ÑuxtuSoft, S.A.C.</p>
-            </footer>
-        </div>
-        <div class="col-sm-4"></div>
     </div>
-</div>
+    <div style="width: 40%;height: 200px;  margin: 0 auto;left: 100px;
+ top: 50px;">
+        <div class="panel panel-primary">
+            <div class="panel-heading" align="left">Por favor ingrese sus datos</div>
+            <div class="panel-body">
+                @if(session()->has('true'))
+                    <div class="alert alert-danger" role="alert">{{session('true')}} </div>
+                @endif
+                <div class="col-sm-5">
+                    <div class="col-sm-12"><strong> UNIVERSIDAD NACIONAL DE TRUJILLO </strong></div>
 
+                    <div class="col-sm-12">
+                        <img src="{{ asset('assets/img/logo.png') }}">
+                    </div>
+                    <div class="col-sm-12"> Tesoreria</div>
+                </div>
+                <div class="col-sm-7">
+                    <form action="{{url('/loguear')}}" role="form" method="POST" class="Vertical">
+                        {{csrf_field()}}
+                        <div class="col-sm-12" align="left">
+                            <label for="inputEmail">Cuenta :</label>
+                            <input type="text" name="cuenta" class="form-control" placeholder="Ejemp: admin"
+                                   required=""
+                                   autofocus="">
+                        </div>
+                        <div class="col-sm-12" align="left">
+                            <label for="inputPassword">Contraseña :</label>
+                            <input align="center" type="password" name="password" class="form-control"
+                                   placeholder="Contraseña" required="">
+                            <br>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-6">
+                                <button class="btn btn-sm btn-primary btn-block " type="submit">Ingresar</button>
+                            </div>
+                            <div class="col-sm-3"></div>
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <br>
+        </div>
+        <footer class="footer row col-xs-12">
+            <p align="right">© 2016 ÑuxtuSoft, S.A.C.</p>
+        </footer>
+    </div>
+
+</div>
 <!-- /#wrapper -->
 <!-- /#wrapper -->
 <!-- /#wrapper -->

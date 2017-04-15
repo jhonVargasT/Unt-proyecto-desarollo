@@ -39,7 +39,7 @@
     <div class="col-sm-12 col-lg-12 col-xs-12">
         <div class="col-sm-3 col-lg-3 col-xs-3">
             <div>
-                <img src="{{ asset('assets/img/logo.png') }}">
+                <img src="{{ asset('logo.png') }}">
             </div>
         </div>
         <div class="col-sm-9  col-lg-9 col-xs-9" align="center">

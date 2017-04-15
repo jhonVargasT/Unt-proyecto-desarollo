@@ -2,10 +2,8 @@
 @section('body')
     <!--barra de navegacion -->
     @if(  Session::has('tipoCuentaA') )
-        <div class=" col-sm-12 ">
-            <br>
-            <div class="row">
-                <div class="col-sm-2 panel  ">
+                <div class="col-sm-2 " style="background-color: #FFFFFF">
+                <br>
                     <div class="panel-group" id="accordion">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
@@ -313,11 +311,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-10  ">
+                <div class="col-sm-10  " style="background-color:#6b6b6b">
+                    <br>
+
                     @yield('content')
                 </div>
-            </div>
-        </div>
         <script>
             function validarNum(e) {
                 tecla = (document.all) ? e.keyCode : e.which;

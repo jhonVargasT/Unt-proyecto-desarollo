@@ -1,6 +1,25 @@
-@extends('Administrador/Body')
-@section('body')
-    <br>
+@extends('Administrador.Body')
+@section('reportes')
+    <div id="collapseOne" class="collapse in">
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>
+                        <a href="/admReportres" ><span
+                                    class="glyphicon glyphicon-book"></span> Reporte Resumido</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="/admReportes" style="color: #509f0c" target="_top"> <span class="glyphicon glyphicon-list-alt"></span> Reporte pagos
+                            detallado</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+@stop
+@section('content')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -9,7 +28,6 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
     <div class="panel panel-primary">
         <div class="panel panel-heading"> Reporte Pagos</div>
         <div class="panel-body">

@@ -34,7 +34,7 @@
                                 <option value="Codigo alumno">Codigo alumno</option>
                                 <option value="Ruc">Ruc</option>
                                 <option value="Codigo pago">Codigo pago</option>
-                                <option value="Codigo personal">Codigo personal</option>
+                                <option value="Codigo personal">Reporte diario</option>
                                 <option value="Todo">Todo</option>
                             </select>
                         </div>

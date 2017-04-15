@@ -21,7 +21,7 @@
 @stop
 @section('content')
     @if( Session::has('tipoCuentaA'))
-        <br>
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <div class="panel panel-primary">
             <div class="panel panel-heading"> Reporte Pagos</div>
