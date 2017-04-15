@@ -26,7 +26,7 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
     </head>
-    <body style="background-color:#6b6b6b">
+    <body style="background-color:#ccd0d2">
         <div class="row  " >
             <div class="row " style="background-color: #FFFFFF">
                 <br>

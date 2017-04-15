@@ -2,10 +2,8 @@
 @section('body')
     <!--barra de navegacion -->
     @if(  Session::has('tipoCuentaV') )
-        <div class=" col-sm-12 ">
-            <br>
-            <div class="row">
-                <div class="col-sm-2">
+        <div class="col-sm-2 " style="background-color: #FFFFFF ; height:100%">
+                    <br>
                     <div class="panel-group" id="accordion">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
@@ -95,11 +93,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-9" style="align-items: center">
+                <div class="col-sm-10" style="align-items: center">
+                    <br>
                     @yield('content')
                 </div>
-            </div>
-        </div>
+
         <script>
 
 

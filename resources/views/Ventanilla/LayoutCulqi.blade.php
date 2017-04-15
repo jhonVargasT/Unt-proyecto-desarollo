@@ -26,23 +26,22 @@
 </head>
 <body style="background-color: #ccd0d2">
 <div>
-    <br>
-    <div class="col-sm-12 panel panel-default ">
-        <div class="col-sm-12 ">
-            <div class="col-sm-3 ">
-                <div>
-                    <img src="{{ asset('assets/img/logo.png') }}">
-                </div>
+    <div class="row ">
+        <div class="row " style="background-color: #FFFFFF">
+            <br>
+            <div class="col-sm-1 col-xs-1 col-lg-1"></div>
+            <div class="col-sm-1 col-xs-1 col-lg-1" >
+
+                <img style="width: 200px;"src="{{ asset('assets/img/logo.png') }}">
+
             </div>
-            <div class="col-sm-9  " align="center">
-                <br>
-                <br>
-                <br>
+            <div class="col-sm-1 col-xs-1 col-lg-1"></div>
+            <div class="col-sm-8 col-xs-8 col-lg-8" align="center">
                 <div>
                     <h1> UNIVERSIDAD NACIONAL DE TRUJILLO</h1>
                 </div>
                 <div>
-                    <h3>Tesoreria - Ventanilla</h3>
+                    <h3>Tesoreria - Administrador</h3>
                 </div>
             </div>
         </div>

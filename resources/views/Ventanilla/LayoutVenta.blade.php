@@ -30,53 +30,41 @@
 </head>
 <body style="background-color: #ccd0d2">
 <div >
-    <br>
-    <div class="col-sm-12 panel panel-default ">
-        <div class="col-sm-12 ">
-            <div class="col-sm-3 ">
-                <div>
-                    <img src="{{ asset('assets/img/logo.png') }}">
-                </div>
+
+    <div class="row " style="background-color: #FFFFFF">
+        <br>
+        <div class="col-sm-1 col-xs-1 col-lg-1"></div>
+        <div class="col-sm-1 col-xs-1 col-lg-1" >
+
+            <img style="width: 200px;"src="{{ asset('assets/img/logo.png') }}">
+
+        </div>
+        <div class="col-sm-1 col-xs-1 col-lg-1"></div>
+        <div class="col-sm-8 col-xs-8 col-lg-8" align="center">
+            <div>
+                <h1> UNIVERSIDAD NACIONAL DE TRUJILLO</h1>
             </div>
-            <div class="col-sm-9  " align="center">
-                <br>
-                <br>
-                <br>
-                <div>
-                    <h1> UNIVERSIDAD NACIONAL DE TRUJILLO</h1>
-                </div>
-                <div>
-                    <h3>Tesoreria - Ventanilla</h3>
-                </div>
+            <div>
+                <h3>Tesoreria - Administrador</h3>
             </div>
         </div>
-
-        <div class="col-sm-12 ">
-            <hr>
-            <br></div>
-        <div class="col-sm-12 ">
-            <div class=" col-sm-8">
-                <div class="col-sm-3  ">
-                    <h4 align="left">Bienvenido(a) : </h4>
-                </div>
-                <div class="col-sm-4 " align="left">
-                    <h4>{{Session::get('misession','No existe session')}} </h4>
-                </div>
-            </div>
-            <div class="col-sm-4">
-
-                <div class="col-sm-12" align="right">
-
-                    <h4><a   href="/" class="glyphicon  glyphicon-log-out red" style="color: #cf1100"> Salir   </a></h4>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-12 "><br></div>
     </div>
-    <div class=" col-sm-12 panel panel-default">
+    <div class="row "   style="background-color: #FFFFFF">
+        <div class="col-sm-2 col-xs-2 col-lg-2 " align="center">
+            <h3 >Bienvenido : </h3>
+        </div>
+        <div class="col-sm-1 col-xs-1 col-lg-1"></div>
+        <div class="col-sm-5 col-xs-5 col-lg-5" align="left">
+            <h3>{{Session::get('misession','No existe session')}}</h3>
+        </div>
+        <div class="col-sm-2 col-xs-2 col-lg-2">
+        </div>
+        <div class="col-sm-2 col-xs-2 col-lg-2" align="center">
+            <h3> <a href="/cerrarSesion" class="glyphicon  glyphicon-log-out red" style="color: #cf1100">
+                    Salir </a></h3>
+        </div>
+    </div>
         @yield('body')
-    </div>
     <footer class="footer row col-sm-12">
         <p align="right">© 2016 ÑuxtuSoft, S.A.C.</p>
     </footer>
