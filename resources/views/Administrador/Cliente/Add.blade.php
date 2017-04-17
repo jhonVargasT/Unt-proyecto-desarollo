@@ -20,7 +20,7 @@
     </div>
 @stop
 @section('content')
-    <div class="panel panel-heading"><h3> Agregar cliente</h3></div>
+    <div class="panel-heading"><h3> Agregar cliente</h3></div>
     <div style="background-color: #FFFFFF" >
 
         <div class="panel-body">

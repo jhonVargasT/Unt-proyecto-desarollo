@@ -208,7 +208,7 @@
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
                                         <span class="glyphicon glyphicon-pushpin"></span>
-                                        </span>  Tasa</a>
+                                        </span>  Clasificador</a>
                                 </h4>
                             </div>
                             @yield('tramite')
@@ -218,13 +218,13 @@
                                         <tr>
                                             <td>
                                                 <span class="glyphicon glyphicon-search"></span>
-                                                <a href="/admBuscarTramite">Buscar Tasa</a>
+                                                <a href="/admBuscarTramite">Buscar Clasificador</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <span class="glyphicon glyphicon-plus"></span>
-                                                <a href="/admRegistrarTramite">Agregar Tasa</a>
+                                                <a href="/admRegistrarTramite">Agregar Clasificador</a>
                                             </td>
                                         </tr>
                                     </table>
@@ -236,7 +236,7 @@
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
                                 <span class="glyphicon glyphicon-pushpin">
-                            </span> SubTasa</a>
+                            </span> Tasa</a>
                                 </h4>
                             </div>
                             @yield('subtramite')
@@ -246,13 +246,13 @@
                                         <tr>
                                             <td>
                                                 <span class="glyphicon glyphicon-search"></span>
-                                                <a href="/admBuscarSubtramite">Buscar SubTasa</a>
+                                                <a href="/admBuscarSubtramite">Buscar Tasa</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <span class="glyphicon glyphicon-plus"></span>
-                                                <a href="/admRegistrarSubtramite">Agregar SubTasa</a>
+                                                <a href="/admRegistrarSubtramite">Agregar Tasa</a>
                                             </td>
                                         </tr>
                                     </table>

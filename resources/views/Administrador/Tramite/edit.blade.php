@@ -6,13 +6,13 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarTramite" style="color: #509f0c" target="_top">Buscar Tasa</a>
+                        <a href="/admBuscarTramite" style="color: #509f0c" target="_top">Buscar Clasificador</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarTramite">Agregar Tasa</a>
+                        <a href="/admRegistrarTramite">Agregar Clasificador</a>
                     </td>
                 </tr>
             </table>
@@ -20,7 +20,7 @@
     </div>
 @stop
 @section('content')
-    <div class="panel-heading"> <h3>Editar Tasa</h3></div>
+    <div class="panel-heading"> <h3>Editar clasificador siaf</h3></div>
     <div  style="background-color: #FFFFFF" >
         <div class="panel-body">
             @if(session()->has('true'))
@@ -36,7 +36,7 @@
                         {{csrf_field()}}
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label"> Clasificador SIAF</span>
+                                <span class="col-sm-2 control-label"> codigo de clasificador </span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="clasificadorSiaf" type="text"
                                            autocomplete="off" onkeypress="return validarNum(event)"
@@ -44,7 +44,7 @@
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label"> Nombre tasa</span>
+                                <span class="col-sm-2 control-label"> Nombre clasificador</span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="nombreTramite" type="text"
                                            autocomplete="off" onkeypress="return validarLetras(event)"

@@ -6,13 +6,13 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarTramite" style="color: #509f0c" target="_top">Buscar Tasa</a>
+                        <a href="/admBuscarTramite" style="color: #509f0c" target="_top">Buscar Clasificador</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarTramite">Agregar Tasa</a>
+                        <a href="/admRegistrarTramite">Agregar Clasificador</a>
                     </td>
                 </tr>
             </table>
@@ -26,7 +26,7 @@
     @if(session()->has('false'))
         <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
     @endif
-    <div class="panel-heading"><h3>Buscar Tasa</h3></div>
+    <div class="panel-heading"><h3>Buscar clasificador</h3></div>
     <div style="background-color: #FFFFFF" >
         <div class="panel-body">
             <form name="form" action="{{url('TramitesBuscadas')}}" role="form" method="POST" class="Vertical">
@@ -37,9 +37,9 @@
                         <div class="col-sm-7 ">
                             <select class=" form-control" name="select">
                                 <option>Todo</option>
-                                <option>Clasificador siaf</option>
+                                <option>codigo clasificador </option>
                                 <option>Tipo de recurso</option>
-                                <option>Nombre de Tasa</option>
+                                <option>Nombre de clasificador</option>
                                 <option>Fuente de financiamiento</option>
                             </select>
                         </div>
@@ -69,10 +69,10 @@
                     <!--cabecear Tabla-->
                     <tr class="active">
                         <th>
-                            <div align="center">Clasificador Siaf</div>
+                            <div align="center">Codigo clasificador</div>
                         </th>
                         <th>
-                            <div align="center">Nombre de tasa</div>
+                            <div align="center">Nombre de clasificador</div>
                         </th>
                         <th>
                             <div align="center">Fuente de financiamiento</div>

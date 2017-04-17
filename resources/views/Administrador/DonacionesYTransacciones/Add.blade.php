@@ -40,7 +40,7 @@
             <!-- Search input-->
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm " align="left">
-                        <span class="col-sm-2 control-label"> Nombre tramite </span>
+                        <span class="col-sm-2 control-label"> Nombre clasificador</span>
                         <div class="col-sm-4">
                             <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
                                    name="nombreTramite" id="name" autocomplete="off"

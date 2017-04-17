@@ -379,11 +379,11 @@ class pagoController extends Controller
         } else {
             $estado = 1;
         }
-        if ($request->opcTramite == 'Tramite') {
+        if ($request->opcTramite == 'Clasificador') {
             $tramites = $tramiteModel->consultarId($imput);
             $tram = 'tr.codTramite';
         } else {
-            if ($request->opcTramite == 'SubTramite') {
+            if ($request->opcTramite == 'Tasa') {
                 $tramites = $subTramiteModel->consultarId($imput);
                 $tram = 'st.codSubtramite';
             } else {

@@ -6,13 +6,13 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarSubtramite" style="color: #509f0c" target="_top" autocomplete="off">Buscar SubTasa</a>
+                        <a href="/admBuscarSubtramite" style="color: #509f0c" target="_top" autocomplete="off">Buscar Tasa</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarSubtramite">Agregar SubTasa</a>
+                        <a href="/admRegistrarSubtramite">Agregar Tasa</a>
                     </td>
                 </tr>
             </table>
@@ -41,8 +41,8 @@
                         <div class="col-sm-7 ">
                             <select class=" form-control" name="select" id="select">
                                 <option>Todo</option>
-                                <option value="Tramite">Nombre tasa</option>
-                                <option>Nombre SubTasa</option>
+                                <option value="Tramite">Nombre Clasificador</option>
+                                <option>Nombre Tasa</option>
                                 <option>Cuenta contable</option>
                             </select>
                         </div>
@@ -77,7 +77,7 @@
 
             <div class="table-responsive col-sm-12">
                 @if(isset($nombre)!=null)
-                    <div class="alert alert-success" role="alert">El subtramite {{$nombre}} fue actualizada!!</div>
+                    <div class="alert alert-success" role="alert">La tasa {{$nombre}} fue actualizada!!</div>
                 @endif
 
                 <table class="table table-bordered">
@@ -85,7 +85,7 @@
                     <!--cabecear Tabla-->
                     <tr class="active">
                         <th>
-                            <div align="center">Nombre Subtramite</div>
+                            <div align="center">Nombre tasa</div>
                         </th>
                         <th>
                             <div align="center">Cuenta contable</div>

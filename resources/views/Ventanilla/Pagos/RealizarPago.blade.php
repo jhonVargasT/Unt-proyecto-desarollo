@@ -340,7 +340,7 @@
                         </script>
                     </div>
                     <div class="col-sm-12 row form-group">
-                        <span class="col-sm-2" id="nsub">Nombre de subtramite :</span>
+                        <span class="col-sm-2" id="nsub">Nombre de tasa :</span>
                         <div class="col-sm-4">
                             <input class="form-control" type="text" name="subtramite" id="st" required readonly>
                         </div>

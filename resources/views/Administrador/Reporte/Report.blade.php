@@ -59,8 +59,8 @@
                             <div class="col-sm-4 ">
                                 <select class=" form-control" id="opcTramite" name="opcTramite">
                                     <option value="Todo">Todo</option>
-                                    <option value="Tramite">Tramite</option>
-                                    <option value="SubTramite">SubTramite</option>
+                                    <option value="Tramite">Clasificador</option>
+                                    <option value="SubTramite">Tasa</option>
                                 </select>
                             </div>
                             <script>
@@ -256,7 +256,7 @@
                         <div class="col-md-4">
                             <div class="col-lg-4"></div>
                             <button type="submit" name="enviar" class="col-lg-4 btn btn-success"><span
-                                        class="glyphicon glyphicon-refresh"></span> Actualizar lista
+                                        class="glyphicon glyphicon-refresh"></span> Actualizar
                             </button>
                         </div>
                         <div class="col-sm-4"></div>
@@ -329,12 +329,12 @@
                                     </th>
                                     <th>
                                         <div align="center">
-                                            <small>TRAMITE</small>
+                                            <small>CLASIFICADOR</small>
                                         </div>
                                     </th>
                                     <th>
                                         <div align="center">
-                                            <small>SUB TRAMITE</small>
+                                            <small>TASA</small>
                                         </div>
                                     </th>
                                     <th>
@@ -415,12 +415,12 @@
                                     </th>
                                     <th>
                                         <div align="center">
-                                            <small>NOMBRE TASA</small>
+                                            <small>NOMBRE CLASIFICADOR</small>
                                         </div>
                                     </th>
                                     <th>
                                         <div align="center">
-                                            <small>NOMBRE SUBTASA</small>
+                                            <small>NOMBRE TASA</small>
                                         </div>
                                     </th>
                                     <th>

@@ -110,7 +110,7 @@
                         </th>
                         <th>
                             <div align="center">
-                                <small>Subtramite</small>
+                                <small>Tasa</small>
                             </div>
                         </th>
                         <th>

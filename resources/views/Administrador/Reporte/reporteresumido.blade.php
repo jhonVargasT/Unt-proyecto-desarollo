@@ -35,7 +35,7 @@
                                 <div class="col-sm-7 ">
                                     <select class="form-control" name="tipreporte">
 
-                                        <option>Codigo S.I.A.F</option>
+                                        <option>Clasificador S.I.A.F</option>
                                         <option>Resumen total</option>
                                     </select>
                                 </div>
@@ -95,7 +95,7 @@
                                         </th>
                                         <th>
                                             <div align="center">
-                                                <small>NOMBRE DE TASA</small>
+                                                <small>NOMBRE DE CLASIFICADOR</small>
                                             </div>
                                         </th>
                                         <th>
@@ -106,7 +106,7 @@
 
                                         <th>
                                             <div align="center">
-                                                <small>NOMBRE DE SUBTASA</small>
+                                                <small>NOMBRE DE TASA</small>
                                             </div>
                                         </th>
                                         <th>
@@ -145,12 +145,12 @@
 
                                             <th>
                                                 <div align="center">
-                                                    <small>CLASIFICADOR S.I.A.F</small>
+                                                    <small>CODIGO CLASIFICADOR S.I.A.F</small>
                                                 </div>
                                             </th>
                                             <th>
                                                 <div align="center">
-                                                    <small>NOMBRE DE TASA</small>
+                                                    <small>NOMBRE DE CLASIFICADOR</small>
                                                 </div>
                                             </th>
                                             <th>

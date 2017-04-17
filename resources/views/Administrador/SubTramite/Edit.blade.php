@@ -6,13 +6,13 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarSubtramite" style="color: #509f0c" target="_top">Buscar SubTasa</a>
+                        <a href="/admBuscarSubtramite" style="color: #509f0c" target="_top">Buscar Tasa</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarSubtramite">Agregar SubTasa</a>
+                        <a href="/admRegistrarSubtramite">Agregar Tasa</a>
                     </td>
                 </tr>
             </table>
@@ -20,7 +20,7 @@
     </div>
 @stop
 @section('content')
-    <div class="panel-heading"><h3> Editar SubTasa</h3></div>
+    <div class="panel-heading"><h3> Editar Tasa</h3></div>
     <div  style="background-color: #FFFFFF" >
 
         <div class="panel-body">
@@ -40,7 +40,7 @@
                         <br>
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label"> Nombre SubTasa</span>
+                                <span class="col-sm-2 control-label"> Nombre Tasa</span>
                                 <div class="col-sm-3">
                                     <input type="text" class="form-control input-sm" name="nombreSubtramite"
                                            placeholder="Ingresa Nombre de Tramite aqui .." autocomplete="off"

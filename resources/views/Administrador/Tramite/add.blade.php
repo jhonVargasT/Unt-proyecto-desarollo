@@ -6,13 +6,13 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarTramite">Buscar Tasa</a>
+                        <a href="/admBuscarTramite">Buscar Clasificador</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarTramite" style="color: #509f0c" target="_top">Agregar Tasa</a>
+                        <a href="/admRegistrarTramite" style="color: #509f0c" target="_top">Agregar Clasificador</a>
                     </td>
                 </tr>
             </table>
@@ -23,7 +23,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
-    <div class="panel-heading"><h3>AgregarTasa</h3></div>
+    <div class="panel-heading"><h3>Agregar clasificador siaf</h3></div>
     <div  style="background-color: #FFFFFF" >
 
         <div class="panel-body">
@@ -37,7 +37,7 @@
                 @endif
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm " align="left">
-                        <span class="col-sm-2 control-label"> Clasificador Siaf</span>
+                        <span class="col-sm-2 control-label"> codigo de clasificador </span>
                         <div class="col-sm-3">
                             <input class="form-control input-sm" name="clasificador" type="text"
                                    autocomplete="off" onkeypress="return validarCodigoSiaf(event)"
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <div class=" form-group-sm" align="left">
-                        <span class="col-sm-2 control-label"> Nombre de Tasa</span>
+                        <span class="col-sm-2 control-label"> Nombre de clasificador</span>
                         <div class="col-sm-4">
                             <input class="form-control" name="nombre" type="text"
                                    autocomplete="off" onkeypress="return validarLetras(event)"

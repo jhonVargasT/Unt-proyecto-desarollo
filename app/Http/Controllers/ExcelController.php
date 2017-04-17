@@ -48,7 +48,7 @@ class ExcelController extends Controller
                         "Dni" => $p->p1dni,
                         "Nombres" => $p->p1nombres,
                         "Apellidos" => $p->p1apellidos,
-                        "Subtramite" => $p->nombre,
+                        "Tasa" => $p->nombre,
                         "Fecha de Pago" => $p->pfecha,
                         "Monto" => $p->precio,
                         "Modalidad" => $p->modalidad,
@@ -177,9 +177,9 @@ class ExcelController extends Controller
                 foreach ($result as $p) {
                     $data[] = array(
                         "CLASIFICADOR S.I.A.F" => $p->clasificadorsiaf,
-                        "NOMBRE DE TRAMITE" => $p->nombreTramite,
+                        "NOMBRE DE CLASIFICADOR" => $p->nombreTramite,
                         "CUENTA" => $p->cuenta,
-                        "NOMBRE DE SUBTRAMITE" => $p->nombresubtramite,
+                        "NOMBRE DE TASA" => $p->nombresubtramite,
                         "IMPORTE" => $p->precio,
                         "NRO PAGOS" => $p->nurPagos,
                     );
@@ -226,7 +226,7 @@ class ExcelController extends Controller
                         $cont++;
                         $data[] = array(
                             "CLASIFICADOR S.I.A.F" => $p->clasificadorsiaf,
-                            "NOMBRE DE TRAMITE" => $p->nombreTramite,
+                            "NOMBRE DE CLASIFICADOR" => $p->nombreTramite,
                             "IMPORTE" => $p->importe,
                         );
                     }
@@ -363,9 +363,9 @@ class ExcelController extends Controller
                         $data[] = array(
 
                             "CLASIFICADOR S.I.A.F" => $p->clasificadorsiaf,
-                            "NOMBRE DE TASA" => $p->nombreTramite,
+                            "NOMBRE DE CLASIFICADOR" => $p->nombreTramite,
                             "CUENTA" => $p->cuenta,
-                            "NOMBRE DE SUBTASA" => $p->nombresubtramite,
+                            "NOMBRE DE TASA" => $p->nombresubtramite,
                             "NRO PAGOS" => $p->nurPagos,
                             "IMPORTE" => $p->precio
                         );

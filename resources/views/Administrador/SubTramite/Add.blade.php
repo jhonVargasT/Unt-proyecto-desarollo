@@ -6,13 +6,13 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarSubtramite">Buscar SubTasa</a>
+                        <a href="/admBuscarSubtramite">Buscar Tasa</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarSubtramite" style="color: #509f0c" target="_top">Agregar SubTasa</a>
+                        <a href="/admRegistrarSubtramite" style="color: #509f0c" target="_top">Agregar Tasa</a>
                     </td>
                 </tr>
             </table>
@@ -23,7 +23,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
-    <div class="panel panel-heading"> <h3>Agregar SubTasa</h3></div>
+    <div class="panel-heading"> <h3>Agregar tasa</h3></div>
     <div  style="background-color: #FFFFFF" >
 
 
@@ -41,7 +41,7 @@
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label">Nombre Tasa</span>
+                                <span class="col-sm-2 control-label">Nombre clasificador</span>
                                 <div class="col-sm-3">
                                     <input class="typeahead form-control input-sm" type="text"
                                            placeholder="ejmp : Carnet"
@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <div class="panel panel-default">
-                    <div class="panel-heading">Datos SubTasa</div>
+                    <div class="panel-heading">Datos Tasa</div>
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
@@ -88,7 +88,7 @@
                         </div>
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label"> Nombre SubTasa</span>
+                                <span class="col-sm-2 control-label"> Nombre Tasa</span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="nombreSubTramite" type="text"
                                            autocomplete="off" onkeypress="return validarLetras(event)" required
