@@ -140,7 +140,7 @@
                                     $("#help_button").val("Cerrar");
                                 }
                                 else {
-                                    $("#help_button").val("Cerrar");
+                                    $("#help_button").val("Mostrar");
                                 }
                             });
                         });
