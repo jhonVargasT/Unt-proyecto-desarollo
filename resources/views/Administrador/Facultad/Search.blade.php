@@ -97,6 +97,7 @@
                                     {{ csrf_field() }}
                                     <a href="FacultadCargar/{{$f->idFacultad}}"><span
                                                 class="glyphicon glyphicon-pencil"></span> </a>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <a href="FacultadEliminar/{{$f->idFacultad}}"><span
                                                 class="glyphicon glyphicon-trash"></span> </a>
                                 </td>

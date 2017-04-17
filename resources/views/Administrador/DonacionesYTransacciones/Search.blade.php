@@ -129,6 +129,7 @@
                                     {{ csrf_field() }}
                                     <a href="DonacionCargar/{{$d->codDonacion}}"><span
                                                 class="glyphicon glyphicon-pencil"></span> </a>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <a href="DonacionEliminar/{{$d->codDonacion}}"><span
                                                 class="glyphicon glyphicon-trash"></span> </a>
                                 </td>

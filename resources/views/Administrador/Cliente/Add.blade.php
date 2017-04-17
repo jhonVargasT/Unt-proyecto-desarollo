@@ -21,7 +21,7 @@
 @stop
 @section('content')
     <div class="panel-heading"><h3> Agregar cliente</h3></div>
-    <div style="background-color: #FFFFFF" >
+    <div style="background-color: #FFFFFF">
 
         <div class="panel-body">
             @if(session()->has('true'))
@@ -59,7 +59,15 @@
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="apellidos" type="text"
                                            autocomplete="off" onkeypress="return validarLetras(event)"
-                                           placeholder="Ejm: Lopez Torres" required>
+                                           placeholder="Terenas Lory">
+                                </div>
+                            </div>
+                            <div class="form-group-sm" align="right">
+                                <span class="col-sm-2">Correo</span>
+                                <div class="col-sm-4">
+                                    <input class="form-control input-sm" name="correo" type="email"
+                                           autocomplete="off"
+                                           placeholder="Ejem: unt@gmail.com" required>
                                 </div>
                             </div>
                         </div>

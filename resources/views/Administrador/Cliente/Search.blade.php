@@ -96,6 +96,7 @@
                                     {{ csrf_field() }}
                                     <a href="ClienteCargar/{{$c->codPersona}}"><span
                                                 class="glyphicon glyphicon-pencil"></span> </a>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <a href="ClienteEliminar/{{$c->codPersona}}"><span
                                                 class="glyphicon glyphicon-trash"></span> </a>
                                 </td>

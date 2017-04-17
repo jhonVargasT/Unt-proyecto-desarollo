@@ -47,7 +47,7 @@
                                                    value="{{$per->dni}}">
                                         </div>
                                     </div>
-                                    <div class="form-group-sm">
+                                    <div class="form-group-sm"align="right">
                                         <span class="col-sm-2">Nombres</span>
                                         <div class="col-sm-4">
                                             <input class="form-control input-sm" name="nombres" type="text"
@@ -63,6 +63,14 @@
                                             <input class="form-control input-sm" name="apellidos" type="text"
                                                    autocomplete="off" onkeypress="return validarLetras(event)"
                                                    value="{{$per->apellidos}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group-sm" align="right">
+                                        <span class="col-sm-2">Correo</span>
+                                        <div class="col-sm-4">
+                                            <input class="form-control input-sm" name="correo" type="email"
+                                                   autocomplete="off"
+                                                   placeholder="Ejem: unt@gmail.com" required value="{{$per->correo}}">
                                         </div>
                                     </div>
                                 </div>
@@ -81,7 +89,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group-sm">
+                                    <div class="form-group-sm" align="right">
                                         <span class="col-sm-2">Codigo personal</span>
                                         <div class="col-sm-4">
                                             <input class="form-control input-sm" name="codigoPersonal" type="text"
@@ -98,7 +106,7 @@
                                                    value="{{$per->cuenta}}">
                                         </div>
                                     </div>
-                                    <div class="form-group-sm">
+                                    <div class="form-group-sm" align="right">
                                         <span class="col-sm-2">Contraseña</span>
                                         <div class="col-sm-4">
                                             <input class="form-control input-sm" name="contraseña" type="password"

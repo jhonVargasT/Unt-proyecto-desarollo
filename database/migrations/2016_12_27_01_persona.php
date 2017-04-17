@@ -22,6 +22,7 @@ class Persona extends Migration
             $table -> bigInteger('dni')->unique();
             $table -> string('nombres');
             $table -> string('apellidos');
+            $table ->string('correo')->unique();
             $table -> boolean('estado')->default('1');
 
         });

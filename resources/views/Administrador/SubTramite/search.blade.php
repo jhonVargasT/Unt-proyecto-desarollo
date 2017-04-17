@@ -110,6 +110,7 @@
                                     {{ csrf_field() }}
                                     <a href="SubtramiteCargar/{{$s->codSubtramite}}"><span
                                                 class="glyphicon glyphicon-pencil"></span> </a>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <a href="SubtramiteEliminar/{{$s->codSubtramite}}"><span
                                                 class="glyphicon glyphicon-trash"></span> </a>
 

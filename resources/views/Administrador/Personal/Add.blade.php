@@ -21,7 +21,7 @@
 @stop
 @section('content')
     <div class="panel-heading"><h3>Agregar personal</h3></div>
-    <div  style="background-color: #FFFFFF" >
+    <div style="background-color: #FFFFFF">
         <div class="panel-body">
             @if(session()->has('true'))
                 <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -39,14 +39,16 @@
                                 <span class="col-sm-2 control-label"> Numero de Dni</span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="dni" type="text"
-                                           autocomplete="off" onkeypress="return validarNum(event)" placeholder="ejmp:75879887" required>
+                                           autocomplete="off" onkeypress="return validarNum(event)"
+                                           placeholder="ejmp:75879887" required>
                                 </div>
                             </div>
-                            <div class="form-group-sm">
+                            <div class="form-group-sm" ALIGN="right">
                                 <span class="col-sm-2">Nombres</span>
                                 <div class="col-sm-4">
                                     <input class="form-control input-sm" name="nombres" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)" placeholder="ejmp:Juan Fernando"required>
+                                           autocomplete="off" onkeypress="return validarLetras(event)"
+                                           placeholder="ejmp:Juan Fernando" required>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +57,16 @@
                                 <span class="col-sm-2">Apellidos</span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="apellidos" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)" placeholder="ejmp: Benites Alaya" required>
+                                           autocomplete="off" onkeypress="return validarLetras(event)"
+                                           placeholder="ejmp: Benites Alaya" required>
+                                </div>
+                            </div>
+                            <div class="form-group-sm" align="right">
+                                <span class="col-sm-2">Correo</span>
+                                <div class="col-sm-4">
+                                    <input class="form-control input-sm" name="correo" type="email"
+                                           autocomplete="off"
+                                           placeholder="Ejem: unt@gmail.com" required>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +88,8 @@
                             <div class="form-group-sm">
                                 <span class="col-sm-2">Codigo personal</span>
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="codigoPersonal" type="text" onkeypress="return validarNum(event)" placeholder="ejmp: 00025487" required>
+                                    <input class="form-control input-sm" name="codigoPersonal" type="text"
+                                           onkeypress="return validarNum(event)" placeholder="ejmp: 00025487" required>
                                 </div>
                             </div>
                         </div>
@@ -85,13 +97,15 @@
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label"> Cuenta</span>
                                 <div class="col-sm-3">
-                                    <input class="form-control input-sm" name="cuentaAgregar" type="text" autocomplete="off">
+                                    <input class="form-control input-sm" name="cuentaAgregar" type="text"
+                                           autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group-sm">
                                 <span class="col-sm-2">Contraseña</span>
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="contraseñaAgregar" type="password" autocomplete="off">
+                                    <input class="form-control input-sm" name="contraseñaAgregar" type="password"
+                                           autocomplete="off">
                                 </div>
                             </div>
                         </div>

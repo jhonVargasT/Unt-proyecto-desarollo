@@ -24,8 +24,8 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
-        <div class="panel-heading "> <h3>Realizar pago</h3></div>
-    <div  style="background-color: #FFFFFF">
+    <div class="panel-heading "><h3>Realizar pago</h3></div>
+    <div style="background-color: #FFFFFF">
         <div class="panel-body">
             @if(session()->has('true'))
                 <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -351,7 +351,10 @@
                                           id="detalle" required></textarea>
                             </div>
                             <style>
-                                .required:after { content:" (*) ";  color: #C00;}
+                                .required:after {
+                                    content: " (*) ";
+                                    color: #C00;
+                                }
                             </style>
                         </div>
                         <div class="form-group-sm">
@@ -407,15 +410,10 @@
                                     </div>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" name="total" id="tp"
-                                               readonly>
+                                               readonly value="0">
                                     </div>
                                 </div>
                             @endif
-                            <script>
-                                $('#buscar').change(function () {
-                                    $('#tp').val(' ');
-                                });
-                            </script>
                             <span class="col-sm-1">Pago con:</span>
                             <div class="col-sm-1">
                                 <input type="text" class="form-control " name="pagocon" id="pc">

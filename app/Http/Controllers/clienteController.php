@@ -18,6 +18,7 @@ class clienteController extends Controller
         $cliente->setApellidos($request->apellidos);
         $cliente->setRuc($request->ruc);
         $cliente->setRazonSocial($request->razonSocial);
+        $cliente->setCorreo($request->correo);
         $cli = $cliente->savecliente();
 
         if ($cli == true) {

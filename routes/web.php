@@ -269,10 +269,10 @@ Route::get('searchE',array('as'=>'searchE','uses'=>'escuelaController@searchE'))
 Route::get('/tipoRecurso', 'donacionController@tipoRecurso');
 Route::get('/facultad', 'alumnoController@facultad');
 
+Route::get('/obtenerDatos','pagoController@obtenerDatos');
+
 ////////////////////////CULQI///////////////////////////////////////////////////////////////////////////////////////////
-Route::get('/culqi', function () {
-    return view('Ventanilla/Culqi/PagoCulqi');
-});
+
 Route::get('/pagoonline', function () {
     return view('Ventanilla/Culqi/pagoonline');
 });

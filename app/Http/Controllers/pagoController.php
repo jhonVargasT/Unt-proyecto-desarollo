@@ -20,6 +20,7 @@ class pagoController extends Controller
 {
     public function registrarPago(Request $request)
     {
+        $csiaf = null;
         $cont = 0;
         $pers = new personamodel();
         $cli = new clientemodel();
@@ -51,6 +52,7 @@ class pagoController extends Controller
         date_default_timezone_set('America/Lima');
         $dato = date('Y-m-d H:i:s');
         $pago = $request->boletapagar;
+        $total = $request->total;
         $p = new pagomodel();
         $p->setDetalle($request->detalle);
         $p->setFecha($dato);
@@ -69,7 +71,7 @@ class pagoController extends Controller
         $val = Session::get('txt', 'No existe session');
         if ($valid == true) {
             if ($val == $request->text) {
-                $totalp = $total = $request->totalpago + $pago;
+                $totalp = $total + $pago;
                 session()->put('text', $request->text);
                 return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' => $totalp,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,

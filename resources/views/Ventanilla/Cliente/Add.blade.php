@@ -31,7 +31,6 @@
         <div class="panel-body">
             <form name="form" action="{{url('ClienteRegistrado')}}" role="form" method="POST" class="Horizontal">
                 {{csrf_field()}}
-
                 <div class="panel panel-default">
                     <div class="panel-heading">Datos persona</div>
                     <div class="panel-body">
@@ -59,6 +58,14 @@
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="apellidos" type="text"
                                            autocomplete="off" onkeypress="return validarLetras(event)">
+                                </div>
+                            </div>
+                            <div class="form-group-sm" align="right">
+                                <span class="col-sm-2">Correo</span>
+                                <div class="col-sm-4">
+                                    <input class="form-control input-sm" name="correo" type="email"
+                                           autocomplete="off"
+                                           placeholder="Ejem: unt@gmail.com" required>
                                 </div>
                             </div>
                         </div>

@@ -19,6 +19,7 @@ class personalController extends Controller
         $personal->setPassword($request->contraseñaAgregar);
         $personal->setTipoCuenta($request->tipocuenta);
         $personal->setCodPersonal($request->codigoPersonal);
+        $personal->setCorreo($request->correo);
         $p = $personal->savepersonal();
 
         if ($p == true) {

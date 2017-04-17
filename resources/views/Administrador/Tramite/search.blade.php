@@ -98,6 +98,7 @@
                                     {{ csrf_field() }}
                                     <a href="TramiteCargar/{{$t->codTramite}}"><span
                                                 class="glyphicon glyphicon-pencil"></span> </a>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <a href="TramiteEliminar/{{$t->codTramite}}"><span
                                                 class="glyphicon glyphicon-trash"></span> </a>
 

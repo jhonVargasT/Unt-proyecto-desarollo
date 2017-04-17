@@ -140,7 +140,7 @@ class personalmodel extends personamodel
 
         try {
             DB::transaction(function () use ($logunt) {
-                DB::table('persona')->insert(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos()]);
+                DB::table('persona')->insert(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(),'correo'=>$this->getCorreo()]);
                 $personabd = DB::table('persona')->where('dni', $this->getDni())->get();
                 foreach ($personabd as $pbd) {
                     $idp = $pbd->codPersona;
@@ -167,7 +167,7 @@ class personalmodel extends personamodel
         $logunt->setCodigoPersonal($codPers);
         try {
             DB::transaction(function () use ($codPersona, $logunt) {
-                DB::table('persona')->where('codPersona', $codPersona)->update(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos()]);
+                DB::table('persona')->where('codPersona', $codPersona)->update(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(),'correo'=>$this->getCorreo()]);
                 DB::table('personal')->where('idPersona', $codPersona)->update(['codPersonal' => $this->codPersonal, 'cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta]);
                 $logunt->saveLogUnt();
             });

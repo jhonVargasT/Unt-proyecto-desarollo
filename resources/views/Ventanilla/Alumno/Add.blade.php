@@ -72,6 +72,14 @@
                                                placeholder="Ejem: Terenas Lory" required>
                                     </div>
                                 </div>
+                                <div class="form-group-sm" align="right">
+                                    <span class="col-sm-2">Correo</span>
+                                    <div class="col-sm-4">
+                                        <input class="form-control input-sm" name="correo" type="email"
+                                               autocomplete="off"
+                                               placeholder="Ejem: unt@gmail.com" required>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

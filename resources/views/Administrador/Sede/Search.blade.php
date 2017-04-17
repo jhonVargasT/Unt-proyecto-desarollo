@@ -91,6 +91,7 @@
                                     {{ csrf_field() }}
                                     <a href="SedeCargar/{{$s->codSede}}"><span
                                                 class="glyphicon glyphicon-pencil"></span> </a>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <a href="SedeEliminar/{{$s->codSede}}"><span
                                                 class="glyphicon glyphicon-trash"></span> </a>
                                 </td>

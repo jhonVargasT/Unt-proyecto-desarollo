@@ -107,6 +107,7 @@
                                 {{ csrf_field() }}
                                 <a href="PersonalCargar/{{$p->idPersona}}"><span
                                             class="glyphicon glyphicon-pencil"></span> </a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <a href="PersonalEliminar/{{$p->idPersona}}"><span
                                             class="glyphicon glyphicon-trash"></span> </a>
                             </td>

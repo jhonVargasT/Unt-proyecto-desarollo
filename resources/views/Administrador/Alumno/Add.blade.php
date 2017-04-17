@@ -62,7 +62,12 @@
                                     <input class="form-control input-sm" name="apellidos" type="text"
                                            autocomplete="off" onkeypress="return validarLetras(event)"
                                            placeholder="Ejem: Terenas Lory" required>
-
+                                </div>
+                                <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
+                                    <span class="control-label">Correo</span>
+                                    <input class="form-control input-sm" name="correo" type="email"
+                                           autocomplete="off"
+                                           placeholder="Ejem: unt@gmail.com" required>
                                 </div>
                             </div>
                         </div>

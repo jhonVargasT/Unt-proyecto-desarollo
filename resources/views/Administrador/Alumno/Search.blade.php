@@ -104,6 +104,7 @@
                                 {{ csrf_field() }}
                                 <a href="AlumnoCargar/{{$a->codPersona}}"><span
                                             class="glyphicon glyphicon-pencil"></span> </a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <a href="AlumnoEliminar/{{$a->codPersona}}"><span
                                             class="glyphicon glyphicon-trash"></span> </a>
                             </td>

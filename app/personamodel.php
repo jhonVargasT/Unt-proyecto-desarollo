@@ -9,6 +9,7 @@ class personamodel
     private $dni;
     private $nombres;
     private $apellidos;
+    private $correo;
 
     public function __construct()
     {
@@ -66,6 +67,24 @@ class personamodel
     public function setApellidos($apellidos)
     {
         $this->apellidos = $apellidos;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCorreo()
+    {
+        return $this->correo;
+    }
+
+    /**
+     * @param mixed $correo
+     * @return personamodel
+     */
+    public function setCorreo($correo)
+    {
+        $this->correo = $correo;
         return $this;
     }
 

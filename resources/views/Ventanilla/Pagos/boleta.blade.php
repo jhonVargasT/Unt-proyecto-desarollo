@@ -13,39 +13,39 @@
     <div id="printableArea">
         <table>
             <tbody>
-            <td><input type="hidden" name="buscar" value="{{$buscar}}" readonly></td>
+            <td><input type="hidden" name="buscar" value="{{$buscar}}" readonly id="buscar"></td>
             <td><input type="hidden" name="facultad" value="{{$facultad}}" readonly></td>
             <tr>
                 <th></th>
                 <td>
-                    <input name="contador" value="{{$contador}}" readonly>
+                    <input name="contador" value="{{$contador}}" readonly id="contdor">
                 </td>
             </tr>
             <tr>
                 <th>SIAF:</th>
                 <td>
-                    <input type="text" name="siaf" value="{{$siaf}}" readonly>
+                    <input type="text" name="siaf" value="{{$siaf}}" readonly id="siaf">
                 </td>
             </tr>
             <tr>
                 <th>HE RECIBIDO DE:</th>
                 <td>
                     <input name="nomape" value="{{$apellidos}}, {{$nombre}} " readonly>
-                    <input type="hidden" name="apellidos" value="{{$apellidos}}" readonly>
-                    <input type="hidden" name="nombres" value="{{$nombre}}" readonly>
+                    <input type="hidden" name="apellidos" value="{{$apellidos}}" readonly id="apellidos">
+                    <input type="hidden" name="nombres" value="{{$nombre}}" readonly id="nombres">
                 </td>
             </tr>
             <tr>
                 <th>ESCUELA</th>
-                <td><input name="escuela" value="{{$escuela}}" readonly></td>
+                <td><input name="escuela" value="{{$escuela}}" readonly id="escuela"></td>
             </tr>
             <tr>
                 <th>POR CONCEPTO DE:</th>
-                <td><input name="detalle" value="{{$detalle}}" readonly></td>
+                <td><input name="detalle" value="{{$detalle}}" readonly id="detalle"></td>
             </tr>
             <tr>
                 <th>FECHA</th>
-                <td><input name="fecha" value="{{$fecha}}" readonly></td>
+                <td><input name="fecha" value="{{$fecha}}" readonly id="fecha"></td>
             </tr>
             <tr>
                 <th>MONTO</th>
@@ -340,8 +340,7 @@
 
         updatePrice($("#boleta").val());
 
-
-        document.location.href = '/ventRelizarPago';
+        document.getElementById('togglee').click();
 
     </script>
     <script Type="text/javascript">
