@@ -22,9 +22,9 @@
 @stop
 @section('content')
     <div class="panel-heading"><h3>Agregar Donaciones y
-        transferencias</h3>
+            transferencias</h3>
     </div>
-    <div style="background-color: #FFFFFF" >
+    <div style="background-color: #FFFFFF">
         <div class="panel-body">
             <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -96,7 +96,8 @@
                             <div class="input-group col-sm-2">
                                 <div class="input-group-addon ">S/.</div>
                                 <input type="text" class="form-control " name="monto"
-                                       autocomplete="off" onkeypress="return validarDouble(event)" placeholder="ejmp: 2.50"
+                                       autocomplete="off" onkeypress="return validarDouble(event)"
+                                       placeholder="ejmp: 2.50"
                                        required>
                             </div>
                         </div>
@@ -121,7 +122,59 @@
                         </div>
                     </div>
                 </div>
-                <br>
+                <div class="col-sm-12 row form-group">
+                    <div class="form-group-sm " align="left">
+                        <span class="col-sm-2 control-label">Cuenta bancaria</span>
+                        <div class="col-sm-1">
+                            <input class="form-control input-sm " name="cuentab" type="text" id="cuenta"
+                                   onkeypress="return validarNum(event)" required>
+                            <input id="help_button" type="button" value="Mostrar"/>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        $("#help_button").click(function () {
+                            $("#help").slideToggle(1000, function () {
+                                if ($("#help_button").val() == "Mostrar") {
+                                    $("#help_button").val("Cerrar");
+                                }
+                                else {
+                                    $("#help_button").val("Cerrar");
+                                }
+                            });
+                        });
+                    });
+                </script>
+                <style>
+                    #help {
+                        background-color: lightgray;
+                        width: 300px;
+                        height: 150px;
+                        display: none;
+                        position: fixed;
+                        top: 60%;
+                        left: 57.5%;
+                        margin: -150px 0 0 -150px;
+                    }
+
+                    table {
+                        font-family: arial, sans-serif;
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
+
+                    td, th {
+                        border: 1px solid #dddddd;
+                        text-align: left;
+                        padding: 8px;
+                    }
+
+                    tr:nth-child(even) {
+                        background-color: #dddddd;
+                    }
+                </style>
+
                 <div class="col-sm-12 row form-group">
                     <div class="col-md-3"></div>
                     <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
@@ -135,6 +188,18 @@
                 </div>
 
             </form>
+            <div id="help" align="center">
+                <table>
+                    <tr>
+                        <th>Banco</th>
+                        <th>Cuenta</th>
+                    </tr>
+                    <tr>
+                        <td>Banco de la Nacion</td>
+                        <td>123456789</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 @stop
