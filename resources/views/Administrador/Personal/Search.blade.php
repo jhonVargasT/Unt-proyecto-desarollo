@@ -99,6 +99,7 @@
                         <tr>
                             <td>{{$p->dni}}</td>
                             <td>{{$p->nombres}} {{$p->apellidos}}</td>
+                            <td>{{$p->correo}}</td>
                             <td>{{$p->codPersonal}}</td>
                             <td>{{$p->cuenta}}</td>
                             <td>{{$p->password}}</td>

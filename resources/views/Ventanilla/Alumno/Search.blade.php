@@ -76,6 +76,9 @@
                             <div align="center">Nombres y apellidos</div>
                         </th>
                         <th>
+                            <div align="center">Correo</div>
+                        </th>
+                        <th>
                             <div align="center">Codigo alumno</div>
                         </th>
                         <th>
@@ -93,6 +96,7 @@
                             <tr>
                                 <td>{{$a->dni}}</td>
                                 <td>{{$a->nombres}} {{$a->apellidos}}</td>
+                                <td>{{$a->correo}}</td>
                                 <td>{{$a->codAlumno}}</td>
                                 <td>{{$a->fecha}}</td>
                                 <td align="center">

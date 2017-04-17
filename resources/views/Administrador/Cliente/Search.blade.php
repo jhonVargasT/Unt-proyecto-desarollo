@@ -73,6 +73,9 @@
                             <div align="center">Nombres y apellidos</div>
                         </th>
                         <th>
+                            <div align="center">Correo</div>
+                        </th>
+                        <th>
                             <div align="center">Ruc</div>
                         </th>
                         <th>
@@ -90,6 +93,7 @@
                             <tr>
                                 <td>{{$c->dni}}</td>
                                 <td>{{$c->nombres}} {{$c->apellidos}}</td>
+                                <td>{{$c->correo}}</td>
                                 <td>{{$c->ruc}}</td>
                                 <td>{{$c->razonSocial}}</td>
                                 <td align="center">
