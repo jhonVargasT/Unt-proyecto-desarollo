@@ -26,7 +26,7 @@ class Donacion extends Migration
             $table -> boolean('estado')->default('1');
 
             $table->integer('idTramite')->unsigned();
-            $table->integer('idBanco')->unsigned();
+            $table->integer('idBanco')->unsigned()->nullable();
 
         });
 
