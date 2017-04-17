@@ -26,11 +26,13 @@ class Donacion extends Migration
             $table -> boolean('estado')->default('1');
 
             $table->integer('idTramite')->unsigned();
+            $table->integer('idBanco')->unsigned();
+
         });
 
         Schema::table('donacion', function( $table) {
-
             $table->foreign('idTramite')->references('codTramite')->on('tramite');
+            $table->foreign('idBanco')->references('codBanco')->on('banco');
         });
     }
 
