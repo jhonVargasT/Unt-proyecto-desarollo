@@ -26,8 +26,8 @@
     @if(session()->has('false'))
         <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
     @endif
-    <div class="panel panel-primary">
-        <div class="panel-heading"> Buscar Sedes</div>
+    <div class="panel-heading"> <h3>Buscar Sedes</h3></div>
+    <div style="background-color: #FFFFFF" >
         <div class="panel-body">
             <form name="form" action="{{url('SedesBuscadas')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}

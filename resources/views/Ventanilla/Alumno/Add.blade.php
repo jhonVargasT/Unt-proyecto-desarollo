@@ -30,9 +30,9 @@
         <link rel="stylesheet" href="/resources/demos/style.css">
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+        <div class="panel-heading"> <h3>Agregar Estudiante</h3></div>
+        <div style="background-color: #FFFFFF">
 
-        <div class="panel panel-primary">
-            <div class="panel-heading"> Agregar Estudiante</div>
             <div class="panel-body">
                 @if(session()->has('true'))
                     <div class="alert alert-success" role="alert">{{session('true')}} </div>

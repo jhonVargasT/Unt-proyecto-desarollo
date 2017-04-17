@@ -29,8 +29,8 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="/resources/demos/style.css">
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <div class="panel panel-primary">
-            <div class="panel-heading"> Agregar Estudiante</div>
+        <div class="panel-heading"><h3>Agregar Estudiante</h3></div>
+        <div style="background-color: #FFFFFF">
             <div class="panel-body">
                 @if(session()->has('true'))
                     <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -40,151 +40,133 @@
                 @endif
                 <form name="form" action="{{url('AlumnoRegistrado')}}" role="form" method="POST" class="Horizontal">
                     {{csrf_field()}}
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Datos persona</div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Datos personales</div>
                         <div class="panel-body">
-                            <div class="col-sm-12 row form-group">
-                                <div class="form-group-sm " align="left">
-                                    <span class="col-sm-2 control-label"> Numero de Dni</span>
-                                    <div class="col-sm-3">
-                                        <input class="form-control input-sm" name="dni" type="text"
-                                               autocomplete="off" onkeypress="return validarNum(event)"
-                                               placeholder="Ejem: 72978792" required>
-                                    </div>
+                            <div class=" row ">
+                                <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
+                                    <span class="control-label"> Numero de Dni</span>
+                                    <input class="form-control input-sm" name="dni" type="text"
+                                           autocomplete="off" onkeypress="return validarNum(event)"
+                                           placeholder="Ejem: 72978792" required>
                                 </div>
-                                <div class="form-group-sm" align="right">
-                                    <span class="col-sm-2">Nombres</span>
-                                    <div class="col-sm-4">
-                                        <input class="form-control input-sm" name="nombres" type="text"
-                                               autocomplete="off" onkeypress="return validarLetras(event)"
-                                               placeholder="Ejm:Jose Carlos" required>
-                                    </div>
+                                <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm">
+                                    <span class="control-label">Nombres</span>
+                                    <input class="form-control input-sm" name="nombres" type="text"
+                                           autocomplete="off" onkeypress="return validarLetras(event)"
+                                           placeholder="Ejm:Jose Carlos" required>
+
                                 </div>
-                            </div>
-                            <div class="col-sm-12 row form-group">
-                                <div class="form-group-sm">
-                                    <span class="col-sm-2">Apellidos</span>
-                                    <div class="col-sm-3">
-                                        <input class="form-control input-sm" name="apellidos" type="text"
-                                               autocomplete="off" onkeypress="return validarLetras(event)"
-                                               placeholder="Ejem: Terenas Lory" required>
-                                    </div>
+                                <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
+                                    <span class="control-label">Apellidos</span>
+                                    <input class="form-control input-sm" name="apellidos" type="text"
+                                           autocomplete="off" onkeypress="return validarLetras(event)"
+                                           placeholder="Ejem: Terenas Lory" required>
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-default">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">Datos Alumno</div>
                         <div class="panel-body">
-                            <div class="col-sm-12 row form-group">
-                                <div class="form-group-sm " align="left">
-                                    <span class="col-sm-2 control-label"> Codigo alumno</span>
-                                    <div class="col-sm-3">
-                                        <input class="form-control input-sm" name="codAlumno" type="text"
-                                               autocomplete="off" placeholder="Ejm: 000104499" required>
-                                    </div>
+                            <div class="row">
+                                <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
+                                    <span class="control-label"> Codigo alumno</span>
+                                    <input class="form-control input-sm" name="codAlumno" type="text"
+                                           autocomplete="off" placeholder="Ejm: 000104499" required>
                                 </div>
-
-                            </div>
-                            <div class="col-sm-12 row form-group">
-                                <div class="form-group-sm " align="left">
-                                    <span class="col-sm-2 control-label"> Fecha matricula</span>
-                                    <div class="col-sm-3">
-                                        <div class="col-sm-12 input-group date" data-provide="datepicker">
-                                            <input type="text" name="fecha" class="form-control"
-                                                   >
-                                            <div class="input-group-addon">
-                                                <span class="glyphicon glyphicon-th"></span>
-                                            </div>
+                                <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
+                                    <span class="control-label"> Fecha matricula</span>
+                                    <div class="col-sm-12 input-group date" data-provide="datepicker">
+                                        <input type="text" name="fecha" class="form-control">
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
+                                    <span class="control-label">Sede</span>
+
+                                    <input class="typeahead form-control" type="text"
+                                           placeholder="Ejm: Trujillo" name="nombreSede" id="ns"
+                                           onkeypress="return validarLetras(event)" autocomplete="off" required>
+                                    <script type="text/javascript">
+                                        var paths = "{{ route('autocompletesede')}}";
+                                        $('input.typeahead').typeahead({
+                                            source: function (querys, processe) {
+                                                return $.get(paths, {query: querys}, function (datas) {
+                                                    return processe(datas);
+                                                });
+                                            }
+                                        });
+                                    </script>
 
                                 </div>
-                                <div class="form-group-sm " align="right">
-                                    <span class="col-sm-2 control-label">Sede</span>
-                                    <div class="col-sm-3">
-                                        <input class="typeahead form-control" type="text"
-                                               placeholder="Ejm: Trujillo" name="nombreSede" id="ns"
-                                               onkeypress="return validarLetras(event)" autocomplete="off" required>
-                                        <script type="text/javascript">
-                                            var paths = "{{ route('autocompletesede')}}";
-                                            $('input.typeahead').typeahead({
-                                                source: function (querys, processe) {
-                                                    return $.get(paths, {query: querys}, function (datas) {
-                                                        return processe(datas);
-                                                    });
-                                                }
-                                            });
-                                        </script>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 row form-group">
-                                <div class="form-group-sm " align="left">
-                                    <span class="col-sm-2 control-label">Escuela</span>
-                                    <div class="col-sm-3">
-                                        <input class="form-control input-sm" type="text"
-                                               placeholder="Ejm: Mecanica" name="nombreEscuela" id="ne"
-                                               onkeypress="return validarLetras(event)" required >
-                                        <script>
-                                            src = "{{ route('searchajax') }}";
-                                            $("#ne").autocomplete({
-                                                source: function (request, response) {
-                                                    $.ajax({
-                                                        url: src,
-                                                        type: 'get',
-                                                        dataType: "json",
-                                                        data: {
-                                                            term: $('#ne').val(),
-                                                            sede: $('#ns').val()
-                                                        },
-                                                        success: function (data) {
-                                                            response(data);
-                                                        }
-                                                    });
-                                                },
-                                                min_length: 3
-                                            });
-                                        </script>
-                                    </div>
-                                </div>
-                                <div class="form-group-sm " align="right">
-                                    <span class="col-sm-2 control-label">Facultad</span>
-                                    <div class="col-sm-3">
-                                        <input class="form-control input-sm" name=" " type="text" id="f" readonly>
-                                        <script>
-                                            $('#ne').change(function () {
+                                <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
+                                    <span class="control-label">Escuela</span>
+
+                                    <input class="form-control input-sm" type="text"
+                                           placeholder="Ejm: Mecanica" name="nombreEscuela" id="ne"
+                                           onkeypress="return validarLetras(event)" required>
+                                    <script>
+                                        src = "{{ route('searchajax') }}";
+                                        $("#ne").autocomplete({
+                                            source: function (request, response) {
                                                 $.ajax({
-                                                    url: '/facultad',
-                                                    type: "get",
-                                                    data: {name: $('#ne').val()},
+                                                    url: src,
+                                                    type: 'get',
+                                                    dataType: "json",
+                                                    data: {
+                                                        term: $('#ne').val(),
+                                                        sede: $('#ns').val()
+                                                    },
                                                     success: function (data) {
-                                                        $('#f').val(data);
+                                                        response(data);
                                                     }
                                                 });
-                                            });
-                                        </script>
-                                        <script>
-                                            $('#ns').on('input', function() {
+                                            },
+                                            min_length: 3
+                                        });
+                                    </script>
+                                </div>
+                                <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm " >
+                                    <span class="control-label">Facultad</span>
 
-                                                if($(this).val().length)
-                                                    $('#ne').prop('disabled', false);
-                                                else
-                                                    $('#ne').prop('disabled', true);
+                                    <input class="form-control input-sm" name=" " type="text" id="f" readonly>
+                                    <script>
+                                        $('#ne').change(function () {
+                                            $.ajax({
+                                                url: '/facultad',
+                                                type: "get",
+                                                data: {name: $('#ne').val()},
+                                                success: function (data) {
+                                                    $('#f').val(data);
+                                                }
                                             });
-                                        </script>
-                                    </div>
+                                        });
+                                    </script>
+                                    <script>
+                                        $('#ns').on('input', function () {
+
+                                            if ($(this).val().length)
+                                                $('#ne').prop('disabled', false);
+                                            else
+                                                $('#ne').prop('disabled', true);
+                                        });
+                                    </script>
                                 </div>
                             </div>
+
                         </div>
                     </div>
-                    <div class="col-sm-12 row form-group">
+                    <div class="row form-group">
                         <div class="col-md-3"></div>
                         <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
                                     class="glyphicon glyphicon-ban-circle"></span>
                             Cancelar</a>
                         <div class="col-md-2"></div>
-                        <button type="submit" name="enviar" class="col-md-2 btn btn-success"><span
+                        <button type="submit" name="enviar" class="col-md-2 btn btn-sm btn-success"><span
                                     class="glyphicon glyphicon-ok"></span> Guardar
                         </button>
                         <div class="col-md-3"></div>

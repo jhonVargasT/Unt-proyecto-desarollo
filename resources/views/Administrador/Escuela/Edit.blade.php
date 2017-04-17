@@ -21,8 +21,8 @@
 @stop
 @section('content')
     <fieldset>
-        <div class="panel panel-primary">
-            <div class="panel-heading"> EditarEscuela</div>
+        <div class="panel-heading"> <h3>EditarEscuela</h3></div>
+        <div style="background-color: #FFFFFF" >
             <div class="panel-body">
                 @if(session()->has('true'))
                     <div class="alert alert-success" role="alert">{{session('true')}} </div>

@@ -311,9 +311,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-10  " style="background-color:#6b6b6b">
+                <div class="col-sm-10  " style="background-color:#ccd0d2">
                     <br>
-
                     @yield('content')
                 </div>
         <script>

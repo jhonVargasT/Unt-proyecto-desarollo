@@ -16,7 +16,9 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    <style>
+        body {overflow-x:hidden!important;}
+    </style>
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="{{asset('assets/ico/favicon.png')}}">
 
@@ -32,9 +34,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 </head>
-<body style="background-color: #ccd0d2">
-
-
+<body style="background-color: #ccd0d2" >
 <div class="row  ">
     <div class="row " style="background-color: #FFFFFF">
         <br>
@@ -44,8 +44,7 @@
             <img style="width: 200px;" src="{{ asset('assets/img/logo.png') }}">
 
         </div>
-        <div class="col-sm-1 col-xs-1 col-lg-1"></div>
-        <div class="col-sm-8 col-xs-8 col-lg-8" align="center">
+        <div class="col-sm-10 col-xs-10 col-lg-10" align="center">
             <div>
                 <h1> UNIVERSIDAD NACIONAL DE TRUJILLO</h1>
             </div>
@@ -53,12 +52,12 @@
                 <h3>Pago online</h3>
             </div>
         </div>
-
     </div>
 
 </div>
-<div class="row">
-    <div class="panel panel-primary " style="margin: 20px">
+<div class="row " style="margin: 20px" >
+    <br>
+    <div class="panel panel-primary" style="background-color: #FFFFFF" >
         <div class="panel-heading "> Pago con tarjeta</div>
         <div class="panel-body">
             @if(session()->has('true'))
@@ -547,5 +546,7 @@
         <script src="{{asset('assets/js/placeholder.js')}}"></script>
         <![endif]-->
 
+    </div>
+</div>
 </body>
 </html>

@@ -26,8 +26,8 @@
     @if(session()->has('false'))
         <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
     @endif
-    <div class="panel panel-primary">
-        <div class="panel panel-heading"> Agregar cliente</div>
+    <div class="panel panel-heading"> <h3>Agregar cliente</h3></div>
+    <div  style="background-color: #FFFFFF">
         <div class="panel-body">
             <form name="form" action="{{url('ClienteRegistrado')}}" role="form" method="POST" class="Horizontal">
                 {{csrf_field()}}

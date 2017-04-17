@@ -20,9 +20,9 @@
     </div>
 @stop
 @section('content')
+    <div class="panel panel-heading"><h3> Agregar cliente</h3></div>
+    <div style="background-color: #FFFFFF" >
 
-    <div class="panel panel-primary">
-        <div class="panel panel-heading"> Agregar cliente</div>
         <div class="panel-body">
             @if(session()->has('true'))
                 <div class="alert alert-success" role="alert">{{session('true')}} </div>

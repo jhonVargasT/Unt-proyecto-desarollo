@@ -21,10 +21,10 @@
     </div>
 @stop
 @section('content')
-    <div class="panel panel-primary">
-        <div class="panel-heading">Agregar Donaciones y
-            transferencias
-        </div>
+    <div class="panel-heading"><h3>Agregar Donaciones y
+        transferencias</h3>
+    </div>
+    <div style="background-color: #FFFFFF" >
         <div class="panel-body">
             <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>

@@ -20,8 +20,9 @@
     </div>
 @stop
 @section('content')
-    <div class="panel panel-primary">
-        <div class="panel-heading"> Reportar Pago</div>
+    <div class="panel-heading"><h3>  Reportar Pago</h3></div>
+    <div style="background-color: #FFFFFF">
+
         <div class="panel-body">
             <form name="form" action="{{url('PagosBuscados')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}

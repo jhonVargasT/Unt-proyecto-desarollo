@@ -1,5 +1,6 @@
-<div class="panel panel-primary">
-    <div class="panel-heading"> Reporte Pago</div>
+<div class="panel-heading"><h3> Reporte Pago</h3></div>
+<div  style="background-color: #FFFFFF">
+
     <div class="panel-body">
         <!--tabla-->
         <div class="table-responsive col-sm-12">

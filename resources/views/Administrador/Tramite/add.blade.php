@@ -23,9 +23,9 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+    <div class="panel-heading"><h3>AgregarTasa</h3></div>
+    <div  style="background-color: #FFFFFF" >
 
-    <div class="panel panel-primary">
-        <div class="panel-heading">AgregarTasa</div>
         <div class="panel-body">
             <form name="form" action="{{url('TramiteRegistrado')}}" role="form" method="POST" class="Vertical">
                 {{csrf_field()}}

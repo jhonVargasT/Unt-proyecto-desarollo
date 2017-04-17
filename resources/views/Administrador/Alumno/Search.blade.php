@@ -26,31 +26,35 @@
     @if(session()->has('false'))
         <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
     @endif
-    <div class="panel panel-primary">
-        <div class="panel-heading"> Buscar Alumnos</div>
+    <div class="panel-heading"><h3>Buscar Alumnos</h3></div>
+    <div style="background-color: #FFFFFF">
+
         <div class="panel-body">
             <form name="form" action="{{url('AlumnosBuscados')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
-                <div class="col-sm-12 row form-group">
-                    <div class="form-group-sm col-sm-6 ">
-                        <span class="col-sm-5 control-label">Buscar por:</span>
-                        <div class="col-sm-7 ">
-                            <select class=" form-control" name="select">
-                                <option>Dni</option>
-                                <option>Apellidos</option>
-                                <option>Codigo alumno</option>
-                                <option>Fecha de Matricula</option>
-                                <option>Escuela</option>
-                                <option>Facultad</option>
-                            </select>
-                        </div>
+                <div class=" row ">
+                    <div class="form-group-sm col-sm-2 ">
+                        <span class="ontrol-label">Buscar por:</span>
+                        <select class=" form-control" name="select">
+                            <option>Dni</option>
+                            <option>Apellidos</option>
+                            <option>Codigo alumno</option>
+                            <option>Escuela</option>
+                            <option>Facultad</option>
+                        </select>
                     </div>
-                    <div class="form-group-sm input-group col-sm-6">
+                    <div class="form-group-sm col-sm-8">
+                        <ref></ref>
+                        <span class="ontrol-label"> Ingresa datos aqui</span></ref>
                         @if(isset($txt))
+                            <span class="input-group-btn">
                             <input type="text" name="text" class="form-control" value="{{$txt}}">
+                                </span>
                         @else
-                            <input type="text" name="text" class="form-control" placeholder="Ingresa datos aqui .."
+                            <span class="input-group-btn">
+                            <input type="text" name="text" class="form-control"
                                    autocomplete="off">
+                                </span>
                         @endif
                         <span class="input-group-btn">
                             <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
@@ -59,7 +63,9 @@
                 </div>
             </form>
             <!--tabla-->
-            <div class="table-responsive col-sm-12">
+            <div>
+                <br>
+            <div class="table-responsive ">
                 @if(isset($nombre)!=null)
                     <div class="alert alert-success" role="alert">El alumno {{$nombre}} fue actualizada!!</div>
                 @endif
@@ -87,31 +93,31 @@
                     </thead>
                     <body>
                     @if(isset($alumno))
-                        <!--Contenido-->
-                        @foreach($alumno as $a)
-                            <tr>
-                                <td>{{$a->dni}}</td>
-                                <td>{{$a->nombres}} {{$a->apellidos}}</td>
-                                <td>{{$a->codAlumno}}</td>
-                                <td>{{$a->fecha}}</td>
-                                <td align="center">
-                                    {{ csrf_field() }}
-                                    <a href="AlumnoCargar/{{$a->codPersona}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
-                                    <a href="AlumnoEliminar/{{$a->codPersona}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
-                                </td>
-                            </tr>
-                        @endforeach
+                            <!--Contenido-->
+                    @foreach($alumno as $a)
+                        <tr>
+                            <td>{{$a->dni}}</td>
+                            <td>{{$a->nombres}} {{$a->apellidos}}</td>
+                            <td>{{$a->codAlumno}}</td>
+                            <td>{{$a->fecha}}</td>
+                            <td align="center">
+                                {{ csrf_field() }}
+                                <a href="AlumnoCargar/{{$a->codPersona}}"><span
+                                            class="glyphicon glyphicon-pencil"></span> </a>
+                                <a href="AlumnoEliminar/{{$a->codPersona}}"><span
+                                            class="glyphicon glyphicon-trash"></span> </a>
+                            </td>
+                        </tr>
+                    @endforeach
                     @endif
                     </body>
                 </table>
             </div>
-            <div id="dataList">
 
-            </div>
         </div>
+
     </div>
+
     <script>
 
     </script>

@@ -2,6 +2,9 @@
 <html lang="en">
 @if( Session::has('tipoCuentaA'))
     <head>
+        <style>
+            body {overflow-x:hidden!important;}
+        </style>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,10 +13,6 @@
         <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/font-awesome/css/font-awesome.min.css')}}">
         <title> Unt - Tesoreria </title>
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
@@ -26,7 +25,7 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
     </head>
-    <body style="background-color:#ccd0d2">
+    <body style="background-color:#ccd0d2" >
         <div class="row  " >
             <div class="row " style="background-color: #FFFFFF">
                 <br>
@@ -88,14 +87,12 @@
     <!-- Include Date Range Picker -->
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
     <!-- Javascript -->
     <script src="{{asset('assets/js/jquery-1.11.1.min.js')}}"></script>
     <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('assets/js/jquery.backstretch.min.js')}}"></script>
 
-    <!--[if lt IE 10]>
     <script src="{{asset('assets/js/placeholder.js')}}"></script>
     <![endif]-->
     @yield('scripts')

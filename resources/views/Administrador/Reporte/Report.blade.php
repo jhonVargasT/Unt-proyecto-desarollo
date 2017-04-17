@@ -28,8 +28,8 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <div class="panel panel-primary">
-        <div class="panel panel-heading"> Reporte Pagos</div>
+    <div class=" panel-heading"> <h3>Reporte Pagos</h3></div>
+    <div  style="background-color: #FFFFFF" >
         <div class="panel-body">
             <div class="panel-body form-group ">
                 <form id="miform" action="{{'reportePago'}}" role="form" method="POST" class="Vertical">
