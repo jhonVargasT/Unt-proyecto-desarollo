@@ -125,7 +125,7 @@
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm " align="left">
                         <span class="col-sm-2 control-label">Cuenta bancaria</span>
-                        <div class="col-sm-1">
+                        <div class="col-sm-2">
                             <input class="form-control input-sm " name="cuentab" type="text" id="cuenta"
                                    onkeypress="return validarNum(event)" required>
                             <input id="help_button" type="button" value="Mostrar"/>
@@ -148,16 +148,15 @@
                 </script>
                 <style>
                     #help {
-                        background-color: lightgray;
+                        background-color: lightblue;
                         width: 300px;
-                        height: 150px;
+                        height: auto;
                         display: none;
                         position: fixed;
                         top: 60%;
                         left: 57.5%;
                         margin: -150px 0 0 -150px;
                     }
-
                     table {
                         font-family: arial, sans-serif;
                         border-collapse: collapse;
@@ -191,13 +190,30 @@
             <div id="help" align="center">
                 <table>
                     <tr>
-                        <th>Banco</th>
-                        <th>Cuenta</th>
+                        <th>Banco y cuenta</th>
                     </tr>
-                    <tr>
-                        <td>Banco de la Nacion</td>
-                        <td>123456789</td>
-                    </tr>
+                    <tr1>
+                        <td id="td"></td>
+                    </tr1>
+                    <script>
+                        if ($("#help_button").val() == "Mostrar") {
+                            $.ajax({
+                                url: '/banco',
+                                type: "get",
+                                data: '',
+                                success: function (data) {
+                                    for (var i = 0; i < data.length; i++) {
+                                        $('#td').append("" + data[i], "<br>");
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            if ($("#help_button").val() == "Cerrar") {
+                                $('#td').val('');
+                            }
+                        }
+                    </script>
                 </table>
             </div>
         </div>

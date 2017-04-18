@@ -109,4 +109,15 @@ class donacionController extends Controller
         }
     }
 
+    public function banco()
+    {
+        $products = DB::select('select banco, cuenta from banco');
+
+        $data = array();
+        foreach ($products as $product) {
+            $data[] = array($product->banco , $product->cuenta);
+        }
+        return $data;
+    }
+
 }

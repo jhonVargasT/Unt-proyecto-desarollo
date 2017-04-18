@@ -271,6 +271,7 @@ Route::get('/facultad', 'alumnoController@facultad');
 
 Route::get('/obtenerDatos','pagoController@obtenerDatos');
 
+Route::get('/banco','donacionController@banco');
 ////////////////////////CULQI///////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/pagoonline', function () {
