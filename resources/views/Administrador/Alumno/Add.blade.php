@@ -84,7 +84,10 @@
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label"> Fecha matricula</span>
                                     <div class="col-sm-12 input-group date" data-provide="datepicker">
-                                        <input type="text" name="fecha" class="form-control">
+                                        <input type="text" name="fecha" class="form-control"
+                                               value="<?php date_default_timezone_set('America/Lima');
+                                               $date = date('d/m/Y');
+                                               echo $date ?>">
                                         <div class="input-group-addon">
                                             <span class="glyphicon glyphicon-th"></span>
                                         </div>

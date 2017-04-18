@@ -445,7 +445,7 @@
         <script src="https://checkout.culqi.com/v2"></script>
         <!-- Configurando el checkout-->
         <script>
-            Culqi.publicKey = 'pk_live_cCUgWQaZkdXPKP6j';
+            Culqi.publicKey = 'pk_test_kenUEv1GL5NAM7OO';
         </script>
 
         <!-- Configurando el checkout-->
@@ -494,7 +494,7 @@
                             apellidos: $('#lastname').val(),
                             detalle: $('#detalle').val(),
                             text: $('#ts').val(),
-                            email: $('#email').val()
+                            email:  Culqi.token.email
                         },
                         success: function (data) {
                             if (data == 'ok')

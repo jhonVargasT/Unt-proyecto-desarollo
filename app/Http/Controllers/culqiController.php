@@ -57,7 +57,7 @@ class culqiController extends Controller
         if ($valid == true) {
             try {
                 // Configurar tu API Key y autenticación
-                $SECRET_KEY = "sk_live_FZMiNSBwrCkfUicS";
+                $SECRET_KEY = "sk_test_Z1aMDe3V3b7BkYIi";
                 $culqi = new Culqi(array('api_key' => $SECRET_KEY));
                 // Creando Cargo a una tarjeta
 
@@ -68,7 +68,7 @@ class culqiController extends Controller
                         "currency_code" => "PEN",
                         "description" => $request->st,
                         "installments" => 0,
-                        "email" => 'prueba@gmail.com',
+                        "email" => $request->email,
                         "source_id" => $request->token,
                     )
                 );

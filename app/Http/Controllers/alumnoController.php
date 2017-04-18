@@ -18,8 +18,7 @@ class alumnoController extends Controller
         $alumno->setApellidos($request->apellidos);
         $alumno->setCodAlumno($request->codAlumno);
         $alumno->setCorreo($request->correo);
-        $d = $request->fecha;
-        $date = implode("-", array_reverse(explode("/", $d)));
+        $date = implode("-", array_reverse(explode("/", $request->fecha)));
         $alumno->setFecha($date);
         $idE = $alumno->bdEscuela($request->nombreEscuela);
         $alumno->setIdEscuela($idE);
