@@ -237,7 +237,6 @@
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </div>
-
                             </div>
                         </div>
                         <div class="form-group-sm col-sm-2 ">

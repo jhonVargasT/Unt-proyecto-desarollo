@@ -101,8 +101,8 @@ class pagoController extends Controller
     public function buscarNombresD(Request $request)
     {
         $var = $request->name;
-        $nombresa = DB::select('select * from persona 
-        left join alumno on persona.codPersona = alumno.idPersona 
+        $nombresa = DB::select('select * from persona
+        left join alumno on persona.codPersona = alumno.idPersona
         where persona.codPersona = alumno.idPersona and persona.dni=:dni and persona.estado=1 and alumno.estado=1', ['dni' => $var]);
         foreach ($nombresa as $np) {
             $na = $np->nombres;
@@ -113,8 +113,8 @@ class pagoController extends Controller
     public function buscarNombresDR(Request $request)
     {
         $var = $request->name;
-        $nombres = DB::select('select * from persona 
-        left join cliente on persona.codPersona = cliente.idPersona 
+        $nombres = DB::select('select * from persona
+        left join cliente on persona.codPersona = cliente.idPersona
         where persona.codPersona = cliente.idPersona and persona.dni=:dni and persona.estado=1 and cliente.estado=1', ['dni' => $var]);
         foreach ($nombres as $np) {
             $nombres = $np->nombres;
@@ -125,7 +125,7 @@ class pagoController extends Controller
     public function buscarNombresR(Request $request)
     {
         $var = $request->name;
-        $nombres = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona 
+        $nombres = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona
         where persona.codPersona = cliente.idPersona and cliente.ruc=:ruc and persona.estado=1 and cliente.estado=1', ['ruc' => $var]);
         foreach ($nombres as $np) {
             $nombres = $np->nombres;
@@ -136,7 +136,7 @@ class pagoController extends Controller
     public function buscarNombresC(Request $request)
     {
         $var = $request->name;
-        $nombres = DB::select('select * from persona left join alumno on persona.codPersona = alumno.idPersona 
+        $nombres = DB::select('select * from persona left join alumno on persona.codPersona = alumno.idPersona
         where persona.codPersona = alumno.idPersona and alumno.codAlumno=:codAlumno and persona.estado=1 and alumno.estado=1', ['codAlumno' => $var]);
         foreach ($nombres as $np) {
             $nombres = $np->nombres;
@@ -147,7 +147,7 @@ class pagoController extends Controller
     public function buscarApellidosR(Request $request)
     {
         $var = $request->name;
-        $nombres = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona 
+        $nombres = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona
         where persona.codPersona = cliente.idPersona and cliente.ruc=:ruc and persona.estado=1 and cliente.estado=1', ['ruc' => $var]);
         foreach ($nombres as $np) {
             $apellidos = $np->apellidos;
@@ -158,8 +158,8 @@ class pagoController extends Controller
     public function buscarApellidosD(Request $request)
     {
         $var = $request->name;
-        $nombresP = DB::select('select * from persona 
-        left join alumno on persona.codPersona = alumno.idPersona 
+        $nombresP = DB::select('select * from persona
+        left join alumno on persona.codPersona = alumno.idPersona
         where persona.codPersona = alumno.idPersona and persona.dni=:dni and persona.estado=1 and alumno.estado=1', ['dni' => $var]);
         foreach ($nombresP as $np) {
             $apellidos = $np->apellidos;
@@ -170,8 +170,8 @@ class pagoController extends Controller
     public function buscarApellidosDR(Request $request)
     {
         $var = $request->name;
-        $nombresP = DB::select('select * from persona 
-        left join cliente on persona.codPersona = cliente.idPersona 
+        $nombresP = DB::select('select * from persona
+        left join cliente on persona.codPersona = cliente.idPersona
         where persona.codPersona = cliente.idPersona and persona.dni=:dni and persona.estado=1 and cliente.estado=1', ['dni' => $var]);
         foreach ($nombresP as $np) {
             $apellidos = $np->apellidos;
@@ -182,8 +182,8 @@ class pagoController extends Controller
     public function buscarApellidosC(Request $request)
     {
         $var = $request->name;
-        $nombresP = DB::select('select * from persona 
-        left join alumno on persona.codPersona = alumno.idPersona 
+        $nombresP = DB::select('select * from persona
+        left join alumno on persona.codPersona = alumno.idPersona
         where persona.codPersona = alumno.idPersona and alumno.codAlumno=:codAlumno and persona.estado=1 and alumno.estado=1', ['codAlumno' => $var]);
         foreach ($nombresP as $np) {
             $apellidos = $np->apellidos;
@@ -194,11 +194,11 @@ class pagoController extends Controller
     public function buscarEscuelaD(Request $request)
     {
         $var = $request->name;
-        $nombresE = DB::select('select escuela.nombre from persona 
+        $nombresE = DB::select('select escuela.nombre from persona
         left join alumno on persona.codPersona = alumno.idPersona
-        left join escuela on escuela.idEscuela = alumno.coEscuela 
-        where persona.codPersona = alumno.idPersona 
-        and escuela.idEscuela = alumno.coEscuela 
+        left join escuela on escuela.idEscuela = alumno.coEscuela
+        where persona.codPersona = alumno.idPersona
+        and escuela.idEscuela = alumno.coEscuela
         and persona.dni=:dni and persona.estado=1 and alumno.estado=1 and escuela.estado =1', ['dni' => $var]);
         foreach ($nombresE as $ne) {
             $escuelan = $ne->nombre;
@@ -209,11 +209,11 @@ class pagoController extends Controller
     public function buscarEscuelaC(Request $request)
     {
         $var = $request->name;
-        $nombresE = DB::select('select escuela.nombre from persona 
+        $nombresE = DB::select('select escuela.nombre from persona
         left join alumno on persona.codPersona = alumno.idPersona
-        left join escuela on escuela.idEscuela = alumno.coEscuela 
-        where persona.codPersona = alumno.idPersona 
-        and escuela.idEscuela = alumno.coEscuela 
+        left join escuela on escuela.idEscuela = alumno.coEscuela
+        where persona.codPersona = alumno.idPersona
+        and escuela.idEscuela = alumno.coEscuela
         and alumno.codAlumno=:codAlumno and persona.estado=1 and alumno.estado=1 and escuela.estado =1', ['codAlumno' => $var]);
         foreach ($nombresE as $ne) {
             $escuelan = $ne->nombre;
@@ -224,11 +224,11 @@ class pagoController extends Controller
     public function buscarFacultadD(Request $request)
     {
         $var = $request->name;
-        $nombresF = DB::select('select facultad.nombre from persona 
+        $nombresF = DB::select('select facultad.nombre from persona
         left join alumno on persona.codPersona = alumno.idPersona
         left join escuela on escuela.idEscuela = alumno.coEscuela
-        left join facultad on facultad.idFacultad = escuela.codigoFacultad 
-        where persona.codPersona = alumno.idPersona 
+        left join facultad on facultad.idFacultad = escuela.codigoFacultad
+        where persona.codPersona = alumno.idPersona
         and escuela.idEscuela = alumno.coEscuela
         and facultad.idFacultad = escuela.codigoFacultad
         and persona.dni=:dni and persona.estado=1 and alumno.estado=1 and escuela.estado =1 and facultad.estado=1', ['dni' => $var]);
@@ -241,11 +241,11 @@ class pagoController extends Controller
     public function buscarFacultadC(Request $request)
     {
         $var = $request->name;
-        $nombresF = DB::select('select facultad.nombre from persona 
+        $nombresF = DB::select('select facultad.nombre from persona
         left join alumno on persona.codPersona = alumno.idPersona
         left join escuela on escuela.idEscuela = alumno.coEscuela
-        left join facultad on facultad.idFacultad = escuela.codigoFacultad 
-        where persona.codPersona = alumno.idPersona 
+        left join facultad on facultad.idFacultad = escuela.codigoFacultad
+        where persona.codPersona = alumno.idPersona
         and escuela.idEscuela = alumno.coEscuela
         and facultad.idFacultad = escuela.codigoFacultad
         and alumno.codAlumno=:codAlumno and persona.estado=1 and alumno.estado=1 and escuela.estado =1 and facultad.estado=1', ['codAlumno' => $var]);
@@ -258,7 +258,7 @@ class pagoController extends Controller
     public function precioSubtramite(Request $request)
     {
         $var = $request->name;
-        $precioS = DB::select('select precio from subtramite 
+        $precioS = DB::select('select precio from subtramite
         where nombre=:nombre and estado=1', ['nombre' => $var]);
         foreach ($precioS as $ps) {
             $precio = $ps->precio;
@@ -433,33 +433,46 @@ class pagoController extends Controller
     {
         $result = null;
         $pagoModel = new pagomodel();
-        if ($request->tipreporte == 'Resumen total') {
+        $varOpc=$request->tipreporte;
+        $vartiemp= $request->combito;
+        $varaño=$request->año1;
+        echo $vartiemp;
+        if ($varOpc == 'Resumen total') {
             $tiempo = null;
-            if ($request->tiempo == 'Año') {
-                $tiempo = 'where Year(po.fecha) = ' . $request->fecha . '';
+
+            if ($vartiemp == 1) {
+                echo $varaño;
+                $tiempo = 'where Year(po.fecha) = ' .$varaño. '';
                 $result = $pagoModel->listarpagosresumen($tiempo);
-            } elseif ($request->tiempo == 'Mes') {
-                $tiempo = 'where MONTH(po.fecha) = ' . $request->fecha . ' and Year(po.fecha)=(select Year (NOW()))';
+
+            } else{
+              if ($vartiemp == 2) {
+              echo $request->tiempo . '     '.$request->tipreporte;
+                $tiempo = 'where MONTH(po.fecha) = ' . $request->mes2 . ' and Year(po.fecha)='.$request->año2.'';
                 $result = $pagoModel->listarpagosresumen($tiempo);
-            } elseif ($request->tiempo == 'Dia') {
-                $tiempo = 'where DAY(po.fecha) =' . $request->fecha . ' and Month(po.fecha)=(select MONTH (NOW()))';
+                  echo 'aqui';
+            } else{if ($vartiemp == 3) {
+                  $tiempo =  'where po.fecha = DATE_FORMAT(' . $request->fecha .')';
                 $result = $pagoModel->listarpagosresumen($tiempo);
-            }
+            }}
+          }
             $total = 0;
             foreach ($result as $r) {
                 $total += $r->importe;
             }
             return view('Administrador/Reporte/reporteresumido')->with(['resultresu' => $result, 'fecha' => $request->fecha, 'total' => $total, 'tiempo' => $request->tiempo, 'tiprep' => $request->tipreporte]);
-        } elseif ($request->tipreporte == 'Codigo S.I.A.F') {
+        } elseif ($varOpc == 'Clasificador S.I.A.F') {
+
             $tiempo = null;
-            if ($request->tiempo == 'Año') {
-                $tiempo = 'where Year(po.fecha) = ' . $request->fecha . '';
+            if ($vartiemp == 1) {
+                echo $varaño;
+                $tiempo = 'where Year(po.fecha) = ' .$varaño. '';
                 $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
-            } elseif ($request->tiempo == 'Mes') {
-                $tiempo = 'where MONTH(po.fecha) = ' . $request->fecha . ' and Year(po.fecha)=(select Year (NOW()))';
+            } elseif ($vartiemp == 2) {
+                $tiempo = 'where MONTH(po.fecha) = ' . $request->mes2 . ' and Year(po.fecha)='.$request->año2.'';
                 $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
-            } elseif ($request->tiempo == 'Dia') {
-                $tiempo = 'where DAY(po.fecha) =' . $request->fecha . ' and Month(po.fecha)=(select MONTH (NOW()))';
+            } elseif ($vartiemp == 3) {
+                $tiempo =  'where po.fecha = DATE_FORMAT(' . $request->fecha .')';
                 $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
             }
             $total = 0;
@@ -467,10 +480,9 @@ class pagoController extends Controller
                 $total += $r->precio;
             }
             return view('Administrador/Reporte/reporteresumido')->with(['resultsiaf' => $result, 'fecha' => $request->fecha, 'total' => $total, 'tiprep' => $request->tipreporte, 'tiempo' => $request->tiempo]);
+
         }
-
     }
-
     //macartur
     public function obtenerPagosDiariosPersonal()
     {

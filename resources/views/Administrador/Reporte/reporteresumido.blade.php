@@ -21,43 +21,99 @@
 @stop
 @section('content')
     @if( Session::has('tipoCuentaA'))
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <div class="panel-heading"> <h3>Reporte Pagos</h3></div>
-        <div  style="background-color: #FFFFFF" >
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".contenido").hide();
+                $("#combito").change(function () {
+                    $(".contenido").hide();
+                    $("#div_" + $(this).val()).show();
+                });
+
+            });
+            $( "#datepicker" ).datepicker({
+                // Formato de la fecha
+                dateFormat: "dd/mm/yy",
+                // Primer dia de la semana El lunes
+                firstDay: 1,
+                // Dias Largo en castellano
+                dayNames: [ "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado" ],
+                // Dias cortos en castellano
+                dayNamesMin: [ "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa" ],
+                // Nombres largos de los meses en castellano
+                monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" ],
+                // Nombres de los meses en formato corto
+                monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dec" ],
+                // Cuando seleccionamos la fecha esta se pone en el campo Input
+                onSelect: function(dateText) {
+                    $('#fecha').val(dateText);
+                }
+            });
+            function agregarMenu(val) {
+                if (val === 1) {
+                    document.getElementById('opc').innerHTML("<input class='form-control input-sm' type='text' @if(isset($fecha) ) value='{{$fecha}}' @endif name='fecha' required> ");
+                }
+            }
+        </script>
+        <div class="panel-heading"><h3>Reporte Pagos</h3></div>
+        <div style="background-color: #FFFFFF">
             <div class="panel-body">
                 <div class="panel-body form-group ">
                     <form id="miform" action="{{'admReporteresumido'}}" role="form" method="POST" class="Vertical">
                         {{csrf_field()}}
-                        <div class="col-sm-12 row form-group">
-                            <div class="form-group-sm col-sm-4 ">
-                                <span class="col-sm-5 control-label">Tipo de reporte para :</span>
-                                <div class="col-sm-7 ">
-                                    <select class="form-control" name="tipreporte">
+                        <div class="row ">
 
-                                        <option>Clasificador S.I.A.F</option>
-                                        <option>Resumen total</option>
-                                    </select>
-                                </div>
+                            <div class="form-group-sm col-sm-3 ">
+                                <span class=" control-label">Tipo de reporte para :</span>
+                                <select class="form-control" name="tipreporte">
+
+                                    <option>Clasificador S.I.A.F</option>
+                                    <option>Resumen total</option>
+                                </select>
                             </div>
-                            <div class="form-group-sm col-sm-4 ">
-                                <span class="col-sm-3 control-label">Buscar por :</span>
-                                <div class="col-sm-9 ">
+                            <div class="form-group-sm col-sm-2 ">
+                                <span class="control-label">Buscar por :</span>
+                                <select class=" form-control" name="combito" id="combito">
+                                    <option >Escojer</option>
+                                    <option value="1">Año</option>
+                                    <option value="2">Mes</option>
+                                    <option value="3">Dia</option>
+                                </select>
+                            </div>
+                            <div class="form-group-sm col-sm-2 " id="opc">
+                                <div id="div_1" class="contenido">
+                                    <span class=" control-label">Año :</span>
+
+                                        <input type="text" class="form-control input-sm " id="año1" name="año1"
+                                               autocomplete="off" >
+
+                                </div>
+                                <div id="div_2" class="row contenido">
                                     <div class="col-sm-6">
-                                        <select class=" form-control" name="tiempo">
-                                            <option>Año</option>
-                                            <option>Mes</option>
-                                            <option>Dia</option>
-                                        </select>
+                                        <span class=" control-label">Año :</span>
+                                        <input type="text" class="form-control input-sm " id="trinp" name="año2"
+                                               autocomplete="off" >
                                     </div>
                                     <div class="col-sm-6">
-                                        <input class="form-control input-sm" type="text" @if(isset($fecha) )
-                                        value="{{$fecha}}"
-                                               @endif name="fecha" required>
+                                        <span class=" control-label">Mes :</span>
+                                        <input type="text" class="form-control input-sm " id="trinp" name="mes2"
+                                               autocomplete="off" >
                                     </div>
+                                </div>
+                                <div id="div_3" class="contenido ">
+                                    <span class=" control-label">Elija fecha :</span>
+                                    <div class="input-group date " data-provide="datepicker">
+                                        <input type="dia" name="fecha"  class="form-control"
+                                               autocomplete="off" >
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="form-group-sm col-sm-1">
+                                <span class=" control-label"><p> </p></span>
                                 <button type="submit" class="btn  btn-success" id="imp"><span
                                             class="glyphicon glyphicon-repeat"></span> Actualizar
                                 </button>
