@@ -444,7 +444,7 @@ class pagoController extends Controller
         $varOpc=$request->tipreporte;
         $vartiemp= $request->combito;
         $varaño=$request->año1;
-        echo $vartiemp;
+     
         if ($varOpc == 'Resumen total') {
             $tiempo = null;
 
@@ -458,7 +458,7 @@ class pagoController extends Controller
               echo $request->tiempo . '     '.$request->tipreporte;
                 $tiempo = 'where MONTH(po.fecha) = ' . $request->mes2 . ' and Year(po.fecha)='.$request->año2.'';
                 $result = $pagoModel->listarpagosresumen($tiempo);
-                  echo 'aqui';
+
             } else{if ($vartiemp == 3) {
                   $tiempo =  'where po.fecha = DATE_FORMAT(' . $request->fecha .')';
                 $result = $pagoModel->listarpagosresumen($tiempo);

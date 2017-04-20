@@ -20,10 +20,43 @@
         <!-- Favicon and touch icons -->
         <link rel="shortcut icon" href="{{asset('assets/ico/favicon.png')}}">
 
-
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
+        <title>Velonic - Responsive Admin Dashboard Template</title>
+
+        <!-- Google-Fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:100,300,400,600,700,900,400italic' rel='stylesheet'>
+
+
+        <!-- Bootstrap core CSS -->
+        <link href="{{asset('assets/css/bootstrap.min.css')}}"  rel="stylesheet">
+
+
+        <!--Animation css-->
+        <link href="{{asset('assets/css/animate.css')}}" rel="stylesheet">
+
+        <!--Icon-fonts css-->
+        <link href="{{asset('assets/css/font-awesome.css')}}" rel="stylesheet" />
+        <link href="{{asset('assets/ionicon/css/ionicons.min.css')}}" rel="stylesheet" />
+
+        <!--Morris Chart CSS -->
+        <link rel="stylesheet" href="{{asset('assets/morris/morris.css')}}">
+
+
+        <!-- Custom styles for this template -->
+
+        <link href="{{asset('assets/css/style-responsive.css')}}" rel="stylesheet" />
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-62751496-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
     </head>
     <body style="background-color:#ccd0d2" >
         <div class="row  " >

@@ -31,24 +31,7 @@
                 });
 
             });
-            $( "#datepicker" ).datepicker({
-                // Formato de la fecha
-                dateFormat: "dd/mm/yy",
-                // Primer dia de la semana El lunes
-                firstDay: 1,
-                // Dias Largo en castellano
-                dayNames: [ "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado" ],
-                // Dias cortos en castellano
-                dayNamesMin: [ "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa" ],
-                // Nombres largos de los meses en castellano
-                monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" ],
-                // Nombres de los meses en formato corto
-                monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dec" ],
-                // Cuando seleccionamos la fecha esta se pone en el campo Input
-                onSelect: function(dateText) {
-                    $('#fecha').val(dateText);
-                }
-            });
+          
             function agregarMenu(val) {
                 if (val === 1) {
                     document.getElementById('opc').innerHTML("<input class='form-control input-sm' type='text' @if(isset($fecha) ) value='{{$fecha}}' @endif name='fecha' required> ");
@@ -113,9 +96,8 @@
                                 </div>
                             </div>
                             <div class="form-group-sm col-sm-1">
-                                <span class=" control-label"><p> </p></span>
-                                <button type="submit" class="btn  btn-success" id="imp"><span
-                                            class="glyphicon glyphicon-repeat"></span> Actualizar
+                                <span class=" control-label">.  </span>
+                                <button type="submit" class="btn btn-sm btn-success s-b-5" id="imp"><i class="ion-ios7-search"> </i> Actualizar
                                 </button>
                             </div>
                         </div>
