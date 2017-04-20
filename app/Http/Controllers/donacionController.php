@@ -69,6 +69,9 @@ class donacionController extends Controller
 
     public function listarDonaciones(Request $request)
     {
+        $valueA = Session::get('tipoCuentaA');
+        $valueR = Session::get('tipoCuentaR');
+
         $don = null;
         $donacion = new donacionmodel();
 
@@ -94,7 +97,11 @@ class donacionController extends Controller
                 }
             }
         }
-        return view('Administrador/DonacionesYTransacciones/Search')->with(['donacion' => $don, 'txt' => $request->text, 'select' => $request->select]);
+        if ($valueA == 'Administrador')
+            return view('Administrador/DonacionesYTransacciones/Search')->with(['donacion' => $don, 'txt' => $request->text, 'select' => $request->select]);
+        if ($valueR == 'Reportes')
+            return view('Reportes/DonacionYTransacciones/Search')->with(['donacion' => $don, 'txt' => $request->text, 'select' => $request->select]);
+
     }
 
     public function eliminarDonacion($codDonacion, Request $request)
@@ -115,7 +122,7 @@ class donacionController extends Controller
 
         $data = array();
         foreach ($products as $product) {
-            $data[] = array($product->banco , $product->cuenta);
+            $data[] = array($product->banco, $product->cuenta);
         }
         return $data;
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\sedemodel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 
 class sedeController extends Controller
@@ -45,6 +46,8 @@ class sedeController extends Controller
 
     public function listarSede(Request $request)
     {
+        $valueA = Session::get('tipoCuentaA');
+        $valueR = Session::get('tipoCuentaR');
         $sed = null;
         $sede = new sedemodel();
 
@@ -61,7 +64,10 @@ class sedeController extends Controller
                 }
             }
         }
-        return view('Administrador/Sede/Search')->with(['sede' => $sed, 'txt' => $request->text, 'select' => $request->select]);
+        if ($valueA == 'Administrador')
+            return view('Administrador/Sede/Search')->with(['sede' => $sed, 'txt' => $request->text, 'select' => $request->select]);
+        if ($valueR == 'Reportes')
+            return view('Reportes/Sede/Search')->with(['sede' => $sed, 'txt' => $request->text, 'select' => $request->select]);
     }
 
     public function eliminarSede($codSede, Request $request)

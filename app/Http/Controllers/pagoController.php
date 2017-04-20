@@ -274,6 +274,9 @@ class pagoController extends Controller
 
     public function listarPago(Request $request)
     {
+        $valueA = Session::get('tipoCuentaA');
+        $valueV = Session::get('tipoCuentaV');
+        $valueR = Session::get('tipoCuentaR');
         $val = 0;
         $total = 0;
         $pag = null;
@@ -325,7 +328,12 @@ class pagoController extends Controller
         foreach ($pag as $p) {
             $total = $total + $p->precio;
         }
-        return view('Ventanilla/Pagos/ReportPago')->with(['pagos' => $pag, 'txt' => $request->text, 'select' => $request->selected, 'total' => $total]);
+        if ($valueA == 'Administrador')
+        return view('Adminnistrador/Pagos/ReportPago')->with(['pagos' => $pag, 'txt' => $request->text, 'select' => $request->selected, 'total' => $total]);
+        if ($valueV == 'Ventanilla')
+            return view('Ventanilla/Pagos/ReportPago')->with(['pagos' => $pag, 'txt' => $request->text, 'select' => $request->selected, 'total' => $total]);
+        if ($valueR == 'Reportes')
+            return view('Reportes/Pagos/ReportPago')->with(['pagos' => $pag, 'txt' => $request->text, 'select' => $request->selected, 'total' => $total]);
     }
 
     public function eliminarPago($codPago)

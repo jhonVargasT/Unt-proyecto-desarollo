@@ -410,6 +410,40 @@ class pagomodel
         return $pagobd;
     }
 
+    public function consultarCodigoPagoReporteR($codPago, $val)
+    {
+        $pagobd = DB::select('SELECT 
+    pago.codPago,
+    p1.dni AS p1dni,
+    p1.nombres AS p1nombres,
+    p1.apellidos AS p1apellidos,
+    subtramite.nombre,
+    pago.fecha AS pfecha,
+    subtramite.precio,
+    pago.modalidad,
+    detalle,
+    estadodeuda
+FROM
+    pago
+        LEFT JOIN
+    subtramite ON pago.idSubtramite = subtramite.codSubtramite
+        LEFT JOIN
+    personal ON pago.coPersonal = personal.idPersonal
+        LEFT JOIN
+    persona AS p1 ON p1.codPersona = pago.idPersona
+WHERE
+    pago.idSubtramite = subtramite.codSubtramite
+        AND p1.codPersona = pago.idPersona
+        AND pago.estado = 1
+        AND subtramite.estado = 1
+        AND p1.estado = 1
+        AND pago.estadodeuda = ' . $val . '
+        AND pago.codPago = '. $codPago . '
+ORDER BY pago.codPago DESC');
+
+        return $pagobd;
+    }
+
     public function consultarCodigoPersonal($codPersonal)
     {
         date_default_timezone_set('America/Lima');

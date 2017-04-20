@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\subtramitemodel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class subtramiteController extends Controller
 {
@@ -49,6 +50,8 @@ class subtramiteController extends Controller
 
     public function listarSubtramite(Request $request)
     {
+        $valueA = Session::get('tipoCuentaA');
+        $valueR = Session::get('tipoCuentaR');
         $sub = null;
         $subtramite = new subtramitemodel();
 
@@ -65,7 +68,10 @@ class subtramiteController extends Controller
                 }
             }
         }
-        return view('Administrador/SubTramite/search')->with(['subtramite' => $sub, 'txt' => $request->text, 'select' => $request->select]);
+        if ($valueA == 'Administrador')
+            return view('Administrador/SubTramite/search')->with(['subtramite' => $sub, 'txt' => $request->text, 'select' => $request->select]);
+        if ($valueR == 'Reportes')
+            return view('Reportes/SubTramite/search')->with(['subtramite' => $sub, 'txt' => $request->text, 'select' => $request->select]);
     }
 
     public function eliminarSubtramite($codSubtramite, Request $request)

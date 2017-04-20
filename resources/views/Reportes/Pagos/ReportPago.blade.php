@@ -1,4 +1,4 @@
-@extends('Ventanilla.Body')
+@extends('Reportes.Body')
 @section('pago')
     <div id="collapseOne" class="collapse in">
         <div class="panel-body">
@@ -6,13 +6,13 @@
                 <tr>
                     <td>
                         <i class="icomoon icon-coin"></i>
-                        <a href="/ventRelizarPago">Realizar pago</a>
+                        <a href="/repRelizarPago">Realizar pago</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <i class="glyphicon glyphicon-list-alt"></i>
-                        <a href="/ventReportPago" style="color: #509f0c" target="_top">Mostrar pagos</a>
+                        <a href="/repReportPago" style="color: #509f0c" target="_top">Mostrar pagos</a>
                     </td>
                 </tr>
             </table>
@@ -20,7 +20,7 @@
     </div>
 @stop
 @section('content')
-    <div class="panel-heading"><h3>  Reportar Pago</h3></div>
+    <div class="panel-heading"><h3> Reportar Pago</h3></div>
     <div style="background-color: #FFFFFF">
 
         <div class="panel-body">
@@ -35,7 +35,7 @@
                                 <option value="Codigo alumno">Codigo alumno</option>
                                 <option value="Ruc">Ruc</option>
                                 <option value="Codigo pago">Codigo pago</option>
-                                <option value="Codigo personal">Reporte diario</option>
+                                <!--<option value="Codigo personal">Reporte diario</option>-->
                                 <option value="Todo">Todo</option>
                             </select>
                         </div>

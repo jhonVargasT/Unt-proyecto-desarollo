@@ -35,7 +35,7 @@ class ExcelController extends Controller
                             if ($select == 'Codigo pago') {
                                 $pag = $pago->consultarCodigoPago($txt, $val);
                             } else {
-                                if ($select == 'Codigo personal') {
+                                if ($select == 'Todo') {
                                     $pag = $pago->consultarPagos($val);
                                 }
                             }

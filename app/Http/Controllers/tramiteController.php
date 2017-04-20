@@ -46,6 +46,8 @@ class tramiteController extends Controller
 
     public function listarTramite(Request $request)
     {
+        $valueA = Session::get('tipoCuentaA');
+        $valueR = Session::get('tipoCuentaR');
         $tra = null;
         $tramite = new tramitemodel();
 
@@ -66,7 +68,10 @@ class tramiteController extends Controller
                 }
             }
         }
-        return view('Administrador/Tramite/search')->with(['tramite' => $tra, 'txt' => $request->text, 'select' => $request->select]);
+        if ($valueA == 'Administrador')
+            return view('Administrador/Tramite/search')->with(['tramite' => $tra, 'txt' => $request->text, 'select' => $request->select]);
+        if ($valueR == 'Reportes')
+            return view('Reportes/Tramite/search')->with(['tramite' => $tra, 'txt' => $request->text, 'select' => $request->select]);
     }
 
     public function eliminarTramite($codTramite, Request $request)

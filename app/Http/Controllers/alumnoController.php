@@ -68,6 +68,8 @@ class alumnoController extends Controller
     {
         $valueA = Session::get('tipoCuentaA');
         $valueV = Session::get('tipoCuentaV');
+        $valueR = Session::get('tipoCuentaR');
+
         $alu = null;
         $alumno = new alumnomodel();
 
@@ -99,6 +101,8 @@ class alumnoController extends Controller
             return view('Administrador/Alumno/Search')->with(['alumno' => $alu, 'txt' => $request->text, 'select' => $request->select]);
         if ($valueV == 'Ventanilla')
             return view('Ventanilla/Alumno/Search')->with(['alumno' => $alu, 'txt' => $request->text, 'select' => $request->select]);
+        if ($valueR == 'Reportes')
+            return view('Reportes/Alumno/Search')->with(['alumno' => $alu, 'txt' => $request->text, 'select' => $request->select]);
     }
 
     public function eliminarAlumno($codPersona, Request $request)
@@ -107,7 +111,7 @@ class alumnoController extends Controller
         $valueV = Session::get('tipoCuentaV');
 
         $alumno = new alumnomodel();
-        $val=$alumno->eliminarAlumno($codPersona);
+        $val = $alumno->eliminarAlumno($codPersona);
 
         if ($valueA == 'Administrador') {
             if ($val == true) {
@@ -123,7 +127,6 @@ class alumnoController extends Controller
                     return back()->with('false', 'Alumno ' . $request->nombres . ' no se elimino')->withInput();
                 }
             }
-
         }
     }
 

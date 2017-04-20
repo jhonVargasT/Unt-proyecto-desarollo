@@ -42,13 +42,13 @@ class personalController extends Controller
         $personal->setCuenta($request->cuenta);
         $personal->setPassword($request->password);
         $person = $personal->logear();
-        $idpersonal=null;
+        $idpersonal = null;
         foreach ($person as $per) {
             $personal->setCuenta($per->cuenta);
             $personal->setPassword($per->password);
             $personal->setTipoCuenta($per->tipoCuenta);
             Session::put('codPersonal', $per->codPersonal);
-            $idpersonal=$per->idPersonal;
+            $idpersonal = $per->idPersonal;
             $persona = $perso->obtnerId($per->idPersona);
             foreach ($persona as $p) {
                 $personal->setNombres($p->nombres);
@@ -62,21 +62,30 @@ class personalController extends Controller
         if ($personal->getTipoCuenta() == 'Administrador') {
             Session::put('tipoCuentaA', $personal->getTipoCuenta());
             Session::put('tipoCuentaV', null);
+            Session::put('tipoCuentaR', null);
+
         } elseif ($personal->getTipoCuenta() == 'Ventanilla') {
             Session::put('tipoCuentaV', $personal->getTipoCuenta());
+            Session::put('tipoCuentaA', null);
+            Session::put('tipoCuentaR', null);
+        } elseif ($personal->getTipoCuenta() == 'Reportes') {
+            Session::put('tipoCuentaR', $personal->getTipoCuenta());
+            Session::put('tipoCuentaV', null);
             Session::put('tipoCuentaA', null);
         }
 
         if ($personal->getTipoCuenta() == 'Administrador' && $personal->getCuenta() != '') {
-
             return view('/Administrador/Body');
         } else {
             if ($personal->getTipoCuenta() == 'Ventanilla' && $personal->getCuenta() != '') {
 
                 return view('Ventanilla/Body');
             } else {
-                return back()->with('true', 'Cuenta ' . $personal->getCuenta() . ' no encontrada o contraseña incorrecta')->withInput();
-
+                if ($personal->getTipoCuenta() == 'Reportes' && $personal->getCuenta() != '') {
+                    return view('Reportes/Body');
+                } else {
+                    return back()->with('true', 'Cuenta ' . $personal->getCuenta() . ' no encontrada o contraseña incorrecta')->withInput();
+                }
             }
         }
     }
@@ -88,7 +97,7 @@ class personalController extends Controller
         return view('Administrador/Personal/edit')->with(['personal' => $pers]);
     }
 
-    public function editarPersonal ($idPersonal, Request $request)
+    public function editarPersonal($idPersonal, Request $request)
     {
         $personal = new personalmodel();
         $personal->setDni($request->dni);
@@ -104,6 +113,8 @@ class personalController extends Controller
 
     public function listarPersonal(Request $request)
     {
+        $valueA = Session::get('tipoCuentaA');
+        $valueR = Session::get('tipoCuentaR');
         $pers = null;
         $personal = new personalmodel();
 
@@ -128,13 +139,17 @@ class personalController extends Controller
                 }
             }
         }
-        return view('Administrador/Personal/Search')->with(['personal' => $pers, 'txt' => $request->text, 'select' => $request->select]);
+        if ($valueA == 'Administrador')
+            return view('Administrador/Personal/Search')->with(['personal' => $pers, 'txt' => $request->text, 'select' => $request->select]);
+        if ($valueR == 'Reportes')
+            return view('Reportes/Personal/Search')->with(['personal' => $pers, 'txt' => $request->text, 'select' => $request->select]);
+
     }
 
     public function eliminarPersonal($codPersona, Request $request)
     {
         $personal = new personalmodel();
-        $p=$personal->eliminarPersonal($codPersona);
+        $p = $personal->eliminarPersonal($codPersona);
         if ($p == true) {
             return back()->with('true', 'Personal ' . $request->nombres . ' se elimino con exito')->withInput();
         } else {

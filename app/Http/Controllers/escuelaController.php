@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\escuelamodel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class escuelaController extends Controller
 {
@@ -57,6 +58,8 @@ class escuelaController extends Controller
 
     public function listarEscuela(Request $request)
     {
+        $valueA = Session::get('tipoCuentaA');
+        $valueR = Session::get('tipoCuentaR');
         $esc = null;
         $escuela = new escuelamodel();
 
@@ -77,7 +80,10 @@ class escuelaController extends Controller
                 }
             }
         }
-        return view('Administrador/Escuela/search')->with(['escuela' => $esc, 'txt' => $request->text, 'select' => $request->select]);
+        if ($valueA == 'Administrador')
+            return view('Administrador/Escuela/search')->with(['escuela' => $esc, 'txt' => $request->text, 'select' => $request->select]);
+        if ($valueR == 'Reportes')
+            return view('Reportes/Escuela/search')->with(['escuela' => $esc, 'txt' => $request->text, 'select' => $request->select]);
     }
 
     public function eliminarEscuela($idEscuela, Request $request)

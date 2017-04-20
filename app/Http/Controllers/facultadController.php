@@ -49,6 +49,8 @@ class facultadController extends Controller
 
     public function listarFacultad(Request $request)
     {
+        $valueA = Session::get('tipoCuentaA');
+        $valueR = Session::get('tipoCuentaR');
         $fac = null;
         $facultad = new facultadmodel();
         $opciones = ['Todo', 'Codigo facultad', 'Codigo facultad', 'Nombre Facultad'];
@@ -69,7 +71,10 @@ class facultadController extends Controller
                 }
             }
         }
-        return view('Administrador/Facultad/Search')->with(['facultad' => $fac, 'txt' => $request->text, 'select' => $request->select, 'opciones' => $opciones]);
+        if ($valueA == 'Administrador')
+            return view('Administrador/Facultad/Search')->with(['facultad' => $fac, 'txt' => $request->text, 'select' => $request->select, 'opciones' => $opciones]);
+        if ($valueR == 'Reportes')
+            return view('Reportes/Facultad/Search')->with(['facultad' => $fac, 'txt' => $request->text, 'select' => $request->select, 'opciones' => $opciones]);
     }
 
     public function eliminarFacultad($idFacultad, Request $request)

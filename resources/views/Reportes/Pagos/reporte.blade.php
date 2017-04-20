@@ -56,6 +56,7 @@
                 </thead>
                 <body>
                 <!--Contenido-->
+
                 <tr>
                     <td>{{$p->codPago}}</td>
                     <td>{{$p->p1dni}}</td>

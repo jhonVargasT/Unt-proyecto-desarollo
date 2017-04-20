@@ -65,6 +65,8 @@ class clienteController extends Controller
     {
         $valueA = Session::get('tipoCuentaA');
         $valueV = Session::get('tipoCuentaV');
+        $valueR = Session::get('tipoCuentaR');
+
         $cli = null;
         $cliente = new clientemodel();
 
@@ -86,6 +88,8 @@ class clienteController extends Controller
         if ($valueA == 'Administrador')
             return view('Administrador/Cliente/Search')->with(['cliente' => $cli, 'txt' => $request->text, 'select' => $request->select]);
         if ($valueV == 'Ventanilla')
+            return view('Ventanilla/Cliente/Search')->with(['cliente' => $cli, 'txt' => $request->text, 'select' => $request->select]);
+        if ($valueR == 'Reportes')
             return view('Ventanilla/Cliente/Search')->with(['cliente' => $cli, 'txt' => $request->text, 'select' => $request->select]);
     }
 

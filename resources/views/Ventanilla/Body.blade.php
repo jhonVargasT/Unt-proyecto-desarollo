@@ -10,7 +10,6 @@
                                 <h4 class="panel-title">
                                     <span class="fa fa-money"></span>
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-
                                         Pagos</a>
                                 </h4>
                             </div>

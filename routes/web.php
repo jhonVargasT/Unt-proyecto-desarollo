@@ -223,6 +223,8 @@ Route::resource('importExcel', 'ExcelController@importExcel');
 Route::resource('PagosBuscados', 'pagoController@listarPago');
 Route::get('PagoEliminar/{codPago}', 'pagoController@eliminarPago');
 Route::get('PagoImprimir/{codPago}/{estadoimprimir}', 'PdfController@PagosBoletaAlumno');
+Route::get('PagoImprimirR/{codPago}/{estadoimprimir}', 'PdfController@PagosBoletaAlumnoR');
+
 Route::get('PagoDeuda/{codPago}', 'pagoController@eliminarDeuda');
 Route::get('ventBoleta', 'PdfController@PagosBoleta');
 Route::resource('datos', 'pagoController@obtenerDatos');
@@ -279,3 +281,74 @@ Route::get('/pagoonline', function () {
 });
 Route::post('pagoculqi', 'culqiController@culqi');
 Route::get("autocompleteTram",array('as'=>'autocomplete','uses'=> 'tramiteController@autocompletar'));
+
+/////////////////////////////////////////////////////REPORTE////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+Route::get('/repBuscarEstudiante', function () {
+    return view('Reportes/Alumno/Search');
+});
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Route::get('/repBuscarCliente', function () {
+    return view('Reportes/Cliente/Search');
+});
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Route::get('/repBuscarDonaciones', function () {
+    return view('Reportes/DonacionYTransacciones/Search');
+});
+
+////////////////////////////////////////////Escuela/////////////////////////////////////////////////////////////////////
+
+Route::get('/repBuscarEscuela', function () {
+    return view('Reportes/Escuela/search');
+});
+
+////////////////////////////////// Facultad ////////////////////////////////////////////////////////////////////////////
+
+Route::get('/repBuscarFacultad', function () {
+    return view('Reportes/Facultad/Search');
+});
+
+/////////////////////////////////////////////Personal///////////////////////////////////////////////////////////////////
+
+Route::get('/repBuscarPersonal', function () {
+    return view('Reportes/Personal/Search');
+});
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Route::get('/repBuscarSubtramite', function () {
+    return view('Reportes/SubTramite/search');
+});
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Route::get('/repBuscarTramite', function () {
+    return view('Reportes/Tramite/search');
+});
+//////////////////////////////////////////Rpoertepagos//////////////////////////////////////////////////////////////////
+
+Route::get('/repReportes', function () {
+    return view('Reportes/Reporte/Report');
+});
+Route::get('/repReportesResumido', function () {
+    return view('Reportes/Reporte/reporteresumido');
+});
+//////////////////////////////////SEDE//////////////////////////////////////////////////////////////////////////////////
+
+Route::get('/repBuscarSede', function () {
+    return view('Reportes/Sede/Search');
+});
+
+//////////////////////////////////Pagos/////////////////////////////////////////////////////////////////////////////////
+
+Route::get('/repBuscarPagos', function () {
+    return view('Reportes/Pagos/ReportPago');
+});
+
