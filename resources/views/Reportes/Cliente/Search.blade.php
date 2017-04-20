@@ -75,9 +75,6 @@
                         <th>
                             <div align="center">Razon Social</div>
                         </th>
-                        <th>
-                            <div align="center">Opciones</div>
-                        </th>
                     </tr>
                     </thead>
                     <body>
@@ -91,12 +88,6 @@
                                 <td>{{$c->ruc}}</td>
                                 <td>{{$c->razonSocial}}</td>
                                 <td align="center">
-                                    {{ csrf_field() }}
-                                    <a href="ClienteCargar/{{$c->codPersona}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="ClienteEliminar/{{$c->codPersona}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
                                 </td>
                             </tr>
                         @endforeach

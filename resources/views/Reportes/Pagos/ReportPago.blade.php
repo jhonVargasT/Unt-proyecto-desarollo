@@ -160,10 +160,6 @@
                                 <td>{{$p->pnombres}} {{$p->papellidos}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}
-                                    @if($p->estadodeuda == 1)
-                                        <a href="PagoDeuda/{{$p->codPago}}"><span
-                                                    class="glyphicon glyphicon-usd"></span> </a>
-                                    @endif
                                     @if($p->pnombres)
                                         <a href="PagoImprimir/{{$p->codPago}}/{{$p->estadodeuda}}"><span
                                                     class="glyphicon glyphicon-print"></span> </a>
@@ -171,8 +167,6 @@
                                         <a href="PagoImprimirR/{{$p->codPago}}/{{$p->estadodeuda}}"><span
                                                     class="glyphicon glyphicon-print"></span> </a>
                                     @endif
-                                    <a href="PagoEliminar/{{$p->codPago}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
                                 </td>
                             </tr>
                         @endforeach

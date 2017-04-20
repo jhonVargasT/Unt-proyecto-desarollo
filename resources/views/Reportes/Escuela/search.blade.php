@@ -80,7 +80,6 @@
                             <th>Nombre Escuela</th>
                             <th>Codigo Escuela</th>
                             <th>Cuenta interna</th>
-                            <th>Opciones</th>
                         </tr>
                         </thead>
                         <body>
@@ -93,12 +92,6 @@
                                 <td>{{$es->codEscuela}}</td>
                                 <td>{{$es->nroCuenta}}</td>
                                 <td align="center">
-                                    {{ csrf_field() }}
-                                    <a href="EscuelaCargar/{{$es->idEscuela}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="EscuelaEliminar/{{$es->idEscuela}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
                                 </td>
                             </tr>
                         @endforeach

@@ -74,9 +74,6 @@
                         <th>
                             <div align="center">Tipo de recurso</div>
                         </th>
-                        <th>
-                            <div align="center">Opciones</div>
-                        </th>
                     </tr>
                     </thead>
                     <body>
@@ -89,13 +86,6 @@
                                 <td>{{$t->fuentefinanc}}</td>
                                 <td>{{$t->tipoRecurso}}</td>
                                 <td align="center">
-                                    {{ csrf_field() }}
-                                    <a href="TramiteCargar/{{$t->codTramite}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="TramiteEliminar/{{$t->codTramite}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
-
                                 </td>
                             </tr>
                         @endforeach

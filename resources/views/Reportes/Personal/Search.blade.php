@@ -81,9 +81,6 @@
                         <th>
                             <div align="center">Tipo cuenta</div>
                         </th>
-                        <th>
-                            <div align="center">Opciones</div>
-                        </th>
                     </tr>
                     </thead>
                     <body>
@@ -99,12 +96,6 @@
                             <td>{{$p->password}}</td>
                             <td>{{$p->tipoCuenta}}</td>
                             <td align="center">
-                                {{ csrf_field() }}
-                                <a href="PersonalCargar/{{$p->idPersona}}"><span
-                                            class="glyphicon glyphicon-pencil"></span> </a>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a href="PersonalEliminar/{{$p->idPersona}}"><span
-                                            class="glyphicon glyphicon-trash"></span> </a>
                             </td>
                         </tr>
                     @endforeach

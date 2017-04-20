@@ -22,7 +22,6 @@
     @endif
     <div class="panel-heading"><h3>Buscar Alumnos</h3></div>
     <div style="background-color: #FFFFFF">
-
         <div class="panel-body">
             <form name="form" action="{{url('AlumnosBuscados')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
@@ -63,7 +62,6 @@
                     @if(isset($nombre)!=null)
                         <div class="alert alert-success" role="alert">El alumno {{$nombre}} fue actualizada!!</div>
                     @endif
-
                     <table class="table table-bordered">
                         <thead>
                         <!--cabecear Tabla-->
@@ -83,9 +81,6 @@
                             <th>
                                 <div align="center">Fecha de matricula</div>
                             </th>
-                            <th>
-                                <div align="center">Opciones</div>
-                            </th>
                         </tr>
                         </thead>
                         <body>
@@ -99,12 +94,6 @@
                                     <td>{{$a->codAlumno}}</td>
                                     <td>{{$a->fecha}}</td>
                                     <td align="center">
-                                        {{ csrf_field() }}
-                                        <a href="AlumnoCargar/{{$a->codPersona}}"><span
-                                                    class="glyphicon glyphicon-pencil"></span> </a>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <a href="AlumnoEliminar/{{$a->codPersona}}"><span
-                                                    class="glyphicon glyphicon-trash"></span> </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -112,18 +101,13 @@
                         </body>
                     </table>
                 </div>
-
             </div>
-
         </div>
-
-        <script>
-
-        </script>
-        <script src="{{asset('assets/datatables/jquery.dataTables.min.js')}}"></script>
-        <script src="{{asset('assets/datatables/dataTables.bootstrap.js')}}"></script>
-
-        <script src="{{asset('assets/sweetalert2/sweetalert.min.js')}}"></script>
-
-        <script src="{{asset('assets/js/jquery.tool.js')}}"></script>
+    </div>
+    <script>
+    </script>
+    <script src="{{asset('assets/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('assets/datatables/dataTables.bootstrap.js')}}"></script>
+    <script src="{{asset('assets/sweetalert2/sweetalert.min.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.tool.js')}}"></script>
 @stop

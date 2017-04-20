@@ -87,9 +87,6 @@
                         <th>
                             <div align="center">Precio</div>
                         </th>
-                        <th>
-                            <div align="center">Opciones</div>
-                        </th>
                     </tr>
                     </thead>
                     <body>
@@ -101,13 +98,6 @@
                                 <td>{{$s->cuenta}}</td>
                                 <td>{{$s->precio}}</td>
                                 <td align="center">
-                                    {{ csrf_field() }}
-                                    <a href="SubtramiteCargar/{{$s->codSubtramite}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="SubtramiteEliminar/{{$s->codSubtramite}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
-
                                 </td>
                             </tr>
                         @endforeach

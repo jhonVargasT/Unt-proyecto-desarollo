@@ -20,7 +20,7 @@
     </div>
 @stop
 @section('content')
-    <div class="panel-heading"><h3>  Reportar Pago</h3></div>
+    <div class="panel-heading"><h3> Reportar Pago</h3></div>
     <div style="background-color: #FFFFFF">
 
         <div class="panel-body">
@@ -171,8 +171,12 @@
                                         <a href="PagoImprimirR/{{$p->codPago}}/{{$p->estadodeuda}}"><span
                                                     class="glyphicon glyphicon-print"></span> </a>
                                     @endif
-                                    <a href="PagoEliminar/{{$p->codPago}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
+                                    @if($p->modalidad=='Online'||$p->modalidad=='Banco')
+                                        <a><span class="glyphicon glyphicon-trash"></span> </a>
+                                    @else
+                                        <a href="PagoEliminar/{{$p->codPago}}"><span
+                                                    class="glyphicon glyphicon-trash"></span> </a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

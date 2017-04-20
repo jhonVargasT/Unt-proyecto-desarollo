@@ -68,9 +68,6 @@
                         <th>
                             <div align="center">Direccion</div>
                         </th>
-                        <th>
-                            <div align="center">Opciones</div>
-                        </th>
                     </tr>
                     </thead>
                     <body>
@@ -82,12 +79,6 @@
                                 <td>{{$s->nombresede}}</td>
                                 <td>{{$s->direccion}}</td>
                                 <td align="center">
-                                    {{ csrf_field() }}
-                                    <a href="SedeCargar/{{$s->codSede}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="SedeEliminar/{{$s->codSede}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
                                 </td>
                             </tr>
                         @endforeach

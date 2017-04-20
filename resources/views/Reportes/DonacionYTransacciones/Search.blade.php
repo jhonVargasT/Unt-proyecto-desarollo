@@ -102,9 +102,6 @@
                         <th>
                             <div align="center">Descripcion</div>
                         </th>
-                        <th>
-                            <div align="center">Opciones</div>
-                        </th>
                     </tr>
                     </thead>
                     <body>
@@ -120,12 +117,6 @@
                                 <td>{{$d->monto}}</td>
                                 <td>{{$d->descripcion}}</td>
                                 <td align="center">
-                                    {{ csrf_field() }}
-                                    <a href="DonacionCargar/{{$d->codDonacion}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="DonacionEliminar/{{$d->codDonacion}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
                                 </td>
                             </tr>
                         @endforeach
