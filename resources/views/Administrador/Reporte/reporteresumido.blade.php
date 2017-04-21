@@ -106,8 +106,10 @@
 
                     <div align="center" class="col-sm-12 row form-group ">
                         <div class="col-sm-12 row form-group ">
-                            <div class="col-sm-9"></div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-8">
+
+                            </div>
+                            <div class="col-sm-4">
                                 <div class="col-sm-4"></div>
                                 <div class="col-sm-4">
                                     Total :
@@ -207,7 +209,7 @@
                                             <tr>
                                                 <td><h6 align="center">{{$r->clasificadorsiaf}}</h6></td>
                                                 <td><h6 align="left">{{$r->nombreTramite}}</h6></td>
-                                                <td><h6 align="center">{{$r-> importe}}</h6></td>
+                                                <td><h6 align="center">{{$r->importe}}</h6></td>
 
                                             </tr>
                                         </tbody>
@@ -243,19 +245,19 @@
                         <div class="col-sm-12 row form-group">
                             <div class="col-md-4"></div>
                             <div class="col-md-2">
-                                <a href="{{url('/Adm')}}" class="btn  btn-primary"><span
+                                <a href="{{url('/Adm')}}" class="btn btn-sm s-b-5  btn-primary"><span
                                             class="glyphicon glyphicon-arrow-left"></span> Regresar
                                 </a>
                             </div>
                             <div class="col-md-2">
                                 <!--Contenido-->
                                 @if(isset($tiprep))
-                                    <a href="excelresum/{{$tiprep}}/{{$tiempo}}/{{$fecha }}"
-                                       class="btn btn-sm btn-primary"><span
+                                    <a href="excelresum/{{$tiprep}}/{{$varopc}}/{{$tiempo}}/{{$numero}}"
+                                       class="btn btn-sm s-b-5  btn-primary"><span
                                                 class="glyphicon glyphicon-print"></span> Imprimir
                                     </a>
                                 @else
-                                    <a class="btn btn-sm btn-primary"><span
+                                    <a class="btn btn-sm s-b-5  btn-primary"><span
                                                 class="glyphicon glyphicon-print"></span> Imprimir
                                     </a>
                                 @endif

@@ -299,8 +299,8 @@ class pagoController extends Controller
                         if ($request->selected == 'Codigo personal') {
                             //$pag = $pago->consultarCodigoPersonal($request->text);
 
-                            Excel::create('Laravel Excel', function ($excel) use ($request)  {
-                                $excel->sheet('Reporte Diario', function ($sheet) use($request) {
+                            Excel::create('Laravel Excel', function ($excel) use ($request) {
+                                $excel->sheet('Reporte Diario', function ($sheet) use ($request) {
                                     $data = null;
                                     $pag = null;
                                     $pago = new pagomodel();
@@ -329,7 +329,7 @@ class pagoController extends Controller
             $total = $total + $p->precio;
         }
         if ($valueA == 'Administrador')
-        return view('Adminnistrador/Pagos/ReportPago')->with(['pagos' => $pag, 'txt' => $request->text, 'select' => $request->selected, 'total' => $total]);
+            return view('Adminnistrador/Pagos/ReportPago')->with(['pagos' => $pag, 'txt' => $request->text, 'select' => $request->selected, 'total' => $total]);
         if ($valueV == 'Ventanilla')
             return view('Ventanilla/Pagos/ReportPago')->with(['pagos' => $pag, 'txt' => $request->text, 'select' => $request->selected, 'total' => $total]);
         if ($valueR == 'Reportes')
@@ -439,58 +439,73 @@ class pagoController extends Controller
 
     public function obtenerPagosresumen(Request $request)
     {
+        $numero='';
         $result = null;
         $pagoModel = new pagomodel();
-        $varOpc=$request->tipreporte;
-        $vartiemp= $request->combito;
-        $varaño=$request->año1;
-     
+        $varOpc = $request->tipreporte;
+        $vartiemp = $request->combito;
+        $varaño = $request->año1;
         if ($varOpc == 'Resumen total') {
             $tiempo = null;
 
             if ($vartiemp == 1) {
-                echo $varaño;
-                $tiempo = 'where Year(po.fecha) = ' .$varaño. '';
+        
+                $tiempo = 'where Year(po.fecha) = ' . $varaño . '';
                 $result = $pagoModel->listarpagosresumen($tiempo);
+                $numero=$varaño;
 
-            } else{
-              if ($vartiemp == 2) {
-              echo $request->tiempo . '     '.$request->tipreporte;
-                $tiempo = 'where MONTH(po.fecha) = ' . $request->mes2 . ' and Year(po.fecha)='.$request->año2.'';
-                $result = $pagoModel->listarpagosresumen($tiempo);
-
-            } else{if ($vartiemp == 3) {
-                  $tiempo =  'where po.fecha = DATE_FORMAT(' . $request->fecha .')';
-                $result = $pagoModel->listarpagosresumen($tiempo);
-            }}
-          }
+            } else {
+                if ($vartiemp == 2) {
+                    $tiempo = 'where MONTH(po.fecha) = ' . $request->mes2 . ' and Year(po.fecha)=' . $request->año2 . '';
+                    $result = $pagoModel->listarpagosresumen($tiempo);
+                    $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
+                    $valor = $meses[$request->mes2 - 1];
+                    $numero=$valor - $varaño;
+                } else {
+                    if ($vartiemp == 3) {
+                        $originalDate = $request->fecha;
+                        $fecha = date("Y-m-d", strtotime($originalDate));
+                        $tiempo = 'where DATE(po.fecha) =\'' . $fecha . '\'';
+                        $result = $pagoModel->listarpagosresumen($tiempo);
+                        $numero = $fecha;
+                    }
+                }
+            }
             $total = 0;
             foreach ($result as $r) {
                 $total += $r->importe;
             }
-            return view('Administrador/Reporte/reporteresumido')->with(['resultresu' => $result, 'fecha' => $request->fecha, 'total' => $total, 'tiempo' => $request->tiempo, 'tiprep' => $request->tipreporte]);
+            return view('Administrador/Reporte/reporteresumido')->with(['resultresu' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp,'tiempo'=>$tiempo,'numero'=>$numero]);
         } elseif ($varOpc == 'Clasificador S.I.A.F') {
 
             $tiempo = null;
             if ($vartiemp == 1) {
-                echo $varaño;
-                $tiempo = 'where Year(po.fecha) = ' .$varaño. '';
+              
+                $tiempo = 'where Year(po.fecha) = ' . $varaño . '';
                 $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
+                $numero=$varaño;
             } elseif ($vartiemp == 2) {
-                $tiempo = 'where MONTH(po.fecha) = ' . $request->mes2 . ' and Year(po.fecha)='.$request->año2.'';
+                $tiempo = 'where MONTH(po.fecha) = ' . $request->mes2 . ' and Year(po.fecha)=' . $request->año2 . '';
                 $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
+                $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
+                $valor = $meses[$request->mes2 - 1];
+                $numero=$valor - $varaño;
             } elseif ($vartiemp == 3) {
-                $tiempo =  'where po.fecha = DATE_FORMAT(' . $request->fecha .')';
+                $originalDate = $request->fecha;
+                $fecha = date("Y-m-d", strtotime($originalDate));
+                $tiempo = 'where DATE(po.fecha) =\'' . $fecha . '\'';
                 $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
+                $numero = $fecha;
             }
             $total = 0;
             foreach ($result as $r) {
                 $total += $r->precio;
             }
-            return view('Administrador/Reporte/reporteresumido')->with(['resultsiaf' => $result, 'fecha' => $request->fecha, 'total' => $total, 'tiprep' => $request->tipreporte, 'tiempo' => $request->tiempo]);
+            return view('Administrador/Reporte/reporteresumido')->with(['resultsiaf' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp,'tiempo'=>$tiempo,'numero'=>$numero]);
 
         }
     }
+
     //macartur
     public function obtenerPagosDiariosPersonal()
     {

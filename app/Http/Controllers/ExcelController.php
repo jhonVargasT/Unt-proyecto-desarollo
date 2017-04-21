@@ -192,28 +192,26 @@ class ExcelController extends Controller
         })->export('xls');
     }
 
-    function reportePagoresu($tipo, $fecha, $valor)
+    function reportePagoresu($tiporep, $varopc, $tiempo,$numero)
     {
         date_default_timezone_set('America/Lima');
         $fechahoy = date('Y-m-d');
-        Excel::create('Reporte resumido  :  ' . $fechahoy . '', function ($excel) use ($tipo, $fecha, $valor, $fechahoy) {
-            $excel->sheet('resumen', function ($sheet) use ($tipo, $fecha, $valor, $fechahoy) {
+        Excel::create('Reporte resumido  :  ' . $fechahoy . '', function ($excel) use ($tiporep, $varopc, $tiempo, $fechahoy,$numero) {
+            $excel->sheet('resumen', function ($sheet) use ($tiporep, $varopc, $tiempo, $fechahoy,$numero) {
                 $pagoModel = new pagomodel();
-
-                if ($tipo == 'Resumen total') {
+                $fecha='';
+                if ($varopc== 'Resumen total') {
                     $data = null;
                     $tiempo = null;
-                    if ($fecha == 'Año') {
-                        $tiempo = 'where Year(po.fecha) = ' . $valor . '';
+                    if ($tiporep == 1) {
                         $result = $pagoModel->listarpagosresumen($tiempo);
-                    } elseif ($fecha == 'Mes') {
-                        $tiempo = 'where MONTH(po.fecha) = ' . $valor . ' and Year(po.fecha)=(select Year (NOW()))';
+                        $fecha='AÑO';
+                    } elseif ($tiporep == 2) {
                         $result = $pagoModel->listarpagosresumen($tiempo);
-                        $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
-                        $valor = $meses[$valor - 1];
-                    } elseif ($fecha == 'Dia') {
-                        $tiempo = 'where DAY(po.fecha) =' . $valor . ' and Month(po.fecha)=(select MONTH (NOW()))';
+                        $fecha='MES';
+                    } elseif ($tiporep == 3) {
                         $result = $pagoModel->listarpagosresumen($tiempo);
+                        $fecha='DIA';
                     }
                     $total = 0;
                     $cont = 0;
@@ -231,7 +229,7 @@ class ExcelController extends Controller
                         );
                     }
 
-                    $var = 'CAPTACION DE INGRESOS DEL ' . strtoupper($fecha) . ' - ' . $valor;
+                    $var = 'CAPTACION DE INGRESOS DEL ' . $fecha . ' - ' . $numero;
                     //************************Cabeza de hoja
                     //titulo
                     $sheet->mergeCells('B1:D1');
@@ -326,6 +324,7 @@ class ExcelController extends Controller
                     $sheet->setBorder('B4:B' . ($cont + 3) . '');
                     $sheet->setBorder('C4:C' . ($cont + 3) . '');
                     $sheet->setBorder('D4:D' . ($cont + 3) . '');
+
                     //ubicacion de la data
                     $sheet->fromArray($data, null, 'B4', false);
                     //nombre de hoja
@@ -333,26 +332,25 @@ class ExcelController extends Controller
                     //par que la data se ajuste
                     $sheet->setAutoSize(true);
 
-                } elseif ($tipo == 'Codigo S.I.A.F') {
+                } elseif ($varopc == 'Clasificador S.I.A.F') {
                     $data = null;
                     $var = '';
                     $tiempo = null;
-                    if ($fecha == 'Año') {
-                        $tiempo = 'where Year(po.fecha) = ' . $valor . '';
+                    if ($tiporep == 1) {
                         $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
-
-                    } elseif ($fecha == 'Mes') {
-                        $tiempo = 'where MONTH(po.fecha) = ' . $valor . ' and Year(po.fecha)=(select Year (NOW()))';
+                        $fecha='AÑO';
+                    } elseif ($tiporep == 2) {
                         $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
-                        $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
-                        $valor = $meses[$valor - 1];
-                    } elseif ($fecha == 'Dia') {
-                        $tiempo = 'where DAY(po.fecha) =' . $valor . ' and Month(po.fecha)=(select MONTH (NOW()))';
+                        $fecha='MES';
+                       // $valor = $meses[$valor - 1];
+                    } elseif ($tiporep == 3 ) {
                         $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
+                        $fecha='DIA';
                     }
-                    $var = 'RESUMEN DEL ' . strtoupper($fecha) . ' - ' . $valor;
+                    $var = 'RESUMEN DEL ' . $fecha . ' - ' . $numero;
                     $total = 0;
                     $cont = 0;
+                    echo $tiempo;
                     foreach ($result as $r) {
                         $total += $r->precio;
                         $cont++;
@@ -511,6 +509,7 @@ class ExcelController extends Controller
                     $sheet->setBorder('E6:E' . ($cont + 6) . '');
                     $sheet->setBorder('F6:F' . ($cont + 6) . '');
                     $sheet->setBorder('G6:G' . ($cont + 6) . '');
+
                     //ubicacion de la data
                     $sheet->fromArray($data, null, 'B6', false);
                     //nombre de hoja
