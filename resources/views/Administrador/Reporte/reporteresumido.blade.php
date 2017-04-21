@@ -46,7 +46,7 @@
                         {{csrf_field()}}
                         <div class="row ">
 
-                            <div class="form-group-sm col-sm-3 ">
+                            <div class="form-group-sm col-sm-3 col-lg-3 col-xs-3">
                                 <span class=" control-label">Tipo de reporte para :</span>
                                 <select class="form-control" name="tipreporte">
 
@@ -54,7 +54,7 @@
                                     <option>Resumen total</option>
                                 </select>
                             </div>
-                            <div class="form-group-sm col-sm-2 ">
+                            <div class="form-group-sm col-sm-2 col-lg-2 col-xs-2">
                                 <span class="control-label">Buscar por :</span>
                                 <select class=" form-control" name="combito" id="combito">
                                     <option >Escojer</option>
@@ -63,7 +63,7 @@
                                     <option value="3">Dia</option>
                                 </select>
                             </div>
-                            <div class="form-group-sm col-sm-2 " id="opc">
+                            <div class="form-group-sm col-sm-2 col-lg-2 col-xs-2" id="opc">
                                 <div id="div_1" class="contenido">
                                     <span class=" control-label">Año :</span>
 
@@ -72,12 +72,12 @@
 
                                 </div>
                                 <div id="div_2" class="row contenido">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6 col-lg-6 col-xs-6">
                                         <span class=" control-label">Año :</span>
                                         <input type="text" class="form-control input-sm " id="trinp" name="año2"
                                                autocomplete="off" >
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6 col-lg-6 col-xs-6">
                                         <span class=" control-label">Mes :</span>
                                         <input type="text" class="form-control input-sm " id="trinp" name="mes2"
                                                autocomplete="off" >
@@ -95,9 +95,9 @@
 
                                 </div>
                             </div>
-                            <div class="form-group-sm col-sm-1">
+                            <div class="form-group-sm col-sm-1 col-lg-1 col-xs-1">
                                 <span class=" control-label">.  </span>
-                                <button type="submit" class="btn btn-sm btn-success s-b-5" id="imp"><i class="ion-ios7-search"> </i> Actualizar
+                                <button type="submit" class="btn btn-sm btn-success s-b-5" id="imp"><i class="ion-ios7-search"> </i> buscar
                                 </button>
                             </div>
                         </div>

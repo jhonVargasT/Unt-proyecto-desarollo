@@ -609,7 +609,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . '  and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                            WHERE  po.estado=' . $estado . '  and   date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and ' . $local . '=\'' . $vallocal . '\'
                              and tr.tipoRecurso=\'' . $tipoRe . '\' ');
         return $pago;
@@ -631,7 +631,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valloc . '\' and tr.fuentefinanc=\'' . $fuefi . '\'
                              and tr.tipoRecurso=\'' . $tipre . '\' and ' . $tram . '= \'' . $valtra . '\'');
         return $pago;
@@ -653,7 +653,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valloc . '\' 
                              and tr.tipoRecurso=\'' . $tipre . '\' ');
         return $pago;
@@ -675,7 +675,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                            WHERE  po.estado=' . $estado . ' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and ' . $local . '=\'' . $valloc . '\' and tr.fuentefinanc=\'' . $fue . '\'
                             ');
         return $pago;
@@ -697,7 +697,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . '  and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                            WHERE  po.estado=' . $estado . '  and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and ' . $local . '=\'' . $valloc . '\' and ' . $tram . '= \'' . $valtra . '\'');
         return $pago;
     }
@@ -718,7 +718,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                            WHERE  po.estado=' . $estado . ' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and ' . $local . '=\'' . $valloc . '\'');
         return $pago;
     }
@@ -739,7 +739,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'   
                              and tr.fuentefinanc=\'' . $fuen . '\'and ' . $tram . '= \'' . $valtra . '\'');
         return $pago;
     }
@@ -760,7 +760,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . '  and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                            WHERE  po.estado=' . $estado . '  and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and tr.fuentefinanc=\'' . $fuen . '\'and ' . $tram . '= \'' . $valtra . '\'');
         return $pago;
     }
@@ -781,7 +781,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  
+                            WHERE  po.estado=' . $estado . ' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                             and tr.fuentefinanc=\'' . $fuen . '\'');
         return $pago;
     }
@@ -802,7 +802,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                            WHERE  po.estado=' . $estado . ' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                               and tr.fuentefinanc=\'' . $fuen . '\'');
         return $pago;
     }
@@ -823,7 +823,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valloc . '\' 
                              and tr.tipoRecurso=\'' . $tipore . '\' and ' . $tram . '= \'' . $valtra . '\'');
         return $pago;
@@ -845,7 +845,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'   and tr.fuentefinanc=\'' . $fuefi . '\'
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'    and tr.fuentefinanc=\'' . $fuefi . '\'
                              and tr.tipoRecurso=\'' . $tipore . '\' and ' . $tram . '= \'' . $valtra . '\'');
         return $pago;
     }
@@ -866,7 +866,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  and tr.fuentefinanc=\'' . $fuefi . '\'
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  and tr.fuentefinanc=\'' . $fuefi . '\'
                              and tr.tipoRecurso=\'' . $tipore . '\' ');
         return $pago;
     }
@@ -887,7 +887,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'   
                              and tr.tipoRecurso=\'' . $tipore . '\' and ' . $tram . '= \'' . $valTram . '\'');
         return $pago;
     }
@@ -908,7 +908,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                            WHERE  po.estado=' . $estado . ' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valloc . '\' 
                              and tr.tipoRecurso=\'' . $tipore . '\'');
         return $pago;
@@ -930,7 +930,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                            WHERE  po.estado=' . $estado . ' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and tr.fuentefinanc=\'' . $fuefi . '\'
                              and tr.tipoRecurso=\'' . $tipRe . '\' ');
         return $pago;
@@ -952,7 +952,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . 'and  po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                            WHERE  po.estado=' . $estado . ' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and tr.tipoRecurso=\'' . $tipRe . '\' and ' . $tram . '= \'' . $valtra . '\'');
         return $pago;
     }
@@ -973,7 +973,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  
+                            WHERE  po.estado=' . $estado . ' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'   
                              and tr.tipoRecurso=\'' . $tipRe . '\'');
         return $pago;
     }
@@ -994,7 +994,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . '  and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  
+                            WHERE  po.estado=' . $estado . '  and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valLoc . '\' and tr.fuentefinanc=\'' . $fuefi . '\' and ' . $tram . '= \'' . $valtra . '\'');
         return $pago;
     }
@@ -1015,7 +1015,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  
+                            WHERE  po.estado=' . $estado . ' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $tram . '= \'' . $valtra . '\'');
         return $pago;
     }
@@ -1036,7 +1036,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\'and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\'and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valLoc . '\' and tr.fuentefinanc=\'' . $fuefi . '\'');
         return $pago;
     }
@@ -1057,7 +1057,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and ' . $local . '=\'' . $valLoc . '\'');
         return $pago;
     }
@@ -1078,7 +1078,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valLoc . '\' and tr.fuentefinanc=\'' . $fuenteFin . '\'
                              and tr.tipoRecurso=\'' . $tipRe . '\'');
 
@@ -1103,7 +1103,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\' 
+                            WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and tr.tipoRecurso=\'' . $tipRe . '\'');
 
         return $pago;
@@ -1126,7 +1126,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE po.estado=' . $estado . ' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  and ' . $tramite . '= \'' . $tramiteVal . '\'
+                            WHERE po.estado=' . $estado . ' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'   and ' . $tramite . '= \'' . $tramiteVal . '\'
                              and ' . $local . '=\'' . $valLoc . '\'
                               and po.modalidad = \'' . $modalidad . '\'');
 
@@ -1150,7 +1150,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE po.estado= \'' . $estado . '\'and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  and ' . $tramite . '= \'' . $tramiteVal . '\'
+                            WHERE po.estado= \'' . $estado . '\'and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  and ' . $tramite . '= \'' . $tramiteVal . '\'
                               and po.modalidad = \'' . $modalidad . '\'');
 
         return $pago;
@@ -1173,7 +1173,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE po.estado=' . $estado . ' and  po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  and po.modalidad = \'' . $modalidad . '\'');
+                            WHERE po.estado=' . $estado . ' and  date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'   and po.modalidad = \'' . $modalidad . '\'');
         return $pago;
     }
 
@@ -1193,7 +1193,7 @@ ORDER BY pago.codPago DESC');
                             LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
-                            WHERE po.estado=' . $estado . ' and po.fecha >= \'' . $fechaDesde . '\' and po.fecha <=\'' . $fechaHasta . '\'  ');
+                            WHERE po.estado=' . $estado . ' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'   ');
         return $pago;
     }
 

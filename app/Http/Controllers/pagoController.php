@@ -359,9 +359,9 @@ class pagoController extends Controller
         $pagoModel = new pagomodel();
         $tramiteModel = new  tramitemodel();
         $fechaDesde = $request->fechaDesde; // El formato que te entrega MySQL es Y-m-d
-        $fechaDesde = date("Y-m-d H:i:s", strtotime($fechaDesde));
+        $fechaDesde = date("Y-m-d", strtotime($fechaDesde));
         $fechaHasta = $request->fechaHasta; // El formato que te entrega MySQL es Y-m-d
-        $fechaHasta = date("Y-m-d H:i:s", strtotime($fechaHasta));
+        $fechaHasta = date("Y-m-d", strtotime($fechaHasta));
         $estado = $request->estado;
         $modalidad = $request->modalidad;
         $total = 0;
@@ -439,71 +439,77 @@ class pagoController extends Controller
 
     public function obtenerPagosresumen(Request $request)
     {
-        $numero='';
-        $result = null;
-        $pagoModel = new pagomodel();
-        $varOpc = $request->tipreporte;
-        $vartiemp = $request->combito;
-        $varaño = $request->año1;
-        if ($varOpc == 'Resumen total') {
-            $tiempo = null;
+        if($request->combito !== 'Escojer') {
+            $numero = '';
+            $result = null;
+            $pagoModel = new pagomodel();
+            $varOpc = $request->tipreporte;
+            $vartiemp = $request->combito;
+            $varaño = $request->año1;
+            if ($varOpc == 'Resumen total') {
+                $tiempo = null;
 
-            if ($vartiemp == 1) {
-        
-                $tiempo = 'where Year(po.fecha) = ' . $varaño . '';
-                $result = $pagoModel->listarpagosresumen($tiempo);
-                $numero=$varaño;
+                if ($vartiemp == 1) {
 
-            } else {
-                if ($vartiemp == 2) {
-                    $tiempo = 'where MONTH(po.fecha) = ' . $request->mes2 . ' and Year(po.fecha)=' . $request->año2 . '';
+                    $tiempo = 'where Year(po.fecha) = ' . $varaño . '';
                     $result = $pagoModel->listarpagosresumen($tiempo);
-                    $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
-                    $valor = $meses[$request->mes2 - 1];
-                    $numero='DE '.$valor.' DEL '.$request->año2;
+                    $numero = $varaño;
+
                 } else {
-                    if ($vartiemp == 3) {
-                        $originalDate = $request->fecha;
-                        $fecha = date("Y-m-d", strtotime($originalDate));
-                        $tiempo = 'where DATE(po.fecha) =\'' . $fecha . '\'';
+                    if ($vartiemp == 2) {
+                        $tiempo = 'where MONTH(po.fecha) = ' . $request->mes2 . ' and Year(po.fecha)=' . $request->año2 . '';
                         $result = $pagoModel->listarpagosresumen($tiempo);
-                        $numero = $fecha;
+                        $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
+                        $valor = $meses[$request->mes2 - 1];
+                        $numero = 'DE ' . $valor . ' DEL ' . $request->año2;
+                    } else {
+                        if ($vartiemp == 3) {
+                            $originalDate = $request->fecha;
+                            $fecha = date("Y-m-d", strtotime($originalDate));
+                            $tiempo = 'where DATE(po.fecha) =\'' . $fecha . '\'';
+                            $result = $pagoModel->listarpagosresumen($tiempo);
+                            $numero = $fecha;
+                        }
                     }
                 }
-            }
-            $total = 0;
-            foreach ($result as $r) {
-                $total += $r->importe;
-            }
-            return view('Administrador/Reporte/reporteresumido')->with(['resultresu' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp,'tiempo'=>$tiempo,'numero'=>$numero]);
-        } elseif ($varOpc == 'Clasificador S.I.A.F') {
+                $total = 0;
 
-            $tiempo = null;
-            if ($vartiemp == 1) {
-              
-                $tiempo = 'where Year(po.fecha) = ' . $varaño . '';
-                $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
-                $numero=$varaño;
-            } elseif ($vartiemp == 2) {
-                $tiempo = 'where MONTH(po.fecha) = ' . $request->mes2 . ' and Year(po.fecha)=' . $request->año2 . '';
-                $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
-                $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
-                $valor = $meses[$request->mes2 - 1];
-                $numero='DE '.$valor.' DEL '.$request->año2;
-                echo $numero;
-            } elseif ($vartiemp == 3) {
-                $originalDate = $request->fecha;
-                $fecha = date("Y-m-d", strtotime($originalDate));
-                $tiempo = 'where DATE(po.fecha) =\'' . $fecha . '\'';
-                $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
-                $numero = $fecha;
-            }
-            $total = 0;
-            foreach ($result as $r) {
-                $total += $r->precio;
-            }
-            return view('Administrador/Reporte/reporteresumido')->with(['resultsiaf' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp,'tiempo'=>$tiempo,'numero'=>$numero]);
+                foreach ($result as $r) {
+                    $total += $r->importe;
+                }
+                return view('Administrador/Reporte/reporteresumido')->with(['resultresu' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp, 'tiempo' => $tiempo, 'numero' => $numero]);
+            } elseif ($varOpc == 'Clasificador S.I.A.F') {
 
+                $tiempo = null;
+                if ($vartiemp == 1) {
+
+                    $tiempo = 'where Year(po.fecha) = ' . $varaño . '';
+                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
+                    $numero = $varaño;
+                } elseif ($vartiemp == 2) {
+                    $tiempo = 'where MONTH(po.fecha) = ' . $request->mes2 . ' and Year(po.fecha)=' . $request->año2 . '';
+                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
+                    $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
+                    $valor = $meses[$request->mes2 - 1];
+                    $numero = 'DE ' . $valor . ' DEL ' . $request->año2;
+
+                } elseif ($vartiemp == 3) {
+                    $originalDate = $request->fecha;
+                    $fecha = date("Y-m-d", strtotime($originalDate));
+                    $tiempo = 'where DATE(po.fecha) =\'' . $fecha . '\'';
+                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
+                    $numero = $fecha;
+                }
+                $total = 0;
+                foreach ($result as $r) {
+                    $total += $r->precio;
+                }
+                return view('Administrador/Reporte/reporteresumido')->with(['resultsiaf' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp, 'tiempo' => $tiempo, 'numero' => $numero]);
+
+            }
+        }
+        else{
+            return view('Administrador/Reporte/reporteresumido');
         }
     }
 

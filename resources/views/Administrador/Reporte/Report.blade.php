@@ -5,13 +5,14 @@
             <table class="table">
                 <tr>
                     <td>
-                        <a href="/admReportres" ><span
+                        <a href="/admReportres"><span
                                     class="glyphicon glyphicon-book"></span> Reporte Resumido</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <a href="/admReportes" style="color: #509f0c" target="_top"> <span class="glyphicon glyphicon-list-alt"></span> Reporte pagos
+                        <a href="/admReportes" style="color: #509f0c" target="_top"> <span
+                                    class="glyphicon glyphicon-list-alt"></span> Reporte pagos
                             detallado</a>
                     </td>
                 </tr>
@@ -28,60 +29,56 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <div class=" panel-heading"> <h3>Reporte Pagos</h3></div>
-    <div  style="background-color: #FFFFFF" >
+    <div class=" panel-heading"><h3>Reporte Pagos</h3></div>
+    <div style="background-color: #FFFFFF">
         <div class="panel-body">
             <div class="panel-body form-group ">
                 <form id="miform" action="{{'reportePago'}}" role="form" method="POST" class="Vertical">
                     <input type="hidden" name="_token" value="{{csrf_token() }}"/>
-                    <div class="col-sm-12 row form-group">
-                        <div class="form-group-sm col-sm-4 ">
-                            <span class="col-sm-5 control-label">Estado </span>
-                            <div class="col-sm-7 ">
-                                <select class="form-control" name="estado">
-                                    <option>Pagado</option>
-                                    <option>Anulado</option>
-                                </select>
-                            </div>
+                    <div class=" row ">
+                        <div class="form-group-sm col-sm-2 ">
+                            <span class=" control-label">Estado :</span>
+                            <select class="form-control" name="estado">
+                                <option>Pagado</option>
+                                <option>Anulado</option>
+                            </select>
                         </div>
-                        <div class="form-group-sm col-sm-4 ">
-                            <span class="col-sm-5 control-label">Modalidad</span>
-                            <div class="col-sm-7 ">
-                                <select class=" form-control" name="modalidad">
-                                    <option>Todo</option>
-                                    <option>Banco</option>
-                                    <option>Online</option>
-                                    <option>Ventanilla</option>
-                                </select>
-                            </div>
+                        <div class="form-group-sm col-sm-2 ">
+                            <span class="control-label">Modalidad :</span>
+                            <select class=" form-control small" name="modalidad">
+                                <option>Todo</option>
+                                <option>Banco</option>
+                                <option>Online</option>
+                                <option>Ventanilla</option>
+                            </select>
                         </div>
-                        <div class="form-group-sm col-sm-4 ">
-                            <div class="col-sm-4 ">
-                                <select class=" form-control" id="opcTramite" name="opcTramite">
-                                    <option value="Todo">Todo</option>
-                                    <option value="Tramite">Clasificador</option>
-                                    <option value="SubTramite">Tasa</option>
-                                </select>
-                            </div>
+                        <div class="form-group-sm col-sm-2 ">
+                            <span class="control-label">Clasificador o tasa:</span>
+                            <select class=" form-control" id="opcTramite" name="opcTramite">
+                                <option value="Todo">Todo</option>
+                                <option value="Tramite">Clasificador</option>
+                                <option value="SubTramite">Tasa</option>
+                            </select>
+
+                        </div>
+                        <div class="form-group-sm col-sm-2 ">
                             <script>
                                 $('#opcTramite').change(function () {
                                     var value = $('#opcTramite option:selected').attr('value');
                                     document.getElementById("input").readOnly = value == 'Todo';
                                 });
                             </script>
-                            <div class="col-sm-1 ">
-                            </div>
-                            <div class="col-sm-7">
-                                @if(isset($Tram))
-                                    <input type="text" class="typeahead form-control input-sm " id="input"
-                                           name="inputTram"
-                                           autocomplete="off" value="{{$Tram}}" readonly>
-                                @else
-                                    <input type="text" class="typeahead form-control input-sm " id="input"
-                                           name="inputTram"
-                                           autocomplete="off" readonly>
-                                @endif
-                            </div>
+                            @if(isset($Tram))
+                                <span class="control-label"> . </span>
+                                <input type="text" class="typeahead form-control input-sm " id="input"
+                                       name="inputTram"
+                                       autocomplete="off" value="{{$Tram}}" readonly>
+                            @else
+                                <span class="control-label">. </span>
+                                <input type="text" class="typeahead form-control input-sm " id="input"
+                                       name="inputTram"
+                                       autocomplete="off" readonly>
+                            @endif
                             <script>
                                 var path = "{{ route('autocompletet') }}";
                                 var path2 = "{{ route('autocompletes') }}";
@@ -104,166 +101,150 @@
                                 });
                             </script>
                         </div>
-                    </div>
-                    <div class="col-sm-12 row form-group ">
-                        <div class="form-group-sm col-sm-4 ">
-                            <div class="col-sm-5">
-                                <input type="checkbox" id="sed" onclick="habilitarsed(this.checked)">
-                                Sede
-                            </div>
-                            <div class="col-sm-7 ">
-                                @if(isset($sede))
-                                    <input class="typeaheads form-control " name="sed" value="{{$sede}}" id="sede"
-                                           autocomplete="off" readonly>
-                                @else
-                                    <input class="typeaheads form-control " name="sed" id="sede" autocomplete="off"
-                                           readonly>
-                                @endif
-                                <script>
-                                    var pathsede = "{{ route('autocompletesede')}}";
-                                    $('input.typeaheads').typeahead({
-                                        source: function (querys, processsede) {
-                                            return $.get(pathsede, {query: querys}, function (datasede) {
-                                                return processsede(datasede);
-                                            });
-                                        }
-                                    });
-                                </script>
-                            </div>
-                        </div>
-                        <div class="form-group-sm col-sm-4 ">
-                            <div class="col-sm-5">
-                                <input type="checkbox" id="cfac" onclick="habilitarfac(this.checked)">
-                                facultad
-                            </div>
-                            <div class="col-sm-7 ">
-                                @if(isset($fac))
-                                    <input class="form-control " name="fac" id="fac"
-                                           value="{{$fac}}" readOnly>
-                                @else
-                                    <input class="form-control " name="fac" id="fac"
-                                           readOnly>
-                                @endif
-                                <script>
-                                    src = "{{ route('searchF') }}";
-                                    $('#fac').autocomplete({
-                                        source: function (request, response) {
-                                            $.ajax({
-                                                url: src,
-                                                type: 'get',
-                                                dataType: "json",
-                                                data: {
-                                                    term: $('#fac').val(),
-                                                    sede: $('#sede').val()
-                                                },
-                                                success: function (data) {
-                                                    response(data);
-                                                }
-                                            });
-                                        },
-                                        min_length: 1
-                                    });
-                                </script>
-                            </div>
-                        </div>
-
-                        <div class="form-group-sm col-sm-4 ">
-                            <div class="col-sm-5">
-                                <input type="checkbox" id="cesc" onclick=" habilitaresc(this.checked)">
-                                Escuela
-                            </div>
-                            <div class="col-sm-7 ">
-                                @if(isset($esc))
-                                    <input class="typeahead form-control " name="esc" id="esc" autocomplete="off"
-                                           value="{{$esc}}" readOnly>
-                                @else
-                                    <input class="typeahead form-control " name="esc" id="esc" autocomplete="off"
-                                           readOnly>
-                                @endif
-                                    <script>
-                                        srcE = "{{ route('searchE') }}";
-                                        $('#esc').autocomplete({
-                                            source: function (requestE, responseE) {
-                                                $.ajax({
-                                                    url: srcE,
-                                                    type: 'get',
-                                                    dataType: "json",
-                                                    data: {
-                                                        term: $('#esc').val(),
-                                                        facultad: $('#fac').val()
-                                                    },
-                                                    success: function (dataE) {
-                                                        responseE(dataE);
-                                                    }
-                                                });
-                                            },
-                                            min_length: 1
-                                        });
-                                    </script>
-                            </div>
-                        </div>
-                        <div class="form-group-sm col-sm-4 ">
-
-                        </div>
-                    </div>
-                    <div class="col-sm-12 row form-group">
-                        <div class="form-group-sm col-sm-4 ">
-                            <div class="col-sm-4">
-                                <input type="checkbox" onclick=" habilitartr(this.checked)">
-                                Tipo de recurso
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control input-sm " id="trinp" name="tr"
-                                       autocomplete="off"
-                                       readOnly>
-                            </div>
-                            <div class="col-sm-4">
-                                <input type="checkbox" onclick="habilitarff(this.checked)">
-                                Fuente de financiamiento
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control input-sm " id="ff" name="fuf"
-                                       autocomplete="off" readOnly>
-                            </div>
-                        </div>
-
-                        <div class="form-group-sm col-sm-1 ">
-                            <span class="col-sm-12 control-label">Fecha:  </span>
-                        </div>
                         <div class="form-group-sm col-sm-2 ">
-                            <div class="col-sm-8 input-group date" data-provide="datepicker">
-                                <input type="text" name="fechaDesde" class="form-control" placeholder="desde"
+                            <span class=" control-label">Fecha desde:  </span>
+
+                            <div class=" input-group date" data-provide="datepicker">
+                                <input type="text" name="fechaDesde" class="form-control"
                                        autocomplete="off" required>
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </div>
                             </div>
+
                         </div>
                         <div class="form-group-sm col-sm-2 ">
-                            <div class="col-sm-8 input-group date" data-provide="datepicker">
+                            <span class=" control-label">Fecha hasta:  </span>
+
+                            <div class="input-group date" data-provide="datepicker">
                                 <input type="text" name="fechaHasta" class="form-control"
-                                       placeholder="hasta"
+
                                        autocomplete="off" required>
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </div>
                             </div>
+
                         </div>
                     </div>
-                    <div class="form-group col-lg-12">
-                        <div class=" col-sm-4"></div>
-                        <div class="col-md-4">
-                            <div class="col-lg-4"></div>
-                            <button type="submit" name="enviar" class="col-lg-4 btn btn-success"><span
+                    <div class="row  ">
+                        <div class="form-group-sm col-sm-2 ">
+                            <input type="checkbox" id="sed" onclick="habilitarsed(this.checked)">
+                            Sede
+                            @if(isset($sede))
+                                <input class="typeaheads form-control " name="sed" value="{{$sede}}" id="sede"
+                                       autocomplete="off" readonly>
+                            @else
+                                <input class="typeaheads form-control " name="sed" id="sede" autocomplete="off"
+                                       readonly>
+                            @endif
+                            <script>
+                                var pathsede = "{{ route('autocompletesede')}}";
+                                $('input.typeaheads').typeahead({
+                                    source: function (querys, processsede) {
+                                        return $.get(pathsede, {query: querys}, function (datasede) {
+                                            return processsede(datasede);
+                                        });
+                                    }
+                                });
+                            </script>
+                        </div>
+                        <div class="form-group-sm col-sm-2 ">
+                            <input type="checkbox" id="cfac" onclick="habilitarfac(this.checked)">
+                            facultad
+                            @if(isset($fac))
+                                <input class="form-control " name="fac" id="fac"
+                                       value="{{$fac}}" readOnly>
+                            @else
+                                <input class="form-control " name="fac" id="fac"
+                                       readOnly>
+                            @endif
+                            <script>
+                                src = "{{ route('searchF') }}";
+                                $('#fac').autocomplete({
+                                    source: function (request, response) {
+                                        $.ajax({
+                                            url: src,
+                                            type: 'get',
+                                            dataType: "json",
+                                            data: {
+                                                term: $('#fac').val(),
+                                                sede: $('#sede').val()
+                                            },
+                                            success: function (data) {
+                                                response(data);
+                                            }
+                                        });
+                                    },
+                                    min_length: 1
+                                });
+                            </script>
+                        </div>
+
+                        <div class="form-group-sm col-sm-2">
+                            <input type="checkbox" id="cesc" onclick=" habilitaresc(this.checked)">
+                            Escuela
+                            @if(isset($esc))
+                                <input class="typeahead form-control " name="esc" id="esc" autocomplete="off"
+                                       value="{{$esc}}" readOnly>
+                            @else
+                                <input class="typeahead form-control " name="esc" id="esc" autocomplete="off"
+                                       readOnly>
+                            @endif
+                            <script>
+                                srcE = "{{ route('searchE') }}";
+                                $('#esc').autocomplete({
+                                    source: function (requestE, responseE) {
+                                        $.ajax({
+                                            url: srcE,
+                                            type: 'get',
+                                            dataType: "json",
+                                            data: {
+                                                term: $('#esc').val(),
+                                                facultad: $('#fac').val()
+                                            },
+                                            success: function (dataE) {
+                                                responseE(dataE);
+                                            }
+                                        });
+                                    },
+                                    min_length: 1
+                                });
+                            </script>
+                        </div>
+                        <div class="form-group-sm col-sm-2">
+                            <input type="checkbox" onclick=" habilitartr(this.checked)">
+                            Tipo de recurso
+                            <input type="text" class="form-control input-sm " id="trinp" name="tr"
+                                   autocomplete="off"
+                                   readOnly>
+                        </div>
+                        <div class="form-group-sm col-sm-2">
+                            <input type="checkbox" onclick="habilitarff(this.checked)">
+                            Fuente de fina
+                            <input type="text" class="form-control input-sm " id="ff" name="fuf"
+                                   autocomplete="off" readOnly>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class=" col-sm-5">
+
+                        </div>
+                        <div class="col-md-2 form-group-sm">
+                            <span class="control-label">. </span>
+                            <button type="submit" name="enviar" class=" btn btn-success"><span
                                         class="glyphicon glyphicon-refresh"></span> Actualizar
                             </button>
                         </div>
-                        <div class="col-sm-4"></div>
+                        <div class="col-sm-5">
+
+                        </div>
                     </div>
                 </form>
                 <!--Tabla-->
 
-                <div align="center" class="col-sm-12 row form-group ">
+                <div align="center" class=" row  ">
                     <div class="col-sm-12 row form-group ">
                         <div class="col-sm-9"></div>
                         <div class="col-sm-3">
@@ -468,13 +449,13 @@
                                         class="glyphicon glyphicon-arrow-left"></span> Regresar
                             </a>
                         </div>
-                        </div>
-
-                        <div class="col-md-5"></div>
                     </div>
+
+                    <div class="col-md-5"></div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @stop
 @section('scripts')
