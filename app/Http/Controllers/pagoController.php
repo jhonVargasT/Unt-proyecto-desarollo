@@ -460,7 +460,7 @@ class pagoController extends Controller
                     $result = $pagoModel->listarpagosresumen($tiempo);
                     $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
                     $valor = $meses[$request->mes2 - 1];
-                    $numero=$valor - $varaño;
+                    $numero='DE '.$valor.' DEL '.$request->año2;
                 } else {
                     if ($vartiemp == 3) {
                         $originalDate = $request->fecha;
@@ -489,7 +489,8 @@ class pagoController extends Controller
                 $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
                 $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
                 $valor = $meses[$request->mes2 - 1];
-                $numero=$valor - $varaño;
+                $numero='DE '.$valor.' DEL '.$request->año2;
+                echo $numero;
             } elseif ($vartiemp == 3) {
                 $originalDate = $request->fecha;
                 $fecha = date("Y-m-d", strtotime($originalDate));
