@@ -242,7 +242,7 @@
                         </div>
                         <div class="col-sm-12 row form-group">
                         </div>
-                        <div class="col-sm-12 row form-group">
+                        <div class=" row ">
                             <div class="col-md-4"></div>
                             <div class="col-md-2">
                                 <a href="{{url('/Adm')}}" class="btn btn-sm s-b-5  btn-primary"><span

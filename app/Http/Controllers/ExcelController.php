@@ -192,26 +192,219 @@ class ExcelController extends Controller
         })->export('xls');
     }
 
-    function reportePagoresu($tiporep, $varopc, $tiempo,$numero)
+    function reporteDetallado($encriptado)
+    {
+
+        list($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo) = explode(';', $encriptado);
+        date_default_timezone_set('America/Lima');
+        $fechahoy = date('Y-m-d');
+
+        Excel::create('Reporte resumido  :  ' . $fechahoy . '', function ($excel) use ($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $fechahoy) {
+            $excel->sheet('resumen', function ($sheet) use ($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $fechahoy) {
+                $pagoModel = new pagomodel();
+                $data = null;
+                $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo);
+                $total = 0;
+                $cont = 0;
+
+                foreach ($result as $r) {
+
+                    $total += $r->precio;
+                }
+
+                foreach ($result as $r) {
+                    $cont++;
+                    $data[] = array(
+                        "ID"=>$r->codigopago
+                    , "MODALIDAD"=>$r->modalidad
+                    , "SEDE"=>$r->nombresede
+                    , "FACULTAD"=>$r->nombrefacultad
+                    , "ESCUELA"=>$r->nombreescuela
+                    , "CLASIFICADOR S.I.A.F"=>$r->clasi
+                    , "TIP REC"=>$r->tiporecurso
+                    , "FUE FIN"=>$r->fuentefinanc
+                    , "CLASIFICADOR"=>$r-> nombretramite
+                    , "TASA"=>$r->nombresubtramite
+                    , "FECHA"=>$r->fechapago
+                    , "PRECIO"=>$r->precio
+                    , "DETALLE"=>$r->pagodetalle
+
+                    );
+
+
+
+                }
+
+                $sheet->mergeCells('B1:N1');
+
+                $sheet->cell('B1', function ($cell) {
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12',
+                        'bold' => true
+                    ));
+                    $cell->setValue('UNIVERSIDAD NACIONAL DE TRUJILLO');
+                    $cell->setAlignment('center');
+                });
+                $sheet->mergeCells('B2:N2');
+                $sheet->cell('B2', function ($cell) {
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12',
+                        'bold' => false
+                    ));
+                    $cell->setValue('OGSEF- OF.TEC. TESORERIA');
+                    $cell->setAlignment('center');
+                });
+                $sheet->mergeCells('B3:N3');
+
+                $sheet->cell('B3', function ($cell) {
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12',
+                        'bold' => true
+                    ));
+                    $cell->setValue('Reporte de pagos detallado');
+                    $cell->setAlignment('center');
+                });
+
+                //total
+                $sheet->cell('M6', function ($cell) {
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12',
+                        'bold' => true
+                    ));
+                    $cell->setValue('Total de ingresos :');
+                    $cell->setAlignment('right');
+                });
+                $sheet->cell('N6', function ($cell) use ($total) {
+                    $cell->setValue($total);
+                });
+                $sheet->cells('N6', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+
+                //*************************************************
+                //*******************cabecera de tabla
+                $sheet->cells('B7:N7', function ($cells) {
+                    $cells->setBackground('#006600');
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12',
+                        'bold' => true
+                    ));
+                    $cells->setBorder(array(
+                        'top' => array(
+                            'style' => 'solid'
+                        ),
+                    ));
+                    $cells->setAlignment('center');
+                });
+                //*****************************************
+                //*******************************cuerpo de tabla
+                //estilos
+                $sheet->cells('B7:B' . ($cont + 7) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+
+                $sheet->cells('G7:G' . ($cont + 7) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+                $sheet->cells('H7:H' . ($cont + 7) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+                $sheet->cells('I7:I' . ($cont + 7) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+                $sheet->cells('J7:J' . ($cont + 7) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+                $sheet->cells('L7:L' . ($cont + 7) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+                $sheet->cells('M7:M' . ($cont + 7) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+                //bordes de la hoja
+                $sheet->setBorder('B7:B' . ($cont + 7) . '');
+                $sheet->setBorder('C7:C' . ($cont + 7) . '');
+                $sheet->setBorder('D7:D' . ($cont + 7) . '');
+                $sheet->setBorder('E7:E' . ($cont + 7) . '');
+                $sheet->setBorder('F7:F' . ($cont + 7) . '');
+                $sheet->setBorder('G7:G' . ($cont + 7) . '');
+                $sheet->setBorder('H7:H' . ($cont + 7) . '');
+                $sheet->setBorder('I7:I' . ($cont + 7) . '');
+                $sheet->setBorder('J7:J' . ($cont + 7) . '');
+                $sheet->setBorder('K7:K' . ($cont + 7) . '');
+                $sheet->setBorder('L7:L' . ($cont + 7) . '');
+                $sheet->setBorder('M7:M' . ($cont + 7) . '');
+                $sheet->setBorder('N7:N' . ($cont + 7) . '');
+                //ubicacion de la data
+                $sheet->fromArray($data, null, 'B7', false);
+                //nombre de hoja
+                $sheet->setTitle('Lista de reportes resumido');
+                //par que la data se ajuste
+                $sheet->setAutoSize(true);
+
+
+            });
+        })->export('xls');
+
+    }
+
+    function reportePagoresu($tiporep, $varopc, $tiempo, $numero)
     {
         date_default_timezone_set('America/Lima');
         $fechahoy = date('Y-m-d');
-        Excel::create('Reporte resumido  :  ' . $fechahoy . '', function ($excel) use ($tiporep, $varopc, $tiempo, $fechahoy,$numero) {
-            $excel->sheet('resumen', function ($sheet) use ($tiporep, $varopc, $tiempo, $fechahoy,$numero) {
+        Excel::create('Reporte resumido  :  ' . $fechahoy . '', function ($excel) use ($tiporep, $varopc, $tiempo, $fechahoy, $numero) {
+            $excel->sheet('resumen', function ($sheet) use ($tiporep, $varopc, $tiempo, $fechahoy, $numero) {
                 $pagoModel = new pagomodel();
-                $fecha='';
-                if ($varopc== 'Resumen total') {
+                $fecha = '';
+                if ($varopc == 'Resumen total') {
                     $data = null;
                     $tiempo = null;
                     if ($tiporep == 1) {
                         $result = $pagoModel->listarpagosresumen($tiempo);
-                        $fecha='AÑO';
+                        $fecha = 'AÑO';
                     } elseif ($tiporep == 2) {
                         $result = $pagoModel->listarpagosresumen($tiempo);
-                        $fecha='MES';
+                        $fecha = 'MES';
                     } elseif ($tiporep == 3) {
                         $result = $pagoModel->listarpagosresumen($tiempo);
-                        $fecha='DIA';
+                        $fecha = 'DIA';
                     }
                     $total = 0;
                     $cont = 0;
@@ -338,14 +531,14 @@ class ExcelController extends Controller
                     $tiempo = null;
                     if ($tiporep == 1) {
                         $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
-                        $fecha='AÑO';
+                        $fecha = 'AÑO';
                     } elseif ($tiporep == 2) {
                         $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
-                        $fecha='MES';
-                       // $valor = $meses[$valor - 1];
-                    } elseif ($tiporep == 3 ) {
+                        $fecha = 'MES';
+                        // $valor = $meses[$valor - 1];
+                    } elseif ($tiporep == 3) {
                         $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
-                        $fecha='DIA';
+                        $fecha = 'DIA';
                     }
                     $var = 'RESUMEN DEL ' . $fecha . ' - ' . $numero;
                     $total = 0;

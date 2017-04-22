@@ -230,6 +230,7 @@ Route::get('ventBoleta', 'PdfController@PagosBoleta');
 Route::resource('datos', 'pagoController@obtenerDatos');
 Route::get('excelreportedet/{estado}/{modalidad}/{opctram}/{valtram}/{sede}/{facultad}/{escuela}/{tipre}/{fuefi}/{fechades}/{fechahas}','ExcelController@reportepagodetalle');
 Route::get('excelresum/{tiporep}/{varopc}/{tiempo}/{numero}','ExcelController@reportePagoresu');
+Route::get('exceldetallado/{encriptado}','ExcelController@reporteDetallado');
 Route::get('excel/{txt}/{select}/{val}','ExcelController@reportePago');
 
 

@@ -532,60 +532,61 @@ ORDER BY pago.codPago DESC');
     public function listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $valtram, $tipoRe, $fuefin, $local, $vallocal)
     {
 
-        $pago = null;
-        if ($modalidad == 'Todo' && $tram == 'Todo' && is_null($tipoRe) && is_null($fuefin) && is_null($local)) {
+
+    $pago = null;
+        if ($modalidad == 'Todo' && $tram == 'Todo' &&  empty($tipoRe)  && empty($fuefin) &&  empty($local)) {
             $pago = $this->listarPagoNada($estado, $fechaDesde, $fechaHasta);
-        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && is_null($tipoRe) && is_null($fuefin) && is_null($local)) {
+        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && empty($tipoRe) &&  empty($fuefin) &&  empty($local)) {
             $pago = $this->listarPagoModalidad($estado, $modalidad, $fechaDesde, $fechaHasta);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && is_null($tipoRe) && is_null($fuefin) && is_null($local)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && empty($tipoRe) &&  empty($fuefin) &&  empty($local)) {
             $pago = $this->listarModTram($estado, $modalidad, $tram, $valtram, $fechaDesde, $fechaHasta);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && is_null($tipoRe) && is_null($fuefin) && !is_null($local)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' &&  empty($tipoRe) &&  empty($fuefin) &&  !empty($local)) {
             $pago = $this->listarTramModLoc($estado, $modalidad, $tram, $valtram, $fechaDesde, $fechaHasta, $local, $vallocal);
-        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && is_null($fuefin) && is_null($local) && !is_null($tipoRe)) {
+        } elseif ($modalidad != 'Todo' && $tram == 'Todo' &&  empty($fuefin) &&  empty($local) && ! empty($tipoRe)) {
             $pago = $this->listarModTip($estado, $modalidad, $fechaDesde, $fechaHasta, $tipoRe);
-        } elseif ($modalidad != 'Todo' && !is_null($tipoRe) && !is_null($fuefin) && !is_null($local) && $tram == 'Todo') {
+        } elseif ($modalidad != 'Todo' && ! empty($tipoRe) && ! empty($fuefin) && ! empty($local) && $tram == 'Todo') {
             $pago = $this->listarMoTiFuLo($estado, $modalidad, $fechaDesde, $fechaHasta, $tipoRe, $fuefin, $local, $vallocal);
-        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && is_null($tipoRe) && is_null($fuefin) && !is_null($local)) {
+        } elseif ($modalidad != 'Todo' && $tram == 'Todo' &&  empty($tipoRe) &&  empty($fuefin) && ! empty($local)) {
             $pago = $this->listarMoLo($estado, $modalidad, $fechaDesde, $fechaHasta, $local, $vallocal);
-        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && is_null($tipoRe) && !is_null($fuefin) && !is_null($local)) {
+        } elseif ($modalidad != 'Todo' && $tram == 'Todo' &&  empty($tipoRe) && ! empty($fuefin) && ! empty($local)) {
             $pago = $this->listarMoFuLo($estado, $modalidad, $fechaDesde, $fechaHasta, $fuefin, $local, $vallocal);
-        } elseif ($modalidad == 'Todo' && $tram != 'Todo' && is_null($tipoRe) && is_null($fuefin) && is_null($local)) {
+        } elseif ($modalidad == 'Todo' && $tram != 'Todo' &&  empty($tipoRe) &&  empty($fuefin) &&  empty($local)) {
             $pago = $this->listarTr($estado, $fechaDesde, $fechaHasta, $tram, $valtram);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && is_null($tipoRe) && !is_null($fuefin) && !is_null($local)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' &&  empty($tipoRe) && ! empty($fuefin) && ! empty($local)) {
             $pago = $this->listarMoTrFuLo($estado, $fechaDesde, $fechaHasta, $tram, $valtram, $fuefin, $local, $vallocal);
-        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && is_null($fuefin) && !is_null($tipoRe) && is_null($local)) {
+        } elseif ($modalidad == 'Todo' && $tram == 'Todo' &&  empty($fuefin) && ! empty($tipoRe) &&  empty($local)) {
             $pago = $this->listarTipoRe($estado, $fechaDesde, $fechaHasta, $tipoRe);
-        } elseif ($modalidad == 'Todo' && $tram != 'Todo' && is_null($fuefin) && !is_null($tipoRe) && is_null($local)) {
+        } elseif ($modalidad == 'Todo' && $tram != 'Todo' &&  empty($fuefin) && ! empty($tipoRe) &&  empty($local)) {
             $pago = $this->listarTraTip($estado, $fechaDesde, $fechaHasta, $tram, $valtram, $tipoRe);
-        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && !is_null($fuefin) && !is_null($tipoRe) && is_null($local)) {
+        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && ! empty($fuefin) && ! empty($tipoRe) &&  empty($local)) {
             $pago = $this->listarFueTip($estado, $fechaDesde, $fechaHasta, $tipoRe, $fuefin);
-        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && is_null($fuefin) && !is_null($tipoRe) && !is_null($local)) {
+        } elseif ($modalidad == 'Todo' && $tram == 'Todo' &&  empty($fuefin) && ! empty($tipoRe) && ! empty($local)) {
             $pago = $this->listarFueTipLo($estado, $fechaDesde, $fechaHasta, $tipoRe, $local, $vallocal);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && is_null($fuefin) && is_null($local) && !is_null($tipoRe)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' &&  empty($fuefin) &&  empty($local) && ! empty($tipoRe)) {
             $pago = $this->listarTip($estado, $fechaDesde, $fechaHasta, $tipoRe, $modalidad, $tram, $valtram);
-        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && is_null($local) && !is_null($fuefin) && !is_null($tipoRe)) {
+        } elseif ($modalidad != 'Todo' && $tram == 'Todo' &&  empty($local) && ! empty($fuefin) && ! empty($tipoRe)) {
             $pago = $this->listarMoFueTipFu($estado, $fechaDesde, $fechaHasta, $tipoRe, $modalidad, $fuefin);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && !is_null($fuefin) && !is_null($tipoRe) && is_null($local)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && ! empty($fuefin) && ! empty($tipoRe) &&  empty($local)) {
             $pago = $this->listarMoTraFuTi($estado, $fechaDesde, $fechaHasta, $tipoRe, $modalidad, $fuefin, $tram, $valtram);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && is_null($fuefin) && !is_null($tipoRe) && !is_null($local)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' &&  empty($fuefin) && ! empty($tipoRe) && ! empty($local)) {
             $pago = $this->listarMoTraTiLo($estado, $fechaDesde, $fechaHasta, $tipoRe, $modalidad, $tram, $valtram, $local, $vallocal);
-        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && !is_null($fuefin) && is_null($tipoRe) && is_null($local)) {
+        } elseif ($modalidad == 'Todo' && $tram == 'Todo' &&  !empty($fuefin) &&  empty($tipoRe) &&  empty($local)) {
             $pago = $this->listarFu($estado, $fechaDesde, $fechaHasta, $fuefin);
-        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && is_null($tipoRe) && is_null($local) && !is_null($fuefin)) {
+        } elseif ($modalidad != 'Todo' && $tram == 'Todo' &&  empty($tipoRe) &&  empty($local) && ! empty($fuefin)) {
             $pago = $this->listarMoFu($estado, $fechaDesde, $fechaHasta, $modalidad, $fuefin);
-        } elseif ($modalidad == 'Todo' && $tram != 'Todo' && is_null($tipoRe) && is_null($local) && !is_null($fuefin)) {
+        } elseif ($modalidad == 'Todo' && $tram != 'Todo' &&  empty($tipoRe) && empty($local) && ! empty($fuefin)) {
             $pago = $this->listarTraFu($estado, $fechaDesde, $fechaHasta, $tram, $valtram, $fuefin);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && is_null($tipoRe) && is_null($local) && !is_null($fuefin)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' &&  empty($tipoRe) &&  empty($local) && ! empty($fuefin)) {
             $pago = $this->listarMoTraFu($estado, $fechaDesde, $fechaHasta, $modalidad, $tram, $valtram, $fuefin);
-        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && is_null($tipoRe) && is_null($fuefin) && !is_null($local)) {
+        } elseif ($modalidad == 'Todo' && $tram == 'Todo' &&  empty($tipoRe) &&  empty($fuefin) && ! empty($local)) {
             $pago = $this->listarLoc($estado, $fechaDesde, $fechaHasta, $local, $vallocal);
-        } elseif ($modalidad == 'Todo' && $tram != 'Todo' && is_null($tipoRe) && is_null($fuefin) && !is_null($local)) {
+        } elseif ($modalidad == 'Todo' && $tram != 'Todo' &&  empty($tipoRe) &&  empty($fuefin) && ! empty($local)) {
             $pago = $this->listarTraLo($estado, $fechaDesde, $fechaHasta, $tram, $valtram, $local, $vallocal);
-        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && is_null($tipoRe) && !is_null($fuefin) && !is_null($local)) {
+        } elseif ($modalidad == 'Todo' && $tram == 'Todo' &&  empty($tipoRe) && ! empty($fuefin) && ! empty($local)) {
             $pago = $this->listarFueLo($estado, $fechaDesde, $fechaHasta, $fuefin, $local, $vallocal);
-        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && !is_null($tipoRe) && is_null($fuefin) && !is_null($local)) {
+        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && ! empty($tipoRe) &&  empty($fuefin) && ! empty($local)) {
             $pago = $this->listarMoTiLo($estado, $fechaDesde, $fechaHasta, $modalidad, $tipoRe, $local, $vallocal);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && !is_null($tipoRe) && !is_null($fuefin) && !is_null($local)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && ! empty($tipoRe) && ! empty($fuefin) && ! empty($local)) {
             $pago = $this->listarTodo($estado, $fechaDesde, $fechaHasta, $modalidad, $tipoRe, $fuefin, $local, $vallocal, $tram, $valtram);
         } else {
             $pago = null;

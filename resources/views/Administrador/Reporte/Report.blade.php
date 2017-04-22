@@ -226,13 +226,12 @@
                                    autocomplete="off" readOnly>
                         </div>
                     </div>
-
+                    <br>
                     <div class="row">
                         <div class=" col-sm-5">
 
                         </div>
                         <div class="col-md-2 form-group-sm">
-                            <span class="control-label">. </span>
                             <button type="submit" name="enviar" class=" btn btn-success"><span
                                         class="glyphicon glyphicon-refresh"></span> Actualizar
                             </button>
@@ -245,216 +244,227 @@
                 <!--Tabla-->
 
                 <div align="center" class=" row  ">
-                    <div class="col-sm-12 row form-group ">
-                        <div class="col-sm-9"></div>
-                        <div class="col-sm-3">
-                            <div class="col-sm-6"></div>
-                            <div class="col-sm-3">
-                                Total :
-                            </div>
-                            <div class="col-sm-2">
-                                @if(isset($total) )
-                                    {{$total}}
-                                @endif
-                            </div>
-                        </div>
+
+                    <div class="col-sm-10"></div>
+
+                    <div class="col-sm-2">
+                        Total :
+                        @if(isset($total) )
+                            {{$total}}
+                        @endif
                     </div>
-                    <div class="table-responsive col-sm-12">
-                        <table class="table table-bordered list-inline">
-                            @if(isset($result))
-                                <thead align="center">
-                                <!--cabecear Tabla-->
-                                <tr class="active">
-
-                                    <th>
-                                        <div align="center">
-                                            <small>ID</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>MODALIDAD</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>SEDE</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>FACULTAD</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>ESCUELA</small>
-                                        </div>
-                                    </th>
-
-                                    <th>
-                                        <div align="center">
-                                            <small>CLASIFICADOR S.I.A.F</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>FUE FIN</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>TIP REC</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>CLASIFICADOR</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>TASA</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>FECHA</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>PRECIO</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>DETALLE</small>
-                                        </div>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <!--Contenido-->
-
-                                @foreach($result as $r)
-                                    <tr>
-                                        <td><h6 align="center">{{$r->codigopago}}</h6></td>
-                                        <td><h6 align="left">{{$r->modalidad}}</h6></td>
-                                        <td><h6 align="left">{{$r->nombresede}}</h6></td>
-                                        <td><h6 align="left">{{$r->nombrefacultad}}</h6></td>
-                                        <td><h6 align="left">{{$r->nombreescuela}}</h6></td>
-                                        <td><h6 align="left">{{$r->clasi}}</h6></td>
-                                        <td><h6 align="center">{{$r->tiporecurso }}</h6></td>
-                                        <td><h6 align="center">{{$r->fuentefinanc}}</h6></td>
-                                        <td><h6 align="left">{{$r-> nombretramite}}</h6></td>
-                                        <td><h6 align="left">{{$r->nombresubtramite }}</h6></td>
-                                        <td><h6 align="left">{{$r->fechapago}}</h6></td>
-                                        <td><h6 align="center">{{$r->precio}}</h6></td>
-                                        <td><h6 align="left">{{$r->pagodetalle}}</h6></td>
-
-
-                                    </tr>
-                                </tbody>
-                                @endforeach
-
-                            @else
-                                <thead align="center">
-                                <!--cabecear Tabla-->
-                                <tr class="active">
-
-                                    <th>
-                                        <div align="center">
-                                            <small>ID PAGO</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>MODALIDAD</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>NOMBRE SEDE</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>NOMBRE FACULTAD</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>NOMBRE ESCUELA</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>FECHA PAGO</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>NOMBRE CLASIFICADOR</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>NOMBRE TASA</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>PRECIO</small>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            <small>Opciones</small>
-                                        </div>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <!--Contenido-->
-
-                                <tr>
-                                    <td><h6 align="center"></h6></td>
-                                    <td><h6 align="center"></h6></td>
-                                    <td><h6 align="center"></h6></td>
-                                    <td><h6 align="center"></h6></td>
-                                    <td><h6 align="center"></h6></td>
-                                    <td><h6 align="center"></h6></td>
-                                    <td><h6 align="center"></h6></td>
-                                    <td><h6 align="center"></h6></td>
-                                    <td><h6 align="center"></h6></td>
-                                    <td align="center">
-
-                                    </td>
-
-                                </tr>
-                                </tbody>
-
-                            @endif
-
-
-                        </table>
-                    </div>
-                    <div class="col-sm-12 row form-group">
-                    </div>
-                    <div class="col-sm-12 row form-group">
-                        <div class="col-md-5"></div>
-                        <div class="col-md-2">
-                            <a href="{{url('/Adm')}}" class="btn  btn-primary"><span
-                                        class="glyphicon glyphicon-arrow-left"></span> Regresar
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-md-5"></div>
                 </div>
+                <div class="table-responsive col-sm-12">
+                    <table class="table table-bordered list-inline">
+                        @if(isset($result))
+                            <thead align="center">
+                            <!--cabecear Tabla-->
+                            <tr class="active">
+
+                                <th>
+                                    <div align="center">
+                                        <small>ID</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>MODALIDAD</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>SEDE</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>FACULTAD</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>ESCUELA</small>
+                                    </div>
+                                </th>
+
+                                <th>
+                                    <div align="center">
+                                        <small>CLASIFICADOR S.I.A.F</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>FUE FIN</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>TIP REC</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>CLASIFICADOR</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>TASA</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>FECHA</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>PRECIO</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>DETALLE</small>
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!--Contenido-->
+
+                            @foreach($result as $r)
+                                <tr>
+                                    <td><h6 align="center">{{$r->codigopago}}</h6></td>
+                                    <td><h6 align="left">{{$r->modalidad}}</h6></td>
+                                    <td><h6 align="left">{{$r->nombresede}}</h6></td>
+                                    <td><h6 align="left">{{$r->nombrefacultad}}</h6></td>
+                                    <td><h6 align="left">{{$r->nombreescuela}}</h6></td>
+                                    <td><h6 align="left">{{$r->clasi}}</h6></td>
+                                    <td><h6 align="center">{{$r->fuentefinanc}}</h6></td>
+                                    <td><h6 align="center">{{$r->tiporecurso }}</h6></td>
+                                    <td><h6 align="left">{{$r-> nombretramite}}</h6></td>
+                                    <td><h6 align="left">{{$r->nombresubtramite }}</h6></td>
+                                    <td><h6 align="left">{{$r->fechapago}}</h6></td>
+                                    <td><h6 align="center">{{$r->precio}}</h6></td>
+                                    <td><h6 align="left">{{$r->pagodetalle}}</h6></td>
+
+
+                                </tr>
+                            </tbody>
+                            @endforeach
+
+                        @else
+                            <thead align="center">
+                            <!--cabecear Tabla-->
+                            <tr class="active">
+
+                                <th>
+                                    <div align="center">
+                                        <small>ID PAGO</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>MODALIDAD</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>NOMBRE SEDE</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>NOMBRE FACULTAD</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>NOMBRE ESCUELA</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>FECHA PAGO</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>NOMBRE CLASIFICADOR</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>NOMBRE TASA</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>PRECIO</small>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div align="center">
+                                        <small>Opciones</small>
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!--Contenido-->
+
+                            <tr>
+                                <td><h6 align="center"></h6></td>
+                                <td><h6 align="center"></h6></td>
+                                <td><h6 align="center"></h6></td>
+                                <td><h6 align="center"></h6></td>
+                                <td><h6 align="center"></h6></td>
+                                <td><h6 align="center"></h6></td>
+                                <td><h6 align="center"></h6></td>
+                                <td><h6 align="center"></h6></td>
+                                <td><h6 align="center"></h6></td>
+                                <td align="center">
+
+                                </td>
+
+                            </tr>
+                            </tbody>
+
+                        @endif
+
+
+                    </table>
+                </div>
+                <div class="col-sm-12 row form-group">
+                </div>
+                <div class=" row ">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-2">
+                        <a href="{{url('/Adm')}}" class="btn btn-sm s-b-5  btn-primary"><span
+                                    class="glyphicon glyphicon-arrow-left"></span> Regresar
+                        </a>
+                    </div>
+                    <div class="col-md-2">
+                        <!--Contenido-->
+                        @if(isset($encript))
+                            <a href="exceldetallado/{{$encript}}"
+                               class="btn btn-sm s-b-5  btn-primary"><span
+                                        class="glyphicon glyphicon-print"></span> Imprimir
+                            </a>
+                        @else
+                            <a class="btn btn-sm s-b-5  btn-primary"><span
+                                        class="glyphicon glyphicon-print"></span> Imprimir
+                            </a>
+                        @endif
+                    </div>
+
+                    <div class="col-md-3"></div>
+                </div>
+
+                <div class="col-md-5"></div>
             </div>
         </div>
+    </div>
     </div>
     </div>
 @stop
@@ -472,6 +482,7 @@
                 document.getElementById("ff").readOnly = false;
             } else if (value == false) {
                 document.getElementById("ff").readOnly = true;
+
             }
         }
         function habilitartr(value) {

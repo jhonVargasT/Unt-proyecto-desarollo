@@ -411,6 +411,7 @@ class pagoController extends Controller
         } else {
             $tipRe = null;
         }
+      
         $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo);
         if (!is_null($result) && empty($result) != true) {
             foreach ($result as $sum) {
@@ -419,7 +420,11 @@ class pagoController extends Controller
         } else {
             $total = 0;
         }
-        return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total, 'Tram' => $request->inputTram, 'sede' => $request->sed, 'fac' => $request->fac, 'esc' => $request->esc, 'tramite' => $request->opcTramite,]);
+        $cadena=$estado.';'.$modalidad.';'.$fechaDesde.';'.$fechaHasta.';'.$tram.';'.$tramites.';'.$tipRe.';'.$fuenfin.';'.$lugar.';'.$codigo;
+
+      //  $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $cadena, MCRYPT_MODE_CBC, md5(md5($key))));
+       
+        return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total,  'estado'=>$estado,'modalidad'=>$modalidad,'fechaDesde'=>$fechaDesde,'fechaHasta'=>$fechaHasta,'tram'=>$tram,'tramites'=>$tramites,'tipRe'=>$tipRe,'fuenfin'=>$fuenfin,'lugar'=>$lugar,'codigo'=>$codigo,'encript'=>$cadena]);
     }
 
     public function obtenerDatos(Request $request)
