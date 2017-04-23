@@ -24,14 +24,11 @@ class Alumno extends Migration
 
             $table->integer('idPersona')-> unsigned();
             $table->integer('coEscuela')-> unsigned();
-
         });
 
         Schema::table('alumno', function($table) {
-
             $table->foreign('coEscuela')->references('idEscuela')->on('escuela');
             $table->foreign('idPersona')->references('codPersona')->on('persona');
-
         });
 
     }

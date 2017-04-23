@@ -24,8 +24,6 @@ class Cliente extends Migration
             $table -> boolean('estado')->default('1');
 
             $table->integer('idPersona')->unsigned()->unique();
-
-
         });
 
         Schema::table('cliente', function( $table) {
