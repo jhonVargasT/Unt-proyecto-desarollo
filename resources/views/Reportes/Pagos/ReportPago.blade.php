@@ -35,7 +35,7 @@
                                 <option value="Codigo alumno">Codigo alumno</option>
                                 <option value="Ruc">Ruc</option>
                                 <option value="Codigo pago">Codigo pago</option>
-                                <!--<option value="Codigo personal">Reporte diario</option>-->
+                                <option value="Codigo personal">Reporte diario</option>
                                 <option value="Todo">Todo</option>
                             </select>
                         </div>
@@ -53,20 +53,6 @@
                                     x.setAttribute("type", "text");
                                     $('#text').prop('required', false);
                                     document.getElementById("text").value = " ";
-                                }
-                                else {
-                                    if (value == 'Codigo personal') {
-                                        var x = document.getElementById("text");
-                                        x.setAttribute("type", "hidden");
-                                        document.getElementById("text").value = '{{Session::get('codPersonal')}}';
-                                    }
-                                    else {
-                                        var x = document.getElementById("text");
-                                        x.setAttribute("type", "text");
-                                        document.getElementById("text").value = '';
-                                        $('#text').prop('required', true);
-                                    }
-
                                 }
                             });
                         </script>
