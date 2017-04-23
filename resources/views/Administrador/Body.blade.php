@@ -151,7 +151,7 @@
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                        <spam class="fa fa-graduation-cap"></spam>
+                                        <span class="fa fa-graduation-cap"></span>
                                         Escuelas</a>
                                 </h4>
                             </div>
