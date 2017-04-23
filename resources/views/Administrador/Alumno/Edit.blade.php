@@ -20,9 +20,15 @@
     </div>
 @stop
 @section('content')
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <div class="panel-heading"><h3>Editar Alumno</h3></div>
     <div style="background-color: #FFFFFF">
-
         <div class="panel-body">
             @if(session()->has('true'))
                 <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -43,26 +49,26 @@
                                         <span class="control-label"> Numero de Dni</span>
                                         <input class="form-control input-sm" name="dni" type="text"
                                                autocomplete="off" onkeypress="return validarNum(event)"
-                                               placeholder="Ejem: 72978792" required>
+                                               placeholder="Ejem: 72978792" required value="{{$a->dni}}">
                                     </div>
                                     <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                         <span class="control-label">Nombres</span>
                                         <input class="form-control input-sm" name="nombres" type="text"
                                                autocomplete="off" onkeypress="return validarLetras(event)"
-                                               placeholder="Ejm:Jose Carlos" required>
+                                               placeholder="Ejm:Jose Carlos" required value="{{$a->nombres}}">
 
                                     </div>
                                     <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                         <span class="control-label">Apellidos</span>
                                         <input class="form-control input-sm" name="apellidos" type="text"
                                                autocomplete="off" onkeypress="return validarLetras(event)"
-                                               placeholder="Ejem: Terenas Lory" required>
+                                               placeholder="Ejem: Terenas Lory" required value="{{$a->apellidos}}">
                                     </div>
                                     <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                         <span class="control-label">Correo</span>
                                         <input class="form-control input-sm" name="correo" type="email"
                                                autocomplete="off"
-                                               placeholder="Ejem: unt@gmail.com" required>
+                                               placeholder="Ejem: unt@gmail.com" required value="{{$a->correo}}">
                                     </div>
                                 </div>
                             </div>
@@ -71,12 +77,13 @@
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label"> Codigo alumno</span>
                                     <input class="form-control input-sm" name="codAlumno" type="text"
-                                           autocomplete="off" placeholder="Ejm: 000104499" required>
+                                           autocomplete="off" placeholder="Ejm: 000104499" required
+                                           value="{{$a->codAlumno}}">
                                 </div>
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label"> Fecha matricula</span>
                                     <div class="col-sm-12 input-group date" data-provide="datepicker">
-                                        <input type="text" name="fecha" class="form-control">
+                                        <input type="text" name="fecha" class="form-control" value="{{$a->fecha}}">
                                         <div class="input-group-addon">
                                             <span class="glyphicon glyphicon-th"></span>
                                         </div>
@@ -84,7 +91,6 @@
                                 </div>
                                 <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label">Sede</span>
-
                                     <input class="typeahead form-control" type="text"
                                            placeholder="Ejm: Trujillo" name="nombreSede" id="ns"
                                            onkeypress="return validarLetras(event)" autocomplete="off" required>
@@ -127,9 +133,8 @@
                                         });
                                     </script>
                                 </div>
-                                <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm " >
+                                <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label">Facultad</span>
-
                                     <input class="form-control input-sm" name=" " type="text" id="f" readonly>
                                     <script>
                                         $('#ne').change(function () {
@@ -145,7 +150,6 @@
                                     </script>
                                     <script>
                                         $('#ns').on('input', function () {
-
                                             if ($(this).val().length)
                                                 $('#ne').prop('disabled', false);
                                             else
@@ -170,6 +174,7 @@
                                 </div>
                                 <div class="col-md-3"></div>
                             </div>
+                        </div>
                     </form>
         </div>
         @endforeach
