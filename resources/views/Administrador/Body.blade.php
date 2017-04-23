@@ -95,7 +95,7 @@
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseThrees">
-                                        <spam class="fa fa-building-o"></spam>
+                                        <span class="fa fa-building-o"></span>
                                         Facultades</a>
                                 </h4>
                             </div>
@@ -123,7 +123,7 @@
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseSede">
-                                        <spam class="fa fa-building-o"></spam>
+                                        <span class="fa fa-building-o"></span>
                                         Sedes</a>
                                 </h4>
                             </div>
@@ -151,7 +151,7 @@
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                        <span class="fa fa-graduation-cap"></span>
+                                        <span class="glyphicon glyphicon-tower"></span>
                                         Escuelas</a>
                                 </h4>
                             </div>
