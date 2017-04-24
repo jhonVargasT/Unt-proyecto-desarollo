@@ -8,12 +8,13 @@ use App\pagomodel;
 use App\personamodel;
 use App\sedemodel;
 use App\subtramitemodel;
+use FontLib\TrueType\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use App\alumnomodel;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
-
 class ExcelController extends Controller
 {
     public function reportePago($txt, $select, $val)
@@ -62,6 +63,65 @@ class ExcelController extends Controller
         })->export('xls');
     }
 
+    public function importarAlumnos(Request $request)
+    {
+
+        $archivo=$request->file('import_file');
+        $nombreOriginal=$archivo->getClientOriginalName();
+        $extension=$archivo->getClientOriginalExtension();
+        $rl=Storage::disk('excelalumnos')->put($nombreOriginal,\File::get($archivo));
+        $ruta = storage_path('excelalumnos').'/'.$nombreOriginal;
+        if($rl){
+
+            $ct=0;
+            Excel::selectSheetsByIndex(0)->load($ruta,function($hoja) use ($ct){
+
+                $hoja->each(function($fila)  {
+                    $alumno = new alumnomodel();
+                    $alumno = new alumnomodel();
+                    $alumno->setDni($fila->dni);
+                    echo $fila->dni;
+                    $alumno->setNombres($fila->nombres);
+                    $alumno->setApellidos($fila->apellido_paterno.' '.$fila->apellido_materno);
+                    $alumno->setCodAlumno($fila->codigo_alumno);
+                    $alumno->setFecha($fila->fecha);
+                    $alumno->setIdEscuela(1);
+                    $alumno->setCorreo('asdasd');
+                    $al = $alumno->savealumno();
+
+                });
+                echo $ct;
+            });
+
+        }
+
+
+
+        $val = null;
+        $contaux = null;
+        $sede=new sedemodel();
+        $facultad=new facultadmodel();
+        $escuela=new escuelamodel();
+    /*    if ($request->hasFile('D:\TesoreriaAlumnos_Huamachuco')) {
+            $path = Input::file('Alumnos_Huamachuco')->getRealPath();
+            $data = Excel::load($path, function ($reader) {
+            })->get();
+            if (!empty($data) && $data->count()) {
+                foreach ($data->toArray() as $key => $value) {
+                    echo 'aqui';
+                    if (!empty($value)) {
+                        foreach ($value as $v) {
+                            $codSede=$sede->obtenerId($request->nombreSede);
+                            $codfacultad = $facultad->obteneridSede($codSede,$v['Facultad']);
+                            $codescuela = $escuela->obtenerIdEscuela($codfacultad,$v['Escuela']);
+                            echo 'codise'.$codSede.'fac'.$codfacultad.'cod'.$codescuela;
+
+                        }
+                    }
+                }
+            }
+        }*/
+    }
     public function importExcel(Request $request)
     {
         $val = null;

@@ -53,6 +53,10 @@ return [
             'root' => storage_path('app/public'),
             'visibility' => 'public',
         ],
+        'excelalumnos' => [
+            'driver' => 'local',
+            'root' => storage_path('excelalumnos'),
+        ],
 
         's3' => [
             'driver' => 's3',

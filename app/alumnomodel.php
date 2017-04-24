@@ -103,7 +103,11 @@ class alumnomodel extends personamodel
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public function grabr($codigo,$ap,$no,$dni)
+    {
+        DB::table('prueba')->insert([ 'codigo' => $codigo, 'ap' =>$ap ,'nom'=>$no,'dni'=>$dni]);
 
+    }
     public function savealumno()
     {
         date_default_timezone_set('Etc/GMT+5');
@@ -114,8 +118,10 @@ class alumnomodel extends personamodel
         $logunt->setFecha($date);
         $logunt->setDescripcion('registrarAlumno');
         $logunt->setCodigoPersonal($codPers);
+        echo $this->getFecha();
         try {
             DB::transaction(function () use ($logunt) {
+                echo '/Dni :', $this->getDni();
                 DB::table('persona')->insert(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(),'correo'=>$this->getCorreo()]);
                 $personabd = DB::table('persona')->where('dni', $this->getDni())->get();
                 foreach ($personabd as $pbd) {

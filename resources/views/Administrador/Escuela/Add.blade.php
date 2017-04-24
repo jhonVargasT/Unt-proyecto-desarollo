@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <div class=" panel-heading"><h3> Agregar Escuela</h3></div>
-    <div style="background-color: #FFFFFF" >
+    <div style="background-color: #FFFFFF">
         <div class="panel-body">
             @if(session()->has('true'))
                 <div class="alert alert-success" role="alert">{{session('true')}} </div>

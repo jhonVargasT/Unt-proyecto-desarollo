@@ -36,12 +36,11 @@
                 @endif
                 @if(session()->has('false'))
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
-            @endif
-            <!-- Search input-->
-                <div class="col-sm-12 row form-group">
-                    <div class="form-group-sm " align="left">
-                        <span class="col-sm-2 control-label"> Nombre clasificador</span>
-                        <div class="col-sm-4">
+                    @endif
+                            <!-- Search input-->
+                    <div class="row ">
+                        <div class="form-group-sm col-sm-2">
+                            <span class="control-label"> Nombre clasificador</span>
                             <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
                                    name="nombreTramite" id="name" autocomplete="off"
                                    onkeypress="return validarLetras(event)" required>
@@ -56,26 +55,8 @@
                                 });
                             </script>
                         </div>
-                    </div>
-                    <div class=" form-group-sm" align="right">
-                        <span class="col-sm-2 control-label">Fecha </span>
-                        <div class="col-sm-3">
-                            <div class="col-sm-12 input-group date" data-provide="datepicker">
-                                <input type="text" name="fecha" class="form-control" placeholder="obligatorio"
-                                       value="<?php date_default_timezone_set('America/Lima');
-                                       $date = date('m/d/Y');
-                                       echo $date ?>" required>
-                                <div class="input-group-addon">
-                                    <span class="glyphicon glyphicon-th"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12 row form-group">
-                    <div class="form-group-sm " align="left">
-                        <span class="col-sm-2 control-label">Tipo de recurso </span>
-                        <div class="col-sm-4">
+                        <div class="col-sm-2">
+                            <span class=" control-label">Tipo de recurso </span>
                             <input class="form-control input-sm " name="TipoDeRecurso" type="text" id="tr" required
                                    disabled>
                             <script>
@@ -91,9 +72,21 @@
                                 });
                             </script>
                         </div>
-                        <div class="form-group-sm" align="right">
-                            <span class="col-sm-2">Monto</span>
-                            <div class="input-group col-sm-2">
+                        <div class=" col-sm-2  form-group-sm">
+                            <span class="control-label">Fecha </span>
+                            <div class=" input-group date" data-provide="datepicker">
+                                <input type="text" name="fecha" class="form-control" placeholder="obligatorio"
+                                       value="<?php date_default_timezone_set('America/Lima');
+                                       $date = date('m/d/Y');
+                                       echo $date ?>" required>
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-sm-2  form-group-sm">
+                            <span class="control-label">Monto</span>
+                            <div class="input-group ">
                                 <div class="input-group-addon ">S/.</div>
                                 <input type="text" class="form-control " name="monto"
                                        autocomplete="off" onkeypress="return validarDouble(event)"
@@ -101,90 +94,86 @@
                                        required>
                             </div>
                         </div>
+                        <div class=" col-sm-2 form-group-sm">
+                            <span class="control-label">Numero de resolucion</span>
+                            <input class="form-control " name="numResolucion" type="text"
+                                   autocomplete="off" onkeypress="return validarNum(event)"
+                                   placeholder="jmp: 124578" required>
+                        </div>
                     </div>
-                    <br>
-                    <div class="col-sm-12 row form-group">
-                        <div class="form-group-sm " align="left">
-                            <span class=" col-sm-2 control-label">Descripcion </span>
-                            <div class="col-sm-4">
+                    <div class="row ">
+                        <div class=" col-sm-4">
+                            <span class="control-label">Descripcion </span>
                                 <textarea class="form-control" rows="2" name="descripcion"
                                           placeholder="Agregue una breve descripcion"></textarea>
-                            </div>
-                            <div class="col-md-1"></div>
-                            <div class=" form-group-sm" align="left">
-                                <span class="col-sm-2 control-label">Numero de resolucion</span>
-                                <div class="col-sm-2">
-                                    <input class="form-control " name="numResolucion" type="text"
-                                           autocomplete="off" onkeypress="return validarNum(event)"
-                                           placeholder="jmp: 124578" required>
+
+                        </div>
+                        <div class="col-sm-2 form-group-sm ">
+                            <span class="control-label">Cuenta bancaria</span>
+                            <div class="input-group">
+                                <input class="form-control input-sm " name="cuentab" type="text" id="cuenta"
+                                       onkeypress="return validarNum(event)" required>
+                                <div class="input-group-addon"><a  id="help_button"><i class="glyphicon glyphicon-eye-open"></i></a>
                                 </div>
                             </div>
+
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-12 row form-group">
-                    <div class="form-group-sm " align="left">
-                        <span class="col-sm-2 control-label">Cuenta bancaria</span>
-                        <div class="col-sm-2">
-                            <input class="form-control input-sm " name="cuentab" type="text" id="cuenta"
-                                   onkeypress="return validarNum(event)" required>
-                            <input id="help_button" type="button" value="Mostrar"/>
-                        </div>
-                    </div>
-                </div>
-                <script>
-                    $(document).ready(function () {
-                        $("#help_button").click(function () {
-                            $("#help").slideToggle(1000, function () {
-                                if ($("#help_button").val() == "Mostrar") {
-                                    $("#help_button").val("Cerrar");
-                                }
-                                else {
-                                    $("#help_button").val("Mostrar");
-                                }
+                <br>
+                    <script>
+                        $(document).ready(function () {
+                            $("#help_button").click(function () {
+                                $("#help").slideToggle(1000, function () {
+                                    if ($("#help_button").val() == "Mostrar") {
+                                        $("#help_button").val("Cerrar");
+                                    }
+                                    else {
+                                        $("#help_button").val("Mostrar");
+                                    }
+                                });
                             });
                         });
-                    });
-                </script>
-                <style>
-                    #help {
-                        background-color: lightblue;
-                        width: 300px;
-                        height: auto;
-                        display: none;
-                        position: fixed;
-                        top: 60%;
-                        left: 57.5%;
-                        margin: -150px 0 0 -150px;
-                    }
-                    table {
-                        font-family: arial, sans-serif;
-                        border-collapse: collapse;
-                        width: 100%;
-                    }
+                    </script>
+                    <style>
+                        #help {
+                            background-color: lightblue;
+                            width: 300px;
+                            height: auto;
+                            display: none;
+                            position: fixed;
+                            top: 60%;
+                            left: 57.5%;
+                            margin: -150px 0 0 -150px;
+                        }
 
-                    td, th {
-                        border: 1px solid #dddddd;
-                        text-align: left;
-                        padding: 8px;
-                    }
+                        table {
+                            font-family: arial, sans-serif;
+                            border-collapse: collapse;
+                            width: 100%;
+                        }
 
-                    tr:nth-child(even) {
-                        background-color: #dddddd;
-                    }
-                </style>
+                        td, th {
+                            border: 1px solid #dddddd;
+                            text-align: left;
+                            padding: 8px;
+                        }
 
-                <div class="col-sm-12 row form-group">
-                    <div class="col-md-3"></div>
-                    <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
-                                class="glyphicon glyphicon-ban-circle"></span>
-                        Cancelar</a>
-                    <div class="col-md-2"></div>
-                    <button type="submit" name="enviar" class="col-md-2 btn btn-success"><span
-                                class="glyphicon glyphicon-ok"></span> Guardar
-                    </button>
-                    <div class="col-md-3"></div>
-                </div>
+                        tr:nth-child(even) {
+                            background-color: #dddddd;
+                        }
+                    </style>
+
+                    <div class="col-sm-12 row form-group">
+                        <div class="col-md-3"></div>
+                        <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
+                                    class="glyphicon glyphicon-ban-circle"></span>
+                            Cancelar</a>
+                        <div class="col-md-2"></div>
+                        <button type="submit" name="enviar" class="col-md-2 btn  btn-success"><span
+                                    class="glyphicon glyphicon-ok"></span> Guardar
+                        </button>
+                        <div class="col-md-3"></div>
+                    </div>
 
             </form>
             <div id="help" align="center">

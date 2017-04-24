@@ -9,6 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- CSS -->
+        <link href="{{asset('assets/js/import.js')}}" rel="stylesheet">
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
         <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/font-awesome/css/font-awesome.min.css')}}">
@@ -95,9 +96,6 @@
             </div>
         </div>
             @yield('body')
-            <footer class="footer row col-sm-12 col-xs-12 col-lg-12">
-                <p align="right">© 2016 ÑuxtuSoft, S.A.C.</p>
-            </footer>
 
     <!-- /#wrapper -->
     <!-- /#wrapper -->

@@ -261,4 +261,14 @@ class facultadmodel
         }
         return $scod;
     }
+
+    public function obteneridSede($idsede,$nombrefacu)
+    {
+        $scod=null;
+        $fac=DB::table('facultad')->select('idFacultad')->where('nombre','=',$nombrefacu)->where('coSede','=',$idsede)->get();
+        foreach ($fac as $sbd) {
+            $scod = $sbd->idFacultad;
+        }
+        return $scod;
+    }
 }

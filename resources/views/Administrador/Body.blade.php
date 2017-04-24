@@ -33,7 +33,34 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven"><span
+                                                class="fa fa-money">
+                            </span> Donaciones y transferencias</a>
+                                </h4>
+                            </div>
+                            @yield('donaciones')
+                            <div id="collapseSeven" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <table class="table">
+                                        <tr>
+                                            <td>
+                                                <span class="glyphicon glyphicon-search"></span>
+                                                <a href="/admBuscarDonaciones">Buscar Donaciones y transferencias</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="glyphicon glyphicon-plus"></span>
+                                                <a href="/admRegistrarDonaciones">Agregar Donaciones y transferencias</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -94,31 +121,32 @@
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThrees">
-                                        <spam class="fa fa-building-o"></spam>
-                                        Facultades</a>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span
+                                                class="fa fa-users">
+                            </span> Personal</a>
                                 </h4>
                             </div>
-                            @yield('facultad')
-                            <div id="collapseThrees" class="panel-collapse collapse">
+                            @yield('personal')
+                            <div id="collapseFour" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <table class="table">
                                         <tr>
                                             <td>
                                                 <span class="glyphicon glyphicon-search"></span>
-                                                <a href="/admBuscarFacultad">Buscar Facultades</a>
+                                                <a href="/admBuscarPersonal">Buscar Personal</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <span class="glyphicon glyphicon-plus"></span>
-                                                <a href="/admRegistrarFacultad">Agregar Facultad</a>
+                                                <a href="/admRegistrarPersonal">Agregar Personal</a>
                                             </td>
                                         </tr>
                                     </table>
                                 </div>
                             </div>
                         </div>
+
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -147,11 +175,12 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                        <spam class="fa fa-graduation-cap"></spam>
+                                        <spam class="fa fa-building-o"></spam>
                                         Escuelas</a>
                                 </h4>
                             </div>
@@ -175,34 +204,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span
-                                                class="fa fa-users">
-                            </span> Personal</a>
-                                </h4>
-                            </div>
-                            @yield('personal')
-                            <div id="collapseFour" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <table class="table">
-                                        <tr>
-                                            <td>
-                                                <span class="glyphicon glyphicon-search"></span>
-                                                <a href="/admBuscarPersonal">Buscar Personal</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="glyphicon glyphicon-plus"></span>
-                                                <a href="/admRegistrarPersonal">Agregar Personal</a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -259,40 +261,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven"><span
-                                                class="fa fa-money">
-                            </span> Donaciones y transferencias</a>
-                                </h4>
-                            </div>
-                            @yield('donaciones')
-                            <div id="collapseSeven" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <table class="table">
-                                        <tr>
-                                            <td>
-                                                <span class="glyphicon glyphicon-search"></span>
-                                                <a href="/admBuscarDonaciones">Buscar Donaciones y transferencias</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="glyphicon glyphicon-plus"></span>
-                                                <a href="/admRegistrarDonaciones">Agregar Donaciones y transferencias</a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseExcel"><span
                                                 class="fa fa-file">
-                            </span> Importar Pagos</a>
+                            </span> Importar Datos</a>
                                 </h4>
                             </div>
                             @yield('excel')

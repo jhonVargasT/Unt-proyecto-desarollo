@@ -247,11 +247,20 @@ class escuelamodel
 
     public function obtenerId($nombre)
     {
+        $esc = null;
+        $data = DB::table('escuela')->select('idEscuela')->where('nombre', '=', $nombre)->get();
+        foreach ($data as $dat) {
+            $esc = $dat->idEscuela;
+        }
+        return $esc;
+    }
+    public function obtenerIdEscuela($idfacultad,$nombre)
+    {
         $esc=null;
-        $data=DB::table('escuela')->select('idEscuela')->where('nombre','=',$nombre)->get();
+        $data=DB::table('escuela')->select('idEscuela')->where('nombre','=',$nombre)->where('codigoFacultad','=',$idfacultad)->get();
         foreach ($data as $dat)
         {
-         $esc=$dat->idEscuela ;
+            $esc=$dat->idEscuela ;
         }
         return $esc;
     }

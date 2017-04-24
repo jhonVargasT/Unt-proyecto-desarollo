@@ -217,9 +217,8 @@ Route::get('/admImportarExcel', function () {
 });
 
 Route::resource('/pagar','pagoController@registrarPago');
-
 Route::resource('importExcel', 'ExcelController@importExcel');
-
+Route::resource('importAlumnos', 'ExcelController@importarAlumnos');
 Route::resource('PagosBuscados', 'pagoController@listarPago');
 Route::get('PagoEliminar/{codPago}', 'pagoController@eliminarPago');
 Route::get('PagoImprimir/{codPago}/{estadoimprimir}', 'PdfController@PagosBoletaAlumno');
