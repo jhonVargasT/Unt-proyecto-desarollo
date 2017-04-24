@@ -21,7 +21,6 @@ class Banco extends Migration
             $table -> increments('codBanco')->unique();
             $table -> string('banco');
             $table -> string('cuenta')->unique();
-
         });
     }
 

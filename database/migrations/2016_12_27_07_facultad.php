@@ -20,7 +20,7 @@ class Facultad extends Migration
             $table->increments('idFacultad')->unique();
             $table->string('codFacultad')->unique();
             $table->string('nombre')->unique();
-            $table->bigInteger('nroCuenta')->unique();
+            $table->string('nroCuenta')->unique();
             $table->boolean('estado')->default('1');
 
             $table->integer('coSede')->unsigned();

@@ -27,7 +27,6 @@ class Donacion extends Migration
 
             $table->integer('idTramite')->unsigned();
             $table->integer('idBanco')->unsigned();
-
         });
 
         Schema::table('donacion', function( $table) {

@@ -297,8 +297,6 @@ class pagoController extends Controller
                         $pag = $pago->consultarCodigoPago($request->text, $val);
                     } else {
                         if ($request->selected == 'Codigo personal') {
-                            //$pag = $pago->consultarCodigoPersonal($request->text);
-
                             Excel::create('Laravel Excel', function ($excel) use ($request) {
                                 $excel->sheet('Reporte Diario', function ($sheet) use ($request) {
                                     $data = null;
@@ -319,7 +317,11 @@ class pagoController extends Controller
                                 });
                             })->export('xls');
                         } else {
-                            $pag = $pago->consultarPagos($val);
+                            if ($request->selected == 'Reporte diario') {
+                                $pag = $pago->listarPagosPersonal($request->text);
+                            } else {
+                                $pag = $pago->consultarPagos($val);
+                            }
                         }
                     }
                 }
@@ -411,7 +413,7 @@ class pagoController extends Controller
         } else {
             $tipRe = null;
         }
-      
+
         $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo);
         if (!is_null($result) && empty($result) != true) {
             foreach ($result as $sum) {
@@ -420,11 +422,11 @@ class pagoController extends Controller
         } else {
             $total = 0;
         }
-        $cadena=$estado.';'.$modalidad.';'.$fechaDesde.';'.$fechaHasta.';'.$tram.';'.$tramites.';'.$tipRe.';'.$fuenfin.';'.$lugar.';'.$codigo;
+        $cadena = $estado . ';' . $modalidad . ';' . $fechaDesde . ';' . $fechaHasta . ';' . $tram . ';' . $tramites . ';' . $tipRe . ';' . $fuenfin . ';' . $lugar . ';' . $codigo;
 
-      //  $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $cadena, MCRYPT_MODE_CBC, md5(md5($key))));
-       
-        return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total,  'estado'=>$estado,'modalidad'=>$modalidad,'fechaDesde'=>$fechaDesde,'fechaHasta'=>$fechaHasta,'tram'=>$tram,'tramites'=>$tramites,'tipRe'=>$tipRe,'fuenfin'=>$fuenfin,'lugar'=>$lugar,'codigo'=>$codigo,'encript'=>$cadena]);
+        //  $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $cadena, MCRYPT_MODE_CBC, md5(md5($key))));
+
+        return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total, 'estado' => $estado, 'modalidad' => $modalidad, 'fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta, 'tram' => $tram, 'tramites' => $tramites, 'tipRe' => $tipRe, 'fuenfin' => $fuenfin, 'lugar' => $lugar, 'codigo' => $codigo, 'encript' => $cadena]);
     }
 
     public function obtenerDatos(Request $request)
@@ -444,7 +446,7 @@ class pagoController extends Controller
 
     public function obtenerPagosresumen(Request $request)
     {
-        if($request->combito !== 'Escojer') {
+        if ($request->combito !== 'Escojer') {
             $numero = '';
             $result = null;
             $pagoModel = new pagomodel();
@@ -512,8 +514,7 @@ class pagoController extends Controller
                 return view('Administrador/Reporte/reporteresumido')->with(['resultsiaf' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp, 'tiempo' => $tiempo, 'numero' => $numero]);
 
             }
-        }
-        else{
+        } else {
             return view('Administrador/Reporte/reporteresumido');
         }
     }
