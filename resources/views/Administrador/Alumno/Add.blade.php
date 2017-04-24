@@ -29,6 +29,9 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="/resources/demos/style.css">
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
         <div class="panel-heading"><h3>Agregar Estudiante</h3></div>
         <div style="background-color: #FFFFFF">
             <div class="panel-body">
@@ -138,7 +141,7 @@
                                         });
                                     </script>
                                 </div>
-                                <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm " >
+                                <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label">Facultad</span>
 
                                     <input class="form-control input-sm" name=" " type="text" id="f" readonly>

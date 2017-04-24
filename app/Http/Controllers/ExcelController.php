@@ -8,6 +8,7 @@ use App\pagomodel;
 use App\personamodel;
 use App\sedemodel;
 use App\subtramitemodel;
+use App\tramitemodel;
 use FontLib\TrueType\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,7 @@ use App\alumnomodel;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+
 class ExcelController extends Controller
 {
     public function reportePago($txt, $select, $val)
@@ -22,6 +24,8 @@ class ExcelController extends Controller
         Excel::create('Laravel Excel', function ($excel) use ($txt, $select, $val) {
             $excel->sheet('Productos', function ($sheet) use ($txt, $select, $val) {
                 $data = null;
+                $total = 0;
+                $cont = 0;
                 $pag = null;
                 $pago = new pagomodel();
                 if ($select == 'Dni') {
@@ -44,6 +48,11 @@ class ExcelController extends Controller
                     }
                 }
                 foreach ($pag as $p) {
+                    $total += $p->precio;
+                }
+
+                foreach ($pag as $p) {
+                    $cont++;
                     $data[] = array(
                         "Codigo Pago" => $p->codPago,
                         "Dni" => $p->p1dni,
@@ -58,7 +67,148 @@ class ExcelController extends Controller
                         "Cajero Apellidos" => $p->papellidos,
                     );
                 }
-                $sheet->FromArray($data);
+                //$sheet->FromArray($data);
+                $sheet->mergeCells('B1:L1');
+
+                $sheet->cell('B1', function ($cell) {
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12',
+                        'bold' => true
+                    ));
+                    $cell->setValue('UNIVERSIDAD NACIONAL DE TRUJILLO');
+                    $cell->setAlignment('center');
+                });
+                $sheet->mergeCells('B2:L2');
+                $sheet->cell('B2', function ($cell) {
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12',
+                        'bold' => false
+                    ));
+                    $cell->setValue('OGSEF- OF.TEC. TESORERIA');
+                    $cell->setAlignment('center');
+                });
+                $sheet->mergeCells('B3:L3');
+
+                $sheet->cell('B3', function ($cell) {
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12',
+                        'bold' => true
+                    ));
+                    $cell->setValue('Reporte de pagos detallado');
+                    $cell->setAlignment('center');
+                });
+
+                //total
+                $sheet->cell('K6', function ($cell) {
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12',
+                        'bold' => true
+                    ));
+                    $cell->setValue('Total de ingresos :');
+                    $cell->setAlignment('right');
+                });
+                $sheet->cell('L6', function ($cell) use ($total) {
+                    $cell->setValue($total);
+                });
+                $sheet->cells('L6', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+
+                //*************************************************
+                //*******************cabecera de tabla
+                $sheet->cells('B7:L7', function ($cells) {
+                    $cells->setBackground('#006600');
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12',
+                        'bold' => true
+                    ));
+                    $cells->setBorder(array(
+                        'top' => array(
+                            'style' => 'solid'
+                        ),
+                    ));
+                    $cells->setAlignment('center');
+                });
+                //*****************************************
+                //*******************************cuerpo de tabla
+                //estilos
+                $sheet->cells('B7:B' . ($cont + 7) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+
+                $sheet->cells('G7:G' . ($cont + 7) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+                $sheet->cells('H7:H' . ($cont + 7) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+                $sheet->cells('I7:I' . ($cont + 7) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+                $sheet->cells('J7:J' . ($cont + 7) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+                $sheet->cells('L7:L' . ($cont + 7) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+                /*$sheet->cells('M7:M' . ($cont + 7) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });*/
+                //bordes de la hoja
+                $sheet->setBorder('B7:B' . ($cont + 7) . '');
+                $sheet->setBorder('C7:C' . ($cont + 7) . '');
+                $sheet->setBorder('D7:D' . ($cont + 7) . '');
+                $sheet->setBorder('E7:E' . ($cont + 7) . '');
+                $sheet->setBorder('F7:F' . ($cont + 7) . '');
+                $sheet->setBorder('G7:G' . ($cont + 7) . '');
+                $sheet->setBorder('H7:H' . ($cont + 7) . '');
+                $sheet->setBorder('I7:I' . ($cont + 7) . '');
+                $sheet->setBorder('J7:J' . ($cont + 7) . '');
+                $sheet->setBorder('K7:K' . ($cont + 7) . '');
+                $sheet->setBorder('L7:L' . ($cont + 7) . '');
+                //ubicacion de la data
+                $sheet->fromArray($data, null, 'B7', false);
+                //nombre de hoja
+                $sheet->setTitle('Lista de reportes resumido');
+                //par que la data se ajuste
+                $sheet->setAutoSize(true);
             });
         })->export('xls');
     }
@@ -66,23 +216,23 @@ class ExcelController extends Controller
     public function importarAlumnos(Request $request)
     {
 
-        $archivo=$request->file('import_file');
-        $nombreOriginal=$archivo->getClientOriginalName();
-        $extension=$archivo->getClientOriginalExtension();
-        $rl=Storage::disk('excelalumnos')->put($nombreOriginal,\File::get($archivo));
-        $ruta = storage_path('excelalumnos').'/'.$nombreOriginal;
-        if($rl){
+        $archivo = $request->file('import_file');
+        $nombreOriginal = $archivo->getClientOriginalName();
+        $extension = $archivo->getClientOriginalExtension();
+        $rl = Storage::disk('excelalumnos')->put($nombreOriginal, \File::get($archivo));
+        $ruta = storage_path('excelalumnos') . '/' . $nombreOriginal;
+        if ($rl) {
 
-            $ct=0;
-            Excel::selectSheetsByIndex(0)->load($ruta,function($hoja) use ($ct){
+            $ct = 0;
+            Excel::selectSheetsByIndex(0)->load($ruta, function ($hoja) use ($ct) {
 
-                $hoja->each(function($fila)  {
+                $hoja->each(function ($fila) {
                     $alumno = new alumnomodel();
                     $alumno = new alumnomodel();
                     $alumno->setDni($fila->dni);
                     echo $fila->dni;
                     $alumno->setNombres($fila->nombres);
-                    $alumno->setApellidos($fila->apellido_paterno.' '.$fila->apellido_materno);
+                    $alumno->setApellidos($fila->apellido_paterno . ' ' . $fila->apellido_materno);
                     $alumno->setCodAlumno($fila->codigo_alumno);
                     $alumno->setFecha($fila->fecha);
                     $alumno->setIdEscuela(1);
@@ -96,32 +246,32 @@ class ExcelController extends Controller
         }
 
 
-
         $val = null;
         $contaux = null;
-        $sede=new sedemodel();
-        $facultad=new facultadmodel();
-        $escuela=new escuelamodel();
-    /*    if ($request->hasFile('D:\TesoreriaAlumnos_Huamachuco')) {
-            $path = Input::file('Alumnos_Huamachuco')->getRealPath();
-            $data = Excel::load($path, function ($reader) {
-            })->get();
-            if (!empty($data) && $data->count()) {
-                foreach ($data->toArray() as $key => $value) {
-                    echo 'aqui';
-                    if (!empty($value)) {
-                        foreach ($value as $v) {
-                            $codSede=$sede->obtenerId($request->nombreSede);
-                            $codfacultad = $facultad->obteneridSede($codSede,$v['Facultad']);
-                            $codescuela = $escuela->obtenerIdEscuela($codfacultad,$v['Escuela']);
-                            echo 'codise'.$codSede.'fac'.$codfacultad.'cod'.$codescuela;
+        $sede = new sedemodel();
+        $facultad = new facultadmodel();
+        $escuela = new escuelamodel();
+        /*    if ($request->hasFile('D:\TesoreriaAlumnos_Huamachuco')) {
+                $path = Input::file('Alumnos_Huamachuco')->getRealPath();
+                $data = Excel::load($path, function ($reader) {
+                })->get();
+                if (!empty($data) && $data->count()) {
+                    foreach ($data->toArray() as $key => $value) {
+                        echo 'aqui';
+                        if (!empty($value)) {
+                            foreach ($value as $v) {
+                                $codSede=$sede->obtenerId($request->nombreSede);
+                                $codfacultad = $facultad->obteneridSede($codSede,$v['Facultad']);
+                                $codescuela = $escuela->obtenerIdEscuela($codfacultad,$v['Escuela']);
+                                echo 'codise'.$codSede.'fac'.$codfacultad.'cod'.$codescuela;
 
+                            }
                         }
                     }
                 }
-            }
-        }*/
+            }*/
     }
+
     public function importExcel(Request $request)
     {
         $val = null;
@@ -275,24 +425,21 @@ class ExcelController extends Controller
                 foreach ($result as $r) {
                     $cont++;
                     $data[] = array(
-                        "ID"=>$r->codigopago
-                    , "MODALIDAD"=>$r->modalidad
-                    , "SEDE"=>$r->nombresede
-                    , "FACULTAD"=>$r->nombrefacultad
-                    , "ESCUELA"=>$r->nombreescuela
-                    , "CLASIFICADOR S.I.A.F"=>$r->clasi
-                    , "TIP REC"=>$r->tiporecurso
-                    , "FUE FIN"=>$r->fuentefinanc
-                    , "CLASIFICADOR"=>$r-> nombretramite
-                    , "TASA"=>$r->nombresubtramite
-                    , "FECHA"=>$r->fechapago
-                    , "PRECIO"=>$r->precio
-                    , "DETALLE"=>$r->pagodetalle
+                        "ID" => $r->codigopago
+                    , "MODALIDAD" => $r->modalidad
+                    , "SEDE" => $r->nombresede
+                    , "FACULTAD" => $r->nombrefacultad
+                    , "ESCUELA" => $r->nombreescuela
+                    , "CLASIFICADOR S.I.A.F" => $r->clasi
+                    , "TIP REC" => $r->tiporecurso
+                    , "FUE FIN" => $r->fuentefinanc
+                    , "CLASIFICADOR" => $r->nombretramite
+                    , "TASA" => $r->nombresubtramite
+                    , "FECHA" => $r->fechapago
+                    , "PRECIO" => $r->precio
+                    , "DETALLE" => $r->pagodetalle
 
                     );
-
-
-
                 }
 
                 $sheet->mergeCells('B1:N1');
@@ -442,7 +589,6 @@ class ExcelController extends Controller
 
             });
         })->export('xls');
-
     }
 
     function reportePagoresu($tiporep, $varopc, $tiempo, $numero)
