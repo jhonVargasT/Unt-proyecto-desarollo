@@ -2,6 +2,7 @@
 @section('body')
     <!--barra de navegacion -->
     @if(  Session::has('tipoCuentaA') )
+        {{csrf_field()}}
                 <div class="col-sm-2 " style="background-color: #FFFFFF">
                 <br>
                     <div class="panel-group" id="accordion">

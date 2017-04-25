@@ -11,7 +11,6 @@ class personalController extends Controller
 {
     public function registrarPersonal(Request $request)
     {
-        echo ' asdasd';
         $personal = new personalmodel();
         $personal->setDni($request->dni);
         $personal->setNombres($request->nombres);
@@ -33,7 +32,8 @@ class personalController extends Controller
     public function logOutPersonal()
     {
         Session::flush();
-        return view('index');
+        return redirect()->route('index');
+        //return view('/index');
     }
 
     public function loguearPersonal(Request $request)

@@ -66,9 +66,10 @@
                 <div class="col-sm-1 col-xs-1 col-lg-1"></div>
                 <div class="col-sm-1 col-xs-1 col-lg-1" >
 
-                        <img style="width: 200px;"src="{{ asset('assets/img/logo.png') }}">
+                        <img style="width: 200px; "src="{{ asset('assets/img/logo.png') }}">
 
                 </div>
+                {{csrf_field()}}
                 <div class="col-sm-1 col-xs-1 col-lg-1"></div>
                 <div class="col-sm-8 col-xs-8 col-lg-8" align="center">
                     <div>

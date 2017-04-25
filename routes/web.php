@@ -16,7 +16,7 @@ Route::get('/Adm', function () {
 });
 Route::get('/', function () {
     return view('index');
-});
+})->name('index');
 
 
 Route::resource('/loguear', 'personalController@loguearPersonal');
