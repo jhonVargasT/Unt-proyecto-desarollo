@@ -270,14 +270,13 @@
                             </span> Importar Datos</a>
                                 </h4>
                             </div>
-                            @yield('excel')
                             <div id="collapseExcel" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <table class="table">
                                         <tr>
                                             <td>
                                                 <span class="glyphicon glyphicon-plus"></span>
-                                                <a href="/admImportarExcel"> Importar Pagos</a>
+                                             <!--   <a href="/admImportarExcel"> Importar Pagos</a> -->
                                             </td>
                                         </tr>
                                     </table>

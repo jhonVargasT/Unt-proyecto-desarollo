@@ -5,8 +5,14 @@
             <table class="table">
                 <tr>
                     <td>
-                        <i class="icomoon icon-coin"></i>
-                        <a href="/repRelizarPago">Realizar pago</a>
+                        <a href="/repReportesResumido" ><span
+                                    class="glyphicon glyphicon-book"></span> Reporte Resumido</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="/repReportes" > <span class="glyphicon glyphicon-list-alt"></span> Reporte pagos
+                            detallado</a>
                     </td>
                 </tr>
                 <tr>

@@ -82,6 +82,7 @@
                                     <select class="form-control " name="tipocuenta">
                                         <option>Administrador</option>
                                         <option>Ventanilla</option>
+                                        <option>Reportes</option>
                                     </select>
                                 </div>
                             </div>

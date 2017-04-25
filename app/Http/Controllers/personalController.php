@@ -11,6 +11,7 @@ class personalController extends Controller
 {
     public function registrarPersonal(Request $request)
     {
+        echo ' asdasd';
         $personal = new personalmodel();
         $personal->setDni($request->dni);
         $personal->setNombres($request->nombres);
@@ -31,7 +32,7 @@ class personalController extends Controller
 
     public function logOutPersonal()
     {
-        Session::forget('misession');
+        Session::flush();
         return view('index');
     }
 
@@ -59,6 +60,7 @@ class personalController extends Controller
         Session::put(['misession' => $personal->getNombres() . ' ' . $personal->getApellidos()]);
         Session::put('personalC', $personal->getCuenta());
         Session::put('idpersonal', $idpersonal);
+        
         if ($personal->getTipoCuenta() == 'Administrador') {
             Session::put('tipoCuentaA', $personal->getTipoCuenta());
             Session::put('tipoCuentaV', null);
@@ -140,9 +142,9 @@ class personalController extends Controller
             }
         }
         if ($valueA == 'Administrador')
-            return view('Administrador/Personal/Search')->with(['personal' => $pers, 'txt' => $request->text, 'select' => $request->select]);
+            return view('Administrador/Personal/Search')->with(['personal' => $pers, 'buscar' => $request->text, 'select' => $request->select]);
         if ($valueR == 'Reportes')
-            return view('Reportes/Personal/Search')->with(['personal' => $pers, 'txt' => $request->text, 'select' => $request->select]);
+            return view('Reportes/Personal/Search')->with(['personal' => $pers, 'buscar' => $request->text, 'select' => $request->select]);
 
     }
 

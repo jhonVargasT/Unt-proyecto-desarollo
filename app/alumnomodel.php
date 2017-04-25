@@ -110,6 +110,7 @@ class alumnomodel extends personamodel
     }
     public function savealumno()
     {
+        echo 'aqui';
         date_default_timezone_set('Etc/GMT+5');
         $date = date('Y-m-d H:i:s', time());
         $logunt = new loguntemodel();

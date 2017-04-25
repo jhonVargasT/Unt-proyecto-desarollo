@@ -1,4 +1,5 @@
 @extends('Administrador/Body')
+
 @section('personal')
     <div id="collapseFour" class="collapse in">
         <div class="panel-body">
@@ -19,7 +20,11 @@
         </div>
     </div>
 @stop
+@if(isset($buscar))
+@section('buscar',$buscar)
+@endif
 @section('content')
+
     <div class="panel-heading"> <h3>Buscar personal</h3></div>
     <div  style="background-color: #FFFFFF" >
         @if(session()->has('true'))
@@ -47,12 +52,9 @@
                       
                     </div>
                     <div class="form-group-sm input-group col-sm-6">
-                        @if(isset($txt))
-                            <input type="text" name="text" class="form-control" value="{{$txt}}">
-                        @else
-                            <input type="text" name="text" class="form-control" placeholder="Ingresa datos aqui .."
-                                   autocomplete="off">
-                        @endif
+
+                            <input type="text" name="text" class="form-control" value="@yield('buscar')">
+
                         <span class="input-group-btn">
                             <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
                         </span>
@@ -74,6 +76,9 @@
                         </th>
                         <th>
                             <div align="center">Nombres y apellidos</div>
+                        </th>
+                        <th>
+                            <div align="center">Correo</div>
                         </th>
                         <th>
                             <div align="center">Codigo personal</div>

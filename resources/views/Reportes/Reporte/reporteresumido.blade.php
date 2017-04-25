@@ -15,6 +15,11 @@
                             detallado</a>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <a href="/repReportPago"><span class="glyphicon glyphicon-list-alt"> </span>Mostrar pagos</a>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
@@ -31,21 +36,21 @@
                 });
 
             });
-            $( "#datepicker" ).datepicker({
+            $("#datepicker").datepicker({
                 // Formato de la fecha
                 dateFormat: "dd/mm/yy",
                 // Primer dia de la semana El lunes
                 firstDay: 1,
                 // Dias Largo en castellano
-                dayNames: [ "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado" ],
+                dayNames: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"],
                 // Dias cortos en castellano
-                dayNamesMin: [ "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa" ],
+                dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
                 // Nombres largos de los meses en castellano
-                monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" ],
+                monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
                 // Nombres de los meses en formato corto
-                monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dec" ],
+                monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dec"],
                 // Cuando seleccionamos la fecha esta se pone en el campo Input
-                onSelect: function(dateText) {
+                onSelect: function (dateText) {
                     $('#fecha').val(dateText);
                 }
             });
@@ -74,7 +79,7 @@
                             <div class="form-group-sm col-sm-2 ">
                                 <span class="control-label">Buscar por :</span>
                                 <select class=" form-control" name="combito" id="combito">
-                                    <option >Escojer</option>
+                                    <option>Escojer</option>
                                     <option value="1">Año</option>
                                     <option value="2">Mes</option>
                                     <option value="3">Dia</option>
@@ -85,26 +90,26 @@
                                     <span class=" control-label">Año :</span>
 
                                     <input type="text" class="form-control input-sm " id="año1" name="año1"
-                                           autocomplete="off" >
+                                           autocomplete="off">
 
                                 </div>
                                 <div id="div_2" class="row contenido">
                                     <div class="col-sm-6">
                                         <span class=" control-label">Año :</span>
                                         <input type="text" class="form-control input-sm " id="trinp" name="año2"
-                                               autocomplete="off" >
+                                               autocomplete="off">
                                     </div>
                                     <div class="col-sm-6">
                                         <span class=" control-label">Mes :</span>
                                         <input type="text" class="form-control input-sm " id="trinp" name="mes2"
-                                               autocomplete="off" >
+                                               autocomplete="off">
                                     </div>
                                 </div>
                                 <div id="div_3" class="contenido ">
                                     <span class=" control-label">Elija fecha :</span>
                                     <div class="input-group date " data-provide="datepicker">
-                                        <input type="dia" name="fecha"  class="form-control"
-                                               autocomplete="off" >
+                                        <input type="dia" name="fecha" class="form-control"
+                                               autocomplete="off">
                                         <div class="input-group-addon">
                                             <span class="glyphicon glyphicon-th"></span>
                                         </div>
@@ -113,7 +118,7 @@
                                 </div>
                             </div>
                             <div class="form-group-sm col-sm-1">
-                                <span class=" control-label"><p> </p></span>
+                                <span class=" control-label"><p></p></span>
                                 <button type="submit" class="btn  btn-success" id="imp"><span
                                             class="glyphicon glyphicon-repeat"></span> Actualizar
                                 </button>

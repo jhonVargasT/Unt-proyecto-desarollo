@@ -15,6 +15,12 @@
                             detallado</a>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <i class="glyphicon glyphicon-list-alt"></i>
+                        <a href="/repReportPago">Mostrar pagos</a>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
