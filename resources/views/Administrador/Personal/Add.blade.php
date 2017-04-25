@@ -90,7 +90,7 @@
                                 <span class="col-sm-2">Codigo personal</span>
                                 <div class="col-sm-4">
                                     <input class="form-control input-sm" name="codigoPersonal" type="text"
-                                           onkeypress="return validarNum(event)" placeholder="ejmp: 00025487" required>
+                                          placeholder="ejmp: 00025487" required>
                                 </div>
                             </div>
                         </div>
