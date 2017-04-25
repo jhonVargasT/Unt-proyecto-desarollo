@@ -146,7 +146,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -175,7 +174,34 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFacu">
+                                        <spam class="fa fa-building-o"></spam>
+                                        Facultades</a>
+                                </h4>
+                            </div>
+                            @yield('facultad')
+                            <div id="collapseFacu" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <table class="table">
+                                        <tr>
+                                            <td>
+                                                <span class="glyphicon glyphicon-search"></span>
+                                                <a href="/admBuscarFacultad">Buscar Facultades</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="glyphicon glyphicon-plus"></span>
+                                                <a href="/admRegistrarFacultad">Agregar Facultad</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
