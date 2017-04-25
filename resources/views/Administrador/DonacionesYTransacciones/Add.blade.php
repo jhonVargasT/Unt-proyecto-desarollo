@@ -142,7 +142,7 @@
                             display: none;
                             position: fixed;
                             top: 60%;
-                            left: 57.5%;
+                            left: 70%;
                             margin: -150px 0 0 -150px;
                         }
 

@@ -55,6 +55,7 @@ class alumnoController extends Controller
         $alumno->setNombres($request->nombres);
         $alumno->setApellidos($request->apellidos);
         $alumno->setCodAlumno($request->codAlumno);
+        $alumno->setCorreo($request->correo);
         $alumno->setFecha($request->fecha);
         $alumno->editarAlumno($codPersona);
 

@@ -52,6 +52,7 @@ class clienteController extends Controller
         $cliente->setNombres($request->nombres);
         $cliente->setApellidos($request->apellidos);
         $cliente->setRuc($request->ruc);
+        $cliente->setCorreo($request->correo);
         $cliente->setRazonSocial($request->razonSocial);
         $cliente->editarCliente($codPersona);
 

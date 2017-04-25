@@ -17,7 +17,9 @@ class PdfController extends Controller
             $total = $total + $p->precio;
         }
         view()->share(['pago' => $pag, 'total' => $total]);
+
         $pdf = app('dompdf.wrapper');
+
         $pdf->loadView('Ventanilla/Pagos/reporte');
         return $pdf->download('pagoAlumno.pdf');
     }

@@ -108,6 +108,7 @@ class personalController extends Controller
         $personal->setCodPersonal($request->codigoPersonal);
         $personal->setCuenta($request->cuenta);
         $personal->setPassword($request->contraseña);
+        $personal->setCorreo($request->correo);
         $personal->setTipoCuenta($request->tipoDeCuenta);
         $personal->editarPersonal($idPersonal);
         return view('Administrador/Personal/Search')->with(['nombre' => $request->nombres]);
