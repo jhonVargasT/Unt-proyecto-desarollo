@@ -14,6 +14,7 @@ class donacionmodel
     private $monto;
     private $estado;
     private $idTramite;
+    private $idBanco;
 
     /**
      * donacionmodel constructor.
@@ -131,6 +132,24 @@ class donacionmodel
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIdBanco()
+    {
+        return $this->idBanco;
+    }
+
+    /**
+     * @param mixed $idBanco
+     * @return donacionmodel
+     */
+    public function setIdBanco($idBanco)
+    {
+        $this->idBanco = $idBanco;
+        return $this;
+    }
+
     public function bdTramite($nombre)
     {
         $idTra = DB::select('select codTramite from tramite where nombre=:nombre', ['nombre' => $nombre]);
@@ -154,7 +173,7 @@ class donacionmodel
 
         try {
             DB::transaction(function () use($logunt){
-                DB::table('donacion')->insert(['numResolucion' => $this->numResolucion, 'fechaIngreso' => $this->fechaIngreso, 'descripcion' => $this->descripcion, 'monto' => $this->monto, 'idTramite' => $this->idTramite]);
+                DB::table('donacion')->insert(['numResolucion' => $this->numResolucion, 'fechaIngreso' => $this->fechaIngreso, 'descripcion' => $this->descripcion, 'monto' => $this->monto, 'idTramite' => $this->idTramite,'idBanco'=>$this->idBanco]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -175,7 +194,7 @@ class donacionmodel
         $logunt->setCodigoPersonal($codPers);
         try {
             DB::transaction(function () use ($codDonacion,$logunt) {
-                DB::table('donacion')->where('codDonacion', $codDonacion)->update(['numResolucion' => $this->numResolucion, 'descripcion' => $this->descripcion, 'fechaIngreso' => $this->fechaIngreso, 'monto'=>$this->monto]);
+                DB::table('donacion')->where('codDonacion', $codDonacion)->update(['numResolucion' => $this->numResolucion, 'fechaIngreso' => $this->fechaIngreso, 'descripcion' => $this->descripcion, 'monto' => $this->monto, 'idTramite' => $this->idTramite,'idBanco'=>$this->idBanco]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -251,5 +270,18 @@ class donacionmodel
         $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
         tramite.codTramite = donacion.idTramite and tramite.estado=1 and donacion.estado =1');
         return $donacionbd;
+    }
+
+
+    public function obteneridBanco($cuenta)
+    {
+        $idb = null;
+        $bancobd = DB::select('select idBanco from banco where cuenta= "'.$cuenta.'"and estado =1');
+
+        foreach ($bancobd as $b)
+        {
+            $idb = $b->idBanco;
+        }
+        return $idb;
     }
 }

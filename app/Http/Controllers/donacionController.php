@@ -22,6 +22,8 @@ class donacionController extends Controller
         $nombreT = $request->nombreTramite;
         $idD = $donacion->bdTramite($nombreT);
         $donacion->setIdTramite($idD);
+        $idB = $donacion->obteneridBanco($request->cuenta);
+        $donacion->setIdBanco($idB);
         $dona = $donacion->saveDonacion();
 
         if ($dona == true) {
@@ -39,14 +41,12 @@ class donacionController extends Controller
 
     public function tipoRecurso(Request $request)
     {
-        $nombreT = $request->name;
-        $tipoRe = DB::select('select * from tramite where nombre=:nombre', ['nombre' => $nombreT]);
-
-        foreach ($tipoRe as $tir) {
-            $tr = $tir->tipoRecurso;
-            return response()->json($tr);
+        $var = $request->name;
+        $nombreT = DB::select('select tipoRecurso from tramite where nombre=:nombre and estado=1', ['nombre' => $var]);
+        foreach ($nombreT as $n) {
+            $dato = $n->tipoRecurso;
+            return response()->json($dato);
         }
-
     }
 
     public function cargarDonacion($codDonacion)
@@ -59,10 +59,17 @@ class donacionController extends Controller
     public function editarDonacion($codDonacion, Request $request)
     {
         $donacion = new donacionmodel();
-        $donacion->setNumResolucion($request->numeroResolucion);
+        $donacion->setNumResolucion($request->numResolucion);
+        $d = $request->fecha;
+        $date = implode("-", array_reverse(explode("/", $d)));
+        $donacion->setFechaIngreso($date);
         $donacion->setDescripcion($request->descripcion);
         $donacion->setMonto($request->monto);
-        $donacion->setFechaIngreso($request->fechaDeIngreso);
+        $nombreT = $request->nombreTramite;
+        $idD = $donacion->bdTramite($nombreT);
+        $donacion->setIdTramite($idD);
+        $idB = $donacion->obteneridBanco($request->cuenta);
+        $donacion->setIdBanco($idB);
         $donacion->editarDonacion($codDonacion);
         return view('Administrador/DonacionesYTransacciones/Search')->with(['nombre' => $request->numeroResolucion]);
     }
@@ -117,11 +124,11 @@ class donacionController extends Controller
 
     public function banco()
     {
-        $products = DB::select('select banco, cuenta from banco');
+        $products = DB::select('select banco, cuenta from banco where estado=1');
 
         $data = array();
         foreach ($products as $product) {
-            $data[] = array($product->banco, $product->cuenta);
+            $data[] = array($product->banco , $product->cuenta);
         }
         return $data;
     }
