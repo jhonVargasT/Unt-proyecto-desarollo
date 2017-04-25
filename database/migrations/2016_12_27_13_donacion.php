@@ -20,7 +20,7 @@ class Donacion extends Migration
 
             $table ->increments('codDonacion')->unique();
             $table ->string('numResolucion')->unique();
-            $table -> date('fechaIngreso');
+            $table -> string('fechaIngreso');
             $table -> string('descripcion');
             $table->double('monto');
             $table -> boolean('estado')->default('1');

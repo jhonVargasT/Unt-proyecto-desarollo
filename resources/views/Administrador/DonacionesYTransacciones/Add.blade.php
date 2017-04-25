@@ -29,6 +29,14 @@
             <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
+            <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+            <link rel="stylesheet" href="/resources/demos/style.css">
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+            <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
             <form name="form" action="{{url('DonacionRegistrada')}}" role="form" method="POST" class="Horizontal">
                 {{csrf_field()}}
                 @if(session()->has('true'))
@@ -72,13 +80,13 @@
                             });
                         </script>
                     </div>
-                    <div class=" col-sm-2  form-group-sm">
-                        <span class="control-label">Fecha </span>
-                        <div class=" input-group date" data-provide="datepicker">
-                            <input type="text" name="fecha" class="form-control" placeholder="obligatorio"
+                    <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
+                        <span class="control-label"> Fecha</span>
+                        <div class="col-sm-12 input-group date" data-provide="datepicker">
+                            <input type="text" name="fecha" class="form-control"
                                    value="<?php date_default_timezone_set('America/Lima');
                                    $date = date('m/d/Y');
-                                   echo $date ?>" required>
+                                   echo $date ?>">
                             <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-th"></span>
                             </div>
@@ -111,7 +119,7 @@
                     <div class="col-sm-2 form-group-sm ">
                         <span class="control-label">Cuenta bancaria</span>
                         <div class="input-group">
-                            <input class="form-control input-sm " name="cuentab" type="text" id="cuenta"
+                            <input class="form-control input-sm " name="cuenta" type="text" id="cuenta"
                                    onkeypress="return validarNum(event)" required>
                             <div class="input-group-addon"><a id="help_button"><i
                                             class="glyphicon glyphicon-eye-open"></i></a>

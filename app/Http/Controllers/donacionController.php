@@ -14,8 +14,7 @@ class donacionController extends Controller
     {
         $donacion = new donacionmodel();
         $donacion->setNumResolucion($request->numResolucion);
-        $d = $request->fecha;
-        $date = implode("-", array_reverse(explode("/", $d)));
+        $date = implode("-", array_reverse(explode("/", $request->fecha)));
         $donacion->setFechaIngreso($date);
         $donacion->setDescripcion($request->descripcion);
         $donacion->setMonto($request->monto);
@@ -128,7 +127,7 @@ class donacionController extends Controller
 
         $data = array();
         foreach ($products as $product) {
-            $data[] = array($product->banco , $product->cuenta);
+            $data[] = array($product->banco, $product->cuenta);
         }
         return $data;
     }

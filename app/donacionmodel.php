@@ -173,7 +173,7 @@ class donacionmodel
 
         try {
             DB::transaction(function () use($logunt){
-                DB::table('donacion')->insert(['numResolucion' => $this->numResolucion, 'fechaIngreso' => $this->fechaIngreso, 'descripcion' => $this->descripcion, 'monto' => $this->monto, 'idTramite' => $this->idTramite,'idBanco'=>$this->idBanco]);
+                DB::table('donacion')->insert(['numResolucion' => $this->numResolucion, 'fechaIngreso' => $this->fechaIngreso, 'descripcion' => $this->descripcion, 'monto' => $this->monto, 'idTramite' => $this->idTramite, 'idBanco'=>$this->idBanco]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -276,11 +276,11 @@ class donacionmodel
     public function obteneridBanco($cuenta)
     {
         $idb = null;
-        $bancobd = DB::select('select idBanco from banco where cuenta= "'.$cuenta.'"and estado =1');
+        $bancobd = DB::select('select codBanco from banco where cuenta= "'.$cuenta.'" and estado =1');
 
         foreach ($bancobd as $b)
         {
-            $idb = $b->idBanco;
+            $idb = $b->codBanco;
         }
         return $idb;
     }

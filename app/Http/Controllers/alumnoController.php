@@ -27,7 +27,7 @@ class alumnoController extends Controller
         if ($al == true) {
             return back()->with('true', 'Alumno ' . $request->nombres . ' guardada con exito')->withInput();
         } else {
-            return back()->with('true', 'Alumno ' . $request->nombres . ' no se guardado');
+            return back()->with('false', 'Alumno ' . $request->nombres . ' no se guardado');
         }
     }
 

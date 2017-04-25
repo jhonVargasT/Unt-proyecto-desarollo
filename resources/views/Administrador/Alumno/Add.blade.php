@@ -89,7 +89,7 @@
                                     <div class="col-sm-12 input-group date" data-provide="datepicker">
                                         <input type="text" name="fecha" class="form-control"
                                                value="<?php date_default_timezone_set('America/Lima');
-                                               $date = date('d/m/Y');
+                                               $date = date('m/d/Y');
                                                echo $date ?>">
                                         <div class="input-group-addon">
                                             <span class="glyphicon glyphicon-th"></span>
