@@ -66,9 +66,8 @@
 
             <div class="table-responsive  col-sm-12 ">
                 @if(isset($nombre)!=null)
-                    <div class="alert alert-success" role="alert">El alumno {{$nombre}} fue actualizada!!</div>
+                    <div class="alert alert-success" role="alert"> El alumno {{$nombre}} fue actualizada!!</div>
                 @endif
-
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <!--cabecear Tabla-->

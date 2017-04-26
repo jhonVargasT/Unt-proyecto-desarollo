@@ -6,13 +6,13 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/ventBuscarCliente" style="color: #509f0c" target="_top">Buscar Clientes</a>
+                        <a href="/admBuscarCliente" style="color: #509f0c" target="_top">Buscar Clientes</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/ventRegistrarCliente">Agregar Clientes</a>
+                        <a href="/admRegistrarCliente">Agregar Clientes</a>
                     </td>
                 </tr>
             </table>
@@ -27,8 +27,7 @@
         <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
     @endif
     <div class="panel-heading"><h3> Buscar Clientes</h3></div>
-    <div  style="background-color: #FFFFFF">
-
+    <div style="background-color: #FFFFFF">
         <div class="panel-body">
             <form name="form" action="{{url('ClientesBuscados')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
@@ -58,15 +57,14 @@
                 </div>
             </form>
             <!--tabla-->
-            <div class="table-responsive col-sm-12">
-                @if(isset($nombre)!=null)
-                    <div class="alert alert-success" role="alert">El cliente {{$nombre}} fue actualizada!!</div>
-                @endif
-
-                <table class="table table-bordered">
+            @if(isset($nombre)!=null)
+                <div class="alert alert-success" role="alert">El cliente {{$nombre}} fue actualizada!!</div>
+            @endif
+            <div class="table-responsive  col-sm-12 ">
+                <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <!--cabecear Tabla-->
-                    <tr class="active">
+                    <tr>
                         <th>
                             <div align="center">Dni</div>
                         </th>
@@ -110,20 +108,6 @@
                     @endif
                     </body>
                 </table>
-            </div>
-            <div class="col-sm-12 row">
-                <div class="col-sm-4"></div>
-                <!--paginadro-->
-                <div class="col-sm-4" align="center">
-                    <ul class="pagination  pagination-sm">
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-4"></div>
             </div>
         </div>
     </div>

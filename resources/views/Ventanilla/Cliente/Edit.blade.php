@@ -21,20 +21,13 @@
 @stop
 @section('content')
     <fieldset>
-        <div class="panel-heading"><h3> Editar Cliente</h3></div>
+        <div class="panel-heading"><h3>Editar Cliente</h3></div>
         <div style="background-color: #FFFFFF">
-
             <div class="panel-body">
-                @if(session()->has('true'))
-                    <div class="alert alert-success" role="alert">{{session('true')}} </div>
-                @endif
-                @if(session()->has('false'))
-                    <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
-                @endif
                 @if($cliente)
                     @foreach($cliente as $c)
                         <form name="form" action="{{ url('ClienteEditado/' .$c->codPersona ) }}" role="form"
-                              method="Get"
+                              method="get"
                               class="Vertical">
                             {{csrf_field()}}
                             <div class="panel panel-default">
@@ -46,16 +39,15 @@
                                             <div class="col-sm-3">
                                                 <input class="form-control input-sm" name="dni" type="text"
                                                        autocomplete="off" onkeypress="return validarNum(event)"
-                                                       value="{{$c->dni}}">
-                                            </div>
-                                            <div class="col-sm-1">
+                                                       placeholder="Ejm:72978754" required value="{{$c->dni}}">
                                             </div>
                                         </div>
-                                        <div class="form-group-sm">
-                                            <span class="col-sm-1">Nombres</span>
+                                        <div class="form-group-sm" align="right">
+                                            <span class="col-sm-2">Nombres</span>
                                             <div class="col-sm-4">
                                                 <input class="form-control input-sm" name="nombres" type="text"
                                                        autocomplete="off" onkeypress="return validarLetras(event)"
+                                                       placeholder="Ejm: Jose Fernando" required
                                                        value="{{$c->nombres}}">
                                             </div>
                                         </div>
@@ -66,7 +58,7 @@
                                             <div class="col-sm-3">
                                                 <input class="form-control input-sm" name="apellidos" type="text"
                                                        autocomplete="off" onkeypress="return validarLetras(event)"
-                                                       value="{{$c->apellidos}}">
+                                                       placeholder="Terenas Lory" value="{{$c->apellidos}}">
                                             </div>
                                         </div>
                                         <div class="form-group-sm" align="right">
@@ -90,14 +82,14 @@
                                             <div class="col-sm-3">
                                                 <input class="form-control input-sm" name="ruc" type="text"
                                                        autocomplete="off" onkeypress="return validarNum(event)"
-                                                       value="{{$c->ruc}}">
+                                                       placeholder="Ejm: 0729787548" value="{{$c->ruc}}">
                                             </div>
                                         </div>
                                         <div class="form-group-sm " align="right">
                                             <span class="col-sm-2 control-label"> Razon social</span>
                                             <div class="col-sm-4">
-                                                <input class="form-control input-sm" name="razonSocial"
-                                                       onkeypress="return validarLetras(event)"
+                                                <input class="form-control input-sm" name="razonSocial" placeholder="Ejm:
+                                                    PRICEWATERHOUSE  " onkeypress="return validarLetras(event)"
                                                        value="{{$c->razonSocial}}">
                                             </div>
                                         </div>
@@ -106,7 +98,7 @@
                             </div>
                             <div class="col-sm-12 row form-group">
                                 <div class="col-md-3"></div>
-                                <a href="{{url('/Vent')}}" class=" col-md-2 btn btn-sm btn-danger"><span
+                                <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
                                             class="glyphicon glyphicon-ban-circle"></span>
                                     Regresar
                                 </a>
@@ -121,9 +113,9 @@
                                 <div class="col-md-3"></div>
                             </div>
                         </form>
+                    @endforeach
+                @endif
             </div>
-            @endforeach
-            @endif
         </div>
     </fieldset>
 @stop

@@ -6,13 +6,13 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/ventBuscarEstudiante" style="color: #509f0c" target="_top" >Buscar Estudiantes</a>
+                        <a href="/admBuscarEstudiante" style="color: #509f0c" target="_top">Buscar Estudiantes</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/ventRegistrarEstudiante">Agregar Estudiante</a>
+                        <a href="/admRegistrarEstudiante">Agregar Estudiante</a>
                     </td>
                 </tr>
             </table>
@@ -26,32 +26,35 @@
     @if(session()->has('false'))
         <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
     @endif
-    <div class="panel-heading"> <h3>Buscar Alumnos</h3></div>
-    <div  style="background-color: #FFFFFF">
+    <div class="panel-heading"><h3>Buscar Alumnos</h3></div>
+    <div style="background-color: #FFFFFF">
 
         <div class="panel-body">
             <form name="form" action="{{url('AlumnosBuscados')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
-                <div class="col-sm-12 row form-group">
-                    <div class="form-group-sm col-sm-6 ">
-                        <span class="col-sm-5 control-label">Buscar por:</span>
-                        <div class="col-sm-7 ">
-                            <select class=" form-control" name="select">
-                                <option>Dni</option>
-                                <option>Apellidos</option>
-                                <option>Codigo alumno</option>
-                                <option>Fecha de Matricula</option>
-                                <option>Escuela</option>
-                                <option>Facultad</option>
-                            </select>
-                        </div>
+                <div class=" row ">
+                    <div class="form-group-sm col-sm-2 ">
+                        <span class="ontrol-label">Buscar por:</span>
+                        <select class=" form-control" name="select">
+                            <option>Dni</option>
+                            <option>Apellidos</option>
+                            <option>Codigo alumno</option>
+                            <option>Escuela</option>
+                            <option>Facultad</option>
+                        </select>
                     </div>
-                    <div class="form-group-sm input-group col-sm-6">
+                    <div class="form-group-sm col-sm-8">
+                        <ref></ref>
+                        <span class="ontrol-label"> Ingresa datos aqui</span></ref>
                         @if(isset($txt))
+                            <span class="input-group-btn">
                             <input type="text" name="text" class="form-control" value="{{$txt}}">
+                                </span>
                         @else
-                            <input type="text" name="text" class="form-control" placeholder="Ingresa datos aqui .."
+                            <span class="input-group-btn">
+                            <input type="text" name="text" class="form-control"
                                    autocomplete="off">
+                                </span>
                         @endif
                         <span class="input-group-btn">
                             <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
@@ -60,15 +63,16 @@
                 </div>
             </form>
             <!--tabla-->
-            <div class="table-responsive col-sm-12">
+
+            <div class="table-responsive  col-sm-12 ">
                 @if(isset($nombre)!=null)
                     <div class="alert alert-success" role="alert">El alumno {{$nombre}} fue actualizada!!</div>
                 @endif
 
-                <table class="table table-bordered">
+                <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <!--cabecear Tabla-->
-                    <tr class="active">
+                    <tr>
                         <th>
                             <div align="center">Dni</div>
                         </th>
@@ -112,10 +116,6 @@
                     @endif
                     </body>
                 </table>
-            </div>
-            <div class="col-sm-12 row">
-                <div class="col-sm-4"></div>
-                <div class="col-sm-4"></div>
             </div>
         </div>
     </div>

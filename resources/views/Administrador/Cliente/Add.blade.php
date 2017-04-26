@@ -89,7 +89,7 @@
                                 <span class="col-sm-2 control-label"> Razon social</span>
                                 <div class="col-sm-4">
                                     <input class="form-control input-sm" name="razonSocial" placeholder="Ejm:
-PRICEWATERHOUSE  " onkeypress="return validarLetras(event)">
+                                    PRICEWATERHOUSE  " onkeypress="return validarLetras(event)">
                                 </div>
                             </div>
                         </div>
