@@ -253,6 +253,28 @@
 
                 </div>
             </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseBanco">
+                                <span class="fa fa-building-o">
+                            </span> Banco</a>
+                    </h4>
+                </div>
+                @yield('banco')
+                <div id="collapseBanco" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <span class="glyphicon glyphicon-search"></span>
+                                    <a href="/repBuscarBanco">Buscar Bancos</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="col-sm-10  " style="background-color:#ccd0d2">

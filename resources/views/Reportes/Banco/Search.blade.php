@@ -1,18 +1,18 @@
-@extends('Administrador.Body')
-@section('estudiante')
+@extends('Reportes.Body')
+@section('banco')
     <div id="collapseTwo" class="collapse in">
         <div class="panel-body">
             <table class="table">
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarEstudiante" style="color: #509f0c" target="_top">Buscar Estudiantes</a>
+                        <a href="/admBuscarBanco">Buscar Bancos</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarEstudiante">Agregar Estudiante</a>
+                        <a href="/admRegistrarBanco" style="color: #509f0c" target="_top">Agregar Banco</a>
                     </td>
                 </tr>
             </table>
@@ -26,21 +26,19 @@
     @if(session()->has('false'))
         <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
     @endif
-    <div class="panel-heading"><h3>Buscar Alumnos</h3></div>
+    <div class="panel-heading"><h3>Buscar Bancos</h3></div>
     <div style="background-color: #FFFFFF">
 
         <div class="panel-body">
-            <form name="form" action="{{url('AlumnosBuscados')}}" role="form" method="POST" class="Vertical">
+            <form name="form" action="{{url('BancosBuscados')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
                 <div class=" row ">
                     <div class="form-group-sm col-sm-2 ">
                         <span class="ontrol-label">Buscar por:</span>
                         <select class=" form-control" name="select">
-                            <option>Dni</option>
-                            <option>Apellidos</option>
-                            <option>Codigo alumno</option>
-                            <option>Escuela</option>
-                            <option>Facultad</option>
+                            <option selected>Todo</option>
+                            <option>Nombre Banco</option>
+                            <option>Cuenta Banco</option>
                         </select>
                     </div>
                     <div class="form-group-sm col-sm-8">
@@ -74,43 +72,20 @@
                     <!--cabecear Tabla-->
                     <tr>
                         <th>
-                            <div align="center">Dni</div>
+                            <div align="center">Banco</div>
                         </th>
                         <th>
-                            <div align="center">Nombres y apellidos</div>
-                        </th>
-                        <th>
-                            <div align="center">Correo</div>
-                        </th>
-                        <th>
-                            <div align="center">Codigo alumno</div>
-                        </th>
-                        <th>
-                            <div align="center">Fecha de matricula</div>
-                        </th>
-                        <th>
-                            <div align="center">Opciones</div>
+                            <div align="center">Cuenta</div>
                         </th>
                     </tr>
                     </thead>
                     <body>
-                    @if(isset($alumno))
+                    @if(isset($banco))
                         <!--Contenido-->
-                        @foreach($alumno as $a)
+                        @foreach($banco as $b)
                             <tr>
-                                <td>{{$a->dni}}</td>
-                                <td>{{$a->nombres}} {{$a->apellidos}}</td>
-                                <td>{{$a->correo}}</td>
-                                <td>{{$a->codAlumno}}</td>
-                                <td>{{$a->fecha}}</td>
-                                <td align="center">
-                                    {{ csrf_field() }}
-                                    <a href="AlumnoCargar/{{$a->codPersona}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="AlumnoEliminar/{{$a->codPersona}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
-                                </td>
+                                <td>{{$b->banco}}</td>
+                                <td>{{$b->cuenta}}</td>
                             </tr>
                         @endforeach
                     @endif
