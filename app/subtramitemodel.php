@@ -156,7 +156,7 @@ class subtramitemodel
         $logunt->setCodigoPersonal($codPers);
         try {
             DB::transaction(function () use ($codSubtramite, $logunt) {
-                DB::table('subtramite')->where('codSubtramite', $codSubtramite)->update(['cuenta' => $this->cuenta, 'nombre' => $this->nombre, 'precio' => $this->precio]);
+                DB::table('subtramite')->where('codSubtramite', 1)->update(['cuenta' => $this->cuenta, 'nombre' => $this->nombre, 'precio' => $this->precio, 'idTramite' => $this->idTramite]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -164,18 +164,21 @@ class subtramitemodel
         }
         return true;
     }
-    public function consultarId($nombre){
+
+    public function consultarId($nombre)
+    {
         $val = null;
-        $subtramitebd = DB::select('select codSubtramite from  subtramite where estado = 1 and nombre=:nombre',['nombre'=>$nombre]);
-        foreach ($subtramitebd as $tr)
-        {
-            $val= $tr->codSubtramite;
+        $subtramitebd = DB::select('select codSubtramite from  subtramite where estado = 1 and nombre=:nombre', ['nombre' => $nombre]);
+        foreach ($subtramitebd as $tr) {
+            $val = $tr->codSubtramite;
         }
         return $val;
     }
+
     public function consultarSubtramiteid($codSubtramite)
     {
-        $subtramitebd = DB::table('subtramite')->where('codSubtramite', $codSubtramite)->get();
+        $subtramitebd = DB::select('select  codSubtramite, cuenta, subtramite.nombre as snombre, precio, tramite.nombre as tnombre from tramite left join subtramite on tramite.codTramite = subtramite.idTramite where 
+        tramite.codTramite = subtramite.idTramite and subtramite.codSubtramite = ' . $codSubtramite . ' and tramite.estado=1 and subtramite.estado=1');
         return $subtramitebd;
     }
 

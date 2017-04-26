@@ -6,7 +6,8 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarDonaciones" style="color: #509f0c" target="_top">Buscar Donaciones y transferencias</a>
+                        <a href="/admBuscarDonaciones" style="color: #509f0c" target="_top">Buscar Donaciones y
+                            transferencias</a>
                     </td>
                 </tr>
                 <tr>
@@ -30,8 +31,8 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
     <div class="panel-heading"><h3> Buscar Donaciones y
-        transferencias</h3></div>
-    <div style="background-color: #FFFFFF" >
+            transferencias</h3></div>
+    <div style="background-color: #FFFFFF">
 
         <div class="panel-body">
             <form name="form" action="{{url('DonacionesBuscadas')}}" role="form" method="POST" class="Vertical">
@@ -55,7 +56,7 @@
                             <input type="text" name="text" class="form-control" value="{{$txt}}">
                         @else
                             <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
-                                   name="text" id="text" >
+                                   name="text" id="text">
                             <script>
                                 var path = "{{ route('autocompletet') }}";
                                 $('input.typeahead').typeahead({
@@ -82,7 +83,6 @@
                 @if(isset($nombre)!=null)
                     <div class="alert alert-success" role="alert">El tramite {{$nombre}} fue actualizada!!</div>
                 @endif
-
                 <table class="table table-bordered">
                     <thead>
                     <!--cabecear Tabla-->

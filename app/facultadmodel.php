@@ -115,7 +115,7 @@ class facultadmodel
 
     public function llenarFacultadReporte($nombre)
     {
-        $facultadbd = DB::table('facultad')->select('nombre')->where([['estado', '=', 1],['nombre','like','%'.$nombre.'%']])->where('nombre')->get();
+        $facultadbd = DB::table('facultad')->select('nombre')->where([['estado', '=', 1], ['nombre', 'like', '%' . $nombre . '%']])->where('nombre')->get();
         return $facultadbd;
     }
 
@@ -127,7 +127,10 @@ class facultadmodel
 
     public function consultarFacultadid($idFacultad)
     {
-        $facultadbd = DB::table('facultad')->where('idFacultad', $idFacultad)->get();
+        $facultadbd = DB::select('SELECT idFacultad, codFacultad,nombre, nroCuenta, nombresede FROM facultad 
+        LEFT JOIN sede ON facultad.coSede= sede.codSede
+        WHERE facultad.coSede= sede.codSede
+        and sede.estado=1 and facultad.estado=1 and facultad.idFacultad = ' . $idFacultad . ' ');
         return $facultadbd;
     }
 
@@ -209,7 +212,7 @@ class facultadmodel
 
         try {
             DB::transaction(function () use ($idFacultad, $logunt) {
-                DB::table('facultad')->where('idFacultad', $idFacultad)->update(['codFacultad' => $this->codFacultad, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta]);
+                DB::table('facultad')->where('idFacultad', $idFacultad)->update(['codFacultad' => $this->codFacultad, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta, 'coSede' => $this->codSede]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -254,18 +257,18 @@ class facultadmodel
 
     public function obtenerId($nombre)
     {
-        $scod=null;
-        $fac=DB::table('facultad')->select('idFacultad')->where('nombre','=',$nombre)->get();
+        $scod = null;
+        $fac = DB::table('facultad')->select('idFacultad')->where('nombre', '=', $nombre)->get();
         foreach ($fac as $sbd) {
             $scod = $sbd->idFacultad;
         }
         return $scod;
     }
 
-    public function obteneridSede($idsede,$nombrefacu)
+    public function obteneridSede($idsede, $nombrefacu)
     {
-        $scod=null;
-        $fac=DB::table('facultad')->select('idFacultad')->where('nombre','=',$nombrefacu)->where('coSede','=',$idsede)->get();
+        $scod = null;
+        $fac = DB::table('facultad')->select('idFacultad')->where('nombre', '=', $nombrefacu)->where('coSede', '=', $idsede)->get();
         foreach ($fac as $sbd) {
             $scod = $sbd->idFacultad;
         }

@@ -70,7 +70,7 @@ class donacionController extends Controller
         $idB = $donacion->obteneridBanco($request->cuenta);
         $donacion->setIdBanco($idB);
         $donacion->editarDonacion($codDonacion);
-        return view('Administrador/DonacionesYTransacciones/Search')->with(['nombre' => $request->numeroResolucion]);
+        return view('Administrador/DonacionesYTransacciones/Search')->with(['nombre' => $request->numResolucion]);
     }
 
     public function listarDonaciones(Request $request)

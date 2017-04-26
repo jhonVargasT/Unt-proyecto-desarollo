@@ -36,10 +36,10 @@ class tramiteController extends Controller
     public function editarTramite($codTramite, Request $request)
     {
         $tramite = new tramitemodel();
-        $tramite->setClasificador($request->clasificadorSiaf);
-        $tramite->setNombre($request->nombreTramite);
-        $tramite->setFuentefinanc($request->fuenteFinaciamiento);
-        $tramite->setTipoRecurso($request->tipoDeRecurso);
+        $tramite->setClasificador($request->clasificador);
+        $tramite->setNombre($request->nombre);
+        $tramite->setFuentefinanc($request->fuentefinanc);
+        $tramite->setTipoRecurso($request->tipoRecurso);
         $tramite->editarTramite($codTramite);
         return view('Administrador/Tramite/search')->with(['nombre' => $request->nombreTramite]);
     }

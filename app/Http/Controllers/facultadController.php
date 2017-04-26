@@ -42,7 +42,9 @@ class facultadController extends Controller
         $facultad->setCodFacultad($request->CodigoFacultad);
         $facultad->setNombre($request->NombreFacultad);
         $facultad->setNroCuenta($request->CuentaInterna);
-        $val = $facultad->editarFacultad($idFacultad);
+        $codsede = $facultad->bscSedeId($request->nombreSede);
+        $facultad->setCodSede($codsede);
+        $facultad->editarFacultad($idFacultad);
 
         return view('Administrador/Facultad/search')->with(['nombre' => $request->NombreFacultad]);
     }
@@ -96,7 +98,7 @@ class facultadController extends Controller
         foreach ($nombre as $nom) {
             $var = $nom->nombre;
         }
-        return Response::json($var);
+        return response()->json($var);
     }
 
     public function autocomplete(Request $request)

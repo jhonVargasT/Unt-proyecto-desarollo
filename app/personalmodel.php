@@ -140,7 +140,7 @@ class personalmodel extends personamodel
         echo ' asdasd';
         try {
             DB::transaction(function () use ($logunt) {
-                DB::table('persona')->insert(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(),'correo'=>$this->getCorreo()]);
+                DB::table('persona')->insert(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(), 'correo' => $this->getCorreo()]);
                 $personabd = DB::table('persona')->where('dni', $this->getDni())->get();
                 foreach ($personabd as $pbd) {
                     $idp = $pbd->codPersona;
@@ -167,8 +167,12 @@ class personalmodel extends personamodel
         $logunt->setCodigoPersonal($codPers);
         try {
             DB::transaction(function () use ($codPersona, $logunt) {
-                DB::table('persona')->where('codPersona', $codPersona)->update(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(),'correo'=>$this->getCorreo()]);
-                DB::table('personal')->where('idPersona', $codPersona)->update(['codPersonal' => $this->codPersonal, 'cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta]);
+                DB::table('persona')->where('codPersona', $codPersona)->update(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(), 'correo' => $this->getCorreo()]);
+                $personabd = DB::table('persona')->where('dni', $this->getDni())->get();
+                foreach ($personabd as $pbd) {
+                    $idp = $pbd->codPersona;
+                    DB::table('personal')->where('idPersona', $codPersona)->update(['cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta, 'idPersona' => $idp, 'codPersonal' => $this->codPersonal]);
+                }
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -201,7 +205,7 @@ class personalmodel extends personamodel
         $personabd = DB::table('personal')
             ->join('persona', function ($join) use ($apellidos) {
                 $join->on('personal.idPersona', '=', 'persona.codPersona')
-                    ->where('persona.apellidos', 'like', '%' . $apellidos . '%')->where(['persona.estado' => 1,'personal.estado' => 1]);
+                    ->where('persona.apellidos', 'like', '%' . $apellidos . '%')->where(['persona.estado' => 1, 'personal.estado' => 1]);
             })
             ->get();
 
@@ -213,7 +217,7 @@ class personalmodel extends personamodel
         $personabd = DB::table('personal')
             ->join('persona', function ($join) use ($codPersonal) {
                 $join->on('personal.idPersona', '=', 'persona.codPersona')
-                    ->where('personal.codPersonal', 'like', '%' . $codPersonal . '%')->where(['persona.estado' => 1,'personal.estado' => 1]);
+                    ->where('personal.codPersonal', 'like', '%' . $codPersonal . '%')->where(['persona.estado' => 1, 'personal.estado' => 1]);
             })
             ->get();
 
@@ -225,7 +229,7 @@ class personalmodel extends personamodel
         $personabd = DB::table('personal')
             ->join('persona', function ($join) use ($cuenta) {
                 $join->on('personal.idPersona', '=', 'persona.codPersona')
-                    ->where('personal.cuenta', 'like', '%' . $cuenta . '%')->where(['persona.estado' => 1,'personal.estado' => 1]);
+                    ->where('personal.cuenta', 'like', '%' . $cuenta . '%')->where(['persona.estado' => 1, 'personal.estado' => 1]);
             })
             ->get();
 
@@ -237,7 +241,7 @@ class personalmodel extends personamodel
         $personabd = DB::table('personal')
             ->join('persona', function ($join) use ($tipoCuenta) {
                 $join->on('personal.idPersona', '=', 'persona.codPersona')
-                    ->where(['personal.tipoCuenta', 'like', '%' . $tipoCuenta . '%','persona.estado' => 1,'personal.estado' => 1]);
+                    ->where(['personal.tipoCuenta', 'like', '%' . $tipoCuenta . '%', 'persona.estado' => 1, 'personal.estado' => 1]);
             })
             ->get();
 

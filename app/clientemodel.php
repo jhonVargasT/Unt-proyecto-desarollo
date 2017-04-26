@@ -123,7 +123,11 @@ class clientemodel extends personamodel
         try {
             DB::transaction(function () use ($codPersona, $logunt) {
                 DB::table('persona')->where('codPersona', $codPersona)->update(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(), 'correo' => $this->getCorreo()]);
-                DB::table('cliente')->where('idPersona', $codPersona)->update(['ruc' => $this->ruc, 'razonSocial' => $this->razonSocial]);
+                $personabd = DB::table('persona')->where('dni', $this->getDni())->get();
+                foreach ($personabd as $pbd) {
+                    $idp = $pbd->codPersona;
+                    DB::table('cliente')->where('idPersona', $codPersona)->update(['ruc' => $this->ruc, 'razonSocial' => $this->razonSocial, 'idPersona' => $idp]);
+                }
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {

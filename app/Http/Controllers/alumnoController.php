@@ -49,14 +49,16 @@ class alumnoController extends Controller
     {
         $valueA = Session::get('tipoCuentaA');
         $valueV = Session::get('tipoCuentaV');
-
         $alumno = new alumnomodel();
         $alumno->setDni($request->dni);
         $alumno->setNombres($request->nombres);
         $alumno->setApellidos($request->apellidos);
         $alumno->setCodAlumno($request->codAlumno);
         $alumno->setCorreo($request->correo);
-        $alumno->setFecha($request->fecha);
+        $date = implode("-", array_reverse(explode("/", $request->fecha)));
+        $alumno->setFecha($date);
+        $idE = $alumno->bdEscuela($request->nombreEscuela);
+        $alumno->setIdEscuela($idE);
         $alumno->editarAlumno($codPersona);
 
         if ($valueA == 'Administrador')

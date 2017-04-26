@@ -29,14 +29,6 @@
             <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
-
-            <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-            <link rel="stylesheet" href="/resources/demos/style.css">
-            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-            <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-
             <form name="form" action="{{url('DonacionRegistrada')}}" role="form" method="POST" class="Horizontal">
                 {{csrf_field()}}
                 @if(session()->has('true'))
@@ -83,10 +75,10 @@
                     <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                         <span class="control-label"> Fecha</span>
                         <div class="col-sm-12 input-group date" data-provide="datepicker">
-                            <input type="text" name="fecha" class="form-control"
+                            <input type="text" class="form-control"
                                    value="<?php date_default_timezone_set('America/Lima');
                                    $date = date('m/d/Y');
-                                   echo $date ?>">
+                                   echo $date ?>" name="fecha">
                             <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-th"></span>
                             </div>
@@ -177,7 +169,6 @@
                     </button>
                     <div class="col-md-3"></div>
                 </div>
-
             </form>
         </div>
     </div>

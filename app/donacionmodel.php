@@ -224,9 +224,11 @@ class donacionmodel
         return true;
     }
 
-    public function consultarDonacionid($codTramite)
+    public function consultarDonacionid($codDonacion)
     {
-        $donacionbd = DB::table('donacion')->where('codDonacion', $codTramite)->get();
+        $donacionbd = DB::select('SELECT codDonacion, numResolucion, fechaIngreso,descripcion,monto,tramite.nombre as tnombre, tipoRecurso, banco.cuenta as bcuenta FROM donacion LEFT JOIN tramite ON tramite.codTramite = donacion.idTramite LEFT JOIN
+        banco ON banco.codBanco = donacion.idBanco WHERE donacion.codDonacion = '.$codDonacion.' AND donacion.estado = 1 AND tramite.estado = 1
+        AND banco.estado=1');
         return $donacionbd;
     }
 

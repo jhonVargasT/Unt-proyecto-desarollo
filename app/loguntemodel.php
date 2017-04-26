@@ -96,14 +96,14 @@ class loguntemodel
 
     public function saveLogUnt()
     {
-        //try {
-            //DB::transaction(function () {
+        try {
+            DB::transaction(function () {
                 DB::table('logunt')->insert(['fecha' => $this->fecha, 'descripcion' => $this->descripcion, 'codigoPersonal' => $this->codigoPersonal]);
-            //});
-        //} catch (PDOException $e) {
-            //return false;
-        //}
-        //return true;
+            });
+        } catch (PDOException $e) {
+            return false;
+        }
+        return true;
     }
 
     public function obtenerCodigoPersonal($cuenta){

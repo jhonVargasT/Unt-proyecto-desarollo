@@ -93,7 +93,8 @@
                                     <span class="control-label">Sede</span>
                                     <input class="typeahead form-control" type="text"
                                            placeholder="Ejm: Trujillo" name="nombreSede" id="ns"
-                                           onkeypress="return validarLetras(event)" autocomplete="off" required>
+                                           onkeypress="return validarLetras(event)" autocomplete="off" required
+                                           value="{{$a->nombresede}}">
                                     <script type="text/javascript">
                                         var paths = "{{ route('autocompletesede')}}";
                                         $('input.typeahead').typeahead({
@@ -111,7 +112,7 @@
 
                                     <input class="form-control input-sm" type="text"
                                            placeholder="Ejm: Mecanica" name="nombreEscuela" id="ne"
-                                           onkeypress="return validarLetras(event)" required>
+                                           onkeypress="return validarLetras(event)" required value="{{$a->enombre}}">
                                     <script>
                                         src = "{{ route('searchajax') }}";
                                         $("#ne").autocomplete({
@@ -135,7 +136,7 @@
                                 </div>
                                 <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label">Facultad</span>
-                                    <input class="form-control input-sm" name=" " type="text" id="f" readonly>
+                                    <input class="form-control input-sm" name=" " type="text" id="f" readonly value="{{$a->fnombre}}">
                                     <script>
                                         $('#ne').change(function () {
                                             $.ajax({
@@ -176,8 +177,8 @@
                             </div>
                         </div>
                     </form>
+                @endforeach
+            @endif
         </div>
-        @endforeach
-        @endif
     </div>
 @stop

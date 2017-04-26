@@ -49,11 +49,13 @@ class escuelaController extends Controller
     public function editarEscuela($idEscuela, Request $request)
     {
         $escuela = new escuelamodel();
-        $escuela->setCodEscuela($request->CodigoEscuela);
-        $escuela->setNombre($request->NombreEscuela);
-        $escuela->setNroCuenta($request->CuentaInterna);
+        $escuela->setCodEscuela($request->codEscuela);
+        $escuela->setNombre($request->nombre);
+        $escuela->setNroCuenta($request->nroCuenta);
+        $coF = $escuela->buscarFacultad($request->nombreFacultad, $request->nombreSede);
+        $escuela->setFacultad($coF);
         $escuela->editarEscuela($idEscuela);
-        return view('Administrador/Escuela/search')->with(['nombre' => $request->NombreEscuela]);
+        return view('Administrador/Escuela/search')->with(['nombre' => $request->nombre]);
     }
 
     public function listarEscuela(Request $request)

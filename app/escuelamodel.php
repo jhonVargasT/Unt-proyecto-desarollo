@@ -125,7 +125,11 @@ class escuelamodel
 
     public function consultarEscuelaid($idEscuela)
     {
-        $escuelabd = DB::table('escuela')->where('idEscuela', $idEscuela)->get();
+        $escuelabd = DB::select('select idEscuela, escuela.nombre as nombre, codEscuela, escuela.nroCuenta, sede.nombresede, facultad.nombre as fnombre from escuela
+        left join facultad on escuela.codigoFacultad=facultad.idFacultad
+        left join sede on facultad.coSede=sede.codSede 
+        where escuela.codigoFacultad=facultad.idFacultad and facultad.coSede=sede.codSede and sede.estado=1
+        and facultad.estado=1 and escuela.estado=1 and escuela.idEscuela = ' . $idEscuela . ' ');
         return $escuelabd;
     }
 
@@ -236,7 +240,7 @@ class escuelamodel
 
         try {
             DB::transaction(function () use ($idEscuela, $logunt) {
-                DB::table('escuela')->where('idEscuela', $idEscuela)->update(['nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta]);
+                DB::table('escuela')->where('idEscuela', $idEscuela)->update(['codEscuela' => $this->codEscuela, 'nombre' => $this->nombre, 'nroCuenta' => $this->nroCuenta, 'codigoFacultad' => $this->facultad]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -254,13 +258,13 @@ class escuelamodel
         }
         return $esc;
     }
-    public function obtenerIdEscuela($idfacultad,$nombre)
+
+    public function obtenerIdEscuela($idfacultad, $nombre)
     {
-        $esc=null;
-        $data=DB::table('escuela')->select('idEscuela')->where('nombre','=',$nombre)->where('codigoFacultad','=',$idfacultad)->get();
-        foreach ($data as $dat)
-        {
-            $esc=$dat->idEscuela ;
+        $esc = null;
+        $data = DB::table('escuela')->select('idEscuela')->where('nombre', '=', $nombre)->where('codigoFacultad', '=', $idfacultad)->get();
+        foreach ($data as $dat) {
+            $esc = $dat->idEscuela;
         }
         return $esc;
     }

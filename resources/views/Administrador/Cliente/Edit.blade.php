@@ -23,18 +23,11 @@
     <fieldset>
         <div class="panel-heading"><h3>Editar Cliente</h3></div>
         <div style="background-color: #FFFFFF">
-
             <div class="panel-body">
-                @if(session()->has('true'))
-                    <div class="alert alert-success" role="alert">{{session('true')}} </div>
-                @endif
-                @if(session()->has('false'))
-                    <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
-                @endif
                 @if($cliente)
                     @foreach($cliente as $c)
                         <form name="form" action="{{ url('ClienteEditado/' .$c->codPersona ) }}" role="form"
-                              method="Get"
+                              method="get"
                               class="Vertical">
                             {{csrf_field()}}
                             <div class="panel panel-default">
@@ -54,7 +47,8 @@
                                             <div class="col-sm-4">
                                                 <input class="form-control input-sm" name="nombres" type="text"
                                                        autocomplete="off" onkeypress="return validarLetras(event)"
-                                                       placeholder="Ejm: Jose Fernando" required value="{{$c->nombres}}">
+                                                       placeholder="Ejm: Jose Fernando" required
+                                                       value="{{$c->nombres}}">
                                             </div>
                                         </div>
                                     </div>
@@ -72,7 +66,8 @@
                                             <div class="col-sm-4">
                                                 <input class="form-control input-sm" name="correo" type="email"
                                                        autocomplete="off"
-                                                       placeholder="Ejem: unt@gmail.com" required value="{{$c->correo}}">
+                                                       placeholder="Ejem: unt@gmail.com" required
+                                                       value="{{$c->correo}}">
                                             </div>
                                         </div>
                                     </div>
@@ -94,7 +89,8 @@
                                             <span class="col-sm-2 control-label"> Razon social</span>
                                             <div class="col-sm-4">
                                                 <input class="form-control input-sm" name="razonSocial" placeholder="Ejm:
-                                                    PRICEWATERHOUSE  " onkeypress="return validarLetras(event)" value="{{$c->razonSocial}}">
+                                                    PRICEWATERHOUSE  " onkeypress="return validarLetras(event)"
+                                                       value="{{$c->razonSocial}}">
                                             </div>
                                         </div>
                                     </div>
@@ -117,9 +113,9 @@
                                 <div class="col-md-3"></div>
                             </div>
                         </form>
+                    @endforeach
+                @endif
             </div>
-            @endforeach
-            @endif
         </div>
     </fieldset>
 @stop

@@ -12,7 +12,6 @@ class subtramiteController extends Controller
     public function registrarSubtramite(Request $request)
     {
         if ($request->nombreTramite != ' ') {
-            echo 'asdasd';
             $subtramite = new subtramitemodel();
             $subtramite->setCuenta($request->cuentaContable);
             $subtramite->setNombre($request->nombreSubTramite);
@@ -41,11 +40,13 @@ class subtramiteController extends Controller
     {
         $subtramite = new subtramitemodel();
         $subtramite->setCuenta($request->cuentaContable);
-        $subtramite->setNombre($request->nombreSubtramite);
+        $subtramite->setNombre($request->nombreSubTramite);
         $subtramite->setPrecio($request->precio);
+        $idTra = $subtramite->bdTramite($request->nombreTramite);
+        $subtramite->setIdTramite($idTra);
         $subtramite->editarSubtramite($codSubtramite);
 
-        return view('Administrador/SubTramite/search')->with(['nombre' => $request->nombreSubtramite]);
+        return view('Administrador/SubTramite/search')->with(['nombre' => $request->nombreSubTramite]);
     }
 
     public function listarSubtramite(Request $request)
