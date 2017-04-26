@@ -1,5 +1,6 @@
 @extends('Administrador/Body')
 
+
 @section('personal')
     <div id="collapseFour" class="collapse in">
         <div class="panel-body">
@@ -24,6 +25,7 @@
 @section('buscar',$buscar)
 @endif
 @section('content')
+
 
     <div class="panel-heading"> <h3>Buscar personal</h3></div>
     <div  style="background-color: #FFFFFF" >
@@ -67,63 +69,65 @@
                     <div class="alert alert-success" role="alert">El personal {{$nombre}} fue actualizada!!</div>
                 @endif
 
-                <table class="table table-bordered">
-                    <thead>
-                    <!--cabecear Tabla-->
-                    <tr class="active">
-                        <th>
-                            <div align="center">Dni</div>
-                        </th>
-                        <th>
-                            <div align="center">Nombres y apellidos</div>
-                        </th>
-                        <th>
-                            <div align="center">Correo</div>
-                        </th>
-                        <th>
-                            <div align="center">Codigo personal</div>
-                        </th>
-                        <th>
-                            <div align="center">Cuenta</div>
-                        </th>
-                        <th>
-                            <div align="center">Contraseña</div>
-                        </th>
-                        <th>
-                            <div align="center">Tipo cuenta</div>
-                        </th>
-                        <th>
-                            <div align="center">Opciones</div>
-                        </th>
-                    </tr>
-                    </thead>
-                    <body>
-                    @if(isset($personal))
-                            <!--Contenido-->
-                    @foreach($personal as $p)
+                    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
                         <tr>
-                            <td>{{$p->dni}}</td>
-                            <td>{{$p->nombres}} {{$p->apellidos}}</td>
-                            <td>{{$p->correo}}</td>
-                            <td>{{$p->codPersonal}}</td>
-                            <td>{{$p->cuenta}}</td>
-                            <td>{{$p->password}}</td>
-                            <td>{{$p->tipoCuenta}}</td>
-                            <td align="center">
-                                {{ csrf_field() }}
-                                <a href="PersonalCargar/{{$p->idPersona}}"><span
-                                            class="glyphicon glyphicon-pencil"></span> </a>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a href="PersonalEliminar/{{$p->idPersona}}"><span
-                                            class="glyphicon glyphicon-trash"></span> </a>
-                            </td>
+                            <th>
+                                <div align="center">Dni</div>
+                            </th>
+                            <th>
+                                <div align="center">Nombres y apellidos</div>
+                            </th>
+                            <th>
+                                <div align="center">Correo</div>
+                            </th>
+                            <th>
+                                <div align="center">Codigo personal</div>
+                            </th>
+                            <th>
+                                <div align="center">Cuenta</div>
+                            </th>
+                            <th>
+                                <div align="center">Contraseña</div>
+                            </th>
+                            <th>
+                                <div align="center">Tipo cuenta</div>
+                            </th>
+                            <th>
+                                <div align="center">Opciones</div>
+                            </th>
                         </tr>
-                    @endforeach
-                    @endif
-                    </body>
-                </table>
+
+                        </thead>
+
+                        <body>
+                        @if(isset($personal))
+                                <!--Contenido-->
+                        @foreach($personal as $p)
+                            <tr>
+                                <td>{{$p->dni}}</td>
+                                <td>{{$p->nombres}} {{$p->apellidos}}</td>
+                                <td>{{$p->correo}}</td>
+                                <td>{{$p->codPersonal}}</td>
+                                <td>{{$p->cuenta}}</td>
+                                <td>{{$p->password}}</td>
+                                <td>{{$p->tipoCuenta}}</td>
+                                <td align="center">
+                                    {{ csrf_field() }}
+                                    <a href="PersonalCargar/{{$p->idPersona}}" title="editar"><span
+                                                class="glyphicon glyphicon-pencil"></span> </a>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a href="PersonalEliminar/{{$p->idPersona}}"><span
+                                                class="glyphicon glyphicon-trash"></span> </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        @endif
+                        </body>
+                    </table>
             </div>
 
         </div>
     </div>
+
 @stop

@@ -28,12 +28,11 @@
         <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
     @endif
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
     <div class="panel-heading"><h3> Buscar Donaciones y
             transferencias</h3></div>
     <div style="background-color: #FFFFFF">
-
         <div class="panel-body">
             <form name="form" action="{{url('DonacionesBuscadas')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
@@ -83,10 +82,10 @@
                 @if(isset($nombre)!=null)
                     <div class="alert alert-success" role="alert">El tramite {{$nombre}} fue actualizada!!</div>
                 @endif
-                <table class="table table-bordered">
+                <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <!--cabecear Tabla-->
-                    <tr class="active">
+                    <tr>
                         <th>
                             <div align="center">Numero Resolucion</div>
                         </th>
@@ -115,36 +114,29 @@
                     </thead>
                     <body>
                     @if(isset($donacion))
-                        <!--Contenido-->
-                        @foreach($donacion as $d)
-                            <tr>
-                                <td>{{$d->numResolucion}}</td>
-                                <td>{{$d->clasificador}}</td>
-                                <td>{{$d->tipoRecurso}}</td>
-                                <td>{{$d->fuentefinanc}}</td>
-                                <td>{{$d->fechaIngreso}}</td>
-                                <td>{{$d->monto}}</td>
-                                <td>{{$d->descripcion}}</td>
-                                <td align="center">
-                                    {{ csrf_field() }}
-                                    <a href="DonacionCargar/{{$d->codDonacion}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="DonacionEliminar/{{$d->codDonacion}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
-                                </td>
-                            </tr>
-                        @endforeach
+                            <!--Contenido-->
+                    @foreach($donacion as $d)
+                        <tr>
+                            <td>{{$d->numResolucion}}</td>
+                            <td>{{$d->clasificador}}</td>
+                            <td>{{$d->tipoRecurso}}</td>
+                            <td>{{$d->fuentefinanc}}</td>
+                            <td>{{$d->fechaIngreso}}</td>
+                            <td>{{$d->monto}}</td>
+                            <td>{{$d->descripcion}}</td>
+                            <td align="center">
+                                {{ csrf_field() }}
+                                <a href="DonacionCargar/{{$d->codDonacion}}"><span
+                                            class="glyphicon glyphicon-pencil"></span> </a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="DonacionEliminar/{{$d->codDonacion}}"><span
+                                            class="glyphicon glyphicon-trash"></span> </a>
+                            </td>
+                        </tr>
+                    @endforeach
                     @endif
                     </body>
                 </table>
-            </div>
-            <div class="col-sm-12 row">
-                <div class="col-sm-4"></div>
-                <!--paginadro-->
-                <div class="col-sm-4" align="center">
-                </div>
-                <div class="col-sm-4"></div>
             </div>
         </div>
     </div>

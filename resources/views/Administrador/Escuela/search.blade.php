@@ -21,7 +21,6 @@
 @stop
 @section('content')
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
     @if(session()->has('true'))
         <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -29,8 +28,8 @@
     @if(session()->has('false'))
         <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
     @endif
-    <div class="panel-heading"> <h3>Buscar Escuelas</h3></div>
-    <div style="background-color: #FFFFFF" >
+    <div class="panel-heading"><h3>Buscar Escuelas</h3></div>
+    <div style="background-color: #FFFFFF">
 
         <div class="panel-body">
             <form name="form" action="{{url('EscuelasBuscadas')}}" role="form" method="POST" class="Vertical">
@@ -53,7 +52,7 @@
                             <input type="text" name="text" class="form-control" value="{{$txt}}">
                         @else
                             <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
-                                   name="text" id="text" >
+                                   name="text" id="text">
                             <script>
                                 var path = "{{ route('autocompletee') }}";
                                 $('input.typeahead').typeahead({
@@ -78,10 +77,10 @@
                     @if(isset($nombre)!=null)
                         <div class="alert alert-success" role="alert">La escuela {{$nombre}} fue actualizada!!</div>
                     @endif
-                    <table class="table table-bordered">
+                    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                         <!--cabecear Tabla-->
-                        <tr class="active">
+                        <tr >
                             <th>Sede</th>
                             <th>Nombre Escuela</th>
                             <th>Codigo Escuela</th>
@@ -112,14 +111,7 @@
                         </body>
                     </table>
                 </div>
-                <div class="col-sm-12 row">
-                    <div class="col-sm-4"></div>
-                    <!--paginadro-->
-                    <div class="col-sm-4" align="center">
-                    </div>
-                    <div class="col-sm-4"></div>
 
-                </div>
             </form>
         </div>
     </div>

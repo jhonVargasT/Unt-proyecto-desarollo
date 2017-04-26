@@ -21,14 +21,71 @@
     </div>
 @stop
 @section('content')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+
+        function limpiarCampos() {
+            var x = '1';
+            document.getElementById("fac").innerHTML = x;
+            document.getElementById("sede").innerHTML = x;
+            document.getElementById("esc").innerHTML = x;
+        }
+        function habilitarff(value) {
+            if (value == true) {
+                document.getElementById("ff").readOnly = false;
+            } else if (value == false) {
+                document.getElementById("ff").readOnly = true;
+
+            }
+        }
+        function habilitartr(value) {
+            if (value == true) {
+                document.getElementById("trinp").readOnly = false;
+            } else if (value == false) {
+                document.getElementById("trinp").readOnly = true;
+            }
+        }
+        function habilitarsed(value) {
+            if (value == true) {
+                document.getElementById("sede").readOnly = false;
+            } else if (value == false) {
+                document.getElementById("sede").readOnly = true;
+            }
+        }
+        function habilitarfac(value) {
+
+            if (value == true) {
+                document.getElementById("sed").checked = true;
+                document.getElementById("fac").readOnly = false;
+                document.getElementById("sede").readOnly = false;
+            } else if (value == false) {
+                document.getElementById("sed").checked = false;
+                document.getElementById("fac").readOnly = true;
+                document.getElementById("sede").readOnly = true;
+            }
+        }
+        function habilitaresc(value) {
+            if (value == true) {
+                document.getElementById("sed").checked = true;
+                document.getElementById("cfac").checked = true;
+                document.getElementById("fac").readOnly = false;
+                document.getElementById("sede").readOnly = false;
+                document.getElementById("esc").readOnly = false;
+            } else if (value == false) {
+                document.getElementById("sed").checked = false;
+                document.getElementById("cfac").checked = false;
+                document.getElementById("esc").readOnly = true;
+                document.getElementById("fac").readOnly = true;
+                document.getElementById("sede").readOnly = true;
+            }
+        }
+    </script>
+
     <div class=" panel-heading"><h3>Reporte Pagos</h3></div>
     <div style="background-color: #FFFFFF">
         <div class="panel-body">
@@ -255,11 +312,11 @@
                     </div>
                 </div>
                 <div class="table-responsive col-sm-12">
-                    <table class="table table-bordered list-inline">
-                        @if(isset($result))
+                    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+
                             <thead align="center">
                             <!--cabecear Tabla-->
-                            <tr class="active">
+                            <tr >
 
                                 <th>
                                     <div align="center">
@@ -330,6 +387,7 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @if(isset($result))
                             <!--Contenido-->
 
                             @foreach($result as $r)
@@ -352,83 +410,6 @@
                                 </tr>
                             </tbody>
                             @endforeach
-
-                        @else
-                            <thead align="center">
-                            <!--cabecear Tabla-->
-                            <tr class="active">
-
-                                <th>
-                                    <div align="center">
-                                        <small>ID PAGO</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>MODALIDAD</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>NOMBRE SEDE</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>NOMBRE FACULTAD</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>NOMBRE ESCUELA</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>FECHA PAGO</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>NOMBRE CLASIFICADOR</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>NOMBRE TASA</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>PRECIO</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>Opciones</small>
-                                    </div>
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <!--Contenido-->
-
-                            <tr>
-                                <td><h6 align="center"></h6></td>
-                                <td><h6 align="center"></h6></td>
-                                <td><h6 align="center"></h6></td>
-                                <td><h6 align="center"></h6></td>
-                                <td><h6 align="center"></h6></td>
-                                <td><h6 align="center"></h6></td>
-                                <td><h6 align="center"></h6></td>
-                                <td><h6 align="center"></h6></td>
-                                <td><h6 align="center"></h6></td>
-                                <td align="center">
-
-                                </td>
-
-                            </tr>
-                            </tbody>
 
                         @endif
 
@@ -469,63 +450,5 @@
     </div>
 @stop
 @section('scripts')
-    <script type="text/javascript">
-
-        function limpiarCampos() {
-            var x = '1';
-            document.getElementById("fac").innerHTML = x;
-            document.getElementById("sede").innerHTML = x;
-            document.getElementById("esc").innerHTML = x;
-        }
-        function habilitarff(value) {
-            if (value == true) {
-                document.getElementById("ff").readOnly = false;
-            } else if (value == false) {
-                document.getElementById("ff").readOnly = true;
-
-            }
-        }
-        function habilitartr(value) {
-            if (value == true) {
-                document.getElementById("trinp").readOnly = false;
-            } else if (value == false) {
-                document.getElementById("trinp").readOnly = true;
-            }
-        }
-        function habilitarsed(value) {
-            if (value == true) {
-                document.getElementById("sede").readOnly = false;
-            } else if (value == false) {
-                document.getElementById("sede").readOnly = true;
-            }
-        }
-        function habilitarfac(value) {
-
-            if (value == true) {
-                document.getElementById("sed").checked = true;
-                document.getElementById("fac").readOnly = false;
-                document.getElementById("sede").readOnly = false;
-            } else if (value == false) {
-                document.getElementById("sed").checked = false;
-                document.getElementById("fac").readOnly = true;
-                document.getElementById("sede").readOnly = true;
-            }
-        }
-        function habilitaresc(value) {
-            if (value == true) {
-                document.getElementById("sed").checked = true;
-                document.getElementById("cfac").checked = true;
-                document.getElementById("fac").readOnly = false;
-                document.getElementById("sede").readOnly = false;
-                document.getElementById("esc").readOnly = false;
-            } else if (value == false) {
-                document.getElementById("sed").checked = false;
-                document.getElementById("cfac").checked = false;
-                document.getElementById("esc").readOnly = true;
-                document.getElementById("fac").readOnly = true;
-                document.getElementById("sede").readOnly = true;
-            }
-        }
-    </script>
 
 @endsection

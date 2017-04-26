@@ -63,73 +63,63 @@
                 </div>
             </form>
             <!--tabla-->
-            <div>
-                <br>
-                <div class="table-responsive ">
-                    @if(isset($nombre)!=null)
-                        <div class="alert alert-success" role="alert">El alumno {{$nombre}} fue actualizada!!</div>
-                    @endif
 
-                    <table class="table table-bordered">
-                        <thead>
-                        <!--cabecear Tabla-->
-                        <tr class="active">
-                            <th>
-                                <div align="center">Dni</div>
-                            </th>
-                            <th>
-                                <div align="center">Nombres y apellidos</div>
-                            </th>
-                            <th>
-                                <div align="center">Correo</div>
-                            </th>
-                            <th>
-                                <div align="center">Codigo alumno</div>
-                            </th>
-                            <th>
-                                <div align="center">Fecha de matricula</div>
-                            </th>
-                            <th>
-                                <div align="center">Opciones</div>
-                            </th>
-                        </tr>
-                        </thead>
-                        <body>
-                        @if(isset($alumno))
+            <div class="table-responsive  col-sm-12 ">
+                @if(isset($nombre)!=null)
+                    <div class="alert alert-success" role="alert">El alumno {{$nombre}} fue actualizada!!</div>
+                @endif
+
+                <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                    <!--cabecear Tabla-->
+                    <tr>
+                        <th>
+                            <div align="center">Dni</div>
+                        </th>
+                        <th>
+                            <div align="center">Nombres y apellidos</div>
+                        </th>
+                        <th>
+                            <div align="center">Correo</div>
+                        </th>
+                        <th>
+                            <div align="center">Codigo alumno</div>
+                        </th>
+                        <th>
+                            <div align="center">Fecha de matricula</div>
+                        </th>
+                        <th>
+                            <div align="center">Opciones</div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <body>
+                    @if(isset($alumno))
                             <!--Contenido-->
-                            @foreach($alumno as $a)
-                                <tr>
-                                    <td>{{$a->dni}}</td>
-                                    <td>{{$a->nombres}} {{$a->apellidos}}</td>
-                                    <td>{{$a->correo}}</td>
-                                    <td>{{$a->codAlumno}}</td>
-                                    <td>{{$a->fecha}}</td>
-                                    <td align="center">
-                                        {{ csrf_field() }}
-                                        <a href="AlumnoCargar/{{$a->codPersona}}"><span
-                                                    class="glyphicon glyphicon-pencil"></span> </a>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <a href="AlumnoEliminar/{{$a->codPersona}}"><span
-                                                    class="glyphicon glyphicon-trash"></span> </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @endif
-                        </body>
-                    </table>
-                </div>
-
+                    @foreach($alumno as $a)
+                        <tr>
+                            <td>{{$a->dni}}</td>
+                            <td>{{$a->nombres}} {{$a->apellidos}}</td>
+                            <td>{{$a->correo}}</td>
+                            <td>{{$a->codAlumno}}</td>
+                            <td>{{$a->fecha}}</td>
+                            <td align="center">
+                                {{ csrf_field() }}
+                                <a href="AlumnoCargar/{{$a->codPersona}}"><span
+                                            class="glyphicon glyphicon-pencil"></span> </a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="AlumnoEliminar/{{$a->codPersona}}"><span
+                                            class="glyphicon glyphicon-trash"></span> </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    @endif
+                    </body>
+                </table>
             </div>
+
 
         </div>
 
-        <script>
 
-        </script>
-        <script src="{{asset('assets/datatables/jquery.dataTables.min.js')}}"></script>
-        <script src="{{asset('assets/datatables/dataTables.bootstrap.js')}}"></script>
-
-        <script src="{{asset('assets/sweetalert2/sweetalert.min.js')}}"></script>
-
-        <script src="{{asset('assets/js/jquery.tool.js')}}"></script>
 @stop

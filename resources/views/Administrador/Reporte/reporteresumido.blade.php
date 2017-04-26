@@ -21,7 +21,7 @@
 @stop
 @section('content')
     @if( Session::has('tipoCuentaA'))
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
         <script type="text/javascript">
             $(document).ready(function () {
                 $(".contenido").hide();
@@ -31,7 +31,7 @@
                 });
 
             });
-          
+
             function agregarMenu(val) {
                 if (val === 1) {
                     document.getElementById('opc').innerHTML("<input class='form-control input-sm' type='text' @if(isset($fecha) ) value='{{$fecha}}' @endif name='fecha' required> ");
@@ -57,7 +57,7 @@
                             <div class="form-group-sm col-sm-2 col-lg-2 col-xs-2">
                                 <span class="control-label">Buscar por :</span>
                                 <select class=" form-control" name="combito" id="combito">
-                                    <option >Escojer</option>
+                                    <option>Escojer</option>
                                     <option value="1">Año</option>
                                     <option value="2">Mes</option>
                                     <option value="3">Dia</option>
@@ -67,27 +67,27 @@
                                 <div id="div_1" class="contenido">
                                     <span class=" control-label">Año :</span>
 
-                                        <input type="text" class="form-control input-sm " id="año1" name="año1"
-                                               autocomplete="off" >
+                                    <input type="text" class="form-control input-sm " id="año1" name="año1"
+                                           autocomplete="off">
 
                                 </div>
                                 <div id="div_2" class="row contenido">
                                     <div class="col-sm-6 col-lg-6 col-xs-6">
                                         <span class=" control-label">Año :</span>
                                         <input type="text" class="form-control input-sm " id="trinp" name="año2"
-                                               autocomplete="off" >
+                                               autocomplete="off">
                                     </div>
                                     <div class="col-sm-6 col-lg-6 col-xs-6">
                                         <span class=" control-label">Mes :</span>
                                         <input type="text" class="form-control input-sm " id="trinp" name="mes2"
-                                               autocomplete="off" >
+                                               autocomplete="off">
                                     </div>
                                 </div>
                                 <div id="div_3" class="contenido ">
                                     <span class=" control-label">Elija fecha :</span>
                                     <div class="input-group date " data-provide="datepicker">
-                                        <input type="dia" name="fecha"  class="form-control"
-                                               autocomplete="off" >
+                                        <input type="dia" name="fecha" class="form-control"
+                                               autocomplete="off">
                                         <div class="input-group-addon">
                                             <span class="glyphicon glyphicon-th"></span>
                                         </div>
@@ -97,14 +97,15 @@
                             </div>
                             <div class="form-group-sm col-sm-1 col-lg-1 col-xs-1">
                                 <span class=" control-label">.  </span>
-                                <button type="submit" class="btn btn-sm btn-success s-b-5" id="imp"><i class="ion-ios7-search"> </i> buscar
+                                <button type="submit" class="btn btn-sm btn-success s-b-5" id="imp"><i
+                                            class="ion-ios7-search"> </i> buscar
                                 </button>
                             </div>
                         </div>
                     </form>
                     <!--Tabla-->
-
-                    <div align="center" class="col-sm-12 row form-group ">
+                    <br>
+                    <div class=" row form-group ">
                         <div class="col-sm-12 row form-group ">
                             <div class="col-sm-8">
 
@@ -122,41 +123,42 @@
                             </div>
                         </div>
                         <div class="table-responsive col-sm-12">
-                            <table class="table table-bordered list-inline">
+                            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+
                                 @if(isset($resultsiaf))
-                                    <thead align="center">
+                                    <thead>
                                     <!--cabecear Tabla-->
-                                    <tr class="active">
+                                    <tr>
 
                                         <th>
                                             <div align="center">
-                                                <small>CLASIFICADOR S.I.A.F</small>
+                                                CLASIFICADOR S.I.A.F
                                             </div>
                                         </th>
                                         <th>
                                             <div align="center">
-                                                <small>NOMBRE DE CLASIFICADOR</small>
+                                                NOMBRE DE CLASIFICADOR
                                             </div>
                                         </th>
                                         <th>
                                             <div align="center">
-                                                <small>CUENTA</small>
+                                                UENTA
                                             </div>
                                         </th>
 
                                         <th>
                                             <div align="center">
-                                                <small>NOMBRE DE TASA</small>
+                                                NOMBRE DE TASA
                                             </div>
                                         </th>
                                         <th>
                                             <div align="center">
-                                                <small>IMPORTE</small>
+                                                IMPORTE
                                             </div>
                                         </th>
                                         <th>
                                             <div align="center">
-                                                <small>NRO PAGOS</small>
+                                                NRO PAGOS
                                             </div>
                                         </th>
 
@@ -179,23 +181,23 @@
 
                                 @else
                                     @if(isset($resultresu))
-                                        <thead align="center">
+                                        <thead >
                                         <!--cabecear Tabla-->
-                                        <tr class="active">
+                                        <tr>
 
                                             <th>
                                                 <div align="center">
-                                                    <small>CODIGO CLASIFICADOR S.I.A.F</small>
+                                                    CODIGO CLASIFICADOR S.I.A.F
                                                 </div>
                                             </th>
                                             <th>
                                                 <div align="center">
-                                                    <small>NOMBRE DE CLASIFICADOR</small>
+                                                    NOMBRE DE CLASIFICADOR
                                                 </div>
                                             </th>
                                             <th>
                                                 <div align="center">
-                                                    <small>IMPORTE</small>
+                                                    IMPORTE
                                                 </div>
                                             </th>
 
@@ -215,24 +217,32 @@
                                         </tbody>
                                         @endforeach
                                     @else
-                                        <thead align="center">
+                                        <thead >
                                         <!--cabecear Tabla-->
-                                        <tr class="active">
+                                        <tr>
 
                                             <th>
                                                 <div align="center">
-                                                    <small>NINGUNA TABLA</small>
+                                                    CODIGO CLASIFICADOR S.I.A.F
                                                 </div>
                                             </th>
+                                            <th>
+                                                <div align="center">
+                                                    NOMBRE DE CLASIFICADOR
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div align="center">
+                                                    IMPORTE
+                                                </div>
+                                            </th>
+
 
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <!--Contenido-->
 
-                                        <tr>
-                                            <td><h6 align="center"></h6>ningun dato</td>
-                                        </tr>
                                         </tbody>
                                     @endif
                                 @endif

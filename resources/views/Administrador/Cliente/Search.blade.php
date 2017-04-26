@@ -27,7 +27,7 @@
         <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
     @endif
     <div class="panel-heading"><h3> Buscar Clientes</h3></div>
-    <div style="background-color: #FFFFFF" >
+    <div style="background-color: #FFFFFF">
         <div class="panel-body">
             <form name="form" action="{{url('ClientesBuscados')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
@@ -57,15 +57,14 @@
                 </div>
             </form>
             <!--tabla-->
-            <div class="table-responsive col-sm-12">
-                @if(isset($nombre)!=null)
-                    <div class="alert alert-success" role="alert">El cliente {{$nombre}} fue actualizada!!</div>
-                @endif
-
-                <table class="table table-bordered">
+            @if(isset($nombre)!=null)
+                <div class="alert alert-success" role="alert">El cliente {{$nombre}} fue actualizada!!</div>
+            @endif
+            <div class="table-responsive  col-sm-12 ">
+                <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <!--cabecear Tabla-->
-                    <tr class="active">
+                    <tr>
                         <th>
                             <div align="center">Dni</div>
                         </th>
@@ -88,35 +87,27 @@
                     </thead>
                     <body>
                     @if(isset($cliente))
-                        <!--Contenido-->
-                        @foreach($cliente as $c)
-                            <tr>
-                                <td>{{$c->dni}}</td>
-                                <td>{{$c->nombres}} {{$c->apellidos}}</td>
-                                <td>{{$c->correo}}</td>
-                                <td>{{$c->ruc}}</td>
-                                <td>{{$c->razonSocial}}</td>
-                                <td align="center">
-                                    {{ csrf_field() }}
-                                    <a href="ClienteCargar/{{$c->codPersona}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="ClienteEliminar/{{$c->codPersona}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
-                                </td>
-                            </tr>
-                        @endforeach
+                            <!--Contenido-->
+                    @foreach($cliente as $c)
+                        <tr>
+                            <td>{{$c->dni}}</td>
+                            <td>{{$c->nombres}} {{$c->apellidos}}</td>
+                            <td>{{$c->correo}}</td>
+                            <td>{{$c->ruc}}</td>
+                            <td>{{$c->razonSocial}}</td>
+                            <td align="center">
+                                {{ csrf_field() }}
+                                <a href="ClienteCargar/{{$c->codPersona}}"><span
+                                            class="glyphicon glyphicon-pencil"></span> </a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="ClienteEliminar/{{$c->codPersona}}"><span
+                                            class="glyphicon glyphicon-trash"></span> </a>
+                            </td>
+                        </tr>
+                    @endforeach
                     @endif
                     </body>
                 </table>
-            </div>
-            <div class="col-sm-12 row">
-                <div class="col-sm-4"></div>
-                <!--paginadro-->
-                <div class="col-sm-4" align="center">
-
-                </div>
-                <div class="col-sm-4"></div>
             </div>
         </div>
     </div>
