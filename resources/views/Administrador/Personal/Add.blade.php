@@ -20,6 +20,10 @@
     </div>
 @stop
 @section('content')
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
     <div class="panel-heading"><h3>Agregar personal</h3></div>
     <div style="background-color: #FFFFFF">
         <div class="panel-body">
@@ -31,6 +35,31 @@
             @endif
             <form name="form" action="{{url('PersonalRegistrado')}}" role="form" method="POST" class="Vertical">
                 {{csrf_field()}}
+                <div class="panel panel-default">
+                    <div class="panel-heading">Datos Sede</div>
+                    <div class="panel-body">
+                        <div class="col-sm-12 row form-group">
+                            <div class="form-group-sm " align="left">
+                                <span class="col-sm-2 control-label"> Sede</span>
+                                <div class="col-sm-3">
+                                    <input class="typeahead form-control input-sm" name="sede" type="text"
+                                           autocomplete="off" onkeypress="return validarLetras(event)"
+                                           placeholder="ejmp:Trujillo" required>
+                                </div>
+                                <script type="text/javascript">
+                                    var path = "{{ route('autocompletesede') }}";
+                                    $('input.typeahead').typeahead({
+                                        source: function (query, process) {
+                                            return $.get(path, {query: query}, function (data) {
+                                                return process(data);
+                                            });
+                                        }
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">Datos persona</div>
                     <div class="panel-body">
@@ -90,7 +119,7 @@
                                 <span class="col-sm-2">Codigo personal</span>
                                 <div class="col-sm-4">
                                     <input class="form-control input-sm" name="codigoPersonal" type="text"
-                                          placeholder="ejmp: 00025487" required>
+                                           placeholder="ejmp: 00025487" required>
                                 </div>
                             </div>
                         </div>

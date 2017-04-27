@@ -13,6 +13,7 @@ class personalmodel extends personamodel
     private $password;
     private $tipoCuenta;
     private $idPersona;
+    private $idSede;
 
     function __construct()
     {
@@ -110,6 +111,24 @@ class personalmodel extends personamodel
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIdSede()
+    {
+        return $this->idSede;
+    }
+
+    /**
+     * @param mixed $idSede
+     * @return personalmodel
+     */
+    public function setIdSede($idSede)
+    {
+        $this->idSede = $idSede;
+        return $this;
+    }
+
 
     public function logear()
     {
@@ -144,7 +163,7 @@ class personalmodel extends personamodel
                 $personabd = DB::table('persona')->where('dni', $this->getDni())->get();
                 foreach ($personabd as $pbd) {
                     $idp = $pbd->codPersona;
-                    DB::table('personal')->insert(['cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta, 'idPersona' => $idp, 'codPersonal' => $this->codPersonal]);
+                    DB::table('personal')->insert(['cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta, 'idPersona' => $idp, 'codPersonal' => $this->codPersonal, 'idSede' => $this->idSede]);
                     $logunt->saveLogUnt();
                 }
             });
@@ -171,7 +190,7 @@ class personalmodel extends personamodel
                 $personabd = DB::table('persona')->where('dni', $this->getDni())->get();
                 foreach ($personabd as $pbd) {
                     $idp = $pbd->codPersona;
-                    DB::table('personal')->where('idPersona', $codPersona)->update(['cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta, 'idPersona' => $idp, 'codPersonal' => $this->codPersonal]);
+                    DB::table('personal')->where('idPersona', $codPersona)->update(['cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta, 'idPersona' => $idp, 'codPersonal' => $this->codPersonal, 'idSede' => $this->idSede]);
                 }
                 $logunt->saveLogUnt();
             });
@@ -183,7 +202,8 @@ class personalmodel extends personamodel
 
     public function consultarPersonalid($codPersona)
     {
-        $alumnobd = DB::select('select * from persona left join personal on persona.codPersona = personal.idPersona where 
+        $alumnobd = DB::select('select * from persona left join personal on persona.codPersona = personal.idPersona  
+        left join sede on personal.idSede = sede.codSede where personal.idSede = sede.codSede and 
         persona.codPersona = personal.idPersona and persona.codPersona=:codPersona and persona.estado = 1 and personal.estado=1', ['codPersona' => $codPersona]);
         return $alumnobd;
     }
@@ -275,5 +295,16 @@ class personalmodel extends personamodel
             return false;
         }
         return true;
+    }
+
+    public function obtenerIdSede($nombre)
+    {
+        $sbd = null;
+        $sedebd = DB::table('sede')->where(['nombresede' => $nombre, 'estado' => 1])->get();
+
+        foreach ($sedebd as $s) {
+            $sbd = $s->codSede;
+        }
+        return $sbd;
     }
 }

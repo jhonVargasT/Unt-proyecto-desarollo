@@ -20,6 +20,8 @@ class personalController extends Controller
         $personal->setTipoCuenta($request->tipocuenta);
         $personal->setCodPersonal($request->codigoPersonal);
         $personal->setCorreo($request->correo);
+        $idS = $personal->obtenerIdSede($request->sede);
+        $personal->setIdSede($idS);
         $p = $personal->savepersonal();
 
         if ($p == true) {
@@ -110,6 +112,8 @@ class personalController extends Controller
         $personal->setTipoCuenta($request->tipocuenta);
         $personal->setCodPersonal($request->codigoPersonal);
         $personal->setCorreo($request->correo);
+        $idS = $personal->obtenerIdSede($request->sede);
+        $personal->setIdSede($idS);
         $personal->editarPersonal($idPersonal);
         return view('Administrador/Personal/Search')->with(['nombre' => $request->nombres]);
     }

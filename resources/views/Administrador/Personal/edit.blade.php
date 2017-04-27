@@ -36,6 +36,31 @@
                           class="Vertical">
                         {{csrf_field()}}
                         <div class="panel panel-default">
+                            <div class="panel-heading">Datos Sede</div>
+                            <div class="panel-body">
+                                <div class="col-sm-12 row form-group">
+                                    <div class="form-group-sm " align="left">
+                                        <span class="col-sm-2 control-label"> Sede</span>
+                                        <div class="col-sm-3">
+                                            <input class="typeahead form-control input-sm" name="sede" type="text"
+                                                   autocomplete="off" onkeypress="return validarLetras(event)"
+                                                   placeholder="ejmp:Trujillo" required value="{{$per->nombresede}}">
+                                        </div>
+                                        <script type="text/javascript">
+                                            var path = "{{ route('autocompletesede') }}";
+                                            $('input.typeahead').typeahead({
+                                                source: function (query, process) {
+                                                    return $.get(path, {query: query}, function (data) {
+                                                        return process(data);
+                                                    });
+                                                }
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
                             <div class="panel-heading">Datos persona</div>
                             <div class="panel-body">
                                 <div class="col-sm-12 row form-group">

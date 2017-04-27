@@ -26,11 +26,14 @@ class Personal extends Migration
             $table -> boolean('estado')->default('1');
 
             $table->integer('idPersona')->unsigned();
+            $table->integer('idSede')->unsigned();
+
         });
 
         Schema::table('personal', function( $table) {
 
             $table->foreign('idPersona')->references('codPersona')->on('persona');
+            $table->foreign('idSede')->references('codSede')->on('sede');
         });
     }
 
