@@ -374,3 +374,8 @@ Route::get('/repBuscarPagos', function () {
     return view('Reportes/Pagos/ReportPago');
 });
 
+
+Route::get('/reporte', function () {
+    return view('Ventanilla/Pagos/reporte');
+});
+
