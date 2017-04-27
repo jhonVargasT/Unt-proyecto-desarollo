@@ -301,8 +301,8 @@ class pagoController extends Controller
                                 $excel->sheet('Reporte Diario', function ($sheet) use ($request) {
                                     $data = null;
                                     $pag = null;
-                                    $total= 0;
-                                    $cont=0;
+                                    $total = 0;
+                                    $cont = 0;
                                     $pago = new pagomodel();
                                     $pag = $pago->listarPagosPersonal($request->text);
 
@@ -486,15 +486,21 @@ class pagoController extends Controller
     public function eliminarPago($codPago)
     {
         $pago = new pagomodel();
-        $pago->eliminarPago($codPago);
-        return view('Ventanilla/Pagos/ReportPago');
+        $bool = $pago->eliminarPago($codPago);
+        if ($bool == true)
+            return back()->with('true', 'Pago eliminado con exito')->withInput();
+        if ($bool == false)
+            return back()->with('false', 'Pago no eliminado')->withInput();
     }
 
     public function DevolucionPago($codPago)
     {
         $pago = new pagomodel();
-        $pago->devolverPago($codPago);
-        return view('Ventanilla/Pagos/ReportPago');
+        $bool = $pago->devolverPago($codPago);
+        if ($bool == true)
+            return back()->with('true', 'Devolucion exitosa')->withInput();
+        if ($bool == false)
+            return back()->with('false', 'Devolucion no exitosa')->withInput();
     }
 
     public function eliminarDeuda($codPago)
