@@ -174,6 +174,10 @@
                                     @if($p->modalidad=='Online'||$p->modalidad=='Banco')
                                         <a><span class="glyphicon glyphicon-trash"></span> </a>
                                     @else
+                                        &nbsp;&nbsp;&nbsp;
+                                        <a href="DevolucionPago/{{$p->codPago}}"><span
+                                                    class="glyphicon glyphicon-minus"></span> </a>
+                                        &nbsp;&nbsp;&nbsp;
                                         <a href="PagoEliminar/{{$p->codPago}}"><span
                                                     class="glyphicon glyphicon-trash"></span> </a>
                                     @endif

@@ -352,7 +352,7 @@ class pagoController extends Controller
                                             'size' => '12',
                                             'bold' => true
                                         ));
-                                        $cell->setValue('Reporte de pagos detallado');
+                                        $cell->setValue('Reporte diaro');
                                         $cell->setAlignment('center');
                                     });
 
@@ -487,6 +487,13 @@ class pagoController extends Controller
     {
         $pago = new pagomodel();
         $pago->eliminarPago($codPago);
+        return view('Ventanilla/Pagos/ReportPago');
+    }
+
+    public function DevolucionPago($codPago)
+    {
+        $pago = new pagomodel();
+        $pago->devolverPago($codPago);
         return view('Ventanilla/Pagos/ReportPago');
     }
 

@@ -484,6 +484,27 @@ ORDER BY pago.codPago DESC');
         $logunt->setDescripcion('eliminarPago');
         $logunt->setCodigoPersonal($codPers);
         try {
+            DB::transaction(function () use ($codPago, $logunt) {
+                DB::table('pago')->where('codPago', $codPago)->update(['estado' => 0]);
+                $logunt->saveLogUnt();
+            });
+        } catch (PDOException $e) {
+            return false;
+        }
+        return true;
+    }
+
+    public function devolverPago($codPago)
+    {
+        date_default_timezone_set('Etc/GMT+5');
+        $date = date('Y-m-d H:i:s', time());
+        $logunt = new loguntemodel();
+        $value = Session::get('personalC');
+        $codPers = $logunt->obtenerCodigoPersonal($value);
+        $logunt->setFecha($date);
+        $logunt->setDescripcion('DevolucionPago');
+        $logunt->setCodigoPersonal($codPers);
+        try {
             DB::transaction(function () use ($codPago, $logunt, $date) {
                 DB::table('pago')->where('codPago', $codPago)->update(['fechaDevolucion' => $date]);
                 DB::table('pago')->where('codPago', $codPago)->update(['estado' => 0]);

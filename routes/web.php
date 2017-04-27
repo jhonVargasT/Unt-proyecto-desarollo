@@ -235,6 +235,7 @@ Route::resource('importExcel', 'ExcelController@importExcel');
 Route::resource('importAlumnos', 'ExcelController@importarAlumnos');
 Route::resource('PagosBuscados', 'pagoController@listarPago');
 Route::get('PagoEliminar/{codPago}', 'pagoController@eliminarPago');
+Route::get('DevolucionPago/{codPago}', 'pagoController@DevolucionPago');
 Route::get('PagoImprimir/{codPago}/{estadoimprimir}', 'PdfController@PagosBoletaAlumno');
 Route::get('PagoImprimirR/{codPago}/{estadoimprimir}', 'PdfController@PagosBoletaAlumnoR');
 

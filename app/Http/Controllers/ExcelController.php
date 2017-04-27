@@ -271,7 +271,7 @@ class ExcelController extends Controller
                         'size' => '12',
                         'bold' => true
                     ));
-                    $cell->setValue('Reporte de pagos detallado');
+                    $cell->setValue('Reporte de Pagos de Alumnos');
                     $cell->setAlignment('center');
                 });
 
