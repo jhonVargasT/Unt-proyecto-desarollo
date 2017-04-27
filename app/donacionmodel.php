@@ -267,10 +267,12 @@ class donacionmodel
         return $donacionbd;
     }
 
-    public function consultarDonaciones()
+    public function consultarDonaciones($fecha)
+
     {
-        $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
-        tramite.codTramite = donacion.idTramite and tramite.estado=1 and donacion.estado =1');
+        $donacionbd = DB::select('SELECT d.codDonacion as codigo ,d.numResolucion,b.banco,b.cuenta,t.nombre,d.fechaIngreso,d.descripcion,d.monto as importe FROM donacion d  
+          left join tramite t on t.codTramite=d.idtramite 
+          left join banco b on b.codBanco=d.idBanco ' . $fecha . ' and d.estado=1');
         return $donacionbd;
     }
 

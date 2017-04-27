@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\donacionmodel;
 use App\escuelamodel;
 use App\facultadmodel;
 use App\pagomodel;
@@ -19,9 +20,182 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ExcelController extends Controller
 {
+    public function donacionExcel($fecha,$numero)
+    {
+
+        date_default_timezone_set('America/Lima');
+        $fechahoy = date('Y-m-d');
+        Excel::create('Reporte donacion' . $fechahoy . '', function ($excel) use ($fecha,$numero) {
+            $excel->sheet('Productos', function ($sheet) use ($fecha,$numero) {
+                $data = null;
+                $total = 0;
+                $cont = 0;
+                $pag = null;
+                $donacion = new donacionmodel();
+                $result = $donacion->consultarDonaciones($fecha);
+                foreach ($result as $p) {
+                    $total += $p->importe;
+                }
+
+                foreach ($result as $d) {
+                    $cont++;
+                    $data[] = array(
+                        "Numero Resolucion" => $d->numResolucion,
+                        "Banco" => $d->banco, "N° cuenta" => $d->cuenta,
+                        "Clasificador" => $d->nombre
+                    , "Fecha de ingreso" => $d->fechaIngreso
+                    , "Descripcion" => $d->descripcion,
+                        "Importe" => $d->importe,
+
+                    );
+                }
+                //$sheet->FromArray($data);
+                $sheet->mergeCells('B1:H1');
+                $var = 'RESUMEN  '. $numero;
+                $sheet->cell('B1', function ($cell) {
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12',
+                        'bold' => true
+                    ));
+                    $cell->setValue('UNIVERSIDAD NACIONAL DE TRUJILLO');
+                    $cell->setAlignment('center');
+                });
+                $sheet->mergeCells('B2:H2');
+                $sheet->cell('B2', function ($cell) {
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12',
+                        'bold' => false
+                    ));
+                    $cell->setValue('OGSEF- OF.TEC. TESORERIA');
+                    $cell->setAlignment('center');
+                });
+                $sheet->mergeCells('B3:H3');
+
+                $sheet->cell('B3', function ($cell) {
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12',
+                        'bold' => true
+                    ));
+                    $cell->setValue('Reporte de donaciones y transefrencias');
+                    $cell->setAlignment('center');
+                });
+                $sheet->mergeCells('B4:H4');
+
+                $sheet->cell('B4', function ($cell) use ($var) {
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12',
+                        'bold' => true
+                    ));
+                    $cell->setValue($var);
+                    $cell->setAlignment('center');
+                });
+                //total
+                $sheet->cell('G6', function ($cell) {
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12',
+                        'bold' => true
+                    ));
+                    $cell->setValue('Total de ingresos :');
+                    $cell->setAlignment('right');
+                });
+                $sheet->cell('H6', function ($cell) use ($total) {
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => 12,
+                        'AutoSize'=>true
+                    ));
+                    $cell->setValue($total);
+                });
+                $sheet->cells('H6', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+
+                //*************************************************
+                //*******************cabecera de tabla
+                $sheet->cells('B7:H7', function ($cells) {
+                    $cells->setBackground('#006600');
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12',
+                        'bold' => true
+                    ));
+                    $cells->setBorder(array(
+                        'top' => array(
+                            'style' => 'solid'
+                        ),
+                    ));
+                    $cells->setAlignment('center');
+                });
+                //*****************************************
+                //*******************************cuerpo de tabla
+                //estilos
+                $sheet->cells('B7:B' . ($cont + 7) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('left');
+                });
+                $sheet->cells('F7:F' . ($cont + 7) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+                $sheet->cells('G7:G' . ($cont + 7) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+                $sheet->cells('H7:H' . ($cont + 7) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+
+
+                /*$sheet->cells('M7:M' . ($cont + 7) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });*/
+                //bordes de la hoja
+                $sheet->setBorder('B7:B' . ($cont + 7) . '');
+                $sheet->setBorder('C7:C' . ($cont + 7) . '');
+                $sheet->setBorder('D7:D' . ($cont + 7) . '');
+                $sheet->setBorder('E7:E' . ($cont + 7) . '');
+                $sheet->setBorder('F7:F' . ($cont + 7) . '');
+                $sheet->setBorder('G7:G' . ($cont + 7) . '');
+                $sheet->setBorder('H7:H' . ($cont + 7) . '');
+                //ubicacion de la data
+                $sheet->fromArray($data, null, 'B7', false);
+                //nombre de hoja
+                $sheet->setTitle('dona y trans fresumido');
+                //par que la data se ajuste
+                $sheet->setAutoSize(true);
+            });
+        })->export('xls');
+    }
+
     public function reportePago($txt, $select, $val)
     {
-        Excel::create('Laravel Excel', function ($excel) use ($txt, $select, $val) {
+        Excel::create('Reporte', function ($excel) use ($txt, $select, $val) {
             $excel->sheet('Productos', function ($sheet) use ($txt, $select, $val) {
                 $data = null;
                 $total = 0;

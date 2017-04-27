@@ -83,9 +83,10 @@
                                     <div class="form-group-sm " align="left">
                                         <span class="col-sm-2 control-label">Tipo de cuenta</span>
                                         <div class="col-sm-3">
-                                            <select class="form-control " name="tipoDeCuenta">
+                                            <select class="form-control " name="tipocuenta">
                                                 <option>Administrador</option>
                                                 <option>Ventanilla</option>
+                                                <option>Reportes</option>
                                             </select>
                                         </div>
                                     </div>
@@ -102,14 +103,14 @@
                                     <div class="form-group-sm " align="left">
                                         <span class="col-sm-2 control-label"> Cuenta</span>
                                         <div class="col-sm-3">
-                                            <input class="form-control input-sm" name="cuenta" type="text"
+                                            <input class="form-control input-sm" name="cuentaAgregar" type="text"
                                                    value="{{$per->cuenta}}">
                                         </div>
                                     </div>
                                     <div class="form-group-sm" align="right">
                                         <span class="col-sm-2">Contraseña</span>
                                         <div class="col-sm-4">
-                                            <input class="form-control input-sm" name="contraseña" type="password"
+                                            <input class="form-control input-sm" name="contraseñaAgregar" type="password"
                                                    value="{{$per->password}}">
                                         </div>
                                     </div>

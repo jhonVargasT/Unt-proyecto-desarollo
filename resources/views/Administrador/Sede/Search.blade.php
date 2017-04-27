@@ -61,10 +61,10 @@
                 @if(isset($nombre)!=null)
                     <div class="alert alert-success" role="alert">La sede {{$nombre}} fue actualizada!!</div>
                 @endif
-                <table class="table table-bordered">
+                <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <!--cabecear Tabla-->
-                    <tr class="active">
+                    <tr >
                         <th>
                             <div align="center">Codigo Sede</div>
                         </th>

@@ -1,18 +1,16 @@
 #printableArea{
-    margin: 25px 0;
+    margin: 1px;
     background: white;
-    padding: 20px;
     clear: both;
     text-align: center;
-    overflow:hidden;
 }
-
 table{
+    padding: 65px;
     display:inline-block;
     border:none;
 }
 td,th{
-    padding: 10px;
+    padding: 5px;
     font-size: 10px;
 }
 input{

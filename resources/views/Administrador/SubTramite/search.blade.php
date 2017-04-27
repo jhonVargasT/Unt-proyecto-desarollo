@@ -25,10 +25,7 @@
     @endif
     @if(session()->has('false'))
         <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
-    @endif
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+    @endif  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
     <div class="panel-heading"> <h3>Buscar SubTasa</h3></div>
     <div style="background-color: #FFFFFF" >
 
@@ -80,10 +77,10 @@
                     <div class="alert alert-success" role="alert">La tasa {{$nombre}} fue actualizada!!</div>
                 @endif
 
-                <table class="table table-bordered">
+                <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <!--cabecear Tabla-->
-                    <tr class="active">
+                    <tr >
                         <th>
                             <div align="center">Nombre tasa</div>
                         </th>

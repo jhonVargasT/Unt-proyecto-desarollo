@@ -1,4 +1,5 @@
 @extends('Administrador/Body')
+
 @section('tramite')
     <div id="collapseFive" class="collapse in">
         <div class="panel-body">
@@ -36,7 +37,7 @@
                         <span class="col-sm-5 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
                             <select class=" form-control" name="select">
-                                <option>Todo</option>
+                                <option value="hola" selected></option>
                                 <option>codigo clasificador </option>
                                 <option>Tipo de recurso</option>
                                 <option>Nombre de clasificador</option>
@@ -64,10 +65,10 @@
                     <div class="alert alert-success" role="alert">La tasa {{$nombre}} fue actualizada!!</div>
                 @endif
 
-                <table class="table table-bordered">
+                <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <!--cabecear Tabla-->
-                    <tr class="active">
+                    <tr>
                         <th>
                             <div align="center">Codigo clasificador</div>
                         </th>

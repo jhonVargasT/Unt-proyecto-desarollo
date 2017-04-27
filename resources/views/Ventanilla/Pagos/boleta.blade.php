@@ -30,8 +30,8 @@
             <tr>
                 <th>HE RECIBIDO DE:</th>
                 <td>
-                    <input name="nomape" value="{{$apellidos}}, {{$nombre}} " readonly>
-                    <input type="hidden" name="apellidos" value="{{$apellidos}}" readonly id="apellidos">
+                    <input name="nomape" value="{{$apellidos}}, {{$nombre}} " readonly size="30">
+                    <input type="hidden" name="apellidos" value="{{$apellidos}}" readonly id="apellidos" >
                     <input type="hidden" name="nombres" value="{{$nombre}}" readonly id="nombres">
                 </td>
             </tr>
@@ -84,7 +84,7 @@
             <tr>
                 <th>HE RECIBIDO DE:</th>
                 <td>
-                    <input name="nomape" value="{{$apellidos}}, {{$nombre}} " readonly>
+                    <input name="nomape" value="{{$apellidos}}, {{$nombre}} " readonly size="30">
                     <input type="hidden" name="apellidos" value="{{$apellidos}}" readonly>
                     <input type="hidden" name="nombres" value="{{$nombre}}" readonly>
                 </td>

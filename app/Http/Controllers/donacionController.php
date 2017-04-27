@@ -75,37 +75,37 @@ class donacionController extends Controller
 
     public function listarDonaciones(Request $request)
     {
-        $valueA = Session::get('tipoCuentaA');
-        $valueR = Session::get('tipoCuentaR');
+        $numero = '';
+        $result = null;
+        $donacion= new donacionmodel();
+        $vartiemp = $request->combito;
+        $varaño = $request->año1;
+        if ($vartiemp == 1) {
 
-        $don = null;
-        $donacion = new donacionmodel();
+            $tiempo = 'where Year(d.fechaIngreso) = ' . $varaño . '';
+            $result = $donacion->consultarDonaciones($tiempo);
+            $numero = 'DEL AÑO -'.$varaño;
+        } elseif ($vartiemp == 2) {
+            $tiempo = 'where MONTH(d.fechaIngreso) = ' . $request->mes2 . ' and Year(d.fechaIngreso)=' . $request->año2 . '';
+            $result = $donacion->consultarDonaciones($tiempo);
+            $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
+            $valor = $meses[$request->mes2 - 1];
+            $numero = 'DE ' . $valor . ' DEL ' . $request->año2;
 
-        if ($request->select == 'Tramite') {
-            $don = $donacion->consultarDonacionTramite($request->text);
-        } else {
-            if ($request->select == 'Fecha') {
-                $don = $donacion->consultarDonacionFecha($request->text);
-            } else {
-                if ($request->select == 'Tipo de recurso') {
-                    $don = $donacion->consultarDonacionTipoRecurso($request->text);
-                } else {
-                    if ($request->select == 'Fuente de financiamiento') {
-                        $don = $donacion->consultarDonacionFuenteFinanciamiento($request->text);
-                    } else {
-                        if ($request->select == 'Numero Resolucion') {
-                            $don = $donacion->consultarDonacionNumeroResolucion($request->text);
-                        } else {
-                            $don = $donacion->consultarDonaciones();
-                        }
-                    }
-                }
-            }
+        } elseif ($vartiemp == 3) {
+            $originalDate = $request->fecha;
+            $fecha = date("Y-m-d", strtotime($originalDate));
+            $tiempo = 'where DATE(d.fechaIngreso) =\'' . $fecha . '\'';
+            $result = $donacion->consultarDonaciones($tiempo);
+            $numero = 'DE '.$fecha;
         }
-        if ($valueA == 'Administrador')
-            return view('Administrador/DonacionesYTransacciones/Search')->with(['donacion' => $don, 'txt' => $request->text, 'select' => $request->select]);
-        if ($valueR == 'Reportes')
-            return view('Reportes/DonacionYTransacciones/Search')->with(['donacion' => $don, 'txt' => $request->text, 'select' => $request->select]);
+        $total = 0;
+        foreach ($result as $r) {
+            $total += $r->importe;
+        }
+        return view('Administrador/DonacionesYTransacciones/search')->with(['result' => $result,'total'=>$total,'fecha'=>$tiempo,'numero'=>$numero]);
+
+
 
     }
 

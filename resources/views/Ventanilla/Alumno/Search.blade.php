@@ -6,13 +6,13 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarEstudiante" style="color: #509f0c" target="_top">Buscar Estudiantes</a>
+                        <a href="/ventBuscarEstudiante" style="color: #509f0c" target="_top">Buscar Estudiantes</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarEstudiante">Agregar Estudiante</a>
+                        <a href="/ventRegistrarEstudiante">Agregar Estudiante</a>
                     </td>
                 </tr>
             </table>
