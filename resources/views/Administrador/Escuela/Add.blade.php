@@ -102,8 +102,7 @@
                                 <span class="col-sm-2 control-label"> Codigo Escuela</span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="codEscuela" type="text"
-                                           placeholder="Ejm: 0729787548" autocomplete="off"
-                                           onkeypress="return validarNum(event)">
+                                           placeholder="Ejm: 0729787548" autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group-sm " align="right">

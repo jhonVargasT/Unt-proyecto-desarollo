@@ -106,7 +106,7 @@
                                         <div class="col-sm-3">
                                             <input class="form-control input-sm" name="codEscuela" type="text"
                                                    placeholder="Ejm: 0729787548" autocomplete="off"
-                                                   onkeypress="return validarNum(event)" value="{{$e->codEscuela}}">
+                                                   value="{{$e->codEscuela}}">
                                         </div>
                                     </div>
                                     <div class="form-group-sm " align="right">

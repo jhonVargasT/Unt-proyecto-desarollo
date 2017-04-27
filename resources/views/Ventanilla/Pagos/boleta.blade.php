@@ -36,7 +36,7 @@
                 </td>
             </tr>
             <tr>
-                <th>ESCUELA</th>
+                <th>ESCUELA:</th>
                 <td><input name="escuela" value="{{$escuela}}" readonly id="escuela"></td>
             </tr>
             <tr>
@@ -44,11 +44,11 @@
                 <td><input name="detalle" value="{{$detalle}}" readonly id="detalle"></td>
             </tr>
             <tr>
-                <th>FECHA</th>
+                <th>FECHA:</th>
                 <td><input name="fecha" value="{{$fecha}}" readonly id="fecha"></td>
             </tr>
             <tr>
-                <th>MONTO</th>
+                <th>MONTO:</th>
                 <td>
                     <input type="hidden" name="total" value="{{$total}}" readonly>
                     <input name="boleta" value="{{$boleta}}" readonly>
@@ -59,8 +59,8 @@
                 <td><input size="30" id="wo" readonly></td>
             </tr>
             <tr>
-                <th>CAJERO</th>
-                <td><input name="cajero" value="{{Session::get('misession','No existe session')}}" readonly></td>
+                <th>CAJERO:</th>
+                <td><input name="cajero" value="{{Session::get('misession','No existe session')}}" readonly size="30"></td>
             </tr>
             </tbody>
         </table>
@@ -114,7 +114,7 @@
             </tr>
             <tr>
                 <th>CAJERO</th>
-                <td><input name="cajero" value="{{Session::get('misession','No existe session')}}" readonly></td>
+                <td><input name="cajero" value="{{Session::get('misession','No existe session')}}" readonly size="30"></td>
             </tr>
             </tbody>
         </table>
