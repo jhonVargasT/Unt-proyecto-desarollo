@@ -1,4 +1,3 @@
-
 <div class="panel-heading" align="center"><img src="assets/img/logo.png" style="width:200px;height:150px;"></div>
 <div class="panel-heading" align="center"><h3> UNIVERSIDAD NACIONAL DE TRUJILLO</h3></div>
 <div class="panel-heading" align="center"><h3> OGSEF- OF.TEC. TESORERIA</h3></div>
@@ -68,7 +67,7 @@
                         <td align="left">{{$p->pnombres}} {{$p->papellidos}}</td>
                     @endif
                 </tr>
-                @endforeach
+
                 </body>
             </table>
         </div>
@@ -88,9 +87,12 @@
             <div class="col-sm-2"></div>
             <div class="col-sm-2">
                 <br>
-                <div class="col-sm-12" align="right">
-                    Cantidad Total: {{$total}}
-                </div>
+                @if(isset($total))
+                    <div class="col-sm-12" align="right">
+                        Cantidad Total: {{$total}}
+                    </div>
+                @endif
+                @endforeach
             </div>
 
         </div>

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use PDOException;
 
@@ -280,13 +281,23 @@ class pagomodel
         } else {
             try {
                 DB::transaction(function () {
-                    DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite]);
+                    $id = DB::table('pago')->insertGetId(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite]);
+                    $cp = $this->consultarCodigoPago($id, 0);
+                    $this->sendEmail($cp);
                 });
             } catch (PDOException $e) {
                 return false;
             }
             return true;
         }
+    }
+
+    public function sendEmail($pago)
+    {
+        Mail::send('Ventanilla/Pagos/reporte', ['pago' => $pago], function ($message) {
+            $message->from('UntTesoreria@unitru.com', 'Universidad Nacional de Trujillo - Tesoreria');
+            $message->to('theoithy@gmail.com', 'Arthur Alfaro')->subject('Boleta Virtual - Universidad Nacional de Trujillo - Tesoreria');
+        });
     }
 
     public function saveExcel($contaux)
@@ -322,6 +333,7 @@ class pagomodel
             return false;
         }
     }
+
 
     public function listarpagosresumen($tiempo)
     {
@@ -438,7 +450,7 @@ WHERE
         AND subtramite.estado = 1
         AND p1.estado = 1
         AND pago.estadodeuda = ' . $val . '
-        AND pago.codPago = '. $codPago . '
+        AND pago.codPago = ' . $codPago . '
 ORDER BY pago.codPago DESC');
 
         return $pagobd;
@@ -482,27 +494,6 @@ ORDER BY pago.codPago DESC');
         $codPers = $logunt->obtenerCodigoPersonal($value);
         $logunt->setFecha($date);
         $logunt->setDescripcion('eliminarPago');
-        $logunt->setCodigoPersonal($codPers);
-        try {
-            DB::transaction(function () use ($codPago, $logunt) {
-                DB::table('pago')->where('codPago', $codPago)->update(['estado' => 0]);
-                $logunt->saveLogUnt();
-            });
-        } catch (PDOException $e) {
-            return false;
-        }
-        return true;
-    }
-
-    public function devolverPago($codPago)
-    {
-        date_default_timezone_set('Etc/GMT+5');
-        $date = date('Y-m-d H:i:s', time());
-        $logunt = new loguntemodel();
-        $value = Session::get('personalC');
-        $codPers = $logunt->obtenerCodigoPersonal($value);
-        $logunt->setFecha($date);
-        $logunt->setDescripcion('DevolucionPago');
         $logunt->setCodigoPersonal($codPers);
         try {
             DB::transaction(function () use ($codPago, $logunt, $date) {
@@ -554,60 +545,60 @@ ORDER BY pago.codPago DESC');
     {
 
 
-    $pago = null;
-        if ($modalidad == 'Todo' && $tram == 'Todo' &&  empty($tipoRe)  && empty($fuefin) &&  empty($local)) {
+        $pago = null;
+        if ($modalidad == 'Todo' && $tram == 'Todo' && empty($tipoRe) && empty($fuefin) && empty($local)) {
             $pago = $this->listarPagoNada($estado, $fechaDesde, $fechaHasta);
-        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && empty($tipoRe) &&  empty($fuefin) &&  empty($local)) {
+        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && empty($tipoRe) && empty($fuefin) && empty($local)) {
             $pago = $this->listarPagoModalidad($estado, $modalidad, $fechaDesde, $fechaHasta);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && empty($tipoRe) &&  empty($fuefin) &&  empty($local)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && empty($tipoRe) && empty($fuefin) && empty($local)) {
             $pago = $this->listarModTram($estado, $modalidad, $tram, $valtram, $fechaDesde, $fechaHasta);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' &&  empty($tipoRe) &&  empty($fuefin) &&  !empty($local)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && empty($tipoRe) && empty($fuefin) && !empty($local)) {
             $pago = $this->listarTramModLoc($estado, $modalidad, $tram, $valtram, $fechaDesde, $fechaHasta, $local, $vallocal);
-        } elseif ($modalidad != 'Todo' && $tram == 'Todo' &&  empty($fuefin) &&  empty($local) && ! empty($tipoRe)) {
+        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && empty($fuefin) && empty($local) && !empty($tipoRe)) {
             $pago = $this->listarModTip($estado, $modalidad, $fechaDesde, $fechaHasta, $tipoRe);
-        } elseif ($modalidad != 'Todo' && ! empty($tipoRe) && ! empty($fuefin) && ! empty($local) && $tram == 'Todo') {
+        } elseif ($modalidad != 'Todo' && !empty($tipoRe) && !empty($fuefin) && !empty($local) && $tram == 'Todo') {
             $pago = $this->listarMoTiFuLo($estado, $modalidad, $fechaDesde, $fechaHasta, $tipoRe, $fuefin, $local, $vallocal);
-        } elseif ($modalidad != 'Todo' && $tram == 'Todo' &&  empty($tipoRe) &&  empty($fuefin) && ! empty($local)) {
+        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && empty($tipoRe) && empty($fuefin) && !empty($local)) {
             $pago = $this->listarMoLo($estado, $modalidad, $fechaDesde, $fechaHasta, $local, $vallocal);
-        } elseif ($modalidad != 'Todo' && $tram == 'Todo' &&  empty($tipoRe) && ! empty($fuefin) && ! empty($local)) {
+        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && empty($tipoRe) && !empty($fuefin) && !empty($local)) {
             $pago = $this->listarMoFuLo($estado, $modalidad, $fechaDesde, $fechaHasta, $fuefin, $local, $vallocal);
-        } elseif ($modalidad == 'Todo' && $tram != 'Todo' &&  empty($tipoRe) &&  empty($fuefin) &&  empty($local)) {
+        } elseif ($modalidad == 'Todo' && $tram != 'Todo' && empty($tipoRe) && empty($fuefin) && empty($local)) {
             $pago = $this->listarTr($estado, $fechaDesde, $fechaHasta, $tram, $valtram);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' &&  empty($tipoRe) && ! empty($fuefin) && ! empty($local)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && empty($tipoRe) && !empty($fuefin) && !empty($local)) {
             $pago = $this->listarMoTrFuLo($estado, $fechaDesde, $fechaHasta, $tram, $valtram, $fuefin, $local, $vallocal);
-        } elseif ($modalidad == 'Todo' && $tram == 'Todo' &&  empty($fuefin) && ! empty($tipoRe) &&  empty($local)) {
+        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && empty($fuefin) && !empty($tipoRe) && empty($local)) {
             $pago = $this->listarTipoRe($estado, $fechaDesde, $fechaHasta, $tipoRe);
-        } elseif ($modalidad == 'Todo' && $tram != 'Todo' &&  empty($fuefin) && ! empty($tipoRe) &&  empty($local)) {
+        } elseif ($modalidad == 'Todo' && $tram != 'Todo' && empty($fuefin) && !empty($tipoRe) && empty($local)) {
             $pago = $this->listarTraTip($estado, $fechaDesde, $fechaHasta, $tram, $valtram, $tipoRe);
-        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && ! empty($fuefin) && ! empty($tipoRe) &&  empty($local)) {
+        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && !empty($fuefin) && !empty($tipoRe) && empty($local)) {
             $pago = $this->listarFueTip($estado, $fechaDesde, $fechaHasta, $tipoRe, $fuefin);
-        } elseif ($modalidad == 'Todo' && $tram == 'Todo' &&  empty($fuefin) && ! empty($tipoRe) && ! empty($local)) {
+        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && empty($fuefin) && !empty($tipoRe) && !empty($local)) {
             $pago = $this->listarFueTipLo($estado, $fechaDesde, $fechaHasta, $tipoRe, $local, $vallocal);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' &&  empty($fuefin) &&  empty($local) && ! empty($tipoRe)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && empty($fuefin) && empty($local) && !empty($tipoRe)) {
             $pago = $this->listarTip($estado, $fechaDesde, $fechaHasta, $tipoRe, $modalidad, $tram, $valtram);
-        } elseif ($modalidad != 'Todo' && $tram == 'Todo' &&  empty($local) && ! empty($fuefin) && ! empty($tipoRe)) {
+        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && empty($local) && !empty($fuefin) && !empty($tipoRe)) {
             $pago = $this->listarMoFueTipFu($estado, $fechaDesde, $fechaHasta, $tipoRe, $modalidad, $fuefin);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && ! empty($fuefin) && ! empty($tipoRe) &&  empty($local)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && !empty($fuefin) && !empty($tipoRe) && empty($local)) {
             $pago = $this->listarMoTraFuTi($estado, $fechaDesde, $fechaHasta, $tipoRe, $modalidad, $fuefin, $tram, $valtram);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' &&  empty($fuefin) && ! empty($tipoRe) && ! empty($local)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && empty($fuefin) && !empty($tipoRe) && !empty($local)) {
             $pago = $this->listarMoTraTiLo($estado, $fechaDesde, $fechaHasta, $tipoRe, $modalidad, $tram, $valtram, $local, $vallocal);
-        } elseif ($modalidad == 'Todo' && $tram == 'Todo' &&  !empty($fuefin) &&  empty($tipoRe) &&  empty($local)) {
+        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && !empty($fuefin) && empty($tipoRe) && empty($local)) {
             $pago = $this->listarFu($estado, $fechaDesde, $fechaHasta, $fuefin);
-        } elseif ($modalidad != 'Todo' && $tram == 'Todo' &&  empty($tipoRe) &&  empty($local) && ! empty($fuefin)) {
+        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && empty($tipoRe) && empty($local) && !empty($fuefin)) {
             $pago = $this->listarMoFu($estado, $fechaDesde, $fechaHasta, $modalidad, $fuefin);
-        } elseif ($modalidad == 'Todo' && $tram != 'Todo' &&  empty($tipoRe) && empty($local) && ! empty($fuefin)) {
+        } elseif ($modalidad == 'Todo' && $tram != 'Todo' && empty($tipoRe) && empty($local) && !empty($fuefin)) {
             $pago = $this->listarTraFu($estado, $fechaDesde, $fechaHasta, $tram, $valtram, $fuefin);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' &&  empty($tipoRe) &&  empty($local) && ! empty($fuefin)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && empty($tipoRe) && empty($local) && !empty($fuefin)) {
             $pago = $this->listarMoTraFu($estado, $fechaDesde, $fechaHasta, $modalidad, $tram, $valtram, $fuefin);
-        } elseif ($modalidad == 'Todo' && $tram == 'Todo' &&  empty($tipoRe) &&  empty($fuefin) && ! empty($local)) {
+        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && empty($tipoRe) && empty($fuefin) && !empty($local)) {
             $pago = $this->listarLoc($estado, $fechaDesde, $fechaHasta, $local, $vallocal);
-        } elseif ($modalidad == 'Todo' && $tram != 'Todo' &&  empty($tipoRe) &&  empty($fuefin) && ! empty($local)) {
+        } elseif ($modalidad == 'Todo' && $tram != 'Todo' && empty($tipoRe) && empty($fuefin) && !empty($local)) {
             $pago = $this->listarTraLo($estado, $fechaDesde, $fechaHasta, $tram, $valtram, $local, $vallocal);
-        } elseif ($modalidad == 'Todo' && $tram == 'Todo' &&  empty($tipoRe) && ! empty($fuefin) && ! empty($local)) {
+        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && empty($tipoRe) && !empty($fuefin) && !empty($local)) {
             $pago = $this->listarFueLo($estado, $fechaDesde, $fechaHasta, $fuefin, $local, $vallocal);
-        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && ! empty($tipoRe) &&  empty($fuefin) && ! empty($local)) {
+        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && !empty($tipoRe) && empty($fuefin) && !empty($local)) {
             $pago = $this->listarMoTiLo($estado, $fechaDesde, $fechaHasta, $modalidad, $tipoRe, $local, $vallocal);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && ! empty($tipoRe) && ! empty($fuefin) && ! empty($local)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && !empty($tipoRe) && !empty($fuefin) && !empty($local)) {
             $pago = $this->listarTodo($estado, $fechaDesde, $fechaHasta, $modalidad, $tipoRe, $fuefin, $local, $vallocal, $tram, $valtram);
         } else {
             $pago = null;

@@ -72,7 +72,6 @@ class culqiController extends Controller
                         "source_id" => $request->token,
                     )
                 );
-                // Respuesta
                 return 'ok';
             } catch (Exception $e) {
                 return 'bad';
