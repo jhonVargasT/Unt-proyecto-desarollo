@@ -1,5 +1,4 @@
 <?php
-
 namespace App;
 
 use Illuminate\Support\Facades\DB;
@@ -23,9 +22,7 @@ class pagomodel
      */
     public function __construct()
     {
-
     }
-
 
     /**
      * @return mixed
@@ -99,7 +96,6 @@ class pagomodel
         return $this;
     }
 
-
     /**
      * @return mixed
      */
@@ -172,14 +168,11 @@ class pagomodel
         return $this;
     }
 
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     public function bdPersonaDni($var)
     {
         $cp = null;
         $personabd = DB::table('persona')->where('dni', '=', $var)->where('estado', 1)->get();
-
         foreach ($personabd as $pbd) {
             $cp = $pbd->codPersona;
         }
@@ -193,11 +186,9 @@ class pagomodel
             ->leftJoin('cliente', 'persona.codPersona', '=', 'cliente.idPersona')
             ->where('cliente.ruc', '=', $var)
             ->get();
-
         foreach ($personabd as $per) {
             $obj = $per->codPersona;
         }
-
         return $obj;
     }
 
@@ -208,11 +199,9 @@ class pagomodel
             ->leftJoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
             ->where('alumno.codigoAlumno', '=', $var)
             ->get();
-
         foreach ($personabd as $per) {
             $obj = $per->codPersona;
         }
-
         return $obj;
     }
 
@@ -220,7 +209,6 @@ class pagomodel
     {
         $obj = null;
         $subtramitebd = DB::table('subtramite')->where('nombre', '=', $var)->where('estado', 1)->get();
-
         foreach ($subtramitebd as $subbd) {
             $obj = $subbd->codSubtramite;
         }
@@ -236,7 +224,6 @@ class pagomodel
                     LEFT JOIN pago po ON (st.codSubtramite=po.idSubtramite )
                     ' . $fecha . ' 
                     group by st.codSubtramite order by tr.nombre;');
-
         } catch (\mysqli_sql_exception $e) {
             $pago = null;
         }
@@ -267,7 +254,6 @@ class pagomodel
                     if ($this->deuda == 0) {
                         DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal]);
                         DB::table('subtramite')->where('codSubtramite', $this->idSubtramite)->update(['contador' => $contaux]);
-
                     } elseif ($this->deuda != 0) {
                         DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal, 'estadodeuda' => $this->deuda]);
                         DB::table('subtramite')->where('codSubtramite', $this->idSubtramite)->update(['contador' => $contaux]);
@@ -295,7 +281,7 @@ class pagomodel
     public function sendEmail($pago)
     {
         Mail::send('Ventanilla/Pagos/reporte', ['pago' => $pago], function ($message) {
-            $message->from('UntTesoreria@unitru.com', 'Universidad Nacional de Trujillo - Tesoreria');
+            $message->from('theoithy@gmail.com', 'Universidad Nacional de Trujillo - Tesoreria');
             $message->to('theoithy@gmail.com', 'Arthur Alfaro')->subject('Boleta Virtual - Universidad Nacional de Trujillo - Tesoreria');
         });
     }
@@ -333,7 +319,6 @@ class pagomodel
             return false;
         }
     }
-
 
     public function listarpagosresumen($tiempo)
     {
@@ -374,7 +359,6 @@ class pagomodel
         and p1.codPersona=alumno.idPersona
         and pago.estadodeuda = ' . $val . '
         and pago.estado=1 and alumno.codAlumno =:codAlumno order by pago.codPago desc ', ['codAlumno' => $codAlumno]);
-
         return $alumnobd;
     }
 
@@ -404,7 +388,6 @@ class pagomodel
         where pago.idSubtramite = subtramite.codSubtramite
         and p1.codPersona = pago.idPersona
         and pago.estado=1 and pago.estadodeuda = ' . $val . ' and pago.codPago = ' . $codPago . ' order by pago.codPago desc');
-
         return $pagobd;
     }
 
@@ -418,7 +401,6 @@ class pagomodel
         where pago.idSubtramite = subtramite.codSubtramite
         and p1.codPersona = pago.idPersona
         and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and pago.estadodeuda = ' . $val . ' and p2.estado=1 and pago.codPago = ' . $codPago . ' order by pago.codPago desc');
-
         return $pagobd;
     }
 
@@ -452,7 +434,6 @@ WHERE
         AND pago.estadodeuda = ' . $val . '
         AND pago.codPago = ' . $codPago . '
 ORDER BY pago.codPago DESC');
-
         return $pagobd;
     }
 
@@ -531,7 +512,6 @@ ORDER BY pago.codPago DESC');
     // pago,personal,subtramite,escuela,facultad
     public function listarPagosfacultad($estado, $modalidad, $fechaDesde, $fechaHasta, $facultad, $subtramite)
     {
-
         $pago = DB::table('pago')
             ->join('subtramite', 'subtramite.codSubtramite', '=', 'pago.idSubtramite')
             ->join('personal', 'users.idPersonal', '=', 'pago.coPersonal')
@@ -543,8 +523,6 @@ ORDER BY pago.codPago DESC');
     // pago,personal,subtramite,escuela,facultad
     public function listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $valtram, $tipoRe, $fuefin, $local, $vallocal)
     {
-
-
         $pago = null;
         if ($modalidad == 'Todo' && $tram == 'Todo' && empty($tipoRe) && empty($fuefin) && empty($local)) {
             $pago = $this->listarPagoNada($estado, $fechaDesde, $fechaHasta);
@@ -1094,14 +1072,11 @@ ORDER BY pago.codPago DESC');
                             WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valLoc . '\' and tr.fuentefinanc=\'' . $fuenteFin . '\'
                              and tr.tipoRecurso=\'' . $tipRe . '\'');
-
         return $pago;
     }
 
-
     public function listarModTip($estado, $modalidad, $fechaDesde, $fechaHasta, $tipRe)
     {
-
         $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
@@ -1118,10 +1093,8 @@ ORDER BY pago.codPago DESC');
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . ' and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and tr.tipoRecurso=\'' . $tipRe . '\'');
-
         return $pago;
     }
-
 
     public function listarTramModLoc($estado, $modalidad, $tramite, $tramiteVal, $fechaDesde, $fechaHasta, $local, $valLoc)
     {
@@ -1142,13 +1115,11 @@ ORDER BY pago.codPago DESC');
                             WHERE po.estado=' . $estado . ' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'   and ' . $tramite . '= \'' . $tramiteVal . '\'
                              and ' . $local . '=\'' . $valLoc . '\'
                               and po.modalidad = \'' . $modalidad . '\'');
-
         return $pago;
     }
 
     public function listarModTram($estado, $modalidad, $tramite, $tramiteVal, $fechaDesde, $fechaHasta)
     {
-
         $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
@@ -1165,9 +1136,7 @@ ORDER BY pago.codPago DESC');
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE po.estado= \'' . $estado . '\'and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  and ' . $tramite . '= \'' . $tramiteVal . '\'
                               and po.modalidad = \'' . $modalidad . '\'');
-
         return $pago;
-
     }
 
     public function listarPagoModalidad($estado, $modalidad, $fechaDesde, $fechaHasta)

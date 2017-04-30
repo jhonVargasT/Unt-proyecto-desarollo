@@ -23,7 +23,7 @@
     <link rel="shortcut icon" href="{{asset('assets/ico/favicon.png')}}">
 
     <script>window.Laravel = '<?php echo json_encode([
-                'csrfToken' => csrf_token(),]); ?>';
+            'csrfToken' => csrf_token(),]); ?>';
     </script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>

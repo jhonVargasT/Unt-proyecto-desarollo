@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Session;
 
 class alumnoController extends Controller
 {
+    //Registra al alumno y redirecciona a la pagina de registro
     public function registrarAlumno(Request $request)
     {
         $alumno = new alumnomodel();
@@ -20,9 +21,9 @@ class alumnoController extends Controller
         $alumno->setCorreo($request->correo);
         $date = implode("-", array_reverse(explode("/", $request->fecha)));
         $alumno->setFecha($date);
-        $idE = $alumno->bdEscuela($request->nombreEscuela);
+        $idE = $alumno->bdEscuela($request->nombreEscuela);//Consular el id de la escuela a la que va a pertenecer
         $alumno->setIdEscuela($idE);
-        $al = $alumno->savealumno();
+        $al = $alumno->savealumno();//Metodo de insercion en la bd al alumno (persona y alumno)
 
         if ($al == true) {
             return back()->with('true', 'Alumno ' . $request->nombres . ' guardada con exito')->withInput();
@@ -31,13 +32,14 @@ class alumnoController extends Controller
         }
     }
 
+    //Carga todos los datos del alumno para editar sus datos y redirecciona a Ventanilla/Alumno/Edit
     public function cargarAlumno($codPersona)
     {
         $valueA = Session::get('tipoCuentaA');
         $valueV = Session::get('tipoCuentaV');
 
         $alumno = new alumnomodel();
-        $alu = $alumno->consultarAlumnoid($codPersona);
+        $alu = $alumno->consultarAlumnoid($codPersona);//Obtiene los datos del alumno por su codigo de persona
 
         if ($valueA == 'Administrador')
             return view('Administrador/Alumno/Edit')->with(['alumno' => $alu]);
@@ -45,6 +47,7 @@ class alumnoController extends Controller
             return view('Ventanilla/Alumno/Edit')->with(['alumno' => $alu]);
     }
 
+    //Edita los datos de los alumnos y redirecciona a Alumno/Search
     public function editarAlumno($codPersona, Request $request)
     {
         $valueA = Session::get('tipoCuentaA');
@@ -57,9 +60,9 @@ class alumnoController extends Controller
         $alumno->setCorreo($request->correo);
         $date = implode("-", array_reverse(explode("/", $request->fecha)));
         $alumno->setFecha($date);
-        $idE = $alumno->bdEscuela($request->nombreEscuela);
+        $idE = $alumno->bdEscuela($request->nombreEscuela);//Consular el id de la escuela a la que va a pertenecer
         $alumno->setIdEscuela($idE);
-        $alumno->editarAlumno($codPersona);
+        $alumno->editarAlumno($codPersona);//Ejecuta la consulta de actualizar los datos del alumno
 
         if ($valueA == 'Administrador')
             return view('Administrador/Alumno/Search')->with(['nombre' => $request->nombres]);
@@ -67,6 +70,7 @@ class alumnoController extends Controller
             return view('Ventanilla/Alumno/Search')->with(['nombre' => $request->nombres]);
     }
 
+    //Busqueda de alumnos y redireccionar Alumno/Search
     public function listarAlumno(Request $request)
     {
         $valueA = Session::get('tipoCuentaA');
@@ -77,22 +81,22 @@ class alumnoController extends Controller
         $alumno = new alumnomodel();
 
         if ($request->select == 'Dni') {
-            $alu = $alumno->consultarAlumnoDNI($request->text);
+            $alu = $alumno->consultarAlumnoDNI($request->text);//Consulta buscar alumnos o clientse mediante su dni
         } else {
             if ($request->select == 'Apellidos') {
-                $alu = $alumno->consultarAlumnoApellidos($request->text);
+                $alu = $alumno->consultarPersonaApellidos($request->text);//Consulta buscar alumnos o clientes mediante sus apellidos
             } else {
                 if ($request->select == 'Codigo alumno') {
-                    $alu = $alumno->consultarAlumnoCodigo($request->text);
+                    $alu = $alumno->consultarAlumnoCodigo($request->text);//Consulta buscar alumnos por su codigo de alumno
                 } else {
                     if ($request->select == 'Fecha de Matricula') {
-                        $alu = $alumno->consultarAlumnoFechaMatricula($request->text);
+                        $alu = $alumno->consultarAlumnoFechaMatricula($request->text);//Consulta buscar alumnos mediante su fecha de matricula
                     } else {
                         if ($request->select == 'Escuela') {
-                            $alu = $alumno->consultarAlumnoEscuela($request->text);
+                            $alu = $alumno->consultarAlumnoEscuela($request->text);//Consulta buscar alumnos por la escuela a la que pertenece
                         } else {
                             if ($request->select == 'Facultad') {
-                                $alu = $alumno->consultarAlumnoFacultad($request->text);
+                                $alu = $alumno->consultarAlumnoFacultad($request->text);//Consulta buscar alumnos por la facultad a la que pertenece
                             }
                         }
                     }
@@ -108,13 +112,14 @@ class alumnoController extends Controller
             return view('Reportes/Alumno/Search')->with(['alumno' => $alu, 'txt' => $request->text, 'select' => $request->select]);
     }
 
+    //Elimina (cambia de estado 1 a 0) al alumno regresando a la view donde esta. Cambia de estado a la persona y alumno.
     public function eliminarAlumno($codPersona, Request $request)
     {
         $valueA = Session::get('tipoCuentaA');
         $valueV = Session::get('tipoCuentaV');
 
         $alumno = new alumnomodel();
-        $val = $alumno->eliminarAlumno($codPersona);
+        $val = $alumno->eliminarAlumno($codPersona);//Sentencia SQL que elimina al alumno
 
         if ($valueA == 'Administrador') {
             if ($val == true) {
@@ -133,12 +138,14 @@ class alumnoController extends Controller
         }
     }
 
+    //Typeahead(autollenado) - Javascript busca todos los nombres de las escuelas
     public function escuela(Request $request)
     {
         $data = DB::table('escuela')->select("nombre as name")->where("nombre", "LIKE", "%{$request->input('query')}%")->get();
         return response()->json($data);
     }
 
+    //Ajax para autollenado del nombre de la facultad con el nombre de la escuela
     public function facultad(Request $request)
     {
         $nombreE = $request->name;
@@ -150,6 +157,7 @@ class alumnoController extends Controller
         }
     }
 
+    //Ajax para el autollenado del nombre de la escuela escogiendo el nombre de la sede a la que pertence dicha escuela
     public function autoComplete(Request $request)
     {
         $products = DB::select('select escuela.nombre as nombre from escuela

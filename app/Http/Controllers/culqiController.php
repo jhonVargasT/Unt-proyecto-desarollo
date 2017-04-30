@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 
 class culqiController extends Controller
 {
+    //Registra al pago por tarjeta visa
     public function culqi(Request $request)
     {
         $cont = 0;
@@ -25,22 +26,22 @@ class culqiController extends Controller
         $codper = null;
         $codSubtramite = null;
         if ($request->select == 'Dni') {
-            $codper = $pers->obtnerIdDni($request->buscar);
+            $codper = $pers->obtnerIdDni($request->buscar);//SQL, busca a la persona por su dni
         } else {
             if ($request->select == 'Ruc') {
-                $codper = $cli->consultarClienteRUC($request->buscar);
+                $codper = $cli->consultarClienteRUC($request->buscar);//SQL, busca al cliente por su ruc
             } else {
                 if ($request->select == 'Codigo de alumno') {
-                    $codper = $al->consultaridPersonaAlumno($request->buscar);
+                    $codper = $al->consultaridPersonaAlumno($request->buscar);//SQL, busca al alumno por su codigo de alumno
                 }
             }
         }
         if ($request->subtramite) {
-            $codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);
-            $cont = $this->contadorSubtramite($request->subtramite);
+            $codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);//SQL,Busca a la tasa por su nombre
+            $cont = $this->contadorSubtramite($request->subtramite);//SQL, buscar al contador de tasa por su nombre
         } elseif ($request->text) {
-            $codSubtramite = $subt->consultarSubtramiteidNombre($request->text);
-            $cont = $this->contadorSubtramite($request->text);
+            $codSubtramite = $subt->consultarSubtramiteidNombre($request->text);//SQL, o busca a la tasa por su codigo
+            $cont = $this->contadorSubtramite($request->text);//SQL, o busca al contador de tasa por su codigo
         }
 
         date_default_timezone_set('America/Lima');
@@ -53,8 +54,8 @@ class culqiController extends Controller
         $p->setIdSubtramite($codSubtramite);
         $contaux = $cont + 1;
 
-        $valid = $p->savePago($contaux);
-        if ($valid == true) {
+        $valid = $p->savePago($contaux);//SQL, inserta los datos del pago (envia al contador de la tasa)
+        if ($valid == true) {//Si guarda el pago, se genera el cargo a la tarjeta
             try {
                 // Configurar tu API Key y autenticación
                 $SECRET_KEY = "sk_test_Z1aMDe3V3b7BkYIi";
@@ -81,10 +82,11 @@ class culqiController extends Controller
         }
     }
 
+    //B
     public function contadorSubtramite($nombreSubtramite)
     {
         $cont = null;
-        $contador = DB::select('select contador from subtramite where subtramite.estado=1 and subtramite.nombre="' . $nombreSubtramite . '"');
+        $contador = DB::select('select contador from subtramite where subtramite.estado=1 and subtramite.nombre="' . $nombreSubtramite . '" where estado =1');
 
         foreach ($contador as $c) {
             $cont = $c->contador;

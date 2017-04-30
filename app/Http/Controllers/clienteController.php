@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Session;
 
 class clienteController extends Controller
 {
+    //Registra los datos del cliente
     public function registrarCliente(Request $request)
     {
         $cliente = new clientemodel();
@@ -19,7 +20,7 @@ class clienteController extends Controller
         $cliente->setRuc($request->ruc);
         $cliente->setRazonSocial($request->razonSocial);
         $cliente->setCorreo($request->correo);
-        $cli = $cliente->savecliente();
+        $cli = $cliente->savecliente();//SQL de insercion del cliente (persona y cliente)
 
         if ($cli == true) {
             return back()->with('true', 'Cliente ' . $request->nombres . ' guardada con exito')->withInput();
@@ -28,13 +29,14 @@ class clienteController extends Controller
         }
     }
 
+    //Carga los datos del cliente a ser modificados
     public function cargarCliente($codPersona)
     {
         $valueA = Session::get('tipoCuentaA');
         $valueV = Session::get('tipoCuentaV');
 
         $cliente = new clientemodel();
-        $cli = $cliente->consultarClienteid($codPersona);
+        $cli = $cliente->consultarClienteid($codPersona);//Busqueda del cliente mediante su codigo de persona
 
         if ($valueA == 'Administrador')
             return view('Administrador/Cliente/Edit')->with(['cliente' => $cli]);
@@ -42,6 +44,7 @@ class clienteController extends Controller
             return view('Ventanilla/Cliente/Edit')->with(['cliente' => $cli]);
     }
 
+    //Modifica los datos del cliente
     public function editarCliente($codPersona, Request $request)
     {
         $valueA = Session::get('tipoCuentaA');
@@ -54,7 +57,7 @@ class clienteController extends Controller
         $cliente->setRuc($request->ruc);
         $cliente->setRazonSocial($request->razonSocial);
         $cliente->setCorreo($request->correo);
-        $cliente->editarCliente($codPersona);
+        $cliente->editarCliente($codPersona);//SQL de actualizar los datos del cliente
 
         if ($valueA == 'Administrador')
             return view('Administrador/Cliente/Search')->with(['nombre' => $request->nombres]);
@@ -62,6 +65,7 @@ class clienteController extends Controller
             return view('Ventanilla/Cliente/Search')->with(['nombre' => $request->nombres]);
     }
 
+    //Busqueda del cliente
     public function listarCliente(Request $request)
     {
         $valueA = Session::get('tipoCuentaA');
@@ -72,16 +76,16 @@ class clienteController extends Controller
         $cliente = new clientemodel();
 
         if ($request->select == 'Dni') {
-            $cli = $cliente->consultarClienteDNI($request->text);
+            $cli = $cliente->consultarClienteDNI($request->text);//SQL, busca al cliente por su dni
         } else {
             if ($request->select == 'Apellidos') {
-                $cli = $cliente->consultarClienteApellidos($request->text);
+                $cli = $cliente->consultarClienteApellidos($request->text);//SQL, busca al cliente por sus apellidos
             } else {
                 if ($request->select == 'Ruc') {
-                    $cli = $cliente->consultarClientesRUC($request->text);
+                    $cli = $cliente->consultarClientesRUC($request->text);//SQL, busca al cliente por su ruc
                 } else {
                     if ($request->select == 'Razon social') {
-                        $cli = $cliente->consultarAlumnoClienteSocial($request->text);
+                        $cli = $cliente->consultarAlumnoClienteSocial($request->text);//SQL, busca al cliente por su razon social
                     }
                 }
             }
@@ -94,13 +98,14 @@ class clienteController extends Controller
             return view('Ventanilla/Cliente/Search')->with(['cliente' => $cli, 'txt' => $request->text, 'select' => $request->select]);
     }
 
+    //Elimina (cambia de estado 1 a 0) al registro del cliente(persona y cliente)
     public function eliminarCliente($codPersona, Request $request)
     {
         $valueA = Session::get('tipoCuentaA');
         $valueV = Session::get('tipoCuentaV');
 
         $cliente = new clientemodel();
-        $val = $cliente->eliminarCliente($codPersona);
+        $val = $cliente->eliminarCliente($codPersona);//SQl, cambia de estado al cliente
 
         if ($valueA == 'Administrador') {
             if ($val == true) {
