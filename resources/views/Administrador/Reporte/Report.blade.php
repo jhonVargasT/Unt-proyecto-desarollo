@@ -21,9 +21,7 @@
     </div>
 @stop
 @section('content')
-
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
@@ -85,7 +83,6 @@
             }
         }
     </script>
-
     <div class=" panel-heading"><h3>Reporte Pagos</h3></div>
     <div style="background-color: #FFFFFF">
         <div class="panel-body">
@@ -237,7 +234,6 @@
                                 });
                             </script>
                         </div>
-
                         <div class="form-group-sm col-sm-2">
                             <input type="checkbox" id="cesc" onclick=" habilitaresc(this.checked)">
                             Escuela
@@ -389,7 +385,6 @@
                             <tbody>
                             @if(isset($result))
                             <!--Contenido-->
-
                             @foreach($result as $r)
                                 <tr>
                                     <td><h6 align="center">{{$r->codigopago}}</h6></td>
@@ -405,15 +400,10 @@
                                     <td><h6 align="left">{{$r->fechapago}}</h6></td>
                                     <td><h6 align="center">{{$r->precio}}</h6></td>
                                     <td><h6 align="left">{{$r->pagodetalle}}</h6></td>
-
-
                                 </tr>
                             </tbody>
                             @endforeach
-
                         @endif
-
-
                     </table>
                 </div>
                 <div class="col-sm-12 row form-group">
@@ -446,7 +436,6 @@
             </div>
         </div>
     </div>
-
 @stop
 @section('scripts')
 

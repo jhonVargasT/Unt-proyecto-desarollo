@@ -115,7 +115,6 @@ Route::get('/admBuscarFacultad', function () {
 Route::resource('FacultadRegistrada', 'facultadController@registrarFacultad');
 Route::resource('FacultadesBuscadas', 'facultadController@listarFacultad');
 
-Route::resource('LlenarFacultad', 'facultadController@llenarFacultad');
 Route::get('FacultadEditada/{idFacultad}', 'facultadController@editarFacultad');
 Route::get('FacultadCargar/{idFacultad}', 'facultadController@cargarFacultad');
 Route::get('FacultadEliminar/{idFacultad}', 'facultadController@eliminarFacultad');

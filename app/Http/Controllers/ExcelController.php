@@ -21,13 +21,13 @@ use Maatwebsite\Excel\Facades\Excel;
 class ExcelController extends Controller
 {
     //Reporte excel de donaciones y transferencia
-    public function donacionExcel($fecha,$numero)
+    public function donacionExcel($fecha, $numero)
     {
 
         date_default_timezone_set('America/Lima');
         $fechahoy = date('Y-m-d');
-        Excel::create('Reporte donacion' . $fechahoy . '', function ($excel) use ($fecha,$numero) {
-            $excel->sheet('Productos', function ($sheet) use ($fecha,$numero) {
+        Excel::create('Reporte donacion' . $fechahoy . '', function ($excel) use ($fecha, $numero) {
+            $excel->sheet('Productos', function ($sheet) use ($fecha, $numero) {
                 $data = null;
                 $total = 0;
                 $cont = 0;
@@ -52,7 +52,7 @@ class ExcelController extends Controller
                 }
                 //$sheet->FromArray($data);
                 $sheet->mergeCells('B1:H1');
-                $var = 'RESUMEN  '. $numero;
+                $var = 'RESUMEN  ' . $numero;
                 $sheet->cell('B1', function ($cell) {
                     $cell->setFont(array(
                         'family' => 'Arial',
@@ -108,7 +108,7 @@ class ExcelController extends Controller
                     $cell->setFont(array(
                         'family' => 'Arial',
                         'size' => 12,
-                        'AutoSize'=>true
+                        'AutoSize' => true
                     ));
                     $cell->setValue($total);
                 });
@@ -489,6 +489,7 @@ class ExcelController extends Controller
         return back()->with('error', 'Please Check your file, Something is wrong there.');
     }
 
+    //Jhon, no encuentro donde esta esto
     public function reportepagodetalle($estado, $modalidad, $opctram, $valtram, $sede, $facultad, $escuela, $tipre, $fuefi, $fechades, $fechahas)
     {
         date_default_timezone_set('America/Lima');
@@ -496,6 +497,7 @@ class ExcelController extends Controller
         Excel::create('Reporte detallado :  ' . $fechahoy . '', function ($excel) use ($estado, $modalidad, $opctram, $valtram, $sede, $facultad, $escuela, $tipre, $fuefi, $fechades, $fechahas) {
             $excel->sheet('resumen', function ($sheet) use ($estado, $modalidad, $opctram, $valtram, $sede, $facultad, $escuela, $tipre, $fuefi, $fechades, $fechahas) {
 
+                $data = null;
                 $sede = new sedemodel();
                 $fac = new facultadmodel();
                 $esc = new escuelamodel();
@@ -572,15 +574,12 @@ class ExcelController extends Controller
                         "NRO PAGOS" => $p->nurPagos,
                     );
                 }
-
                 $sheet->FromArray($data);
-
-
             });
         })->export('xls');
     }
 
-    //
+    //Reporte detallado, formato excel
     function reporteDetallado($encriptado)
     {
 
@@ -592,7 +591,7 @@ class ExcelController extends Controller
             $excel->sheet('resumen', function ($sheet) use ($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $fechahoy) {
                 $pagoModel = new pagomodel();
                 $data = null;
-                $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo);
+                $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo);//pago,personal,subtramite,escuela,facultad
                 $total = 0;
                 $cont = 0;
 
@@ -770,6 +769,7 @@ class ExcelController extends Controller
         })->export('xls');
     }
 
+    //Reporte resumido, formato excel
     function reportePagoresu($tiporep, $varopc, $tiempo, $numero)
     {
         date_default_timezone_set('America/Lima');
@@ -781,23 +781,22 @@ class ExcelController extends Controller
                 if ($varopc == 'Resumen total') {
                     $data = null;
                     $tiempo = null;
+                    $result = null;
                     if ($tiporep == 1) {
-                        $result = $pagoModel->listarpagosresumen($tiempo);
+                        $result = $pagoModel->listarpagosresumen($tiempo);//SQL, buscar pagos por fecha
                         $fecha = 'AÑO';
                     } elseif ($tiporep == 2) {
-                        $result = $pagoModel->listarpagosresumen($tiempo);
+                        $result = $pagoModel->listarpagosresumen($tiempo);//SQL, buscar pagos por fecha
                         $fecha = 'MES';
                     } elseif ($tiporep == 3) {
-                        $result = $pagoModel->listarpagosresumen($tiempo);
+                        $result = $pagoModel->listarpagosresumen($tiempo);//SQL, buscar pagos por fecha
                         $fecha = 'DIA';
                     }
                     $total = 0;
                     $cont = 0;
                     foreach ($result as $r) {
-
                         $total += $r->importe;
                     }
-
                     foreach ($result as $p) {
                         $cont++;
                         $data[] = array(
@@ -933,8 +932,6 @@ class ExcelController extends Controller
                         $total += $r->precio;
                         $cont++;
                     }
-
-
                     foreach ($result as $p) {
                         $data[] = array(
 
@@ -1094,15 +1091,13 @@ class ExcelController extends Controller
                     $sheet->setTitle('Lista de reportes');
                     //par que la data se ajuste
                     $sheet->setAutoSize(true);
-
                 }
-
-
             });
         })->export('xls');
     }
 
 
+    //Consultar contador del subtramite
     function contadorSubtramite($nombreSubtramite)
     {
         $cont = null;

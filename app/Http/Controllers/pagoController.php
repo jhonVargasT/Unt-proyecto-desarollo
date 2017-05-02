@@ -18,6 +18,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class pagoController extends Controller
 {
+    //Registrar pagos
     public function registrarPago(Request $request)
     {
         $csiaf = null;
@@ -29,26 +30,26 @@ class pagoController extends Controller
         $codper = null;
         $codSubtramite = null;
         if ($request->select == 'Dni') {
-            $codper = $pers->obtnerIdDni($request->text);
+            $codper = $pers->obtnerIdDni($request->text);//SQL, obtener datos de la persona por su dni
         } else {
             if ($request->select == 'Ruc') {
-                $codper = $cli->consultarClienteRUC($request->text);
+                $codper = $cli->consultarClienteRUC($request->text);//SQL, obtener datos del cliente por su ruc
             } else {
                 if ($request->select == 'Codigo de alumno') {
-                    $codper = $al->consultaridPersonaAlumno($request->text);
+                    $codper = $al->consultaridPersonaAlumno($request->text);//SQL, obtener datos del alumno por su codigo de alumno
                 }
             }
         }
-        if ($request->subtramite) {
-            $codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);
-            $csiaf = $subt->consultarSiafNombreSubtramite($request->subtramite);
-            $cont = $this->contadorSubtramite($request->subtramite);
-        } elseif ($request->txtsub) {
-            $codSubtramite = $subt->consultarSubtramiteidNombre($request->txtsub);
-            $csiaf = $subt->consultarSiafNombreSubtramite($request->txtsub);
-            $cont = $this->contadorSubtramite($request->txtsub);
+        if ($request->subtramite) {//si existe nombre de la tasa
+            $codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);//SQL, obtener id de la tasa por nombre de tasa
+            $csiaf = $subt->consultarSiafNombreSubtramite($request->subtramite);//SQL, obtener clasificador siaf por el nombre de tasa
+            $cont = $this->contadorSubtramite($request->subtramite);//SQL, obtener contador de la tasa por nombre de tasa
+        } elseif ($request->txtsub) {//si existe codigo de la tasa
+            $codSubtramite = $subt->consultarSubtramiteidNombre($request->txtsub);//SQL, obtener id de la tasa por nombre de tasa
+            $csiaf = $subt->consultarSiafNombreSubtramite($request->txtsub);//SQL, obtener clasificador siaf por el nombre de tasa
+            $cont = $this->contadorSubtramite($request->txtsub);//SQL, obtener contador de la tasa por nombre de tasa
         }
-        $cuentaS = $subt->consultarCuentaSubtramiteCodSubtramite($codSubtramite);
+        $cuentaS = $subt->consultarCuentaSubtramiteCodSubtramite($codSubtramite);//SQL, obtener cuenta de la tasa por su id de tasa
         date_default_timezone_set('America/Lima');
         $dato = date('Y-m-d H:i:s');
         $pago = $request->boletapagar;
@@ -65,7 +66,7 @@ class pagoController extends Controller
         if ($request->checkbox == 1) {
             $p->setDeuda(1);
         }
-        $valid = $p->savePago($contaux);
+        $valid = $p->savePago($contaux);//SQL, insersion del pago
         $contador = $cuentaS . '-' . $contaux;
         $buscar = $request->text;
         $val = Session::get('txt', 'No existe session');
@@ -88,6 +89,7 @@ class pagoController extends Controller
         }
     }
 
+    //Obtener contador de la tasa por su nombre de tasa
     public function contadorSubtramite($nombreSubtramite)
     {
         $cont = null;
@@ -98,6 +100,7 @@ class pagoController extends Controller
         return $cont;
     }
 
+    //Ajax autollenado, buscar datos del alumno por su dni
     public function buscarNombresD(Request $request)
     {
         $var = $request->name;
@@ -110,6 +113,7 @@ class pagoController extends Controller
         }
     }
 
+    //Ajax autollenado, buscar datos del cliente por su dni
     public function buscarNombresDR(Request $request)
     {
         $var = $request->name;
@@ -122,6 +126,7 @@ class pagoController extends Controller
         }
     }
 
+    //Ajax autollenado, buscar datos del cliente por su ruc
     public function buscarNombresR(Request $request)
     {
         $var = $request->name;
@@ -133,6 +138,7 @@ class pagoController extends Controller
         }
     }
 
+    //Ajax autollenado, buscar datos del alumno por el codigo de alumno
     public function buscarNombresC(Request $request)
     {
         $var = $request->name;
@@ -144,6 +150,7 @@ class pagoController extends Controller
         }
     }
 
+    //Ajax autollenado, buscar cliente por su ruc
     public function buscarApellidosR(Request $request)
     {
         $var = $request->name;
@@ -155,6 +162,7 @@ class pagoController extends Controller
         }
     }
 
+    //Ajax autollenado, buscar datos del cliente por su dni
     public function buscarApellidosD(Request $request)
     {
         $var = $request->name;
@@ -167,6 +175,7 @@ class pagoController extends Controller
         }
     }
 
+    //Ajax autollenado, buscar datos del cliente por su dni
     public function buscarApellidosDR(Request $request)
     {
         $var = $request->name;
@@ -179,6 +188,7 @@ class pagoController extends Controller
         }
     }
 
+    //Ajax autollenado, buscar datos del alumno por codigo de alumno
     public function buscarApellidosC(Request $request)
     {
         $var = $request->name;
@@ -191,6 +201,7 @@ class pagoController extends Controller
         }
     }
 
+    //Ajax autollenado, buscar escuela del paciente por dni
     public function buscarEscuelaD(Request $request)
     {
         $var = $request->name;
@@ -206,6 +217,7 @@ class pagoController extends Controller
         }
     }
 
+    //Ajax autollenado, buscar escuela del alumno por codigo de alumno
     public function buscarEscuelaC(Request $request)
     {
         $var = $request->name;
@@ -221,6 +233,7 @@ class pagoController extends Controller
         }
     }
 
+    //Ajax autollenado, buscar facultad del alumno por dni
     public function buscarFacultadD(Request $request)
     {
         $var = $request->name;
@@ -238,6 +251,7 @@ class pagoController extends Controller
         }
     }
 
+    //Ajax autollenado, buscar facultad del alumno por codigo de alumno
     public function buscarFacultadC(Request $request)
     {
         $var = $request->name;
@@ -255,6 +269,7 @@ class pagoController extends Controller
         }
     }
 
+    //Ajax autollenado, buscar precio de la tasa por nombre de tasa
     public function precioSubtramite(Request $request)
     {
         $var = $request->name;
@@ -266,12 +281,14 @@ class pagoController extends Controller
         }
     }
 
+    //Ajax autollenado, obtener nombre de las tasas
     public function autocompletes(Request $request)
     {
         $data = DB::table('subtramite')->select("nombre as name")->where("nombre", "LIKE", "%{$request->input('query')}%")->get();
         return response()->json($data);
     }
 
+    //Buscar pagos
     public function listarPago(Request $request)
     {
         $valueA = Session::get('tipoCuentaA');
@@ -285,18 +302,18 @@ class pagoController extends Controller
             $val = 1;
         }
         if ($request->selected == 'Dni') {
-            $pag = $pago->consultarAlumnoDNI($request->text, $val);
+            $pag = $pago->consultarAlumnoDNI($request->text, $val);//SQL, buscar datos de la persona por dni
         } else {
             if ($request->selected == 'Codigo alumno') {
-                $pag = $pago->consultarAlumnoCodigo($request->text, $val);
+                $pag = $pago->consultarAlumnoCodigo($request->text, $val);//SQL, buscar datos del alumno por codigo de alumno
             } else {
                 if ($request->selected == 'Ruc') {
-                    $pag = $pago->consultarClienteRuc($request->text, $val);
+                    $pag = $pago->consultarClienteRuc($request->text, $val);//SQL, buscar datos del cliente por ruc
                 } else {
                     if ($request->selected == 'Codigo pago') {
-                        $pag = $pago->consultarCodigoPago($request->text, $val);
+                        $pag = $pago->consultarCodigoPago($request->text, $val);//SQL, buscar datos del pago por codigo del pago
                     } else {
-                        if ($request->selected == 'Codigo personal') {
+                        if ($request->selected == 'Codigo personal') {//Reporte del reporte diario del personal logueado
                             Excel::create('Laravel Excel', function ($excel) use ($request) {
                                 $excel->sheet('Reporte Diario', function ($sheet) use ($request) {
                                     $data = null;
@@ -304,7 +321,7 @@ class pagoController extends Controller
                                     $total = 0;
                                     $cont = 0;
                                     $pago = new pagomodel();
-                                    $pag = $pago->listarPagosPersonal($request->text);
+                                    $pag = $pago->listarPagosPersonal($request->text);//SQL, obtener datos del pago realizado por el personal (diario)
 
                                     foreach ($pag as $p) {
                                         $total += $p->precio;
@@ -483,26 +500,30 @@ class pagoController extends Controller
             return view('Reportes/Pagos/ReportPago')->with(['pagos' => $pag, 'txt' => $request->text, 'select' => $request->selected, 'total' => $total]);
     }
 
+    //Eliminar (cambiar estado de 1 a 0) registro del pago
     public function eliminarPago($codPago)
     {
         $pago = new pagomodel();
-        $bool = $pago->eliminarPago($codPago);
+        $bool = $pago->eliminarPago($codPago);//SQL, eliminar pago
         if ($bool == true)
             return back()->with('true', 'Pago eliminado con exito')->withInput();
         if ($bool == false)
             return back()->with('false', 'Pago no eliminado')->withInput();
     }
 
+
+    //Devolucion de pago
     public function DevolucionPago($codPago)
     {
         $pago = new pagomodel();
-        $bool = $pago->devolverPago($codPago);
+        $bool = $pago->devolucionPago($codPago);//SQL, devolucion de pago y establecer fecha de devolucion
         if ($bool == true)
             return back()->with('true', 'Devolucion exitosa')->withInput();
         if ($bool == false)
             return back()->with('false', 'Devolucion no exitosa')->withInput();
     }
 
+    //Aun no se aplica...
     public function eliminarDeuda($codPago)
     {
         $pago = new pagomodel();
@@ -510,6 +531,7 @@ class pagoController extends Controller
         return view('Ventanilla/Pagos/ReportPago');
     }
 
+    //Buscar pagos, detallado
     public function reportePagos(Request $request)
     {
         $sede = new sedemodel();
@@ -531,14 +553,14 @@ class pagoController extends Controller
         if (empty($request->sed) != true) {
             if (empty($request->fac) != true) {
                 if (empty($request->esc) != true) {
-                    $codigo = $esc->obtenerId($request->esc);
+                    $codigo = $esc->obtenerId($request->esc);//SQL, obtener id de la escuela por su nombre
                     $lugar = 'es.idEscuela';
                 } else {
-                    $codigo = $fac->obtenerId($request->fac);
+                    $codigo = $fac->obtenerId($request->fac);//SQL, obtener id de la facultad por su nombre
                     $lugar = 'fac.idFacultad';
                 }
             } else {
-                $codigo = $sede->obtenerId($request->sed);
+                $codigo = $sede->obtenerId($request->sed);//SQL, obtener id de la sede por su nombre
                 $lugar = 'se.codSede';
             }
         } else {
@@ -550,11 +572,11 @@ class pagoController extends Controller
             $estado = 1;
         }
         if ($request->opcTramite == 'Clasificador') {
-            $tramites = $tramiteModel->consultarId($imput);
+            $tramites = $tramiteModel->consultarId($imput);//SQL, obtener id del clasificador por su nombre
             $tram = 'tr.codTramite';
         } else {
             if ($request->opcTramite == 'Tasa') {
-                $tramites = $subTramiteModel->consultarId($imput);
+                $tramites = $subTramiteModel->consultarId($imput);//SQL, obtener id de la tasa por su nombre
                 $tram = 'st.codSubtramite';
             } else {
                 $tramites = null;
@@ -572,7 +594,7 @@ class pagoController extends Controller
             $tipRe = null;
         }
 
-        $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo);
+        $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo);//Listar: pago,personal,subtramite,escuela,facultad
         if (!is_null($result) && empty($result) != true) {
             foreach ($result as $sum) {
                 $total = $total + $sum->precio;
@@ -587,6 +609,7 @@ class pagoController extends Controller
         return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total, 'estado' => $estado, 'modalidad' => $modalidad, 'fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta, 'tram' => $tram, 'tramites' => $tramites, 'tipRe' => $tipRe, 'fuenfin' => $fuenfin, 'lugar' => $lugar, 'codigo' => $codigo, 'encript' => $cadena]);
     }
 
+    //Reenviar datos de la boleta de pago a la vista de: RealizarPago
     public function obtenerDatos(Request $request)
     {
         $buscar = $request->buscar;
@@ -602,6 +625,7 @@ class pagoController extends Controller
             'facultad' => $facultad, 'detalle' => $detalle, 'fecha' => $fecha]);
     }
 
+    //Reporte de pagos, resumen
     public function obtenerPagosresumen(Request $request)
     {
         if ($request->combito !== 'Escojer') {
@@ -611,19 +635,19 @@ class pagoController extends Controller
             $varOpc = $request->tipreporte;
             $vartiemp = $request->combito;
             $varaño = $request->año1;
-            if ($varOpc == 'Resumen total') {
+            if ($varOpc == 'Resumen total') {//Si se escoge: Resumen total
                 $tiempo = null;
 
                 if ($vartiemp == 1) {
 
                     $tiempo = 'where Year(po.fecha) = ' . $varaño . '';
-                    $result = $pagoModel->listarpagosresumen($tiempo);
+                    $result = $pagoModel->listarpagosresumen($tiempo);//SQL, obtener pagos por año
                     $numero = $varaño;
 
                 } else {
                     if ($vartiemp == 2) {
                         $tiempo = 'where MONTH(po.fecha) = ' . $request->mes2 . ' and Year(po.fecha)=' . $request->año2 . '';
-                        $result = $pagoModel->listarpagosresumen($tiempo);
+                        $result = $pagoModel->listarpagosresumen($tiempo);//SQL, obtener pagos por mes
                         $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
                         $valor = $meses[$request->mes2 - 1];
                         $numero = 'DE ' . $valor . ' DEL ' . $request->año2;
@@ -632,7 +656,7 @@ class pagoController extends Controller
                             $originalDate = $request->fecha;
                             $fecha = date("Y-m-d", strtotime($originalDate));
                             $tiempo = 'where DATE(po.fecha) =\'' . $fecha . '\'';
-                            $result = $pagoModel->listarpagosresumen($tiempo);
+                            $result = $pagoModel->listarpagosresumen($tiempo);//SQL, obtener pagos por fecha
                             $numero = $fecha;
                         }
                     }
@@ -643,17 +667,17 @@ class pagoController extends Controller
                     $total += $r->importe;
                 }
                 return view('Administrador/Reporte/reporteresumido')->with(['resultresu' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp, 'tiempo' => $tiempo, 'numero' => $numero]);
-            } elseif ($varOpc == 'Clasificador S.I.A.F') {
+            } elseif ($varOpc == 'Clasificador S.I.A.F') {//Si se escoge Clasificador SIAF
 
                 $tiempo = null;
                 if ($vartiemp == 1) {
 
                     $tiempo = 'where Year(po.fecha) = ' . $varaño . '';
-                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
+                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo);//SQL, obtener pagos resumidos por año resumido
                     $numero = $varaño;
                 } elseif ($vartiemp == 2) {
                     $tiempo = 'where MONTH(po.fecha) = ' . $request->mes2 . ' and Year(po.fecha)=' . $request->año2 . '';
-                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
+                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo);//SQL, obtener pagos resumidos por mes
                     $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
                     $valor = $meses[$request->mes2 - 1];
                     $numero = 'DE ' . $valor . ' DEL ' . $request->año2;
@@ -662,7 +686,7 @@ class pagoController extends Controller
                     $originalDate = $request->fecha;
                     $fecha = date("Y-m-d", strtotime($originalDate));
                     $tiempo = 'where DATE(po.fecha) =\'' . $fecha . '\'';
-                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo);
+                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo);//SQL, obtener pagos resumido por fecha
                     $numero = $fecha;
                 }
                 $total = 0;
@@ -675,12 +699,5 @@ class pagoController extends Controller
         } else {
             return view('Administrador/Reporte/reporteresumido');
         }
-    }
-
-    //macartur
-    public function obtenerPagosDiariosPersonal()
-    {
-        $pagoModel = new pagomodel();
-        $result = $pagoModel->listarPagosPersonal(null, null);
     }
 }
