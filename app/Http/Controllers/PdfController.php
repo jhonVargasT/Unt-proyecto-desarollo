@@ -7,12 +7,13 @@ use Illuminate\Support\Facades\Session;
 
 class PdfController extends Controller
 {
+    //PDF, boleta de pago por alumno. Ventanilla
     public function PagosBoletaAlumno($codPago, $val)
     {
         $total = 0;
         $pag = null;
         $pago = new pagomodel();
-        $pag = $pago->consultarCodigoPagoReporte($codPago, $val);
+        $pag = $pago->consultarCodigoPagoReporte($codPago, $val);//SQL, consultar pago por codigo de pago
         foreach ($pag as $p) {
             $total = $total + $p->precio;
         }
@@ -24,12 +25,13 @@ class PdfController extends Controller
         return $pdf->download('pagoAlumno.pdf');
     }
 
+    //PDF, boleta de pago por alumno. Reportes
     public function PagosBoletaAlumnoR($codPago, $val)
     {
         $total = 0;
         $pag = null;
         $pago = new pagomodel();
-        $pag = $pago->consultarCodigoPagoReporteR($codPago, $val);
+        $pag = $pago->consultarCodigoPagoReporteR($codPago, $val);//SQL, consultar pago por codigo de pago
         foreach ($pag as $p) {
             $total = $total + $p->precio;
         }

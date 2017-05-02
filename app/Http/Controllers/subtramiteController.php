@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 
 class subtramiteController extends Controller
 {
+    //Registrar Tasas
     public function registrarSubtramite(Request $request)
     {
         if ($request->nombreTramite != ' ') {
@@ -16,9 +17,9 @@ class subtramiteController extends Controller
             $subtramite->setCuenta($request->cuentaContable);
             $subtramite->setNombre($request->nombreSubTramite);
             $subtramite->setPrecio($request->precio);
-            $idTra = $subtramite->bdTramite($request->nombreTramite);
+            $idTra = $subtramite->bdTramite($request->nombreTramite);//SQL, obtener id de clasificador por nombre
             $subtramite->setIdTramite($idTra);
-            $sub = $subtramite->save();
+            $sub = $subtramite->save();//SQL, insertar registro de la tasa
         } else {
             $sub = false;
         }
@@ -29,26 +30,29 @@ class subtramiteController extends Controller
         }
     }
 
+    //Cargar datos de la tasa
     public function cargarSubtramite($codTramite)
     {
         $subtramite = new subtramitemodel();
-        $sub = $subtramite->consultarSubtramiteid($codTramite);
+        $sub = $subtramite->consultarSubtramiteid($codTramite);//SQL, obtener datos de la tasa por codigo de tasa
         return view('Administrador/SubTramite/Edit')->with(['subtramite' => $sub]);
     }
 
+    //Editar registro de la tasa
     public function editarSubtramite($codSubtramite, Request $request)
     {
         $subtramite = new subtramitemodel();
         $subtramite->setCuenta($request->cuentaContable);
         $subtramite->setNombre($request->nombreSubTramite);
         $subtramite->setPrecio($request->precio);
-        $idTra = $subtramite->bdTramite($request->nombreTramite);
+        $idTra = $subtramite->bdTramite($request->nombreTramite);//SQL, obtener id de clasificador por nombre
         $subtramite->setIdTramite($idTra);
-        $subtramite->editarSubtramite($codSubtramite);
+        $subtramite->editarSubtramite($codSubtramite);//SQL, actualizar datos de la tasa
 
         return view('Administrador/SubTramite/search')->with(['nombre' => $request->nombreSubTramite]);
     }
 
+    //Buscar tasas
     public function listarSubtramite(Request $request)
     {
         $valueA = Session::get('tipoCuentaA');
@@ -57,15 +61,15 @@ class subtramiteController extends Controller
         $subtramite = new subtramitemodel();
 
         if ($request->select == 'Tramite') {
-            $sub = $subtramite->consultarSubtramiteTramite($request->text);
+            $sub = $subtramite->consultarSubtramiteTramite($request->text);//SQL, buscar tasas por clasificador al que pertenece
         } else {
             if ($request->select == 'Nombre subtramite') {
-                $sub = $subtramite->consultarSubtramiteNombre($request->text);
+                $sub = $subtramite->consultarSubtramiteNombre($request->text);//SQL, buscar tasa por nombre
             } else {
                 if ($request->select == 'Cuenta contable') {
-                    $sub = $subtramite->consultarSubtramiteCuenta($request->text);
+                    $sub = $subtramite->consultarSubtramiteCuenta($request->text);//SQL, bucsar tasa por numero de cuenta
                 } else {
-                    $sub = $subtramite->consultarSubtramites();
+                    $sub = $subtramite->consultarSubtramites();//SQL, buscar todas las tasas
                 }
             }
         }
@@ -75,10 +79,11 @@ class subtramiteController extends Controller
             return view('Reportes/SubTramite/search')->with(['subtramite' => $sub, 'txt' => $request->text, 'select' => $request->select]);
     }
 
+    //Eliminar registro de la tasa
     public function eliminarSubtramite($codSubtramite, Request $request)
     {
         $subtramite = new subtramitemodel();
-        $sub = $subtramite->eliminarSubtramite($codSubtramite);
+        $sub = $subtramite->eliminarSubtramite($codSubtramite);//SQL, eliminar(cambiar de 1 a 0) el registro de la tasa por codigo de tasa
 
         if ($sub == true) {
             return back()->with('true', 'Subtramite ' . $request->nombre . ' se elimino con exito')->withInput();
@@ -87,6 +92,7 @@ class subtramiteController extends Controller
         }
     }
 
+    //AJAX autollenado, buscar nombre de tasa por codigo de tasa
     public function nombreSCT(Request $request)
     {
         $sbnombre = null;

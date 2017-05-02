@@ -80,13 +80,13 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-sm-7 row form-group">
+                <!--<div class="col-sm-7 row form-group">
                     <div class="form-group-sm col-sm-6 ">
                         <div class="col-sm-7 ">
                             <input type="checkbox" name="checkbox" value="1"> Deudas<br>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </form>
             <!--tabla-->
             <div class="table-responsive col-sm-12">
