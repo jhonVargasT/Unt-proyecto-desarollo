@@ -230,6 +230,7 @@ class pagomodel
         return $pago;
     }
 
+    //Guardar pago
     public function savePago($contaux)
     {
         date_default_timezone_set('Etc/GMT+5');
@@ -240,7 +241,7 @@ class pagomodel
         $logunt->setFecha($date);
         $logunt->setDescripcion('GuardarPago');
         $logunt->setCodigoPersonal($codPers);
-        if (Session::has('personalC')) {
+        if (Session::has('personalC')) {//Si existe session(pago por ventanilla)
             date_default_timezone_set('Etc/GMT+5');
             $date = date('Y-m-d H:i:s', time());
             $logunt = new loguntemodel();
@@ -264,10 +265,10 @@ class pagomodel
                 return false;
             }
             return true;
-        } else {
+        } else {//Si no existe session(pago con tarjeta)
             try {
-                DB::transaction(function () {
-                    $id = DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite]);
+                DB::transaction(function () {//insertar pago y enviar correo de la boleta virtual al usuario
+                    DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite]);
                     //$id = DB::table('pago')->insertGetId(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite]);
 
                     //$cp = $this->consultarCodigoPago($id, 0);
