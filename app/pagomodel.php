@@ -267,9 +267,11 @@ class pagomodel
         } else {
             try {
                 DB::transaction(function () {
-                    $id = DB::table('pago')->insertGetId(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite]);
-                    $cp = $this->consultarCodigoPago($id, 0);
-                    $this->sendEmail($cp);
+                    $id = DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite]);
+                    //$id = DB::table('pago')->insertGetId(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite]);
+
+                    //$cp = $this->consultarCodigoPago($id, 0);
+                    //$this->sendEmail($cp);
                 });
             } catch (PDOException $e) {
                 return false;

@@ -20,6 +20,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ExcelController extends Controller
 {
+    //Reporte excel de donaciones y transferencia
     public function donacionExcel($fecha,$numero)
     {
 
@@ -32,7 +33,7 @@ class ExcelController extends Controller
                 $cont = 0;
                 $pag = null;
                 $donacion = new donacionmodel();
-                $result = $donacion->consultarDonaciones($fecha);
+                $result = $donacion->consultarDonaciones($fecha);//SQL, buscar donaiones y transacciones por fecha
                 foreach ($result as $p) {
                     $total += $p->importe;
                 }
@@ -193,6 +194,7 @@ class ExcelController extends Controller
         })->export('xls');
     }
 
+    //Reporte total de los pagos por dni o codigo alumno, ruc o todos
     public function reportePago($txt, $select, $val)
     {
         Excel::create('Reporte', function ($excel) use ($txt, $select, $val) {
@@ -203,19 +205,19 @@ class ExcelController extends Controller
                 $pag = null;
                 $pago = new pagomodel();
                 if ($select == 'Dni') {
-                    $pag = $pago->consultarAlumnoDNI($txt, $val);
+                    $pag = $pago->consultarAlumnoDNI($txt, $val);//SQL, buscar alumnos por su dni
                 } else {
                     if ($select == 'Codigo alumno') {
-                        $pag = $pago->consultarAlumnoCodigo($txt, $val);
+                        $pag = $pago->consultarAlumnoCodigo($txt, $val);//SQL, buscar alumnos por su codigo
                     } else {
                         if ($select == 'Ruc') {
-                            $pag = $pago->consultarClienteRuc($txt, $val);
+                            $pag = $pago->consultarClienteRuc($txt, $val);//SQL, buscar clientes por su ruc
                         } else {
                             if ($select == 'Codigo pago') {
-                                $pag = $pago->consultarCodigoPago($txt, $val);
+                                $pag = $pago->consultarCodigoPago($txt, $val);//SQL, buscar pagos realizados por su codigo de pago
                             } else {
                                 if ($select == 'Todo') {
-                                    $pag = $pago->consultarPagos($val);
+                                    $pag = $pago->consultarPagos($val);//SQL, buscar todos los pagos
                                 }
                             }
                         }
@@ -387,6 +389,7 @@ class ExcelController extends Controller
         })->export('xls');
     }
 
+    //Importar lista de alumno a la bd , en prueba
     public function importarAlumnos(Request $request)
     {
 
@@ -446,6 +449,7 @@ class ExcelController extends Controller
             }*/
     }
 
+    //Importar pagos realizados por el banco, aun por establecer su uso...
     public function importExcel(Request $request)
     {
         $val = null;
@@ -576,6 +580,7 @@ class ExcelController extends Controller
         })->export('xls');
     }
 
+    //
     function reporteDetallado($encriptado)
     {
 

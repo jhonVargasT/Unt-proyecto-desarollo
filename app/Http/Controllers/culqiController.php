@@ -82,7 +82,7 @@ class culqiController extends Controller
         }
     }
 
-    //B
+    //Buscar contado por su nombre de la tasa
     public function contadorSubtramite($nombreSubtramite)
     {
         $cont = null;

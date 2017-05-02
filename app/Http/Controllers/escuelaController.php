@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Session;
 class escuelaController extends Controller
 {
 
+    //Registrar escuelas
     public function registrarEscuela(Request $request)
     {
         if ($request->nombreFacultad != ' ') {
@@ -17,10 +18,10 @@ class escuelaController extends Controller
             $escuela->setCodEscuela($request->codEscuela);
             $escuela->setNombre($request->nombre);
             $escuela->setNroCuenta($request->nroCuenta);
-            $coF = $escuela->buscarFacultad($request->nombreFacultad, $request->nombreSede);
+            $coF = $escuela->buscarFacultad($request->nombreFacultad, $request->nombreSede);//SQL, buscar facultad usando el nombre de la facutald y la sede,
+            //a la que pertenece
             $escuela->setFacultad($coF);
-
-            $esc = $escuela->saveescuela();
+            $esc = $escuela->saveescuela();//SQL,insercion de la escuela
         } else
             $esc = false;
         if ($esc == true) {
@@ -30,6 +31,7 @@ class escuelaController extends Controller
         }
     }
 
+    //Typeahead, autollenado de los nombres de las facultades
     public function autocompletee(Request $request)
     {
         $data = DB::table('facultad')->select("nombre as name")->where("nombre", "LIKE", "%{$request->input('query')}%")->get();
@@ -37,27 +39,30 @@ class escuelaController extends Controller
         return response()->json($data);
     }
 
+    //Cargar los datos de la escuela para modifcar
     public function cargarEscuela($idEscuela)
     {
 
         $escuela = new escuelamodel();
-        $esc = $escuela->consultarEscuelaid($idEscuela);
+        $esc = $escuela->consultarEscuelaid($idEscuela);//SQL, obtener datos de la escuela meidante su id
 
         return view('Administrador/Escuela/Edit')->with(['escuela' => $esc]);
     }
 
+    //Modifica los datos del registro de escuela
     public function editarEscuela($idEscuela, Request $request)
     {
         $escuela = new escuelamodel();
         $escuela->setCodEscuela($request->codEscuela);
         $escuela->setNombre($request->nombre);
         $escuela->setNroCuenta($request->nroCuenta);
-        $coF = $escuela->buscarFacultad($request->nombreFacultad, $request->nombreSede);
+        $coF = $escuela->buscarFacultad($request->nombreFacultad, $request->nombreSede);//SQL, buscar facultad usando el nombre de la facutald y la sede,
         $escuela->setFacultad($coF);
-        $escuela->editarEscuela($idEscuela);
+        $escuela->editarEscuela($idEscuela);//SQL, actualiza los datos de la escuela
         return view('Administrador/Escuela/search')->with(['nombre' => $request->nombre]);
     }
 
+    //Buscar Escuelas
     public function listarEscuela(Request $request)
     {
         $valueA = Session::get('tipoCuentaA');
@@ -66,18 +71,18 @@ class escuelaController extends Controller
         $escuela = new escuelamodel();
 
         if ($request->select == 'Codigo Escuela') {
-            $esc = $escuela->consultarEscuelaCodigo($request->text);
+            $esc = $escuela->consultarEscuelaCodigo($request->text);//SQL, buscar escuela por su codigo de escuela
         } else {
             if ($request->select == 'Nombre Escuela') {
-                $esc = $escuela->consultarEscuelasNombre($request->text);
+                $esc = $escuela->consultarEscuelasNombre($request->text);//SQL, buscar escuela por su nombre
             } else {
                 if ($request->select == 'Cuenta Interna') {
-                    $esc = $escuela->consultarEscuelasCuentaInterna($request->text);
+                    $esc = $escuela->consultarEscuelasCuentaInterna($request->text);//SQL, buscar escuela por su cuenta interna
                 } else {
                     if ($request->select == 'Facultad') {
-                        $esc = $escuela->consultarEscuelasFacultad($request->text);
+                        $esc = $escuela->consultarEscuelasFacultad($request->text);//SQL, buscar escuelas por el nombre de facultad
                     } else {
-                        $esc = $escuela->consultarEscuelas();
+                        $esc = $escuela->consultarEscuelas();//SQL, buscar todas escuelas
                     }
                 }
             }
@@ -88,10 +93,11 @@ class escuelaController extends Controller
             return view('Reportes/Escuela/search')->with(['escuela' => $esc, 'txt' => $request->text, 'select' => $request->select]);
     }
 
+    //Eliminar (cambiar de estado de 1 a 0) al registro de la escuela mediante su id
     public function eliminarEscuela($idEscuela, Request $request)
     {
         $escuela = new escuelamodel();
-        $esc=$escuela->eliminarEscuela($idEscuela);
+        $esc=$escuela->eliminarEscuela($idEscuela);//SQL, cambia el estado de la escuela
 
         if ($esc == true) {
             return back()->with('true', 'Escuela ' . $request->nombre . ' se elimino con exito')->withInput();
@@ -100,6 +106,7 @@ class escuelaController extends Controller
         }
     }
 
+    //Ajax, autollenado del nombre de la escuela a la facultad que le pertenece
     public function searchE(Request $request)
     {
         $products = DB::select('select escuela.nombre as nombre from escuela
@@ -117,6 +124,7 @@ class escuelaController extends Controller
             return ['value' => 'No se encuentra'];
     }
 
+    //Ajax, autollenado del nombre de la facultad a la sede que le pertence
     public function autoCompleteEscuelaSede(Request $request)
     {
         $products = DB::select('select facultad.nombre as nombre from facultad

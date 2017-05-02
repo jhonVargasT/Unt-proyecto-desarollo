@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Session;
 
 class donacionController extends Controller
 {
+    //Registrar las donaciones y transferencias
     public function registrarDonaciones(Request $request)
     {
         $donacion = new donacionmodel();
@@ -19,11 +20,11 @@ class donacionController extends Controller
         $donacion->setDescripcion($request->descripcion);
         $donacion->setMonto($request->monto);
         $nombreT = $request->nombreTramite;
-        $idD = $donacion->bdTramite($nombreT);
+        $idD = $donacion->bdTramite($nombreT);//SQL, busca al id del clasificador mediante su nombre
         $donacion->setIdTramite($idD);
-        $idB = $donacion->obteneridBanco($request->cuenta);
+        $idB = $donacion->obteneridBanco($request->cuenta);//SQL, obtener el id del banco mediante su numero de cuenta
         $donacion->setIdBanco($idB);
-        $dona = $donacion->saveDonacion();
+        $dona = $donacion->saveDonacion();//SQL, insercion de los datos de la donacion o transferencias
 
         if ($dona == true) {
             return back()->with('true', 'Donacion ' . $request->numResolucion . ' guardada con exito')->withInput();
@@ -32,12 +33,14 @@ class donacionController extends Controller
         }
     }
 
+    //Typeahead javascript para autollenar el nombre de los clasificadores
     public function autocompletet(Request $request)
     {
         $data = DB::table('tramite')->select("nombre as name")->where("nombre", "LIKE", "%{$request->input('query')}%")->get();
         return response()->json($data);
     }
 
+    //AJAX, autollenado el tipo de recurso escogiendo el nombre del clasificador
     public function tipoRecurso(Request $request)
     {
         $var = $request->name;
@@ -48,13 +51,15 @@ class donacionController extends Controller
         }
     }
 
+    //Cargar los datos de la donacion y transferencia para la modificacion
     public function cargarDonacion($codDonacion)
     {
         $donacion = new donacionmodel();
-        $don = $donacion->consultarDonacionid($codDonacion);
+        $don = $donacion->consultarDonacionid($codDonacion);//SQL, buscar al registro mediante su codigo
         return view('Administrador/DonacionesYTransacciones/Edit')->with(['donacion' => $don]);
     }
 
+    //Modifica los datos del registro buscado mediante su codigo
     public function editarDonacion($codDonacion, Request $request)
     {
         $donacion = new donacionmodel();
@@ -65,16 +70,18 @@ class donacionController extends Controller
         $donacion->setDescripcion($request->descripcion);
         $donacion->setMonto($request->monto);
         $nombreT = $request->nombreTramite;
-        $idD = $donacion->bdTramite($nombreT);
+        $idD = $donacion->bdTramite($nombreT);//SQL, busca al id del clasificador mediante su nombre
         $donacion->setIdTramite($idD);
-        $idB = $donacion->obteneridBanco($request->cuenta);
+        $idB = $donacion->obteneridBanco($request->cuenta);//SQL, obtener el id del banco mediante su numero de cuenta
         $donacion->setIdBanco($idB);
-        $donacion->editarDonacion($codDonacion);
+        $donacion->editarDonacion($codDonacion);//SQL, actualizar los datos de la donacion y transferencia
         return view('Administrador/DonacionesYTransacciones/Search')->with(['nombre' => $request->numResolucion]);
     }
 
+    //Buscar donaciones y transfencias
     public function listarDonaciones(Request $request)
     {
+        $tiempo=null;
         $numero = '';
         $result = null;
         $donacion= new donacionmodel();
@@ -83,11 +90,11 @@ class donacionController extends Controller
         if ($vartiemp == 1) {
 
             $tiempo = 'where Year(d.fechaIngreso) = ' . $varaño . '';
-            $result = $donacion->consultarDonaciones($tiempo);
+            $result = $donacion->consultarDonaciones($tiempo);//SQL, buscar a la donacion y transferencia fecha
             $numero = 'DEL AÑO -'.$varaño;
         } elseif ($vartiemp == 2) {
             $tiempo = 'where MONTH(d.fechaIngreso) = ' . $request->mes2 . ' and Year(d.fechaIngreso)=' . $request->año2 . '';
-            $result = $donacion->consultarDonaciones($tiempo);
+            $result = $donacion->consultarDonaciones($tiempo);//SQL, buscar a la donacion y transferencia fecha
             $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
             $valor = $meses[$request->mes2 - 1];
             $numero = 'DE ' . $valor . ' DEL ' . $request->año2;
@@ -96,7 +103,7 @@ class donacionController extends Controller
             $originalDate = $request->fecha;
             $fecha = date("Y-m-d", strtotime($originalDate));
             $tiempo = 'where DATE(d.fechaIngreso) =\'' . $fecha . '\'';
-            $result = $donacion->consultarDonaciones($tiempo);
+            $result = $donacion->consultarDonaciones($tiempo);//SQL, buscar a la donacion y transferencia fecha
             $numero = 'DE '.$fecha;
         }
         $total = 0;
@@ -109,10 +116,11 @@ class donacionController extends Controller
 
     }
 
+    //Eliminar(cambiar de estado 1 a 0) el registro de donacion y transferencia
     public function eliminarDonacion($codDonacion, Request $request)
     {
         $donacion = new donacionmodel();
-        $dona = $donacion->eliminarDonacion($codDonacion);
+        $dona = $donacion->eliminarDonacion($codDonacion);//SQL, cambiar de estado al registro
 
         if ($dona == true) {
             return back()->with('true', 'Donacion ' . $request->numResolucion . ' se elimino con exito')->withInput();
@@ -121,6 +129,7 @@ class donacionController extends Controller
         }
     }
 
+    //Ajax, autollenado de los datos del banco. Donaciones y transferencias
     public function banco()
     {
         $products = DB::select('select banco, cuenta from banco where estado=1');
