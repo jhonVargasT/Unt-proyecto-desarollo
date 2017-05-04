@@ -91,7 +91,7 @@ class tramiteController extends Controller
     }
 
     //AJAX autollenado
-    public function autocompletar(Request $request)
+    /*public function autocompletar(Request $request)
     {
         $tramite = new tramitemodel();
         $term = $request->term;
@@ -103,6 +103,6 @@ class tramiteController extends Controller
             $result[] = $dat;
         }
         return response()->json($result);
-    }
+    }*/
 
 }

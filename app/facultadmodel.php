@@ -110,7 +110,6 @@ class facultadmodel
         return $this;
     }
 
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function llenarFacultadReporte($nombre)
@@ -119,11 +118,12 @@ class facultadmodel
         return $facultadbd;
     }
 
+    /*
     public function llenarFacultadRegistro()
     {
         $facultadbd = DB::table('facultad')->select('nombre')->where('estado', '=', 1)->get();
         return $facultadbd;
-    }
+    }*/
 
     public function consultarFacultadid($idFacultad)
     {
@@ -265,7 +265,7 @@ class facultadmodel
         return $scod;
     }
 
-    public function obteneridSede($idsede, $nombrefacu)
+    /*public function obteneridSede($idsede, $nombrefacu)
     {
         $scod = null;
         $fac = DB::table('facultad')->select('idFacultad')->where('nombre', '=', $nombrefacu)->where('coSede', '=', $idsede)->get();
@@ -273,5 +273,5 @@ class facultadmodel
             $scod = $sbd->idFacultad;
         }
         return $scod;
-    }
+    }*/
 }

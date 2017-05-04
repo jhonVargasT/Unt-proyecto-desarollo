@@ -295,7 +295,7 @@ Route::get('/pagoonline', function () {
     return view('Ventanilla/Culqi/pagoonline');
 });
 Route::post('pagoculqi', 'culqiController@culqi');
-Route::get("autocompleteTram",array('as'=>'autocomplete','uses'=> 'tramiteController@autocompletar'));
+//Route::get("autocompleteTram",array('as'=>'autocomplete','uses'=> 'tramiteController@autocompletar'));
 
 /////////////////////////////////////////////////////REPORTE////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

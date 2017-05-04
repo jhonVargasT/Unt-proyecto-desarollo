@@ -254,13 +254,13 @@ class tramitemodel
         }
         return true;
     }
-    public function consultarTramiteNombre($nombre)
+
+    /*public function consultarTramiteNombre($nombre)
     {
         $tramitebd = DB::table('tramite')->select('nombre')
             ->where('tipoRecurso','like','%'. $nombre.'%')
             ->where('estado', 1)
            ->get();
         return $tramitebd;
-    }
-
+    }*/
 }

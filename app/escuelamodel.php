@@ -102,6 +102,8 @@ class escuelamodel
         return $this;
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public function buscarFacultad($nombref, $nombres)
     {
         $fa = null;
@@ -115,13 +117,11 @@ class escuelamodel
         return $fa;
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    public function llenarEscuelaReporte()
+    /*public function llenarEscuelaReporte()
     {
         $escuelabd = DB::table('escuela')->select('nombre')->where('estado', '=', 1)->get();
         return $escuelabd;
-    }
+    }*/
 
     public function consultarEscuelaid($idEscuela)
     {
@@ -259,7 +259,7 @@ class escuelamodel
         return $esc;
     }
 
-    public function obtenerIdEscuela($idfacultad, $nombre)
+    /*public function obtenerIdEscuela($idfacultad, $nombre)
     {
         $esc = null;
         $data = DB::table('escuela')->select('idEscuela')->where('nombre', '=', $nombre)->where('codigoFacultad', '=', $idfacultad)->get();
@@ -267,5 +267,5 @@ class escuelamodel
             $esc = $dat->idEscuela;
         }
         return $esc;
-    }
+    }*/
 }
