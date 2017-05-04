@@ -168,7 +168,7 @@ class clientemodel extends personamodel
 
     }
 
-    public function consultarAlumnoClienteSocial($razonSocial)
+    public function consultarClienteSocial($razonSocial)
     {
         $clientebd = DB::table('persona')->leftJoin('cliente', 'persona.codPersona', '=', 'cliente.idPersona')
             ->where('cliente.razonSocial', 'like', '%' . $razonSocial . '%')

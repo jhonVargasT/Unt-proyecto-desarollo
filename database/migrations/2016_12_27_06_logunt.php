@@ -22,6 +22,7 @@ class Logunt extends Migration
             $table ->string('descripcion');
             $table ->dateTime('fecha');
             $table -> boolean('estado')->default('1');
+
             $table->integer('codigoPersonal')->unsigned();
         });
 
