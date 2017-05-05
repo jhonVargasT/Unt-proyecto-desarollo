@@ -54,7 +54,7 @@ class culqiController extends Controller
         $p->setIdSubtramite($codSubtramite);
         $contaux = $cont + 1;
 
-        $valid = $p->savePago($contaux);//SQL, inserta los datos del pago (envia al contador de la tasa)
+        $valid = $p->savePagoOnline($contaux);//SQL, inserta los datos del pago (envia al contador de la tasa)
         if ($valid == true) {//Si guarda el pago, se genera el cargo a la tarjeta
             try {
                 // Configurar tu API Key y autenticación
@@ -86,7 +86,7 @@ class culqiController extends Controller
     public function contadorSubtramite($nombreSubtramite)
     {
         $cont = null;
-        $contador = DB::select('select contador from subtramite where subtramite.estado=1 and subtramite.nombre="' . $nombreSubtramite . '" where estado =1');
+        $contador = DB::select('select contador from subtramite where subtramite.estado=1 and subtramite.nombre="' . $nombreSubtramite . '"');
 
         foreach ($contador as $c) {
             $cont = $c->contador;

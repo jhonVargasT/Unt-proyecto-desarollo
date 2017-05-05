@@ -1,6 +1,7 @@
 <?php
 namespace App;
 
+use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -265,20 +266,48 @@ class pagomodel
                 return false;
             }
             return true;
-        } else {//Si no existe session(pago con tarjeta)
-            try {
-                DB::transaction(function () {//insertar pago y enviar correo de la boleta virtual al usuario
-                    DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite]);
-                    //$id = DB::table('pago')->insertGetId(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite]);
-
-                    //$cp = $this->consultarCodigoPago($id, 0);
-                    //$this->sendEmail($cp);
-                });
-            } catch (PDOException $e) {
-                return false;
-            }
-            return true;
+        } else {
+            return false;
         }
+    }
+
+    public function savePagoOnline($contaux)
+    {
+        try {
+            DB::transaction(function () use ($contaux) {//insertar pago y enviar correo de la boleta virtual al usuario
+                $id = DB::table('pago')->insertGetId(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite]);
+                DB::table('subtramite')->where('codSubtramite', $this->idSubtramite)->update(['contador' => $contaux]);
+
+            });
+        } catch (PDOException $e) {
+            return false;
+        }
+        $total = 0;
+        $pag = $this->consultarCodigoPagoReporte(1, 0);//SQL, consultar pago por codigo de pago
+        foreach ($pag as $p) {
+            $total = $total + $p->precio;
+        }
+        view()->share(['pago' => $pag, 'total' => $total]);
+
+        $pdf = app('dompdf.wrapper');
+
+        $pdf->loadView('Ventanilla/Pagos/reporte');
+        return $pdf->download('pagoAlumno.pdf');
+    }
+
+    public function boletaVirtual($codPago)
+    {
+        $total = 0;
+        $pag = $this->consultarCodigoPagoReporte($codPago, 0);//SQL, consultar pago por codigo de pago
+        foreach ($pag as $p) {
+            $total = $total + $p->precio;
+        }
+        view()->share(['pago' => $pag, 'total' => $total]);
+
+        $pdf = app('dompdf.wrapper');
+
+        $pdf->loadView('Ventanilla/Pagos/reporte');
+        return $pdf->download('pagoAlumno.pdf');
     }
 
     public function sendEmail($pago)
