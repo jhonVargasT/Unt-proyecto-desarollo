@@ -3,7 +3,7 @@
 <div class="panel-heading" align="center"><h3> OGSEF- OF.TEC. TESORERIA</h3></div>
 <div class="panel-heading" align="center"><h4> PAGO ALUMNO</h4></div>
 
-<div style="background-color: #FFFFFF" align="center">
+<div style="background-color: #FFFFFF">
     <div class="panel-body">
         <!--tabla-->
         <div class="table-responsive col-sm-12">
@@ -87,11 +87,6 @@
             <div class="col-sm-2"></div>
             <div class="col-sm-2">
                 <br>
-                @if(isset($total))
-                    <div class="col-sm-12" align="right">
-                        Cantidad Total: {{$total}}
-                    </div>
-                @endif
                 @endforeach
             </div>
 

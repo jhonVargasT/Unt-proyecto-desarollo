@@ -17,7 +17,9 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-        body {overflow-x:hidden!important;}
+        body {
+            overflow-x: hidden !important;
+        }
     </style>
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="{{asset('assets/ico/favicon.png')}}">
@@ -34,15 +36,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 </head>
-<body style="background-color: #ccd0d2" >
+<body style="background-color: #ccd0d2">
 <div class="row  ">
     <div class="row " style="background-color: #FFFFFF">
         <br>
         <div class="col-sm-1 col-xs-1 col-lg-1"></div>
         <div class="col-sm-1 col-xs-1 col-lg-1">
-
             <img style="width: 200px;" src="{{ asset('assets/img/logo.png') }}">
-
         </div>
         <div class="col-sm-10 col-xs-10 col-lg-10" align="center">
             <div>
@@ -53,11 +53,10 @@
             </div>
         </div>
     </div>
-
 </div>
-<div class="row " style="margin: 20px" >
+<div class="row " style="margin: 20px">
     <br>
-    <div class="panel panel-primary" style="background-color: #FFFFFF" >
+    <div class="panel panel-primary" style="background-color: #FFFFFF">
         <div class="panel-heading "> Pago con tarjeta</div>
         <div class="panel-body">
             @if(session()->has('true'))
@@ -147,7 +146,6 @@
                         });
                     </script>
                 </div>
-
                 <span class="col-sm-2 col-lg-2 col-xs-2">Apellidos :</span>
                 <div class="col-sm-2 col-lg-2 col-xs-2">
                     <input class="form-control input-sm" name="apellidos" type="text" id="apellidos"
@@ -210,11 +208,7 @@
                         });
                     </script>
                 </div>
-
-
             </div>
-
-
             <div class="row form-group">
                 <span class="col-sm-2 col-lg-2 col-xs-2">Escuela :</span>
                 <div class="col-sm-2 col-lg-2 col-xs-2">
@@ -395,7 +389,6 @@
                         color: #C00;
                     }
                 </style>
-
                 <span class="col-sm-2 col-lg-2 col-xs-2">Costo de boleta:</span>
                 <div class=" col-sm-2 col-lg-2 col-xs-2">
                     <div class="col-sm-2 col-lg-2 col-xs-2">
@@ -419,21 +412,24 @@
                             });
                         </script>
                     </div>
-
-
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-4 col-lg-4 col-xs-4"></div>
-
+                <div class="col-sm-4 col-lg-2 col-xs-4"></div>
                 <a href="http://www.google.com.pe" class=" btn btn-danger col-sm-2"> <span
                             class="glyphicon glyphicon-ban-circle"></span> Cancelar
                 </a>
+
                 <div class="col-sm-1"></div>
 
                 <button id="buyButton" type="submit" name="enviar" class="col-sm-2 btn btn-success"><span
                             class="glyphicon glyphicon-check"></span> Pagar
                 </button>
+
+                <div class="col-sm-1"></div>
+
+                <a class=" btn btn-warning col-sm-2" style="display: none;" id="print"><span
+                            class="glyphicon glyphicon-print"></span> Imprimir</a>
             </div>
             <div class="row">
                 <footer class="footer row col-sm-12 col-lg-12 col-xs-12">
@@ -462,7 +458,7 @@
                     currency: 'PEN',
                     description: x,
                     amount: $('#p').val(),
-                    email: $('#email').val('hola'),
+                    email: $('#email').val('hola')
                 });
             });
         </script>
@@ -494,13 +490,21 @@
                             apellidos: $('#lastname').val(),
                             detalle: $('#detalle').val(),
                             text: $('#ts').val(),
-                            email:  Culqi.token.email
+                            email: Culqi.token.email
                         },
                         success: function (data) {
-                            if (data == 'ok')
-                                alert('Se guardo pago');
-                            else
-                                alert('No se guardo pago');
+                            if (data != 'bad') {
+                                alert('Se guardo pago, imprima su boleta');
+                                document.getElementById("print").style.display = "";
+                                document.getElementById("print").href = '/BoletaVirtual/' + data + '';
+                            }
+                            else {
+                                if (data == 'bad') {
+                                    document.getElementById("print").style.display = "none";
+                                    document.getElementById("print").href = "#";
+                                    alert('No se guardo pago');
+                                }
+                            }
                         }
                     });
                 } else { // ¡Hubo algún problema!
@@ -510,8 +514,6 @@
                 }
             }
         </script>
-
-
         <!-- /#wrapper -->
         <!-- /#wrapper -->
         <!-- /#wrapper -->

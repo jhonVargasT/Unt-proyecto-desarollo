@@ -53,37 +53,33 @@ class culqiController extends Controller
         $p->setIdPersona($codper);
         $p->setIdSubtramite($codSubtramite);
         $contaux = $cont + 1;
-
-        $valid = $p->savePagoOnline($contaux);//SQL, inserta los datos del pago (envia al contador de la tasa)
-        if ($valid == true) {//Si guarda el pago, se genera el cargo a la tarjeta
-            try {
-                // Configurar tu API Key y autenticación
-                $SECRET_KEY = "sk_test_Z1aMDe3V3b7BkYIi";
-                $culqi = new Culqi(array('api_key' => $SECRET_KEY));
-                // Creando Cargo a una tarjeta
-
-                $culqi->Charges->create(
-                    array(
-                        "amount" => $request->precio,
-                        "capture" => true,
-                        "currency_code" => "PEN",
-                        "description" => $request->st,
-                        "installments" => 0,
-                        "email" => $request->email,
-                        "source_id" => $request->token,
-                    )
-                );
-                return 'ok';
-            } catch (Exception $e) {
-                return 'bad';
-            }
-        } else {
-            return false;
+        try {
+            // Configurar tu API Key y autenticación
+            $SECRET_KEY = "sk_test_Z1aMDe3V3b7BkYIi";
+            $culqi = new Culqi(array('api_key' => $SECRET_KEY));
+            // Creando Cargo a una tarjeta
+            $culqi->Charges->create(
+                array(
+                    "amount" => $request->precio,
+                    "capture" => true,
+                    "currency_code" => "PEN",
+                    "description" => $request->st,
+                    "installments" => 0,
+                    "email" => $request->email,
+                    "source_id" => $request->token,
+                )
+            );
+            $var = $p->savePagoOnline($contaux);//SQL, inserta los datos del pago (envia al contador de la tasa)
+            //$p->boletaVirtual($var);
+            return $var;
+        } catch (Exception $e) {
+            return 'bad';
         }
     }
 
-    //Buscar contado por su nombre de la tasa
-    public function contadorSubtramite($nombreSubtramite)
+//Buscar contado por su nombre de la tasa
+    public
+    function contadorSubtramite($nombreSubtramite)
     {
         $cont = null;
         $contador = DB::select('select contador from subtramite where subtramite.estado=1 and subtramite.nombre="' . $nombreSubtramite . '"');

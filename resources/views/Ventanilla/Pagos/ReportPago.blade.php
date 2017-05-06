@@ -173,7 +173,7 @@
                                         <a href="PagoImprimir/{{$p->codPago}}/{{$p->estadodeuda}}"><span
                                                     class="glyphicon glyphicon-print"></span> </a>
                                     @else
-                                        <a href="PagoImprimirR/{{$p->codPago}}/{{$p->estadodeuda}}"><span
+                                        <a href="PagoImprimirO/{{$p->codPago}}/{{$p->estadodeuda}}"><span
                                                     class="glyphicon glyphicon-print"></span> </a>
                                     @endif&nbsp;&nbsp;&nbsp;
                                     @if($p->modalidad=='Online'||$p->modalidad=='Banco')

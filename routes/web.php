@@ -235,8 +235,12 @@ Route::resource('importAlumnos', 'ExcelController@importarAlumnos');
 Route::resource('PagosBuscados', 'pagoController@listarPago');
 Route::get('PagoEliminar/{codPago}', 'pagoController@eliminarPago');
 Route::get('DevolucionPago/{codPago}', 'pagoController@DevolucionPago');
+
 Route::get('PagoImprimir/{codPago}/{estadoimprimir}', 'PdfController@PagosBoletaAlumno');
-Route::get('PagoImprimirR/{codPago}/{estadoimprimir}', 'PdfController@PagosBoletaAlumnoR');
+Route::get('PagoImprimirO/{codPago}/{estadoimprimir}', 'PdfController@PagosBoletaAlumnoO');
+Route::get('/BoletaVirtual/{codPago}', 'PdfController@BoletaVirtual');
+
+
 
 Route::get('PagoDeuda/{codPago}', 'pagoController@eliminarDeuda');
 Route::get('ventBoleta', 'PdfController@PagosBoleta');
@@ -376,5 +380,9 @@ Route::get('/repBuscarPagos', function () {
 
 Route::get('/reporte', function () {
     return view('Ventanilla/Pagos/reporte');
+});
+
+Route::get('/boletavirtual', function () {
+    return view('BoletaVirtual/boletavirtual');
 });
 

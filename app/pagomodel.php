@@ -1,7 +1,7 @@
 <?php
 namespace App;
 
-use App\Http\Controllers\PdfController;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -274,40 +274,16 @@ class pagomodel
     public function savePagoOnline($contaux)
     {
         try {
-            DB::transaction(function () use ($contaux) {//insertar pago y enviar correo de la boleta virtual al usuario
+            $result = DB::transaction(function () use ($contaux) {//insertar pago y enviar correo de la boleta virtual al usuario
                 $id = DB::table('pago')->insertGetId(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite]);
                 DB::table('subtramite')->where('codSubtramite', $this->idSubtramite)->update(['contador' => $contaux]);
-
+                return $id;
             });
+
         } catch (PDOException $e) {
             return false;
         }
-        $total = 0;
-        $pag = $this->consultarCodigoPagoReporte(1, 0);//SQL, consultar pago por codigo de pago
-        foreach ($pag as $p) {
-            $total = $total + $p->precio;
-        }
-        view()->share(['pago' => $pag, 'total' => $total]);
-
-        $pdf = app('dompdf.wrapper');
-
-        $pdf->loadView('Ventanilla/Pagos/reporte');
-        return $pdf->download('pagoAlumno.pdf');
-    }
-
-    public function boletaVirtual($codPago)
-    {
-        $total = 0;
-        $pag = $this->consultarCodigoPagoReporte($codPago, 0);//SQL, consultar pago por codigo de pago
-        foreach ($pag as $p) {
-            $total = $total + $p->precio;
-        }
-        view()->share(['pago' => $pag, 'total' => $total]);
-
-        $pdf = app('dompdf.wrapper');
-
-        $pdf->loadView('Ventanilla/Pagos/reporte');
-        return $pdf->download('pagoAlumno.pdf');
+        return $result;
     }
 
     public function sendEmail($pago)
@@ -316,6 +292,22 @@ class pagomodel
             $message->from('theoithy@gmail.com', 'Universidad Nacional de Trujillo - Tesoreria');
             $message->to('theoithy@gmail.com', 'Arthur Alfaro')->subject('Boleta Virtual - Universidad Nacional de Trujillo - Tesoreria');
         });
+    }
+
+    public function boletaVirtual($codPago)
+    {
+        $total = null;
+        $pag = $this->consultarCodigoPagoReporteR($codPago);//SQL, consultar pago por codigo de pago
+
+        foreach ($pag as $p) {
+            $total = $total + $p->precio;
+        }
+        view()->share(['pago' => $pag, 'total' => $total]);
+
+        $pdf = app('dompdf.wrapper');
+
+        $pdf->loadView('Ventanilla/Pagos/reporte');
+        $pdf->stream('pagoAlumno.pdf');
     }
 
     public function saveExcel($contaux)
@@ -436,36 +428,36 @@ class pagomodel
         return $pagobd;
     }
 
-    public function consultarCodigoPagoReporteR($codPago, $val)
+    public function consultarCodigoPagoReporteR($codPago)
     {
         $pagobd = DB::select('SELECT 
-    pago.codPago,
-    p1.dni AS p1dni,
-    p1.nombres AS p1nombres,
-    p1.apellidos AS p1apellidos,
-    subtramite.nombre,
-    pago.fecha AS pfecha,
-    subtramite.precio,
-    pago.modalidad,
-    detalle,
-    estadodeuda
-FROM
-    pago
-        LEFT JOIN
-    subtramite ON pago.idSubtramite = subtramite.codSubtramite
-        LEFT JOIN
-    personal ON pago.coPersonal = personal.idPersonal
-        LEFT JOIN
-    persona AS p1 ON p1.codPersona = pago.idPersona
-WHERE
-    pago.idSubtramite = subtramite.codSubtramite
-        AND p1.codPersona = pago.idPersona
-        AND pago.estado = 1
-        AND subtramite.estado = 1
-        AND p1.estado = 1
-        AND pago.estadodeuda = ' . $val . '
-        AND pago.codPago = ' . $codPago . '
-ORDER BY pago.codPago DESC');
+                    pago.codPago,
+                    p1.dni AS p1dni,
+                    p1.nombres AS p1nombres,
+                    p1.apellidos AS p1apellidos,
+                    subtramite.nombre,
+                    pago.fecha AS pfecha,
+                    subtramite.precio,
+                    pago.modalidad,
+                    detalle,
+                    estadodeuda
+                FROM
+                    pago
+                        LEFT JOIN
+                    subtramite ON pago.idSubtramite = subtramite.codSubtramite
+                        LEFT JOIN
+                    personal ON pago.coPersonal = personal.idPersonal
+                        LEFT JOIN
+                    persona AS p1 ON p1.codPersona = pago.idPersona
+                WHERE
+                    pago.idSubtramite = subtramite.codSubtramite
+                        AND p1.codPersona = pago.idPersona
+                        AND pago.estado = 1
+                        AND subtramite.estado = 1
+                        AND p1.estado = 1
+                        AND pago.estadodeuda = 0
+                        AND pago.codPago = ' . $codPago . '
+                ORDER BY pago.codPago DESC');
         return $pagobd;
     }
 

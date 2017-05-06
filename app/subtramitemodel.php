@@ -112,6 +112,8 @@ class subtramitemodel
         return $this;
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public function bdTramite($nombre)
     {
         $idTra = DB::select('select codTramite from tramite where nombre=:nombre', ['nombre' => $nombre]);
@@ -120,7 +122,6 @@ class subtramitemodel
         }
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function save()
     {
         date_default_timezone_set('Etc/GMT+5');

@@ -9,7 +9,7 @@
         <div class="table-responsive col-sm-12">
             <br>
             <br>
-            <table class="table table-bordered">
+            <table class="table table-bordered" align="center">
                 <thead>
                 <!--cabecear Tabla-->
                 <tr>
