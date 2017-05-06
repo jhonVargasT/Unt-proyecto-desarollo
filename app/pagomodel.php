@@ -286,14 +286,6 @@ class pagomodel
         return $result;
     }
 
-    public function sendEmail($pago)
-    {
-        Mail::send('Ventanilla/Pagos/reporte', ['pago' => $pago], function ($message) {
-            $message->from('theoithy@gmail.com', 'Universidad Nacional de Trujillo - Tesoreria');
-            $message->to('theoithy@gmail.com', 'Arthur Alfaro')->subject('Boleta Virtual - Universidad Nacional de Trujillo - Tesoreria');
-        });
-    }
-
     public function boletaVirtual($codPago)
     {
         $total = null;
