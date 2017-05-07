@@ -78,6 +78,28 @@
                     </div>
                 </div>
             </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapsePago">
+                                <span class="glyphicon glyphicon-credit-card">
+                            </span> Pago Online</a>
+                    </h4>
+                </div>
+                @yield('pagoonline')
+                <div id="collapsePago" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <span class="glyphicon glyphicon-credit-card"></span>
+                                    <a href="/pagoonline">Pago Online</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="col-sm-10  " style="background-color:#ccd0d2">
