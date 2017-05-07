@@ -449,8 +449,96 @@ class ExcelController extends Controller
             }*/
     }
 
-    //Importar pagos realizados por el banco, aun por establecer su uso...
-    public function importExcel(Request $request)
+    //Importar pagos realizados por el banco, TXT
+    public function importTxtBanco(Request $request)
+    {
+        $fp = null;
+        $val = null;
+        $contaux = null;
+        $persona = new personamodel();
+        $subtramite = new subtramitemodel();
+        $pago = new pagomodel();
+        if ($request->hasFile('import_file')) {
+            $path = Input::file('import_file')->getRealPath();
+
+            $CBANCO = array();
+            $NCREDITO = array();
+            $NCUOTA = array();
+            $FVNCMTO = array();
+            $FPAGO = array();
+            $FVALOR = array();
+            $CAGENCIA = array();
+            $CCAJERO = array();
+            $CMONEDA = array();
+            $SIMPORTE = array();
+            $ACLIENTE = array();
+            $GTASA = array();
+            $FACTORMORA = array();
+            $FACTORCOMP = array();
+            $SINTERMORA = array();
+            $SINTERCOMP = array();
+            $SGASTOSCOB = array();
+            $SPAGADO = array();
+            $FILLER = array();
+            $lines = array();
+
+            $fp = fopen($path, 'r');
+
+            while (!feof($fp)) {
+                $line = fgets($fp);
+                $line = trim($line);
+                $lines[] = $line;
+            }
+
+            for ($i = 0; $i < sizeof($lines); $i++) {
+                $CBANCO[$i] = substr($lines[$i], 0, 8);
+                $NCREDITO[$i] = substr($lines[$i], 8, 1);
+                $NCUOTA[$i] = substr($lines[$i], 9, 7);
+                $FVNCMTO[$i] = substr($lines[$i], 20, 8);
+                $FPAGO[$i] = substr($lines[$i], 28, 8);
+                $FVALOR[$i] = substr($lines[$i], 36, 8);
+                $CAGENCIA[$i] = substr($lines[$i], 44, 8);
+                $CCAJERO[$i] = substr($lines[$i], 52, 4);
+                $CMONEDA[$i] = substr($lines[$i], 56, 3);
+                $SIMPORTE[$i] = substr($lines[$i], 59, 15);
+                $ACLIENTE[$i] = substr($lines[$i], 74, 30);
+                $GTASA[$i] = substr($lines[$i], 104, 1);
+                $FACTORMORA[$i] = substr($lines[$i], 105, 15);
+                $FACTORCOMP[$i] = substr($lines[$i], 120, 15);
+                $SINTERMORA[$i] = substr($lines[$i], 135, 15);
+                $SINTERCOMP[$i] = substr($lines[$i], 150, 15);
+                $SGASTOSCOB[$i] = substr($lines[$i], 165, 15);
+                $SPAGADO[$i] = substr($lines[$i], 180, 15);
+                $FILLER[$i] = substr($lines[$i], 195, 105);
+            }
+
+            for ($c = 0; $c < 3; $c++) {
+                $codPer = $persona->obtnerIdDni($CBANCO[$c]);
+                //$codSubt = $subtramite->consultarId($NCREDITO[0]);
+                $cont = $this->contadorSubtramite($NCREDITO[$c]);
+                $contaux = $cont + 1;
+                $pago->setDetalle($NCUOTA[$c]);
+                $date = implode("-", array_reverse(explode("/", '05/05/2017 16:58:10')));
+                $pago->setFecha($date);
+                $pago->setModalidad('Banco');
+                $pago->setIdPersona($codPer);
+                $pago->setIdSubtramite($NCREDITO[$c]);
+                $val = $pago->saveExcel($contaux);
+            }
+        }
+
+        if ($val == true) {
+            fclose($fp);
+            return back()->with('true', 'Guardada con exito')->withInput();
+
+        } else {
+            fclose($fp);
+            return back()->with('false', 'No guardada');
+        }
+    }
+
+    //Importar datos del banco, excel
+    /*public function importExcel(Request $request)
     {
         $val = null;
         $contaux = null;
@@ -487,7 +575,7 @@ class ExcelController extends Controller
             }
         }
         return back()->with('error', 'Please Check your file, Something is wrong there.');
-    }
+    }*/
 
     //Jhon, no encuentro donde esta esto
     public function reportepagodetalle($estado, $modalidad, $opctram, $valtram, $sede, $facultad, $escuela, $tipre, $fuefi, $fechades, $fechahas)
@@ -1098,10 +1186,10 @@ class ExcelController extends Controller
 
 
     //Consultar contador del subtramite
-    function contadorSubtramite($nombreSubtramite)
+    function contadorSubtramite($codSubtramite)
     {
         $cont = null;
-        $contador = DB::select('select contador from subtramite where subtramite.estado=1 and subtramite.nombre="' . $nombreSubtramite . '"');
+        $contador = DB::select('select contador from subtramite where subtramite.estado=1 and subtramite.codSubtramite="' . $codSubtramite . '"');
 
         foreach ($contador as $c) {
             $cont = $c->contador;

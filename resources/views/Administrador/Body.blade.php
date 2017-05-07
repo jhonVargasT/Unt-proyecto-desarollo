@@ -305,7 +305,7 @@
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="/admRegistrarSubtramite">Agregar pagos</a>
+                                        <a href="/admImportarExcel">Agregar pagos</a>
                                     </td>
                                 </tr>
                             </table>

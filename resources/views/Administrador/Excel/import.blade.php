@@ -26,7 +26,7 @@
                 @endif
                 <div class="container">
                     <form style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 10px;"
-                          action="{{url('importAlumnos')}}" class="form-horizontal" method="post"
+                          action="{{url('importExcel')}}" class="form-horizontal" method="post"
                           enctype="multipart/form-data">
                         {!!   csrf_field() !!}
                         <input type="file" name="import_file">
