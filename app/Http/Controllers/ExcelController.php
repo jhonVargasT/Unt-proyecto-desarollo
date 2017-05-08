@@ -10,7 +10,7 @@ use App\personamodel;
 use App\sedemodel;
 use App\subtramitemodel;
 use App\tramitemodel;
-use FontLib\TrueType\File;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\alumnomodel;
@@ -456,11 +456,12 @@ class ExcelController extends Controller
         $val = null;
         $contaux = null;
         $persona = new personamodel();
-        $subtramite = new subtramitemodel();
         $pago = new pagomodel();
+        $bool = false;
         if ($request->hasFile('import_file')) {
             $path = Input::file('import_file')->getRealPath();
 
+            $codPer = null;
             $CBANCO = array();
             $NCREDITO = array();
             $NCUOTA = array();
@@ -512,9 +513,9 @@ class ExcelController extends Controller
                 $FILLER[$i] = substr($lines[$i], 195, 105);
             }
 
-            for ($c = 0; $c < 3; $c++) {
+            for ($c = 0; $c < sizeof($lines); $c++) {
                 $codPer = $persona->obtnerIdDni($CBANCO[$c]);
-                //$codSubt = $subtramite->consultarId($NCREDITO[0]);
+                $pago->setIdSubtramite($NCREDITO[$c]);
                 $cont = $this->contadorSubtramite($NCREDITO[$c]);
                 $contaux = $cont + 1;
                 $pago->setDetalle($NCUOTA[$c]);
@@ -522,19 +523,15 @@ class ExcelController extends Controller
                 $pago->setFecha($date);
                 $pago->setModalidad('Banco');
                 $pago->setIdPersona($codPer);
-                $pago->setIdSubtramite($NCREDITO[$c]);
-                $val = $pago->saveExcel($contaux);
+                $pago->saveExcel($contaux);
+                if ($c == sizeof($lines) - 1) {
+                    $bool = true;
+                }
             }
         }
-
-        if ($val == true) {
+        if ($bool == true)
             fclose($fp);
             return back()->with('true', 'Guardada con exito')->withInput();
-
-        } else {
-            fclose($fp);
-            return back()->with('false', 'No guardada');
-        }
     }
 
     //Importar datos del banco, excel

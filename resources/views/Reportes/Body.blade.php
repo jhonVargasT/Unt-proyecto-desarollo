@@ -52,6 +52,12 @@
                                     <a href="/repBuscarDonaciones">Buscar Donaciones y transferencias</a>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <span class="glyphicon fa fa-money"></span>
+                                    <a href="/repBuscarDonaciones">Registrar Donaciones y transferencias</a>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>
