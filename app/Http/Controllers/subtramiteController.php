@@ -14,7 +14,7 @@ class subtramiteController extends Controller
     {
         if ($request->nombreTramite != ' ') {
             $subtramite = new subtramitemodel();
-            $subtramite->setCuenta($request->cuentaContable);
+            $subtramite->setCodigotasa($request->codigotasa);
             $subtramite->setNombre($request->nombreSubTramite);
             $subtramite->setPrecio($request->precio);
             $idTra = $subtramite->bdTramite($request->nombreTramite);//SQL, obtener id de clasificador por nombre
@@ -42,7 +42,7 @@ class subtramiteController extends Controller
     public function editarSubtramite($codSubtramite, Request $request)
     {
         $subtramite = new subtramitemodel();
-        $subtramite->setCuenta($request->cuentaContable);
+        $subtramite->setCodigotasa($request->codigotasa);
         $subtramite->setNombre($request->nombreSubTramite);
         $subtramite->setPrecio($request->precio);
         $idTra = $subtramite->bdTramite($request->nombreTramite);//SQL, obtener id de clasificador por nombre
@@ -66,8 +66,8 @@ class subtramiteController extends Controller
             if ($request->select == 'Nombre subtramite') {
                 $sub = $subtramite->consultarSubtramiteNombre($request->text);//SQL, buscar tasa por nombre
             } else {
-                if ($request->select == 'Cuenta contable') {
-                    $sub = $subtramite->consultarSubtramiteCuenta($request->text);//SQL, bucsar tasa por numero de cuenta
+                if ($request->select == 'Codigo Tasa') {
+                    $sub = $subtramite->consultarSubtramiteCodigoTasa($request->text);//SQL, bucsar tasa por numero de cuenta
                 } else {
                     $sub = $subtramite->consultarSubtramites();//SQL, buscar todas las tasas
                 }
@@ -96,7 +96,7 @@ class subtramiteController extends Controller
     public function nombreSCT(Request $request)
     {
         $sbnombre = null;
-        $subtramitebd = DB::select('select nombre from subtramite where codSubtramite = "' . $request->ct . '"');
+        $subtramitebd = DB::select('select nombre from subtramite where codigoSubtramite = "' . $request->ct . '"');
 
         foreach ($subtramitebd as $sb) {
             $sbnombre = $sb->nombre;

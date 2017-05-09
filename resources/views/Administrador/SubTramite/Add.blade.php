@@ -43,7 +43,7 @@
             <form name="form" action="{{url('SubtramiteRegistrado')}}" role="form" method="POST" class="Horizontal">
                 {{csrf_field()}}
                 <div class="panel panel-default">
-                    <div class="panel-heading">Datos Tasa</div>
+                    <div class="panel-heading">Datos Clasificador</div>
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
@@ -75,7 +75,7 @@
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label">Codigo de tasa</span>
                                 <div class="col-sm-3">
-                                    <input class="form-control input-sm" name="cuentaContable" type="text"
+                                    <input class="form-control input-sm" name="codigotasa" type="text"
                                            autocomplete="off" onkeypress="return validarCodigoSiaf(event)"
                                            placeholder="Ejm: 0729787548">
                                 </div>

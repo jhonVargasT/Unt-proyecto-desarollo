@@ -19,7 +19,7 @@ class Subtramite extends Migration
             $table->engine = 'InnoDB';
 
             $table ->increments('codSubtramite')->unique();
-            $table ->string('cuenta')->unique();
+            $table ->string('codigoSubtramite')->unique();
             $table ->string('nombre')->unique();
             $table ->double('precio');
             $table -> boolean('estado')->default('1');

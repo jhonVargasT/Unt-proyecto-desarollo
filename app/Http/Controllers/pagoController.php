@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\alumnomodel;
@@ -49,7 +50,7 @@ class pagoController extends Controller
             $csiaf = $subt->consultarSiafNombreSubtramite($request->txtsub);//SQL, obtener clasificador siaf por el nombre de tasa
             $cont = $this->contadorSubtramite($request->txtsub);//SQL, obtener contador de la tasa por nombre de tasa
         }
-        $cuentaS = $subt->consultarCuentaSubtramiteCodSubtramite($codSubtramite);//SQL, obtener cuenta de la tasa por su id de tasa
+        $codigoS = $subt->consultarCodigoSubtramiteCodSubtramite($codSubtramite);//SQL, obtener codigoSubtramite de la tasa por su id de tasa
         date_default_timezone_set('America/Lima');
         $dato = date('Y-m-d H:i:s');
         $pago = $request->boletapagar;
@@ -67,7 +68,7 @@ class pagoController extends Controller
             $p->setDeuda(1);
         }
         $valid = $p->savePago($contaux);//SQL, insersion del pago
-        $contador = $cuentaS . '-' . $contaux;
+        $contador = $codigoS . '-' . $contaux;
         $buscar = $request->text;
         $val = Session::get('txt', 'No existe session');
         if ($valid == true) {
@@ -332,7 +333,7 @@ class pagoController extends Controller
                                         $data[] = array(
                                             "Clasificador" => $p->clasificadorsiaf,
                                             "Nombre de Clasificador" => $p->nombreTramite,
-                                            "Cuenta" => $p->cuenta,
+                                            "Codigo Tasa" => $p->codigoSubtramite,
                                             "Tasa" => $p->nombre,
                                             "Total" => $p->precio,
                                             "Numero de Pagos" => $p->nurPagos,

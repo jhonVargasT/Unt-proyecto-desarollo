@@ -220,7 +220,7 @@ class pagomodel
     public function obtenerPagosresumensiaf($fecha)
     {
         try {
-            $pago = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.cuenta as cuenta, st.nombre as nombresubtramite,sum(st.precio) as precio, count(po.codPago) as nurPagos
+            $pago = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre as nombresubtramite,sum(st.precio) as precio, count(po.codPago) as nurPagos
                     FROM tramite as tr
                     LEFT JOIN subtramite st ON (tr.codTramite = st.idTramite)
                     LEFT JOIN pago po ON (st.codSubtramite=po.idSubtramite )
@@ -1221,7 +1221,7 @@ class pagomodel
     {
         date_default_timezone_set('America/Lima');
         $date = date('Y-m-d');
-        $pago = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.cuenta as cuenta, st.nombre,sum(st.precio) as precio, count(po.codPago) as nurPagos
+        $pago = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre,sum(st.precio) as precio, count(po.codPago) as nurPagos
                             FROM unt.tramite as tr
                             LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
                             LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )

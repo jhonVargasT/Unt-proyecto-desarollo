@@ -40,7 +40,7 @@
                                 <option>Todo</option>
                                 <option value="Tramite">Nombre Clasificador</option>
                                 <option>Nombre Tasa</option>
-                                <option>Cuenta contable</option>
+                                <option>Codigo Tasa</option>
                             </select>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                             <div align="center">Nombre tasa</div>
                         </th>
                         <th>
-                            <div align="center">Cuenta contable</div>
+                            <div align="center">Codigo tasa</div>
                         </th>
                         <th>
                             <div align="center">Precio</div>
@@ -101,7 +101,7 @@
                         @foreach($subtramite as $s)
                             <tr>
                                 <td>{{$s->nombre}}</td>
-                                <td>{{$s->cuenta}}</td>
+                                <td>{{$s->codigoSubtramite}}</td>
                                 <td>{{$s->precio}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}

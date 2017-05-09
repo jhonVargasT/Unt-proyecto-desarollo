@@ -8,7 +8,7 @@ use PDOException;
 
 class subtramitemodel
 {
-    private $cuenta;
+    private $codigotasa;
     private $nombre;
     private $precio;
     private $estado;
@@ -25,20 +25,25 @@ class subtramitemodel
     /**
      * @return mixed
      */
-    public function getCuenta()
+    public function getCodigotasa()
     {
-        return $this->cuenta;
+        return $this->codigotasa;
     }
 
     /**
-     * @param mixed $cuenta
+     * @param mixed $codigotasa
      * @return subtramitemodel
      */
-    public function setCuenta($cuenta)
+    public function setCodigotasa($codigotasa)
     {
-        $this->cuenta = $cuenta;
+        $this->codigotasa = $codigotasa;
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+
 
     /**
      * @return mixed
@@ -134,7 +139,7 @@ class subtramitemodel
         $logunt->setCodigoPersonal($codPers);
         try {
             DB::transaction(function () use ($logunt) {
-                DB::table('subtramite')->insert(['cuenta' => $this->cuenta, 'nombre' => $this->nombre, 'precio' => $this->precio, 'idTramite' => $this->idTramite]);
+                DB::table('subtramite')->insert(['codigoSubtramite' => $this->codigotasa, 'nombre' => $this->nombre, 'precio' => $this->precio, 'idTramite' => $this->idTramite]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -142,7 +147,6 @@ class subtramitemodel
 
         }
         return true;
-
     }
 
     public function editarSubtramite($codSubtramite)
@@ -157,7 +161,7 @@ class subtramitemodel
         $logunt->setCodigoPersonal($codPers);
         try {
             DB::transaction(function () use ($codSubtramite, $logunt) {
-                DB::table('subtramite')->where('codSubtramite', 1)->update(['cuenta' => $this->cuenta, 'nombre' => $this->nombre, 'precio' => $this->precio, 'idTramite' => $this->idTramite]);
+                DB::table('subtramite')->where('codSubtramite', 1)->update(['codigoSubtramite' => $this->codigotasa, 'nombre' => $this->nombre, 'precio' => $this->precio, 'idTramite' => $this->idTramite]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -178,7 +182,7 @@ class subtramitemodel
 
     public function consultarSubtramiteid($codSubtramite)
     {
-        $subtramitebd = DB::select('select  codSubtramite, cuenta, subtramite.nombre as snombre, precio, tramite.nombre as tnombre from tramite left join subtramite on tramite.codTramite = subtramite.idTramite where 
+        $subtramitebd = DB::select('select  codSubtramite, codigoSubtramite, subtramite.nombre as snombre, precio, tramite.nombre as tnombre from tramite left join subtramite on tramite.codTramite = subtramite.idTramite where 
         tramite.codTramite = subtramite.idTramite and subtramite.codSubtramite = ' . $codSubtramite . ' and tramite.estado=1 and subtramite.estado=1');
         return $subtramitebd;
     }
@@ -224,21 +228,21 @@ class subtramitemodel
         return $clas;
     }
 
-    public function consultarSubtramiteCuenta($cuenta)
+    public function consultarSubtramiteCodigoTasa($codigo)
     {
         $subtramitebd = DB::table('subtramite')
-            ->where('cuenta', 'like', '%' . $cuenta . '%')
+            ->where('codigoSubtramite', 'like', '%' . $codigo . '%')
             ->where('estado', 1)
             ->orderBy('codSubtramite', 'desc')->get();
         return $subtramitebd;
     }
 
-    public function consultarCuentaSubtramiteCodSubtramite($codSubtramite)
+    public function consultarCodigoSubtramiteCodSubtramite($codSubtramite)
     {
         $sub = null;
-        $subtramitebd = DB::select('select cuenta from subtramite where codSubtramite = "' . $codSubtramite . '"');
+        $subtramitebd = DB::select('select codigoSubtramite from subtramite where codSubtramite = "' . $codSubtramite . '"');
         foreach ($subtramitebd as $s) {
-            $sub = $s->cuenta;
+            $sub = $s->codigoSubtramite;
         }
         return $sub;
     }
