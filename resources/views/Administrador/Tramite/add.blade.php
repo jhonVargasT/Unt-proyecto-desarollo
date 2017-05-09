@@ -45,10 +45,10 @@
                         </div>
                     </div>
                     <div class=" form-group-sm" align="left">
-                        <span class="col-sm-2 control-label"> Nombre de clasificador</span>
+                        <span class="col-sm-2 control-label">C-CTE1</span>
                         <div class="col-sm-4">
                             <input class="form-control" name="nombre" type="text"
-                                   autocomplete="off" onkeypress="return validarLetras(event)"
+                                   autocomplete="off"
                                    placeholder="ejmp: Carnet" required>
                         </div>
                     </div>

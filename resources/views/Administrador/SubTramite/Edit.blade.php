@@ -42,7 +42,7 @@
                             <div class="panel-body">
                                 <div class="col-sm-12 row form-group">
                                     <div class="form-group-sm " align="left">
-                                        <span class="col-sm-2 control-label">Nombre clasificador</span>
+                                        <span class="col-sm-2 control-label">C-CTE1</span>
                                         <div class="col-sm-3">
                                             <input class="typeahead form-control input-sm" type="text"
                                                    placeholder="ejmp : Carnet"
