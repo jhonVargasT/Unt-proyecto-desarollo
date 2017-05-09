@@ -73,7 +73,7 @@
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label">Cuenta contable</span>
+                                <span class="col-sm-2 control-label">Codigo de tasa</span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="cuentaContable" type="text"
                                            autocomplete="off" onkeypress="return validarCodigoSiaf(event)"
