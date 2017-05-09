@@ -15,7 +15,7 @@
 @stop
 @section('content')
     @if( Session::has('tipoCuentaA'))
-        <div class="panel-heading"> <h3>Importar Excel</h3></div>
+        <div class="panel-heading"> <h3>Importar Pagos</h3></div>
         <div style="background-color: #FFFFFF" >
             <div class="panel-body">
                 @if(session()->has('true'))
