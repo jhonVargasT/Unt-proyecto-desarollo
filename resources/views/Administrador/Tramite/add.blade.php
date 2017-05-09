@@ -40,8 +40,7 @@
                         <span class="col-sm-2 control-label"> SIAF </span>
                         <div class="col-sm-3">
                             <input class="form-control input-sm" name="clasificador" type="text"
-                                   autocomplete="off" onkeypress="return validarCodigoSiaf(event)"
-                                   placeholder="Ejm: 192.154.1.1" required>
+                                   autocomplete="off" required>
                         </div>
                     </div>
                     <div class=" form-group-sm" align="left">
