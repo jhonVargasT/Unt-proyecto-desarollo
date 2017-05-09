@@ -49,7 +49,7 @@
                         <div class="col-sm-4">
                             <input class="form-control" name="nombre" type="text"
                                    autocomplete="off"
-                                   placeholder="ejmp: Carnet" required>
+                                 required>
                         </div>
                     </div>
                 </div>
