@@ -87,30 +87,37 @@ class donacionController extends Controller
         $donacion= new donacionmodel();
         $vartiemp = $request->combito;
         $varaño = $request->año1;
-        if ($vartiemp == 1) {
+        if ($request->combito !== 'Escojer') {
+            if ($vartiemp == 1) {
+                $tiempo = 'where Year(d.fechaIngreso) = ' . $varaño . '';
+                $result = $donacion->consultarDonaciones($tiempo);//SQL, buscar a la donacion y transferencia fecha
+                $numero = 'DEL AÑO -' . $varaño;
+            } elseif ($vartiemp == 2) {
+                $tiempo = 'where MONTH(d.fechaIngreso) = ' . $request->mes2 . ' and Year(d.fechaIngreso)=' . $request->año2 . '';
+                $result = $donacion->consultarDonaciones($tiempo);//SQL, buscar a la donacion y transferencia fecha
+                $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
+                $valor = $meses[$request->mes2 - 1];
+                $numero = 'DE ' . $valor . ' DEL ' . $request->año2;
 
-            $tiempo = 'where Year(d.fechaIngreso) = ' . $varaño . '';
-            $result = $donacion->consultarDonaciones($tiempo);//SQL, buscar a la donacion y transferencia fecha
-            $numero = 'DEL AÑO -'.$varaño;
-        } elseif ($vartiemp == 2) {
-            $tiempo = 'where MONTH(d.fechaIngreso) = ' . $request->mes2 . ' and Year(d.fechaIngreso)=' . $request->año2 . '';
-            $result = $donacion->consultarDonaciones($tiempo);//SQL, buscar a la donacion y transferencia fecha
-            $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
-            $valor = $meses[$request->mes2 - 1];
-            $numero = 'DE ' . $valor . ' DEL ' . $request->año2;
+            } elseif ($vartiemp == 3) {
+                $originalDate = $request->fecha;
+                $fecha = date("Y-m-d", strtotime($originalDate));
+                $tiempo = 'where DATE(d.fechaIngreso) =\'' . $fecha . '\'';
+                $result = $donacion->consultarDonaciones($tiempo);//SQL, buscar a la donacion y transferencia fecha
+                $numero = 'DE ' . $fecha;
+            }
+            $total = 0;
+            foreach ($result as $r) {
+                $total += $r->importe;
+            }
+            return view('Administrador/DonacionesYTransacciones/Search')->with(['result' => $result, 'total' => $total, 'fecha' => $tiempo, 'numero' => $numero]);
 
-        } elseif ($vartiemp == 3) {
-            $originalDate = $request->fecha;
-            $fecha = date("Y-m-d", strtotime($originalDate));
-            $tiempo = 'where DATE(d.fechaIngreso) =\'' . $fecha . '\'';
-            $result = $donacion->consultarDonaciones($tiempo);//SQL, buscar a la donacion y transferencia fecha
-            $numero = 'DE '.$fecha;
         }
-        $total = 0;
-        foreach ($result as $r) {
-            $total += $r->importe;
+        else{
+            return view('Administrador/DonacionesYTransacciones/Search');
+
         }
-        return view('Administrador/DonacionesYTransacciones/search')->with(['result' => $result,'total'=>$total,'fecha'=>$tiempo,'numero'=>$numero]);
+
     }
 
     //Eliminar(cambiar de estado 1 a 0) el registro de donacion y transferencia

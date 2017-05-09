@@ -47,10 +47,10 @@
             <!-- Search input-->
                 <div class="row ">
                     <div class="form-group-sm col-sm-2">
-                        <span class="control-label"> Nombre clasificador</span>
+                        <span class="control-label"> C-CTE1</span>
                         <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
                                name="nombreTramite" id="name" autocomplete="off"
-                               onkeypress="return validarLetras(event)" required>
+                                required>
                         <script type="text/javascript">
                             var path = "{{ route('autocompletet') }}";
                             $('input.typeahead').typeahead({
