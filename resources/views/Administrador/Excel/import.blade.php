@@ -6,7 +6,7 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admImportarExcel" style="color: #509f0c" target="_top">Importar Excel</a>
+                        <a href="/admImportarExcel" style="color: #509f0c" target="_top">Importar Pagos</a>
                     </td>
                 </tr>
             </table>

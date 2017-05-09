@@ -111,9 +111,6 @@ class donacionController extends Controller
             $total += $r->importe;
         }
         return view('Administrador/DonacionesYTransacciones/search')->with(['result' => $result,'total'=>$total,'fecha'=>$tiempo,'numero'=>$numero]);
-
-
-
     }
 
     //Eliminar(cambiar de estado 1 a 0) el registro de donacion y transferencia
