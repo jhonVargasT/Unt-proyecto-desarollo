@@ -23,7 +23,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
-    <div class="panel-heading"><h3>Agregar clasificador siaf</h3></div>
+    <div class="panel-heading"><h3>Agregar clasificador </h3></div>
     <div  style="background-color: #FFFFFF" >
 
         <div class="panel-body">
@@ -37,7 +37,7 @@
                 @endif
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm " align="left">
-                        <span class="col-sm-2 control-label"> codigo de clasificador </span>
+                        <span class="col-sm-2 control-label"> SIAF </span>
                         <div class="col-sm-3">
                             <input class="form-control input-sm" name="clasificador" type="text"
                                    autocomplete="off" onkeypress="return validarCodigoSiaf(event)"

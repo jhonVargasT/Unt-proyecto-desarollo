@@ -20,7 +20,7 @@
     </div>
 @stop
 @section('content')
-    <div class="panel-heading"> <h3>Editar clasificador siaf</h3></div>
+    <div class="panel-heading"> <h3>Editar clasificador </h3></div>
     <div  style="background-color: #FFFFFF" >
         <div class="panel-body">
             @if(session()->has('true'))
@@ -36,7 +36,7 @@
                         {{csrf_field()}}
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label"> codigo de clasificador </span>
+                                <span class="col-sm-2 control-label"> SIAF </span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="clasificadorSiaf" type="text"
                                            autocomplete="off" onkeypress="return validarNum(event)"
@@ -44,10 +44,10 @@
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label"> Nombre clasificador</span>
+                                <span class="col-sm-2 control-label"> C-CTE1</span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="nombreTramite" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)"
+                                           autocomplete="off"
                                            value="{{$t->nombre}}">
                                 </div>
                             </div>
