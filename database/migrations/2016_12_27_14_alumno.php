@@ -27,7 +27,7 @@ class Alumno extends Migration
         });
 
         Schema::table('alumno', function($table) {
-            $table->foreign('coEscuela')->references('idEscuela')->on('escuela');
+            //$table->foreign('coEscuela')->references('idEscuela')->on('escuela');
             $table->foreign('idPersona')->references('codPersona')->on('persona');
         });
 
