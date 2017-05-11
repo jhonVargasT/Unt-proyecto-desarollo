@@ -24,7 +24,7 @@ class Facultad extends Migration
             $table->boolean('estado')->default('1');
 
             $table->integer('coSede')->unsigned();
-
+            $table->timestamps();
         });
 
         Schema::table('facultad', function ($table) {

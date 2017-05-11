@@ -23,6 +23,7 @@ class Sede extends Migration
             $table ->string('codigosede')->unique();
             $table ->string('direccion')->unique();
             $table ->boolean('estado')->default('1');
+            $table->timestamps();
         });
     }
     /**

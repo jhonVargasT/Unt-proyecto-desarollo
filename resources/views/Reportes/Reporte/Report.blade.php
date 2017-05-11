@@ -28,32 +28,31 @@
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script type="text/javascript">
 
-        function limpiarCampos() {
-            var x = '1';
-            document.getElementById("fac").innerHTML = x;
-            document.getElementById("sede").innerHTML = x;
-            document.getElementById("esc").innerHTML = x;
-        }
         function habilitarff(value) {
             if (value == true) {
                 document.getElementById("ff").readOnly = false;
+                document.getElementById("ff").required = true;
             } else if (value == false) {
                 document.getElementById("ff").readOnly = true;
-
+                document.getElementById("ff").value= '';
             }
         }
         function habilitartr(value) {
             if (value == true) {
                 document.getElementById("trinp").readOnly = false;
+                document.getElementById("trinp").required = true;
             } else if (value == false) {
                 document.getElementById("trinp").readOnly = true;
+                document.getElementById("trinp").value = '';
             }
         }
         function habilitarsed(value) {
             if (value == true) {
                 document.getElementById("sede").readOnly = false;
+                document.getElementById("sede").required = true;
             } else if (value == false) {
                 document.getElementById("sede").readOnly = true;
+                document.getElementById("sede").value = '';
             }
         }
         function habilitarfac(value) {
@@ -62,10 +61,18 @@
                 document.getElementById("sed").checked = true;
                 document.getElementById("fac").readOnly = false;
                 document.getElementById("sede").readOnly = false;
+                document.getElementById("sed").required = true;
+                document.getElementById("fac").required = true;
+                document.getElementById("sede").required = true;
             } else if (value == false) {
                 document.getElementById("sed").checked = false;
                 document.getElementById("fac").readOnly = true;
                 document.getElementById("sede").readOnly = true;
+                document.getElementById("sed").value = '';
+                document.getElementById("fac").value = '';
+                document.getElementById("sede").value= '';
+
+
             }
         }
         function habilitaresc(value) {
@@ -75,12 +82,23 @@
                 document.getElementById("fac").readOnly = false;
                 document.getElementById("sede").readOnly = false;
                 document.getElementById("esc").readOnly = false;
+                document.getElementById("sed").required = true;
+                document.getElementById("cfac").required = true;
+                document.getElementById("fac").required = true;
+                document.getElementById("sede").required = true;
+                document.getElementById("esc").required = true;
             } else if (value == false) {
                 document.getElementById("sed").checked = false;
                 document.getElementById("cfac").checked = false;
                 document.getElementById("esc").readOnly = true;
                 document.getElementById("fac").readOnly = true;
                 document.getElementById("sede").readOnly = true;
+
+                document.getElementById("sed").value = '';
+                document.getElementById("cfac").value = '';
+                document.getElementById("esc").value = '';
+                document.getElementById("fac").value = '';
+                document.getElementById("sede").value = '';
             }
         }
     </script>

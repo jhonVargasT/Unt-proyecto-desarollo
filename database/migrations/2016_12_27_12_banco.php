@@ -17,7 +17,7 @@ class Banco extends Migration
         Schema::create('banco', function (Blueprint $table)
         {
             $table->engine = 'InnoDB';
-
+            $table->timestamps();
             $table -> increments('codBanco')->unique();
             $table -> string('banco');
             $table -> string('cuenta')->unique();

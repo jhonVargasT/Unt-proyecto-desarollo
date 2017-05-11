@@ -21,9 +21,9 @@ class Alumno extends Migration
             $table ->string('codAlumno')->unique();
             $table -> string('fecha');
             $table -> boolean('estado')->default('1');
-
             $table->integer('idPersona')-> unsigned();
             $table->integer('coEscuela')-> unsigned();
+            $table->timestamps();
         });
 
         Schema::table('alumno', function($table) {

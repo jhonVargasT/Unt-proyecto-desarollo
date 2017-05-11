@@ -24,7 +24,7 @@ class Subtramite extends Migration
             $table ->double('precio');
             $table -> boolean('estado')->default('1');
             $table ->integer('contador');
-
+            $table->timestamps();
             $table->integer('idTramite')->unsigned();
         });
 

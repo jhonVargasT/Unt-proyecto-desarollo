@@ -25,7 +25,7 @@ class Escuela extends Migration
 
 
             $table->integer('codigoFacultad')->unsigned();
-
+            $table->timestamps();
         });
 
         Schema::table('escuela', function( $table) {

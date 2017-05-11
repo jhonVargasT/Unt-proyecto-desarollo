@@ -608,8 +608,12 @@ class pagoController extends Controller
         $cadena = $estado . ';' . $modalidad . ';' . $fechaDesde . ';' . $fechaHasta . ';' . $tram . ';' . $tramites . ';' . $tipRe . ';' . $fuenfin . ';' . $lugar . ';' . $codigo;
 
         //  $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $cadena, MCRYPT_MODE_CBC, md5(md5($key))));
+        if ($valueA == 'Administrador')
+            return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total, 'estado' => $estado, 'modalidad' => $modalidad, 'fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta, 'tram' => $tram, 'tramites' => $tramites, 'tipRe' => $tipRe, 'fuenfin' => $fuenfin, 'lugar' => $lugar, 'codigo' => $codigo, 'encript' => $cadena]);
 
-        return back()->with(['result' => $result, 'total' => $total, 'estado' => $estado, 'modalidad' => $modalidad, 'fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta, 'tram' => $tram, 'tramites' => $tramites, 'tipRe' => $tipRe, 'fuenfin' => $fuenfin, 'lugar' => $lugar, 'codigo' => $codigo, 'encript' => $cadena]);
+        if ($valueR == 'Reportes')
+            return view('Reportes/Reporte/Report')->with(['result' => $result, 'total' => $total, 'estado' => $estado, 'modalidad' => $modalidad, 'fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta, 'tram' => $tram, 'tramites' => $tramites, 'tipRe' => $tipRe, 'fuenfin' => $fuenfin, 'lugar' => $lugar, 'codigo' => $codigo, 'encript' => $cadena]);
+
 
     }
 
@@ -632,6 +636,9 @@ class pagoController extends Controller
     //Reporte de pagos, resumen
     public function obtenerPagosresumen(Request $request)
     {
+
+        $valueA = Session::get('tipoCuentaA');
+        $valueR = Session::get('tipoCuentaR');
         if ($request->combito !== 'Escojer') {
             $numero = '';
             $result = null;
@@ -670,7 +677,12 @@ class pagoController extends Controller
                 foreach ($result as $r) {
                     $total += $r->importe;
                 }
-                return view('Administrador/Reporte/reporteresumido')->with(['resultresu' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp, 'tiempo' => $tiempo, 'numero' => $numero]);
+                if ($valueA == 'Administrador')
+                    return view('Administrador/Reporte/reporteresumido')->with(['resultresu' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp, 'tiempo' => $tiempo, 'numero' => $numero]);
+
+                if ($valueR == 'Reportes')
+                    return view('Reportes/Reporte/reporteresumido')->with(['resultresu' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp, 'tiempo' => $tiempo, 'numero' => $numero]);
+
             } elseif ($varOpc == 'Clasificador S.I.A.F') {//Si se escoge Clasificador SIAF
 
                 $tiempo = null;
@@ -697,11 +709,20 @@ class pagoController extends Controller
                 foreach ($result as $r) {
                     $total += $r->precio;
                 }
-                return view('Administrador/Reporte/reporteresumido')->with(['resultsiaf' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp, 'tiempo' => $tiempo, 'numero' => $numero]);
+                if ($valueA == 'Administrador')
+                    return view('Administrador/Reporte/reporteresumido')->with(['resultsiaf' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp, 'tiempo' => $tiempo, 'numero' => $numero]);
+
+                if ($valueR == 'Reportes')
+                    return view('Reportes/Reporte/reporteresumido')->with(['resultsiaf' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp, 'tiempo' => $tiempo, 'numero' => $numero]);
+
 
             }
         } else {
-            return view('Administrador/Reporte/reporteresumido');
+            if ($valueA == 'Administrador')
+                return view('Administrador/Reporte/reporteresumido');
+            if ($valueR == 'Reportes')
+                return view('Reportes/Reporte/reporteresumido');
+
         }
     }
 }

@@ -24,6 +24,7 @@ class Persona extends Migration
             $table -> string('apellidos');
             $table ->string('correo')->unique();
             $table -> boolean('estado')->default('1');
+            $table->timestamps();
 
         });
     }
