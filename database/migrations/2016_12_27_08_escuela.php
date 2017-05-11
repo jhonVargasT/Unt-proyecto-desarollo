@@ -23,10 +23,13 @@ class Escuela extends Migration
             $table ->string('nroCuenta')->unique();
             $table -> boolean('estado')->default('1');
 
+
             $table->integer('codigoFacultad')->unsigned();
+
         });
 
         Schema::table('escuela', function( $table) {
+
             $table->foreign('codigoFacultad')->references('idFacultad')->on('facultad');
         });
     }

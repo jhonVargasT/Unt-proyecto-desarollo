@@ -26,15 +26,13 @@ class Pago extends Migration
             $table ->dateTime('fechaDevolucion')->nullable();
             $table -> boolean('estadodeuda')->default('0');
             
-            //$table->integer('idPersona')->unsigned();
-            $table->integer('codEscuelaPersona')->unsigned();
+            $table->integer('idPersona')->unsigned();
             $table->integer('coPersonal')->unsigned()->nullable();
             $table->integer('idSubtramite')->unsigned();
         });
 
         Schema::table('pago', function( $table) {
-            //$table->foreign('idPersona')->references('codPersona')->on('persona');
-            $table->foreign('codEscuelaPersona')->references('idEscuelaPersona')->on('escuelapersona');
+            $table->foreign('idPersona')->references('codPersona')->on('persona');
             $table->foreign('coPersonal')->references('idPersonal')->on('personal');
             $table->foreign('idSubtramite')->references('codSubtramite')->on('subtramite');
         });
