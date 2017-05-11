@@ -1,18 +1,18 @@
 @extends('Reportes.Body')
 @section('banco')
-    <div id="collapseTwo" class="collapse in">
+    <div id="collapseBanco" class="collapse in">
         <div class="panel-body">
             <table class="table">
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarBanco">Buscar Bancos</a>
+                        <a href="/buscarreBanco"  style="color: #509f0c" target="top" >Buscar cuenta bancaria</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarBanco" style="color: #509f0c" target="_top">Agregar Banco</a>
+                        <span class="fa fa-building-o"></span>
+                        <a href="/agregarreBanco" >Agregar cuenta bancaria</a>
                     </td>
                 </tr>
             </table>
@@ -66,7 +66,7 @@
                 @if(isset($nombre)!=null)
                     <div class="alert alert-success" role="alert">El alumno {{$nombre}} fue actualizada!!</div>
                 @endif
-
+            <br>
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <!--cabecear Tabla-->
@@ -77,6 +77,7 @@
                         <th>
                             <div align="center">Cuenta</div>
                         </th>
+
                     </tr>
                     </thead>
                     <body>
@@ -84,8 +85,8 @@
                         <!--Contenido-->
                         @foreach($banco as $b)
                             <tr>
-                                <td>{{$b->banco}}</td>
-                                <td>{{$b->cuenta}}</td>
+                                <td align="center">{{$b->banco}}</td>
+                                <td align="center">{{$b->cuenta}}</td>
                             </tr>
                         @endforeach
                     @endif

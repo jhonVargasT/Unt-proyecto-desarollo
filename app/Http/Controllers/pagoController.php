@@ -535,6 +535,8 @@ class pagoController extends Controller
     //Buscar pagos, detallado
     public function reportePagos(Request $request)
     {
+        $valueA = Session::get('tipoCuentaA');
+        $valueR = Session::get('tipoCuentaR');
         $sede = new sedemodel();
         $fac = new facultadmodel();
         $esc = new escuelamodel();
@@ -607,7 +609,8 @@ class pagoController extends Controller
 
         //  $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $cadena, MCRYPT_MODE_CBC, md5(md5($key))));
 
-        return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total, 'estado' => $estado, 'modalidad' => $modalidad, 'fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta, 'tram' => $tram, 'tramites' => $tramites, 'tipRe' => $tipRe, 'fuenfin' => $fuenfin, 'lugar' => $lugar, 'codigo' => $codigo, 'encript' => $cadena]);
+        return back()->with(['result' => $result, 'total' => $total, 'estado' => $estado, 'modalidad' => $modalidad, 'fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta, 'tram' => $tram, 'tramites' => $tramites, 'tipRe' => $tipRe, 'fuenfin' => $fuenfin, 'lugar' => $lugar, 'codigo' => $codigo, 'encript' => $cadena]);
+
     }
 
     //Reenviar datos de la boleta de pago a la vista de: RealizarPago

@@ -62,6 +62,8 @@ class donacionController extends Controller
     //Modifica los datos del registro buscado mediante su codigo
     public function editarDonacion($codDonacion, Request $request)
     {
+        $valueA = Session::get('tipoCuentaA');
+        $valueR = Session::get('tipoCuentaR');
         $donacion = new donacionmodel();
         $donacion->setNumResolucion($request->numResolucion);
         $d = $request->fecha;
@@ -75,12 +77,19 @@ class donacionController extends Controller
         $idB = $donacion->obteneridBanco($request->cuenta);//SQL, obtener el id del banco mediante su numero de cuenta
         $donacion->setIdBanco($idB);
         $donacion->editarDonacion($codDonacion);//SQL, actualizar los datos de la donacion y transferencia
-        return view('Administrador/DonacionesYTransacciones/Search')->with(['nombre' => $request->numResolucion]);
+        if($valueA == 'Administrador')
+            return view('Administrador/DonacionesYTransacciones/Search')->with(['nombre' => $request->numResolucion]);
+
+        if($valueR == 'Reportes')
+            return view('Reportes/DonacionesYTransacciones/Search')->with(['nombre' => $request->numResolucion]);
+
     }
 
     //Buscar donaciones y transfencias
     public function listarDonaciones(Request $request)
     {
+        $valueA = Session::get('tipoCuentaA');
+        $valueR = Session::get('tipoCuentaR');
         $tiempo=null;
         $numero = '';
         $result = null;
@@ -110,15 +119,25 @@ class donacionController extends Controller
             foreach ($result as $r) {
                 $total += $r->importe;
             }
-            return view('Administrador/DonacionesYTransacciones/Search')->with(['result' => $result, 'total' => $total, 'fecha' => $tiempo, 'numero' => $numero]);
+            if($valueA == 'Administrador'){
+                return view('Administrador/DonacionesYTransacciones/Search')->with(['result' => $result, 'total' => $total, 'fecha' => $tiempo, 'numero' => $numero]);}
+
+            if($valueR == 'Reportes'){
+                return view('Reportes/DonacionesYTransacciones/Search')->with(['result' => $result, 'total' => $total, 'fecha' => $tiempo, 'numero' => $numero]);}
 
         }
         else{
-            return view('Administrador/DonacionesYTransacciones/Search');
+
+            if($valueA == 'Administrador')
+                return view('Administrador/DonacionesYTransacciones/Search');
+
+            if($valueR == 'Reportes')
+                return view('Reportes/DonacionesYTransacciones/Search');
 
         }
 
     }
+
 
     //Eliminar(cambiar de estado 1 a 0) el registro de donacion y transferencia
     public function eliminarDonacion($codDonacion, Request $request)

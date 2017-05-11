@@ -1,4 +1,4 @@
-@extends('Administrador/Body')
+@extends('Reportes/Body')
 @section('donaciones')
     <div id="collapseSeven" class="collapse in">
         <div class="panel-body">
@@ -6,14 +6,14 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarDonaciones" style="color: #509f0c" target="_top">Buscar Donaciones y
+                        <a href="/repBuscarDonaciones" style="color: #509f0c" target="_top">Buscar Donaciones y
                             transferencias</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarDonaciones">Agregar Donaciones y transaferencias</a>
+                        <a href="/repAgregarDonaciones" >Agregar Donaciones y transaferencias</a>
                     </td>
                 </tr>
             </table>
@@ -145,6 +145,9 @@
                     <th>
                         <div align="center">Importe</div>
                     </th>
+                    <th>
+                        <div align="center">Opciones</div>
+                    </th>
                 </tr>
                 </thead>
                 <body>
@@ -159,6 +162,14 @@
                         <td>{{$d->fechaIngreso}}</td>
                         <td>{{$d->descripcion}}</td>
                         <td>{{$d->importe}}</td>
+                        <td align="center">
+                            {{ csrf_field() }}
+                            <a href="DonacionCargar/{{$d->codigo}}" title="Click para editar"><span
+                                        class="glyphicon glyphicon-pencil"></span> </a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="DonacionEliminar/{{$d->codigo}}" title="Click para eliminar"><span
+                                        class="glyphicon glyphicon-trash"></span> </a>
+                        </td>
                     </tr>
                 @endforeach
                 @endif

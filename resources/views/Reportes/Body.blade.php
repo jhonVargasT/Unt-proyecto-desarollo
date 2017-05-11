@@ -55,7 +55,7 @@
                             <tr>
                                 <td>
                                     <span class="glyphicon fa fa-money"></span>
-                                    <a href="/repBuscarDonaciones">Registrar Donaciones y transferencias</a>
+                                    <a href="/repAgregarDonaciones">Registrar Donaciones y transferencias</a>
                                 </td>
                             </tr>
                         </table>
@@ -77,12 +77,19 @@
                             <tr>
                                 <td>
                                     <span class="glyphicon glyphicon-search"></span>
-                                    <a href="/repBuscarBanco">Buscar Bancos</a>
+                                    <a href="/buscarreBanco">Buscar cuenta bancaria</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="fa fa-building-o"></span>
+                                    <a href="/agregarreBanco">Agregar cuenta bancaria</a>
                                 </td>
                             </tr>
                         </table>
                     </div>
                 </div>
+
             </div>
             <div class="panel panel-primary">
                 <div class="panel-heading">

@@ -312,8 +312,11 @@ Route::get('/repBuscarEstudiante', function () {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-Route::get('/repBuscarBanco', function () {
+Route::get('/buscarreBanco', function () {
     return view('Reportes/Banco/Search');
+});
+Route::get('/agregarreBanco', function () {
+    return view('Reportes/Banco/Add');
 });
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -324,9 +327,11 @@ Route::get('/repBuscarCliente', function () {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/repBuscarDonaciones', function () {
-    return view('Reportes/DonacionYTransacciones/Search');
+    return view('Reportes/DonacionesYTransacciones/Search');
 });
-
+Route::get('/repAgregarDonaciones', function () {
+    return view('Reportes/DonacionesYTransacciones/Add');
+});
 ////////////////////////////////////////////Escuela/////////////////////////////////////////////////////////////////////
 
 Route::get('/repBuscarEscuela', function () {
