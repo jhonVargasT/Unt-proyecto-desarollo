@@ -33,15 +33,34 @@ Route::get('/admRegistrarEstudiante', function () {
     return view('Administrador/Alumno/Add');
 });
 
+Route::get('/admRegistrarEstudianteProduccion', function () {
+    return view('Administrador/Alumno/AddP');
+});
+
+Route::get('/admBuscarEstudianteProduccion', function () {
+    return view('Administrador/Alumno/SearchP');
+});
+
+
 Route::get('/admBuscarEstudiante', function () {
     return view('Administrador/Alumno/Search');
 });
 
 Route::resource('AlumnoRegistrado', 'alumnoController@registrarAlumno');
+Route::resource('AlumnoRegistradoP', 'alumnoController@registrarAlumnoProduccion');
+
 Route::resource('AlumnosBuscados', 'alumnoController@listarAlumno');
+Route::resource('AlumnosBuscadosP', 'alumnoController@listarAlumnoP');
+
 Route::resource('AlumnoCargar', 'alumnoController@cargarAlumno');
+Route::resource('AlumnoCargarP', 'alumnoController@cargarAlumnoP');
+
 Route::get('AlumnoEditado/{codPersona}', 'alumnoController@editarAlumno');
+Route::get('AlumnoEditadoP/{codPersona}', 'alumnoController@editarAlumnoP');
+
 Route::get('AlumnoEliminar/{codPersona}', 'alumnoController@eliminarAlumno');
+Route::get('AlumnoEliminarP/{codPersona}', 'alumnoController@eliminarAlumnoP');
+
 
 ///////////////////////////////////////CLIENTE//////////////////////////////////////////////////////////////////////////
 
@@ -101,6 +120,22 @@ Route::resource('EscuelasBuscadas', 'escuelaController@listarEscuela');
 Route::resource('EscuelaCargar', 'escuelaController@cargarEscuela');
 Route::get('EscuelaEditada/{idEscuela}', 'escuelaController@editarEscuela');
 Route::get('EscuelaEliminar/{idEscuela}', 'escuelaController@eliminarEscuela');
+
+////////////////////////////////////////////Produccion//////////////////////////////////////////////////////////////////////
+
+Route::get('/admRegistrarProduccion', function () {
+    return view('Administrador/Produccion/Add');
+});
+Route::get('/admBuscarProduccion', function () {
+    return view('Administrador/Produccion/search');
+});
+
+Route::resource('ProduccionRegistrado', 'produccionController@registrarProduccion');
+Route::resource('ProduccionBuscadas', 'produccionController@listarProduccion');
+Route::resource('ProduccionCargar', 'produccionController@cargarProduccion');
+Route::get('ProduccionEditado/{codProduccion}', 'produccionController@editarProduccion');
+Route::get('ProduccionEliminar/{codProduccion}', 'produccionController@eliminarProduccion');
+
 
 
 ////////////////////////////////// Facultad //////////////////////////////////////////////////////////////////////////////////////
@@ -279,7 +314,10 @@ Route::get('autocompletee', array('as' => 'autocompletee', 'uses' => 'escuelaCon
 Route::get('autocompletet', array('as' => 'autocompletet', 'uses' => 'donacionController@autocompletet'));
 Route::get('autocompletes', array('as' => 'autocompletes', 'uses' => 'pagoController@autocompletes'));
 Route::get('autocompletesede', array('as' => 'autocompletesede', 'uses' => 'facultadController@autocompletesede'));
+Route::get('autocompleteprod', array('as' => 'autocompleteprod', 'uses' => 'produccionController@autocompleteprod'));
 Route::get('escuela', array('as' => 'escuela', 'uses' => 'alumnoController@escuela'));
+
+Route::get('/buscarAlumno', 'alumnoController@buscarAlumno');
 
 Route::get('searchajax',array('as'=>'searchajax','uses'=>'alumnoController@autoComplete'));
 Route::get('searchsedeescuela',array('as'=>'searchsedeescuela','uses'=>'escuelaController@autoCompleteEscuelaSede'));
@@ -312,11 +350,8 @@ Route::get('/repBuscarEstudiante', function () {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-Route::get('/buscarreBanco', function () {
+Route::get('/repBuscarBanco', function () {
     return view('Reportes/Banco/Search');
-});
-Route::get('/agregarreBanco', function () {
-    return view('Reportes/Banco/Add');
 });
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -6,13 +6,13 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarEstudiante" style="color: #509f0c" target="_top">Buscar Estudiantes</a>
+                        <a href="/admBuscarEstudiante">Buscar Estudiantes</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarEstudianteProduccion" >Buscar Estudiantes
+                        <a href="/admBuscarEstudianteProduccion" style="color: #509f0c" target="_top">Buscar Estudiantes
                             Produccion</a>
                     </td>
                 </tr>
@@ -25,7 +25,7 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarEstudianteProduccion" >Agregar Estudiante
+                        <a href="/admRegistrarEstudianteProduccion">Agregar Estudiante
                             Produccion</a>
                     </td>
                 </tr>
@@ -40,21 +40,22 @@
     @if(session()->has('false'))
         <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
     @endif
-    <div class="panel-heading"><h3>Buscar Alumnos</h3></div>
+    <div class="panel-heading"><h3>Buscar Alumnos Produccion</h3></div>
     <div style="background-color: #FFFFFF">
 
         <div class="panel-body">
-            <form name="form" action="{{url('AlumnosBuscados')}}" role="form" method="POST" class="Vertical">
+            <form name="form" action="{{url('AlumnosBuscadosP')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
                 <div class=" row ">
                     <div class="form-group-sm col-sm-2 ">
                         <span class="ontrol-label">Buscar por:</span>
                         <select class=" form-control" name="select">
+                            <option selected>Todo</option>
                             <option>Dni</option>
                             <option>Apellidos</option>
                             <option>Codigo alumno</option>
-                            <option>Escuela</option>
-                            <option>Facultad</option>
+                            <option>Fecha matricula</option>
+                            <option>Centro produccion</option>
                         </select>
                     </div>
                     <div class="form-group-sm col-sm-8">
@@ -118,10 +119,10 @@
                                 <td>{{$a->fecha}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}
-                                    <a href="AlumnoCargar/{{$a->codPersona}}"><span
+                                    <a href="AlumnoCargarP/{{$a->codPersona}}"><span
                                                 class="glyphicon glyphicon-pencil"></span> </a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="AlumnoEliminar/{{$a->codPersona}}"><span
+                                    <a href="AlumnoEliminarP/{{$a->codPersona}}"><span
                                                 class="glyphicon glyphicon-trash"></span> </a>
                                 </td>
                             </tr>

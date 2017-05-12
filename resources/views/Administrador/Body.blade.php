@@ -9,6 +9,34 @@
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseProduccion">
+                                <span class="fa fa-building-o">
+                            </span> Centro Produccion</a>
+                        </h4>
+                    </div>
+                    @yield('produccion')
+                    <div id="collapseProduccion" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-search"></span>
+                                        <a href="/admBuscarProduccion">Buscar Centro de Produccion</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                        <a href="/admRegistrarProduccion">Agregar Centro de Produccion</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                                     <span class="fa fa-pie-chart">
                                     </span> Reportes</a>
@@ -20,7 +48,6 @@
                             <table class="table">
                                 <tr>
                                     <td>
-
                                         <a href="/admReportres"><span class="glyphicon glyphicon-book"></span> Reporte
                                             Resumido</a>
                                     </td>
@@ -67,13 +94,13 @@
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseEs">
                                 <span class="glyphicon glyphicon-user">
                             </span> Estudiantes</a>
                         </h4>
                     </div>
                     @yield('estudiante')
-                    <div id="collapseTwo" class="panel-collapse collapse">
+                    <div id="collapseEs" class="panel-collapse collapse">
                         <div class="panel-body">
                             <table class="table">
                                 <tr>
@@ -84,15 +111,27 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        <span class="glyphicon glyphicon-search"></span>
+                                        <a href="/admBuscarEstudianteProduccion">Buscar Estudiantes
+                                            Produccion</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
                                         <span class="glyphicon glyphicon-plus"></span>
                                         <a href="/admRegistrarEstudiante">Agregar Estudiante</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                        <a href="/admRegistrarEstudianteProduccion">Agregar Estudiante Produccion</a>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                     </div>
                 </div>
-
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">

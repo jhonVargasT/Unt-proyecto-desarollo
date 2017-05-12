@@ -37,9 +37,6 @@
                     document.getElementById('opc').innerHTML("<input class='form-control input-sm' type='text' @if(isset($fecha) ) value='{{$fecha}}' @endif name='fecha' required> ");
                 }
             }
-            function validarMenu() {
-                
-            }
         </script>
         <div class="panel-heading"><h3>Reporte Pagos</h3></div>
         <div style="background-color: #FFFFFF">
@@ -145,7 +142,7 @@
                                         </th>
                                         <th>
                                             <div align="center">
-                                                CODIGO DE TASA
+                                                UENTA
                                             </div>
                                         </th>
 
@@ -174,7 +171,7 @@
                                         <tr>
                                             <td><h6 align="center">{{$r->clasificadorsiaf}}</h6></td>
                                             <td><h6 align="left">{{$r->nombreTramite}}</h6></td>
-                                            <td><h6 align="center">{{$r->codigoSubtramite }}</h6></td>
+                                            <td><h6 align="center">{{$r->cuenta }}</h6></td>
                                             <td><h6 align="left">{{$r->nombresubtramite}}</h6></td>
                                             <td><h6 align="center">{{$r-> precio}}</h6></td>
                                             <td><h6 align="center">{{$r->nurPagos }}</h6></td>

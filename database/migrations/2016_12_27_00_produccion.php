@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Sede extends Migration
+class Produccion extends Migration
 {
     /**
      * Run the migrations.
@@ -14,17 +14,16 @@ class Sede extends Migration
     public function up()
     {
         //
-        Schema::create('sede', function (Blueprint $table)
-        {
+        Schema::create('produccion', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table ->increments('codSede')->unique();
-            $table ->string('nombresede')->unique();
-            $table ->string('codigosede')->unique();
-            $table ->string('direccion')->unique();
-            $table ->boolean('estado')->default('1');
+            $table->increments('codProduccion')->unique();
+            $table->string('nombre')->unique();
+            $table->string('direccion')->unique();
+            $table->boolean('estado')->default('1');
         });
     }
+
     /**
      * Reverse the migrations.
      *
@@ -33,6 +32,6 @@ class Sede extends Migration
     public function down()
     {
         //
-        Schema::drop('sede');
+        Schema::drop('produccion');
     }
 }

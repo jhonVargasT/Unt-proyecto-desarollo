@@ -13,7 +13,7 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/repAgregarDonaciones" >Agregar Donaciones y transaferencias</a>
+                        <a href="/repAgregarDonaciones">Agregar Donaciones y transaferencias</a>
                     </td>
                 </tr>
             </table>
