@@ -431,27 +431,27 @@ Route::get('/boletavirtual', function () {
 Route::get('/impSedes', function () {
     return view('Importaciones/Importacion/Sede');
 });
-Route::get('/importSedes','excelControler@importExcelSede');
+Route::resource('/importSedes','excelController@importExcelSede');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/impFacultades', function () {
     return view('Importaciones/Importacion/Facultad');
 });
-Route::get('/importFacultades','excelControler@importExcelFacultad');
+Route::resource('/importFacultades','excelController@importExcelFacultad');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/impEscuelas', function () {
     return view('Importaciones/Importacion/Escuela');
 });
-Route::get('/importEscuelas','excelControler@importExcelEscuela');
+Route::resource('/importEscuelas','excelController@importExcelEscuela');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/impAlumnos', function () {
     return view('Importaciones/Importacion/Alumno');
 });
-Route::get('/importAlumnos','excelControler@importExcelAlumno');
+Route::resource('/importAlumnos','excelController@importExcelAlumno');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

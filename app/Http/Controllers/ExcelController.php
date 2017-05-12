@@ -625,13 +625,9 @@ class ExcelController extends Controller
                             $sede->setNombreSede($v['sede']);
                             $sede->setCodigoSede($v['codigo']);
                             $sede->setDireccion($v['direccion']);
-                            $val = $sede->save();
+                            $sede->save();
                         }
-                        if ($val == true) {
-                            return back()->with('true', 'Guardada con exito')->withInput();
-                        } else {
-                            return back()->with('false', 'No guardada');
-                        }
+                        return back()->with('true', 'Se subio el archivo')->withInput();
                     }
                 }
             }
@@ -655,13 +651,11 @@ class ExcelController extends Controller
                             $facultad->setNombre($v['facultad']);
                             $facultad->setCodFacultad($v['codigo']);
                             $facultad->setNroCuenta($v['cuenta']);
+                            $codsede = $facultad->bscSedeId($v['sede']);//SQL, buscar id de la sede por su nombre
+                            $facultad->setCodSede($codsede);
                             $facultad->save();
                         }
-                        if ($val == true) {
-                            return back()->with('true', 'Guardada con exito')->withInput();
-                        } else {
-                            return back()->with('false', 'No guardada');
-                        }
+                        return back()->with('true', 'Se subio el archivo')->withInput();
                     }
                 }
             }
@@ -685,13 +679,11 @@ class ExcelController extends Controller
                             $escuela->setNombre($v['escuela']);
                             $escuela->setCodEscuela($v['codigo']);
                             $escuela->setNroCuenta($v['cuenta']);
+                            $coF = $escuela->buscarFacultad($v['facultad'], $v['sede']);
+                            $escuela->setFacultad($coF);
                             $escuela->saveescuela();
                         }
-                        if ($val == true) {
-                            return back()->with('true', 'Guardada con exito')->withInput();
-                        } else {
-                            return back()->with('false', 'No guardada');
-                        }
+                        return back()->with('true', 'Se subio el archivo')->withInput();
                     }
                 }
             }
