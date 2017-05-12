@@ -35,7 +35,7 @@
             @endif
             <form name="form" action="{{url('PersonalRegistrado')}}" role="form" method="POST" class="Vertical">
                 {{csrf_field()}}
-                <div class="panel panel-default">
+                <div class="panel  panel-primary">
                     <div class="panel-heading">Datos Sede</div>
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-default">
+                <div class="panel  panel-primary">
                     <div class="panel-heading">Datos persona</div>
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
@@ -101,7 +101,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-default">
+                <div class="panel  panel-primary">
                     <div class="panel-heading">Datos usuario</div>
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">

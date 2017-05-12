@@ -11,7 +11,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <a href="/admReportes" style="color: #509f0c" target="_top"> <span
+                        <a href="/admReportes"> <span
                                     class="glyphicon glyphicon-list-alt"></span> Reporte pagos
                             detallado</a>
                     </td>
@@ -26,6 +26,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
     <script type="text/javascript">
 
 
@@ -35,7 +36,7 @@
                 document.getElementById("ff").required = true;
             } else if (value == false) {
                 document.getElementById("ff").readOnly = true;
-                document.getElementById("ff").value= '';
+                document.getElementById("ff").value = '';
             }
         }
         function habilitartr(value) {
@@ -71,7 +72,7 @@
                 document.getElementById("sede").readOnly = true;
                 document.getElementById("sed").value = '';
                 document.getElementById("fac").value = '';
-                document.getElementById("sede").value= '';
+                document.getElementById("sede").value = '';
 
 
             }
@@ -103,11 +104,11 @@
             }
         }
     </script>
-    <div class=" panel-heading"><h3>Reporte Pagos</h3></div>
+    <div class=" panel-heading"><h3>Reporte centro de produccion</h3></div>
     <div style="background-color: #FFFFFF">
         <div class="panel-body">
             <div class="panel-body form-group ">
-                <form id="miform" action="{{'reportePago'}}" role="form" method="POST" class="Vertical">
+                <form id="miform" action="{{'reporteProduccion'}}" role="form" method="POST" class="Vertical">
                     <input type="hidden" name="_token" value="{{csrf_token() }}"/>
                     <div class=" row ">
                         <div class="form-group-sm col-sm-2 ">
@@ -204,7 +205,7 @@
                     <div class="row  ">
                         <div class="form-group-sm col-sm-2 ">
                             <input type="checkbox" id="sed" onclick="habilitarsed(this.checked)">
-                            Sede
+                            Centro de produccion
                             @if(isset($sede))
                                 <input class="typeaheads form-control " name="sed" value="{{$sede}}" id="sede"
                                        autocomplete="off" readonly>
@@ -223,81 +224,6 @@
                                 });
                             </script>
                         </div>
-                        <div class="form-group-sm col-sm-2 ">
-                            <input type="checkbox" id="cfac" onclick="habilitarfac(this.checked)">
-                            facultad
-                            @if(isset($fac))
-                                <input class="form-control " name="fac" id="fac"
-                                       value="{{$fac}}" readOnly>
-                            @else
-                                <input class="form-control " name="fac" id="fac"
-                                       readOnly>
-                            @endif
-                            <script>
-                                src = "{{ route('searchF') }}";
-                                $('#fac').autocomplete({
-                                    source: function (request, response) {
-                                        $.ajax({
-                                            url: src,
-                                            type: 'get',
-                                            dataType: "json",
-                                            data: {
-                                                term: $('#fac').val(),
-                                                sede: $('#sede').val()
-                                            },
-                                            success: function (data) {
-                                                response(data);
-                                            }
-                                        });
-                                    },
-                                    min_length: 1
-                                });
-                            </script>
-                        </div>
-                        <div class="form-group-sm col-sm-2">
-                            <input type="checkbox" id="cesc" onclick=" habilitaresc(this.checked)">
-                            Escuela
-                            @if(isset($esc))
-                                <input class="typeahead form-control " name="esc" id="esc" autocomplete="off"
-                                       value="{{$esc}}" readOnly>
-                            @else
-                                <input class="typeahead form-control " name="esc" id="esc" autocomplete="off"
-                                       readOnly>
-                            @endif
-                            <script>
-                                srcE = "{{ route('searchE') }}";
-                                $('#esc').autocomplete({
-                                    source: function (requestE, responseE) {
-                                        $.ajax({
-                                            url: srcE,
-                                            type: 'get',
-                                            dataType: "json",
-                                            data: {
-                                                term: $('#esc').val(),
-                                                facultad: $('#fac').val()
-                                            },
-                                            success: function (dataE) {
-                                                responseE(dataE);
-                                            }
-                                        });
-                                    },
-                                    min_length: 1
-                                });
-                            </script>
-                        </div>
-                        <div class="form-group-sm col-sm-2">
-                            <input type="checkbox" onclick=" habilitartr(this.checked)">
-                            Tipo de recurso
-                            <input type="text" class="form-control input-sm " id="trinp" name="tr"
-                                   autocomplete="off"
-                                   readOnly>
-                        </div>
-                        <div class="form-group-sm col-sm-2">
-                            <input type="checkbox" onclick="habilitarff(this.checked)">
-                            Fuente de fina
-                            <input type="text" class="form-control input-sm " id="ff" name="fuf"
-                                   autocomplete="off" readOnly>
-                        </div>
                     </div>
                     <br>
                     <div class="row">
@@ -313,6 +239,7 @@
 
                         </div>
                     </div>
+
                 </form>
                 <!--Tabla-->
 
@@ -330,99 +257,99 @@
                 <div class="table-responsive col-sm-12">
                     <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 
-                            <thead align="center">
-                            <!--cabecear Tabla-->
-                            <tr >
+                        <thead align="center">
+                        <!--cabecear Tabla-->
+                        <tr>
 
-                                <th>
-                                    <div align="center">
-                                        <small>ID</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>MODALIDAD</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>SEDE</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>FACULTAD</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>ESCUELA</small>
-                                    </div>
-                                </th>
+                            <th>
+                                <div align="center">
+                                    <small>ID</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>MODALIDAD</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>SEDE</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>FACULTAD</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>ESCUELA</small>
+                                </div>
+                            </th>
 
-                                <th>
-                                    <div align="center">
-                                        <small>CLASIFICADOR S.I.A.F</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>FUE FIN</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>TIP REC</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>CLASIFICADOR</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>TASA</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>FECHA</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>PRECIO</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>DETALLE</small>
-                                    </div>
-                                </th>
+                            <th>
+                                <div align="center">
+                                    <small>CLASIFICADOR S.I.A.F</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>FUE FIN</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>TIP REC</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>CLASIFICADOR</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>TASA</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>FECHA</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>PRECIO</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>DETALLE</small>
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @if(isset($result))
+                                <!--Contenido-->
+                        @foreach($result as $r)
+                            <tr>
+                                <td><h6 align="center">{{$r->codigopago}}</h6></td>
+                                <td><h6 align="left">{{$r->modalidad}}</h6></td>
+                                <td><h6 align="left">{{$r->nombresede}}</h6></td>
+                                <td><h6 align="left">{{$r->nombrefacultad}}</h6></td>
+                                <td><h6 align="left">{{$r->nombreescuela}}</h6></td>
+                                <td><h6 align="left">{{$r->clasi}}</h6></td>
+                                <td><h6 align="center">{{$r->fuentefinanc}}</h6></td>
+                                <td><h6 align="center">{{$r->tiporecurso }}</h6></td>
+                                <td><h6 align="left">{{$r-> nombretramite}}</h6></td>
+                                <td><h6 align="left">{{$r->nombresubtramite }}</h6></td>
+                                <td><h6 align="left">{{$r->fechapago}}</h6></td>
+                                <td><h6 align="center">{{$r->precio}}</h6></td>
+                                <td><h6 align="left">{{$r->pagodetalle}}</h6></td>
                             </tr>
-                            </thead>
-                            <tbody>
-                            @if(isset($result))
-                            <!--Contenido-->
-                            @foreach($result as $r)
-                                <tr>
-                                    <td><h6 align="center">{{$r->codigopago}}</h6></td>
-                                    <td><h6 align="left">{{$r->modalidad}}</h6></td>
-                                    <td><h6 align="left">{{$r->nombresede}}</h6></td>
-                                    <td><h6 align="left">{{$r->nombrefacultad}}</h6></td>
-                                    <td><h6 align="left">{{$r->nombreescuela}}</h6></td>
-                                    <td><h6 align="left">{{$r->clasi}}</h6></td>
-                                    <td><h6 align="center">{{$r->fuentefinanc}}</h6></td>
-                                    <td><h6 align="center">{{$r->tiporecurso }}</h6></td>
-                                    <td><h6 align="left">{{$r-> nombretramite}}</h6></td>
-                                    <td><h6 align="left">{{$r->nombresubtramite }}</h6></td>
-                                    <td><h6 align="left">{{$r->fechapago}}</h6></td>
-                                    <td><h6 align="center">{{$r->precio}}</h6></td>
-                                    <td><h6 align="left">{{$r->pagodetalle}}</h6></td>
-                                </tr>
-                            </tbody>
-                            @endforeach
+                        </tbody>
+                        @endforeach
                         @endif
                     </table>
                 </div>

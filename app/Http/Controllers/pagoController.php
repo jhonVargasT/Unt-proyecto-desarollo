@@ -633,6 +633,11 @@ class pagoController extends Controller
             'facultad' => $facultad, 'detalle' => $detalle, 'fecha' => $fecha]);
     }
 
+    public function  reporteCentrosDeProduccion(Request $request)
+    {
+        echo 'asdasd';
+    }
+
     //Reporte de pagos, resumen
     public function obtenerPagosresumen(Request $request)
     {

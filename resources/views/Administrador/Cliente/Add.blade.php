@@ -32,7 +32,7 @@
             @endif
             <form name="form" action="{{url('ClienteRegistrado')}}" role="form" method="POST" class="Horizontal">
                 {{csrf_field()}}
-                <div class="panel panel-default">
+                <div class="panel  panel-primary">
                     <div class="panel-heading">Datos persona</div>
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
@@ -73,7 +73,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-default">
+                <div class="panel  panel-primary">
                     <div class="panel-heading">Datos cliente</div>
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">

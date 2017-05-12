@@ -15,6 +15,7 @@
                             detallado</a>
                     </td>
                 </tr>
+
             </table>
         </div>
     </div>

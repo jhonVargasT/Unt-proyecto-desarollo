@@ -178,6 +178,7 @@ Route::get('/admReportres', function () {
 Route::resource('reportePago','pagoController@reportePagos');
 Route::resource('admReporteresumido', 'pagoController@obtenerPagosresumen');
 
+Route::resource('reporteProduccion', 'pagoController@reporteCentrosDeProduccion');
 //////////////////////////////////SEDE//////////////////////////////////////////////////////////////////////////////////
 Route::get('/admRegistrarSede', function () {
     return view('Administrador/Sede/Add');
@@ -369,6 +370,9 @@ Route::get('/repReportes', function () {
 });
 Route::get('/repReportesResumido', function () {
     return view('Reportes/Reporte/reporteresumido');
+});
+Route::get('/reporteProduccion', function () {
+    return view('Administrador/Reporte/ReporteProduccion');
 });
 //////////////////////////////////SEDE//////////////////////////////////////////////////////////////////////////////////
 
