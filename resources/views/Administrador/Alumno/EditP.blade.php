@@ -104,13 +104,13 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
-                                    <span class="control-label">Sede</span>
+                                    <span class="control-label">Centro Produccion</span>
                                     <input class="typeahead form-control" type="text"
-                                           placeholder="Ejm: Trujillo" name="nombreSede" id="ns"
+                                           placeholder="Ejm: UNT" name="produccion"
                                            onkeypress="return validarLetras(event)" autocomplete="off" required
-                                           value="{{$a->nombresede}}">
+                                           value="{{$a->nombre}}">
                                     <script type="text/javascript">
-                                        var paths = "{{ route('autocompletesede')}}";
+                                        var paths = "{{ route('autocompleteprod')}}";
                                         $('input.typeahead').typeahead({
                                             source: function (querys, processe) {
                                                 return $.get(paths, {query: querys}, function (datas) {
@@ -119,67 +119,16 @@
                                             }
                                         });
                                     </script>
-
-                                </div>
-                                <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
-                                    <span class="control-label">Escuela</span>
-
-                                    <input class="form-control input-sm" type="text"
-                                           placeholder="Ejm: Mecanica" name="nombreEscuela" id="ne"
-                                           onkeypress="return validarLetras(event)" required value="{{$a->enombre}}">
-                                    <script>
-                                        src = "{{ route('searchajax') }}";
-                                        $("#ne").autocomplete({
-                                            source: function (request, response) {
-                                                $.ajax({
-                                                    url: src,
-                                                    type: 'get',
-                                                    dataType: "json",
-                                                    data: {
-                                                        term: $('#ne').val(),
-                                                        sede: $('#ns').val()
-                                                    },
-                                                    success: function (data) {
-                                                        response(data);
-                                                    }
-                                                });
-                                            },
-                                            min_length: 3
-                                        });
-                                    </script>
-                                </div>
-                                <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
-                                    <span class="control-label">Facultad</span>
-                                    <input class="form-control input-sm" name=" " type="text" id="f" readonly value="{{$a->fnombre}}">
-                                    <script>
-                                        $('#ne').change(function () {
-                                            $.ajax({
-                                                url: '/facultad',
-                                                type: "get",
-                                                data: {name: $('#ne').val()},
-                                                success: function (data) {
-                                                    $('#f').val(data);
-                                                }
-                                            });
-                                        });
-                                    </script>
-                                    <script>
-                                        $('#ns').on('input', function () {
-                                            if ($(this).val().length)
-                                                $('#ne').prop('disabled', false);
-                                            else
-                                                $('#ne').prop('disabled', true);
-                                        });
-                                    </script>
                                 </div>
                             </div>
+                            <div class=" row "></div>
                             <div class=" row ">
                                 <div class="col-md-3"></div>
                                 <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
                                             class="glyphicon glyphicon-ban-circle"></span>
                                     Regresar
                                 </a>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                 </div>
                                 <div>
                                     <button href="" type="submit" name="enviar"

@@ -20,7 +20,7 @@
     </div>
 @stop
 @section('content')
-
+    @if( Session::has('tipoCuentaR'))
         <script type="text/javascript">
             $(document).ready(function () {
                 $(".contenido").hide();
@@ -36,11 +36,6 @@
                     document.getElementById('opc').innerHTML("<input class='form-control input-sm' type='text' @if(isset($fecha) ) value='{{$fecha}}' @endif name='fecha' required> ");
                 }
             }
-            
-            function validarCampos() {
-                
-            }
-            
         </script>
         <div class="panel-heading"><h3>Reporte Pagos</h3>
             <div style="background-color: #FFFFFF">
@@ -147,7 +142,7 @@
                                             </th>
                                             <th>
                                                 <div align="center">
-                                                    CODIGO DE TASA
+                                                    UENTA
                                                 </div>
                                             </th>
 
@@ -176,7 +171,7 @@
                                             <tr>
                                                 <td><h6 align="center">{{$r->clasificadorsiaf}}</h6></td>
                                                 <td><h6 align="left">{{$r->nombreTramite}}</h6></td>
-                                                <td><h6 align="center">{{$r->codigoSubtramite  }}</h6></td>
+                                                <td><h6 align="center">{{$r->cuenta }}</h6></td>
                                                 <td><h6 align="left">{{$r->nombresubtramite}}</h6></td>
                                                 <td><h6 align="center">{{$r-> precio}}</h6></td>
                                                 <td><h6 align="center">{{$r->nurPagos }}</h6></td>
@@ -285,5 +280,61 @@
                 </div>
             </div>
         </div>
-
+    @else
+        @include("index")
+    @endif
 @stop
+@section('scripts')
+    <script type="text/javascript">
+
+        function habilitarff(value) {
+            if (value == true) {
+                document.getElementById("ff").disabled = false;
+            } else if (value == false) {
+                document.getElementById("ff").disabled = true;
+            }
+        }
+        function habilitartr(value) {
+            if (value == true) {
+                document.getElementById("trinp").disabled = false;
+            } else if (value == false) {
+                document.getElementById("trinp").disabled = true;
+            }
+        }
+        function habilitarsed(value) {
+            if (value == true) {
+                document.getElementById("sede").disabled = false;
+            } else if (value == false) {
+                document.getElementById("sede").disabled = true;
+            }
+        }
+        function habilitarfac(value) {
+
+            if (value == true) {
+                document.getElementById("sed").checked = true;
+                document.getElementById("fac").disabled = false;
+                document.getElementById("sede").disabled = false;
+            } else if (value == false) {
+                document.getElementById("sed").checked = false;
+                document.getElementById("fac").disabled = true;
+                document.getElementById("sede").disabled = true;
+            }
+        }
+        function habilitaresc(value) {
+            if (value == true) {
+                document.getElementById("sed").checked = true;
+                document.getElementById("cfac").checked = true;
+                document.getElementById("fac").disabled = false;
+                document.getElementById("sede").disabled = false;
+                document.getElementById("esc").disabled = false;
+            } else if (value == false) {
+                document.getElementById("sed").checked = false;
+                document.getElementById("cfac").checked = false;
+                document.getElementById("esc").disabled = true;
+                document.getElementById("fac").disabled = true;
+                document.getElementById("sede").disabled = true;
+            }
+        }
+    </script>
+
+@endsection

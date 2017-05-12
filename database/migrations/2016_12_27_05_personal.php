@@ -27,7 +27,6 @@ class Personal extends Migration
 
             $table->integer('idPersona')->unsigned();
             $table->integer('idSede')->unsigned();
-            $table->timestamps();
 
         });
 

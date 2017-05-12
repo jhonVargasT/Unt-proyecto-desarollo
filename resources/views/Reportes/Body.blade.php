@@ -77,19 +77,12 @@
                             <tr>
                                 <td>
                                     <span class="glyphicon glyphicon-search"></span>
-                                    <a href="/buscarreBanco">Buscar cuenta bancaria</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="fa fa-building-o"></span>
-                                    <a href="/agregarreBanco">Agregar cuenta bancaria</a>
+                                    <a href="/repBuscarBanco">Buscar Bancos</a>
                                 </td>
                             </tr>
                         </table>
                     </div>
                 </div>
-
             </div>
             <div class="panel panel-primary">
                 <div class="panel-heading">

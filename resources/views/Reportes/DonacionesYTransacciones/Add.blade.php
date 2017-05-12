@@ -6,14 +6,14 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/repBuscarDonaciones">Buscar Donaciones y
+                        <a href="/repBuscarDonaciones" >Buscar Donaciones y
                             transferencias</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/repAgregarDonaciones"  style="color: #509f0c" target="_top" >Agregar Donaciones y transaferencias</a>
+                        <a href="/repAgregarDonaciones" style="color: #509f0c" target="_top">Agregar Donaciones y transaferencias</a>
                     </td>
                 </tr>
             </table>

@@ -112,6 +112,7 @@
                                                 <option>Administrador</option>
                                                 <option>Ventanilla</option>
                                                 <option>Reportes</option>
+                                                <option>Importador</option>
                                             </select>
                                         </div>
                                     </div>

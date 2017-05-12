@@ -23,7 +23,6 @@ class Tramite extends Migration
             $table->string('fuentefinanc')->nullable();
             $table->char('tipoRecurso')->nullable();
             $table->boolean('estado')->default('1');
-            $table->timestamps();
         });
     }
 

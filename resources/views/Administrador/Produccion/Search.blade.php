@@ -1,31 +1,18 @@
 @extends('Administrador.Body')
-@section('estudiante')
+@section('produccion')
     <div id="collapseTwo" class="collapse in">
         <div class="panel-body">
             <table class="table">
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarEstudiante" style="color: #509f0c" target="_top">Buscar Estudiantes</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarEstudianteProduccion" >Buscar Estudiantes
-                            Produccion</a>
+                        <a href="/admBuscarProduccion" style="color: #509f0c" target="_top">Buscar Centro de Produccion</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarEstudiante">Agregar Estudiante</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarEstudianteProduccion" >Agregar Estudiante
+                        <a href="/admRegistrarProduccion">Agregar Centro de
                             Produccion</a>
                     </td>
                 </tr>
@@ -40,21 +27,19 @@
     @if(session()->has('false'))
         <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
     @endif
-    <div class="panel-heading"><h3>Buscar Alumnos</h3></div>
+    <div class="panel-heading"><h3>Buscar Centros de Produccion</h3></div>
     <div style="background-color: #FFFFFF">
 
         <div class="panel-body">
-            <form name="form" action="{{url('AlumnosBuscados')}}" role="form" method="POST" class="Vertical">
+            <form name="form" action="{{url('ProduccionBuscadas')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
                 <div class=" row ">
                     <div class="form-group-sm col-sm-2 ">
                         <span class="ontrol-label">Buscar por:</span>
                         <select class=" form-control" name="select">
-                            <option>Dni</option>
-                            <option>Apellidos</option>
-                            <option>Codigo alumno</option>
-                            <option>Escuela</option>
-                            <option>Facultad</option>
+                            <option selected>Todo</option>
+                            <option>Nombre</option>
+                            <option>Direccion</option>
                         </select>
                     </div>
                     <div class="form-group-sm col-sm-8">
@@ -87,19 +72,10 @@
                     <!--cabecear Tabla-->
                     <tr>
                         <th>
-                            <div align="center">Dni</div>
+                            <div align="center">Nombre</div>
                         </th>
                         <th>
-                            <div align="center">Nombres y apellidos</div>
-                        </th>
-                        <th>
-                            <div align="center">Correo</div>
-                        </th>
-                        <th>
-                            <div align="center">Codigo alumno</div>
-                        </th>
-                        <th>
-                            <div align="center">Fecha de matricula</div>
+                            <div align="center">Direccion</div>
                         </th>
                         <th>
                             <div align="center">Opciones</div>
@@ -107,21 +83,18 @@
                     </tr>
                     </thead>
                     <body>
-                    @if(isset($alumno))
+                    @if(isset($produccion))
                         <!--Contenido-->
-                        @foreach($alumno as $a)
+                        @foreach($produccion as $p)
                             <tr>
-                                <td>{{$a->dni}}</td>
-                                <td>{{$a->nombres}} {{$a->apellidos}}</td>
-                                <td>{{$a->correo}}</td>
-                                <td>{{$a->codAlumno}}</td>
-                                <td>{{$a->fecha}}</td>
+                                <td>{{$p->nombre}}</td>
+                                <td>{{$p->direccion}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}
-                                    <a href="AlumnoCargar/{{$a->codPersona}}"><span
+                                    <a href="ProduccionCargar/{{$p->codProduccion}}"><span
                                                 class="glyphicon glyphicon-pencil"></span> </a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="AlumnoEliminar/{{$a->codPersona}}"><span
+                                    <a href="ProduccionEliminar/{{$p->codProduccion}}"><span
                                                 class="glyphicon glyphicon-trash"></span> </a>
                                 </td>
                             </tr>

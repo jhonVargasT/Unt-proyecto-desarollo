@@ -24,7 +24,6 @@ class Logunt extends Migration
             $table -> boolean('estado')->default('1');
 
             $table->integer('codigoPersonal')->unsigned();
-            $table->timestamps();
         });
 
         Schema::table('logunt', function( $table) {

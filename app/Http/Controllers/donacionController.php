@@ -119,25 +119,21 @@ class donacionController extends Controller
             foreach ($result as $r) {
                 $total += $r->importe;
             }
-            if($valueA == 'Administrador'){
-                return view('Administrador/DonacionesYTransacciones/Search')->with(['result' => $result, 'total' => $total, 'fecha' => $tiempo, 'numero' => $numero]);}
+            if($valueA == 'Administrador')
+                return view('Administrador/DonacionesYTransacciones/Search')->with(['nombre' => $request->numResolucion]);
 
-            if($valueR == 'Reportes'){
-                return view('Reportes/DonacionesYTransacciones/Search')->with(['result' => $result, 'total' => $total, 'fecha' => $tiempo, 'numero' => $numero]);}
+            if($valueR == 'Reportes')
+                return view('Reportes/DonacionesYTransacciones/Search')->with(['nombre' => $request->numResolucion]);
+            return view('Administrador/DonacionesYTransacciones/Search')->with(['result' => $result, 'total' => $total, 'fecha' => $tiempo, 'numero' => $numero]);
 
         }
         else{
 
-            if($valueA == 'Administrador')
-                return view('Administrador/DonacionesYTransacciones/Search');
-
-            if($valueR == 'Reportes')
-                return view('Reportes/DonacionesYTransacciones/Search');
+            return view('Administrador/DonacionesYTransacciones/Search');
 
         }
 
     }
-
 
     //Eliminar(cambiar de estado 1 a 0) el registro de donacion y transferencia
     public function eliminarDonacion($codDonacion, Request $request)

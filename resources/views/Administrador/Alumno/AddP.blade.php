@@ -19,13 +19,13 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarEstudiante" style="color: #509f0c" target="_top">Agregar Estudiante</a>
+                        <a href="/admRegistrarEstudiante">Agregar Estudiante</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarEstudianteProduccion">Agregar Estudiante
+                        <a href="/admRegistrarEstudianteProduccion" style="color: #509f0c" target="_top">Agregar Estudiante
                             Produccion</a>
                     </td>
                 </tr>
@@ -37,10 +37,12 @@
 @section('content')
     @if( Session::has('tipoCuentaA'))
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
@@ -53,7 +55,7 @@
                 @if(session()->has('false'))
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
                 @endif
-                <form name="form" action="{{url('AlumnoRegistrado')}}" role="form" method="POST" class="Horizontal">
+                <form name="form" action="{{url('AlumnoRegistradoP')}}" role="form" method="POST" class="Horizontal">
                     {{csrf_field()}}
                     <div class="panel panel-primary">
                         <div class="panel-heading">Datos personales</div>
@@ -78,11 +80,11 @@
                                                     $('#fecha').val(data[4]);
                                                 },
                                                 error: function () {
-                                                    $('#nombres').val(' ');
-                                                    $('#apellidos').val(' ');
-                                                    $('#correo').val(' ');
-                                                    $('#codAlumno').val(' ');
-                                                    $('#fecha').val(' ');
+                                                    $('#nombres').val('');
+                                                    $('#apellidos').val('');
+                                                    $('#correo').val('');
+                                                    $('#codAlumno').val('');
+                                                    $('#fecha').val('');
                                                 }
                                             });
                                         });
@@ -132,13 +134,13 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
-                                    <span class="control-label">Sede</span>
+                                    <span class="control-label">Centro Produccion</span>
 
                                     <input class="typeahead form-control" type="text"
-                                           placeholder="Ejm: Trujillo" name="nombreSede" id="ns"
+                                           placeholder="Ejm: UNT" name="produccion"
                                            onkeypress="return validarLetras(event)" autocomplete="off" required>
                                     <script type="text/javascript">
-                                        var paths = "{{ route('autocompletesede')}}";
+                                        var paths = "{{ route('autocompleteprod')}}";
                                         $('input.typeahead').typeahead({
                                             source: function (querys, processe) {
                                                 return $.get(paths, {query: querys}, function (datas) {
@@ -147,64 +149,8 @@
                                             }
                                         });
                                     </script>
-
-                                </div>
-                                <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
-                                    <span class="control-label">Escuela</span>
-
-                                    <input class="form-control input-sm" type="text"
-                                           placeholder="Ejm: Mecanica" name="nombreEscuela" id="ne"
-                                           onkeypress="return validarLetras(event)" required>
-                                    <script>
-                                        src = "{{ route('searchajax') }}";
-                                        $("#ne").autocomplete({
-                                            source: function (request, response) {
-                                                $.ajax({
-                                                    url: src,
-                                                    type: 'get',
-                                                    dataType: "json",
-                                                    data: {
-                                                        term: $('#ne').val(),
-                                                        sede: $('#ns').val(),
-                                                        dni:$('#dni').val()
-                                                    },
-                                                    success: function (data) {
-                                                        response(data);
-                                                    }
-                                                });
-                                            },
-                                            min_length: 3
-                                        });
-                                    </script>
-                                </div>
-                                <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
-                                    <span class="control-label">Facultad</span>
-
-                                    <input class="form-control input-sm" name=" " type="text" id="f" readonly>
-                                    <script>
-                                        $('#ne').change(function () {
-                                            $.ajax({
-                                                url: '/facultad',
-                                                type: "get",
-                                                data: {name: $('#ne').val()},
-                                                success: function (data) {
-                                                    $('#f').val(data);
-                                                }
-                                            });
-                                        });
-                                    </script>
-                                    <script>
-                                        $('#ns').on('input', function () {
-
-                                            if ($(this).val().length)
-                                                $('#ne').prop('disabled', false);
-                                            else
-                                                $('#ne').prop('disabled', true);
-                                        });
-                                    </script>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="row form-group">

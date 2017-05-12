@@ -145,6 +145,9 @@
                     <th>
                         <div align="center">Importe</div>
                     </th>
+                    <th>
+                        <div align="center">Opciones</div>
+                    </th>
                 </tr>
                 </thead>
                 <body>
@@ -159,6 +162,14 @@
                         <td>{{$d->fechaIngreso}}</td>
                         <td>{{$d->descripcion}}</td>
                         <td>{{$d->importe}}</td>
+                        <td align="center">
+                            {{ csrf_field() }}
+                            <a href="DonacionCargar/{{$d->codigo}}" title="Click para editar"><span
+                                        class="glyphicon glyphicon-pencil"></span> </a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="DonacionEliminar/{{$d->codigo}}" title="Click para eliminar"><span
+                                        class="glyphicon glyphicon-trash"></span> </a>
+                        </td>
                     </tr>
                 @endforeach
                 @endif
