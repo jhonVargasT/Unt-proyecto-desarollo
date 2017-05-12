@@ -595,13 +595,9 @@ class ExcelController extends Controller
                             $alumno->setFecha($v['fecha']);
                             $idE = $alumno->bdEscuelaSede($v['escuela'], $v['sede']);//Consular el id de la escuela a la que va a pertenecer
                             $alumno->setIdEscuela($idE);
-                            $val = $alumno->savealumno();
+                            $alumno->savealumno();
                         }
-                        if ($val == true) {
-                            return back()->with('true', 'Guardada con exito')->withInput();
-                        } else {
-                            return back()->with('false', 'No guardada');
-                        }
+                        return back()->with('true','Se subio el archivo');
                     }
                 }
             }
