@@ -60,7 +60,6 @@ class personalController extends Controller
                 $personal->setApellidos($p->apellidos);
             }
         }
-
         Session::put(['misession' => $personal->getNombres() . ' ' . $personal->getApellidos()]);//crear sesion del personal (nombres y apellidos0
         Session::put('personalC', $personal->getCuenta());//crear sesion del personal (nombre de usuario)
         Session::put('idpersonal', $idpersonal);//crear sesion del id del personal
@@ -69,17 +68,23 @@ class personalController extends Controller
             Session::put('tipoCuentaA', $personal->getTipoCuenta());
             Session::put('tipoCuentaV', null);
             Session::put('tipoCuentaR', null);
-
+            Session::put('tipoCuentaI', null);
         } elseif ($personal->getTipoCuenta() == 'Ventanilla') {//Crear session del tipo de cuenta para ventanilla
             Session::put('tipoCuentaV', $personal->getTipoCuenta());
             Session::put('tipoCuentaA', null);
             Session::put('tipoCuentaR', null);
+            Session::put('tipoCuentaI', null);
         } elseif ($personal->getTipoCuenta() == 'Reportes') {//Crear session del tipo de cuenta para reportes
             Session::put('tipoCuentaR', $personal->getTipoCuenta());
             Session::put('tipoCuentaV', null);
             Session::put('tipoCuentaA', null);
+            Session::put('tipoCuentaI', null);
+        } elseif ($personal->getTipoCuenta() == 'Importador') {//Crear session del tipo de cuenta para reportes
+            Session::put('tipoCuentaI', $personal->getTipoCuenta());
+            Session::put('tipoCuentaR', null);
+            Session::put('tipoCuentaV', null);
+            Session::put('tipoCuentaA', null);
         }
-
         //Redireccion a vista dependiendo del tipo de cuenta
         if ($personal->getTipoCuenta() == 'Administrador' && $personal->getCuenta() != '') {
             return view('/Administrador/Body');
@@ -91,7 +96,11 @@ class personalController extends Controller
                 if ($personal->getTipoCuenta() == 'Reportes' && $personal->getCuenta() != '') {
                     return view('Reportes/Body');
                 } else {
-                    return back()->with('true', 'Cuenta ' . $personal->getCuenta() . ' no encontrada o contraseña incorrecta')->withInput();
+                    if ($personal->getTipoCuenta() == 'Importador' && $personal->getCuenta() != '') {
+                        return view('Importaciones/Body');
+                    } else {
+                        return back()->with('true', 'Cuenta ' . $personal->getCuenta() . ' no encontrada o contraseña incorrecta')->withInput();
+                    }
                 }
             }
         }

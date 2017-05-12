@@ -574,11 +574,9 @@ class ExcelController extends Controller
         return back()->with('error', 'Please Check your file, Something is wrong there.');
     }*/
 
-    //Importar datos del banco, excel
-    public function importExcel(Request $request)
+    public function importExcelAlumno(Request $request)
     {
         $val = null;
-        $persona = new personamodel();
         $alumno = new alumnomodel();
 
         if ($request->hasFile('import_file')) {
@@ -595,9 +593,8 @@ class ExcelController extends Controller
                             $alumno->setCodAlumno($v['codAlumno']);
                             $alumno->setCorreo($v['correo']);
                             $alumno->setFecha($v['fecha']);
-
-
-
+                            $idE = $alumno->bdEscuelaSede($v['escuela'], $v['sede']);//Consular el id de la escuela a la que va a pertenecer
+                            $alumno->setIdEscuela($idE);
                             $val = $alumno->savealumno();
                         }
                         if ($val == true) {
@@ -609,7 +606,97 @@ class ExcelController extends Controller
                 }
             }
         }
-        return back()->with('error', 'Please Check your file, Something is wrong there.');
+        return back()->with('error', 'Por favor, revisar su archivo.');
+    }
+
+    public function importExcelSede(Request $request)
+    {
+        $val = null;
+        $sede = new sedemodel();
+
+        if ($request->hasFile('import_file')) {
+            $path = Input::file('import_file')->getRealPath();
+            $data = Excel::load($path, function ($reader) {
+            })->get();
+            if (!empty($data) && $data->count()) {
+                foreach ($data->toArray() as $key => $value) {
+                    if (!empty($value)) {
+                        foreach ($value as $v) {
+                            $sede->setNombreSede($v['sede']);
+                            $sede->setCodigoSede($v['codigo']);
+                            $sede->setDireccion($v['direccion']);
+                            $val = $sede->save();
+                        }
+                        if ($val == true) {
+                            return back()->with('true', 'Guardada con exito')->withInput();
+                        } else {
+                            return back()->with('false', 'No guardada');
+                        }
+                    }
+                }
+            }
+        }
+        return back()->with('error', 'Por favor, revisar su archivo.');
+    }
+
+    public function importExcelFacultad(Request $request)
+    {
+        $val = null;
+        $facultad = new facultadmodel();
+
+        if ($request->hasFile('import_file')) {
+            $path = Input::file('import_file')->getRealPath();
+            $data = Excel::load($path, function ($reader) {
+            })->get();
+            if (!empty($data) && $data->count()) {
+                foreach ($data->toArray() as $key => $value) {
+                    if (!empty($value)) {
+                        foreach ($value as $v) {
+                            $facultad->setNombre($v['facultad']);
+                            $facultad->setCodFacultad($v['codigo']);
+                            $facultad->setNroCuenta($v['cuenta']);
+                            $facultad->save();
+                        }
+                        if ($val == true) {
+                            return back()->with('true', 'Guardada con exito')->withInput();
+                        } else {
+                            return back()->with('false', 'No guardada');
+                        }
+                    }
+                }
+            }
+        }
+        return back()->with('error', 'Por favor, revisar su archivo.');
+    }
+
+    public function importExcelEscuela(Request $request)
+    {
+        $val = null;
+        $escuela = new escuelamodel();
+
+        if ($request->hasFile('import_file')) {
+            $path = Input::file('import_file')->getRealPath();
+            $data = Excel::load($path, function ($reader) {
+            })->get();
+            if (!empty($data) && $data->count()) {
+                foreach ($data->toArray() as $key => $value) {
+                    if (!empty($value)) {
+                        foreach ($value as $v) {
+                            $escuela->setNombre($v['escuela']);
+                            $escuela->setCodEscuela($v['codigo']);
+                            $escuela->setNroCuenta($v['cuenta']);
+                            $escuela->saveescuela();
+                        }
+                        if ($val == true) {
+                            return back()->with('true', 'Guardada con exito')->withInput();
+                        } else {
+                            return back()->with('false', 'No guardada');
+                        }
+                    }
+                }
+            }
+        }
+        return back()->with('error', 'Por favor, revisar su archivo.');
     }
 
     //Jhon, no encuentro donde esta esto

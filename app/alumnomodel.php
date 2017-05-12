@@ -75,14 +75,6 @@ class alumnomodel extends personamodel
         return $this;
     }
 
-    public function bdEscuela($nombre)
-    {
-        $escuela = DB::select('select idEscuela from escuela where nombre=:nombre', ['nombre' => $nombre]);
-
-        foreach ($escuela as $es) {
-            return $e = $es->idEscuela;
-        }
-    }
 
     /**
      * @return mixed
@@ -121,6 +113,37 @@ class alumnomodel extends personamodel
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function bdEscuela($nombre)
+    {
+        $escuela = DB::select('select idEscuela from escuela where nombre=:nombre', ['nombre' => $nombre]);
+
+        foreach ($escuela as $es) {
+            return $e = $es->idEscuela;
+        }
+    }
+
+    public function bdEscuelaSede($nombre, $sede)
+    {
+        $ide = null;
+        $escuela = DB::select('SELECT 
+        escuela.idEscuela
+        FROM
+        escuela
+            LEFT JOIN
+        facultad ON escuela.codigoFacultad = facultad.idFacultad
+            LEFT JOIN
+        sede ON facultad.coSede = sede.codSede
+        WHERE
+        sede.nombresede = "' . $sede . '" and escuela.nombre="' . $nombre . '"');
+
+        foreach ($escuela as $es) {
+            $ide = $es->idEscuela;
+        }
+        return $ide;
+    }
+
+
     public function grabr($codigo, $ap, $no, $dni)
     {
         DB::table('prueba')->insert(['codigo' => $codigo, 'ap' => $ap, 'nom' => $no, 'dni' => $dni]);
