@@ -84,7 +84,6 @@
                                                     $('#apellidos').val('');
                                                     $('#correo').val('');
                                                     $('#codAlumno').val('');
-                                                    $('#fecha').val('');
                                                 }
                                             });
                                         });
