@@ -53,7 +53,7 @@ Route::resource('AlumnosBuscados', 'alumnoController@listarAlumno');
 Route::resource('AlumnosBuscadosP', 'alumnoController@listarAlumnoP');
 
 Route::resource('AlumnoCargar', 'alumnoController@cargarAlumno');
-Route::resource('AlumnoCargarP', 'alumnoController@cargarAlumnoP');
+Route::resource('AlumnoCargarP/{codPersona}/{codProduccion}', 'alumnoController@cargarAlumnoP');
 
 Route::get('AlumnoEditado/{codPersona}', 'alumnoController@editarAlumno');
 Route::get('AlumnoEditadoP/{codPersona}', 'alumnoController@editarAlumnoP');

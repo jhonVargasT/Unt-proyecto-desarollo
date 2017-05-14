@@ -103,6 +103,9 @@
                             <div align="center">Fecha de matricula</div>
                         </th>
                         <th>
+                            <div align="center">Centro de Produccion</div>
+                        </th>
+                        <th>
                             <div align="center">Opciones</div>
                         </th>
                     </tr>
@@ -117,9 +120,10 @@
                                 <td>{{$a->correo}}</td>
                                 <td>{{$a->codAlumno}}</td>
                                 <td>{{$a->fecha}}</td>
+                                <td>{{$a->nombre}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}
-                                    <a href="AlumnoCargarP/{{$a->codPersona}}"><span
+                                    <a href="AlumnoCargarP/{{$a->codPersona}}/{{$a->codProduccion}}"><span
                                                 class="glyphicon glyphicon-pencil"></span> </a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <a href="AlumnoEliminarP/{{$a->codPersona}}"><span

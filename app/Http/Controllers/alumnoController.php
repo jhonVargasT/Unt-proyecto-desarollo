@@ -69,13 +69,13 @@ class alumnoController extends Controller
             return view('Ventanilla/Alumno/Edit')->with(['alumno' => $alu]);
     }
 
-    public function cargarAlumnoP($codPersona)
+    public function cargarAlumnoP($codPersona,$codProduccion)
     {
         $valueA = Session::get('tipoCuentaA');
         $valueV = Session::get('tipoCuentaV');
 
         $alumno = new alumnomodel();
-        $alu = $alumno->consultarAlumnoidP($codPersona);//Obtiene los datos del alumno por su codigo de persona
+        $alu = $alumno->consultarAlumnoidP($codPersona,$codProduccion);//Obtiene los datos del alumno por su codigo de persona
 
         if ($valueA == 'Administrador')
             return view('Administrador/Alumno/EditP')->with(['alumno' => $alu]);

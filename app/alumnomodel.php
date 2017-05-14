@@ -294,56 +294,119 @@ class alumnomodel extends personamodel
         return true;
     }
 
-    public
-    function consultarAlumnoDNIP($dni)
+    public function consultarAlumnoDNIP($dni)
     {
-        $alumnobd = DB::select('select * from persona left join alumno on persona.codPersona = alumno.idPersona 
-        left join produccion on produccion.codProduccion = persona.idProduccion where 
-        persona.codPersona = alumno.idPersona and persona.dni like "%' . $dni . '%" and persona.estado = 1 and alumno.estado=1 and produccion.estado=1');
+        $alumnobd = DB::select('SELECT 
+                *
+            FROM
+                persona
+                    LEFT JOIN
+                alumno ON persona.codPersona = alumno.idPersona
+                    LEFT JOIN
+                produccionpersona ON produccionpersona.idPersona = persona.codPersona
+                    LEFT JOIN
+                produccion ON produccion.codProduccion = produccionpersona.idProduccion
+            WHERE
+                persona.codPersona = alumno.idPersona
+                    AND produccionpersona.idPersona = persona.codPersona
+                    AND produccion.codProduccion = produccionpersona.idProduccion
+                    AND persona.estado = 1
+                    AND alumno.estado = 1
+                    AND persona.dni like "%' . $dni . '%"');
         return $alumnobd;
     }
 
-    public
-    function consultarAlumnoDNI($dni)
+    public function consultarAlumnoDNI($dni)
     {
         $alumnobd = DB::select('select * from persona left join alumno on persona.codPersona = alumno.idPersona where 
         persona.codPersona = alumno.idPersona and persona.dni like "%' . $dni . '%" and persona.estado = 1 and alumno.estado=1');
         return $alumnobd;
     }
 
-    public
-    function consultarPersonaApellidosP($apellidos)
+    public function consultarPersonaApellidosP($apellidos)
     {
-        $alumnobd = DB::select('select * from persona left join alumno on persona.codPersona = alumno.idPersona 
-        left join produccion on produccion.codProduccion = persona.idProduccion where 
-        persona.codPersona = alumno.idPersona and persona.apellidos like "%' . $apellidos . '%" and persona.estado = 1 and alumno.estado=1 and produccion.estado=1');
+        $alumnobd = DB::select('SELECT 
+                *
+            FROM
+                persona
+                    LEFT JOIN
+                alumno ON persona.codPersona = alumno.idPersona
+                    LEFT JOIN
+                produccionpersona ON produccionpersona.idPersona = persona.codPersona
+                    LEFT JOIN
+                produccion ON produccion.codProduccion = produccionpersona.idProduccion
+            WHERE
+                persona.codPersona = alumno.idPersona
+                    AND produccionpersona.idPersona = persona.codPersona
+                    AND produccion.codProduccion = produccionpersona.idProduccion
+                    AND persona.estado = 1
+                    AND alumno.estado = 1
+                    AND persona.apellidos like "%' . $apellidos . '%"');
         return $alumnobd;
     }
 
-    public
-    function consultarAlumnoCodigoP($codigo)
+    public function consultarAlumnoCodigoP($codigo)
     {
-        $alumnobd = DB::select('select * from persona left join alumno on persona.codPersona = alumno.idPersona 
-        left join produccion on produccion.codProduccion = persona.idProduccion where 
-        persona.codPersona = alumno.idPersona and alumno.codAlumno like "%' . $codigo . '%" and persona.estado = 1 and alumno.estado=1 and produccion.estado=1');
+        $alumnobd = DB::select('SELECT 
+                *
+            FROM
+                persona
+                    LEFT JOIN
+                alumno ON persona.codPersona = alumno.idPersona
+                    LEFT JOIN
+                produccionpersona ON produccionpersona.idPersona = persona.codPersona
+                    LEFT JOIN
+                produccion ON produccion.codProduccion = produccionpersona.idProduccion
+            WHERE
+                persona.codPersona = alumno.idPersona
+                    AND produccionpersona.idPersona = persona.codPersona
+                    AND produccion.codProduccion = produccionpersona.idProduccion
+                    AND persona.estado = 1
+                    AND alumno.estado = 1
+                    AND alumno.codAlumno like "%' . $codigo . '%"');
         return $alumnobd;
     }
 
-    public
-    function consultarAlumnoProduccionP($nombre)
+    public function consultarAlumnoProduccionP($nombre)
     {
-        $alumnobd = DB::select('select * from persona left join alumno on persona.codPersona = alumno.idPersona 
-        left join produccion on produccion.codProduccion = persona.idProduccion where 
-        persona.codPersona = alumno.idPersona and produccion.nombre like "%' . $nombre . '%" and persona.estado = 1 and alumno.estado=1 and produccion.estado=1');
+        $alumnobd = DB::select('SELECT 
+                *
+            FROM
+                persona
+                    LEFT JOIN
+                alumno ON persona.codPersona = alumno.idPersona
+                    LEFT JOIN
+                produccionpersona ON produccionpersona.idPersona = persona.codPersona
+                    LEFT JOIN
+                produccion ON produccion.codProduccion = produccionpersona.idProduccion
+            WHERE
+                persona.codPersona = alumno.idPersona
+                    AND produccionpersona.idPersona = persona.codPersona
+                    AND produccion.codProduccion = produccionpersona.idProduccion
+                    AND persona.estado = 1
+                    AND alumno.estado = 1
+                    and produccion.nombre like "%' . $nombre . '%"');
         return $alumnobd;
     }
 
-    public
-    function consultarAlumnosP()
+    public function consultarAlumnosP()
     {
-        $alumnobd = DB::select('select * from persona left join alumno on persona.codPersona = alumno.idPersona 
-        left join produccion on produccion.codProduccion = persona.idProduccion where 
-        persona.codPersona = alumno.idPersona and persona.estado = 1 and alumno.estado=1 and produccion.estado=1');
+        $alumnobd = DB::select('SELECT 
+                *
+            FROM
+                persona
+                    LEFT JOIN
+                alumno ON persona.codPersona = alumno.idPersona
+                    LEFT JOIN
+                produccionpersona ON produccionpersona.idPersona = persona.codPersona
+                    LEFT JOIN
+                produccion ON produccion.codProduccion = produccionpersona.idProduccion
+            WHERE
+                persona.codPersona = alumno.idPersona
+                    AND produccionpersona.idPersona = persona.codPersona
+                    AND produccion.codProduccion = produccionpersona.idProduccion
+                    AND persona.estado = 1
+                    AND alumno.estado = 1');
         return $alumnobd;
     }
 
@@ -409,16 +472,15 @@ class alumnomodel extends personamodel
         return $alumnobd;
     }
 
-    public
-    function consultarAlumnoid($codPersona)
+    public function consultarAlumnoid($codPersona)
     {
         $alumnobd = DB::select('select codPersona, dni,nombres, apellidos,correo, codAlumno, fecha,escuela.nombre as enombre, facultad.nombre as fnombre, nombresede from persona
         left join alumno on persona.codPersona=alumno.idPersona
-        left join escuela on alumno.coEscuela = escuela.codEscuela
+        left join escuela on alumno.coEscuela = escuela.idEscuela
         left join facultad on escuela.codigoFacultad= facultad.idFacultad
         left join sede on facultad.coSede = sede.codSede
         where persona.codPersona=alumno.idPersona
-        and alumno.coEscuela = escuela.codEscuela
+        and alumno.coEscuela = escuela.idEscuela
         and escuela.codigoFacultad= facultad.idFacultad
         and facultad.coSede = sede.codSede and persona.estado=1
         and alumno.estado=1 and escuela.estado=1 and facultad.estado=1
@@ -427,11 +489,26 @@ class alumnomodel extends personamodel
     }
 
     public
-    function consultarAlumnoidP($codPersona)
+    function consultarAlumnoidP($codPersona, $codProduccion)
     {
-        $alumnobd = DB::select('select * from persona left join alumno on persona.codPersona = alumno.idPersona
-        left join produccion on persona.idProduccion = produccion.codProduccion where persona.codPersona = ' . $codPersona . ' and persona.estado=1
-        and alumno.estado=1 and produccion.estado=1');
+        $alumnobd = DB::select('SELECT 
+                *
+            FROM
+                persona
+                    LEFT JOIN
+                alumno ON persona.codPersona = alumno.idPersona
+                    LEFT JOIN
+                produccionpersona ON produccionpersona.idPersona = persona.codPersona
+                    LEFT JOIN
+                produccion ON produccion.codProduccion = produccionpersona.idProduccion
+            WHERE
+                persona.codPersona = alumno.idPersona
+                    AND produccionpersona.idPersona = persona.codPersona
+                    AND produccion.codProduccion = produccionpersona.idProduccion
+                    AND persona.estado = 1
+                    AND alumno.estado = 1
+                    AND persona.codPersona = ' . $codPersona . ' 
+                    AND produccionpersona.idProduccion = ' . $codProduccion . ' ');
         return $alumnobd;
     }
 
