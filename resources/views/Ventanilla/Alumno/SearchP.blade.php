@@ -1,18 +1,32 @@
-@extends('Administrador.Body')
-@section('banco')
+@extends('Ventanilla.Body')
+@section('estudiante')
     <div id="collapseTwo" class="collapse in">
         <div class="panel-body">
             <table class="table">
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarBanco">Buscar Bancos</a>
+                        <a href="/venBuscarEstudiante">Buscar Estudiantes</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <a href="/venBuscarEstudianteProduccion" style="color: #509f0c" target="_top">Buscar Estudiantes
+                            Produccion</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarBanco" style="color: #509f0c" target="_top">Agregar Banco</a>
+                        <a href="/venRegistrarEstudiante">Agregar Estudiante</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <a href="/venRegistrarEstudianteProduccion">Agregar Estudiante
+                            Produccion</a>
                     </td>
                 </tr>
             </table>
@@ -26,18 +40,20 @@
     @if(session()->has('false'))
         <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
     @endif
-    <div class="panel-heading"><h3>Buscar Bancos</h3></div>
+    <div class="panel-heading"><h3>Buscar Alumnos Produccion</h3></div>
     <div style="background-color: #FFFFFF">
+
         <div class="panel-body">
-            <form name="form" action="{{url('BancosBuscados')}}" role="form" method="POST" class="Vertical">
+            <form name="form" action="{{url('AlumnosBuscadosP')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
                 <div class=" row ">
                     <div class="form-group-sm col-sm-2 ">
                         <span class="ontrol-label">Buscar por:</span>
                         <select class=" form-control" name="select">
-                            <option selected>Todo</option>
-                            <option>Nombre Banco</option>
-                            <option>Cuenta Banco</option>
+                            <option>Dni</option>
+                            <option>Apellidos</option>
+                            <option>Codigo alumno</option>
+                            <option>Centro produccion</option>
                         </select>
                     </div>
                     <div class="form-group-sm col-sm-8">
@@ -63,18 +79,29 @@
 
             <div class="table-responsive  col-sm-12 ">
                 @if(isset($nombre)!=null)
-                    <div class="alert alert-success" role="alert">El alumno {{$nombre}} fue actualizada!!</div>
+                    <div class="alert alert-success" role="alert"> El alumno {{$nombre}} fue actualizada!!</div>
                 @endif
-
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <!--cabecear Tabla-->
                     <tr>
                         <th>
-                            <div align="center">Banco</div>
+                            <div align="center">Dni</div>
                         </th>
                         <th>
-                            <div align="center">Cuenta</div>
+                            <div align="center">Nombres y apellidos</div>
+                        </th>
+                        <th>
+                            <div align="center">Correo</div>
+                        </th>
+                        <th>
+                            <div align="center">Codigo alumno</div>
+                        </th>
+                        <th>
+                            <div align="center">Fecha de matricula</div>
+                        </th>
+                        <th>
+                            <div align="center">Centro de Produccion</div>
                         </th>
                         <th>
                             <div align="center">Opciones</div>
@@ -82,18 +109,22 @@
                     </tr>
                     </thead>
                     <body>
-                    @if(isset($banco))
+                    @if(isset($alumno))
                         <!--Contenido-->
-                        @foreach($banco as $b)
+                        @foreach($alumno as $a)
                             <tr>
-                                <td>{{$b->banco}}</td>
-                                <td>{{$b->cuenta}}</td>
+                                <td>{{$a->dni}}</td>
+                                <td>{{$a->nombres}} {{$a->apellidos}}</td>
+                                <td>{{$a->correo}}</td>
+                                <td>{{$a->codAlumno}}</td>
+                                <td>{{$a->fecha}}</td>
+                                <td>{{$a->nombre}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}
-                                    <a href="BancoCargar/{{$b->codBanco}}"><span
+                                    <a href="AlumnoCargarP/{{$a->codPersona}}/{{$a->codProduccion}}"><span
                                                 class="glyphicon glyphicon-pencil"></span> </a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="AlumnoEliminar/{{$b->codBanco}}"><span
+                                    <a href="AlumnoEliminarP/{{$a->codPersona}}"><span
                                                 class="glyphicon glyphicon-trash"></span> </a>
                                 </td>
                             </tr>

@@ -243,11 +243,21 @@ Route::get('/ventBuscarCliente', function () {
     return view('Ventanilla/Cliente/Search');
 });
 //////////////Alumno//////////////////////////
-Route::get('/ventRegistrarEstudiante', function () {
+Route::get('/venRegistrarEstudiante', function () {
     return view('Ventanilla/Alumno/Add');
 });
-Route::get('/ventBuscarEstudiante', function () {
-    return view('Ventanilla/Alumno/Search');
+
+Route::get('/venRegistrarEstudianteProduccion', function () {
+    return view('Ventanilla/Alumno/AddP');
+});
+
+Route::get('/venBuscarEstudianteProduccion', function () {
+    return view('Ventanilla/Alumno/SearchP');
+});
+
+
+Route::get('/admBuscarEstudiante', function () {
+    return view('Administrador/Alumno/Search');
 });
 /////////////Pago////////////////////
 Route::get('/ventRelizarPago', function () {

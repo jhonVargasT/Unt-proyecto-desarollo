@@ -6,13 +6,27 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/ventBuscarEstudiante" style="color: #509f0c" target="_top">Buscar Estudiantes</a>
+                        <a href="/venBuscarEstudiante" style="color: #509f0c" target="_top">Buscar Estudiantes</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <a href="/venBuscarEstudianteProduccion" >Buscar Estudiantes
+                            Produccion</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/ventRegistrarEstudiante">Agregar Estudiante</a>
+                        <a href="/venRegistrarEstudiante">Agregar Estudiante</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <a href="/venRegistrarEstudianteProduccion" >Agregar Estudiante
+                            Produccion</a>
                     </td>
                 </tr>
             </table>
@@ -66,9 +80,8 @@
 
             <div class="table-responsive  col-sm-12 ">
                 @if(isset($nombre)!=null)
-                    <div class="alert alert-success" role="alert">El alumno {{$nombre}} fue actualizada!!</div>
+                    <div class="alert alert-success" role="alert"> El alumno {{$nombre}} fue actualizada!!</div>
                 @endif
-
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <!--cabecear Tabla-->

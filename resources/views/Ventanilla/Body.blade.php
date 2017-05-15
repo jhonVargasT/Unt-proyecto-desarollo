@@ -48,13 +48,26 @@
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="/ventBuscarEstudiante">Buscar Estudiantes</a>
+                                        <a href="/venBuscarEstudiante">Buscar Estudiantes</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-search"></span>
+                                        <a href="/venBuscarEstudianteProduccion">Buscar Estudiantes
+                                            Produccion</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="/ventRegistrarEstudiante">Agregar Estudiante</a>
+                                        <a href="/venRegistrarEstudiante">Agregar Estudiante</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                        <a href="/venRegistrarEstudianteProduccion">Agregar Estudiante Produccion</a>
                                     </td>
                                 </tr>
                             </table>
