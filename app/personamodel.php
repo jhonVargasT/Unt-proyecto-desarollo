@@ -10,6 +10,7 @@ class personamodel
     private $nombres;
     private $apellidos;
     private $correo;
+    private $produccion;
 
     public function __construct()
     {
@@ -87,6 +88,26 @@ class personamodel
         $this->correo = $correo;
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getProduccion()
+    {
+        return $this->produccion;
+    }
+
+    /**
+     * @param mixed $produccion
+     * @return personamodel
+     */
+    public function setProduccion($produccion)
+    {
+        $this->produccion = $produccion;
+        return $this;
+    }
+
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

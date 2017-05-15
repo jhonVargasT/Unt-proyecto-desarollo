@@ -23,6 +23,8 @@ class alumnoController extends Controller
         $alumno->setFecha($date);
         $idE = $alumno->bdEscuela($request->nombreEscuela);//Consular el id de la escuela a la que va a pertenecer
         $alumno->setIdEscuela($idE);
+        $cp = $alumno->obtenerCodProduccion('UNT');
+        $alumno->setCodProduccion($cp);
         $al = $alumno->savealumno($request->dni);//Metodo de insercion en la bd al alumno (persona y alumno)
 
         if ($al == true) {
@@ -69,13 +71,13 @@ class alumnoController extends Controller
             return view('Ventanilla/Alumno/Edit')->with(['alumno' => $alu]);
     }
 
-    public function cargarAlumnoP($codPersona,$codProduccion)
+    public function cargarAlumnoP($codPersona, $codProduccion)
     {
         $valueA = Session::get('tipoCuentaA');
         $valueV = Session::get('tipoCuentaV');
 
         $alumno = new alumnomodel();
-        $alu = $alumno->consultarAlumnoidP($codPersona,$codProduccion);//Obtiene los datos del alumno por su codigo de persona
+        $alu = $alumno->consultarAlumnoidP($codPersona, $codProduccion);//Obtiene los datos del alumno por su codigo de persona
 
         if ($valueA == 'Administrador')
             return view('Administrador/Alumno/EditP')->with(['alumno' => $alu]);
@@ -147,15 +149,11 @@ class alumnoController extends Controller
                 if ($request->select == 'Codigo alumno') {
                     $alu = $alumno->consultarAlumnoCodigo($request->text);//Consulta buscar alumnos por su codigo de alumno
                 } else {
-                    if ($request->select == 'Fecha de Matricula') {
-                        $alu = $alumno->consultarAlumnoFechaMatricula($request->text);//Consulta buscar alumnos mediante su fecha de matricula
+                    if ($request->select == 'Escuela') {
+                        $alu = $alumno->consultarAlumnoEscuela($request->text);//Consulta buscar alumnos por la escuela a la que pertenece
                     } else {
-                        if ($request->select == 'Escuela') {
-                            $alu = $alumno->consultarAlumnoEscuela($request->text);//Consulta buscar alumnos por la escuela a la que pertenece
-                        } else {
-                            if ($request->select == 'Facultad') {
-                                $alu = $alumno->consultarAlumnoFacultad($request->text);//Consulta buscar alumnos por la facultad a la que pertenece
-                            }
+                        if ($request->select == 'Facultad') {
+                            $alu = $alumno->consultarAlumnoFacultad($request->text);//Consulta buscar alumnos por la facultad a la que pertenece
                         }
                     }
                 }
@@ -187,16 +185,8 @@ class alumnoController extends Controller
                 if ($request->select == 'Codigo alumno') {
                     $alu = $alumno->consultarAlumnoCodigoP($request->text);//Consulta buscar alumnos por su codigo de alumno
                 } else {
-                    if ($request->select == 'Fecha Matricula') {
-                        $alu = $alumno->consultarAlumnoFechaMatriculaP($request->text);//Consulta buscar alumnos mediante su fecha de matricula
-                    } else {
-                        if ($request->select == 'Centro produccion') {
-                            $alu = $alumno->consultarAlumnoProduccionP($request->text);//Consulta buscar alumnos por la escuela a la que pertenece
-                        } else {
-                            if ($request->select == 'Todo') {
-                                $alu = $alumno->consultarAlumnosP();//Consulta buscar alumnos por la facultad a la que pertenece
-                            }
-                        }
+                    if ($request->select == 'Centro produccion') {
+                        $alu = $alumno->consultarAlumnoProduccionP($request->text);//Consulta buscar alumnos por la escuela a la que pertenece
                     }
                 }
             }

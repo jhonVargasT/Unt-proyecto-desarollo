@@ -363,6 +363,14 @@
                             </div>
                         </div>-->
                     </div>
+                    <div class="col-sm-12 row form-group">
+                        <span class="col-sm-2" id="nsub">Produccion :</span>
+                        <div class="col-sm-4">
+                            <select class=" form-group-sm form-control" id="selectP" name="selectP">
+                            </select>
+
+                        </div>
+                    </div>
                     <br>
                     <div class="col-sm-12 row form-group">
                         <div class="form-group-sm">

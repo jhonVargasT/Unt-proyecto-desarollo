@@ -84,7 +84,6 @@
                                                     $('#apellidos').val(' ');
                                                     $('#correo').val(' ');
                                                     $('#codAlumno').val(' ');
-                                                    $('#fecha').val(' ');
                                                 }
                                             });
                                         });
@@ -157,7 +156,7 @@
                                     <input class="form-control input-sm" type="text"
                                            placeholder="Ejm: Mecanica" name="nombreEscuela" id="ne"
                                            onkeypress="return validarLetras(event)" required>
-                                    <script>
+                                <!--<script>
                                         src = "{{ route('searchajax') }}";
                                         $("#ne").autocomplete({
                                             source: function (request, response) {
@@ -175,7 +174,17 @@
                                                     }
                                                 });
                                             },
-                                            min_length: 3
+                                            min_length: 1
+                                        });
+                                    </script>-->
+                                    <script type="text/javascript">
+                                        var paths = "{{ route('autocompleteprod')}}";
+                                        $('input.typeahead').typeahead({
+                                            source: function (querys, processe) {
+                                                return $.get(paths, {query: querys}, function (datas) {
+                                                    return processe(datas);
+                                                });
+                                            }
                                         });
                                     </script>
                                 </div>

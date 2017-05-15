@@ -25,7 +25,8 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarEstudianteProduccion" style="color: #509f0c" target="_top">Agregar Estudiante
+                        <a href="/admRegistrarEstudianteProduccion" style="color: #509f0c" target="_top">Agregar
+                            Estudiante
                             Produccion</a>
                     </td>
                 </tr>
@@ -40,12 +41,6 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="/resources/demos/style.css">
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
         <div class="panel-heading"><h3>Agregar Estudiante</h3></div>
         <div style="background-color: #FFFFFF">
             <div class="panel-body">
@@ -137,15 +132,25 @@
 
                                     <input class="typeahead form-control" type="text"
                                            placeholder="Ejm: UNT" name="produccion"
-                                           onkeypress="return validarLetras(event)" autocomplete="off" required>
-                                    <script type="text/javascript">
-                                        var paths = "{{ route('autocompleteprod')}}";
-                                        $('input.typeahead').typeahead({
-                                            source: function (querys, processe) {
-                                                return $.get(paths, {query: querys}, function (datas) {
-                                                    return processe(datas);
+                                           onkeypress="return validarLetras(event)" autocomplete="off" required id="term">
+                                    <script>
+                                        src = "{{ route('searchProduccion') }}";
+                                        $("#ne").autocomplete({
+                                            source: function (request, response) {
+                                                $.ajax({
+                                                    url: src,
+                                                    type: 'get',
+                                                    dataType: "json",
+                                                    data: {
+                                                        term: $('#term').val(),
+                                                        dni:$('#dni').val()
+                                                    },
+                                                    success: function (data) {
+                                                        response(data);
+                                                    }
                                                 });
-                                            }
+                                            },
+                                            min_length: 1
                                         });
                                     </script>
                                 </div>
