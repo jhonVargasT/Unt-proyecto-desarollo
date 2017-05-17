@@ -104,63 +104,113 @@ class pagoController extends Controller
     //Ajax autollenado, buscar datos del alumno por su dni
     public function buscarNombresD(Request $request)
     {
+        $dato = array();
+        $ar = array();
+        $c = 0;
+        $i = 0;
         $var = $request->name;
-        $nombresa = DB::select('select * from persona
-        left join alumno on persona.codPersona = alumno.idPersona
-        where persona.codPersona = alumno.idPersona and persona.dni=:dni and persona.estado=1 and alumno.estado=1', ['dni' => $var]);
+        $nombresa = DB::select('SELECT 
+                nombres,
+                apellidos,
+                escuela.nombre enombre,
+                facultad.nombre fnombre,
+                produccion.nombre pnombre
+            FROM
+                persona
+                    LEFT JOIN
+                alumno ON persona.codPersona = alumno.idPersona
+                    LEFT OUTER JOIN
+                produccionpersona ON produccionpersona.idPersona = persona.codPersona
+                    LEFT OUTER JOIN
+                produccion ON produccionpersona.idProduccion = produccion.codProduccion
+                    LEFT OUTER JOIN
+                escuela ON escuela.idEscuela = alumno.coEscuela
+                    LEFT OUTER JOIN
+                facultad ON facultad.idFacultad = escuela.codigoFacultad
+            WHERE
+                persona.codPersona = alumno.idPersona
+                    AND persona.dni = ' . $var . '
+                    AND persona.estado = 1
+                    AND alumno.estado = 1');
         foreach ($nombresa as $np) {
-            $na = $np->nombres;
-            return response()->json($na);
+            $dato[0] = $np->nombres;
+            $dato[1] = $np->apellidos;
+            $dato[2] = $np->enombre;
+            $dato[3] = $np->fnombre;
+            $ar[$c] = $np->pnombre;
+            $c++;
         }
+        foreach ($ar as $p) {
+            $dato[4][$i] = $p;
+            $i++;
+        }
+        return response()->json($dato);
     }
 
     //Ajax autollenado, buscar datos del cliente por su dni
     public function buscarNombresDR(Request $request)
     {
+        $dato = array();
         $var = $request->name;
         $nombres = DB::select('select * from persona
         left join cliente on persona.codPersona = cliente.idPersona
         where persona.codPersona = cliente.idPersona and persona.dni=:dni and persona.estado=1 and cliente.estado=1', ['dni' => $var]);
         foreach ($nombres as $np) {
-            $nombres = $np->nombres;
-            return response()->json($nombres);
+            $dato[0] = $np->nombres;
+            $dato[1] = $np->apellidos;
         }
+        return response()->json($dato);
+
     }
 
     //Ajax autollenado, buscar datos del cliente por su ruc
     public function buscarNombresR(Request $request)
     {
+        $dato = array();
         $var = $request->name;
         $nombres = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona
         where persona.codPersona = cliente.idPersona and cliente.ruc=:ruc and persona.estado=1 and cliente.estado=1', ['ruc' => $var]);
         foreach ($nombres as $np) {
-            $nombres = $np->nombres;
-            return response()->json($nombres);
+            $dato[0] = $np->nombres;
+            $dato[1] = $np->apellidos;
         }
+        return response()->json($dato);
+
     }
 
     //Ajax autollenado, buscar datos del alumno por el codigo de alumno
     public function buscarNombresC(Request $request)
     {
+        $dato = array();
         $var = $request->name;
-        $nombres = DB::select('select * from persona left join alumno on persona.codPersona = alumno.idPersona
-        where persona.codPersona = alumno.idPersona and alumno.codAlumno=:codAlumno and persona.estado=1 and alumno.estado=1', ['codAlumno' => $var]);
-        foreach ($nombres as $np) {
-            $nombres = $np->nombres;
-            return response()->json($nombres);
+        $nombresa = DB::select('select persona.nombres as nombres, persona.apellidos as apellidos, escuela.nombre as enombre, facultad.nombre as fnombre from persona
+        left join alumno on persona.codPersona = alumno.idPersona
+        left join escuela on alumno.coEscuela = escuela.idEscuela
+        left join facultad on escuela.codigoFacultad = facultad.idFacultad
+        where persona.codPersona = alumno.idPersona and alumno.codAlumno=:codAlumno and persona.estado=1 and alumno.estado=1 and escuela.estado=1 and facultad.estado =1', ['codAlumno' => $var]);
+        foreach ($nombresa as $np) {
+            $dato[0] = $np->nombres;
+            $dato[1] = $np->apellidos;
+            $dato[2] = $np->enombre;
+            $dato[3] = $np->fnombre;
         }
+        return response()->json($dato);
+
     }
 
     //Ajax autollenado, buscar cliente por su ruc
-    public function buscarApellidosR(Request $request)
+    /*public function buscarApellidosR(Request $request)
     {
+        $dato = array();
+
         $var = $request->name;
         $nombres = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona
         where persona.codPersona = cliente.idPersona and cliente.ruc=:ruc and persona.estado=1 and cliente.estado=1', ['ruc' => $var]);
         foreach ($nombres as $np) {
-            $apellidos = $np->apellidos;
-            return response()->json($apellidos);
+            $dato[0] = $np->nombres;
+            $dato[1] = $np->apellidos;
         }
+        return response()->json($dato);
     }
 
     //Ajax autollenado, buscar datos del cliente por su dni
@@ -268,7 +318,7 @@ class pagoController extends Controller
             $facultadn = $nf->nombre;
             return response()->json($facultadn);
         }
-    }
+    }*/
 
     //Ajax autollenado, buscar precio de la tasa por nombre de tasa
     public function precioSubtramite(Request $request)
@@ -626,7 +676,7 @@ class pagoController extends Controller
             'facultad' => $facultad, 'detalle' => $detalle, 'fecha' => $fecha]);
     }
 
-    public function  reporteCentrosDeProduccion(Request $request)
+    public function reporteCentrosDeProduccion(Request $request)
     {
         echo 'asdasd';
     }

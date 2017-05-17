@@ -414,7 +414,7 @@ class ExcelController extends Controller
                     $alumno->setFecha($fila->fecha);
                     $alumno->setIdEscuela(1);
                     $alumno->setCorreo('asdasd');
-                    $al = $alumno->savealumno();
+                    $al = $alumno->savealumno($fila->dni);
 
                 });
                 echo $ct;
@@ -595,7 +595,7 @@ class ExcelController extends Controller
                             $alumno->setFecha($v['fecha']);
                             $idE = $alumno->bdEscuelaSede($v['escuela'], $v['sede']);//Consular el id de la escuela a la que va a pertenecer
                             $alumno->setIdEscuela($idE);
-                            $alumno->savealumno();
+                            $alumno->savealumno($v['dni']);
                         }
                         return back()->with('true','Se subio el archivo');
                     }

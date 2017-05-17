@@ -178,7 +178,7 @@ class alumnomodel extends personamodel
                         $idp = $pbd->codPersona;
                     }
                     DB::table('alumno')->insert(['codAlumno' => $this->codAlumno, 'fecha' => $this->fecha, 'idPersona' => $idp, 'coEscuela' => $this->idEscuela]);
-                    DB::table('produccionpersona')->insert(['idPersona' => $idp, 'idProduccion' => $this->codProduccion]);
+                    //DB::table('produccionpersona')->insert(['idPersona' => $idp, 'idProduccion' => $this->codProduccion]);
                 }
 
                 $logunt->saveLogUnt();
