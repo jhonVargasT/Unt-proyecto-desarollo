@@ -148,15 +148,14 @@
                                             }
                                         });
                                     </script>
-
                                 </div>
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label">Escuela</span>
 
                                     <input class="form-control input-sm" type="text"
                                            placeholder="Ejm: Mecanica" name="nombreEscuela" id="ne"
-                                           onkeypress="return validarLetras(event)" required>
-                                <!--<script>
+                                           onkeypress="return validarLetras(event)" required disabled>
+                                <script>
                                         src = "{{ route('searchajax') }}";
                                         $("#ne").autocomplete({
                                             source: function (request, response) {
@@ -175,16 +174,6 @@
                                                 });
                                             },
                                             min_length: 1
-                                        });
-                                    </script>-->
-                                    <script type="text/javascript">
-                                        var paths = "{{ route('autocompleteprod')}}";
-                                        $('input.typeahead').typeahead({
-                                            source: function (querys, processe) {
-                                                return $.get(paths, {query: querys}, function (datas) {
-                                                    return processe(datas);
-                                                });
-                                            }
                                         });
                                     </script>
                                 </div>
@@ -206,7 +195,6 @@
                                     </script>
                                     <script>
                                         $('#ns').on('input', function () {
-
                                             if ($(this).val().length)
                                                 $('#ne').prop('disabled', false);
                                             else

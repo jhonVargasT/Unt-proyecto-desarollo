@@ -133,8 +133,8 @@
                                     <input class="typeahead form-control" type="text"
                                            placeholder="Ejm: UNT" name="produccion"
                                            onkeypress="return validarLetras(event)" autocomplete="off" required id="term">
-                                    <script>
-                                        src = "{{ route('searchProduccion') }}";
+                                    <!--<script>
+                                        src = "";
                                         $("#ne").autocomplete({
                                             source: function (request, response) {
                                                 $.ajax({
@@ -151,6 +151,16 @@
                                                 });
                                             },
                                             min_length: 1
+                                        });
+                                    </script>-->
+                                    <script type="text/javascript">
+                                        var paths = "{{ route('searchProduccion')}}";
+                                        $('input.typeahead').typeahead({
+                                            source: function (querys, processe) {
+                                                return $.get(paths, {query: querys}, function (datas) {
+                                                    return processe(datas);
+                                                });
+                                            }
                                         });
                                     </script>
                                 </div>

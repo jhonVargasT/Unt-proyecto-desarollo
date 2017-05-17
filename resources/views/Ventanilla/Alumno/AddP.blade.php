@@ -133,24 +133,34 @@
                                     <input class="typeahead form-control" type="text"
                                            placeholder="Ejm: UNT" name="produccion"
                                            onkeypress="return validarLetras(event)" autocomplete="off" required id="term">
-                                    <script>
-                                        src = "{{ route('searchProduccion') }}";
-                                        $("#ne").autocomplete({
-                                            source: function (request, response) {
-                                                $.ajax({
-                                                    url: src,
-                                                    type: 'get',
-                                                    dataType: "json",
-                                                    data: {
-                                                        term: $('#term').val(),
-                                                        dni:$('#dni').val()
-                                                    },
-                                                    success: function (data) {
-                                                        response(data);
-                                                    }
+                                    <!--<script>
+                                       src = "";
+                                       $("#ne").autocomplete({
+                                           source: function (request, response) {
+                                               $.ajax({
+                                                   url: src,
+                                                   type: 'get',
+                                                   dataType: "json",
+                                                   data: {
+                                                       term: $('#term').val(),
+                                                       dni:$('#dni').val()
+                                                   },
+                                                   success: function (data) {
+                                                       response(data);
+                                                   }
+                                               });
+                                           },
+                                           min_length: 1
+                                       });
+                                   </script>-->
+                                    <script type="text/javascript">
+                                        var paths = "{{ route('searchProduccion')}}";
+                                        $('input.typeahead').typeahead({
+                                            source: function (querys, processe) {
+                                                return $.get(paths, {query: querys}, function (datas) {
+                                                    return processe(datas);
                                                 });
-                                            },
-                                            min_length: 1
+                                            }
                                         });
                                     </script>
                                 </div>

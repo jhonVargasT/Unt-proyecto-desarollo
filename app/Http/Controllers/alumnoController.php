@@ -23,8 +23,8 @@ class alumnoController extends Controller
         $alumno->setFecha($date);
         $idE = $alumno->bdEscuela($request->nombreEscuela);//Consular el id de la escuela a la que va a pertenecer
         $alumno->setIdEscuela($idE);
-        /*$cp = $alumno->obtenerCodProduccion('UNT');
-        $alumno->setCodProduccion($cp);*/
+        $cp = $alumno->obtenerCodProduccion('UNT');
+        $alumno->setCodProduccion($cp);
         $al = $alumno->savealumno($request->dni);//Metodo de insercion en la bd al alumno (persona y alumno)
 
         if ($al == true) {

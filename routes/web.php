@@ -331,7 +331,8 @@ Route::get('escuela', array('as' => 'escuela', 'uses' => 'alumnoController@escue
 Route::get('/buscarAlumno', 'alumnoController@buscarAlumno');
 
 Route::get('searchajax',array('as'=>'searchajax','uses'=>'alumnoController@autoComplete'));
-Route::get('searchProduccion',array('as'=>'searchajax','uses'=>'alumnoController@autocompleteprod'));
+
+Route::get('searchProduccion',array('as'=>'searchProduccion','uses'=>'produccionController@autocompleteprod'));
 
 Route::get('searchsedeescuela',array('as'=>'searchsedeescuela','uses'=>'escuelaController@autoCompleteEscuelaSede'));
 
