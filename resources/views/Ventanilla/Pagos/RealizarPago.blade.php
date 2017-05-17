@@ -126,16 +126,24 @@
                                                             $('#apellidos').val(data[1]);
                                                             $('#escuela').val(data[2]);
                                                             $('#facultad').val(data[3]);
-                                                            for (var i = 0; i < data[4].length; i++) {
-                                                                $('#selectP').append($('<option>').text(data[4][i]));
+                                                            if (data[4][0] === null) {
+                                                                for (var i = 0; i < data[4].length; i++) {
+                                                                    $("#selectP").empty();
+                                                                    document.getElementById("selectP").disabled = true;
+                                                                }
+                                                            }
+                                                            else {
+                                                                for (i = 0; i < data[4].length; i++) {
+                                                                    document.getElementById("selectP").disabled = false;
+                                                                    $('#selectP').append($('<option>').text(data[4][i]));
+                                                                }
                                                             }
                                                         }
                                                     });
                                                 }
                                             }
                                         }
-                                    })
-                                    ;
+                                    });
                                 </script>
                             </div>
                         </div>

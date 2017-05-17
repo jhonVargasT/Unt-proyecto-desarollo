@@ -182,20 +182,46 @@ class pagoController extends Controller
     public function buscarNombresC(Request $request)
     {
         $dato = array();
+        $ar = array();
+        $c = 0;
+        $i = 0;
         $var = $request->name;
-        $nombresa = DB::select('select persona.nombres as nombres, persona.apellidos as apellidos, escuela.nombre as enombre, facultad.nombre as fnombre from persona
-        left join alumno on persona.codPersona = alumno.idPersona
-        left join escuela on alumno.coEscuela = escuela.idEscuela
-        left join facultad on escuela.codigoFacultad = facultad.idFacultad
-        where persona.codPersona = alumno.idPersona and alumno.codAlumno=:codAlumno and persona.estado=1 and alumno.estado=1 and escuela.estado=1 and facultad.estado =1', ['codAlumno' => $var]);
+        $nombresa = DB::select('SELECT 
+                nombres,
+                apellidos,
+                escuela.nombre enombre,
+                facultad.nombre fnombre,
+                produccion.nombre pnombre
+            FROM
+                persona
+                    LEFT JOIN
+                alumno ON persona.codPersona = alumno.idPersona
+                    LEFT OUTER JOIN
+                produccionpersona ON produccionpersona.idPersona = persona.codPersona
+                    LEFT OUTER JOIN
+                produccion ON produccionpersona.idProduccion = produccion.codProduccion
+                    LEFT OUTER JOIN
+                escuela ON escuela.idEscuela = alumno.coEscuela
+                    LEFT OUTER JOIN
+                facultad ON facultad.idFacultad = escuela.codigoFacultad
+            WHERE
+                persona.codPersona = alumno.idPersona
+                    AND alumno.codAlumno = "' . $var . '"
+                    AND persona.estado = 1
+                    AND alumno.estado = 1');
         foreach ($nombresa as $np) {
             $dato[0] = $np->nombres;
             $dato[1] = $np->apellidos;
             $dato[2] = $np->enombre;
             $dato[3] = $np->fnombre;
+            $ar[$c] = $np->pnombre;
+            $c++;
+        }
+        foreach ($ar as $p) {
+            $dato[4][$i] = $p;
+            $i++;
         }
         return response()->json($dato);
-
     }
 
     //Ajax autollenado, buscar cliente por su ruc
