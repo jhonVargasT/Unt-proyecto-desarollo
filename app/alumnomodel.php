@@ -168,7 +168,6 @@ class alumnomodel extends personamodel
                 foreach ($alumnobd as $pbd) {
                     $idp = $pbd->codPersona;
                 }
-
                 if ($idp != null) {
                     DB::table('alumno')->where('idPersona', $idp)->update(['coEscuela' => $this->idEscuela]);
                 } else {
@@ -177,8 +176,8 @@ class alumnomodel extends personamodel
                     foreach ($personabd as $pbd) {
                         $idp = $pbd->codPersona;
                     }
-                    DB::table('alumno')->insert(['codAlumno' => $this->codAlumno, 'fecha' => $this->fecha, 'idPersona' => $idp, 'coEscuela' => $this->idEscuela]);
-                    DB::table('produccionpersona')->insert(['idPersona' => $idp, 'idProduccion' => $this->codProduccion]);
+                    $ida = DB::table('alumno')->insertGetId(['codAlumno' => $this->codAlumno, 'fecha' => $this->fecha, 'idPersona' => $idp, 'coEscuela' => $this->idEscuela]);
+                    DB::table('produccionalumno')->insert(['codAlumno' => $ida, 'idProduccion' => $this->codProduccion]);
                 }
 
                 $logunt->saveLogUnt();
@@ -193,6 +192,7 @@ class alumnomodel extends personamodel
     public function savealumnoProduccion($dni)
     {
         $idp = null;
+        $ida = null;
         date_default_timezone_set('Etc/GMT+5');
         $date = date('Y-m-d H:i:s', time());
         $logunt = new loguntemodel();
@@ -202,24 +202,27 @@ class alumnomodel extends personamodel
         $logunt->setDescripcion('registrarAlumnoProduccion');
         $logunt->setCodigoPersonal($codPers);
         try {
-            DB::transaction(function () use ($logunt, $idp, $dni) {
-                $alumnobd = DB::select('select codPersona from persona left join alumno on persona.codPersona = alumno.idPersona where 
+            DB::transaction(function () use ($logunt, $idp, $dni, $ida) {
+                $alumnobd = DB::select('select codPersona, idAlumno from persona left join alumno on persona.codPersona = alumno.idPersona where 
                 persona.codPersona = alumno.idPersona and persona.dni = ' . $dni . ' and persona.estado = 1 and alumno.estado=1');
                 foreach ($alumnobd as $pbd) {
                     $idp = $pbd->codPersona;
+                    $ida = $pbd->idAlumno;
                 }
-                $produccionbd = DB::select('SELECT codProduccionPersona FROM produccionpersona LEFT JOIN persona ON persona.codPersona = produccionpersona.idPersona
-                LEFT JOIN produccion ON produccionpersona.idProduccion = produccion.codProduccion WHERE persona.dni = ' . $dni . ' AND produccion.codProduccion = ' . $this->codProduccion . ' ');
+                $produccionbd = DB::select('SELECT codProduccionAlumno FROM produccionalumno LEFT JOIN alumno ON produccionalumno.codAlumno = produccionalumno.codAlumno
+                LEFT JOIN persona ON persona.codPersona = alumno.idPersona LEFT JOIN produccion ON produccionalumno.idProduccion = produccion.codProduccion
+                WHERE persona.dni = ' . $dni . ' AND produccion.codProduccion = ' . $this->codProduccion . ' ');
                 if ($idp != null && $produccionbd == null) {
-                    DB::table('produccionpersona')->insert(['idPersona' => $idp, 'idProduccion' => $this->codProduccion]);
+                    DB::table('produccionalumno')->insert(['codAlumno' => $ida, 'idProduccion' => $this->codProduccion]);
                 } else {
-                    DB::table('persona')->insert(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(), 'correo' => $this->getCorreo()]);
-                    $personabd = DB::table('persona')->where('dni', $this->getDni())->get();
-                    foreach ($personabd as $pbd) {
-                        $idp = $pbd->codPersona;
+                    $id = DB::table('persona')->insertGetId(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(), 'correo' => $this->getCorreo()]);
+                    DB::table('alumno')->insert(['codAlumno' => $this->codAlumno, 'fecha' => $this->fecha, 'idPersona' => $id]);
+                    $alumnobd = DB::select('select idAlumno from persona left join alumno on persona.codPersona = alumno.idPersona where 
+                    persona.codPersona = alumno.idPersona and persona.dni = ' . $dni . ' and persona.estado = 1 and alumno.estado=1');
+                    foreach ($alumnobd as $pbd) {
+                        $ida = $pbd->idAlumno;
                     }
-                    DB::table('alumno')->insert(['codAlumno' => $this->codAlumno, 'fecha' => $this->fecha, 'idPersona' => $idp]);
-                    DB::table('produccionpersona')->insert(['idPersona' => $idp, 'idProduccion' => $this->codProduccion]);
+                    DB::table('produccionalumno')->insert(['codAlumno' => $ida, 'idProduccion' => $this->codProduccion]);
                 }
                 $logunt->saveLogUnt();
             });
@@ -229,8 +232,7 @@ class alumnomodel extends personamodel
         return true;
     }
 
-    public
-    function bdProduccion($nombre)
+    public function bdProduccion($nombre)
     {
         $prod = null;
         $produccionbd = DB::select('select codProduccion from produccion where nombre = "' . $nombre . '"');
@@ -241,9 +243,9 @@ class alumnomodel extends personamodel
         return $prod;
     }
 
-    public
-    function editarAlumno($codPersona)
+    public function editarAlumno($codPersona)
     {
+        $idp = null;
         date_default_timezone_set('Etc/GMT+5');
         $date = date('Y-m-d H:i:s', time());
         $logunt = new loguntemodel();
@@ -253,13 +255,13 @@ class alumnomodel extends personamodel
         $logunt->setDescripcion('editarAlumno');
         $logunt->setCodigoPersonal($codPers);
         try {
-            DB::transaction(function () use ($codPersona, $logunt) {
+            DB::transaction(function () use ($codPersona, $logunt, $idp) {
                 DB::table('persona')->where('codPersona', $codPersona)->update(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(), 'correo' => $this->getCorreo()]);
                 $personabd = DB::table('persona')->where('dni', $this->getDni())->get();
                 foreach ($personabd as $pbd) {
                     $idp = $pbd->codPersona;
-                    DB::table('alumno')->where('idPersona', $codPersona)->update(['codAlumno' => $this->codAlumno, 'fecha' => $this->fecha, 'idPersona' => $idp, 'coEscuela' => $this->idEscuela]);
                 }
+                DB::table('alumno')->where('idPersona', $codPersona)->update(['codAlumno' => $this->codAlumno, 'fecha' => $this->fecha, 'idPersona' => $idp, 'coEscuela' => $this->idEscuela]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -268,9 +270,10 @@ class alumnomodel extends personamodel
         return true;
     }
 
-    public
-    function editarAlumnoP($codPersona)
+    public function editarAlumnoP($codPersona)
     {
+        $idp = null;
+        $ida = null;
         date_default_timezone_set('Etc/GMT+5');
         $date = date('Y-m-d H:i:s', time());
         $logunt = new loguntemodel();
@@ -280,12 +283,19 @@ class alumnomodel extends personamodel
         $logunt->setDescripcion('editarAlumnoProduccion');
         $logunt->setCodigoPersonal($codPers);
         try {
-            DB::transaction(function () use ($codPersona, $logunt) {
-                DB::table('persona')->where('codPersona', $codPersona)->update(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(), 'correo' => $this->getCorreo(), 'idProduccion' => $this->getCodProduccion()]);
-                $personabd = DB::table('persona')->where('dni', $this->getDni())->get();
-                foreach ($personabd as $pbd) {
+            DB::transaction(function () use ($codPersona, $logunt, $idp, $ida) {
+                DB::table('persona')->where('codPersona', $codPersona)->update(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(), 'correo' => $this->getCorreo()]);
+                $alumnobd = DB::select('select codPersona, idAlumno from persona left join alumno on persona.codPersona = alumno.idPersona where 
+                persona.codPersona = alumno.idPersona and persona.codPersona = ' . $codPersona . ' and persona.estado = 1 and alumno.estado=1');
+                foreach ($alumnobd as $pbd) {
                     $idp = $pbd->codPersona;
-                    DB::table('alumno')->where('idPersona', $codPersona)->update(['codAlumno' => $this->codAlumno, 'fecha' => $this->fecha, 'idPersona' => $idp]);
+                    $ida = $pbd->idAlumno;
+                }
+                DB::table('alumno')->where('idPersona', $codPersona)->update(['codAlumno' => $this->codAlumno, 'fecha' => $this->fecha, 'idPersona' => $idp]);
+                $produccionbd = DB::select('SELECT codProduccionAlumno FROM produccionalumno LEFT JOIN persona ON persona.codPersona = produccionalumno.idPersona
+                LEFT JOIN produccion ON produccionalumno.idProduccion = produccion.codProduccion WHERE alumno.idAlumno = ' . $ida . ' AND produccion.codProduccion = ' . $this->codProduccion . ' ');
+                if ($produccionbd != null) {
+                    DB::table('produccionalumno')->insert(['codAlumno' => $ida, 'idProduccion' => $this->codProduccion]);
                 }
                 $logunt->saveLogUnt();
             });
@@ -304,13 +314,13 @@ class alumnomodel extends personamodel
                     LEFT JOIN
                 alumno ON persona.codPersona = alumno.idPersona
                     LEFT JOIN
-                produccionpersona ON produccionpersona.idPersona = persona.codPersona
+                produccionalumno ON produccionalumno.codAlumno = alumno.idAlumno
                     LEFT JOIN
-                produccion ON produccion.codProduccion = produccionpersona.idProduccion
+                produccion ON produccion.codProduccion = produccionalumno.idProduccion
             WHERE
                 persona.codPersona = alumno.idPersona
-                    AND produccionpersona.idPersona = persona.codPersona
-                    AND produccion.codProduccion = produccionpersona.idProduccion
+                    AND produccionalumno.codAlumno = alumno.idAlumno
+                    AND produccion.codProduccion = produccionalumno.idProduccion
                     AND persona.estado = 1
                     AND alumno.estado = 1
                     AND persona.dni like "%' . $dni . '%"');
@@ -345,13 +355,13 @@ class alumnomodel extends personamodel
                     LEFT JOIN
                 alumno ON persona.codPersona = alumno.idPersona
                     LEFT JOIN
-                produccionpersona ON produccionpersona.idPersona = persona.codPersona
+                produccionalumno ON produccionalumno.codAlumno = alumno.idAlumno
                     LEFT JOIN
-                produccion ON produccion.codProduccion = produccionpersona.idProduccion
+                produccion ON produccion.codProduccion = produccionalumno.idProduccion
             WHERE
                 persona.codPersona = alumno.idPersona
-                    AND produccionpersona.idPersona = persona.codPersona
-                    AND produccion.codProduccion = produccionpersona.idProduccion
+                    AND produccionalumno.codAlumno = alumno.idAlumno
+                    AND produccion.codProduccion = produccionalumno.idProduccion
                     AND persona.estado = 1
                     AND alumno.estado = 1
                     AND persona.apellidos like "%' . $apellidos . '%"');
@@ -367,13 +377,13 @@ class alumnomodel extends personamodel
                     LEFT JOIN
                 alumno ON persona.codPersona = alumno.idPersona
                     LEFT JOIN
-                produccionpersona ON produccionpersona.idPersona = persona.codPersona
+                 produccionalumno ON produccionalumno.codAlumno = alumno.idAlumno
                     LEFT JOIN
-                produccion ON produccion.codProduccion = produccionpersona.idProduccion
+                produccion ON produccion.codProduccion = produccionalumno.idProduccion
             WHERE
                 persona.codPersona = alumno.idPersona
-                    AND produccionpersona.idPersona = persona.codPersona
-                    AND produccion.codProduccion = produccionpersona.idProduccion
+                    AND produccionalumno.codAlumno = alumno.idAlumno
+                    AND produccion.codProduccion = produccionalumno.idProduccion
                     AND persona.estado = 1
                     AND alumno.estado = 1
                     AND alumno.codAlumno like "%' . $codigo . '%"');
@@ -389,13 +399,13 @@ class alumnomodel extends personamodel
                     LEFT JOIN
                 alumno ON persona.codPersona = alumno.idPersona
                     LEFT JOIN
-                produccionpersona ON produccionpersona.idPersona = persona.codPersona
+                produccionalumno ON produccionalumno.codAlumno = alumno.idAlumno
                     LEFT JOIN
-                produccion ON produccion.codProduccion = produccionpersona.idProduccion
+                produccion ON produccion.codProduccion = produccionalumno.idProduccion
             WHERE
                 persona.codPersona = alumno.idPersona
-                    AND produccionpersona.idPersona = persona.codPersona
-                    AND produccion.codProduccion = produccionpersona.idProduccion
+                    AND produccionalumno.codAlumno = alumno.idAlumno
+                    AND produccion.codProduccion = produccionalumno.idProduccion
                     AND persona.estado = 1
                     AND alumno.estado = 1
                     and produccion.nombre like "%' . $nombre . '%"');
@@ -411,13 +421,13 @@ class alumnomodel extends personamodel
                     LEFT JOIN
                 alumno ON persona.codPersona = alumno.idPersona
                     LEFT JOIN
-                produccionpersona ON produccionpersona.idPersona = persona.codPersona
+                produccionalumno ON produccionalumno.codAlumno = alumno.idAlumno
                     LEFT JOIN
-                produccion ON produccion.codProduccion = produccionpersona.idProduccion
+                produccion ON produccion.codProduccion = produccionalumno.idProduccion
             WHERE
                 persona.codPersona = alumno.idPersona
-                    AND produccionpersona.idPersona = persona.codPersona
-                    AND produccion.codProduccion = produccionpersona.idProduccion
+                    AND produccionalumno.codAlumno = alumno.idAlumno
+                    AND produccion.codProduccion = produccionalumno.idProduccion
                     AND persona.estado = 1
                     AND alumno.estado = 1');
         return $alumnobd;
@@ -518,17 +528,17 @@ class alumnomodel extends personamodel
                     LEFT JOIN
                 alumno ON persona.codPersona = alumno.idPersona
                     LEFT JOIN
-                produccionpersona ON produccionpersona.idPersona = persona.codPersona
+                produccionalumno ON produccionalumno.codAlumno = alumno.idAlumno
                     LEFT JOIN
-                produccion ON produccion.codProduccion = produccionpersona.idProduccion
+                produccion ON produccion.codProduccion = produccionalumno.idProduccion
             WHERE
                 persona.codPersona = alumno.idPersona
-                    AND produccionpersona.idPersona = persona.codPersona
-                    AND produccion.codProduccion = produccionpersona.idProduccion
+                    AND produccionalumno.codAlumno = alumno.idAlumno
+                    AND produccion.codProduccion = produccionalumno.idProduccion
                     AND persona.estado = 1
                     AND alumno.estado = 1
                     AND persona.codPersona = ' . $codPersona . ' 
-                    AND produccionpersona.idProduccion = ' . $codProduccion . ' ');
+                    AND produccionalumno.idProduccion = ' . $codProduccion . ' ');
         return $alumnobd;
     }
 

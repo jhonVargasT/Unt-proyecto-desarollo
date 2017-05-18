@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Produccionpersona extends Migration
+class ProduccionAlumno extends Migration
 {
     /**
      * Run the migrations.
@@ -14,18 +14,18 @@ class Produccionpersona extends Migration
     public function up()
     {
         //
-        Schema::create('produccionpersona', function (Blueprint $table) {
+        Schema::create('produccionalumno', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table->increments('codProduccionPersona')->unique();
+            $table->increments('codProduccionAlumno')->unique();
 
-            $table->integer('idPersona')->unsigned();
+            $table->integer('codAlumno')->unsigned();
             $table->integer('idProduccion')->unsigned();
         });
 
-        Schema::table('produccionpersona', function( $table) {
+        Schema::table('produccionalumno', function( $table) {
+            $table->foreign('codAlumno')->references('idAlumno')->on('alumno');
             $table->foreign('idProduccion')->references('codProduccion')->on('produccion');
-            $table->foreign('idPersona')->references('codPersona')->on('persona');
         });
     }
 
@@ -37,6 +37,6 @@ class Produccionpersona extends Migration
     public function down()
     {
         //
-        Schema::drop('produccionpersona');
+        Schema::drop('produccionalumno');
     }
 }

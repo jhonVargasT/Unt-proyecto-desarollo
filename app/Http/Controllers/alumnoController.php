@@ -19,8 +19,8 @@ class alumnoController extends Controller
         $alumno->setApellidos($request->apellidos);
         $alumno->setCodAlumno($request->codAlumno);
         $alumno->setCorreo($request->correo);
-        $date = implode("-", array_reverse(explode("/", $request->fecha)));
-        $alumno->setFecha($date);
+        //$date = implode("-", array_reverse(explode("/", $request->fecha)));
+        $alumno->setFecha($request->fecha);
         $idE = $alumno->bdEscuela($request->nombreEscuela);//Consular el id de la escuela a la que va a pertenecer
         $alumno->setIdEscuela($idE);
         $cp = $alumno->obtenerCodProduccion('UNT');
@@ -42,8 +42,8 @@ class alumnoController extends Controller
         $alumno->setApellidos($request->apellidos);
         $alumno->setCodAlumno($request->codAlumno);
         $alumno->setCorreo($request->correo);
-        $date = implode("-", array_reverse(explode("/", $request->fecha)));
-        $alumno->setFecha($date);
+        //$date = implode("-", array_reverse(explode("/", $request->fecha)));
+        $alumno->setFecha($request->fecha);
         $codProduccion = $alumno->bdProduccion($request->produccion);
         $alumno->setCodProduccion($codProduccion);
         $al = $alumno->savealumnoProduccion($request->dni);//Metodo de insercion en la bd al alumno (persona y alumno)
@@ -96,8 +96,8 @@ class alumnoController extends Controller
         $alumno->setApellidos($request->apellidos);
         $alumno->setCodAlumno($request->codAlumno);
         $alumno->setCorreo($request->correo);
-        $date = implode("-", array_reverse(explode("/", $request->fecha)));
-        $alumno->setFecha($date);
+        //$date = implode("-", array_reverse(explode("/", $request->fecha)));
+        $alumno->setFecha($request->fecha);
         $idE = $alumno->bdEscuela($request->nombreEscuela);//Consular el id de la escuela a la que va a pertenecer
         $alumno->setIdEscuela($idE);
         $alumno->editarAlumno($codPersona);//Ejecuta la consulta de actualizar los datos del alumno
@@ -118,8 +118,8 @@ class alumnoController extends Controller
         $alumno->setApellidos($request->apellidos);
         $alumno->setCodAlumno($request->codAlumno);
         $alumno->setCorreo($request->correo);
-        $date = implode("-", array_reverse(explode("/", $request->fecha)));
-        $alumno->setFecha($date);
+        //$date = implode("-", array_reverse(explode("/", $request->fecha)));
+        $alumno->setFecha($request->fecha);
         $codProduccion = $alumno->bdProduccion($request->produccion);
         $alumno->setCodProduccion($codProduccion);
         $alumno->editarAlumnoP($codPersona);//Ejecuta la consulta de actualizar los datos del alumno
