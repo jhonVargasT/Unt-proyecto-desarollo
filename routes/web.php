@@ -250,6 +250,9 @@ Route::get('/venRegistrarEstudiante', function () {
 Route::get('/venRegistrarEstudianteProduccion', function () {
     return view('Ventanilla/Alumno/AddP');
 });
+Route::get('/venBuscarEstudiante', function () {
+    return view('Ventanilla/Alumno/Search');
+});
 
 Route::get('/venBuscarEstudianteProduccion', function () {
     return view('Ventanilla/Alumno/SearchP');

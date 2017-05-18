@@ -6,13 +6,13 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarBanco">Buscar Bancos</a>
+                        <a href="/admBuscarBanco" style="color: #509f0c" target="_top">Buscar Bancos</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarBanco" style="color: #509f0c" target="_top">Agregar Banco</a>
+                        <a href="/admRegistrarBanco" >Agregar Banco</a>
                     </td>
                 </tr>
             </table>

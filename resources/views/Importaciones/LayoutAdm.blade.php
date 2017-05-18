@@ -127,7 +127,7 @@
                     <h1> UNIVERSIDAD NACIONAL DE TRUJILLO</h1>
                 </div>
                 <div>
-                    <h3>Tesoreria - Importaciones</h3>
+                    <h3>Tesoreria - Importador de datos</h3>
                 </div>
             </div>
         </div>

@@ -147,9 +147,7 @@
             </div>
         </div>
         @yield('body')
-        <footer class="footer row col-sm-12">
-            <p align="right">© 2016 ÑuxtuSoft, S.A.C.</p>
-        </footer>
+
     </div>
 
 
