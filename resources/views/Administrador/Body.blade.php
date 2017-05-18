@@ -6,34 +6,7 @@
         <div class="col-sm-2 " style="background-color: #FFFFFF">
             <br>
             <div class="panel-group" id="accordion">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseProduccion">
-                                <span class="fa fa-building-o">
-                            </span> Centro Produccion</a>
-                        </h4>
-                    </div>
-                    @yield('produccion')
-                    <div id="collapseProduccion" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-search"></span>
-                                        <a href="/admBuscarProduccion">Buscar Centro de Produccion</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="/admRegistrarProduccion">Agregar Centro de Produccion</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">
@@ -273,7 +246,34 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseProduccion">
+                                <span class="fa fa-building-o">
+                            </span> Centro Produccion</a>
+                        </h4>
+                    </div>
+                    @yield('produccion')
+                    <div id="collapseProduccion" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-search"></span>
+                                        <a href="/admBuscarProduccion">Buscar Centro de Produccion</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                        <a href="/admRegistrarProduccion">Agregar Centro de Produccion</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">
