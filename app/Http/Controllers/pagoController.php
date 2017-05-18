@@ -120,9 +120,9 @@ class pagoController extends Controller
                     LEFT JOIN
                 alumno ON persona.codPersona = alumno.idPersona
                     LEFT OUTER JOIN
-                produccionpersona ON produccionpersona.idPersona = persona.codPersona
+                produccionalumno ON produccionalumno.codAlumno = alumno.idAlumno
                     LEFT OUTER JOIN
-                produccion ON produccionpersona.idProduccion = produccion.codProduccion
+                produccion ON produccionalumno.idProduccion = produccion.codProduccion
                     LEFT OUTER JOIN
                 escuela ON escuela.idEscuela = alumno.coEscuela
                     LEFT OUTER JOIN
@@ -197,9 +197,9 @@ class pagoController extends Controller
                     LEFT JOIN
                 alumno ON persona.codPersona = alumno.idPersona
                     LEFT OUTER JOIN
-                produccionpersona ON produccionpersona.idPersona = persona.codPersona
+                produccionalumno ON produccionalumno.codAlumno = alumno.idAlumno
                     LEFT OUTER JOIN
-                produccion ON produccionpersona.idProduccion = produccion.codProduccion
+                produccion ON produccionalumno.idProduccion = produccion.codProduccion
                     LEFT OUTER JOIN
                 escuela ON escuela.idEscuela = alumno.coEscuela
                     LEFT OUTER JOIN
