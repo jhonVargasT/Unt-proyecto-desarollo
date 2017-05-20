@@ -291,7 +291,7 @@
                 </div>
                 <span class="col-sm-2 required ">Produccion :</span>
                 <div class="col-sm-2">
-                    <select class=" form-group-sm form-control" id="selectP" name="selectP" disabled>
+                    <select class=" form-group-sm form-control" id="selectP" name="selectP">
                     </select>
                 </div>
                 <span class="col-sm-2 required ">Detalle :</span>
@@ -405,6 +405,7 @@
                             nombres: $('#names').val(),
                             apellidos: $('#lastname').val(),
                             detalle: $('#detalle').val(),
+                            selectP: $('#selectP').val(),
                             text: $('#ts').val(),
                             email: Culqi.token.email
                         },
