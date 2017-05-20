@@ -52,6 +52,12 @@ class culqiController extends Controller
         $p->setModalidad('Online');
         $p->setIdPersona($codper);
         $p->setIdSubtramite($codSubtramite);
+        if ($request->selectP) {
+            $cpro = $al->bdProduccion($request->selectP);
+            $cod = $al->obtenerCodAlumnoxCodPersona($codper);
+            $ipa = $p->obteneridProduccionAlumno($cpro, $cod);
+            $p->setIdProduccionAlumno($ipa);
+        }
         $contaux = $cont + 1;
         try {
             // Configurar tu API Key y autenticación

@@ -18,6 +18,7 @@ class pagomodel
     private $idSubtramite;
     private $coPersonal;
     private $deuda;
+    private $idProduccionAlumno;
 
     /**
      * pagomodel constructor.
@@ -170,6 +171,25 @@ class pagomodel
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIdProduccionAlumno()
+    {
+        return $this->idProduccionAlumno;
+    }
+
+    /**
+     * @param mixed $idProduccionAlumno
+     * @return pagomodel
+     */
+    public function setIdProduccionAlumno($idProduccionAlumno)
+    {
+        $this->idProduccionAlumno = $idProduccionAlumno;
+        return $this;
+    }
+
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function bdPersonaDni($var)
     {
@@ -255,7 +275,7 @@ class pagomodel
             try {
                 DB::transaction(function () use ($logunt, $contaux) {
                     if ($this->deuda == 0) {
-                        DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal]);
+                        DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal, 'idProduccionAlumno' => $this->idProduccionAlumno]);
                         DB::table('subtramite')->where('codSubtramite', $this->idSubtramite)->update(['contador' => $contaux]);
                     } elseif ($this->deuda != 0) {
                         DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal, 'estadodeuda' => $this->deuda]);
@@ -276,7 +296,7 @@ class pagomodel
     {
         try {
             $result = DB::transaction(function () use ($contaux) {//insertar pago y enviar correo de la boleta virtual al usuario
-                $id = DB::table('pago')->insertGetId(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite]);
+                $id = DB::table('pago')->insertGetId(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'idProduccionAlumno' => $this->idProduccionAlumno]);
                 DB::table('subtramite')->where('codSubtramite', $this->idSubtramite)->update(['contador' => $contaux]);
                 return $id;
             });
@@ -545,6 +565,17 @@ class pagomodel
             return false;
         }
         return true;
+    }
+
+    public function obteneridProduccionAlumno($cpro, $cod)
+    {
+        $prod = null;
+        $prouccionbd = DB::select('select codProduccionAlumno from produccionalumno where codAlumno = ' . $cod . ' and idProduccion= ' . $cpro . ' ');
+
+        foreach ($prouccionbd as $p) {
+            $prod = $p->codProduccionAlumno;
+        }
+        return $prod;
     }
 
     // pago,personal,subtramite,escuela,facultad

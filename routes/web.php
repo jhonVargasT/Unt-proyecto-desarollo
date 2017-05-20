@@ -317,7 +317,7 @@ Route::get('/buscarFacultadC', 'pagoController@buscarFacultadC');
 Route::get('/buscarEscuelaD', 'pagoController@buscarEscuelaD');
 Route::get('/buscarEscuelaC', 'pagoController@buscarEscuelaC');
 
-Route::get('/precioSubtramite', 'pagoController@precioSubtramite');
+Route::get('precioSubtramite', 'pagoController@precioSubtramite');
 
 Route::get('/nombreSCT', 'subtramiteController@nombreSCT');
 

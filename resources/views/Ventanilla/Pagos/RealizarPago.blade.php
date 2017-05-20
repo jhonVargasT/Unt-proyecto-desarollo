@@ -203,23 +203,6 @@
                             </script>
                         </div>
                         <script>
-                            $('#selectt').change(function () {
-                                var value = $('#selectt option:selected').attr('value');
-                                if (value == 'Codigo tasa') {
-                                    var y = document.getElementById("st");
-                                    y.type = "text";
-                                    document.getElementById("nsub").style.visibility = "visible";
-                                }
-                                else {
-                                    if (value == 'Nombre tasa') {
-                                        var x = document.getElementById("st");
-                                        x.type = "hidden";
-                                        document.getElementById("nsub").style.visibility = "hidden";
-                                    }
-                                }
-                            });
-                        </script>
-                        <script>
                             $('#ts').change(function () {
                                 var value = $('#selectt option:selected').attr('value');
                                 if (value == 'Codigo tasa') {
@@ -287,7 +270,7 @@
                     <div class="col-sm-12 row form-group">
                         <span class="col-sm-2" id="nsub">Produccion :</span>
                         <div class="col-sm-4">
-                            <select class=" form-group-sm form-control" id="selectP" name="selectP" disabled required>
+                            <select class=" form-group-sm form-control" id="selectP" name="selectP" required>
                                 <option selected disabled>Seleccionar..
                                 </option>
                             </select>

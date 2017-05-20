@@ -63,6 +63,12 @@ class pagoController extends Controller
         $p->setCoPersonal($idper);
         $p->setIdPersona($codper);
         $p->setIdSubtramite($codSubtramite);
+        if ($request->selectP) {
+            $cpro = $al->bdProduccion($request->selectP);
+            $cod = $al->obtenerCodAlumnoxCodPersona($codper);
+            $ipa = $p->obteneridProduccionAlumno($cpro, $cod);
+            $p->setIdProduccionAlumno($ipa);
+        }
         $contaux = $cont + 1;
         if ($request->checkbox == 1) {
             $p->setDeuda(1);
@@ -227,14 +233,14 @@ class pagoController extends Controller
     //Ajax autollenado, buscar precio de la tasa por nombre de tasa
     public function precioSubtramite(Request $request)
     {
-        $precio = 0;
+        $pre = 0;
         $var = $request->name;
         $precioS = DB::select('select precio from subtramite
-        where nombre=:nombre and estado=1', ['nombre' => $var]);
+        where nombre= "' . $var . '" and estado=1');
         foreach ($precioS as $ps) {
-            $precio = $ps->precio;
+            $pre = $ps->precio;
         }
-        return response()->json($precio);
+        return response()->json($pre);
     }
 
     //Ajax autollenado, obtener nombre de las tasas

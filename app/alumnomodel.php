@@ -588,8 +588,7 @@ class alumnomodel extends personamodel
         return true;
     }
 
-    public
-    function consultaridPersonaAlumno($codAlumno)
+    public function consultaridPersonaAlumno($codAlumno)
     {
         $idPer = null;
         $alumnobd = DB::select('select * from persona left join alumno on persona.codPersona = alumno.idPersona where 
@@ -599,6 +598,18 @@ class alumnomodel extends personamodel
         }
         return $idPer;
     }
+
+    public function obtenerCodAlumnoxCodPersona($codPersona)
+    {
+        $idA = null;
+        $alumnobd = DB::select('select idAlumno from persona left join alumno on persona.codPersona = alumno.idPersona where 
+        persona.codPersona = alumno.idPersona and persona.codPersona=:codPersona', ['codPersona' => $codPersona]);
+        foreach ($alumnobd as $al) {
+            $idA = $al->idAlumno;
+        }
+        return $idA;
+    }
+
 
     public function obtenerCodProduccion($nombre)
     {
