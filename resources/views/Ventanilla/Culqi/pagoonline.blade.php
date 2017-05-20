@@ -92,6 +92,7 @@
                     <input type="hidden" id="names">
                     <script>
                         $('#buscar').change(function () {
+                            $("#selectP").empty();
                             var value = $('#select option:selected').attr('value');
                             if (value == 'Dni') {
                                 var id = $('#buscar').val();
@@ -107,14 +108,28 @@
                                                 type: "get",
                                                 data: {name: id},
                                                 success: function (data) {
-                                                    $('#nombres').val(data);
-                                                    $('#names').val(data);
+                                                    $('#nombres').val(data[0]);
+                                                    $('#apellidos').val(data[1]);
                                                 }
                                             });
                                         }
                                         else {
-                                            $('#nombres').val(data);
-                                            $('#names').val(data)
+                                            $('#nombres').val(data[0]);
+                                            $('#apellidos').val(data[1]);
+                                            $('#escuela').val(data[2]);
+                                            $('#facultad').val(data[3]);
+                                            if (data[4][0] === null) {
+                                                for (var i = 0; i < data[4].length; i++) {
+                                                    $("#selectP").empty();
+                                                    document.getElementById("selectP").disabled = true;
+                                                }
+                                            }
+                                            else {
+                                                for (i = 0; i < data[4].length; i++) {
+                                                    document.getElementById("selectP").disabled = false;
+                                                    $('#selectP').append($('<option>').text(data[4][i]));
+                                                }
+                                            }
                                         }
                                     }
                                 });
@@ -125,8 +140,8 @@
                                         type: "get",
                                         data: {name: $('#buscar').val()},
                                         success: function (data) {
-                                            $('#nombres').val(data)
-                                            $('#names').val(data)
+                                            $('#nombres').val(data[0]);
+                                            $('#apellidos').val(data[1]);
                                         }
                                     });
                                 } else {
@@ -136,8 +151,22 @@
                                             type: "get",
                                             data: {name: $('#buscar').val()},
                                             success: function (data) {
-                                                $('#nombres').val(data);
-                                                $('#names').val(data)
+                                                $('#nombres').val(data[0]);
+                                                $('#apellidos').val(data[1]);
+                                                $('#escuela').val(data[2]);
+                                                $('#facultad').val(data[3]);
+                                                if (data[4][0] === null) {
+                                                    for (var i = 0; i < data[4].length; i++) {
+                                                        $("#selectP").empty();
+                                                        document.getElementById("selectP").disabled = true;
+                                                    }
+                                                }
+                                                else {
+                                                    for (i = 0; i < data[4].length; i++) {
+                                                        document.getElementById("selectP").disabled = false;
+                                                        $('#selectP').append($('<option>').text(data[4][i]));
+                                                    }
+                                                }
                                             }
                                         });
                                     }
@@ -152,61 +181,7 @@
                            @if(isset($apellidos))value="{{$apellidos}}" @endif
                            readonly>
                     <input type="hidden" id="lastname">
-                    <script>
-                        $('#buscar').change(function () {
-                            var value = $('#select option:selected').attr('value');
-                            if (value == 'Dni') {
-                                var id = $('#buscar').val();
-                                $.ajax({
-                                    url: '/buscarApellidosD',
-                                    type: "get",
-                                    data: {name: id},
-                                    success: function (data) {
-                                        if (data == false) {
-                                            $('#apellidos').val(data)
-                                            $.ajax({
-                                                url: '/buscarApellidosDR',
-                                                type: "get",
-                                                data: {name: id},
-                                                success: function (data) {
-                                                    $('#apellidos').val(data);
-                                                    $('#lastname').val(data);
-                                                }
-                                            });
-                                        }
-                                        else {
-                                            $('#apellidos').val(data);
-                                            $('#lastname').val(data);
-                                        }
-                                    }
-                                });
-                            } else {
-                                if (value == 'Ruc') {
-                                    $.ajax({
-                                        url: '/buscarApellidosR',
-                                        type: "get",
-                                        data: {name: $('#buscar').val()},
-                                        success: function (data) {
-                                            $('#apellidos').val(data);
-                                            $('#lastname').val(data);
-                                        }
-                                    });
-                                } else {
-                                    if (value == 'Codigo de alumno') {
-                                        $.ajax({
-                                            url: '/buscarApellidosC',
-                                            type: "get",
-                                            data: {name: $('#buscar').val()},
-                                            success: function (data) {
-                                                $('#apellidos').val(data);
-                                                $('#lastname').val(data);
-                                            }
-                                        });
-                                    }
-                                }
-                            }
-                        });
-                    </script>
+
                 </div>
             </div>
             <div class="row form-group">
@@ -215,40 +190,6 @@
                     <input class="form-control input-sm" name="escuela" type="text" readonly
                            id="escuela"
                            @if(isset($escuela)) value="{{$escuela}}" @endif >
-                    <script>
-                        $('#buscar').change(function () {
-                            var value = $('#select option:selected').attr('value');
-                            if (value == 'Dni') {
-                                $.ajax({
-                                    url: '/buscarEscuelaD',
-                                    type: "get",
-                                    data: {name: $('#buscar').val()},
-                                    success: function (data) {
-                                        $('#escuela').val(data);
-                                    }
-                                });
-                            } else {
-                                if (value == 'Ruc') {
-                                    $.ajax({
-                                        success: function () {
-                                            $('#escuela').val('');
-                                        }
-                                    });
-                                } else {
-                                    if (value == 'Codigo de alumno') {
-                                        $.ajax({
-                                            url: '/buscarEscuelaC',
-                                            type: "get",
-                                            data: {name: $('#buscar').val()},
-                                            success: function (data) {
-                                                $('#escuela').val(data);
-                                            }
-                                        });
-                                    }
-                                }
-                            }
-                        });
-                    </script>
                 </div>
                 <div class="form-group-sm">
                     <span class="col-sm-2 col-lg-2 col-xs-2">Facultad :</span>
@@ -256,41 +197,6 @@
                         <input class="form-control input-sm" name="facultad" type="text" readonly
                                id="facultad"
                                @if(isset($facultad)) value="{{$facultad}}" @endif >
-                        <script>
-                            $('#buscar').change(function () {
-                                var value = $('#select option:selected').attr('value');
-                                if (value == 'Dni') {
-                                    $.ajax({
-                                        url: '/buscarFacultadD',
-                                        type: "get",
-                                        data: {name: $('#buscar').val()},
-                                        success: function (data) {
-                                            $('#facultad').val(data);
-                                        }
-                                    });
-                                } else {
-                                    if (value == 'Ruc') {
-                                        $.ajax({
-                                            success: function () {
-                                                $('#facultad').val('');
-                                            }
-                                        });
-                                    }
-                                    else {
-                                        if (value == 'Codigo de alumno') {
-                                            $.ajax({
-                                                url: '/buscarFacultadC',
-                                                type: "get",
-                                                data: {name: $('#buscar').val()},
-                                                success: function (data) {
-                                                    $('#facultad').val(data);
-                                                }
-                                            });
-                                        }
-                                    }
-                                }
-                            });
-                        </script>
                     </div>
                 </div>
                 <div class="col-sm-2 col-lg-2 col-xs-2">
@@ -377,6 +283,11 @@
                 <span class="col-sm-2 col-lg-2 col-xs-2" id="nsub">Nombre de tasa :</span>
                 <div class="col-sm-2 col-lg-2 col-xs-2">
                     <input class="form-control" type="text" name="subtramite" id="st" required readonly>
+                </div>
+                <span class="col-sm-2 required ">Produccion :</span>
+                <div class="col-sm-2">
+                    <select class=" form-group-sm form-control" id="selectP" name="selectP" disabled>
+                    </select>
                 </div>
                 <span class="col-sm-2 required ">Detalle :</span>
                 <div class="col-sm-2 ">

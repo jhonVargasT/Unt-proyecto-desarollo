@@ -64,6 +64,7 @@
                                        @if(isset($nombre))value="{{$nombre}}" @endif readonly>
                                 <script>
                                     $('#buscar').change(function () {
+                                        $("#selectP").empty();
                                         var value = $('#select option:selected').attr('value');
                                         if (value == 'Dni') {
                                             var id = $('#buscar').val();
@@ -279,7 +280,9 @@
                     <div class="col-sm-12 row form-group">
                         <span class="col-sm-2" id="nsub">Produccion :</span>
                         <div class="col-sm-4">
-                            <select class=" form-group-sm form-control" id="selectP" name="selectP" disabled>
+                            <select class=" form-group-sm form-control" id="selectP" name="selectP" disabled required>
+                                <option selected disabled>Seleccionar..
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -293,18 +296,6 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <input class="form-control " name="boletapagar" id="bp" readonly>
-                                    <script>
-                                        $('#st').change(function () {
-                                            $.ajax({
-                                                url: '/precioSubtramite',
-                                                type: "get",
-                                                data: {name: $('#st').val()},
-                                                success: function (data) {
-                                                    $('#bp').val(data);
-                                                }
-                                            });
-                                        });
-                                    </script>
                                 </div>
                             </div>
                         </div>
