@@ -452,6 +452,7 @@ class ExcelController extends Controller
     //Importar pagos realizados por el banco, TXT
     public function importTxtBanco(Request $request)
     {
+        $data = array();
         $fp = null;
         $val = null;
         $contaux = null;
@@ -523,15 +524,150 @@ class ExcelController extends Controller
                 $pago->setFecha($date);
                 $pago->setModalidad('Banco');
                 $pago->setIdPersona($codPer);
-                $pago->saveExcel($contaux);
+                $b = $pago->saveExcel($contaux);
+                if ($b == false) {
+                    $data[] = array(
+                        "Codigo Pago" => $FVNCMTO[$c],
+                        "Dni" => $CBANCO[$c],
+                        "Tasa" => $NCREDITO[$c],
+                        "Fecha de Pago" => $date,
+                        "Modalidad" => 'Banco',
+                        "Detalle" => $NCUOTA[$c],
+                    );
+                }
                 if ($c == sizeof($lines) - 1) {
                     $bool = true;
                 }
             }
+
+            if ($bool == true) {
+                fclose($fp);
+                if ($data != null) {
+                    $this->reporteNoPagado($data);
+
+                }
+            }
         }
-        if ($bool == true)
-            fclose($fp);
         return back()->with('true', 'Guardada con exito')->withInput();
+    }
+
+    public function reporteNoPagado($data)
+    {
+        Excel::create('Reporte', function ($excel) use ($data) {
+            $excel->sheet('Alumnos', function ($sheet) use ($data) {
+
+                $sheet->mergeCells('B1:F1');
+
+                $sheet->cell('B1', function ($cell) {
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12',
+                        'bold' => true
+                    ));
+                    $cell->setValue('UNIVERSIDAD NACIONAL DE TRUJILLO');
+                    $cell->setAlignment('center');
+                });
+                $sheet->mergeCells('B2:F2');
+                $sheet->cell('B2', function ($cell) {
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12',
+                        'bold' => false
+                    ));
+                    $cell->setValue('OGSEF- OF.TEC. TESORERIA');
+                    $cell->setAlignment('center');
+                });
+                $sheet->mergeCells('B3:F3');
+
+                $sheet->cell('B3', function ($cell) {
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12',
+                        'bold' => true
+                    ));
+                    $cell->setValue('Reporte de Pagos de Alumnos');
+                    $cell->setAlignment('center');
+                });
+
+                //*************************************************
+                //*******************cabecera de tabla
+                $sheet->cells('B7:G7', function ($cells) {
+                    $cells->setBackground('#006600');
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12',
+                        'bold' => true
+                    ));
+                    $cells->setBorder(array(
+                        'top' => array(
+                            'style' => 'solid'
+                        ),
+                    ));
+                    $cells->setAlignment('center');
+                });
+                //*****************************************
+                //*******************************cuerpo de tabla
+                //estilos
+                $sheet->cells('B7:B' . (500) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+
+                $sheet->cells('G7:G' . (500) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+                $sheet->cells('H7:H' . (500) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+                $sheet->cells('I7:I' . (500) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+                $sheet->cells('J7:J' . (500) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+                $sheet->cells('L7:L' . (500) . '', function ($cells) {
+                    $cells->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12'
+                    ));
+                    $cells->setAlignment('center');
+                });
+
+                //bordes de la hoja
+                $sheet->setBorder('B7:B' . (5) . '');
+                $sheet->setBorder('C7:C' . (5) . '');
+                $sheet->setBorder('D7:D' . (5) . '');
+                $sheet->setBorder('E7:E' . (5) . '');
+                $sheet->setBorder('F7:F' . (5) . '');
+                $sheet->setBorder('G7:G' . (5) . '');
+
+                //ubicacion de la data
+                $sheet->fromArray($data, null, 'B7', false);
+                //nombre de hoja
+                $sheet->setTitle('Lista pagos de alumnos');
+                //par que la data se ajuste
+                $sheet->setAutoSize(true);
+            });
+        })->export('xls');
     }
 
     //Importar datos del banco, excel
@@ -597,7 +733,7 @@ class ExcelController extends Controller
                             $alumno->setIdEscuela($idE);
                             $alumno->savealumno($v['dni']);
                         }
-                        return back()->with('true','Se subio el archivo');
+                        return back()->with('true', 'Se subio el archivo');
                     }
                 }
             }
