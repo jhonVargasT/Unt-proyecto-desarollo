@@ -38,7 +38,7 @@
                 <div class="col-sm-12">
                     <div class="col-sm-12 row form-group">
                         <div class="form-group-sm " align="right">
-                            <div class="col-sm-2 ">
+                            <div class="col-sm-2">
                                 <select class=" form-group-sm form-control" id="select" name="select">
                                     <option value="Dni"> Dni</option>
                                     <option value="Ruc">Ruc</option>
@@ -64,7 +64,6 @@
                                        @if(isset($nombre))value="{{$nombre}}" @endif readonly>
                                 <script>
                                     $('#buscar').change(function () {
-                                        $("#selectP").empty();
                                         var value = $('#select option:selected').attr('value');
                                         if (value == 'Dni') {
                                             var id = $('#buscar').val();
@@ -84,7 +83,6 @@
                                                                 $('#apellidos').val(data[1]);
                                                                 $('#escuela').val('');
                                                                 $('#facultad').val('');
-                                                                $("#selectP").empty('');
                                                                 document.getElementById("selectP").disabled = true;
                                                                 document.getElementById("selectP").required = false;
                                                             }
@@ -136,11 +134,11 @@
                                                             $('#facultad').val(data[3]);
                                                             if (data[4][0] === null) {
                                                                 for (var i = 0; i < data[4].length; i++) {
-                                                                    $("#selectP").empty();
                                                                     document.getElementById("selectP").disabled = true;
                                                                 }
                                                             }
                                                             else {
+                                                                $("#selectP").empty();
                                                                 for (i = 0; i < data[4].length; i++) {
                                                                     document.getElementById("selectP").disabled = false;
                                                                     $('#selectP').append($('<option>').text(data[4][i]));
@@ -201,6 +199,23 @@
                                     }
                                 });
                             </script>
+                            <script>
+                                $('#selectt').change(function () {
+                                    var value = $('#selectt option:selected').attr('value');
+                                    if (value == 'Codigo tasa') {
+                                        var y = document.getElementById("st");
+                                        y.type = "text";
+                                        document.getElementById("nsub").style.visibility = "visible";
+                                    }
+                                    else {
+                                        if (value == 'Nombre tasa') {
+                                            var x = document.getElementById("st");
+                                            x.type = "hidden";
+                                            document.getElementById("nsub").style.visibility = "hidden";
+                                        }
+                                    }
+                                });
+                            </script>
                         </div>
                         <script>
                             $('#ts').change(function () {
@@ -249,7 +264,7 @@
                             <input class="form-control" type="text" name="subtramite" id="st" required readonly>
                         </div>
                         <div class="form-group-sm">
-                            <span class="col-sm-2 required">Detalle </span>
+                            <span class="col-sm-2 required">Detalle: </span>
                             <div class="col-sm-4">
                                 <textarea class="form-control input-sm" name="detalle" placeholder="Detalle"
                                           id="detalle" required></textarea>
@@ -268,12 +283,19 @@
                         </div>-->
                     </div>
                     <div class="col-sm-12 row form-group">
-                        <span class="col-sm-2" id="nsub">Produccion :</span>
+                        <span class="col-sm-2 required">Produccion:</span>
                         <div class="col-sm-4">
-                            <select class=" form-group-sm form-control" id="selectP" name="selectP" required>
-                                <option selected disabled>Seleccionar..
-                                </option>
+                            <select class=" form-group-sm form-control" id="selectP" name="selectP" required disabled>
+                                <option selected disabled>Seleccionar..</option>
                             </select>
+                            <script>
+                                $('#selectP').change(function () {
+                                    var value = $('#selectP option:selected').attr('value');
+                                    if (value != 'Seleccionar..') {
+                                        $('#enviar').removeAttr('disabled');
+                                    }
+                                });
+                            </script>
                         </div>
                     </div>
                     <br>
@@ -344,7 +366,7 @@
                 <div class="col-sm-12 row form-group">
                     <div class="col-md-5"></div>
                     <div class="col-md-2" align="center">
-                        <button type="submit" name="enviar" class="col-md-12 btn btn-success"><span
+                        <button type="submit" name="enviar" id="enviar" class="col-md-12 btn btn-success" disabled><span
                                     class="glyphicon glyphicon-check"></span> Guardar
                         </button>
                     </div>

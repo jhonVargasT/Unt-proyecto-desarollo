@@ -292,7 +292,16 @@
                 <span class="col-sm-2 required ">Produccion :</span>
                 <div class="col-sm-2">
                     <select class=" form-group-sm form-control" id="selectP" name="selectP">
+                        <option disabled selected>Seleccionar..</option>
                     </select>
+                    <script>
+                        $('#selectP').change(function () {
+                            var value = $('#selectP option:selected').attr('value');
+                            if (value != 'Seleccionar..') {
+                                $('#buyButton').removeAttr('disabled');
+                            }
+                        });
+                    </script>
                 </div>
                 <span class="col-sm-2 required ">Detalle :</span>
                 <div class="col-sm-2 ">
@@ -338,7 +347,7 @@
 
                 <div class="col-sm-1"></div>
 
-                <button id="buyButton" type="submit" name="enviar" class="col-sm-2 btn btn-success"><span
+                <button id="buyButton" type="submit" name="enviar" class="col-sm-2 btn btn-success" disabled><span
                             class="glyphicon glyphicon-check"></span> Pagar
                 </button>
 
