@@ -40,7 +40,7 @@
                         <div class="form-group-sm " align="right">
                             <div class="col-sm-2">
                                 <select class=" form-group-sm form-control" id="select" name="select">
-                                    <option value="Dni"> Dni</option>
+                                    <option value="Dni">Dni</option>
                                     <option value="Ruc">Ruc</option>
                                     <option value="Codigo de alumno">Codigo de alumno</option>
                                 </select>
@@ -73,7 +73,6 @@
                                                 data: {name: id},
                                                 success: function (data) {
                                                     if (data == false) {
-                                                        $('#nombres').val(data);
                                                         $.ajax({
                                                             url: '/buscarNombresDR',
                                                             type: "get",
@@ -95,7 +94,6 @@
                                                         $('#facultad').val(data[3]);
                                                         if (data[4][0] === null) {
                                                             $("#selectP").empty();
-                                                            $('#selectP').append($('<option disabled selected>').text('Seleccionar..'));
                                                             document.getElementById("selectP").disabled = true;
                                                             document.getElementById("selectP").required = false;
                                                         }
@@ -133,12 +131,13 @@
                                                             $('#escuela').val(data[2]);
                                                             $('#facultad').val(data[3]);
                                                             if (data[4][0] === null) {
-                                                                for (var i = 0; i < data[4].length; i++) {
-                                                                    document.getElementById("selectP").disabled = true;
-                                                                }
+                                                                $("#selectP").empty();
+                                                                document.getElementById("selectP").disabled = true;
+                                                                document.getElementById("selectP").required = false;
                                                             }
                                                             else {
                                                                 $("#selectP").empty();
+                                                                $('#selectP').append($('<option disabled selected>').text('Seleccionar..'));
                                                                 for (i = 0; i < data[4].length; i++) {
                                                                     document.getElementById("selectP").disabled = false;
                                                                     $('#selectP').append($('<option>').text(data[4][i]));
@@ -296,6 +295,61 @@
                                     }
                                 });
                             </script>
+                            @if(isset($buscar))
+                                <script>
+                                    var value = $('#select option:selected').attr('value');
+                                    if (value == 'Dni') {
+                                        $.ajax({
+                                            url: "/buscarNombresD",
+                                            type: "get",
+                                            data: {name: $('#buscar').val()},
+                                            success: function (data) {
+                                                if (data[4][0] === null) {
+                                                    $("#selectP").empty();
+                                                    document.getElementById("selectP").disabled = true;
+                                                    document.getElementById("selectP").required = true;
+                                                }
+                                                else {
+                                                    $("#selectP").empty();
+                                                    $('#selectP').append($('<option disabled selected>').text('Seleccionar..'));
+                                                    for (i = 0; i < data[4].length; i++) {
+                                                        document.getElementById("selectP").disabled = false;
+                                                        $('#selectP').append($('<option>').text(data[4][i]));
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        if (value == 'Codigo de alumno') {
+                                            $.ajax({
+                                                url: '/buscarNombresC',
+                                                type: "get",
+                                                data: {name: $('#buscar').val()},
+                                                success: function (data) {
+                                                    $('#nombres').val(data[0]);
+                                                    $('#apellidos').val(data[1]);
+                                                    $('#escuela').val(data[2]);
+                                                    $('#facultad').val(data[3]);
+                                                    if (data[4][0] === null) {
+                                                        $("#selectP").empty();
+                                                        document.getElementById("selectP").disabled = true;
+                                                        document.getElementById("selectP").required = true;
+                                                    }
+                                                    else {
+                                                        $("#selectP").empty();
+                                                        $('#selectP').append($('<option disabled selected>').text('Seleccionar..'));
+                                                        for (i = 0; i < data[4].length; i++) {
+                                                            document.getElementById("selectP").disabled = false;
+                                                            $('#selectP').append($('<option>').text(data[4][i]));
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }
+                                </script>
+                            @endif
                         </div>
                     </div>
                     <br>

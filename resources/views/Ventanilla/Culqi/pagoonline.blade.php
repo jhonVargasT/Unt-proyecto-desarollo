@@ -291,8 +291,8 @@
                 </div>
                 <span class="col-sm-2 required ">Produccion :</span>
                 <div class="col-sm-2">
-                    <select class=" form-group-sm form-control" id="selectP" name="selectP">
-                        <option disabled selected>Seleccionar..</option>
+                    <select class=" form-group-sm form-control" id="selectP" name="selectP" required disabled>
+                        <option selected disabled>Seleccionar..</option>
                     </select>
                     <script>
                         $('#selectP').change(function () {
@@ -353,7 +353,7 @@
 
                 <div class="col-sm-1"></div>
 
-                <a class=" btn btn-warning col-sm-2" style="display: none;" id="print"><span
+                <a class=" btn btn-warning col-sm-2" style="display: none;" id="print" onclick="action()"><span
                             class="glyphicon glyphicon-print"></span> Imprimir</a>
             </div>
             <div class="row">
@@ -437,6 +437,17 @@
                     // Mostramos JSON de objeto error en consola
                     console.log(Culqi.error);
                     alert(Culqi.error.mensaje);
+                }
+            }
+        </script>
+        <script>
+            var hidden = false;
+            function action() {
+                hidden = !hidden;
+                if(hidden) {
+                    document.getElementById('print').style.visibility = 'hidden';
+                } else {
+                    document.getElementById('print').style.visibility = 'visible';
                 }
             }
         </script>
