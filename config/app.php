@@ -140,6 +140,8 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+
+   
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
