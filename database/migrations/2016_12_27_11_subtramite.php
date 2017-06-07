@@ -19,7 +19,7 @@ class Subtramite extends Migration
 
             $table->increments('codSubtramite')->unique();
             $table->string('codigoSubtramite')->unique();
-            $table->string('nombre')->unique();
+            $table->string('nombre');
             $table->double('precio');
             $table->boolean('estado')->default('1');
             $table->integer('contador')->default('0');

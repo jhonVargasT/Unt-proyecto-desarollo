@@ -227,7 +227,7 @@
                                         data: {ct: id},
                                         success: function (data) {
                                             $('#st').val(data);
-                                            $('#bp').attr("readonly", true);
+                                            $('#bp').attr("readonly", false);
                                             $.ajax({
                                                 url: '/precioSubtramite',
                                                 type: "get",
@@ -258,7 +258,7 @@
                                                         $('#p').val(val);
                                                     }
                                                     else {
-                                                        $('#bp').attr("readonly", true);
+                                                        $('#bp').attr("readonly", false);
                                                         $('#bp').val(data);
                                                         var val = data * 100;
                                                         $('#p').val(val);
@@ -374,7 +374,7 @@
                                     S/.
                                 </div>
                                 <div class="col-sm-4">
-                                    <input class="form-control " name="boletapagar" id="bp" readonly>
+                                    <input class="form-control " name="boletapagar" id="bp" >
                                 </div>
                             </div>
                         </div>
