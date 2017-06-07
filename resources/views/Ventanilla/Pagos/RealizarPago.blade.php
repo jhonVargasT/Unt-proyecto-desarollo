@@ -234,6 +234,7 @@
                                                 data: {name: $('#st').val()},
                                                 success: function (data) {
                                                     $('#bp').val(data);
+                                                    $('#aux').val(data);
                                                     if (data == 0 && $('#st').val()) {
                                                         $('#bp').attr("readonly", false);
                                                     }
@@ -251,18 +252,20 @@
                                             type: "get",
                                             data: {name: $('#ts').val()},
                                             success: function (data) {
-                                                    if (data == 0) {
-                                                        $('#bp').attr("readonly", false);
-                                                        $('#bp').val(data);
-                                                        var val = data * 100;
-                                                        $('#p').val(val);
-                                                    }
-                                                    else {
-                                                        $('#bp').attr("readonly", true);
-                                                        $('#bp').val(data);
-                                                        var val = data * 100;
-                                                        $('#p').val(val);
-                                                    }
+                                                if (data == 0) {
+                                                    $('#bp').attr("readonly", false);
+                                                    $('#bp').val(data);
+                                                    $('#aux').val(data);
+                                                    var val = data * 100;
+                                                    $('#p').val(val);
+                                                }
+                                                else {
+                                                    $('#bp').attr("readonly", true);
+                                                    $('#bp').val(data);
+                                                    $('#aux').val(data);
+                                                    var val = data * 100;
+                                                    $('#p').val(val);
+                                                }
                                             }
                                         });
                                     }
@@ -376,6 +379,28 @@
                                 <div class="col-sm-4">
                                     <input class="form-control " name="boletapagar" id="bp" readonly>
                                 </div>
+                                <div class="col-sm-1">
+                                    x
+                                </div>
+                                <div class="col-sm-3">
+                                    <input class="form-control " name="multiplicador" id="mp">
+                                    <input class="form-control "  type="hidden" name="multiplicador" id="aux">
+                                </div>
+                                <script>
+                                    $('#mp').change(function () {
+                                        var n1 = $('#bp').val();
+                                        var n2 = $('#mp').val();
+                                        var n3 = $('#aux').val();
+                                        var r = n1 * n2;
+                                        if (!$('#mp').val()) {
+                                            $('#bp').val(n3);
+                                        }
+                                        else {
+                                            $('#bp').val(r);
+
+                                        }
+                                    });
+                                </script>
                             </div>
                         </div>
                     </div>
