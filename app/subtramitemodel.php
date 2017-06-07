@@ -130,7 +130,7 @@ class subtramitemodel
     public function bdTramitexClasificador($clasificador)
     {
         $id = null;
-        $idTra = DB::select('select codTramite from tramite where clasificador= " ' . $clasificador . ' " ');
+        $idTra = DB::select('select codTramite from tramite where clasificador =  ' . $clasificador . '  ');
         foreach ($idTra as $idT) {
             $id = $idT->codTramite;
         }
