@@ -94,6 +94,50 @@
                         </div>
                     </div>
                 </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseCl">
+                                <span class="glyphicon glyphicon-plus">
+                            </span> Clasificadores</a>
+                        </h4>
+                    </div>
+                    @yield('tramite')
+                    <div id="collapseCl" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-import"></span>
+                                        <a href="/impTramites">Importar Clasificadores</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTa">
+                                <span class="glyphicon glyphicon-plus">
+                            </span> Tasas</a>
+                        </h4>
+                    </div>
+                    @yield('tasa')
+                    <div id="collapseTa" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-import"></span>
+                                        <a href="/impTasas">Importar Tasas</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-sm-10  " style="background-color:#ccd0d2">

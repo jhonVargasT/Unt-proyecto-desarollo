@@ -475,3 +475,15 @@ Route::get('/impAlumnos', function () {
 Route::resource('/importAlumnos','excelController@importExcelAlumno');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Route::get('/impTramites', function () {
+    return view('Importaciones/Importacion/Clasificador');
+});
+Route::resource('/importClasificadores','excelController@importExcelClasificador');
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Route::get('/impTasas', function () {
+    return view('Importaciones/Importacion/Tasa');
+});
+Route::resource('/importTasas','excelController@importExcelTasa');

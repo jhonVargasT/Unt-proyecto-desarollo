@@ -127,6 +127,14 @@ class subtramitemodel
         }
     }
 
+    public function bdTramitexClasificador($clasificador)
+    {
+        $idTra = DB::select('select codTramite from tramite where clasificador=:clasificador', ['clasificador' => $clasificador]);
+        foreach ($idTra as $idT) {
+            return $id = $idT->codTramite;
+        }
+    }
+
     public function save()
     {
         date_default_timezone_set('Etc/GMT+5');

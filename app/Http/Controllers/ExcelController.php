@@ -741,6 +741,59 @@ class ExcelController extends Controller
         return back()->with('error', 'Por favor, revisar su archivo.');
     }
 
+    public function importExcelClasificador(Request $request)
+    {
+        $val = null;
+        $tramite = new tramitemodel();
+
+        if ($request->hasFile('import_file')) {
+            $path = Input::file('import_file')->getRealPath();
+            $data = Excel::load($path, function ($reader) {
+            })->get();
+            if (!empty($data) && $data->count()) {
+                foreach ($data->toArray() as $key => $value) {
+                    if (!empty($value)) {
+                        foreach ($value as $v) {
+                            $tramite->setClasificador($v['clasificador']);
+                            $tramite->setNombre($v['nombre']);
+                            $tramite->save();
+                        }
+                        return back()->with('true', 'Se subio el archivo');
+                    }
+                }
+            }
+        }
+        return back()->with('error', 'Por favor, revisar su archivo.');
+    }
+
+    public function importExcelTasa(Request $request)
+    {
+        $val = null;
+        $subtramite = new subtramitemodel();
+
+        if ($request->hasFile('import_file')) {
+            $path = Input::file('import_file')->getRealPath();
+            $data = Excel::load($path, function ($reader) {
+            })->get();
+            if (!empty($data) && $data->count()) {
+                foreach ($data->toArray() as $key => $value) {
+                    if (!empty($value)) {
+                        foreach ($value as $v) {
+                            $subtramite->setCodigotasa($v['codigo']);
+                            $subtramite->setNombre($v['nombre']);
+                            $subtramite->setPrecio($v['precio']);
+                            $idTra = $subtramite->bdTramitexClasificador($v['siaf']);
+                            $subtramite->setIdTramite($idTra);
+                            $subtramite->save();
+                        }
+                        return back()->with('true', 'Se subio el archivo');
+                    }
+                }
+            }
+        }
+        return back()->with('error', 'Por favor, revisar su archivo.');
+    }
+
     public function importExcelSede(Request $request)
     {
         $val = null;

@@ -227,12 +227,16 @@
                                         data: {ct: id},
                                         success: function (data) {
                                             $('#st').val(data);
+                                            $('#bp').attr("readonly", true);
                                             $.ajax({
                                                 url: '/precioSubtramite',
                                                 type: "get",
                                                 data: {name: $('#st').val()},
                                                 success: function (data) {
                                                     $('#bp').val(data);
+                                                    if (data == 0 && $('#st').val()) {
+                                                        $('#bp').attr("readonly", false);
+                                                    }
                                                     var val = data * 100;
                                                     $('#p').val(val);
                                                 }
@@ -247,9 +251,18 @@
                                             type: "get",
                                             data: {name: $('#ts').val()},
                                             success: function (data) {
-                                                $('#bp').val(data);
-                                                var val = data * 100;
-                                                $('#p').val(val);
+                                                    if (data == 0) {
+                                                        $('#bp').attr("readonly", false);
+                                                        $('#bp').val(data);
+                                                        var val = data * 100;
+                                                        $('#p').val(val);
+                                                    }
+                                                    else {
+                                                        $('#bp').attr("readonly", true);
+                                                        $('#bp').val(data);
+                                                        var val = data * 100;
+                                                        $('#p').val(val);
+                                                    }
                                             }
                                         });
                                     }
@@ -258,12 +271,12 @@
                         </script>
                     </div>
                     <div class="col-sm-12 row form-group">
-                        <span class="col-sm-2" id="nsub">Nombre de tasa :</span>
+                        <span class="col-sm-2" id="nsub">Nombre de tasa:</span>
                         <div class="col-sm-4">
                             <input class="form-control" type="text" name="subtramite" id="st" required readonly>
                         </div>
                         <div class="form-group-sm">
-                            <span class="col-sm-2 required">Detalle: </span>
+                            <span class="col-sm-2 required">Detalle:</span>
                             <div class="col-sm-4">
                                 <textarea class="form-control input-sm" name="detalle" placeholder="Detalle"
                                           id="detalle" required></textarea>

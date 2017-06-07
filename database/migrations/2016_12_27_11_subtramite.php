@@ -14,21 +14,20 @@ class Subtramite extends Migration
     public function up()
     {
         //
-        Schema::create('subtramite', function (Blueprint $table)
-        {
+        Schema::create('subtramite', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table ->increments('codSubtramite')->unique();
-            $table ->string('codigoSubtramite')->unique();
-            $table ->string('nombre')->unique();
-            $table ->double('precio');
-            $table -> boolean('estado')->default('1');
-            $table ->integer('contador')->default('0');
+            $table->increments('codSubtramite')->unique();
+            $table->string('codigoSubtramite')->unique();
+            $table->string('nombre')->unique();
+            $table->double('precio');
+            $table->boolean('estado')->default('1');
+            $table->integer('contador')->default('0');
 
             $table->integer('idTramite')->unsigned();
         });
 
-        Schema::table('subtramite', function( $table) {
+        Schema::table('subtramite', function ($table) {
 
             $table->foreign('idTramite')->references('codTramite')->on('tramite');
         });

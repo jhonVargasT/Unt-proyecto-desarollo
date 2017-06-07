@@ -240,7 +240,7 @@ class pagoController extends Controller
         foreach ($precioS as $ps) {
             $pre = $ps->precio;
         }
-        return response()->json($pre);
+        return $pre;
     }
 
     //Ajax autollenado, obtener nombre de las tasas

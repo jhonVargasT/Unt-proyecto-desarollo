@@ -95,11 +95,11 @@ class subtramiteController extends Controller
     //AJAX autollenado, buscar nombre de tasa por codigo de tasa
     public function nombreSCT(Request $request)
     {
-        $sbnombre = null;
+        $sbnombre = array();
         $subtramitebd = DB::select('select nombre from subtramite where codigoSubtramite = "' . $request->ct . '"');
 
         foreach ($subtramitebd as $sb) {
-            $sbnombre = $sb->nombre;
+            $sbnombre[0] = $sb->nombre;
         }
         return $sbnombre;
     }
