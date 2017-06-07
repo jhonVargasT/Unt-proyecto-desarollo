@@ -712,7 +712,6 @@ class ExcelController extends Controller
 
     public function importExcelAlumno(Request $request)
     {
-        $val = null;
         $alumno = new alumnomodel();
 
         if ($request->hasFile('import_file')) {
@@ -743,9 +742,7 @@ class ExcelController extends Controller
 
     public function importExcelClasificador(Request $request)
     {
-        $val = null;
         $tramite = new tramitemodel();
-
         if ($request->hasFile('import_file')) {
             $path = Input::file('import_file')->getRealPath();
             $data = Excel::load($path, function ($reader) {
@@ -754,7 +751,7 @@ class ExcelController extends Controller
                 foreach ($data->toArray() as $key => $value) {
                     if (!empty($value)) {
                         foreach ($value as $v) {
-                            $tramite->setClasificador($v['clasificador']);
+                            $tramite->setClasificador($v['clasificador']);;
                             $tramite->setNombre($v['nombre']);
                             $tramite->save();
                         }
@@ -768,7 +765,6 @@ class ExcelController extends Controller
 
     public function importExcelTasa(Request $request)
     {
-        $val = null;
         $subtramite = new subtramitemodel();
 
         if ($request->hasFile('import_file')) {

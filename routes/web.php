@@ -451,39 +451,39 @@ Route::get('/boletavirtual', function () {
 Route::get('/impSedes', function () {
     return view('Importaciones/Importacion/Sede');
 });
-Route::resource('/importSedes','excelController@importExcelSede');
+Route::resource('/importSedes','ExcelController@importExcelSede');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/impFacultades', function () {
     return view('Importaciones/Importacion/Facultad');
 });
-Route::resource('/importFacultades','excelController@importExcelFacultad');
+Route::resource('/importFacultades','ExcelController@importExcelFacultad');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/impEscuelas', function () {
     return view('Importaciones/Importacion/Escuela');
 });
-Route::resource('/importEscuelas','excelController@importExcelEscuela');
+Route::resource('/importEscuelas','ExcelController@importExcelEscuela');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/impAlumnos', function () {
     return view('Importaciones/Importacion/Alumno');
 });
-Route::resource('/importAlumnos','excelController@importExcelAlumno');
+Route::resource('/importAlumnos','ExcelController@importExcelAlumno');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/impTramites', function () {
     return view('Importaciones/Importacion/Clasificador');
 });
-Route::resource('/importClasificadores','excelController@importExcelClasificador');
+Route::resource('/importClasificadores','ExcelController@importExcelClasificador');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/impTasas', function () {
     return view('Importaciones/Importacion/Tasa');
 });
-Route::resource('/importTasas','excelController@importExcelTasa');
+Route::resource('/importTasas','ExcelController@importExcelTasa');
