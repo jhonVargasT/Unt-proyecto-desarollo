@@ -172,7 +172,7 @@
                                         <tr>
                                             <td><h6 align="center">{{$r->clasificadorsiaf}}</h6></td>
                                             <td><h6 align="left">{{$r->nombreTramite}}</h6></td>
-                                            <td><h6 align="center">{{$r->cuenta }}</h6></td>
+                                            <td><h6 align="center">{{$r->codigoSubtramite }}</h6></td>
                                             <td><h6 align="left">{{$r->nombresubtramite}}</h6></td>
                                             <td><h6 align="center">{{$r-> precio}}</h6></td>
                                             <td><h6 align="center">{{$r->nurPagos }}</h6></td>

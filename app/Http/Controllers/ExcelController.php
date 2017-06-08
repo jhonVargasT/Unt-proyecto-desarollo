@@ -1320,7 +1320,7 @@ class ExcelController extends Controller
 
                             "CLASIFICADOR S.I.A.F" => $p->clasificadorsiaf,
                             "NOMBRE DE CLASIFICADOR" => $p->nombreTramite,
-                            "CUENTA" => $p->cuenta,
+                            "CUENTA" => $p->codigoSubtramite,
                             "NOMBRE DE TASA" => $p->nombresubtramite,
                             "NRO PAGOS" => $p->nurPagos,
                             "IMPORTE" => $p->precio
