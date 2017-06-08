@@ -384,7 +384,7 @@
                                 </div>
                                 <div class="col-sm-3">
                                     <input class="form-control " name="multiplicador" id="mp">
-                                    <input class="form-control "  type="hidden" name="multiplicador" id="aux">
+                                    <input class="form-control " type="hidden" name="multiplicador" id="aux">
                                 </div>
                                 <script>
                                     $('#mp').change(function () {

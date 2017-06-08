@@ -75,10 +75,10 @@
                                                     $('#fecha').val(data[4]);
                                                 },
                                                 error: function () {
-                                                    $('#nombres').val('');
-                                                    $('#apellidos').val('');
-                                                    $('#correo').val('');
-                                                    $('#codAlumno').val('');
+                                                    $('#nombres').val(' ');
+                                                    $('#apellidos').val(' ');
+                                                    $('#correo').val(' ');
+                                                    $('#codAlumno').val(' ');
                                                 }
                                             });
                                         });
