@@ -31,6 +31,10 @@
                 src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+
+
+
         <!-- Javascript -->
 
         <!-- <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script> -->
@@ -78,6 +82,7 @@
 
         <link href="{{asset('assets/css/style-responsive.css')}}" rel="stylesheet"/>
         <script>
+
             (function (i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r;
                 i[r] = i[r] || function () {
@@ -109,6 +114,7 @@
             });
 
         </script>
+
     </head>
     <body style="background-color:#ccd0d2">
     <div class="row  ">

@@ -590,69 +590,422 @@ class pagomodel
     }
 
     // pago,personal,subtramite,escuela,facultad
-    public function listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $valtram, $tipoRe, $fuefin, $local, $vallocal)
+    public function listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $valtram, $tipoRe, $fuefin, $local, $vallocal, $centroProducion)
     {
+
         $pago = null;
-        if ($modalidad == 'Todo' && $tram == 'Todo' && empty($tipoRe) && empty($fuefin) && empty($local)) {
+        if ($modalidad == 'Todo' && $tram == 'Todo' && empty($tipoRe) && empty($fuefin) && empty($local) && empty($centroProducion)) {
             $pago = $this->listarPagoNada($estado, $fechaDesde, $fechaHasta);
-        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && empty($tipoRe) && empty($fuefin) && empty($local)) {
+        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && empty($tipoRe) && empty($fuefin) && empty($local) && empty($centroProducion)) {
             $pago = $this->listarPagoModalidad($estado, $modalidad, $fechaDesde, $fechaHasta);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && empty($tipoRe) && empty($fuefin) && empty($local)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && empty($tipoRe) && empty($fuefin) && empty($local) && empty($centroProducion)) {
             $pago = $this->listarModTram($estado, $modalidad, $tram, $valtram, $fechaDesde, $fechaHasta);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && empty($tipoRe) && empty($fuefin) && !empty($local)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && empty($tipoRe) && empty($fuefin) && !empty($local) && empty($centroProducion)) {
             $pago = $this->listarTramModLoc($estado, $modalidad, $tram, $valtram, $fechaDesde, $fechaHasta, $local, $vallocal);
-        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && empty($fuefin) && empty($local) && !empty($tipoRe)) {
+        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && empty($fuefin) && empty($local) && !empty($tipoRe) && empty($centroProducion)) {
             $pago = $this->listarModTip($estado, $modalidad, $fechaDesde, $fechaHasta, $tipoRe);
         } elseif ($modalidad != 'Todo' && !empty($tipoRe) && !empty($fuefin) && !empty($local) && $tram == 'Todo') {
             $pago = $this->listarMoTiFuLo($estado, $modalidad, $fechaDesde, $fechaHasta, $tipoRe, $fuefin, $local, $vallocal);
-        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && empty($tipoRe) && empty($fuefin) && !empty($local)) {
+        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && empty($tipoRe) && empty($fuefin) && !empty($local) && empty($centroProducion)) {
             $pago = $this->listarMoLo($estado, $modalidad, $fechaDesde, $fechaHasta, $local, $vallocal);
-        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && empty($tipoRe) && !empty($fuefin) && !empty($local)) {
+        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && empty($tipoRe) && !empty($fuefin) && !empty($local) && empty($centroProducion)) {
             $pago = $this->listarMoFuLo($estado, $modalidad, $fechaDesde, $fechaHasta, $fuefin, $local, $vallocal);
-        } elseif ($modalidad == 'Todo' && $tram != 'Todo' && empty($tipoRe) && empty($fuefin) && empty($local)) {
+        } elseif ($modalidad == 'Todo' && $tram != 'Todo' && empty($tipoRe) && empty($fuefin) && empty($local) && empty($centroProducion)) {
             $pago = $this->listarTr($estado, $fechaDesde, $fechaHasta, $tram, $valtram);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && empty($tipoRe) && !empty($fuefin) && !empty($local)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && empty($tipoRe) && !empty($fuefin) && !empty($local) && empty($centroProducion)) {
             $pago = $this->listarMoTrFuLo($estado, $fechaDesde, $fechaHasta, $tram, $valtram, $fuefin, $local, $vallocal);
-        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && empty($fuefin) && !empty($tipoRe) && empty($local)) {
+        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && empty($fuefin) && !empty($tipoRe) && empty($local) && empty($centroProducion)) {
             $pago = $this->listarTipoRe($estado, $fechaDesde, $fechaHasta, $tipoRe);
-        } elseif ($modalidad == 'Todo' && $tram != 'Todo' && empty($fuefin) && !empty($tipoRe) && empty($local)) {
+        } elseif ($modalidad == 'Todo' && $tram != 'Todo' && empty($fuefin) && !empty($tipoRe) && empty($local) && empty($centroProducion)) {
             $pago = $this->listarTraTip($estado, $fechaDesde, $fechaHasta, $tram, $valtram, $tipoRe);
-        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && !empty($fuefin) && !empty($tipoRe) && empty($local)) {
+        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && !empty($fuefin) && !empty($tipoRe) && empty($local) && empty($centroProducion)) {
             $pago = $this->listarFueTip($estado, $fechaDesde, $fechaHasta, $tipoRe, $fuefin);
-        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && empty($fuefin) && !empty($tipoRe) && !empty($local)) {
+        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && empty($fuefin) && !empty($tipoRe) && !empty($local) && empty($centroProducion)) {
             $pago = $this->listarFueTipLo($estado, $fechaDesde, $fechaHasta, $tipoRe, $local, $vallocal);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && empty($fuefin) && empty($local) && !empty($tipoRe)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && empty($fuefin) && empty($local) && !empty($tipoRe) && empty($centroProducion)) {
             $pago = $this->listarTip($estado, $fechaDesde, $fechaHasta, $tipoRe, $modalidad, $tram, $valtram);
-        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && empty($local) && !empty($fuefin) && !empty($tipoRe)) {
+        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && empty($local) && !empty($fuefin) && !empty($tipoRe) && empty($centroProducion)) {
             $pago = $this->listarMoFueTipFu($estado, $fechaDesde, $fechaHasta, $tipoRe, $modalidad, $fuefin);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && !empty($fuefin) && !empty($tipoRe) && empty($local)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && !empty($fuefin) && !empty($tipoRe) && empty($local) && empty($centroProducion)) {
             $pago = $this->listarMoTraFuTi($estado, $fechaDesde, $fechaHasta, $tipoRe, $modalidad, $fuefin, $tram, $valtram);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && empty($fuefin) && !empty($tipoRe) && !empty($local)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && empty($fuefin) && !empty($tipoRe) && !empty($local) && empty($centroProducion)) {
             $pago = $this->listarMoTraTiLo($estado, $fechaDesde, $fechaHasta, $tipoRe, $modalidad, $tram, $valtram, $local, $vallocal);
-        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && !empty($fuefin) && empty($tipoRe) && empty($local)) {
+        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && !empty($fuefin) && empty($tipoRe) && empty($local) && empty($centroProducion)) {
             $pago = $this->listarFu($estado, $fechaDesde, $fechaHasta, $fuefin);
-        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && empty($tipoRe) && empty($local) && !empty($fuefin)) {
+        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && empty($tipoRe) && empty($local) && !empty($fuefin) && empty($centroProducion)) {
             $pago = $this->listarMoFu($estado, $fechaDesde, $fechaHasta, $modalidad, $fuefin);
-        } elseif ($modalidad == 'Todo' && $tram != 'Todo' && empty($tipoRe) && empty($local) && !empty($fuefin)) {
+        } elseif ($modalidad == 'Todo' && $tram != 'Todo' && empty($tipoRe) && empty($local) && !empty($fuefin) && empty($centroProducion)) {
             $pago = $this->listarTraFu($estado, $fechaDesde, $fechaHasta, $tram, $valtram, $fuefin);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && empty($tipoRe) && empty($local) && !empty($fuefin)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && empty($tipoRe) && empty($local) && !empty($fuefin) && empty($centroProducion)) {
             $pago = $this->listarMoTraFu($estado, $fechaDesde, $fechaHasta, $modalidad, $tram, $valtram, $fuefin);
-        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && empty($tipoRe) && empty($fuefin) && !empty($local)) {
+        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && empty($tipoRe) && empty($fuefin) && !empty($local) && empty($centroProducion)) {
             $pago = $this->listarLoc($estado, $fechaDesde, $fechaHasta, $local, $vallocal);
-        } elseif ($modalidad == 'Todo' && $tram != 'Todo' && empty($tipoRe) && empty($fuefin) && !empty($local)) {
+        } elseif ($modalidad == 'Todo' && $tram != 'Todo' && empty($tipoRe) && empty($fuefin) && !empty($local) && empty($centroProducion)) {
             $pago = $this->listarTraLo($estado, $fechaDesde, $fechaHasta, $tram, $valtram, $local, $vallocal);
-        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && empty($tipoRe) && !empty($fuefin) && !empty($local)) {
+        } elseif ($modalidad == 'Todo' && $tram == 'Todo' && empty($tipoRe) && !empty($fuefin) && !empty($local) && empty($centroProducion)) {
             $pago = $this->listarFueLo($estado, $fechaDesde, $fechaHasta, $fuefin, $local, $vallocal);
-        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && !empty($tipoRe) && empty($fuefin) && !empty($local)) {
+        } elseif ($modalidad != 'Todo' && $tram == 'Todo' && !empty($tipoRe) && empty($fuefin) && !empty($local) && empty($centroProducion)) {
             $pago = $this->listarMoTiLo($estado, $fechaDesde, $fechaHasta, $modalidad, $tipoRe, $local, $vallocal);
-        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && !empty($tipoRe) && !empty($fuefin) && !empty($local)) {
+        } elseif ($modalidad != 'Todo' && $tram != 'Todo' && !empty($tipoRe) && !empty($fuefin) && !empty($local) && empty($centroProducion)) {
             $pago = $this->listarTodo($estado, $fechaDesde, $fechaHasta, $modalidad, $tipoRe, $fuefin, $local, $vallocal, $tram, $valtram);
-        } else {
+        } elseif (!empty($centroProducion) && $modalidad == 'Todo' && $tram == 'Todo' && empty($local) && empty($tipoRe) && empty($fuefin)) {
+            $pago = $this->listarPagoProduccionTodo($centroProducion, $fechaDesde, $fechaHasta, $estado);
+
+        } elseif (!empty($centroProducion) && $modalidad != 'Todo' && $tram == 'Todo' && empty($local) && empty($tipoRe) && empty($fuefin)) {
+            $pago = $this->listarPagoProduccionmodalidad($centroProducion, $fechaDesde, $fechaHasta, $estado, $modalidad);
+        } elseif (!empty($centroProducion) && $modalidad == 'Todo' && $tram != 'Todo' && empty($local) && empty($tipoRe) && empty($fuefin)) {
+            $pago = $this->listarPagoProduccionTramite($centroProducion, $fechaDesde, $fechaHasta, $estado, $tram, $valtram);
+        } elseif (!empty($centroProducion) && $modalidad == 'Todo' && $tram == 'Todo' && empty($local) && !empty($tipoRe) && empty($fuefin)) {
+            $pago = $this->listarPagoProduccionTipRe($centroProducion, $fechaDesde, $fechaHasta, $estado, $tipoRe);
+        } elseif (!empty($centroProducion) && $modalidad == 'Todo' && $tram == 'Todo' && empty($local) && empty($tipoRe) && !empty($fuefin)) {
+            $pago = $this->listarPagoProduccionFueFi($centroProducion, $fechaDesde, $fechaHasta, $estado, $fuefin);
+        } elseif (!empty($centroProducion) && $modalidad != 'Todo' && $tram != 'Todo' && empty($local) && empty($tipoRe) && empty($fuefin)) {
+            $pago = $this->listarPagoProduccionModalidadTramite($centroProducion, $fechaDesde, $fechaHasta, $estado, $tram, $valtram, $modalidad);
+        } elseif (!empty($centroProducion) && $modalidad != 'Todo' && $tram == 'Todo' && empty($local) && !empty($tipoRe) && empty($fuefin)) {
+            $pago = $this->listarPagoProduccionModalidadTipre($centroProducion, $fechaDesde, $fechaHasta, $estado, $tipoRe, $modalidad);
+
+        } elseif (!empty($centroProducion) && $modalidad != 'Todo' && $tram == 'Todo' && empty($local) && empty($tipoRe) && !empty($fuefin)) {
+            $pago = $this->listarPagoProduccionModalidadfuefi($centroProducion, $fechaDesde, $fechaHasta, $estado, $fuefin, $modalidad);
+        } elseif (!empty($centroProducion) && $modalidad != 'Todo' && $tram != 'Todo' && empty($local) && !empty($tipoRe) && !empty($fuefin)) {
+            $pago = $this->listarPagoProduccionModalidadTramTipoReFueFI($centroProducion, $fechaDesde, $fechaHasta, $estado, $fuefin, $modalidad, $tipoRe, $tram, $valtram);
+        }
+        elseif (!empty($centroProducion) && $modalidad != 'Todo' && $tram != 'Todo' && empty($local) && !empty($tipoRe) && empty($fuefin))
+        {
+           $pago=$this->listarPagoProduccionModalidadTramTipoRe($centroProducion, $fechaDesde, $fechaHasta, $estado, $modalidad,$tipoRe,$tram, $valtram);
+        }
+
+        elseif (!empty($centroProducion) && $modalidad != 'Todo' && $tram != 'Todo' && empty($local) && empty($tipoRe) && !empty($fuefin))
+        {
+            $pago=$this->listarPagoProduccionModalidadTramFueFi($centroProducion, $fechaDesde, $fechaHasta, $estado, $modalidad, $fuefin,$tram, $valtram);
+        }
+
+        elseif (!empty($centroProducion) && $modalidad == 'Todo' && $tram != 'Todo' && empty($local) && empty($tipoRe) && !empty($fuefin))
+        {
+            $pago=$this->listarpagosProduccionTramiteFuefi($centroProducion, $fechaDesde, $fechaHasta, $estado, $fuefin,$tram, $valtram);
+        }
+        elseif (!empty($centroProducion) && $modalidad == 'Todo' && $tram != 'Todo' && empty($local) && !empty($tipoRe) && empty($fuefin))
+        {
+            $pago=$this->listarpagosProduccionTramiteTipoRe($centroProducion, $fechaDesde, $fechaHasta, $estado, $tipoRe,$tram, $valtram);
+        }
+        elseif (!empty($centroProducion) && $modalidad == 'Todo' && $tram != 'Todo' && empty($local) && !empty($tipoRe) && !empty($fuefin))
+        {
+            $pago=$this->listarpagosProduccionTramiteTipoReFuefi($centroProducion, $fechaDesde, $fechaHasta, $estado, $tipoRe,$tram, $valtram,$fuefin);
+        }
+        elseif (!empty($centroProducion) && $modalidad == 'Todo' && $tram == 'Todo' && empty($local) && !empty($tipoRe) && !empty($fuefin))
+        {
+            $pago=$this->listarPagosPrduccionFueFiTipoRe($centroProducion, $fechaDesde, $fechaHasta, $estado, $tipoRe,$fuefin);
+        }
+        else{
+
             $pago = null;
         }
         return $pago;
     }
+    public function listarPagosPrduccionFueFiTipoRe($centroProduccion, $fechaDesde, $fechaHasta, $estado, $tipoRe,$fuefin)
+    {
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+                            null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                             FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            LEFT JOIN produccionalumno pa ON (pa.codProduccionAlumno = po.idProduccionAlumno)
+                            LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
+                             where idProduccionAlumno is not null and po.estado = ' . $estado . ' and tr.fuentefinanc=\'' . $fuefin . '\'  and tr.tipoRecurso=\'' . $tipoRe . '\'      and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
 
+        );
+        return $pago;
+    }
+    
+    public function listarpagosProduccionTramiteTipoReFuefi($centroProduccion, $fechaDesde, $fechaHasta, $estado, $tipoRe,$tram, $valtra,$fuefin)
+    {
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+                            null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                             FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            LEFT JOIN produccionalumno pa ON (pa.codProduccionAlumno = po.idProduccionAlumno)
+                            LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
+                             where idProduccionAlumno is not null and po.estado = ' . $estado . ' and tr.fuentefinanc=\'' . $fuefin . '\'  and tr.tipoRecurso=\'' . $tipoRe . '\'  and ' . $tram . '= \'' . $valtra . '\'      and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
+
+        );
+        return $pago;
+    }
+    public function listarpagosProduccionTramiteTipoRe($centroProduccion, $fechaDesde, $fechaHasta, $estado, $tipoRe,$tram, $valtra){
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+                            null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                             FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            LEFT JOIN produccionalumno pa ON (pa.codProduccionAlumno = po.idProduccionAlumno)
+                            LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
+                             where idProduccionAlumno is not null and po.estado = ' . $estado . '   and tr.tipoRecurso=\'' . $tipoRe . '\'  and ' . $tram . '= \'' . $valtra . '\'      and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
+
+        );
+        return $pago;
+
+    }
+
+    public function listarpagosProduccionTramiteFuefi($centroProduccion, $fechaDesde, $fechaHasta, $estado, $fuefin,$tram, $valtra)
+    {
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+                            null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                             FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            LEFT JOIN produccionalumno pa ON (pa.codProduccionAlumno = po.idProduccionAlumno)
+                            LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
+                             where idProduccionAlumno is not null and po.estado = ' . $estado . '   and tr.fuentefinanc=\'' . $fuefin . '\'  and ' . $tram . '= \'' . $valtra . '\'      and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
+
+        );
+        return $pago;
+    }
+
+    public function listarPagoProduccionModalidadTramFueFi($centroProduccion, $fechaDesde, $fechaHasta, $estado, $modalidad, $fuefin,$tram, $valtra)
+    {
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+                            null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                             FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            LEFT JOIN produccionalumno pa ON (pa.codProduccionAlumno = po.idProduccionAlumno)
+                            LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
+                             where idProduccionAlumno is not null and po.estado = ' . $estado . '   and tr.fuentefinanc=\'' . $fuefin . '\'  and ' . $tram . '= \'' . $valtra . '\'    and po.modalidad = \'' . $modalidad . '\'    and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
+
+        );
+        return $pago;
+    }
+    public function listarPagoProduccionModalidadTramTipoRe($centroProduccion, $fechaDesde, $fechaHasta, $estado, $modalidad,$tipoRe,$tram, $valtra)
+    {
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+                            null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                             FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            LEFT JOIN produccionalumno pa ON (pa.codProduccionAlumno = po.idProduccionAlumno)
+                            LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
+                             where idProduccionAlumno is not null and po.estado = ' . $estado . '   and ' . $tram . '= \'' . $valtra . '\'   and tr.tipoRecurso=\'' . $tipoRe . '\'  and po.modalidad = \'' . $modalidad . '\'    and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
+
+        );
+        return $pago;
+    }
+    public function listarPagoProduccionModalidadTramTipoReFueFI($centroProduccion, $fechaDesde, $fechaHasta, $estado, $fuefin, $modalidad,$tipoRe,$tram, $valtra)
+    {
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+                            null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                             FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            LEFT JOIN produccionalumno pa ON (pa.codProduccionAlumno = po.idProduccionAlumno)
+                            LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
+                             where idProduccionAlumno is not null and po.estado = ' . $estado . '   and ' . $tram . '= \'' . $valtra . '\'   and tr.tipoRecurso=\'' . $tipoRe . '\'  and tr.fuentefinanc=\'' . $fuefin . '\' and po.modalidad = \'' . $modalidad . '\'    and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
+
+        );
+        return $pago;
+    }
+
+    public function listarPagoProduccionModalidadfuefi($centroProduccion, $fechaDesde, $fechaHasta, $estado, $fuefin, $modalidad)
+    {
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+                            null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                             FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            LEFT JOIN produccionalumno pa ON (pa.codProduccionAlumno = po.idProduccionAlumno)
+                            LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
+                             where idProduccionAlumno is not null and po.estado = ' . $estado . '   and tr.fuentefinanc=\'' . $fuefin . '\' and po.modalidad = \'' . $modalidad . '\'    and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
+
+        );
+        return $pago;
+    }
+
+    public function listarPagoProduccionModalidadTipre($centroProduccion, $fechaDesde, $fechaHasta, $estado, $tipoRe, $modalidad)
+    {
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+                            null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                             FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            LEFT JOIN produccionalumno pa ON (pa.codProduccionAlumno = po.idProduccionAlumno)
+                            LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
+                             where idProduccionAlumno is not null and po.estado = ' . $estado . '   and tr.tipoRecurso=\'' . $tipoRe . '\' and po.modalidad = \'' . $modalidad . '\'    and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
+
+        );
+        return $pago;
+    }
+
+    public function listarPagoProduccionModalidadTramite($centroProduccion, $fechaDesde, $fechaHasta, $estado, $tram, $valtra, $modalidad)
+    {
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+                            null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                             FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            LEFT JOIN produccionalumno pa ON (pa.codProduccionAlumno = po.idProduccionAlumno)
+                            LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
+                             where idProduccionAlumno is not null and po.estado = ' . $estado . '  and po.modalidad = \'' . $modalidad . '\'   and ' . $tram . '= \'' . $valtra . '\'  and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
+
+        );
+        return $pago;
+    }
+
+
+    public function listarPagoProduccionFueFi($centroProduccion, $fechaDesde, $fechaHasta, $estado, $fuefin)
+    {
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+                            null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                             FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            LEFT JOIN produccionalumno pa ON (pa.codProduccionAlumno = po.idProduccionAlumno)
+                            LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
+                             where idProduccionAlumno is not null and po.estado = ' . $estado . '    and tr.fuentefinanc=\'' . $fuefin . '\'   and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
+
+        );
+        return $pago;
+    }
+
+    public function listarPagoProduccionTipRe($centroProduccion, $fechaDesde, $fechaHasta, $estado, $tipoRe)
+    {
+
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+                            null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                             FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            LEFT JOIN produccionalumno pa ON (pa.codProduccionAlumno = po.idProduccionAlumno)
+                            LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
+                             where idProduccionAlumno is not null  and po.estado = ' . $estado . '    and tr.tipoRecurso=\'' . $tipoRe . '\'  and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
+
+        );
+        return $pago;
+    }
+
+    public function listarPagoProduccionTramite($centroProduccion, $fechaDesde, $fechaHasta, $estado, $tram, $valtra)
+    {
+
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+                            null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                             FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            LEFT JOIN produccionalumno pa ON (pa.codProduccionAlumno = po.idProduccionAlumno)
+                            LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
+                             where idProduccionAlumno is not null and po.estado = ' . $estado . '   and ' . $tram . '= \'' . $valtra . '\' and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
+
+        );
+        return $pago;
+    }
+
+    public function listarPagoProduccionmodalidad($centroProduccion, $fechaDesde, $fechaHasta, $estado, $modalidad)
+    {
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+                            null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                             FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            LEFT JOIN produccionalumno pa ON (pa.codProduccionAlumno = po.idProduccionAlumno)
+                            LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
+                             where idProduccionAlumno is not null and po.estado = ' . $estado . ' and po.modalidad = \'' . $modalidad . '\'  and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
+
+        );
+        return $pago;
+
+    }
+
+    public function listarPagoProduccionTodo($centroProduccion, $fechaDesde, $fechaHasta, $estado)
+    {
+        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+                            null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
+                            st.precio as precio,po.detalle as pagodetalle
+                             FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            LEFT JOIN produccionalumno pa ON (pa.codProduccionAlumno = po.idProduccionAlumno)
+                            LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
+                             where idProduccionAlumno is not null and po.estado = ' . $estado . ' and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
+
+        );
+        return $pago;
+    }
+
+    /************** listar pagos centros de produccion ***************/
+
+
+    /***** listar pagos centros universidad*****/
     public function listarFueTipLo($estado, $fechaDesde, $fechaHasta, $tipoRe, $local, $vallocal)
     {
         $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,

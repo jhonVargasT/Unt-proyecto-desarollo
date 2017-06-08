@@ -254,6 +254,8 @@ Route::get('/venBuscarEstudiante', function () {
     return view('Ventanilla/Alumno/Search');
 });
 
+
+
 Route::get('/venBuscarEstudianteProduccion', function () {
     return view('Ventanilla/Alumno/SearchP');
 });
@@ -269,6 +271,8 @@ Route::get('/ventRelizarPago', function () {
 Route::get('/ventReportPago', function () {
     return view('Ventanilla/Pagos/ReportPago');
 });
+
+
 
 Route::get('/ventBoleta', function () {
     return view('Ventanilla/Pagos/boleta');

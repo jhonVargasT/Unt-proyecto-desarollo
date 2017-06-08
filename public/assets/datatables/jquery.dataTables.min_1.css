@@ -11,9 +11,7 @@ div.dataTables_length select {
 
 div.dataTables_filter {
 	text-align: right;
-}
-
-div.dataTables_filter label {
+}  div.dataTables_filter label {
 	font-weight: normal;
 	white-space: nowrap;
 	text-align: left;

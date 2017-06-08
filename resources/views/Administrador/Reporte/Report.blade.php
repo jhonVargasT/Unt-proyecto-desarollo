@@ -27,18 +27,67 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script type="text/javascript">
-
         function limpiarCampos() {
-            var x = '1';
-            document.getElementById("fac").innerHTML = x;
-            document.getElementById("sede").innerHTML = x;
-            document.getElementById("esc").innerHTML = x;
+
+            document.getElementById("sede").value = "";
+            document.getElementById("fac").value = "";
+            document.getElementById("esc").value = "";
+            document.getElementById("cp").value = "";
+            document.getElementById("ff").value = "";
+            document.getElementById("trinp").value = "";
+            document.getElementById("fecdesde").value = "";
+            document.getElementById("fecHasta").value = "";
+            document.getElementById("input").value = "";
+
+
+            document.getElementById("sede").readOnly = true;
+            document.getElementById("fac").readOnly = true;
+            document.getElementById("esc").readOnly = true;
+            document.getElementById("cp").readOnly = true;
+            document.getElementById("ff").readOnly = true;
+            document.getElementById("trinp").readOnly = true;
+            document.getElementById("input").readOnly = true;
+
+            document.getElementById("ctr").checked = false;
+            document.getElementById("cff").checked = false;
+            document.getElementById("cesc").checked = false;
+            document.getElementById("cfac").checked = false;
+            document.getElementById("sed").checked = false;
+            document.getElementById("ccp").checked = false;
+
         }
+
+
+
+
+        function habilitarCP(value) {
+            if (value == true) {
+                document.getElementById("cp").readOnly = false;
+                document.getElementById("sede").readOnly = true;
+                document.getElementById("fac").readOnly = true;
+                document.getElementById("esc").readOnly = true;
+
+                document.getElementById("sede").value = "";
+                document.getElementById("fac").value = "";
+                document.getElementById("esc").value = "";
+
+                document.getElementById("sed").checked = false;
+                document.getElementById("cfac").checked = false;
+                document.getElementById("cesc").checked = false;
+
+            } else if (value == false) {
+                document.getElementById("cp").readOnly = true;
+                document.getElementById("cp").value = "";
+
+            }
+        }
+
         function habilitarff(value) {
             if (value == true) {
                 document.getElementById("ff").readOnly = false;
             } else if (value == false) {
                 document.getElementById("ff").readOnly = true;
+                document.getElementById("ff").value = "";
 
             }
         }
@@ -47,18 +96,39 @@
                 document.getElementById("trinp").readOnly = false;
             } else if (value == false) {
                 document.getElementById("trinp").readOnly = true;
+                document.getElementById("trinp").value = "";
             }
         }
         function habilitarsed(value) {
             if (value == true) {
+                document.getElementById("cp").value = "";
+                document.getElementById("ccp").checked = false;
+                document.getElementById("cp").readOnly = true;
                 document.getElementById("sede").readOnly = false;
             } else if (value == false) {
                 document.getElementById("sede").readOnly = true;
+                document.getElementById("fac").readOnly = true;
+                document.getElementById("esc").readOnly = true;
+
+                document.getElementById("sede").value = "";
+                document.getElementById("fac").value = "";
+                document.getElementById("esc").value = "";
+
+
+                document.getElementById("sed").checked = false;
+                document.getElementById("cfac").checked = false;
+                document.getElementById("cesc").checked = false;
+
             }
         }
         function habilitarfac(value) {
 
             if (value == true) {
+                document.getElementById("ccp").checked = false;
+                document.getElementById("sed").checked = false;
+                document.getElementById("cp").readOnly = true;
+                document.getElementById("cp").value = "";
+
                 document.getElementById("sed").checked = true;
                 document.getElementById("fac").readOnly = false;
                 document.getElementById("sede").readOnly = false;
@@ -66,10 +136,16 @@
                 document.getElementById("sed").checked = false;
                 document.getElementById("fac").readOnly = true;
                 document.getElementById("sede").readOnly = true;
+
+                document.getElementById("fac").value = "";
+                document.getElementById("sede").value = "";
             }
         }
         function habilitaresc(value) {
             if (value == true) {
+                document.getElementById("ccp").checked = false;
+                document.getElementById("cp").value = "";
+                document.getElementById("cp").readOnly = true;
                 document.getElementById("sed").checked = true;
                 document.getElementById("cfac").checked = true;
                 document.getElementById("fac").readOnly = false;
@@ -81,8 +157,14 @@
                 document.getElementById("esc").readOnly = true;
                 document.getElementById("fac").readOnly = true;
                 document.getElementById("sede").readOnly = true;
+
+                document.getElementById("esc").value = "";
+                document.getElementById("fac").value = "";
+                document.getElementById("sede").value = "";
+
             }
         }
+
     </script>
     <div class=" panel-heading"><h3>Reporte Pagos</h3></div>
     <div style="background-color: #FFFFFF">
@@ -160,7 +242,7 @@
                             <span class=" control-label">Fecha desde:  </span>
 
                             <div class=" input-group date" data-provide="datepicker">
-                                <input type="text" name="fechaDesde" class="form-control"
+                                <input type="text" id="fecdesde" name="fechaDesde" class="form-control"
                                        autocomplete="off" required>
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
@@ -172,7 +254,7 @@
                             <span class=" control-label">Fecha hasta:  </span>
 
                             <div class="input-group date" data-provide="datepicker">
-                                <input type="text" name="fechaHasta" class="form-control"
+                                <input type="text" id="fecHasta" name="fechaHasta" class="form-control"
 
                                        autocomplete="off" required>
                                 <div class="input-group-addon">
@@ -183,6 +265,12 @@
                         </div>
                     </div>
                     <div class="row  ">
+                        <div class="form-group-sm col-sm-2">
+                            <input type="checkbox" id="ccp" onclick="habilitarCP(this.checked)">
+                            Centro de produccion
+                            <input type="text" class="form-control input-sm " id="cp" name="cp"
+                                   autocomplete="off" readOnly>
+                        </div>
                         <div class="form-group-sm col-sm-2 ">
                             <input type="checkbox" id="sed" onclick="habilitarsed(this.checked)">
                             Sede
@@ -266,31 +354,53 @@
                                 });
                             </script>
                         </div>
+
                         <div class="form-group-sm col-sm-2">
-                            <input type="checkbox" onclick=" habilitartr(this.checked)">
+                            <div class="form-group-sm col-sm-12">
+                                <input type="checkbox" id="ctr" onclick=" habilitartr(this.checked)">
+
                             Tipo de recurso
-                            <input type="text" class="form-control input-sm " id="trinp" name="tr"
-                                   autocomplete="off"
-                                   readOnly>
+                            </div>
+                            <div class="form-group-sm col-sm-4">
+
+                                <input type="text" class="form-control input-sm " id="trinp" name="tr"
+                                       autocomplete="off"
+                                       readOnly>
+                            </div>
+
                         </div>
                         <div class="form-group-sm col-sm-2">
-                            <input type="checkbox" onclick="habilitarff(this.checked)">
-                            Fuente de fina
-                            <input type="text" class="form-control input-sm " id="ff" name="fuf"
-                                   autocomplete="off" readOnly>
+                            <div class="form-group-sm col-sm-12">
+                                <input type="checkbox" id="cff" onclick="habilitarff(this.checked)">
+                                Fuente de financiamiento
+                            </div>
+
+                            <div class="form-group-sm col-sm-4">
+                                <input type="text" class="form-control input-sm " id="ff" name="fuf"
+                                       autocomplete="off" readOnly>
+                            </div>
                         </div>
+
                     </div>
                     <br>
                     <div class="row">
-                        <div class=" col-sm-5">
+                        <div class=" col-sm-4">
 
                         </div>
                         <div class="col-md-2 form-group-sm">
                             <button type="submit" name="enviar" class=" btn btn-success"><span
                                         class="glyphicon glyphicon-refresh"></span> Actualizar
                             </button>
+
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-md-2 form-group-sm">
+                            <a class=" btn btn-warning" onclick="limpiarCampos(this);">
+                                <span class="glyphicon glyphicon-erase" >
+
+                                </span> Limpiar campos
+                            </a>
+                        </div>
+                        <div class="col-sm-4">
 
                         </div>
                     </div>
@@ -311,99 +421,99 @@
                 <div class="table-responsive col-sm-12">
                     <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 
-                            <thead align="center">
-                            <!--cabecear Tabla-->
-                            <tr >
+                        <thead align="center">
+                        <!--cabecear Tabla-->
+                        <tr>
 
-                                <th>
-                                    <div align="center">
-                                        <small>ID</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>MODALIDAD</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>SEDE</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>FACULTAD</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>ESCUELA</small>
-                                    </div>
-                                </th>
+                            <th>
+                                <div align="center">
+                                    <small>ID</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>MODALIDAD</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>SEDE</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>FACULTAD</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>ESCUELA</small>
+                                </div>
+                            </th>
 
-                                <th>
-                                    <div align="center">
-                                        <small>CLASIFICADOR S.I.A.F</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>FUE FIN</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>TIP REC</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>CLASIFICADOR</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>TASA</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>FECHA</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>PRECIO</small>
-                                    </div>
-                                </th>
-                                <th>
-                                    <div align="center">
-                                        <small>DETALLE</small>
-                                    </div>
-                                </th>
+                            <th>
+                                <div align="center">
+                                    <small>CLASIFICADOR S.I.A.F</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>FUE FIN</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>TIP REC</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>CLASIFICADOR</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>TASA</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>FECHA</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>PRECIO</small>
+                                </div>
+                            </th>
+                            <th>
+                                <div align="center">
+                                    <small>DETALLE</small>
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @if(isset($result))
+                                <!--Contenido-->
+                        @foreach($result as $r)
+                            <tr>
+                                <td><h6 align="center">{{$r->codigopago}}</h6></td>
+                                <td><h6 align="left">{{$r->modalidad}}</h6></td>
+                                <td><h6 align="left">{{$r->nombresede}}</h6></td>
+                                <td><h6 align="left">{{$r->nombrefacultad}}</h6></td>
+                                <td><h6 align="left">{{$r->nombreescuela}}</h6></td>
+                                <td><h6 align="left">{{$r->clasi}}</h6></td>
+                                <td><h6 align="center">{{$r->fuentefinanc}}</h6></td>
+                                <td><h6 align="center">{{$r->tiporecurso }}</h6></td>
+                                <td><h6 align="left">{{$r-> nombretramite}}</h6></td>
+                                <td><h6 align="left">{{$r->nombresubtramite }}</h6></td>
+                                <td><h6 align="left">{{$r->fechapago}}</h6></td>
+                                <td><h6 align="center">{{$r->precio}}</h6></td>
+                                <td><h6 align="left">{{$r->pagodetalle}}</h6></td>
                             </tr>
-                            </thead>
-                            <tbody>
-                            @if(isset($result))
-                            <!--Contenido-->
-                            @foreach($result as $r)
-                                <tr>
-                                    <td><h6 align="center">{{$r->codigopago}}</h6></td>
-                                    <td><h6 align="left">{{$r->modalidad}}</h6></td>
-                                    <td><h6 align="left">{{$r->nombresede}}</h6></td>
-                                    <td><h6 align="left">{{$r->nombrefacultad}}</h6></td>
-                                    <td><h6 align="left">{{$r->nombreescuela}}</h6></td>
-                                    <td><h6 align="left">{{$r->clasi}}</h6></td>
-                                    <td><h6 align="center">{{$r->fuentefinanc}}</h6></td>
-                                    <td><h6 align="center">{{$r->tiporecurso }}</h6></td>
-                                    <td><h6 align="left">{{$r-> nombretramite}}</h6></td>
-                                    <td><h6 align="left">{{$r->nombresubtramite }}</h6></td>
-                                    <td><h6 align="left">{{$r->fechapago}}</h6></td>
-                                    <td><h6 align="center">{{$r->precio}}</h6></td>
-                                    <td><h6 align="left">{{$r->pagodetalle}}</h6></td>
-                                </tr>
-                            </tbody>
-                            @endforeach
+                        </tbody>
+                        @endforeach
                         @endif
                     </table>
                 </div>
@@ -416,6 +526,7 @@
                                     class="glyphicon glyphicon-arrow-left"></span> Regresar
                         </a>
                     </div>
+
                     <div class="col-md-2">
                         <!--Contenido-->
                         @if(isset($encript))

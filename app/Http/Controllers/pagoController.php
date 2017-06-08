@@ -508,6 +508,7 @@ class pagoController extends Controller
         $fechaHasta = date("Y-m-d", strtotime($fechaHasta));
         $estado = $request->estado;
         $modalidad = $request->modalidad;
+        $centroProducion=$request->cp;
         $total = 0;
         $imput = $request->inputTram;
         $lugar = null;
@@ -555,8 +556,8 @@ class pagoController extends Controller
         } else {
             $tipRe = null;
         }
-
-        $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo);//Listar: pago,personal,subtramite,escuela,facultad
+ 
+        $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo,$centroProducion);//Listar: pago,personal,subtramite,escuela,facultad
         if (!is_null($result) && empty($result) != true) {
             foreach ($result as $sum) {
                 $total = $total + $sum->precio;
@@ -564,11 +565,11 @@ class pagoController extends Controller
         } else {
             $total = 0;
         }
-        $cadena = $estado . ';' . $modalidad . ';' . $fechaDesde . ';' . $fechaHasta . ';' . $tram . ';' . $tramites . ';' . $tipRe . ';' . $fuenfin . ';' . $lugar . ';' . $codigo;
+        $cadena = $estado . ';' . $modalidad . ';' . $fechaDesde . ';' . $fechaHasta . ';' . $tram . ';' . $tramites . ';' . $tipRe . ';' . $fuenfin . ';' . $lugar . ';' . $codigo. ';' .$centroProducion;
 
         //  $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $cadena, MCRYPT_MODE_CBC, md5(md5($key))));
 
-        return view('Administrador/Reporte/Report')->with(['result' => $result, 'total' => $total, 'estado' => $estado, 'modalidad' => $modalidad, 'fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta, 'tram' => $tram, 'tramites' => $tramites, 'tipRe' => $tipRe, 'fuenfin' => $fuenfin, 'lugar' => $lugar, 'codigo' => $codigo, 'encript' => $cadena]);
+        return view('Administrador/Reporte/Report')->with(['centroproduccion'=>$centroProducion,'result' => $result, 'total' => $total, 'estado' => $estado, 'modalidad' => $modalidad, 'fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta, 'tram' => $tram, 'tramites' => $tramites, 'tipRe' => $tipRe, 'fuenfin' => $fuenfin, 'lugar' => $lugar, 'codigo' => $codigo, 'encript' => $cadena]);
     }
 
     //Reenviar datos de la boleta de pago a la vista de: RealizarPago
