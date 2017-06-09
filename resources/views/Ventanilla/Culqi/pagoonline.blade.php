@@ -35,6 +35,8 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
+
 </head>
 <body style="background-color: #ccd0d2">
 <div class="row  ">
@@ -260,8 +262,10 @@
                                         data: {name: $('#st').val()},
                                         success: function (data) {
                                             $('#bp').val(data);
-                                            var val = data * 100;
-                                            $('#p').val(val);
+                                            var val = data * 0.04;
+                                            var value = (+val) + (+data);
+                                            $('#p').val(value*100);
+                                            $('#total').val(value);
                                         }
                                     });
                                 }
@@ -275,8 +279,10 @@
                                     data: {name: $('#ts').val()},
                                     success: function (data) {
                                         $('#bp').val(data);
-                                        var val = data * 100;
-                                        $('#p').val(val);
+                                        var val = data * 0.04;
+                                        var value = (+val) + (+data);
+                                        $('#p').val(value*100);
+                                        $('#total').val(value);
                                     }
                                 });
                             }
@@ -314,27 +320,26 @@
                         color: #C00;
                     }
                 </style>
-                <span class="col-sm-2 col-lg-2 col-xs-2">Costo de boleta:</span>
+                <span class="col-sm-2 col-lg-2 col-xs-2">Costo:</span>
                 <div class=" col-sm-2 col-lg-2 col-xs-2">
                     <div class="col-sm-2 col-lg-2 col-xs-2">
                         S/.
                     </div>
                     <div class="col-sm-8 col-lg-8 col-xs-8">
                         <input class="form-control " name="boletapagar" id="bp" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <span class="col-sm-1 col-lg-2 col-xs-2">Total a pagar <font color="red">(+4%)</font>:</span>
+                <div class=" col-sm-2 col-lg-2 col-xs-2">
+                    <div class="col-sm-2 col-lg-2 col-xs-2">
+                        S/.
+                    </div>
+                    <div class="col-sm-8 col-lg-8 col-xs-8">
+                        <input class="form-control " name="total" id="total" readonly>
                         <input type="hidden" id="p" readonly>
                         <script>
-                            $('#st').load(function () {
-                                $.ajax({
-                                    url: '/precioSubtramite',
-                                    type: "get",
-                                    data: {name: $('#st').val()},
-                                    success: function (data) {
-                                        $('#bp').val(data);
-                                        var val = data * 100;
-                                        $('#p').val(val);
-                                    }
-                                });
-                            });
                         </script>
                     </div>
                 </div>
@@ -382,8 +387,7 @@
                     title: 'Tesoreria UNT',
                     currency: 'PEN',
                     description: x,
-                    amount: $('#p').val(),
-                    email: $('#email').val('hola')
+                    amount: $('#p').val()
                 });
             });
         </script>
@@ -444,12 +448,42 @@
             var hidden = false;
             function action() {
                 hidden = !hidden;
-                if(hidden) {
+                if (hidden) {
                     document.getElementById('print').style.visibility = 'hidden';
                 } else {
                     document.getElementById('print').style.visibility = 'visible';
                 }
             }
+        </script>
+        <!-- Modal -->
+        <div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel"
+             aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span>
+                        </button>
+                        <div class="panel-heading" align="center"><img src="assets/img/logo.png"
+                                                                       style="width:150px;height:100px;"></div>
+                        <h4 class="modal-title" id="memberModalLabel" align="center">Universidad Nacional de Trujillo -
+                            Tesoreria</h4>
+
+                    </div>
+                    <div class="modal-body">
+                        <p><font color="red">*IMPORTANTE*</font></p>
+                        <p><font color="red">SE SUMARA UN 4% A TODA COMPRA POR MOTIVOS DE PAGO CON TARJETA</font></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $('#memberModal').modal('show');
+            });
         </script>
         <!-- /#wrapper -->
         <!-- /#wrapper -->
