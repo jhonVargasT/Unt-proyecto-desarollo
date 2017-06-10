@@ -472,7 +472,7 @@
                     </div>
                     <div class="modal-body">
                         <p><font color="red">*IMPORTANTE*</font></p>
-                        <p><font color="red">SE SUMARA UN 4% A TODA COMPRA POR MOTIVOS DE PAGO CON TARJETA</font></p>
+                        <p><font color="red">LOS PAGOS ONLINE TIENEN UN COSTE ADICIONAL DEL 4% POR GASTOS ADMINISTRATIVOS</font></p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
