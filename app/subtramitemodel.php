@@ -171,7 +171,7 @@ class subtramitemodel
         $logunt->setCodigoPersonal($codPers);
         try {
             DB::transaction(function () use ($codSubtramite, $logunt) {
-                DB::table('subtramite')->where('codSubtramite', 1)->update(['codigoSubtramite' => $this->codigotasa, 'nombre' => $this->nombre, 'precio' => $this->precio, 'idTramite' => $this->idTramite]);
+                DB::table('subtramite')->where('codSubtramite', $codSubtramite)->update(['codigoSubtramite' => $this->codigotasa, 'nombre' => $this->nombre, 'precio' => $this->precio, 'idTramite' => $this->idTramite]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {

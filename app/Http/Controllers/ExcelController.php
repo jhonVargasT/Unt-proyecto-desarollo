@@ -965,16 +965,16 @@ class ExcelController extends Controller
     //Reporte detallado, formato excel
     function reporteDetallado($encriptado)
     {
-   
+
         list($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $centroProducion) = explode(';', $encriptado);
         date_default_timezone_set('America/Lima');
         $fechahoy = date('Y-m-d');
 
-        Excel::create('Reporte resumido  :  ' . $fechahoy . '', function ($excel) use ($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $fechahoy,$centroProducion) {
-            $excel->sheet('resumen', function ($sheet) use ($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $fechahoy,$centroProducion) {
+        Excel::create('Reporte resumido  :  ' . $fechahoy . '', function ($excel) use ($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $fechahoy, $centroProducion) {
+            $excel->sheet('resumen', function ($sheet) use ($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $fechahoy, $centroProducion) {
                 $pagoModel = new pagomodel();
                 $data = null;
-                $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo,$centroProducion);//pago,personal,subtramite,escuela,facultad
+                $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $centroProducion);//pago,personal,subtramite,escuela,facultad
                 $total = 0;
                 $cont = 0;
 

@@ -38,7 +38,7 @@
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label"> SIAF </span>
                                 <div class="col-sm-3">
-                                    <input class="form-control input-sm" name="clasificadorSiaf" type="text"
+                                    <input class="form-control input-sm" name="clasificador" type="text"
                                            autocomplete="off" onkeypress="return validarNum(event)"
                                            value="{{$t->clasificador}}">
                                 </div>
@@ -46,7 +46,7 @@
                             <div class="form-group-sm " align="left">
                                 <span class="col-sm-2 control-label"> C-CTE1</span>
                                 <div class="col-sm-3">
-                                    <input class="form-control input-sm" name="nombreTramite" type="text"
+                                    <input class="form-control input-sm" name="nombre" type="text"
                                            autocomplete="off"
                                            value="{{$t->nombre}}">
                                 </div>
@@ -56,7 +56,7 @@
                             <div class=" form-group-sm" align="left">
                                 <span class="col-sm-2 control-label">Tipo de recurso </span>
                                 <div class="col-sm-1">
-                                    <input class="form-control input-sm" name="tipoDeRecurso" type="text"
+                                    <input class="form-control input-sm" name="tipoRecurso" type="text"
                                            autocomplete="off"
                                            onkeypress="return validarLetras(event)" value="{{$t->tipoRecurso}}">
                                 </div>
@@ -65,7 +65,7 @@
                             <div class=" form-group-sm" align="left">
                                 <span class="col-sm-2 control-label">Fuente de financiamiento </span>
                                 <div class="col-sm-1">
-                                    <input class="form-control input-sm" name="fuenteFinaciamiento" type="text"
+                                    <input class="form-control input-sm" name="fuentefinanc" type="text"
                                            autocomplete="off"
                                            onkeypress="return validarNum(event)" value="{{$t->fuentefinanc}}">
                                 </div>
