@@ -127,7 +127,7 @@ Route::get('/admRegistrarProduccion', function () {
     return view('Administrador/Produccion/Add');
 });
 Route::get('/admBuscarProduccion', function () {
-    return view('Administrador/Produccion/search');
+    return view('Administrador/Produccion/Search');
 });
 
 Route::resource('ProduccionRegistrado', 'produccionController@registrarProduccion');
