@@ -753,6 +753,8 @@ class ExcelController extends Controller
                         foreach ($value as $v) {
                             $tramite->setClasificador($v['clasificador']);;
                             $tramite->setNombre($v['nombre']);
+                            $tramite->setTipoRecurso($v['tiporecurso']);
+                            $tramite->setFuentefinanc($v['fuentefinanciamiento']);
                             $tramite->save();
                         }
                         return back()->with('true', 'Se subio el archivo');
