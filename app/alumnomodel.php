@@ -116,11 +116,13 @@ class alumnomodel extends personamodel
 
     public function bdEscuela($nombre)
     {
+        $e = null;
         $escuela = DB::select('select idEscuela from escuela where nombre=:nombre', ['nombre' => $nombre]);
 
         foreach ($escuela as $es) {
-            return $e = $es->idEscuela;
+            $es->idEscuela;
         }
+        return $e;
     }
 
     public function bdEscuelaSede($nombre, $sede)
@@ -147,7 +149,6 @@ class alumnomodel extends personamodel
     public function grabr($codigo, $ap, $no, $dni)
     {
         DB::table('prueba')->insert(['codigo' => $codigo, 'ap' => $ap, 'nom' => $no, 'dni' => $dni]);
-
     }
 
     public function savealumno($dni)
@@ -176,10 +177,8 @@ class alumnomodel extends personamodel
                     foreach ($personabd as $pbd) {
                         $idp = $pbd->codPersona;
                     }
-                    $ida = DB::table('alumno')->insertGetId(['codAlumno' => $this->codAlumno, 'fecha' => $this->fecha, 'idPersona' => $idp, 'coEscuela' => $this->idEscuela]);
-                    DB::table('produccionalumno')->insert(['codAlumno' => $ida, 'idProduccion' => $this->codProduccion]);
+                    DB::table('alumno')->insert(['codAlumno' => $this->codAlumno, 'fecha' => $this->fecha, 'idPersona' => $idp, 'coEscuela' => $this->idEscuela]);
                 }
-
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -187,7 +186,6 @@ class alumnomodel extends personamodel
         }
         return true;
     }
-
 
     public function savealumnoProduccion($dni)
     {
