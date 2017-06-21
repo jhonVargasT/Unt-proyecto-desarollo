@@ -96,6 +96,7 @@
                                                             $("#selectP").empty();
                                                             document.getElementById("selectP").disabled = true;
                                                             document.getElementById("selectP").required = false;
+                                                            $('#enviar').removeAttr('disabled');
                                                         }
                                                         else {
                                                             $("#selectP").empty();
@@ -134,6 +135,7 @@
                                                                 $("#selectP").empty();
                                                                 document.getElementById("selectP").disabled = true;
                                                                 document.getElementById("selectP").required = false;
+                                                                $('#enviar').removeAttr('disabled');
                                                             }
                                                             else {
                                                                 $("#selectP").empty();
@@ -313,6 +315,7 @@
                             </script>
                             @if(isset($buscar))
                                 <script>
+                                    $('#enviar').setAttribute('disabled');
                                     var value = $('#select option:selected').attr('value');
                                     if (value == 'Dni') {
                                         $.ajax({
@@ -324,6 +327,7 @@
                                                     $("#selectP").empty();
                                                     document.getElementById("selectP").disabled = true;
                                                     document.getElementById("selectP").required = true;
+                                                    $('#enviar').removeAttr('disabled');
                                                 }
                                                 else {
                                                     $("#selectP").empty();
@@ -351,6 +355,7 @@
                                                         $("#selectP").empty();
                                                         document.getElementById("selectP").disabled = true;
                                                         document.getElementById("selectP").required = true;
+                                                        $('#enviar').removeAttr('disabled');
                                                     }
                                                     else {
                                                         $("#selectP").empty();
