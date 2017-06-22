@@ -806,15 +806,15 @@ class ExcelController extends Controller
                 foreach ($data as $value) {
                  
                 if (!empty($value)) {
-                     foreach ($value as $v) {
-                         echo $v['sede'].$v['codigo'].$v['direccion'];
+
+                         echo $value['sede'].$value['codigo'].$value['direccion'];
                          /*   $sede->setNombreSede($v['sede']);
                             $sede->setCodigoSede($v['codigo']);
                             $sede->setDireccion($v['direccion']);
                             $sede->save();*/
                         }
                         //return back()->with('true', 'Se subio el archivo')->withInput();
-                    }
+
                 }
             }
         }
