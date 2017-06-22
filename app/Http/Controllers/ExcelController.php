@@ -822,7 +822,7 @@ class ExcelController extends Controller
                 }
             }
         }
-        return back()->with('error', 'Por favor, revisar su archivo.');
+       // return back()->with('error', 'Por favor, revisar su archivo.');
     }
 
     public function importExcelFacultad(Request $request)
