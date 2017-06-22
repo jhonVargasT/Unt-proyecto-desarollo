@@ -804,11 +804,11 @@ class ExcelController extends Controller
             
             if (!empty($data) && $data->count()) {
                 
-                
+                var_dump($data);
                 foreach ($data->toArray() as $key => $value) {
                     if (!empty($value)) {
                         foreach ($value as $v) {
-                            $sede->setNombreSede($v['sede']);
+                            $sede->setNombreSede('hola');
                             $sede->setCodigoSede($v['codigo']);
                             $sede->setDireccion($v['direccion']);
                             $sede->save();
