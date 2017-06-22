@@ -800,22 +800,23 @@ class ExcelController extends Controller
         if ($request->hasFile('import_file')) {
             $path = Input::file('import_file')->getRealPath();
             $data = Excel::load($path, function ($reader) {})->get();
-            var_dump($data);
+         
             if (!empty($data) && $data->count()) {
                
                 foreach ($data->toArray() as $key => $value) {
                   
                   if (!empty($value)) {
+                      var_dump($value);
                       echo '1';
-                      /*  foreach ($value as $v) {
+                     foreach ($value as $v) {
 
                             echo $v['sede'].$v['codigo'].$v['direccion'];
                             $sede->setNombreSede($v['sede']);
                             $sede->setCodigoSede($v['codigo']);
                             $sede->setDireccion($v['direccion']);
                             $sede->save();
-                        }*/
-                        return back()->with('true', 'Se subio el archivo')->withInput();
+                        }
+                   //     return back()->with('true', 'Se subio el archivo')->withInput();
                     }
                 }
             }
