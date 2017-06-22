@@ -799,26 +799,27 @@ class ExcelController extends Controller
 
         if ($request->hasFile('import_file')) {
             $path = Input::file('import_file')->getRealPath();
-            $data = Excel::load($path, function ($reader) {})->get();
-         
-            if (!empty($data) ) {
-               
-                foreach ($data as $value) {
-                 
-                if (!empty($value)) {
+            $data = Excel::load($path, function ($reader) {
+            })->get();
 
-                         echo $value['sede'].$value['codigo'].$value['direccion'];
-                         /*   $sede->setNombreSede($v['sede']);
-                            $sede->setCodigoSede($v['codigo']);
-                            $sede->setDireccion($v['direccion']);
-                            $sede->save();*/
-                        }
-                        //return back()->with('true', 'Se subio el archivo')->withInput();
+            if (!empty($data)) {
+
+                foreach ($data as $value) {
+
+                    if (!empty($value)) {
+
+                        $sede->setNombreSede($value['sede']);
+                        $sede->setCodigoSede($value['codigo']);
+                        $sede->setDireccion($value['direccion']);
+                        $sede->save();
+                    }
+
 
                 }
+                return back()->with('true', 'Se subio el archivo')->withInput();
             }
         }
-       // return back()->with('error', 'Por favor, revisar su archivo.');
+        // return back()->with('error', 'Por favor, revisar su archivo.');
     }
 
     public function importExcelFacultad(Request $request)
