@@ -801,13 +801,11 @@ class ExcelController extends Controller
             $path = Input::file('import_file')->getRealPath();
             $data = Excel::load($path, function ($reader) {})->get();
          
-            if (!empty($data) && $data->count()) {
+            if (!empty($data) ) {
                
-                foreach ($data->toArray() as $key => $value) {
+                foreach ($data as $value) {
                  
                 if (!empty($value)) {
-               
-                     
                      foreach ($value as $v) {
                          echo'1';
 
