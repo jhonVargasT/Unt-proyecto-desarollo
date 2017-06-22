@@ -807,8 +807,7 @@ class ExcelController extends Controller
                  
                 if (!empty($value)) {
                      foreach ($value as $v) {
-                         echo'1';
-
+                         echo $v['sede'].$v['codigo'].$v['direccion'];
                          /*   $sede->setNombreSede($v['sede']);
                             $sede->setCodigoSede($v['codigo']);
                             $sede->setDireccion($v['direccion']);
