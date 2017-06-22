@@ -794,21 +794,19 @@ class ExcelController extends Controller
 
     public function importExcelSede(Request $request)
     {
-      
+        $val = null;
         $sede = new sedemodel();
 
         if ($request->hasFile('import_file')) {
             $path = Input::file('import_file')->getRealPath();
             $data = Excel::load($path, function ($reader) {
             })->get();
-            
+            var_dump($data);
             if (!empty($data) && $data->count()) {
-                
-                var_dump($data);
                 foreach ($data->toArray() as $key => $value) {
                     if (!empty($value)) {
                         foreach ($value as $v) {
-                            $sede->setNombreSede('hola');
+                            $sede->setNombreSede($v['sede']);
                             $sede->setCodigoSede($v['codigo']);
                             $sede->setDireccion($v['direccion']);
                             $sede->save();
