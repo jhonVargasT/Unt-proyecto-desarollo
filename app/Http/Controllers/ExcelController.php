@@ -794,14 +794,17 @@ class ExcelController extends Controller
 
     public function importExcelSede(Request $request)
     {
-        $val = null;
+      
         $sede = new sedemodel();
 
         if ($request->hasFile('import_file')) {
             $path = Input::file('import_file')->getRealPath();
             $data = Excel::load($path, function ($reader) {
             })->get();
+            
             if (!empty($data) && $data->count()) {
+                
+                
                 foreach ($data->toArray() as $key => $value) {
                     if (!empty($value)) {
                         foreach ($value as $v) {

@@ -129,14 +129,14 @@
                                 <span class="col-sm-2 control-label"> Cuenta</span>
                                 <div class="col-sm-3">
                                     <input class="form-control input-sm" name="cuentaAgregar" type="text"
-                                           autocomplete="off">
+                                           autocomplete="off" required>
                                 </div>
                             </div>
                             <div class="form-group-sm">
                                 <span class="col-sm-2">Contraseña</span>
                                 <div class="col-sm-4">
                                     <input class="form-control input-sm" name="contraseñaAgregar" type="password"
-                                           autocomplete="off">
+                                           autocomplete="off" required>
                                 </div>
                             </div>
                         </div>

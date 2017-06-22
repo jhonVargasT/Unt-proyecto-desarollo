@@ -168,6 +168,8 @@ class personalController extends Controller
 
     }
 
+}
+
     //Eliminar (cambiar estado de 1 a 0) el registro del personal
     public function eliminarPersonal($codPersona, Request $request)
     {
@@ -179,4 +181,3 @@ class personalController extends Controller
             return back()->with('false', 'Personal ' . $request->nombres . ' no elimino');
         }
     }
-}

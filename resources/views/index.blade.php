@@ -71,13 +71,12 @@
                         <div class="col-sm-12" align="left">
                             <label for="inputEmail">Cuenta :</label>
                             <input type="text" name="cuenta" class="form-control" placeholder="Ejemp: admin"
-                                   required=""
-                                   autofocus="">
+                                  autocomplete="off"  required>
                         </div>
                         <div class="col-sm-12" align="left">
                             <label for="inputPassword">Contraseña :</label>
                             <input align="center" type="password" name="password" class="form-control"
-                                   placeholder="Contraseña" required="">
+                                   placeholder="Contraseña" required autocomplete="off">
                             <br>
                         </div>
 
