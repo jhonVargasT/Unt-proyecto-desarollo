@@ -20,7 +20,7 @@ class Escuela extends Migration
             $table-> increments('idEscuela')->unique();
             $table ->string('codEscuela')->unique();
             $table ->string('nombre')->unique();
-            $table ->string('nroCuenta')->unique();
+            $table ->string('nroCuenta')->unique()->nullable();
             $table -> boolean('estado')->default('1');
 
             $table->integer('codigoFacultad')->unsigned();

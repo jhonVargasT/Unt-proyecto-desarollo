@@ -718,23 +718,26 @@ class ExcelController extends Controller
             $path = Input::file('import_file')->getRealPath();
             $data = Excel::load($path, function ($reader) {
             })->get();
-            if (!empty($data) && $data->count()) {
-                foreach ($data->toArray() as $key => $value) {
+            if (!empty($data)) {
+                foreach ($data as $value) {
+                    $coP = null;
                     if (!empty($value)) {
-                        foreach ($value as $v) {
-                            $alumno->setDni($v['dni']);
-                            $alumno->setNombres($v['nombres']);
-                            $alumno->setApellidos($v['apeliidos']);
-                            $alumno->setCodAlumno($v['codAlumno']);
-                            $alumno->setCorreo($v['correo']);
-                            $alumno->setFecha($v['fecha']);
-                            $idE = $alumno->bdEscuelaSede($v['escuela'], $v['sede']);//Consular el id de la escuela a la que va a pertenecer
+                        $coP = DB::select('select codPersona from persona left join alumno
+                        on alumno.idPersona = persona.codPersona where dni = ' . $value['dni'] . ' or correo = "' . $value['correo'] . '" or codAlumno = "' . $value['codAlumno'] . '" ');
+                        if ($coP == null) {
+                            $alumno->setDni($value['dni']);
+                            $alumno->setNombres($value['nombres']);
+                            $alumno->setApellidos($value['apeliidos']);
+                            $alumno->setCodAlumno($value['codAlumno']);
+                            $alumno->setCorreo($value['correo']);
+                            $alumno->setFecha($value['fecha']);
+                            $idE = $alumno->bdEscuelaSede($value['escuela'], $value['sede']);//Consular el id de la escuela a la que va a pertenecer
                             $alumno->setIdEscuela($idE);
-                            $alumno->savealumno($v['dni']);
+                            $alumno->savealumno($value['dni']);
                         }
-                        return back()->with('true', 'Se subio el archivo');
                     }
                 }
+                return back()->with('true', 'Se subio el archivo');
             }
         }
         return back()->with('error', 'Por favor, revisar su archivo.');
@@ -792,59 +795,56 @@ class ExcelController extends Controller
         return back()->with('error', 'Por favor, revisar su archivo.');
     }
 
+
     public function importExcelSede(Request $request)
     {
-        $val = null;
         $sede = new sedemodel();
-
         if ($request->hasFile('import_file')) {
             $path = Input::file('import_file')->getRealPath();
             $data = Excel::load($path, function ($reader) {
             })->get();
-
             if (!empty($data)) {
-
                 foreach ($data as $value) {
-
+                    $coS = null;
                     if (!empty($value)) {
-
-                        $sede->setNombreSede($value['sede']);
-                        $sede->setCodigoSede($value['codigo']);
-                        $sede->setDireccion($value['direccion']);
-                        $sede->save();
+                        $coS = DB::select('select codSede from sede where nombresede =  "' . $value['sede'] . '" or codigosede = "' . $value['codigo'] . '" or direccion = "' . $value['direccion'] . '"');
+                        if ($coS == null) {
+                            $sede->setNombreSede($value['sede']);
+                            $sede->setCodigoSede($value['codigo']);
+                            $sede->setDireccion($value['direccion']);
+                            $sede->save();
+                        }
                     }
-
-
                 }
                 return back()->with('true', 'Se subio el archivo')->withInput();
             }
         }
-        // return back()->with('error', 'Por favor, revisar su archivo.');
+        return back()->with('error', 'Por favor, revisar su archivo.');
     }
 
     public function importExcelFacultad(Request $request)
     {
-        $val = null;
         $facultad = new facultadmodel();
-
         if ($request->hasFile('import_file')) {
             $path = Input::file('import_file')->getRealPath();
             $data = Excel::load($path, function ($reader) {
             })->get();
-            if (!empty($data) && $data->count()) {
-                foreach ($data->toArray() as $key => $value) {
+            if (!empty($data)) {
+                foreach ($data as $value) {
+                    $coF = null;
                     if (!empty($value)) {
-                        foreach ($value as $v) {
-                            $facultad->setNombre($v['facultad']);
-                            $facultad->setCodFacultad($v['codigo']);
-                            $facultad->setNroCuenta($v['cuenta']);
-                            $codsede = $facultad->bscSedeId($v['sede']);//SQL, buscar id de la sede por su nombre
+                        $coF = DB::select('select idFacultad from facultad where codFacultad =  "' . $value['facultad'] . '" or nombre = "' . $value['codigo'] . '" or nroCuenta = "' . $value['cuenta'] . '"');
+                        if ($coF == null) {
+                            $facultad->setNombre($value['facultad']);
+                            $facultad->setCodFacultad($value['codigo']);
+                            $facultad->setNroCuenta($value['cuenta']);
+                            $codsede = $facultad->bscSedeId($value['sede']);//SQL, buscar id de la sede por su nombre
                             $facultad->setCodSede($codsede);
                             $facultad->save();
                         }
-                        return back()->with('true', 'Se subio el archivo')->withInput();
                     }
                 }
+                return back()->with('true', 'Se subio el archivo')->withInput();
             }
         }
         return back()->with('error', 'Por favor, revisar su archivo.');
@@ -852,27 +852,28 @@ class ExcelController extends Controller
 
     public function importExcelEscuela(Request $request)
     {
-        $val = null;
         $escuela = new escuelamodel();
 
         if ($request->hasFile('import_file')) {
             $path = Input::file('import_file')->getRealPath();
             $data = Excel::load($path, function ($reader) {
             })->get();
-            if (!empty($data) && $data->count()) {
-                foreach ($data->toArray() as $key => $value) {
+            if (!empty($data)) {
+                foreach ($data as $value) {
+                    $coE = null;
                     if (!empty($value)) {
-                        foreach ($value as $v) {
-                            $escuela->setNombre($v['escuela']);
-                            $escuela->setCodEscuela($v['codigo']);
-                            $escuela->setNroCuenta($v['cuenta']);
-                            $coF = $escuela->buscarFacultad($v['facultad'], $v['sede']);
+                        $coE = DB::select('select idEscuela from escuela where codEscuela =  "' . $value['escuela'] . '" or nombre = "' . $value['codigo'] . '" or nroCuenta = "' . $value['cuenta'] . '"');
+                        if ($coE == null) {
+                            $escuela->setNombre($value['escuela']);
+                            $escuela->setCodEscuela($value['codigo']);
+                            $escuela->setNroCuenta($value['cuenta']);
+                            $coF = $escuela->buscarFacultad($value['facultad'], $value['sede']);
                             $escuela->setFacultad($coF);
                             $escuela->saveescuela();
                         }
-                        return back()->with('true', 'Se subio el archivo')->withInput();
                     }
                 }
+                return back()->with('true', 'Se subio el archivo')->withInput();
             }
         }
         return back()->with('error', 'Por favor, revisar su archivo.');
