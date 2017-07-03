@@ -107,6 +107,7 @@ class sedemodel
         $logunt->setCodigoPersonal($codPers);
 
         try {
+            
             DB::transaction(function () use ($logunt) {
                 DB::table('sede')->insert(['codigosede' => $this->codigoSede, 'nombresede' => $this->nombreSede, 'direccion' => $this->direccion]);
                 $logunt->saveLogUnt();
