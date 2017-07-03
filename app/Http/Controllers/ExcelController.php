@@ -841,23 +841,23 @@ class ExcelController extends Controller
                         try {
                             $coS = null;
                             $coS = DB::table('sede')->select('codSede')->where('nombresede', '' . $value['sede'] . ' ')->count();
-                            echo ' cod sede : = ' . $coS;
+
                             if ($coS != 0) {
                                 $coS = DB::table('sede')->select('codSede')->where('nombresede', '' . $value['sede'] . ' ')->get();
-                                foreach ($coS as $co){
+                                foreach ($coS as $co) {
                                     $coS = $co->codSede;
                                 }
-                                    $coF=null;
-                                  $coF = DB::table('facultad')->select('idFacultad')
-                                      ->where([
-                                          ['coSede','=', $coS],
-                                          ['nombre', '=', '' . $value['facultad'] . ' '],
-                                          ['codFacultad', '=', '' . $value['codigo'] . ''],
-                                          ['estado','=',1]
-                                      ])->count();
+                                $coF = null;
+                                $coF = DB::table('facultad')->select('idFacultad')
+                                    ->where([
+                                        ['coSede', '=', $coS],
+                                        ['nombre', '=', '' . $value['facultad'] . ' '],
+                                        ['codFacultad', '=', '' . $value['codigo'] . ''],
+                                        ['estado', '=', 1]
+                                    ])->count();
 
-                                      echo ' cod facultad : = '.$coF;
-  
+
+
                                 if ($coF == 0) {
                                     $facultad->setNombre($value['facultad']);
                                     $facultad->setCodFacultad($value['codigo']);
@@ -874,10 +874,10 @@ class ExcelController extends Controller
                         }
                     }
                 }
-                //  return back()->with('true', 'Se subio el archivo')->withInput();
+                  return back()->with('true', 'Se subio el archivo')->withInput();
             }
         }
-        //return back()->with('false', 'Por favor, revisar su archivo.');
+        return back()->with('false', 'Por favor, revisar su archivo.');
     }
 
     public function importExcelEscuela(Request $request)
