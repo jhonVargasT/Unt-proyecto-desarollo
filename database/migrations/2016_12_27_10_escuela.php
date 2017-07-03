@@ -18,8 +18,8 @@ class Escuela extends Migration
         {
             $table->engine = 'InnoDB';
             $table-> increments('idEscuela')->unique();
-            $table ->string('codEscuela')->unique();
-            $table ->string('nombre')->unique();
+            $table ->string('codEscuela');
+            $table ->string('nombre');
             $table ->string('nroCuenta')->unique()->nullable();
             $table -> boolean('estado')->default('1');
 

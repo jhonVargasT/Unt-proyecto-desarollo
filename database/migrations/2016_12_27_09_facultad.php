@@ -18,8 +18,8 @@ class Facultad extends Migration
             $table->engine = 'InnoDB';
 
             $table->increments('idFacultad')->unique();
-            $table->string('codFacultad')->unique();
-            $table->string('nombre')->unique();
+            $table->string('codFacultad');
+            $table->string('nombre');
             $table->string('nroCuenta')->unique()->nullable();
             $table->boolean('estado')->default('1');
 

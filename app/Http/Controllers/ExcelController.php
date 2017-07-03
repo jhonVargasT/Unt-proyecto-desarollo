@@ -807,19 +807,24 @@ class ExcelController extends Controller
                 foreach ($data as $value) {
                     $coS = null;
                     if (!empty($value)) {
-                        $coS = DB::select('select codSede from sede where nombresede =  "' . $value['sede'] . '" or codigosede = "' . $value['codigo'] . '" or direccion = "' . $value['direccion'] . '"');
-                        if ($coS == null) {
-                            $sede->setNombreSede($value['sede']);
-                            $sede->setCodigoSede($value['codigo']);
-                            $sede->setDireccion($value['direccion']);
-                            $sede->save();
+                        try {
+                            $coS = DB::select('select codSede from sede where nombresede =  "' . $value['sede'] . '" and codigosede = "' . $value['codigo'] . '" and direccion = "' . $value['direccion'] . '"');
+                            if (empty($coS)) {
+
+                                $sede->setNombreSede($value['sede']);
+                                $sede->setCodigoSede($value['codigo']);
+                                $sede->setDireccion($value['direccion']);
+                                $sede->save();
+                            }
+                        } catch (Exception $e) {
+                            return back()->with('false', 'Error, por favor revisar su archivo.');
                         }
                     }
                 }
                 return back()->with('true', 'Se subio el archivo')->withInput();
             }
         }
-        return back()->with('error', 'Por favor, revisar su archivo.');
+        return back()->with('false', 'Por favor, revisar su archivo.');
     }
 
     public function importExcelFacultad(Request $request)
@@ -831,23 +836,48 @@ class ExcelController extends Controller
             })->get();
             if (!empty($data)) {
                 foreach ($data as $value) {
-                    $coF = null;
+
                     if (!empty($value)) {
-                        $coF = DB::select('select idFacultad from facultad where codFacultad =  "' . $value['facultad'] . '" or nombre = "' . $value['codigo'] . '" or nroCuenta = "' . $value['cuenta'] . '"');
-                        if ($coF == null) {
-                            $facultad->setNombre($value['facultad']);
-                            $facultad->setCodFacultad($value['codigo']);
-                            $facultad->setNroCuenta($value['cuenta']);
-                            $codsede = $facultad->bscSedeId($value['sede']);//SQL, buscar id de la sede por su nombre
-                            $facultad->setCodSede($codsede);
-                            $facultad->save();
+                        try {
+                            $coS = null;
+                            $coS = DB::table('sede')->select('codSede')->where('nombresede', '' . $value['sede'] . ' ')->count();
+                            echo ' cod sede : = ' . $coS;
+                            if ($coS != 0) {
+                                $coS = DB::table('sede')->select('codSede')->where('nombresede', '' . $value['sede'] . ' ')->get();
+                                foreach ($coS as $co){
+                                    $coS = $co->codSede;
+                                }
+                                    $coF=null;
+                                  $coF = DB::table('facultad')->select('idFacultad')
+                                      ->where([
+                                          ['coSede','=', $coS],
+                                          ['nombre', '=', '' . $value['facultad'] . ' '],
+                                          ['codFacultad', '=', '' . $value['codigo'] . ''],
+                                          ['estado','=',1]
+                                      ])->count();
+
+                                      echo ' cod facultad : = '.$coF;
+  
+                                if ($coF == 0) {
+                                    $facultad->setNombre($value['facultad']);
+                                    $facultad->setCodFacultad($value['codigo']);
+                                    $facultad->setNroCuenta($value['cuenta']);
+                                    $facultad->setCodSede($coS);
+                                    $facultad->save();
+                                }
+
+
+                            }
+                        } catch (Exception $e) {
+
+                            return back()->with('false', 'Error, por favor, revisar su archivo.');
                         }
                     }
                 }
-                return back()->with('true', 'Se subio el archivo')->withInput();
+                //  return back()->with('true', 'Se subio el archivo')->withInput();
             }
         }
-        return back()->with('error', 'Por favor, revisar su archivo.');
+        //return back()->with('false', 'Por favor, revisar su archivo.');
     }
 
     public function importExcelEscuela(Request $request)
