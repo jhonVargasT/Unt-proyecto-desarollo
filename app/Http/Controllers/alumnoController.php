@@ -19,6 +19,7 @@ class alumnoController extends Controller
         $alumno->setApellidos($request->apellidos);
         $alumno->setCodAlumno($request->codAlumno);
         $alumno->setCorreo($request->correo);
+        $alumno->setTipoAlummno(1);
         //$date = implode("-", array_reverse(explode("/", $request->fecha)));
         $alumno->setFecha($request->fecha);
         $idE = $alumno->bdEscuela($request->nombreEscuela);//Consular el id de la escuela a la que va a pertenecer
@@ -34,8 +35,10 @@ class alumnoController extends Controller
 
     public function registrarAlumnoProduccion(Request $request)
     {
+
         $alumno = new alumnomodel();
         $alumno->setDni($request->dni);
+        $alumno->setTipoAlummno(0);
         $alumno->setNombres($request->nombres);
         $alumno->setApellidos($request->apellidos);
         $alumno->setCodAlumno($request->codAlumno);

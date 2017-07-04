@@ -722,25 +722,91 @@ class ExcelController extends Controller
                 foreach ($data as $value) {
                     $coP = null;
                     if (!empty($value)) {
-                        $coP = DB::select('select codPersona from persona left join alumno
-                        on alumno.idPersona = persona.codPersona where dni = ' . $value['dni'] . ' or correo = "' . $value['correo'] . '" or codAlumno = "' . $value['codAlumno'] . '" ');
-                        if ($coP == null) {
-                            $alumno->setDni($value['dni']);
-                            $alumno->setNombres($value['nombres']);
-                            $alumno->setApellidos($value['apeliidos']);
-                            $alumno->setCodAlumno($value['codAlumno']);
-                            $alumno->setCorreo($value['correo']);
-                            $alumno->setFecha($value['fecha']);
-                            $idE = $alumno->bdEscuelaSede($value['escuela'], $value['sede']);//Consular el id de la escuela a la que va a pertenecer
-                            $alumno->setIdEscuela($idE);
-                            $alumno->savealumno($value['dni']);
+                        try {
+                            $coS = null;
+                            $coS = DB::table('sede')->select('codSede')->where('nombresede', '' . $value['sede'] . ' ')->count();
+                            if ($coS != 0) {
+
+                                $coS = DB::table('sede')->select('codSede')->where('nombresede', '' . $value['sede'] . ' ')->get();
+                                foreach ($coS as $co) {
+                                    $coS = $co->codSede;
+                                }
+                                $coF = null;
+
+                                $coF = DB::table('facultad')->select('idFacultad')
+                                    ->where([
+                                        ['coSede', '=', $coS],
+                                        ['nombre', '=', '' . $value['facultad'] . ' '],
+                                        ['estado', '=', 1]
+                                    ])->count();
+
+                                if ($coF != 0) {
+                                    $coF = DB::table('facultad')->select('idFacultad')
+                                        ->where([
+                                            ['coSede', '=', $coS],
+                                            ['nombre', '=', '' . $value['facultad'] . ' '],
+                                            ['estado', '=', 1]
+                                        ])->get();
+                                    foreach ($coF as $co) {
+                                        $coF = $co->idFacultad;
+                                    }
+
+                                    $coE = DB::table('escuela')->select('idEscuela')->where(
+                                        [
+                                            ['nombre', '=', $value['escuela']],
+                                            ['codigoFacultad', '=', $coF]
+                                        ]
+                                    )->count();
+                                    if ($coE != 0) {
+                                        $coE = DB::table('escuela')->select('idEscuela')->where(
+                                            [
+                                                ['nombre', '=', $value['escuela']],
+                                                ['codigoFacultad', '=', $coF]
+                                            ]
+                                        )->get();
+                                        foreach ($coE as $co) {
+                                            $coE = $co->idEscuela;
+                                        }
+                                        $cantAl =0;
+                                        $coP = DB::table('Persona')->select('idPersona')->where('dni', '=', $value['dni'])->count();
+                                        if ($coP != 0) {
+                                            $coP = DB::table('Persona')->select('codPersona')->where('dni', '=', $value['dni'])->get();
+                                            foreach ($coP as $co)
+                                            {
+                                                $coP=$co->codPersona;
+                                            }
+                                            $cantAl = DB::table('Alumno')->select('idAlumno')->where('idPersona', '=', $coP)->count();
+                                        }
+
+                                        if ($cantAl == 0) {
+                                              $alumno->setTipoAlummno(1);
+                                              $alumno->setDni($value['dni']);
+                                              $alumno->setNombres($value['nombres']);
+                                              $alumno->setApellidos($value['apellidos']);
+                                              $alumno->setCodAlumno($value['codigo']);
+                                              $alumno->setCorreo($value['correo']);
+                                              $alumno->setFecha($value['fecha']);
+                                              $alumno->setIdEscuela($coE);
+                                              $alumno->savealumno($value['dni']);
+                                        }
+
+                                    }
+
+                                }
+
+                            }
+
+                        } catch (Exception $e) {
+                            return back()->with('false', 'Por favor, revisar su archivo.');
                         }
+
+
                     }
                 }
-                return back()->with('true', 'Se subio el archivo');
+               return back()->with('true', 'Se subio el archivo');
             }
         }
-        return back()->with('error', 'Por favor, revisar su archivo.');
+      return back()->with('false', 'Por favor, revisar su archivo.');
     }
 
     public function importExcelClasificador(Request $request)
@@ -945,18 +1011,16 @@ class ExcelController extends Controller
                             }
                         } catch (Exception $e) {
 
-                              return back()->with('false', 'Error, por favor, revisar su archivo.');
+                            return back()->with('false', 'Error, por favor, revisar su archivo.');
                         }
-
-
 
 
                     }
                 }
-                 return back()->with('true', 'Se subio el archivo')->withInput();
+                return back()->with('true', 'Se subio el archivo')->withInput();
             }
         }
-          return back()->with('error', 'Por favor, revisar su archivo.');
+        return back()->with('error', 'Por favor, revisar su archivo.');
     }
 
     //Jhon, no encuentro donde esta esto

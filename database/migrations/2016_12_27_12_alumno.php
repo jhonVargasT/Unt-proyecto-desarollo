@@ -21,9 +21,9 @@ class Alumno extends Migration
             $table ->string('codAlumno')->unique();
             $table -> string('fecha')->nullable();
             $table -> boolean('estado')->default('1');
-
             $table->integer('idPersona')-> unsigned();
             $table->integer('coEscuela')-> unsigned()->nullable();
+            $table->integer('tipoAlumno'); //es para identificar si son de pregrado o postgrado
         });
 
         Schema::table('alumno', function($table) {

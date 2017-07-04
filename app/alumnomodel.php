@@ -14,13 +14,29 @@ class alumnomodel extends personamodel
     private $idPersona;
     private $idEscuela;
     private $codProduccion;
-
+    private $tipoAlummno;
     function __construct()
     {
         parent::__construct();
 
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTipoAlummno()
+    {
+        return $this->tipoAlummno;
+    }
+
+    /**
+     * @param mixed $tipoAlummno
+     */
+    public function setTipoAlummno($tipoAlummno)
+    {
+        $this->tipoAlummno = $tipoAlummno;
+    }
+    
     /**
      * @return mixed
      */
@@ -153,6 +169,7 @@ class alumnomodel extends personamodel
 
     public function savealumno($dni)
     {
+        echo 1;
         $idp = null;
         date_default_timezone_set('Etc/GMT+5');
         $date = date('Y-m-d H:i:s', time());
@@ -177,7 +194,7 @@ class alumnomodel extends personamodel
                     foreach ($personabd as $pbd) {
                         $idp = $pbd->codPersona;
                     }
-                    DB::table('alumno')->insert(['codAlumno' => $this->codAlumno, 'fecha' => $this->fecha, 'idPersona' => $idp, 'coEscuela' => $this->idEscuela]);
+                    DB::table('alumno')->insert(['codAlumno' => $this->codAlumno, 'fecha' => $this->fecha, 'idPersona' => $idp, 'coEscuela' => $this->idEscuela,'tipoAlumno'=>$this->tipoAlummno]);
                 }
                 $logunt->saveLogUnt();
             });
