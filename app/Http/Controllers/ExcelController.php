@@ -844,6 +844,7 @@ class ExcelController extends Controller
 
                             if ($coS != 0) {
                                 $coS = DB::table('sede')->select('codSede')->where('nombresede', '' . $value['sede'] . ' ')->get();
+
                                 foreach ($coS as $co) {
                                     $coS = $co->codSede;
                                 }
@@ -855,7 +856,6 @@ class ExcelController extends Controller
                                         ['codFacultad', '=', '' . $value['codigo'] . ''],
                                         ['estado', '=', 1]
                                     ])->count();
-
 
 
                                 if ($coF == 0) {
@@ -874,7 +874,7 @@ class ExcelController extends Controller
                         }
                     }
                 }
-                  return back()->with('true', 'Se subio el archivo')->withInput();
+                return back()->with('true', 'Se subio el archivo')->withInput();
             }
         }
         return back()->with('false', 'Por favor, revisar su archivo.');
@@ -892,21 +892,71 @@ class ExcelController extends Controller
                 foreach ($data as $value) {
                     $coE = null;
                     if (!empty($value)) {
-                        $coE = DB::select('select idEscuela from escuela where codEscuela =  "' . $value['escuela'] . '" or nombre = "' . $value['codigo'] . '" or nroCuenta = "' . $value['cuenta'] . '"');
-                        if ($coE == null) {
-                            $escuela->setNombre($value['escuela']);
-                            $escuela->setCodEscuela($value['codigo']);
-                            $escuela->setNroCuenta($value['cuenta']);
-                            $coF = $escuela->buscarFacultad($value['facultad'], $value['sede']);
-                            $escuela->setFacultad($coF);
-                            $escuela->saveescuela();
+
+
+                        try {
+                            $coS = null;
+                            $coS = DB::table('sede')->select('codSede')->where('nombresede', '' . $value['sede'] . ' ')->count();
+                            if ($coS != 0) {
+
+                                $coS = DB::table('sede')->select('codSede')->where('nombresede', '' . $value['sede'] . ' ')->get();
+                                foreach ($coS as $co) {
+                                    $coS = $co->codSede;
+                                }
+                                $coF = null;
+
+                                $coF = DB::table('facultad')->select('idFacultad')
+                                    ->where([
+                                        ['coSede', '=', $coS],
+                                        ['nombre', '=', '' . $value['facultad'] . ' '],
+                                        ['estado', '=', 1]
+                                    ])->count();
+                                if ($coF != 0) {
+                                    $coF = DB::table('facultad')->select('idFacultad')
+                                        ->where([
+                                            ['coSede', '=', $coS],
+                                            ['nombre', '=', '' . $value['facultad'] . ' '],
+                                            ['estado', '=', 1]
+                                        ])->get();
+                                    foreach ($coF as $co) {
+                                        $coF = $co->idFacultad;
+                                    }
+
+                                    $coE = DB::table('escuela')->select('idEscuela')->where(
+                                        [['codigoFacultad', '=', $coF],
+                                            ['nroCuenta', '=', $value['cuenta']],
+                                            ['nombre', '=', $value['escuela']],
+                                            ['codEscuela', '=', $value['codigo']]
+                                        ]
+                                    )->count();
+
+
+                                    if ($coE == 0) {
+                                        $escuela->setNombre($value['escuela']);
+                                        $escuela->setCodEscuela($value['codigo']);
+                                        $escuela->setNroCuenta($value['cuenta']);
+                                        $escuela->setFacultad($coF);
+                                        $escuela->saveescuela();
+                                    }
+
+                                }
+
+
+                            }
+                        } catch (Exception $e) {
+
+                              return back()->with('false', 'Error, por favor, revisar su archivo.');
                         }
+
+
+
+
                     }
                 }
-                return back()->with('true', 'Se subio el archivo')->withInput();
+                 return back()->with('true', 'Se subio el archivo')->withInput();
             }
         }
-        return back()->with('error', 'Por favor, revisar su archivo.');
+          return back()->with('error', 'Por favor, revisar su archivo.');
     }
 
     //Jhon, no encuentro donde esta esto
