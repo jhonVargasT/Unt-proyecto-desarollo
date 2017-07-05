@@ -244,10 +244,10 @@ class facultadmodel
         return true;
     }
 
-    public function bscSedeId($nombreSede)
+    public function bscSedeId($codigosede)
     {
         $scod = null;
-        $sedebd = DB::table('sede')->where('nombresede', '=', $nombreSede)->get();
+        $sedebd = DB::table('sede')->where('codigosede', '=', $codigosede)->get();
 
         foreach ($sedebd as $sbd) {
             $scod = $sbd->codSede;
@@ -265,7 +265,7 @@ class facultadmodel
         return $scod;
     }
 
-    /*public function obteneridSede($idsede, $nombrefacu)
+    public function obteneridSede($idsede, $nombrefacu)
     {
         $scod = null;
         $fac = DB::table('facultad')->select('idFacultad')->where('nombre', '=', $nombrefacu)->where('coSede', '=', $idsede)->get();
@@ -273,5 +273,5 @@ class facultadmodel
             $scod = $sbd->idFacultad;
         }
         return $scod;
-    }*/
+    }
 }

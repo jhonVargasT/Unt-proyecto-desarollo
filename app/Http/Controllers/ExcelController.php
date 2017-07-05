@@ -23,7 +23,6 @@ class ExcelController extends Controller
     //Reporte excel de donaciones y transferencia
     public function donacionExcel($fecha, $numero)
     {
-
         date_default_timezone_set('America/Lima');
         $fechahoy = date('Y-m-d');
         Excel::create('Reporte donacion' . $fechahoy . '', function ($excel) use ($fecha, $numero) {
@@ -226,7 +225,6 @@ class ExcelController extends Controller
                 foreach ($pag as $p) {
                     $total += $p->precio;
                 }
-
                 foreach ($pag as $p) {
                     $cont++;
                     $data[] = array(
@@ -276,7 +274,6 @@ class ExcelController extends Controller
                     $cell->setValue('Reporte de Pagos de Alumnos');
                     $cell->setAlignment('center');
                 });
-
                 //total
                 $sheet->cell('K6', function ($cell) {
                     $cell->setFont(array(
@@ -392,14 +389,12 @@ class ExcelController extends Controller
     //Importar lista de alumno a la bd , en prueba
     public function importarAlumnos(Request $request)
     {
-
         $archivo = $request->file('import_file');
         $nombreOriginal = $archivo->getClientOriginalName();
         $extension = $archivo->getClientOriginalExtension();
         $rl = Storage::disk('excelalumnos')->put($nombreOriginal, \File::get($archivo));
         $ruta = storage_path('excelalumnos') . '/' . $nombreOriginal;
         if ($rl) {
-
             $ct = 0;
             Excel::selectSheetsByIndex(0)->load($ruta, function ($hoja) use ($ct) {
 
@@ -419,10 +414,7 @@ class ExcelController extends Controller
                 });
                 echo $ct;
             });
-
         }
-
-
         $val = null;
         $contaux = null;
         $sede = new sedemodel();
@@ -461,7 +453,6 @@ class ExcelController extends Controller
         $bool = false;
         if ($request->hasFile('import_file')) {
             $path = Input::file('import_file')->getRealPath();
-
             $codPer = null;
             $CBANCO = array();
             $NCREDITO = array();
@@ -539,7 +530,6 @@ class ExcelController extends Controller
                     $bool = true;
                 }
             }
-
             if ($bool == true) {
                 fclose($fp);
                 if ($data != null) {
@@ -713,7 +703,6 @@ class ExcelController extends Controller
     public function importExcelAlumno(Request $request)
     {
         $alumno = new alumnomodel();
-
         if ($request->hasFile('import_file')) {
             $path = Input::file('import_file')->getRealPath();
             $data = Excel::load($path, function ($reader) {
@@ -767,46 +756,38 @@ class ExcelController extends Controller
                                         foreach ($coE as $co) {
                                             $coE = $co->idEscuela;
                                         }
-                                        $cantAl =0;
+                                        $cantAl = 0;
                                         $coP = DB::table('Persona')->select('idPersona')->where('dni', '=', $value['dni'])->count();
                                         if ($coP != 0) {
                                             $coP = DB::table('Persona')->select('codPersona')->where('dni', '=', $value['dni'])->get();
-                                            foreach ($coP as $co)
-                                            {
-                                                $coP=$co->codPersona;
+                                            foreach ($coP as $co) {
+                                                $coP = $co->codPersona;
                                             }
                                             $cantAl = DB::table('Alumno')->select('idAlumno')->where('idPersona', '=', $coP)->count();
                                         }
-
                                         if ($cantAl == 0) {
-                                              $alumno->setTipoAlummno(1);
-                                              $alumno->setDni($value['dni']);
-                                              $alumno->setNombres($value['nombres']);
-                                              $alumno->setApellidos($value['apellidos']);
-                                              $alumno->setCodAlumno($value['codigo']);
-                                              $alumno->setCorreo($value['correo']);
-                                              $alumno->setFecha($value['fecha']);
-                                              $alumno->setIdEscuela($coE);
-                                              $alumno->savealumno($value['dni']);
+                                            $alumno->setTipoAlummno(1);
+                                            $alumno->setDni($value['dni']);
+                                            $alumno->setNombres($value['nombres']);
+                                            $alumno->setApellidos($value['apellidos']);
+                                            $alumno->setCodAlumno($value['codigo']);
+                                            $alumno->setCorreo($value['correo']);
+                                            $alumno->setFecha($value['fecha']);
+                                            $alumno->setIdEscuela($coE);
+                                            $alumno->savealumno($value['dni']);
                                         }
-
                                     }
-
                                 }
-
                             }
-
                         } catch (Exception $e) {
                             return back()->with('false', 'Por favor, revisar su archivo.');
                         }
-
-
                     }
                 }
-               return back()->with('true', 'Se subio el archivo');
+                return back()->with('true', 'Se subio el archivo');
             }
         }
-      return back()->with('false', 'Por favor, revisar su archivo.');
+        return back()->with('false', 'Por favor, revisar su archivo.');
     }
 
     public function importExcelClasificador(Request $request)
@@ -819,25 +800,28 @@ class ExcelController extends Controller
             if (!empty($data) && $data->count()) {
                 foreach ($data->toArray() as $key => $value) {
                     if (!empty($value)) {
-                        foreach ($value as $v) {
-                            $tramite->setClasificador($v['clasificador']);;
-                            $tramite->setNombre($v['nombre']);
-                            $tramite->setTipoRecurso($v['recurso']);
-                            $tramite->setFuentefinanc($v['financiamiento']);
-                            $tramite->save();
+                        try {
+                            foreach ($value as $v) {
+                                $tramite->setClasificador($v['clasificador']);;
+                                $tramite->setNombre($v['nombre']);
+                                $tramite->setTipoRecurso($v['recurso']);
+                                $tramite->setFuentefinanc($v['financiamiento']);
+                                $tramite->save();
+                            }
+                        } catch (Exception $e) {
+                            return back()->with('false', 'Error, por favor revisar su archivo.');
                         }
-                        return back()->with('true', 'Se subio el archivo');
                     }
                 }
+                return back()->with('true', 'Se subio el archivo')->withInput();
             }
         }
-        return back()->with('error', 'Por favor, revisar su archivo.');
+        return back()->with('false', 'Por favor, revisar su archivo.');
     }
 
     public function importExcelTasa(Request $request)
     {
         $subtramite = new subtramitemodel();
-
         if ($request->hasFile('import_file')) {
             $path = Input::file('import_file')->getRealPath();
             $data = Excel::load($path, function ($reader) {
@@ -845,22 +829,25 @@ class ExcelController extends Controller
             if (!empty($data) && $data->count()) {
                 foreach ($data->toArray() as $key => $value) {
                     if (!empty($value)) {
-                        foreach ($value as $v) {
-                            $subtramite->setCodigotasa($v['codigo']);
-                            $subtramite->setNombre($v['nombre']);
-                            $subtramite->setPrecio($v['precio']);
-                            $idTra = $subtramite->bdTramitexClasificador($v['siaf']);
-                            $subtramite->setIdTramite($idTra);
-                            $subtramite->save();
+                        try {
+                            foreach ($value as $v) {
+                                $subtramite->setCodigotasa($v['codigo']);
+                                $subtramite->setNombre($v['nombre']);
+                                $subtramite->setPrecio($v['precio']);
+                                $idTra = $subtramite->bdTramitexClasificador($v['siaf']);
+                                $subtramite->setIdTramite($idTra);
+                                $subtramite->save();
+                            }
+                        } catch (Exception $e) {
+                            return back()->with('false', 'Error, por favor revisar su archivo.');
                         }
-                        return back()->with('true', 'Se subio el archivo');
                     }
                 }
+                return back()->with('true', 'Se subio el archivo')->withInput();
             }
         }
-        return back()->with('error', 'Por favor, revisar su archivo.');
+        return back()->with('false', 'Por favor, revisar su archivo.');
     }
-
 
     public function importExcelSede(Request $request)
     {
@@ -876,7 +863,6 @@ class ExcelController extends Controller
                         try {
                             $coS = DB::select('select codSede from sede where nombresede =  "' . $value['sede'] . '" and codigosede = "' . $value['codigo'] . '" and direccion = "' . $value['direccion'] . '"');
                             if (empty($coS)) {
-
                                 $sede->setNombreSede($value['sede']);
                                 $sede->setCodigoSede($value['codigo']);
                                 $sede->setDireccion($value['direccion']);
@@ -958,8 +944,6 @@ class ExcelController extends Controller
                 foreach ($data as $value) {
                     $coE = null;
                     if (!empty($value)) {
-
-
                         try {
                             $coS = null;
                             $coS = DB::table('sede')->select('codSede')->where('nombresede', '' . $value['sede'] . ' ')->count();
