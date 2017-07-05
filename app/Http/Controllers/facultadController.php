@@ -14,19 +14,24 @@ class facultadController extends Controller
     //Registar facultad
     public function registrarFacultad(Request $request)
     {
-        $facultad = new facultadmodel();
-        $facultad->setCodFacultad($request->CodigoFacultad);
-        $facultad->setNombre($request->NombreFacultad);
-        $facultad->setNroCuenta($request->CuentaInterna);
-        $codsede = $facultad->bscSedeId($request->nombreSede);//SQL, buscar id de la sede por su nombre
-        $facultad->setCodSede($codsede);
+        try {
+            $facultad = new facultadmodel();
+            $facultad->setCodFacultad($request->CodigoFacultad);
+            $facultad->setNombre($request->NombreFacultad);
+            $facultad->setNroCuenta($request->CuentaInterna);
+            $codsede = $facultad->bscSedeId($request->nombreSede);//SQL, buscar id de la sede por su nombre
+            $facultad->setCodSede($codsede);
 
-        $fac = $facultad->save();
-        if ($fac == true) {
+            $fac = $facultad->save();
+        }catch (Exception $e)
+        {
+            $e->getMessage();
+        }
+      /*  if ($fac == true) {
             return back()->with('true', 'Facultad ' . $request->NombreFacultad . ' guardada con exito')->withInput();
         } else {
             return back()->with('false', 'Facultad ' . $request->NombreFacultad . ' no guardada, puede que ya exista');
-        }
+        }*/
     }
 
     //Cargar los datos de la facultad para la modificacion
