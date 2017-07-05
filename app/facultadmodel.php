@@ -244,10 +244,10 @@ class facultadmodel
         return true;
     }
 
-    public function bscSedeId($codigosede)
+    public function bscSedeId($nombresede)
     {
         $scod = null;
-        $sedebd = DB::table('sede')->where('codigosede', '=', $codigosede)->get();
+        $sedebd = DB::table('sede')->where('nombresede', '=', $nombresede)->get();
 
         foreach ($sedebd as $sbd) {
             $scod = $sbd->codSede;
