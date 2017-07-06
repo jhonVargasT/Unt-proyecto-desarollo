@@ -5,6 +5,7 @@ namespace App;
 
 use Illuminate\Support\Facades\DB;
 use PDOException;
+use App\Http\Controllers\util;
 
 class loguntemodel
 {
@@ -101,17 +102,27 @@ class loguntemodel
                 DB::table('logunt')->insert(['fecha' => $this->fecha, 'descripcion' => $this->descripcion, 'codigoPersonal' => $this->codigoPersonal]);
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'bdPersonaRuc/pagomodel');
             return false;
         }
         return true;
     }
 
-    public function obtenerCodigoPersonal($cuenta){
-        $personalbd = DB::select('select * from personal where cuenta=:cuenta', ['cuenta' => $cuenta]);
+    public function obtenerCodigoPersonal($cuenta)
+    {
+        $cp=null;
+        try {
+            $personalbd = DB::select('select * from personal where cuenta=:cuenta', ['cuenta' => $cuenta]);
 
-        foreach ($personalbd as $pbd)
-        {
-            return $cp= $pbd->idPersonal;
+            foreach ($personalbd as $pbd) {
+                 $cp = $pbd->idPersonal;
+            }
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'bdPersonaRuc/pagomodel');
+            return false;
         }
+        return $cp;
     }
 }

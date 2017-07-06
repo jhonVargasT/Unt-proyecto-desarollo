@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use PDOException;
+use App\Http\Controllers\util;
 
 class pagomodel
 {
@@ -193,46 +194,78 @@ class pagomodel
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function bdPersonaDni($var)
     {
-        $cp = null;
-        $personabd = DB::table('persona')->where('dni', '=', $var)->where('estado', 1)->get();
-        foreach ($personabd as $pbd) {
-            $cp = $pbd->codPersona;
+        try {
+            $cp = null;
+            $personabd = DB::table('persona')->where('dni', '=', $var)->where('estado', 1)->get();
+            foreach ($personabd as $pbd) {
+                $cp = $pbd->codPersona;
+            }
+        } catch
+        (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'bdPersonaRuc/pagomodel');
+            return null;
+
         }
         return $cp;
     }
 
     public function bdPersonaRuc($var)
     {
-        $obj = null;
-        $personabd = DB::table('persona')
-            ->leftJoin('cliente', 'persona.codPersona', '=', 'cliente.idPersona')
-            ->where('cliente.ruc', '=', $var)
-            ->get();
-        foreach ($personabd as $per) {
-            $obj = $per->codPersona;
+        try {
+            $obj = null;
+            $personabd = DB::table('persona')
+                ->leftJoin('cliente', 'persona.codPersona', '=', 'cliente.idPersona')
+                ->where('cliente.ruc', '=', $var)
+                ->get();
+            foreach ($personabd as $per) {
+                $obj = $per->codPersona;
+            }
+        } catch
+        (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'bdPersonaRuc/pagomodel');
+            return null;
+
         }
         return $obj;
     }
 
     public function bdPersonaCodigoAlumno($var)
     {
-        $obj = null;
-        $personabd = DB::table('persona')
-            ->leftJoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
-            ->where('alumno.codigoAlumno', '=', $var)
-            ->get();
-        foreach ($personabd as $per) {
-            $obj = $per->codPersona;
+        try {
+            $obj = null;
+            $personabd = DB::table('persona')
+                ->leftJoin('alumno', 'persona.codPersona', '=', 'alumno.idPersona')
+                ->where('alumno.codigoAlumno', '=', $var)
+                ->get();
+            foreach ($personabd as $per) {
+                $obj = $per->codPersona;
+            }
+        } catch
+        (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'bdPersonaCodigoAlumno/pagomodel');
+            return null;
+
         }
         return $obj;
     }
 
     public function bdSubtramite($var)
     {
-        $obj = null;
-        $subtramitebd = DB::table('subtramite')->where('nombre', '=', $var)->where('estado', 1)->get();
-        foreach ($subtramitebd as $subbd) {
-            $obj = $subbd->codSubtramite;
+        try {
+            $obj = null;
+            $subtramitebd = DB::table('subtramite')->where('nombre', '=', $var)->where('estado', 1)->get();
+            foreach ($subtramitebd as $subbd) {
+                $obj = $subbd->codSubtramite;
+            }
+        } catch
+        (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'bdSubtramite/pagomodel');
+            return null;
+
         }
         return $obj;
     }
@@ -246,8 +279,10 @@ class pagomodel
                     LEFT JOIN pago po ON (st.codSubtramite=po.idSubtramite )
                     ' . $fecha . ' 
                     group by st.codSubtramite order by tr.nombre;');
-        } catch (\mysqli_sql_exception $e) {
-            $pago = null;
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'obtenerPagosresumensiaf/pagomodel');
+            return null;
         }
         return $pago;
     }
@@ -284,6 +319,8 @@ class pagomodel
                     $logunt->saveLogUnt();
                 });
             } catch (PDOException $e) {
+                $util = new util();
+                $util->insertarError($e->getMessage(), ' savePago/pagomodel');
                 return false;
             }
             return true;
@@ -302,7 +339,9 @@ class pagomodel
             });
 
         } catch (PDOException $e) {
-            return false;
+            $util = new util();
+            $util->insertarError($e->getMessage(), ' savePagoOnline/pagomodel');
+            return null;
         }
         return $result;
     }
@@ -349,6 +388,8 @@ class pagomodel
                     $logunt->saveLogUnt();
                 });
             } catch (PDOException $e) {
+                $util = new util();
+                $util->insertarError($e->getMessage(), 'saveExcel/pagomodel');
                 return false;
             }
             return true;
@@ -359,18 +400,25 @@ class pagomodel
 
     public function listarpagosresumen($tiempo)
     {
-        $result = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,sum(st.precio) as importe
+        try {
+            $result = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,sum(st.precio) as importe
                             FROM unt.tramite as tr
                             LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
                             LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )
                             ' . $tiempo . '
                             group by (tr.codTramite) ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarpagosresumen/pagomodel');
+            return null;
+        }
         return $result;
     }
 
     public function consultarAlumnoDNI($dni, $val)
     {
-        $alumnobd = DB::select('SELECT pago.codPago, p1.dni AS p1dni, p1.nombres AS p1nombres, p1.apellidos AS p1apellidos, subtramite.nombre, pago.fecha AS pfecha, subtramite.precio, pago.modalidad, detalle, estadodeuda,
+        try {
+            $alumnobd = DB::select('SELECT pago.codPago, p1.dni AS p1dni, p1.nombres AS p1nombres, p1.apellidos AS p1apellidos, subtramite.nombre, pago.fecha AS pfecha, subtramite.precio, pago.modalidad, detalle, estadodeuda,
         p2.nombres AS pnombres, p2.apellidos AS papellidos FROM pago
         LEFT JOIN subtramite ON pago.idSubtramite = subtramite.codSubtramite
         LEFT JOIN personal ON pago.coPersonal = personal.idPersonal
@@ -380,12 +428,18 @@ class pagomodel
         AND p1.codPersona = pago.idPersona AND pago.estado = 1 
         and pago.estadodeuda = ' . $val . '
         AND p1.dni = ' . $dni . ' order by pago.codPago desc ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarAlumnoDNI/pagomodel');
+            return null;
+        }
         return $alumnobd;
     }
 
     public function consultarAlumnoCodigo($codAlumno, $val)
     {
-        $alumnobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle, estadodeuda from pago
+        try {
+            $alumnobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle, estadodeuda from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
         left join personal on pago.coPersonal = personal.idPersonal
         left join persona as p1 on p1.codPersona = pago.idPersona
@@ -396,12 +450,18 @@ class pagomodel
         and p1.codPersona=alumno.idPersona
         and pago.estadodeuda = ' . $val . '
         and pago.estado=1 and alumno.codAlumno =:codAlumno order by pago.codPago desc ', ['codAlumno' => $codAlumno]);
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarAlumnoCodigo/pagomodel');
+            return null;
+        }
         return $alumnobd;
     }
 
     public function consultarClienteRuc($ruc, $val)
     {
-        $clientebd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle, estadodeuda from pago
+        try {
+            $clientebd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle, estadodeuda from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
         left join personal on pago.coPersonal = personal.idPersonal
         left join persona as p1 on p1.codPersona = pago.idPersona
@@ -412,12 +472,18 @@ class pagomodel
         and p1.codPersona=cliente.idPersona
         and pago.estadodeuda = ' . $val . '
         and pago.estado=1  and cliente.ruc = ' . $ruc . ' order by pago.codPago desc ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarClienteRuc/pagomodel');
+            return null;
+        }
         return $clientebd;
     }
 
     public function consultarCodigoPago($codPago, $val)
     {
-        $pagobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle, estadodeuda from pago
+        try {
+            $pagobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle, estadodeuda from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
         left join personal on pago.coPersonal = personal.idPersonal
         left join persona as p1 on p1.codPersona = pago.idPersona
@@ -425,12 +491,18 @@ class pagomodel
         where pago.idSubtramite = subtramite.codSubtramite
         and p1.codPersona = pago.idPersona
         and pago.estado=1 and pago.estadodeuda = ' . $val . ' and pago.codPago = ' . $codPago . ' order by pago.codPago desc');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarCodigoPago/pagomodel');
+            return null;
+        }
         return $pagobd;
     }
 
     public function consultarCodigoPagoReporte($codPago, $val)
     {
-        $pagobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle, estadodeuda from pago
+        try {
+            $pagobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle, estadodeuda from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
         left join personal on pago.coPersonal = personal.idPersonal
         left join persona as p1 on p1.codPersona = pago.idPersona
@@ -438,12 +510,18 @@ class pagomodel
         where pago.idSubtramite = subtramite.codSubtramite
         and p1.codPersona = pago.idPersona
         and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and pago.estadodeuda = ' . $val . ' and p2.estado=1 and pago.codPago = ' . $codPago . ' order by pago.codPago desc');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), ' consultarCodigoPagoReporte/pagomodel');
+            return null;
+        }
         return $pagobd;
     }
 
     public function consultarCodigoPagoReporteR($codPago)
     {
-        $pagobd = DB::select('SELECT 
+        try {
+            $pagobd = DB::select('SELECT 
                     pago.codPago,
                     p1.dni AS p1dni,
                     p1.nombres AS p1nombres,
@@ -471,14 +549,20 @@ class pagomodel
                         AND pago.estadodeuda = 0
                         AND pago.codPago = ' . $codPago . '
                 ORDER BY pago.codPago DESC');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarCodigoPagoReporteR/pagomodel');
+            return null;
+        }
         return $pagobd;
     }
 
     public function consultarCodigoPersonal($codPersonal)
     {
-        date_default_timezone_set('America/Lima');
-        $dato = date('Y-m-d');
-        $pagobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle, estadodeuda from pago
+        try {
+            date_default_timezone_set('America/Lima');
+            $dato = date('Y-m-d');
+            $pagobd = DB::select('select pago.codPago, p1.dni as p1dni, p1.nombres as p1nombres, p1.apellidos as p1apellidos,subtramite.nombre, pago.fecha as pfecha ,subtramite.precio, pago.modalidad, p2.nombres as pnombres, p2.apellidos as papellidos, detalle, estadodeuda from pago
         left join subtramite on pago.idSubtramite = subtramite.codSubtramite
         left join personal on pago.coPersonal = personal.idPersonal
         left join persona as p1 on p1.codPersona = pago.idPersona
@@ -488,18 +572,29 @@ class pagomodel
         and p1.codPersona = pago.idPersona
         and p2.codPersona = personal.idPersona and pago.modalidad= "ventanilla"
         and pago.estado=1 and subtramite.estado=1 and p1.estado =1 and p2.estado=1 and personal.codPersonal =:codPersonal and pago.fecha like "%' . $dato . '%" order by pago.fecha desc', ['codPersonal' => $codPersonal]);
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarCodigoPersonal/pagomodel');
+            return null;
+        }
         return $pagobd;
     }
 
     public function consultarPagos($val)
     {
-        $alumnobd = DB::select(' SELECT pago.codPago, p1.dni AS p1dni,p1.nombres AS p1nombres, p1.apellidos AS p1apellidos,subtramite.nombre, pago.fecha AS pfecha, subtramite.precio, pago.modalidad, detalle, p2.nombres AS pnombres,p2.apellidos AS papellidos, estadodeuda FROM pago 
+        try {
+            $alumnobd = DB::select(' SELECT pago.codPago, p1.dni AS p1dni,p1.nombres AS p1nombres, p1.apellidos AS p1apellidos,subtramite.nombre, pago.fecha AS pfecha, subtramite.precio, pago.modalidad, detalle, p2.nombres AS pnombres,p2.apellidos AS papellidos, estadodeuda FROM pago 
         LEFT JOIN subtramite ON pago.idSubtramite = subtramite.codSubtramite
         LEFT JOIN personal ON pago.coPersonal = personal.idPersonal
         LEFT JOIN persona AS p1 ON p1.codPersona = pago.idPersona
         LEFT JOIN persona AS p2 ON p2.codPersona = personal.idPersona
         WHERE pago.idSubtramite = subtramite.codSubtramite
         AND p1.codPersona = pago.idPersona and pago.estadodeuda = ' . $val . '  AND pago.estado = 1 order by pago.codPago desc ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarPagos/pagomodel');
+            return null;
+        }
         return $alumnobd;
     }
 
@@ -520,6 +615,8 @@ class pagomodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'eliminarPago/pagomodel');
             return false;
         }
         return true;
@@ -541,6 +638,8 @@ class pagomodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'devolucionPago/pagomodel');
             return false;
         }
         return true;
@@ -562,6 +661,8 @@ class pagomodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), ' eliminarDeuda/pagomodel');
             return false;
         }
         return true;
@@ -569,11 +670,17 @@ class pagomodel
 
     public function obteneridProduccionAlumno($cpro, $cod)
     {
-        $prod = null;
-        $prouccionbd = DB::select('select codProduccionAlumno from produccionalumno where codAlumno = ' . $cod . ' and idProduccion= ' . $cpro . ' ');
+        try {
+            $prod = null;
+            $prouccionbd = DB::select('select codProduccionAlumno from produccionalumno where codAlumno = ' . $cod . ' and idProduccion= ' . $cpro . ' ');
 
-        foreach ($prouccionbd as $p) {
-            $prod = $p->codProduccionAlumno;
+            foreach ($prouccionbd as $p) {
+                $prod = $p->codProduccionAlumno;
+            }
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'obteneridProduccionAlumno/pagomodel');
+            return null;
         }
         return $prod;
     }
@@ -581,12 +688,19 @@ class pagomodel
     // pago,personal,subtramite,escuela,facultad
     public function listarPagosfacultad($estado, $modalidad, $fechaDesde, $fechaHasta, $facultad, $subtramite)
     {
-        $pago = DB::table('pago')
-            ->join('subtramite', 'subtramite.codSubtramite', '=', 'pago.idSubtramite')
-            ->join('personal', 'users.idPersonal', '=', 'pago.coPersonal')
-            ->select('users.*', 'contacts.phone', 'pago.price')
-            ->where(['estado' => $estado, 'modalidad' => $modalidad])
-            ->get();
+        try {
+            $pago = DB::table('pago')
+                ->join('subtramite', 'subtramite.codSubtramite', '=', 'pago.idSubtramite')
+                ->join('personal', 'users.idPersonal', '=', 'pago.coPersonal')
+                ->select('users.*', 'contacts.phone', 'pago.price')
+                ->where(['estado' => $estado, 'modalidad' => $modalidad])
+                ->get();
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'obteneridProduccionAlumno/pagomodel');
+            return null;
+        }
+        return $pago;
     }
 
     // pago,personal,subtramite,escuela,facultad
@@ -668,42 +782,29 @@ class pagomodel
             $pago = $this->listarPagoProduccionModalidadfuefi($centroProducion, $fechaDesde, $fechaHasta, $estado, $fuefin, $modalidad);
         } elseif (!empty($centroProducion) && $modalidad != 'Todo' && $tram != 'Todo' && empty($local) && !empty($tipoRe) && !empty($fuefin)) {
             $pago = $this->listarPagoProduccionModalidadTramTipoReFueFI($centroProducion, $fechaDesde, $fechaHasta, $estado, $fuefin, $modalidad, $tipoRe, $tram, $valtram);
-        }
-        elseif (!empty($centroProducion) && $modalidad != 'Todo' && $tram != 'Todo' && empty($local) && !empty($tipoRe) && empty($fuefin))
-        {
-           $pago=$this->listarPagoProduccionModalidadTramTipoRe($centroProducion, $fechaDesde, $fechaHasta, $estado, $modalidad,$tipoRe,$tram, $valtram);
-        }
-
-        elseif (!empty($centroProducion) && $modalidad != 'Todo' && $tram != 'Todo' && empty($local) && empty($tipoRe) && !empty($fuefin))
-        {
-            $pago=$this->listarPagoProduccionModalidadTramFueFi($centroProducion, $fechaDesde, $fechaHasta, $estado, $modalidad, $fuefin,$tram, $valtram);
-        }
-
-        elseif (!empty($centroProducion) && $modalidad == 'Todo' && $tram != 'Todo' && empty($local) && empty($tipoRe) && !empty($fuefin))
-        {
-            $pago=$this->listarpagosProduccionTramiteFuefi($centroProducion, $fechaDesde, $fechaHasta, $estado, $fuefin,$tram, $valtram);
-        }
-        elseif (!empty($centroProducion) && $modalidad == 'Todo' && $tram != 'Todo' && empty($local) && !empty($tipoRe) && empty($fuefin))
-        {
-            $pago=$this->listarpagosProduccionTramiteTipoRe($centroProducion, $fechaDesde, $fechaHasta, $estado, $tipoRe,$tram, $valtram);
-        }
-        elseif (!empty($centroProducion) && $modalidad == 'Todo' && $tram != 'Todo' && empty($local) && !empty($tipoRe) && !empty($fuefin))
-        {
-            $pago=$this->listarpagosProduccionTramiteTipoReFuefi($centroProducion, $fechaDesde, $fechaHasta, $estado, $tipoRe,$tram, $valtram,$fuefin);
-        }
-        elseif (!empty($centroProducion) && $modalidad == 'Todo' && $tram == 'Todo' && empty($local) && !empty($tipoRe) && !empty($fuefin))
-        {
-            $pago=$this->listarPagosPrduccionFueFiTipoRe($centroProducion, $fechaDesde, $fechaHasta, $estado, $tipoRe,$fuefin);
-        }
-        else{
+        } elseif (!empty($centroProducion) && $modalidad != 'Todo' && $tram != 'Todo' && empty($local) && !empty($tipoRe) && empty($fuefin)) {
+            $pago = $this->listarPagoProduccionModalidadTramTipoRe($centroProducion, $fechaDesde, $fechaHasta, $estado, $modalidad, $tipoRe, $tram, $valtram);
+        } elseif (!empty($centroProducion) && $modalidad != 'Todo' && $tram != 'Todo' && empty($local) && empty($tipoRe) && !empty($fuefin)) {
+            $pago = $this->listarPagoProduccionModalidadTramFueFi($centroProducion, $fechaDesde, $fechaHasta, $estado, $modalidad, $fuefin, $tram, $valtram);
+        } elseif (!empty($centroProducion) && $modalidad == 'Todo' && $tram != 'Todo' && empty($local) && empty($tipoRe) && !empty($fuefin)) {
+            $pago = $this->listarpagosProduccionTramiteFuefi($centroProducion, $fechaDesde, $fechaHasta, $estado, $fuefin, $tram, $valtram);
+        } elseif (!empty($centroProducion) && $modalidad == 'Todo' && $tram != 'Todo' && empty($local) && !empty($tipoRe) && empty($fuefin)) {
+            $pago = $this->listarpagosProduccionTramiteTipoRe($centroProducion, $fechaDesde, $fechaHasta, $estado, $tipoRe, $tram, $valtram);
+        } elseif (!empty($centroProducion) && $modalidad == 'Todo' && $tram != 'Todo' && empty($local) && !empty($tipoRe) && !empty($fuefin)) {
+            $pago = $this->listarpagosProduccionTramiteTipoReFuefi($centroProducion, $fechaDesde, $fechaHasta, $estado, $tipoRe, $tram, $valtram, $fuefin);
+        } elseif (!empty($centroProducion) && $modalidad == 'Todo' && $tram == 'Todo' && empty($local) && !empty($tipoRe) && !empty($fuefin)) {
+            $pago = $this->listarPagosPrduccionFueFiTipoRe($centroProducion, $fechaDesde, $fechaHasta, $estado, $tipoRe, $fuefin);
+        } else {
 
             $pago = null;
         }
         return $pago;
     }
-    public function listarPagosPrduccionFueFiTipoRe($centroProduccion, $fechaDesde, $fechaHasta, $estado, $tipoRe,$fuefin)
+
+    public function listarPagosPrduccionFueFiTipoRe($centroProduccion, $fechaDesde, $fechaHasta, $estado, $tipoRe, $fuefin)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                              FROM pago as po
@@ -717,13 +818,19 @@ class pagomodel
                             LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
                              where idProduccionAlumno is not null and po.estado = ' . $estado . ' and tr.fuentefinanc=\'' . $fuefin . '\'  and tr.tipoRecurso=\'' . $tipoRe . '\'      and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
 
-        );
+            );
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarPagosPrduccionFueFiTipoRe/pagomodel');
+            return null;
+        }
         return $pago;
     }
-    
-    public function listarpagosProduccionTramiteTipoReFuefi($centroProduccion, $fechaDesde, $fechaHasta, $estado, $tipoRe,$tram, $valtra,$fuefin)
+
+    public function listarpagosProduccionTramiteTipoReFuefi($centroProduccion, $fechaDesde, $fechaHasta, $estado, $tipoRe, $tram, $valtra, $fuefin)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                              FROM pago as po
@@ -737,11 +844,19 @@ class pagomodel
                             LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
                              where idProduccionAlumno is not null and po.estado = ' . $estado . ' and tr.fuentefinanc=\'' . $fuefin . '\'  and tr.tipoRecurso=\'' . $tipoRe . '\'  and ' . $tram . '= \'' . $valtra . '\'      and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
 
-        );
+            );
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarpagosProduccionTramiteTipoReFuefi/pagomodel');
+            return null;
+        }
         return $pago;
     }
-    public function listarpagosProduccionTramiteTipoRe($centroProduccion, $fechaDesde, $fechaHasta, $estado, $tipoRe,$tram, $valtra){
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+
+    public function listarpagosProduccionTramiteTipoRe($centroProduccion, $fechaDesde, $fechaHasta, $estado, $tipoRe, $tram, $valtra)
+    {
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                              FROM pago as po
@@ -755,14 +870,20 @@ class pagomodel
                             LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
                              where idProduccionAlumno is not null and po.estado = ' . $estado . '   and tr.tipoRecurso=\'' . $tipoRe . '\'  and ' . $tram . '= \'' . $valtra . '\'      and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
 
-        );
+            );
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarpagosProduccionTramiteTipoRe/pagomodel');
+            return null;
+        }
         return $pago;
 
     }
 
-    public function listarpagosProduccionTramiteFuefi($centroProduccion, $fechaDesde, $fechaHasta, $estado, $fuefin,$tram, $valtra)
+    public function listarpagosProduccionTramiteFuefi($centroProduccion, $fechaDesde, $fechaHasta, $estado, $fuefin, $tram, $valtra)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                              FROM pago as po
@@ -776,13 +897,19 @@ class pagomodel
                             LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
                              where idProduccionAlumno is not null and po.estado = ' . $estado . '   and tr.fuentefinanc=\'' . $fuefin . '\'  and ' . $tram . '= \'' . $valtra . '\'      and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
 
-        );
+            );
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), ' listarpagosProduccionTramiteFuefi/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
-    public function listarPagoProduccionModalidadTramFueFi($centroProduccion, $fechaDesde, $fechaHasta, $estado, $modalidad, $fuefin,$tram, $valtra)
+    public function listarPagoProduccionModalidadTramFueFi($centroProduccion, $fechaDesde, $fechaHasta, $estado, $modalidad, $fuefin, $tram, $valtra)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                              FROM pago as po
@@ -796,12 +923,19 @@ class pagomodel
                             LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
                              where idProduccionAlumno is not null and po.estado = ' . $estado . '   and tr.fuentefinanc=\'' . $fuefin . '\'  and ' . $tram . '= \'' . $valtra . '\'    and po.modalidad = \'' . $modalidad . '\'    and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
 
-        );
+            );
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarPagoProduccionModalidadTramFueFi/pagomodel');
+            return null;
+        }
         return $pago;
     }
-    public function listarPagoProduccionModalidadTramTipoRe($centroProduccion, $fechaDesde, $fechaHasta, $estado, $modalidad,$tipoRe,$tram, $valtra)
+
+    public function listarPagoProduccionModalidadTramTipoRe($centroProduccion, $fechaDesde, $fechaHasta, $estado, $modalidad, $tipoRe, $tram, $valtra)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                              FROM pago as po
@@ -815,12 +949,19 @@ class pagomodel
                             LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
                              where idProduccionAlumno is not null and po.estado = ' . $estado . '   and ' . $tram . '= \'' . $valtra . '\'   and tr.tipoRecurso=\'' . $tipoRe . '\'  and po.modalidad = \'' . $modalidad . '\'    and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
 
-        );
+            );
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarPagoProduccionModalidadTramTipoRe/pagomodel');
+            return null;
+        }
         return $pago;
     }
-    public function listarPagoProduccionModalidadTramTipoReFueFI($centroProduccion, $fechaDesde, $fechaHasta, $estado, $fuefin, $modalidad,$tipoRe,$tram, $valtra)
+
+    public function listarPagoProduccionModalidadTramTipoReFueFI($centroProduccion, $fechaDesde, $fechaHasta, $estado, $fuefin, $modalidad, $tipoRe, $tram, $valtra)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                              FROM pago as po
@@ -834,13 +975,19 @@ class pagomodel
                             LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
                              where idProduccionAlumno is not null and po.estado = ' . $estado . '   and ' . $tram . '= \'' . $valtra . '\'   and tr.tipoRecurso=\'' . $tipoRe . '\'  and tr.fuentefinanc=\'' . $fuefin . '\' and po.modalidad = \'' . $modalidad . '\'    and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
 
-        );
+            );
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarPagoProduccionModalidadTramTipoReFueFI(/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarPagoProduccionModalidadfuefi($centroProduccion, $fechaDesde, $fechaHasta, $estado, $fuefin, $modalidad)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                              FROM pago as po
@@ -854,13 +1001,19 @@ class pagomodel
                             LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
                              where idProduccionAlumno is not null and po.estado = ' . $estado . '   and tr.fuentefinanc=\'' . $fuefin . '\' and po.modalidad = \'' . $modalidad . '\'    and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
 
-        );
+            );
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarPagoProduccionModalidadfuefi/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarPagoProduccionModalidadTipre($centroProduccion, $fechaDesde, $fechaHasta, $estado, $tipoRe, $modalidad)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                              FROM pago as po
@@ -874,13 +1027,19 @@ class pagomodel
                             LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
                              where idProduccionAlumno is not null and po.estado = ' . $estado . '   and tr.tipoRecurso=\'' . $tipoRe . '\' and po.modalidad = \'' . $modalidad . '\'    and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
 
-        );
+            );
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarPagoProduccionModalidadTipre/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarPagoProduccionModalidadTramite($centroProduccion, $fechaDesde, $fechaHasta, $estado, $tram, $valtra, $modalidad)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                              FROM pago as po
@@ -894,14 +1053,20 @@ class pagomodel
                             LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
                              where idProduccionAlumno is not null and po.estado = ' . $estado . '  and po.modalidad = \'' . $modalidad . '\'   and ' . $tram . '= \'' . $valtra . '\'  and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
 
-        );
+            );
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarPagoProduccionModalidadTramite/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
 
     public function listarPagoProduccionFueFi($centroProduccion, $fechaDesde, $fechaHasta, $estado, $fuefin)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                              FROM pago as po
@@ -915,14 +1080,19 @@ class pagomodel
                             LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
                              where idProduccionAlumno is not null and po.estado = ' . $estado . '    and tr.fuentefinanc=\'' . $fuefin . '\'   and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
 
-        );
+            );
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarPagoProduccionFueFi/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarPagoProduccionTipRe($centroProduccion, $fechaDesde, $fechaHasta, $estado, $tipoRe)
     {
-
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                              FROM pago as po
@@ -936,14 +1106,19 @@ class pagomodel
                             LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
                              where idProduccionAlumno is not null  and po.estado = ' . $estado . '    and tr.tipoRecurso=\'' . $tipoRe . '\'  and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
 
-        );
+            );
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarPagoProduccionTipRe/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarPagoProduccionTramite($centroProduccion, $fechaDesde, $fechaHasta, $estado, $tram, $valtra)
     {
-
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                              FROM pago as po
@@ -957,13 +1132,19 @@ class pagomodel
                             LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
                              where idProduccionAlumno is not null and po.estado = ' . $estado . '   and ' . $tram . '= \'' . $valtra . '\' and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
 
-        );
+            );
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarPagoProduccionTramite/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarPagoProduccionmodalidad($centroProduccion, $fechaDesde, $fechaHasta, $estado, $modalidad)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                              FROM pago as po
@@ -977,14 +1158,20 @@ class pagomodel
                             LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
                              where idProduccionAlumno is not null and po.estado = ' . $estado . ' and po.modalidad = \'' . $modalidad . '\'  and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
 
-        );
+            );
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarPagoProduccionmodalidad/pagomodel');
+            return null;
+        }
         return $pago;
 
     }
 
     public function listarPagoProduccionTodo($centroProduccion, $fechaDesde, $fechaHasta, $estado)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                              FROM pago as po
@@ -998,7 +1185,12 @@ class pagomodel
                             LEFT JOIN produccion pro ON (pro.codProduccion =  pa.idProduccion)
                              where idProduccionAlumno is not null and po.estado = ' . $estado . ' and pro.nombre = \'' . $centroProduccion . '\' and  date(po.fecha) between \'' . $fechaDesde . '\'  and  \'' . $fechaHasta . '\' '
 
-        );
+            );
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarPagoProduccionTodo/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
@@ -1008,7 +1200,8 @@ class pagomodel
     /***** listar pagos centros universidad*****/
     public function listarFueTipLo($estado, $fechaDesde, $fechaHasta, $tipoRe, $local, $vallocal)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1025,12 +1218,19 @@ class pagomodel
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and   date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and ' . $local . '=\'' . $vallocal . '\'
                              and tr.tipoRecurso=\'' . $tipoRe . '\' ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarFueTipLo/pagomodel');
+            return null;
+        }
         return $pago;
+
     }
 
     public function listarTodo($estado, $fechaDesde, $fechaHasta, $modalidad, $tipre, $fuefi, $local, $valloc, $tram, $valtra)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1047,12 +1247,18 @@ class pagomodel
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valloc . '\' and tr.fuentefinanc=\'' . $fuefi . '\'
                              and tr.tipoRecurso=\'' . $tipre . '\' and ' . $tram . '= \'' . $valtra . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarTodo/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarMoTiLo($estado, $fechaDesde, $fechaHasta, $modalidad, $tipre, $local, $valloc)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1069,12 +1275,18 @@ class pagomodel
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valloc . '\' 
                              and tr.tipoRecurso=\'' . $tipre . '\' ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarMoTiLo/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarFueLo($estado, $fechaDesde, $fechaHasta, $fue, $local, $valloc)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1091,12 +1303,18 @@ class pagomodel
                             WHERE  po.estado=' . $estado . ' and idProduccionAlumno is null  and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and ' . $local . '=\'' . $valloc . '\' and tr.fuentefinanc=\'' . $fue . '\'
                             ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarFueLo/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarTraLo($estado, $fechaDesde, $fechaHasta, $tram, $valtra, $local, $valloc)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1112,12 +1330,18 @@ class pagomodel
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . ' and idProduccionAlumno is null   and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and ' . $local . '=\'' . $valloc . '\' and ' . $tram . '= \'' . $valtra . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarTraLo/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarLoc($estado, $fechaDesde, $fechaHasta, $local, $valloc)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1133,12 +1357,18 @@ class pagomodel
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . ' and idProduccionAlumno is null  and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and ' . $local . '=\'' . $valloc . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarLoc/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarMoTraFu($estado, $fechaDesde, $fechaHasta, $modalidad, $tram, $valtra, $fuen)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1154,12 +1384,18 @@ class pagomodel
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'   
                              and tr.fuentefinanc=\'' . $fuen . '\'and ' . $tram . '= \'' . $valtra . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarMoTraFu/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarTraFu($estado, $fechaDesde, $fechaHasta, $tram, $valtra, $fuen)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1175,12 +1411,18 @@ class pagomodel
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null  and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and tr.fuentefinanc=\'' . $fuen . '\'and ' . $tram . '= \'' . $valtra . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarTraFu/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarMoFu($estado, $fechaDesde, $fechaHasta, $modalidad, $fuen)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1196,12 +1438,18 @@ class pagomodel
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                             and tr.fuentefinanc=\'' . $fuen . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarMoFu/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarFu($estado, $fechaDesde, $fechaHasta, $fuen)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1217,12 +1465,18 @@ class pagomodel
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                               and tr.fuentefinanc=\'' . $fuen . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarFu/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarMoTraTiLo($estado, $fechaDesde, $fechaHasta, $tipore, $modalidad, $tram, $valtra, $local, $valloc)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1239,12 +1493,18 @@ class pagomodel
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valloc . '\' 
                              and tr.tipoRecurso=\'' . $tipore . '\' and ' . $tram . '= \'' . $valtra . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarMoTraTiLo/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarMoTraFuTi($estado, $fechaDesde, $fechaHasta, $tipore, $modalidad, $fuefi, $tram, $valtra)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1260,12 +1520,18 @@ class pagomodel
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'    and tr.fuentefinanc=\'' . $fuefi . '\'
                              and tr.tipoRecurso=\'' . $tipore . '\' and ' . $tram . '= \'' . $valtra . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarMoTraFuTi/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarMoFueTipFu($estado, $fechaDesde, $fechaHasta, $tipore, $modalidad, $fuefi)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1281,12 +1547,18 @@ class pagomodel
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  and tr.fuentefinanc=\'' . $fuefi . '\'
                              and tr.tipoRecurso=\'' . $tipore . '\' ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarMoFueTipFu/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarTip($estado, $fechaDesde, $fechaHasta, $tipore, $modalidad, $tram, $valTram)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1302,12 +1574,18 @@ class pagomodel
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'   
                              and tr.tipoRecurso=\'' . $tipore . '\' and ' . $tram . '= \'' . $valTram . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarTip/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarTipLo($estado, $fechaDesde, $fechaHasta, $tipore, $local, $valloc)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1324,12 +1602,18 @@ class pagomodel
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valloc . '\' 
                              and tr.tipoRecurso=\'' . $tipore . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarTipLo/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarFueTip($estado, $fechaDesde, $fechaHasta, $tipRe, $fuefi)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1346,12 +1630,18 @@ class pagomodel
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and tr.fuentefinanc=\'' . $fuefi . '\'
                              and tr.tipoRecurso=\'' . $tipRe . '\' ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarFueTip/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarTraTip($estado, $fechaDesde, $fechaHasta, $tram, $valtra, $tipRe)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1367,12 +1657,18 @@ class pagomodel
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and tr.tipoRecurso=\'' . $tipRe . '\' and ' . $tram . '= \'' . $valtra . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarTraTip/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarTipoRe($estado, $fechaDesde, $fechaHasta, $tipRe)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1388,12 +1684,18 @@ class pagomodel
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'   
                              and tr.tipoRecurso=\'' . $tipRe . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarTipoRe/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarMoTrFuLo($estado, $fechaDesde, $fechaHasta, $tram, $valtra, $fuefi, $local, $valLoc)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1409,12 +1711,18 @@ class pagomodel
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '   and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valLoc . '\' and tr.fuentefinanc=\'' . $fuefi . '\' and ' . $tram . '= \'' . $valtra . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarMoTrFuLo/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarTr($estado, $fechaDesde, $fechaHasta, $tram, $valtra)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1430,12 +1738,18 @@ class pagomodel
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $tram . '= \'' . $valtra . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarTr/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarMoFuLo($estado, $modalidad, $fechaDesde, $fechaHasta, $fuefi, $local, $valLoc)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1451,12 +1765,18 @@ class pagomodel
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\'and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valLoc . '\' and tr.fuentefinanc=\'' . $fuefi . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarMoFuLo/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarMoLo($estado, $modalidad, $fechaDesde, $fechaHasta, $local, $valLoc)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1472,12 +1792,18 @@ class pagomodel
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and ' . $local . '=\'' . $valLoc . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarMoLo/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarMoTiFuLo($estado, $modalidad, $fechaDesde, $fechaHasta, $tipRe, $fuenteFin, $local, $valLoc)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1494,12 +1820,18 @@ class pagomodel
                             WHERE  po.estado=' . $estado . ' and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valLoc . '\' and tr.fuentefinanc=\'' . $fuenteFin . '\'
                              and tr.tipoRecurso=\'' . $tipRe . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarMoTiFuLo/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarModTip($estado, $modalidad, $fechaDesde, $fechaHasta, $tipRe)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1515,12 +1847,19 @@ class pagomodel
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and tr.tipoRecurso=\'' . $tipRe . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarModTip/pagomodel');
+            return null;
+        }
+
         return $pago;
     }
 
     public function listarTramModLoc($estado, $modalidad, $tramite, $tramiteVal, $fechaDesde, $fechaHasta, $local, $valLoc)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1537,12 +1876,18 @@ class pagomodel
                             WHERE po.estado=' . $estado . '  and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'   and ' . $tramite . '= \'' . $tramiteVal . '\'
                              and ' . $local . '=\'' . $valLoc . '\'
                               and po.modalidad = \'' . $modalidad . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarTramModLoc/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarModTram($estado, $modalidad, $tramite, $tramiteVal, $fechaDesde, $fechaHasta)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1558,12 +1903,18 @@ class pagomodel
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE po.estado= \'' . $estado . '\' and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  and ' . $tramite . '= \'' . $tramiteVal . '\'
                               and po.modalidad = \'' . $modalidad . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarModTram/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarPagoModalidad($estado, $modalidad, $fechaDesde, $fechaHasta)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1578,12 +1929,18 @@ class pagomodel
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE po.estado=' . $estado . '  and idProduccionAlumno is null and  date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'   and po.modalidad = \'' . $modalidad . '\'');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarPagoModalidad/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarPagoNada($estado, $fechaDesde, $fechaHasta)
     {
-        $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
+        try {
+            $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
@@ -1598,20 +1955,31 @@ class pagomodel
                             LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
                             Left join unt.sede se ON(se.CodSede=fac.coSede)
                             WHERE po.estado=' . $estado . '  and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'   ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarPagoNada/pagomodel');
+            return null;
+        }
         return $pago;
     }
 
     public function listarPagosPersonal($codPersonal)
     {
-        date_default_timezone_set('America/Lima');
-        $date = date('Y-m-d');
-        $pago = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre,sum(st.precio) as precio, count(po.codPago) as nurPagos
+        try {
+            date_default_timezone_set('America/Lima');
+            $date = date('Y-m-d');
+            $pago = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre,sum(st.precio) as precio, count(po.codPago) as nurPagos
                             FROM unt.tramite as tr
                             LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
                             LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )
                             LEFT JOIN unt.personal pl ON (pl.idPersonal=po.coPersonal )
                             where po.fecha like "%' . $date . '%"  and idProduccionAlumno is null and pl.codPersonal="' . $codPersonal . '"
                             group by (st.codSubtramite) order by (tr.nombre)');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarPagosPersonal/pagomodel');
+            return null;
+        }
         return $pago;
     }
 }

@@ -3,6 +3,7 @@ namespace App;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\util;
 
 /**
  * Created by PhpStorm.
@@ -77,6 +78,8 @@ class produccionmodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'saveProduccion/produccionmodel');
             return false;
         }
         return true;
@@ -84,7 +87,14 @@ class produccionmodel
 
     public function consultarProduccionid($codProduccion)
     {
-        $produccionbd = DB::select('select * from produccion where codProduccion = ' . $codProduccion . ' ');
+        try {
+            $produccionbd = DB::select('select * from produccion where codProduccion = ' . $codProduccion . ' ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarProduccionid/produccionmodel');
+            return null;
+
+        }
         return $produccionbd;
     }
 
@@ -104,6 +114,8 @@ class produccionmodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'editarProduccion/produccionmodel');
             return false;
         }
         return true;
@@ -126,6 +138,8 @@ class produccionmodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'eliminarProduccion/produccionmodel');
             return false;
         }
         return true;
@@ -133,19 +147,38 @@ class produccionmodel
 
     public function consultarProduccion()
     {
-        $produccionbd = DB::select('select * from produccion');
+        try {
+            $produccionbd = DB::select('select * from produccion');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarProduccion/produccionmodel');
+            return null;
+        }
         return $produccionbd;
     }
 
     public function consultarProduccionxNombre($nombre)
     {
-        $produccionbd = DB::select('select * from produccion where nombre like "%' . $nombre . '%"');
+        try {
+            $produccionbd = DB::select('select * from produccion where nombre like "%' . $nombre . '%"');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarProduccionxNombre/produccionmodel');
+            return null;
+        }
         return $produccionbd;
     }
 
     public function consultarProduccionxDireccion($direccion)
     {
-        $produccionbd = DB::select('select * from produccion where direccion like "%' . $direccion . '%"');
+        try {
+
+            $produccionbd = DB::select('select * from produccion where direccion like "%' . $direccion . '%"');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarProduccionxDireccion/produccionmodel');
+            return null;
+        }
         return $produccionbd;
     }
 

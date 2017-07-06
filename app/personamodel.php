@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\util;
 
 class personamodel
 {
@@ -108,23 +109,36 @@ class personamodel
     }
 
 
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function obtnerId($idPersona)
     {
         /* Jhon Vargas*/
-        $persona = DB::table('persona')->where(['codPersona' => $idPersona, 'estado' => 1])->get();
+        try {
+            $persona = DB::table('persona')->where(['codPersona' => $idPersona, 'estado' => 1])->get();
+        } catch (Exception $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'saveProduccion/produccionmodel');
+            return null;
+
+        }
         return $persona;
     }
 
     public function obtnerIdDni($dni)
     {
         /* Jhon Vargas*/
-        $cp = null;
-        $persona = DB::table('persona')->where(['dni' => $dni, 'estado' => 1])->get();
-        foreach ($persona as $p) {
-            $cp = $p->codPersona;
+        try {
+            $cp = null;
+            $persona = DB::table('persona')->where(['dni' => $dni, 'estado' => 1])->get();
+            foreach ($persona as $p) {
+                $cp = $p->codPersona;
+            }
+        }catch (\Exception $e)
+        {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'saveProduccion/produccionmodel');
+            return null;
         }
         return $cp;
     }

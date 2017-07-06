@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use PDOException;
+use App\Http\Controllers\util;
 
 class subtramitemodel
 {
@@ -121,18 +122,33 @@ class subtramitemodel
 
     public function bdTramite($nombre)
     {
-        $idTra = DB::select('select codTramite from tramite where nombre=:nombre', ['nombre' => $nombre]);
-        foreach ($idTra as $idT) {
-            return $id = $idT->codTramite;
+        $id = null;
+        try {
+            $idTra = DB::select('select codTramite from tramite where nombre=:nombre', ['nombre' => $nombre]);
+            foreach ($idTra as $idT) {
+                $id = $idT->codTramite;
+            }
+
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'bdTramite/subtramitemodel');
+            return null;
         }
+        return $id;
     }
 
     public function bdTramitexClasificador($clasificador)
     {
-        $id = null;
-        $idTra = DB::select('select codTramite from tramite where clasificador =  ' . $clasificador . '  ');
-        foreach ($idTra as $idT) {
-            $id = $idT->codTramite;
+        try {
+            $id = null;
+            $idTra = DB::select('select codTramite from tramite where clasificador =  ' . $clasificador . '  ');
+            foreach ($idTra as $idT) {
+                $id = $idT->codTramite;
+            }
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'bdTramitexClasificador/subtramitemodel');
+            return null;
         }
         return $id;
     }
@@ -153,6 +169,8 @@ class subtramitemodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'save/subtramitemodel');
             return false;
 
         }
@@ -175,6 +193,8 @@ class subtramitemodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), ' editarSubtramite/subtramitemodel');
             return false;
         }
         return true;
@@ -182,85 +202,139 @@ class subtramitemodel
 
     public function consultarId($nombre)
     {
-        $val = null;
-        $subtramitebd = DB::select('select codSubtramite from  subtramite where estado = 1 and nombre=:nombre', ['nombre' => $nombre]);
-        foreach ($subtramitebd as $tr) {
-            $val = $tr->codSubtramite;
+        try {
+            $val = null;
+            $subtramitebd = DB::select('select codSubtramite from  subtramite where estado = 1 and nombre=:nombre', ['nombre' => $nombre]);
+            foreach ($subtramitebd as $tr) {
+                $val = $tr->codSubtramite;
+            }
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarId/subtramitemodel');
+            return false;
         }
         return $val;
     }
 
     public function consultarSubtramiteid($codSubtramite)
     {
-        $subtramitebd = DB::select('select  codSubtramite, codigoSubtramite, subtramite.nombre as snombre, precio, tramite.nombre as tnombre from tramite left join subtramite on tramite.codTramite = subtramite.idTramite where 
+        try {
+            $subtramitebd = DB::select('select  codSubtramite, codigoSubtramite, subtramite.nombre as snombre, precio, tramite.nombre as tnombre from tramite left join subtramite on tramite.codTramite = subtramite.idTramite where 
         tramite.codTramite = subtramite.idTramite and subtramite.codSubtramite = ' . $codSubtramite . ' and tramite.estado=1 and subtramite.estado=1');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarSubtramiteid/subtramitemodel');
+            return false;
+        }
         return $subtramitebd;
     }
 
     public function consultarSubtramiteTramite($nombreTramite)
     {
-        $subtramitebd = DB::select('select * from tramite left join subtramite on tramite.codTramite = subtramite.idTramite where 
+        try {
+            $subtramitebd = DB::select('select * from tramite left join subtramite on tramite.codTramite = subtramite.idTramite where 
         tramite.codTramite = subtramite.idTramite and tramite.nombre like "%' . $nombreTramite . '%" and tramite.estado=1 and subtramite.estado=1');
+        } catch (Exception $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), ' consultarSubtramiteTramite/subtramitemodel');
+            return null;
+        }
         return $subtramitebd;
     }
 
     public function consultarSubtramiteNombre($nombreSubtramite)
     {
-        $subtramitebd = DB::table('subtramite')
-            ->where('nombre', 'like', '%' . $nombreSubtramite . '%')
-            ->where('estado', 1)
-            ->orderBy('codSubtramite', 'desc')->get();
+        try {
+            $subtramitebd = DB::table('subtramite')
+                ->where('nombre', 'like', '%' . $nombreSubtramite . '%')
+                ->where('estado', 1)
+                ->orderBy('codSubtramite', 'desc')->get();
+        } catch (Exception $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarSubtramiteNombre/subtramitemodel');
+            return null;
+        }
         return $subtramitebd;
     }
 
     public function consultarSubtramiteidNombre($nombreSubtramite)
     {
-        $subtramitebd = DB::table('subtramite')
-            ->where('nombre', $nombreSubtramite)
-            ->where('estado', 1)
-            ->get();
-        $id = null;
-        foreach ($subtramitebd as $su) {
-            $id = $su->codSubtramite;
+        try {
+            $subtramitebd = DB::table('subtramite')
+                ->where('nombre', $nombreSubtramite)
+                ->where('estado', 1)
+                ->get();
+            $id = null;
+            foreach ($subtramitebd as $su) {
+                $id = $su->codSubtramite;
+            }
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarSubtramiteNombre/subtramitemodel');
+            return null;
         }
         return $id;
     }
 
     public function consultarSiafNombreSubtramite($nombreSubtramite)
     {
-        $clas = null;
-        $subtramitebd = DB::select('select clasificador from tramite left join subtramite on tramite.codTramite = subtramite.idTramite where 
+        try {
+            $clas = null;
+            $subtramitebd = DB::select('select clasificador from tramite left join subtramite on tramite.codTramite = subtramite.idTramite where 
         tramite.codTramite = subtramite.idTramite and tramite.estado=1 and subtramite.estado=1 and subtramite.nombre =:nombre', ['nombre' => $nombreSubtramite]);
 
-        foreach ($subtramitebd as $sub) {
-            $clas = $sub->clasificador;
+            foreach ($subtramitebd as $sub) {
+                $clas = $sub->clasificador;
+            }
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarSiafNombreSubtramite/subtramitemodel');
+            return null;
         }
         return $clas;
     }
 
     public function consultarSubtramiteCodigoTasa($codigo)
     {
-        $subtramitebd = DB::table('subtramite')
-            ->where('codigoSubtramite', 'like', '%' . $codigo . '%')
-            ->where('estado', 1)
-            ->orderBy('codSubtramite', 'desc')->get();
+        try {
+            $subtramitebd = DB::table('subtramite')
+                ->where('codigoSubtramite', 'like', '%' . $codigo . '%')
+                ->where('estado', 1)
+                ->orderBy('codSubtramite', 'desc')->get();
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), ' consultarSubtramiteCodigoTasa/subtramitemodel');
+            return null;
+        }
         return $subtramitebd;
     }
 
     public function consultarCodigoSubtramiteCodSubtramite($codSubtramite)
     {
-        $sub = null;
-        $subtramitebd = DB::select('select codigoSubtramite from subtramite where codSubtramite = "' . $codSubtramite . '"');
-        foreach ($subtramitebd as $s) {
-            $sub = $s->codigoSubtramite;
+        try {
+            $sub = null;
+            $subtramitebd = DB::select('select codigoSubtramite from subtramite where codSubtramite = "' . $codSubtramite . '"');
+            foreach ($subtramitebd as $s) {
+                $sub = $s->codigoSubtramite;
+            }
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarCodigoSubtramiteCodSubtramite/subtramitemodel');
+            return null;
         }
         return $sub;
     }
 
     public function consultarSubtramites()
     {
-        $subtramitebd = DB::table('subtramite')
-            ->orderBy('codSubtramite', 'desc')->get();
+        try {
+            $subtramitebd = DB::table('subtramite')
+                ->orderBy('codSubtramite', 'desc')->get();
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarSubtramites/subtramitemodel');
+            return null;
+        }
         return $subtramitebd;
     }
 
@@ -281,6 +355,8 @@ class subtramitemodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'eliminarSubtramite/subtramitemodel');
             return false;
         }
         return true;

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use PDOException;
+use App\Http\Controllers\util;
 
 class sedemodel
 {
@@ -107,12 +108,14 @@ class sedemodel
         $logunt->setCodigoPersonal($codPers);
 
         try {
-            
+
             DB::transaction(function () use ($logunt) {
                 DB::table('sede')->insert(['codigosede' => $this->codigoSede, 'nombresede' => $this->nombreSede, 'direccion' => $this->direccion]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'save/sedemodel');
             return false;
         }
         return true;
@@ -120,7 +123,13 @@ class sedemodel
 
     public function consultarSedeid($codSede)
     {
-        $sedebd = DB::table('sede')->where('codSede', $codSede)->get();
+        try {
+            $sedebd = DB::table('sede')->where('codSede', $codSede)->get();
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'save/sedemodel');
+            return null;
+        }
         return $sedebd;
     }
 
@@ -136,11 +145,13 @@ class sedemodel
         $logunt->setCodigoPersonal($codPers);
 
         try {
-            DB::transaction(function () use ($codSede,$logunt) {
+            DB::transaction(function () use ($codSede, $logunt) {
                 DB::table('sede')->where('codSede', $codSede)->update(['codigosede' => $this->codigoSede, 'nombresede' => $this->nombreSede, 'direccion' => $this->direccion]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'editarSede/sedemodel');
             return false;
         }
         return true;
@@ -158,11 +169,13 @@ class sedemodel
         $logunt->setCodigoPersonal($codPers);
 
         try {
-            DB::transaction(function () use ($codSede,$logunt) {
+            DB::transaction(function () use ($codSede, $logunt) {
                 DB::table('sede')->where('codSede', $codSede)->update(['estado' => 0]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'eliminarSede/sedemodel');
             return false;
         }
         return true;
@@ -170,40 +183,72 @@ class sedemodel
 
     public function consultarSedeNombre($nombre)
     {
-        $sedebd = DB::table('sede')
-            ->where('nombresede', 'like', '%' . $nombre . '%')
-            ->where('estado', 1)->orderBy('codSede', 'desc')->get();
+        try {
+            $sedebd = DB::table('sede')
+                ->where('nombresede', 'like', '%' . $nombre . '%')
+                ->where('estado', 1)->orderBy('codSede', 'desc')->get();
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarSedeNombre(/sedemodel');
+            return null;
+        }
         return $sedebd;
     }
 
     public function consultarSedeCodigo($codigo)
     {
-        $sedebd = DB::table('sede')
-            ->where('codigosede', 'like','%' . $codigo. '%')
-            ->where('estado', 1)->orderBy('codSede', 'desc')->get();
+        try {
+            $sedebd = DB::table('sede')
+                ->where('codigosede', 'like', '%' . $codigo . '%')
+                ->where('estado', 1)->orderBy('codSede', 'desc')->get();
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarSedeNombre(/sedemodel');
+            return null;
+        }
         return $sedebd;
     }
 
     public function consultarSedeDireccion($direccion)
     {
-        $sedebd = DB::table('sede')
-            ->where('direccion', 'like','%' . $direccion. '%')
-            ->where('estado', 1)->orderBy('codSede', 'desc')->get();
+        try {
+            $sedebd = DB::table('sede')
+                ->where('direccion', 'like', '%' . $direccion . '%')
+                ->where('estado', 1)->orderBy('codSede', 'desc')->get();
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarSedeNombre(/sedemodel');
+            return null;
+        }
         return $sedebd;
     }
 
     public function consultarSedes()
     {
-        $sedebd = DB::table('sede')
-            ->where('estado', 1)->orderBy('codSede', 'desc')->get();
+        try {
+            $sedebd = DB::table('sede')
+                ->where('estado', 1)->orderBy('codSede', 'desc')->get();
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarSedeNombre(/sedemodel');
+            return null;
+        }
         return $sedebd;
     }
-    public  function obtenerId($nombre)
+
+    public function obtenerId($nombre)
     {
-        $data=DB::table('sede')->select('codSede')->where('nombresede','=',$nombre)->get();
-        $var=null;
-        foreach ($data as $c){
-            $var=$c->codSede;
+        try {
+
+            $data = DB::table('sede')->select('codSede')->where('nombresede', '=', $nombre)->get();
+            $var = null;
+            foreach ($data as $c) {
+                $var = $c->codSede;
+            }
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarSedeNombre(/sedemodel');
+            return null;
         }
         return $var;
     }

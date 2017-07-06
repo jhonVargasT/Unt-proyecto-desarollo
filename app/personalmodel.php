@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use PDOException;
+use App\Http\Controllers\util;
 
 class personalmodel extends personamodel
 {
@@ -132,17 +133,35 @@ class personalmodel extends personamodel
 
     public function logear()
     {
-        $personal = DB::table('personal')->where(['cuenta' => $this->cuenta, 'password' => $this->password, 'estado' => 1])->get();
+        try {
 
+            $personal = DB::table('personal')->where(['cuenta' => $this->cuenta, 'password' => $this->password, 'estado' => 1])->get();
+        } catch
+        (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'logear/personalmodel');
+            return null;
+
+        }
         return $personal;
     }
 
     public function bdPersona($dni)
     {
-        $persona = DB::select('select codPersona from persona where dni=:dni', ['dni' => $dni]);
-        foreach ($persona as $pers) {
-            return $per = $pers->codPersona;
+        try {
+            $per = null;
+            $persona = DB::select('select codPersona from persona where dni=:dni', ['dni' => $dni]);
+            foreach ($persona as $pers) {
+                $per = $pers->codPersona;
+            }
+        } catch
+        (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'logear/personalmodel');
+            return null;
+
         }
+        return $per;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -168,6 +187,8 @@ class personalmodel extends personamodel
                 }
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'savepersonal/personalmodel');
             return false;
         }
         return true;
@@ -195,6 +216,8 @@ class personalmodel extends personamodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'editarpersonal/personalmodel');
             return false;
         }
         return true;
@@ -202,76 +225,118 @@ class personalmodel extends personamodel
 
     public function consultarPersonalid($codPersona)
     {
-        $alumnobd = DB::select('select * from persona left join personal on persona.codPersona = personal.idPersona  
+        try {
+            $alumnobd = DB::select('select * from persona left join personal on persona.codPersona = personal.idPersona  
         left join sede on personal.idSede = sede.codSede where personal.idSede = sede.codSede and 
         persona.codPersona = personal.idPersona and persona.codPersona=:codPersona and persona.estado = 1 and personal.estado=1', ['codPersona' => $codPersona]);
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarPersonalid/personalmodel');
+            return null;
+        }
         return $alumnobd;
     }
 
     public function consultarPersonalDNI($dni)
     {
-        $personabd = DB::table('personal')
-            ->join('persona', function ($join) use ($dni) {
-                $join->on('personal.idPersona', '=', 'persona.codPersona')
-                    ->where('persona.dni', 'like', '%' . $dni . '%')->where(['persona.estado' => 1, 'personal.estado' => 1]);
-            })
-            ->get();
-
+        try {
+            $personabd = DB::table('personal')
+                ->join('persona', function ($join) use ($dni) {
+                    $join->on('personal.idPersona', '=', 'persona.codPersona')
+                        ->where('persona.dni', 'like', '%' . $dni . '%')->where(['persona.estado' => 1, 'personal.estado' => 1]);
+                })
+                ->get();
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarPersonalDNI/personalmodel');
+            return null;
+        }
         return $personabd;
     }
 
     public function consultarPersonalApellidos($apellidos)
     {
-        $personabd = DB::table('personal')
-            ->join('persona', function ($join) use ($apellidos) {
-                $join->on('personal.idPersona', '=', 'persona.codPersona')
-                    ->where('persona.apellidos', 'like', '%' . $apellidos . '%')->where(['persona.estado' => 1, 'personal.estado' => 1]);
-            })
-            ->get();
+        try {
+            $personabd = DB::table('personal')
+                ->join('persona', function ($join) use ($apellidos) {
+                    $join->on('personal.idPersona', '=', 'persona.codPersona')
+                        ->where('persona.apellidos', 'like', '%' . $apellidos . '%')->where(['persona.estado' => 1, 'personal.estado' => 1]);
+                })
+                ->get();
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarPersonalApellidos/personalmodel');
+            return null;
 
+        }
         return $personabd;
     }
 
     public function consultarPersonalCodigo($codPersonal)
     {
-        $personabd = DB::table('personal')
-            ->join('persona', function ($join) use ($codPersonal) {
-                $join->on('personal.idPersona', '=', 'persona.codPersona')
-                    ->where('personal.codPersonal', 'like', '%' . $codPersonal . '%')->where(['persona.estado' => 1, 'personal.estado' => 1]);
-            })
-            ->get();
+        try {
+            $personabd = DB::table('personal')
+                ->join('persona', function ($join) use ($codPersonal) {
+                    $join->on('personal.idPersona', '=', 'persona.codPersona')
+                        ->where('personal.codPersonal', 'like', '%' . $codPersonal . '%')->where(['persona.estado' => 1, 'personal.estado' => 1]);
+                })
+                ->get();
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarPersonalCodigo/personalmodel');
+            return null;
 
+        }
         return $personabd;
     }
 
     public function consultarPersonalCuenta($cuenta)
     {
-        $personabd = DB::table('personal')
-            ->join('persona', function ($join) use ($cuenta) {
-                $join->on('personal.idPersona', '=', 'persona.codPersona')
-                    ->where('personal.cuenta', 'like', '%' . $cuenta . '%')->where(['persona.estado' => 1, 'personal.estado' => 1]);
-            })
-            ->get();
+        try {
+            $personabd = DB::table('personal')
+                ->join('persona', function ($join) use ($cuenta) {
+                    $join->on('personal.idPersona', '=', 'persona.codPersona')
+                        ->where('personal.cuenta', 'like', '%' . $cuenta . '%')->where(['persona.estado' => 1, 'personal.estado' => 1]);
+                })
+                ->get();
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarPersonalCuenta/personalmodel');
+            return null;
 
+        }
         return $personabd;
     }
 
     public function consultaPersonalTipoCuenta($tipoCuenta)
     {
-        $personabd = DB::table('personal')
-            ->join('persona', function ($join) use ($tipoCuenta) {
-                $join->on('personal.idPersona', '=', 'persona.codPersona')
-                    ->where(['personal.tipoCuenta', 'like', '%' . $tipoCuenta . '%', 'persona.estado' => 1, 'personal.estado' => 1]);
-            })
-            ->get();
+        try {
+            $personabd = DB::table('personal')
+                ->join('persona', function ($join) use ($tipoCuenta) {
+                    $join->on('personal.idPersona', '=', 'persona.codPersona')
+                        ->where(['personal.tipoCuenta', 'like', '%' . $tipoCuenta . '%', 'persona.estado' => 1, 'personal.estado' => 1]);
+                })
+                ->get();
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultaPersonalTipoCuenta/personalmodel');
+            return null;
 
+        }
         return $personabd;
     }
 
     public function consultaPersonales()
     {
-        $alumnobd = DB::select('select * from persona left join personal on persona.codPersona = personal.idPersona where 
+        try {
+            $alumnobd = DB::select('select * from persona left join personal on persona.codPersona = personal.idPersona where 
         persona.codPersona = personal.idPersona and persona.estado = 1 and persona.estado=1');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), ' consultaPersonales/personalmodel');
+            return null;
+
+        }
         return $alumnobd;
     }
 
@@ -292,6 +357,9 @@ class personalmodel extends personamodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'eliminarPersonal/personalmodel');
+
             return false;
         }
         return true;
@@ -299,11 +367,17 @@ class personalmodel extends personamodel
 
     public function obtenerIdSede($nombre)
     {
-        $sbd = null;
-        $sedebd = DB::table('sede')->where(['nombresede' => $nombre, 'estado' => 1])->get();
+        try {
+            $sbd = null;
+            $sedebd = DB::table('sede')->where(['nombresede' => $nombre, 'estado' => 1])->get();
 
-        foreach ($sedebd as $s) {
-            $sbd = $s->codSede;
+            foreach ($sedebd as $s) {
+                $sbd = $s->codSede;
+            }
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'eliminarPersonal/personalmodel');
+            return null;
         }
         return $sbd;
     }

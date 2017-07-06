@@ -5,26 +5,37 @@ namespace App\Http\Controllers;
 use App\facultadmodel;
 use App\loguntemodel;
 use App\tramitemodel;
+use App\utilmodel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use PhpParser\Node\Stmt\TryCatch;
 
 class tramiteController extends Controller
 {
+
     //Registrar Clasificador
     public function registrarTramite(Request $request)
     {
-        $tramite = new tramitemodel();
-        $tramite->setClasificador($request->clasificador);
-        $tramite->setNombre($request->nombre);
-        $tramite->setFuentefinanc($request->fuentefinanc);
-        $tramite->setTipoRecurso($request->tipoRecurso);
-        $tram = $tramite->save();//SQL, insertar registro del clasificador
+        Try {
 
-        if ($tram == true) {
-            return back()->with('true', 'Tramite ' . $request->nombre . ' guardada con exito')->withInput();
-        } else {
+            $tramite = new tramitemodel();
+            $tramite->setClasificador($request->clasificador);
+            $tramite->setNombre($request->nombre);
+            $tramite->setFuentefinanc($request->fuentefinanc);
+            $tramite->setTipoRecurso($request->tipoRecurso);
+
+            $tram = $tramite->save();//SQL, insertar registro del clasificador
+            if ($tram == true) {
+                return back()->with('true', 'Tramite ' . $request->nombre . ' guardada con exito')->withInput();
+            } else {
+                return back()->with('false', 'Tramite ' . $request->nombre . ' no guardada, puede que ya exista ');
+            }
+        }catch (Exception $e)
+        {
+           
             return back()->with('false', 'Tramite ' . $request->nombre . ' no guardada, puede que ya exista ');
         }
+
     }
 
     //Cargar datos del clasificador a modficar
