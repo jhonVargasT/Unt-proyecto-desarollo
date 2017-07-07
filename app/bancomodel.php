@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Controllers\util;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use PDOException;
@@ -93,6 +94,8 @@ class bancomodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'guardarBanco/bancomodel');
             return false;
         }
         return true;
@@ -100,7 +103,13 @@ class bancomodel
 
     public function consultarBancoid($codBanco)
     {
-        $sedebd = DB::table('banco')->where('codBanco', $codBanco)->get();
+        try {
+            $sedebd = DB::table('banco')->where('codBanco', $codBanco)->get();
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarBancoid/bancomodel');
+            return null;
+        }
         return $sedebd;
     }
 
@@ -120,6 +129,8 @@ class bancomodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'editarBanco/bancomodel');
             return false;
         }
         return true;
@@ -142,6 +153,8 @@ class bancomodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'eliminarBanco/bancomodel');
             return false;
         }
         return true;
@@ -149,22 +162,38 @@ class bancomodel
 
     public function consultarBancoxNombre($nombreBanco)
     {
-        $bancobd = DB::select('select * from banco  where banco= "' . $nombreBanco . '" ');
+        try {
+            $bancobd = DB::select('select * from banco  where banco= "' . $nombreBanco . '" ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarBancoxNombre/bancomodel');
+            return null;
+        }
 
         return $bancobd;
     }
 
     public function consultarBancoxCuenta($cuenta)
     {
-        $bancobd = DB::select('select * from banco  where cuenta= ' . $cuenta . ' ');
-
+        try {
+            $bancobd = DB::select('select * from banco  where cuenta= ' . $cuenta . ' ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarBancoxCuenta/bancomodel');
+            return null;
+        }
         return $bancobd;
     }
 
     public function consultarBancos()
     {
-        $bancobd = DB::select('select * from banco');
-
+        try {
+            $bancobd = DB::select('select * from banco');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarBancos/bancomodel');
+            return null;
+        }
         return $bancobd;
     }
 }

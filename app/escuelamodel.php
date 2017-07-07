@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Controllers\util;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use PDOException;
@@ -106,13 +107,19 @@ class escuelamodel
 
     public function buscarFacultad($nombref, $nombres)
     {
-        $fa = null;
-        $facultad = DB::select('select idFacultad from facultad
+        try {
+            $fa = null;
+            $facultad = DB::select('select idFacultad from facultad
         left join sede  on facultad.coSede=sede.codSede
         where facultad.coSede=sede.codSede and facultad.estado=1
         and sede.estado=1 and facultad.nombre =:nombref and sede.nombresede=:nombres', ['nombref' => $nombref, 'nombres' => $nombres]);
-        foreach ($facultad as $f) {
-            $fa = $f->idFacultad;
+            foreach ($facultad as $f) {
+                $fa = $f->idFacultad;
+            }
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'buscarFacultad/escuelaModel');
+            return null;
         }
         return $fa;
     }
@@ -125,61 +132,97 @@ class escuelamodel
 
     public function consultarEscuelaid($idEscuela)
     {
-        $escuelabd = DB::select('select idEscuela, escuela.nombre as nombre, codEscuela, escuela.nroCuenta, sede.nombresede, facultad.nombre as fnombre from escuela
+        try {
+            $escuelabd = DB::select('select idEscuela, escuela.nombre as nombre, codEscuela, escuela.nroCuenta, sede.nombresede, facultad.nombre as fnombre from escuela
         left join facultad on escuela.codigoFacultad=facultad.idFacultad
         left join sede on facultad.coSede=sede.codSede 
         where escuela.codigoFacultad=facultad.idFacultad and facultad.coSede=sede.codSede and sede.estado=1
         and facultad.estado=1 and escuela.estado=1 and escuela.idEscuela = ' . $idEscuela . ' ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarEscuelaid/escuelaModel');
+            return null;
+        }
         return $escuelabd;
     }
 
     public function consultarEscuelaCodigo($codigo)
     {
-        $escuelabd = DB::select('select idEscuela, escuela.nombre as nombre, codEscuela, escuela.nroCuenta, sede.nombresede from escuela
+        try {
+            $escuelabd = DB::select('select idEscuela, escuela.nombre as nombre, codEscuela, escuela.nroCuenta, sede.nombresede from escuela
         left join facultad on escuela.codigoFacultad=facultad.idFacultad
         left join sede on facultad.coSede=sede.codSede 
         where escuela.codigoFacultad=facultad.idFacultad and facultad.coSede=sede.codSede and sede.estado=1
         and facultad.estado=1 and escuela.estado=1 and escuela.codEscuela like "%' . $codigo . '%" ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarEscuelaCodigo/escuelaModel');
+            return null;
+        }
         return $escuelabd;
     }
 
     public function consultarEscuelasNombre($nombre)
     {
-        $escuelabd = DB::select('select idEscuela, escuela.nombre as nombre, codEscuela, escuela.nroCuenta, sede.nombresede from escuela
+        try {
+            $escuelabd = DB::select('select idEscuela, escuela.nombre as nombre, codEscuela, escuela.nroCuenta, sede.nombresede from escuela
         left join facultad on escuela.codigoFacultad=facultad.idFacultad
         left join sede on facultad.coSede=sede.codSede 
         where escuela.codigoFacultad=facultad.idFacultad and facultad.coSede=sede.codSede and sede.estado=1
         and facultad.estado=1 and escuela.estado=1 and escuela.nombre like "%' . $nombre . '%" ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarEscuelasNombre/escuelaModel');
+            return null;
+        }
         return $escuelabd;
     }
 
     public function consultarEscuelasCuentaInterna($nroCuenta)
     {
-        $escuelabd = DB::select('select idEscuela, escuela.nombre as nombre, codEscuela, escuela.nroCuenta, sede.nombresede from escuela
+        try {
+            $escuelabd = DB::select('select idEscuela, escuela.nombre as nombre, codEscuela, escuela.nroCuenta, sede.nombresede from escuela
         left join facultad on escuela.codigoFacultad=facultad.idFacultad
         left join sede on facultad.coSede=sede.codSede 
         where escuela.codigoFacultad=facultad.idFacultad and facultad.coSede=sede.codSede and sede.estado=1
         and facultad.estado=1 and escuela.estado=1 and escuela.nroCuenta like "%' . $nroCuenta . '%" ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarEscuelasCuentaInterna/escuelaModel');
+            return null;
+        }
         return $escuelabd;
     }
 
     public function consultarEscuelas()
     {
-        $escuelabd = DB::select('select idEscuela, escuela.nombre as nombre, codEscuela, escuela.nroCuenta, sede.nombresede from escuela
+        try {
+            $escuelabd = DB::select('select idEscuela, escuela.nombre as nombre, codEscuela, escuela.nroCuenta, sede.nombresede from escuela
         left join facultad on escuela.codigoFacultad=facultad.idFacultad
         left join sede on facultad.coSede=sede.codSede 
         where escuela.codigoFacultad=facultad.idFacultad and facultad.coSede=sede.codSede and sede.estado=1
         and facultad.estado=1 and escuela.estado=1');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarEscuelas/escuelaModel');
+            return null;
+        }
         return $escuelabd;
     }
 
     public function consultarEscuelasFacultad($nombreF)
     {
-        $escuelabd = DB::select('SELECT idEscuela, escuela.nombre as nombre, codEscuela, escuela.nroCuenta as nroCuenta, nombresede FROM escuela 
+        try {
+            $escuelabd = DB::select('SELECT idEscuela, escuela.nombre as nombre, codEscuela, escuela.nroCuenta as nroCuenta, nombresede FROM escuela 
         LEFT JOIN facultad ON escuela.codigoFacultad = facultad.idFacultad
         LEFT JOIN sede ON facultad.coSede= sede.codSede
         WHERE escuela.codigoFacultad = facultad.idFacultad and facultad.coSede= sede.codSede
         and escuela.estado=1 and sede.estado=1 and facultad.estado=1 and facultad.nombre like "%' . $nombreF . '%"');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarEscuelasFacultad/escuelaModel');
+            return null;
+        }
 
         return $escuelabd;
     }
@@ -201,6 +244,8 @@ class escuelamodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'eliminarEscuela/escuelaModel');
             return false;
         }
         return true;
@@ -222,6 +267,8 @@ class escuelamodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'saveescuela/escuelaModel');
             return false;
         }
         return true;
@@ -244,6 +291,8 @@ class escuelamodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'editarEscuela/escuelaModel');
             return false;
         }
         return true;
@@ -251,10 +300,16 @@ class escuelamodel
 
     public function obtenerId($nombre)
     {
-        $esc = null;
-        $data = DB::table('escuela')->select('idEscuela')->where('nombre', '=', $nombre)->get();
-        foreach ($data as $dat) {
-            $esc = $dat->idEscuela;
+        try {
+            $esc = null;
+            $data = DB::table('escuela')->select('idEscuela')->where('nombre', '=', $nombre)->get();
+            foreach ($data as $dat) {
+                $esc = $dat->idEscuela;
+            }
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'obtenerId/escuelaModel');
+            return null;
         }
         return $esc;
     }

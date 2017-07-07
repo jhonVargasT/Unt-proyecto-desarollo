@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Controllers\util;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use PDOException;
@@ -74,11 +75,19 @@ class clientemodel extends personamodel
 
     public function bdPersona($dni)
     {
-        $persona = DB::select('select codPersona from persona where dni=:dni', ['dni' => $dni]);
+        $per = null;
+        try {
+            $persona = DB::select('select codPersona from persona where dni=:dni', ['dni' => $dni]);
 
-        foreach ($persona as $pers) {
-            return $per = $pers->codPersona;
+            foreach ($persona as $pers) {
+                $per = $pers->codPersona;
+            }
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'bdPersona/clientemodel');
+            return false;
         }
+        return $per;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -104,6 +113,8 @@ class clientemodel extends personamodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'savecliente/clientemodel');
             return false;
         }
         return true;
@@ -131,6 +142,8 @@ class clientemodel extends personamodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'editarCliente/clientemodel');
             return false;
         }
         return true;
@@ -138,48 +151,87 @@ class clientemodel extends personamodel
 
     public function consultarClienteDNI($dni)
     {
-        $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
+        try {
+            $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
         persona.codPersona = cliente.idPersona and persona.dni like "%' . $dni . '%" and persona.estado = 1');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarClienteDNI/clientemodel');
+            return null;
+        }
         return $clientebd;
     }
 
     public function consultarClienteApellidos($apellidos)
     {
-        $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
+        try {
+            $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
         persona.codPersona = cliente.idPersona and persona.apellidos like "%' . $apellidos . '%" and persona.estado=1');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarClienteApellidos/clientemodel');
+            return null;
+        }
         return $clientebd;
     }
 
     public function consultarClientesRUC($ruc)
     {
-        $clientebd = DB::table('persona')->leftJoin('cliente', 'persona.codPersona', '=', 'cliente.idPersona')
-            ->where('cliente.ruc', 'like', '%' . $ruc . '%')
-            ->where('persona.estado', '=', 1)->orderBy('persona.codPersona', 'desc')->get();
+        try {
+            $clientebd = DB::table('persona')->leftJoin('cliente', 'persona.codPersona', '=', 'cliente.idPersona')
+                ->where('cliente.ruc', 'like', '%' . $ruc . '%')
+                ->where('persona.estado', '=', 1)->orderBy('persona.codPersona', 'desc')->get();
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarClientesRUC/clientemodel');
+            return null;
+        }
         return $clientebd;
     }
 
     public function consultarClienteRUC($ruc)
     {
-        $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
+        $client = null;
+        try {
+            $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
         persona.codPersona = cliente.idPersona and cliente.ruc=:ruc and persona.estado=1 and cliente.estado =1', ['ruc' => $ruc]);
-        foreach ($clientebd as $cl) {
-            return $client = $cl->idPersona;
+            foreach ($clientebd as $cl) {
+                $client = $cl->idPersona;
+            }
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarClienteRUC/clientemodel');
+            return null;
         }
+        return $client;
 
     }
 
     public function consultarClienteSocial($razonSocial)
     {
-        $clientebd = DB::table('persona')->leftJoin('cliente', 'persona.codPersona', '=', 'cliente.idPersona')
-            ->where('cliente.razonSocial', 'like', '%' . $razonSocial . '%')
-            ->where('persona.estado', '=', 1)->orderBy('persona.codPersona', 'desc')->get();
+        $clientbd = null;
+        try {
+            $clientebd = DB::table('persona')->leftJoin('cliente', 'persona.codPersona', '=', 'cliente.idPersona')
+                ->where('cliente.razonSocial', 'like', '%' . $razonSocial . '%')
+                ->where('persona.estado', '=', 1)->orderBy('persona.codPersona', 'desc')->get();
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarClienteSocial/clientemodel');
+            return null;
+        }
         return $clientebd;
     }
 
     public function consultarClienteid($codPersona)
     {
-        $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
+        try {
+            $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
         persona.codPersona = cliente.idPersona and persona.codPersona=:codPersona', ['codPersona' => $codPersona]);
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarClienteid/clientemodel');
+            return null;
+        }
         return $clientebd;
     }
 
@@ -200,6 +252,8 @@ class clientemodel extends personamodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'eliminarCliente/clientemodel');
             return false;
         }
         return true;

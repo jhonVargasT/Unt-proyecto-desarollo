@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Controllers\util;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use PDOException;
@@ -114,7 +115,13 @@ class facultadmodel
 
     public function llenarFacultadReporte($nombre)
     {
-        $facultadbd = DB::table('facultad')->select('nombre')->where([['estado', '=', 1], ['nombre', 'like', '%' . $nombre . '%']])->where('nombre')->get();
+        try {
+            $facultadbd = DB::table('facultad')->select('nombre')->where([['estado', '=', 1], ['nombre', 'like', '%' . $nombre . '%']])->where('nombre')->get();
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'llenarFacultadReporte/facultadmodel');
+            return null;
+        }
         return $facultadbd;
     }
 
@@ -127,53 +134,89 @@ class facultadmodel
 
     public function consultarFacultadid($idFacultad)
     {
-        $facultadbd = DB::select('SELECT idFacultad, codFacultad,nombre, nroCuenta, nombresede FROM facultad 
+        try {
+            $facultadbd = DB::select('SELECT idFacultad, codFacultad,nombre, nroCuenta, nombresede FROM facultad 
         LEFT JOIN sede ON facultad.coSede= sede.codSede
         WHERE facultad.coSede= sede.codSede
         and sede.estado=1 and facultad.estado=1 and facultad.idFacultad = ' . $idFacultad . ' ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarFacultadid/facultadmodel');
+            return null;
+        }
         return $facultadbd;
     }
 
     public function consultarFacultadesCodigo($codigo)
     {
-        $facultadbd = DB::select('SELECT idFacultad, codFacultad,nombre, nroCuenta, nombresede FROM facultad 
+        try {
+            $facultadbd = DB::select('SELECT idFacultad, codFacultad,nombre, nroCuenta, nombresede FROM facultad 
         LEFT JOIN sede ON facultad.coSede= sede.codSede
         WHERE facultad.coSede= sede.codSede
         and sede.estado=1 and facultad.estado=1 and facultad.codFacultad like "%' . $codigo . '%"');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarFacultadesCodigo/facultadmodel');
+            return null;
+        }
         return $facultadbd;
     }
 
     public function consultarFacultadesNombre($nombre)
     {
-        $facultadbd = DB::select('SELECT  idFacultad,codFacultad,nombre, nroCuenta, nombresede FROM facultad 
+        try {
+            $facultadbd = DB::select('SELECT  idFacultad,codFacultad,nombre, nroCuenta, nombresede FROM facultad 
         LEFT JOIN sede ON facultad.coSede= sede.codSede
         WHERE facultad.coSede= sede.codSede
         and sede.estado=1 and facultad.estado=1 and facultad.nombre like "%' . $nombre . '%"');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarFacultadesNombre/facultadmodel');
+            return null;
+        }
         return $facultadbd;
     }
 
     public function consultarFacultades()
     {
-        $facultadbd = DB::select('SELECT  idFacultad,codFacultad,nombre, nroCuenta, nombresede FROM facultad 
+        try {
+            $facultadbd = DB::select('SELECT  idFacultad,codFacultad,nombre, nroCuenta, nombresede FROM facultad 
         LEFT JOIN sede ON facultad.coSede= sede.codSede
         WHERE facultad.coSede= sede.codSede
         and sede.estado=1 and facultad.estado=1');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarFacultadesNombre/facultadmodel');
+            return null;
+        }
         return $facultadbd;
     }
 
     public function consultarFacultadesSede($sede)
     {
-        $facultadbd = DB::select('SELECT  idFacultad,codFacultad,nombre, nroCuenta, nombresede FROM facultad LEFT JOIN sede ON facultad.idFacultad = sede.codSede WHERE
+        try {
+            $facultadbd = DB::select('SELECT  idFacultad,codFacultad,nombre, nroCuenta, nombresede FROM facultad LEFT JOIN sede ON facultad.idFacultad = sede.codSede WHERE
         facultad.idFacultad = sede.codSede and sede.nombresede like "%' . $sede . '%" ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarFacultadesSede/facultadmodel');
+            return null;
+        }
         return $facultadbd;
     }
 
     public function consultarFacultadesCuentaInterna($nroCuenta)
     {
-        $facultadbd = DB::select('SELECT  idFacultad,codFacultad,nombre, nroCuenta, nombresede FROM facultad 
+        try {
+            $facultadbd = DB::select('SELECT  idFacultad,codFacultad,nombre, nroCuenta, nombresede FROM facultad 
         LEFT JOIN sede ON facultad.coSede= sede.codSede
         WHERE facultad.coSede= sede.codSede
         and sede.estado=1 and facultad.estado=1 and facultad.nroCuenta like "%' . $nroCuenta . '%"');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarFacultadesCuentaInterna/facultadmodel');
+            return null;
+        }
         return $facultadbd;
     }
 
@@ -194,6 +237,8 @@ class facultadmodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'save/facultadmodel');
             return false;
         }
         return true;
@@ -216,6 +261,8 @@ class facultadmodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'editarFacultad/facultadmodel');
             return false;
         }
         return true;
@@ -239,6 +286,8 @@ class facultadmodel
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'eliminarFacultad/facultadmodel');
             return false;
         }
         return true;
@@ -246,31 +295,49 @@ class facultadmodel
 
     public function bscSedeId($nombresede)
     {
-        $scod = null;
-        $sedebd = DB::table('sede')->where('nombresede', '=', $nombresede)->get();
+        try {
+            $scod = null;
+            $sedebd = DB::table('sede')->where('nombresede', '=', $nombresede)->get();
 
-        foreach ($sedebd as $sbd) {
-            $scod = $sbd->codSede;
+            foreach ($sedebd as $sbd) {
+                $scod = $sbd->codSede;
+            }
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'eliminarFacultad/facultadmodel');
+            return null;
         }
         return $scod;
     }
 
     public function obtenerId($nombre)
     {
-        $scod = null;
-        $fac = DB::table('facultad')->select('idFacultad')->where('nombre', '=', $nombre)->get();
-        foreach ($fac as $sbd) {
-            $scod = $sbd->idFacultad;
+        try {
+            $scod = null;
+            $fac = DB::table('facultad')->select('idFacultad')->where('nombre', '=', $nombre)->get();
+            foreach ($fac as $sbd) {
+                $scod = $sbd->idFacultad;
+            }
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'eliminarFacultad/facultadmodel');
+            return null;
         }
         return $scod;
     }
 
     public function obteneridSede($idsede, $nombrefacu)
     {
-        $scod = null;
-        $fac = DB::table('facultad')->select('idFacultad')->where('nombre', '=', $nombrefacu)->where('coSede', '=', $idsede)->get();
-        foreach ($fac as $sbd) {
-            $scod = $sbd->idFacultad;
+        try {
+            $scod = null;
+            $fac = DB::table('facultad')->select('idFacultad')->where('nombre', '=', $nombrefacu)->where('coSede', '=', $idsede)->get();
+            foreach ($fac as $sbd) {
+                $scod = $sbd->idFacultad;
+            }
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'eliminarFacultad/facultadmodel');
+            return null;
         }
         return $scod;
     }

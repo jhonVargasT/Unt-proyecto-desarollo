@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Controllers\util;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use PDOException;
@@ -152,10 +153,18 @@ class donacionmodel
 
     public function bdTramite($nombre)
     {
-        $idTra = DB::select('select codTramite from tramite where nombre=:nombre', ['nombre' => $nombre]);
-        foreach ($idTra as $idT) {
-            return $idTramite = $idT->codTramite;
+        $idTramite = null;
+        try {
+            $idTra = DB::select('select codTramite from tramite where nombre=:nombre', ['nombre' => $nombre]);
+            foreach ($idTra as $idT) {
+                $idTramite = $idT->codTramite;
+            }
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'bdTramite/donacionmodel');
+            return null;
         }
+        return $idTramite;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -172,11 +181,13 @@ class donacionmodel
         $logunt->setCodigoPersonal($codPers);
 
         try {
-            DB::transaction(function () use($logunt){
-                DB::table('donacion')->insert(['numResolucion' => $this->numResolucion, 'fechaIngreso' => $this->fechaIngreso, 'descripcion' => $this->descripcion, 'monto' => $this->monto, 'idTramite' => $this->idTramite, 'idBanco'=>$this->idBanco]);
+            DB::transaction(function () use ($logunt) {
+                DB::table('donacion')->insert(['numResolucion' => $this->numResolucion, 'fechaIngreso' => $this->fechaIngreso, 'descripcion' => $this->descripcion, 'monto' => $this->monto, 'idTramite' => $this->idTramite, 'idBanco' => $this->idBanco]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'saveDonacion/donacionmodel');
             return false;
         }
         return true;
@@ -193,11 +204,13 @@ class donacionmodel
         $logunt->setDescripcion('editarDonacion');
         $logunt->setCodigoPersonal($codPers);
         try {
-            DB::transaction(function () use ($codDonacion,$logunt) {
-                DB::table('donacion')->where('codDonacion', $codDonacion)->update(['numResolucion' => $this->numResolucion, 'fechaIngreso' => $this->fechaIngreso, 'descripcion' => $this->descripcion, 'monto' => $this->monto, 'idTramite' => $this->idTramite,'idBanco'=>$this->idBanco]);
+            DB::transaction(function () use ($codDonacion, $logunt) {
+                DB::table('donacion')->where('codDonacion', $codDonacion)->update(['numResolucion' => $this->numResolucion, 'fechaIngreso' => $this->fechaIngreso, 'descripcion' => $this->descripcion, 'monto' => $this->monto, 'idTramite' => $this->idTramite, 'idBanco' => $this->idBanco]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'editarDonacion/donacionmodel');
             return false;
         }
         return true;
@@ -214,11 +227,13 @@ class donacionmodel
         $logunt->setDescripcion('eliminarDonacion');
         $logunt->setCodigoPersonal($codPers);
         try {
-            DB::transaction(function () use ($codDonacion,$logunt) {
+            DB::transaction(function () use ($codDonacion, $logunt) {
                 DB::table('donacion')->where('codDonacion', $codDonacion)->update(['estado' => 0]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'eliminarDonacion/donacionmodel');
             return false;
         }
         return true;
@@ -226,53 +241,95 @@ class donacionmodel
 
     public function consultarDonacionid($codDonacion)
     {
-        $donacionbd = DB::select('SELECT codDonacion, numResolucion, fechaIngreso,descripcion,monto,tramite.nombre as tnombre, tipoRecurso, banco.cuenta as bcuenta FROM donacion LEFT JOIN tramite ON tramite.codTramite = donacion.idTramite LEFT JOIN
-        banco ON banco.codBanco = donacion.idBanco WHERE donacion.codDonacion = '.$codDonacion.' AND donacion.estado = 1 AND tramite.estado = 1
+        try {
+            $donacionbd = DB::select('SELECT codDonacion, numResolucion, fechaIngreso,descripcion,monto,tramite.nombre as tnombre, tipoRecurso, banco.cuenta as bcuenta FROM donacion LEFT JOIN tramite ON tramite.codTramite = donacion.idTramite LEFT JOIN
+        banco ON banco.codBanco = donacion.idBanco WHERE donacion.codDonacion = ' . $codDonacion . ' AND donacion.estado = 1 AND tramite.estado = 1
         AND banco.estado=1');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarDonacionid/donacionmodel');
+            return null;
+        }
         return $donacionbd;
     }
 
     public function consultarDonacionFecha($fechaIngreso)
     {
-        $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
-        tramite.codTramite = donacion.idTramite and donacion.fechaIngreso like "%'.$fechaIngreso.'%" and tramite.estado=1 and donacion.estado =1');
+        try {
+            $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
+        tramite.codTramite = donacion.idTramite and donacion.fechaIngreso like "%' . $fechaIngreso . '%" and tramite.estado=1 and donacion.estado =1');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarDonacionFecha/donacionmodel');
+            return null;
+        }
         return $donacionbd;
     }
 
     public function consultarDonacionTramite($nombre)
     {
-        $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
-        tramite.codTramite = donacion.idTramite and tramite.nombre like "%'.$nombre.'%" and tramite.estado=1 and donacion.estado =1');
+        try {
+            $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
+        tramite.codTramite = donacion.idTramite and tramite.nombre like "%' . $nombre . '%" and tramite.estado=1 and donacion.estado =1');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarDonacionTramite/donacionmodel');
+            return null;
+        }
         return $donacionbd;
     }
 
     public function consultarDonacionTipoRecurso($tipoRecurso)
     {
-        $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
-        tramite.codTramite = donacion.idTramite and tramite.tipoRecurso like "%'.$tipoRecurso.'%" and tramite.estado=1 and donacion.estado =1');
+        try {
+            $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
+        tramite.codTramite = donacion.idTramite and tramite.tipoRecurso like "%' . $tipoRecurso . '%" and tramite.estado=1 and donacion.estado =1');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarDonacionTipoRecurso/donacionmodel');
+            return null;
+        }
         return $donacionbd;
     }
 
     public function consultarDonacionFuenteFinanciamiento($fuentefinanc)
     {
-        $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
-        tramite.codTramite = donacion.idTramite and tramite.fuentefinanc like "%'.$fuentefinanc.'%" and tramite.estado=1 and donacion.estado =1');
+        try {
+            $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
+        tramite.codTramite = donacion.idTramite and tramite.fuentefinanc like "%' . $fuentefinanc . '%" and tramite.estado=1 and donacion.estado =1');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarDonacionFuenteFinanciamiento/donacionmodel');
+            return null;
+        }
         return $donacionbd;
     }
 
     public function consultarDonacionNumeroResolucion($numResolucion)
     {
-        $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
-        tramite.codTramite = donacion.idTramite and donacion.numResolucion like "%'.$numResolucion.'%" and tramite.estado=1 and donacion.estado =1');
+        try {
+            $donacionbd = DB::select('select * from tramite left join donacion on tramite.codTramite = donacion.idTramite where 
+        tramite.codTramite = donacion.idTramite and donacion.numResolucion like "%' . $numResolucion . '%" and tramite.estado=1 and donacion.estado =1');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarDonacionNumeroResolucion/donacionmodel');
+            return null;
+        }
         return $donacionbd;
     }
 
     public function consultarDonaciones($fecha)
 
     {
-        $donacionbd = DB::select('SELECT d.codDonacion as codigo ,d.numResolucion,b.banco,b.cuenta,t.nombre,d.fechaIngreso,d.descripcion,d.monto as importe FROM donacion d  
+        try {
+            $donacionbd = DB::select('SELECT d.codDonacion as codigo ,d.numResolucion,b.banco,b.cuenta,t.nombre,d.fechaIngreso,d.descripcion,d.monto as importe FROM donacion d  
           left join tramite t on t.codTramite=d.idtramite 
           left join banco b on b.codBanco=d.idBanco ' . $fecha . ' and d.estado=1');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarDonaciones/donacionmodel');
+            return null;
+        }
         return $donacionbd;
     }
 
@@ -280,11 +337,16 @@ class donacionmodel
     public function obteneridBanco($cuenta)
     {
         $idb = null;
-        $bancobd = DB::select('select codBanco from banco where cuenta= "'.$cuenta.'" and estado =1');
+        try {
+            $bancobd = DB::select('select codBanco from banco where cuenta= "' . $cuenta . '" and estado =1');
 
-        foreach ($bancobd as $b)
-        {
-            $idb = $b->codBanco;
+            foreach ($bancobd as $b) {
+                $idb = $b->codBanco;
+            }
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'obteneridBanco/donacionmodel');
+            return null;
         }
         return $idb;
     }
