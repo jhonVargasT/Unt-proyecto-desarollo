@@ -183,7 +183,7 @@ class personalmodel extends personamodel
                 foreach ($personabd as $pbd) {
                     $idp = $pbd->codPersona;
                 }
-                DB::table('personal')->insert(['cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta, 'idPersona' => $idp, 'codPersonal' => $this->codPersonal, 'idSede' => $this->idSede]);
+                DB::table('personal')->insert(['cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta, 'idPersona' => $idp, 'codPersonal' => $this->codPersonal, 'idSede' =>$this->idSede]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
