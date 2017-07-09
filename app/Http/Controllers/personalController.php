@@ -24,7 +24,6 @@ class personalController extends Controller
         $idS = $personal->obtenerIdSede($request->sede);//SQL, obtener id de la sede por su nombre
         $personal->setIdSede($idS);
         $p = $personal->savepersonal();//SQL, insertar datos del personal
-
         if ($p == true) {
             return back()->with('true', 'Personal ' . $request->nombres . ' guardada con exito')->withInput();
         } else {

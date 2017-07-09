@@ -175,7 +175,6 @@ class personalmodel extends personamodel
         $logunt->setFecha($date);
         $logunt->setDescripcion('registrarPersonal');
         $logunt->setCodigoPersonal($codPers);
-        echo ' asdasd';
         try {
             DB::transaction(function () use ($logunt) {
                 DB::table('persona')->insert(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(), 'correo' => $this->getCorreo()]);
