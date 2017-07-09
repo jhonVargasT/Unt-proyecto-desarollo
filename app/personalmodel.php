@@ -130,7 +130,6 @@ class personalmodel extends personamodel
         return $this;
     }
 
-
     public function logear()
     {
         try {
@@ -183,7 +182,7 @@ class personalmodel extends personamodel
                 foreach ($personabd as $pbd) {
                     $idp = $pbd->codPersona;
                 }
-                DB::table('personal')->insert(['cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta, 'idPersona' => $idp, 'codPersonal' => $this->codPersonal, 'idSede' =>$this->idSede]);
+                DB::table('personal')->insert(['cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta, 'idPersona' => $idp, 'codPersonal' => $this->codPersonal, 'idSede' => $this->idSede]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -375,7 +374,7 @@ class personalmodel extends personamodel
             }
         } catch (PDOException $e) {
             $util = new util();
-            $util->insertarError($e->getMessage(), 'eliminarPersonal/personalmodel');
+            $util->insertarError($e->getMessage(), 'buscarSedePersonal/personalmodel');
             return null;
         }
         return $sbd;
