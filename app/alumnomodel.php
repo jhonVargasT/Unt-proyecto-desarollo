@@ -135,18 +135,18 @@ class alumnomodel extends personamodel
     public function bdEscuela($nombre)
     {
         try {
-            $e = null;
+            $esc = null;
             $escuela = DB::select('select idEscuela from escuela where nombre=:nombre', ['nombre' => $nombre]);
 
             foreach ($escuela as $es) {
-                $es->idEscuela;
+                $esc = $es->idEscuela;
             }
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'bdEscuela/alumnomodel');
             return null;
         }
-        return $e;
+        return $esc;
     }
 
     public function bdEscuelaSede($nombre, $sede)
@@ -188,7 +188,6 @@ class alumnomodel extends personamodel
 
     public function savealumno($dni)
     {
-        echo 1;
         $idp = null;
         date_default_timezone_set('Etc/GMT+5');
         $date = date('Y-m-d H:i:s', time());

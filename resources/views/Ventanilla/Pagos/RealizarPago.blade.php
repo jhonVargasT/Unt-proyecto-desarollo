@@ -96,7 +96,7 @@
                                                             $("#selectP").empty();
                                                             document.getElementById("selectP").disabled = true;
                                                             document.getElementById("selectP").required = false;
-                                                            $('#enviar').removeAttr('disabled');
+
                                                         }
                                                         else {
                                                             $("#selectP").empty();
@@ -135,7 +135,6 @@
                                                                 $("#selectP").empty();
                                                                 document.getElementById("selectP").disabled = true;
                                                                 document.getElementById("selectP").required = false;
-                                                                $('#enviar').removeAttr('disabled');
                                                             }
                                                             else {
                                                                 $("#selectP").empty();
@@ -286,6 +285,20 @@
                                 <textarea class="form-control input-sm" name="detalle" placeholder="Detalle"
                                           id="detalle" required></textarea>
                             </div>
+                            <script>
+                                $(document).ready(function () {
+                                    $('#enviar').attr('disabled', true);
+
+                                    $('#detalle').keyup(function () {
+                                        if ($(this).val().length != 0) {
+                                            $('#enviar').attr('disabled', false);
+                                        }
+                                        else {
+                                            $('#enviar').attr('disabled', true);
+                                        }
+                                    })
+                                });
+                            </script>
                             <style>
                                 .required:after {
                                     content: " (*) ";
@@ -300,9 +313,9 @@
                         </div>-->
                     </div>
                     <div class="col-sm-12 row form-group">
-                        <span class="col-sm-2 required">Produccion:</span>
+                        <!--<span class="col-sm-2 required">Produccion:</span>-->
                         <div class="col-sm-4">
-                            <select class=" form-group-sm form-control" id="selectP" name="selectP" required disabled>
+                            <!--<select class=" form-group-sm form-control" id="selectP" name="selectP" required disabled>
                                 <option selected disabled>Seleccionar..</option>
                             </select>
                             <script>
@@ -312,9 +325,9 @@
                                         $('#enviar').removeAttr('disabled');
                                     }
                                 });
-                            </script>
-                            @if(isset($buscar))
-                                <script>
+                            </script>-->
+                        @if(isset($buscar))
+                            <!--<script>
                                     $('#enviar').setAttribute('disabled');
                                     var value = $('#select option:selected').attr('value');
                                     if (value == 'Dni') {
@@ -327,7 +340,6 @@
                                                     $("#selectP").empty();
                                                     document.getElementById("selectP").disabled = true;
                                                     document.getElementById("selectP").required = true;
-                                                    $('#enviar').removeAttr('disabled');
                                                 }
                                                 else {
                                                     $("#selectP").empty();
@@ -355,7 +367,6 @@
                                                         $("#selectP").empty();
                                                         document.getElementById("selectP").disabled = true;
                                                         document.getElementById("selectP").required = true;
-                                                        $('#enviar').removeAttr('disabled');
                                                     }
                                                     else {
                                                         $("#selectP").empty();
@@ -369,7 +380,7 @@
                                             });
                                         }
                                     }
-                                </script>
+                                </script>-->
                             @endif
                         </div>
                     </div>
@@ -402,7 +413,6 @@
                                         }
                                         else {
                                             $('#bp').val(r);
-
                                         }
                                     });
                                 </script>

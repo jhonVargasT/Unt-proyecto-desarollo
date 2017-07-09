@@ -299,8 +299,7 @@ class alumnoController extends Controller
             $dato[2] = $n->correo;
             $dato[3] = $n->codAlumno;
             $dato[4] = $n->fecha;
-
-            return response()->json($dato);
         }
+        return response()->json($dato);
     }
 }

@@ -73,17 +73,14 @@
                                                 type: "get",
                                                 data: {dni: $('#dni').val()},
                                                 success: function (data) {
-                                                    $('#nombres').val(data[0]);
-                                                    $('#apellidos').val(data[1]);
-                                                    $('#correo').val(data[2]);
-                                                    $('#codAlumno').val(data[3]);
-                                                    $('#fecha').val(data[4]);
-                                                },
-                                                error: function () {
-                                                    $('#nombres').val(' ');
-                                                    $('#apellidos').val(' ');
-                                                    $('#correo').val(' ');
-                                                    $('#codAlumno').val(' ');
+                                                    if (data) {
+                                                        $('#nombres').val(data[0]);
+                                                        $('#apellidos').val(data[1]);
+                                                        $('#correo').val(data[2]);
+                                                        $('#codAlumno').val(data[3]);
+                                                        $('#fecha').val(data[4]);
+                                                    }
+
                                                 }
                                             });
                                         });
