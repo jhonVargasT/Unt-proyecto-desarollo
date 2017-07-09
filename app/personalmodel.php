@@ -175,7 +175,8 @@ class personalmodel extends personamodel
         $logunt->setFecha($date);
         $logunt->setDescripcion('registrarPersonal');
         $logunt->setCodigoPersonal($codPers);
-        try {
+        echo $this->idSede;
+        //try {
             DB::transaction(function () use ($logunt,$idp) {
                 DB::table('persona')->insert(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(), 'correo' => $this->getCorreo()]);
                 $personabd = DB::table('persona')->where('dni', $this->getDni())->get();
@@ -185,12 +186,12 @@ class personalmodel extends personamodel
                 DB::table('personal')->insert(['cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta, 'idPersona' => $idp, 'codPersonal' => $this->codPersonal, 'idSede' => $this->idSede]);
                 $logunt->saveLogUnt();
             });
-        } catch (PDOException $e) {
+        /*} catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'savepersonal/personalmodel');
             return false;
-        }
-        return true;
+        }*/
+        return $this->idSede;
     }
 
     public function editarPersonal($codPersona)
