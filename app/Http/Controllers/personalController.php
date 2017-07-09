@@ -24,12 +24,12 @@ class personalController extends Controller
         $idS = $personal->obtenerIdSede($request->sede);//SQL, obtener id de la sede por su nombre
         $personal->setIdSede($idS);
         $p = $personal->savepersonal();//SQL, insertar datos del personal
-        var_dump($p);
-        /*if ($p == true) {
+
+        if ($p == true) {
             return back()->with('true', 'Personal ' . $request->nombres . ' guardada con exito')->withInput();
         } else {
             return back()->with('false', 'Personal ' . $request->nombres . ' no guardada, puede que ya exista');
-        }*/
+        }
     }
 
     //Cerrar sesion del personal

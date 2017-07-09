@@ -130,6 +130,7 @@ class personalmodel extends personamodel
         return $this;
     }
 
+
     public function logear()
     {
         try {
@@ -166,7 +167,6 @@ class personalmodel extends personamodel
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function savepersonal()
     {
-        $idp = null;
         date_default_timezone_set('Etc/GMT+5');
         $date = date('Y-m-d H:i:s', time());
         $logunt = new loguntemodel();
@@ -175,23 +175,23 @@ class personalmodel extends personamodel
         $logunt->setFecha($date);
         $logunt->setDescripcion('registrarPersonal');
         $logunt->setCodigoPersonal($codPers);
-        echo $this->idSede;
-        //try {
-            DB::transaction(function () use ($logunt,$idp) {
+        try {
+            DB::transaction(function () use ($logunt) {
                 DB::table('persona')->insert(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(), 'correo' => $this->getCorreo()]);
                 $personabd = DB::table('persona')->where('dni', $this->getDni())->get();
                 foreach ($personabd as $pbd) {
                     $idp = $pbd->codPersona;
+                    DB::table('personal')->insert(['cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta, 'idPersona' => $idp, 'codPersonal' => $this->codPersonal, 'idSede' => $this->idSede]);
+                    $logunt->saveLogUnt();
                 }
-                DB::table('personal')->insert(['cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta, 'idPersona' => $idp, 'codPersonal' => $this->codPersonal, 'idSede' => $this->idSede]);
-                $logunt->saveLogUnt();
             });
-        /*} catch (PDOException $e) {
+        } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'savepersonal/personalmodel');
             return false;
-        }*/
-        return $this->idSede;
+        }
+        return true;
+
     }
 
     public function editarPersonal($codPersona)
@@ -375,7 +375,7 @@ class personalmodel extends personamodel
             }
         } catch (PDOException $e) {
             $util = new util();
-            $util->insertarError($e->getMessage(), 'buscarSedePersonal/personalmodel');
+            $util->insertarError($e->getMessage(), 'eliminarPersonal/personalmodel');
             return null;
         }
         return $sbd;
