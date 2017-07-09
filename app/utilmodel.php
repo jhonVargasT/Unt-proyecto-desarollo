@@ -76,14 +76,14 @@ class utilmodel extends Model
         $value = Session::get('personalC');
         $logunt = new loguntemodel();
         $this->setIdPersonal($logunt->obtenerCodigoPersonal($value));
-        //try{
+        try{
            DB::table('log_errores_sistema')->insert(['mensaje'=>$this->mensaje,'funcion'=>$this->funcion,'coPersonal'=>$this->idPersonal]);
-        /*}catch (Exception $e)
+        }catch (Exception $e)
         {
          $this->setFuncion('insertar error');
          $this->setMensaje($e->getMessage());
          $this->insertarError();
-        }*/
+        }
     }
 
 }
