@@ -40,7 +40,7 @@
                         <span class="col-sm-2 control-label"> SIAF </span>
                         <div class="col-sm-3">
                             <input class="form-control input-sm" name="clasificador" type="text"
-                                   autocomplete="off" required>
+                                   autocomplete="off" required onkeypress="return validarNum(event)">
                         </div>
                     </div>
                     <div class=" form-group-sm" align="left">
