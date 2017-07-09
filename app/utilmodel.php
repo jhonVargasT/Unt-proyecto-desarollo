@@ -5,6 +5,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use PDOException;
 
 class utilmodel extends Model
 {
@@ -77,7 +78,7 @@ class utilmodel extends Model
         $this->setIdPersonal($logunt->obtenerCodigoPersonal($value));
         try{
            DB::table('log_errores_sistema')->insert(['mensaje'=>$this->mensaje,'funcion'=>$this->funcion,'coPersonal'=>$this->idPersonal]);
-        }catch (Exception $e)
+        }catch (PDOException $e)
         {
          $this->setFuncion('insertar error');
          $this->setMensaje($e->getMessage());

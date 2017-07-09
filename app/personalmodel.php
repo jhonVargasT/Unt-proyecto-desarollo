@@ -334,7 +334,6 @@ class personalmodel extends personamodel
             $util = new util();
             $util->insertarError($e->getMessage(), ' consultaPersonales/personalmodel');
             return null;
-
         }
         return $alumnobd;
     }
