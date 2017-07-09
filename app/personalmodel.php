@@ -167,6 +167,7 @@ class personalmodel extends personamodel
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function savepersonal()
     {
+        $idp = null;
         date_default_timezone_set('Etc/GMT+5');
         $date = date('Y-m-d H:i:s', time());
         $logunt = new loguntemodel();
@@ -176,14 +177,14 @@ class personalmodel extends personamodel
         $logunt->setDescripcion('registrarPersonal');
         $logunt->setCodigoPersonal($codPers);
         try {
-            DB::transaction(function () use ($logunt) {
+            DB::transaction(function () use ($logunt,$idp) {
                 DB::table('persona')->insert(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(), 'correo' => $this->getCorreo()]);
                 $personabd = DB::table('persona')->where('dni', $this->getDni())->get();
                 foreach ($personabd as $pbd) {
                     $idp = $pbd->codPersona;
-                    DB::table('personal')->insert(['cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta, 'idPersona' => $idp, 'codPersonal' => $this->codPersonal, 'idSede' => $this->idSede]);
-                    $logunt->saveLogUnt();
                 }
+                DB::table('personal')->insert(['cuenta' => $this->cuenta, 'password' => $this->password, 'tipoCuenta' => $this->tipoCuenta, 'idPersona' => $idp, 'codPersonal' => $this->codPersonal, 'idSede' => $this->idSede]);
+                $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
             $util = new util();
@@ -191,7 +192,6 @@ class personalmodel extends personamodel
             return false;
         }
         return true;
-
     }
 
     public function editarPersonal($codPersona)
