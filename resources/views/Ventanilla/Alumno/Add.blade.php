@@ -73,7 +73,7 @@
                                                 type: "get",
                                                 data: {dni: $('#dni').val()},
                                                 success: function (data) {
-                                                    if (data) {
+                                                    if (data!=false) {
                                                         $('#nombres').val(data[0]);
                                                         $('#apellidos').val(data[1]);
                                                         $('#correo').val(data[2]);
