@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -75,7 +76,7 @@ class utilmodel extends Model
         $logunt = new loguntemodel();
         $this->setIdPersonal($logunt->obtenerCodigoPersonal($value));
         try{
-           DB::table('log_errores_sistema')->insert(['mensaje'=>$this->mensaje,'funcion'=>$this->funcion,'idPersonal'=>$this->idPersonal]);
+           DB::table('log_errores_sistema')->insert(['mensaje'=>$this->mensaje,'funcion'=>$this->funcion,'coPersonal'=>$this->idPersonal]);
         }catch (Exception $e)
         {
          $this->setFuncion('insertar error');
