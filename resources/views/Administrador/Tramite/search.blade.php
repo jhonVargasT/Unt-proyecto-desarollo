@@ -21,6 +21,7 @@
     </div>
 @stop
 @section('content')
+
     @if(session()->has('true'))
         <div class="alert alert-success" role="alert">{{session('true')}} </div>
     @endif

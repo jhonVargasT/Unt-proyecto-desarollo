@@ -122,6 +122,7 @@
                                     $("#help").slideToggle(1000, function () {
                                     });
                                 });
+
                             });
                         </script>
                         <style>

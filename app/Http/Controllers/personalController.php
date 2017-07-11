@@ -22,6 +22,7 @@ class personalController extends Controller
         $personal->setCodPersonal($request->codigoPersonal);
         $personal->setCorreo($request->correo);
         $idS = $personal->obtenerIdSede($request->sede);//SQL, obtener id de la sede por su nombre
+
         $personal->setIdSede($idS);
         $p = $personal->savepersonal();//SQL, insertar datos del personal
 
@@ -42,12 +43,16 @@ class personalController extends Controller
     //Inciciar session del personal
     public function loguearPersonal(Request $request)
     {
+
         $personal = new personalmodel();
         $perso = new personamodel();
+        //seguro que asi se accede ?
         $personal->setCuenta($request->cuenta);
         $personal->setPassword($request->password);
         $person = $personal->logear();//SQL, obtener datos del personal
+
         $idpersonal = null;
+        //person no es un array
         foreach ($person as $per) {
             $personal->setCuenta($per->cuenta);
             $personal->setPassword($per->password);

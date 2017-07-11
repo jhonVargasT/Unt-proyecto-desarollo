@@ -136,10 +136,11 @@ class personalmodel extends personamodel
         try {
 
             $personal = DB::table('personal')->where(['cuenta' => $this->cuenta, 'password' => $this->password, 'estado' => 1])->get();
+
         } catch
         (PDOException $e) {
             $util = new util();
-            $util->insertarError($e->getMessage(), 'logear/personalmodel');
+           $util->insertarError($e->getMessage(), 'logear/personalmodel');
             return null;
 
         }
