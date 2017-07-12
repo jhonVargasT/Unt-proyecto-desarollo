@@ -23,9 +23,16 @@
 @stop
 @section('content')
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
     <script type="text/javascript">
         function limpiarCampos() {
 
@@ -56,8 +63,6 @@
             document.getElementById("ccp").checked = false;
 
         }
-
-
 
 
         function habilitarCP(value) {
@@ -222,13 +227,13 @@
                                 $('input.typeahead').typeahead({
                                     source: function (query, process) {
                                         var value = $('#opcTramite option:selected').attr('value');
-                                        if (value == 'Tramite') {
+                                        if (value == 'Clasificador') {
                                             return $.get(path, {query: query}, function (data) {
                                                 return process(data);
                                             });
                                         }
                                         else {
-                                            if (value == 'SubTramite') {
+                                            if (value == 'Tasa') {
                                                 return $.get(path2, {query: query}, function (data) {
                                                     return process(data);
                                                 });
@@ -268,8 +273,23 @@
                         <div class="form-group-sm col-sm-2">
                             <input type="checkbox" id="ccp" onclick="habilitarCP(this.checked)">
                             Centro de produccion
-                            <input type="text" class="form-control input-sm " id="cp" name="cp"
-                                   autocomplete="off" readOnly>
+                            @if(isset($produccion))
+                                <input class="typeaheads form-control " name="cp" value="{{$produccion}}" id="cp"
+                                       autocomplete="off" readonly>
+                            @else
+                                <input class="typeaheads form-control " name="cp" id="cp" autocomplete="off"
+                                       readonly>
+                            @endif
+                            <script>
+                                var pathcp = "{{ route('autocompleteprod')}}";
+                                $('input.typeaheads').typeahead({
+                                    source: function (querycp, processcp) {
+                                        return $.get(pathcp, {query: querycp}, function (datacp) {
+                                            return processcp(datacp);
+                                        });
+                                    }
+                                });
+                            </script>
                         </div>
                         <div class="form-group-sm col-sm-2 ">
                             <input type="checkbox" id="sed" onclick="habilitarsed(this.checked)">
@@ -303,19 +323,19 @@
                                        readOnly>
                             @endif
                             <script>
-                                src = "{{ route('searchF') }}";
+                                srcF = "{{ route('searchF') }}";
                                 $('#fac').autocomplete({
-                                    source: function (request, response) {
+                                    source: function (requestF, responseF) {
                                         $.ajax({
-                                            url: src,
+                                            url: srcF,
                                             type: 'get',
                                             dataType: "json",
                                             data: {
                                                 term: $('#fac').val(),
                                                 sede: $('#sede').val()
                                             },
-                                            success: function (data) {
-                                                response(data);
+                                            success: function (dataF) {
+                                                responseF(dataF);
                                             }
                                         });
                                     },
@@ -354,12 +374,11 @@
                                 });
                             </script>
                         </div>
-
                         <div class="form-group-sm col-sm-2">
                             <div class="form-group-sm col-sm-12">
                                 <input type="checkbox" id="ctr" onclick=" habilitartr(this.checked)">
 
-                            Tipo de recurso
+                                Tipo de recurso
                             </div>
                             <div class="form-group-sm col-sm-4">
 
@@ -395,7 +414,7 @@
                         </div>
                         <div class="col-md-2 form-group-sm">
                             <a class=" btn btn-warning" onclick="limpiarCampos(this);">
-                                <span class="glyphicon glyphicon-erase" >
+                                <span class="glyphicon glyphicon-erase">
 
                                 </span> Limpiar campos
                             </a>
@@ -495,23 +514,23 @@
                         </thead>
                         <tbody>
                         @if(isset($result))
-                                <!--Contenido-->
-                        @foreach($result as $r)
-                            <tr>
-                                <td><h6 align="center">{{$r->codigopago}}</h6></td>
-                                <td><h6 align="left">{{$r->modalidad}}</h6></td>
-                                <td><h6 align="left">{{$r->nombresede}}</h6></td>
-                                <td><h6 align="left">{{$r->nombrefacultad}}</h6></td>
-                                <td><h6 align="left">{{$r->nombreescuela}}</h6></td>
-                                <td><h6 align="left">{{$r->clasi}}</h6></td>
-                                <td><h6 align="center">{{$r->fuentefinanc}}</h6></td>
-                                <td><h6 align="center">{{$r->tiporecurso }}</h6></td>
-                                <td><h6 align="left">{{$r-> nombretramite}}</h6></td>
-                                <td><h6 align="left">{{$r->nombresubtramite }}</h6></td>
-                                <td><h6 align="left">{{$r->fechapago}}</h6></td>
-                                <td><h6 align="center">{{$r->precio}}</h6></td>
-                                <td><h6 align="left">{{$r->pagodetalle}}</h6></td>
-                            </tr>
+                            <!--Contenido-->
+                            @foreach($result as $r)
+                                <tr>
+                                    <td><h6 align="center">{{$r->codigopago}}</h6></td>
+                                    <td><h6 align="left">{{$r->modalidad}}</h6></td>
+                                    <td><h6 align="left">{{$r->nombresede}}</h6></td>
+                                    <td><h6 align="left">{{$r->nombrefacultad}}</h6></td>
+                                    <td><h6 align="left">{{$r->nombreescuela}}</h6></td>
+                                    <td><h6 align="left">{{$r->clasi}}</h6></td>
+                                    <td><h6 align="center">{{$r->fuentefinanc}}</h6></td>
+                                    <td><h6 align="center">{{$r->tiporecurso }}</h6></td>
+                                    <td><h6 align="left">{{$r-> nombretramite}}</h6></td>
+                                    <td><h6 align="left">{{$r->nombresubtramite }}</h6></td>
+                                    <td><h6 align="left">{{$r->fechapago}}</h6></td>
+                                    <td><h6 align="center">{{$r->precio}}</h6></td>
+                                    <td><h6 align="left">{{$r->pagodetalle}}</h6></td>
+                                </tr>
                         </tbody>
                         @endforeach
                         @endif

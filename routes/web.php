@@ -332,7 +332,7 @@ Route::get('autocompletee', array('as' => 'autocompletee', 'uses' => 'escuelaCon
 Route::get('autocompletet', array('as' => 'autocompletet', 'uses' => 'donacionController@autocompletet'));
 Route::get('autocompletes', array('as' => 'autocompletes', 'uses' => 'pagoController@autocompletes'));
 Route::get('autocompletesede', array('as' => 'autocompletesede', 'uses' => 'facultadController@autocompletesede'));
-//Route::get('autocompleteprod', array('as' => 'autocompleteprod', 'uses' => 'produccionController@autocompleteprod'));
+Route::get('autocompleteprod', array('as' => 'autocompleteprod', 'uses' => 'produccionController@autocompleteprod'));
 Route::get('escuela', array('as' => 'escuela', 'uses' => 'alumnoController@escuela'));
 
 Route::get('/buscarAlumno', 'alumnoController@buscarAlumno');
