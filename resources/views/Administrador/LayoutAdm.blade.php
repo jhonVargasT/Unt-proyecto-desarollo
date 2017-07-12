@@ -14,7 +14,11 @@
         <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
         <!-- JQUERY SCRIPTS -->
         <script src="{{asset('assets/js/jquery-1.10.2.js')}}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.6/sweetalert2.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.6/sweetalert2.css">
 
+        <!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
         <!-- BOOTSTRAP SCRIPTS -->
         <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
         <!-- Custom styles for this template -->

@@ -33,7 +33,9 @@
             @if(session()->has('false'))
                 <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
             @endif
-            <form name="form" action="{{url('PersonalRegistrado')}}" role="form" method="POST" class="Vertical">
+            <form name="form" onsubmit="activarbotonform(event,['spandni','spannombre',
+                            'spanapellidos','spancorreo','spancodigoPersonal'
+                            ],'enviar','mensaje')" action="{{url('PersonalRegistrado')}}" role="form" method="POST" class="Vertical">
                 {{csrf_field()}}
                 <div class="panel  panel-primary">
                     <div class="panel-heading">Datos Sede</div>
@@ -45,7 +47,7 @@
                                     <span class=" control-label"> Sede</span>
                                     <input class="typeahead form-control input-sm" name="sede" type="text"
                                            autocomplete="off" onkeypress="return validarLetras(event)"
-                                           placeholder="ejmp:Trujillo" required>
+                                            required>
                                 </div>
                                 <script type="text/javascript">
                                     var path = "{{ route('autocompletesede') }}";
@@ -68,9 +70,9 @@
                             <div class="form-group-sm " align="left">
                                 <div class="col-sm-3">
                                     <span class=" control-label"> Numero de Dni</span>
-                                    <input class="form-control input-sm" name="dni" id="dni"type="text"
+                                    <input class="form-control input-sm" name="dni" id="dni" type="text"
                                            autocomplete="off" onchange="validarDni('dni','spandni')"
-                                           placeholder="ejmp:75879887" required>
+                                            required>
 
                                     <span style="color: red" class=" control-label" id="spandni" > </span>
                                 </div>
@@ -82,7 +84,7 @@
                                     <span class="control-label" >Nombres</span>
                                     <input class="form-control input-sm" name="nombres" id='nombre'type="text"
                                            autocomplete="off"  onchange="validarNombre('nombre','spannombre')"
-                                           placeholder="ejmp:Juan Fernando" required>
+                                            required>
                                     <span style="color: red" class=" control-label" id="spannombre" > </span>
                                 </div>
 
@@ -93,7 +95,7 @@
                                     <span class="control-label">Apellidos</span>
                                     <input class="form-control input-sm" name="apellidos" id="apellidos" type="text"
                                            autocomplete="off"   onchange="validarNombre('apellidos','spanapellidos')"
-                                           placeholder="ejmp: Benites Alaya" required>
+                                            required>
                                     <span style="color: red" class="control-label" id="spanapellidos"></span>
                                 </div>
                             </div>
@@ -106,7 +108,7 @@
                                     <span class="control-label">Correo</span>
                                     <input class="form-control input-sm" name="correo" id="correo" type="email"
                                            autocomplete="off"
-                                           placeholder="Ejem: unt@gmail.com" onchange="validarCorreo('correo','spancorreo')" required>
+                                           onchange="validarCorreo('correo','spancorreo')" required>
                                     <span style="color: red" class="control-label" id="spancorreo"></span>
                                 </div>
                             </div>
@@ -134,7 +136,7 @@
                                 <div class="col-sm-2">
                                     <span class="control-label">Codigo personal</span>
                                     <input class="form-control input-sm" name="codigoPersonal" id="codigoPersonal" type="text"
-                                           placeholder="ejmp: 00025487" onchange="validarNumeros('codigoPersonal','spancodigoPersonal')" required>
+                                            onchange="validarNumeros('codigoPersonal','spancodigoPersonal')" required>
                                     <span style="color: red" class="control-label" id="spancodigoPersonal"></span>
                                 </div>
                             </div>
@@ -168,16 +170,19 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-12 row form-group" align="center">
+                    <span id="mensaje" class="control-label" style="color: red"></span>
+                </div>
                 <div class="col-sm-12 row form-group">
                     <div class="col-md-3"></div>
                     <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
                                 class="glyphicon glyphicon-ban-circle"></span>
                         Cancelar</a>
                     <div class="col-md-2"></div>
-                    <button type="submit" name="enviar" id="enviar" class="col-md-2 btn btn-success"
-                            onclick="activarboton(['spandni','spannombre',
-                            'spanapellidos','spancorreo','spancodigoPersonal',
-                            'spancontraseñavalidar'],'enviar')">
+                    <button type="submit" name="enviar" id="enviar" class=" col-md-2 btn btn-success"
+                          onmouseover="activarbotonform(null,['spandni','spannombre',
+                            'spanapellidos','spancorreo','spancodigoPersonal'
+                            ],'enviar','mensaje')">
                         <span
                                 class="glyphicon glyphicon-ok"></span> Guardar
                     </button>

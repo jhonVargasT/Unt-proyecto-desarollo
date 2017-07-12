@@ -1,17 +1,42 @@
 /**
  * Created by JhO.On on 11/07/2017.
  */
-function activarboton(myarray,idboton)
+
+function alerta(mensaje)
 {
-  var cont=0;
-  var dat;
-for (var i=0;i<myarray.length;i++)
-{
-    dat=+myarray[i];
-    cont++;
+    swal({
+        title: 'Error!',
+        text: 'No se puede registrar, verifique que todos los campos esten correctamente ingresados.',
+        type: 'error',
+        confirmButtonText: 'Aceptar'
+    })
 }
-    alert(dat,cont);
+
+function activarbotonform(event,myarray,idboton,idspanmensaje) {
+    var cont = 0;
+    for (var i = 0; i < myarray.length; i++) {
+
+        texto = document.getElementById("" + myarray[i] + "").innerHTML;
+       if(texto === "") {
+
+       }
+       else {
+           ++cont;
+
+       }
+    }
+
+    if (cont>0){
+
+        event && event.preventDefault();
+        document.getElementById(idboton).setAttribute('class','col-md-2 btn btn-success disabled');
+        alerta("Completa los campos correctamente");
+    }else{
+
+        document.getElementById(idboton).setAttribute('class','col-md-2 btn btn-success');
+    }
 }
+
 function validarContraseña(idContra,idRepContra,idspan) {
     var texto1=document.getElementById(idContra).value;
     var texto2=document.getElementById(idRepContra).value;
