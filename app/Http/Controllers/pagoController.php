@@ -55,6 +55,7 @@ class pagoController extends Controller
         $dato = date('Y-m-d H:i:s');
         $pago = $request->boletapagar;
         $total = $request->total;
+        $cantidad = $request->multiplicador;
         $p = new pagomodel();
         $p->setDetalle($request->detalle);
         $p->setFecha($dato);
@@ -63,6 +64,7 @@ class pagoController extends Controller
         $p->setCoPersonal($idper);
         $p->setIdPersona($codper);
         $p->setIdSubtramite($codSubtramite);
+        $p->setCantidad($cantidad);
         if ($request->selectP) {
             $cpro = $al->bdProduccion($request->selectP);
             $cod = $al->obtenerCodAlumnoxCodPersona($codper);
