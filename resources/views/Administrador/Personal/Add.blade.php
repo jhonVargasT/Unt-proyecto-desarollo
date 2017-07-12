@@ -40,8 +40,9 @@
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label"> Sede</span>
+
                                 <div class="col-sm-3">
+                                    <span class=" control-label"> Sede</span>
                                     <input class="typeahead form-control input-sm" name="sede" type="text"
                                            autocomplete="off" onkeypress="return validarLetras(event)"
                                            placeholder="ejmp:Trujillo" required>
@@ -65,37 +66,48 @@
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label"> Numero de Dni</span>
                                 <div class="col-sm-3">
-                                    <input class="form-control input-sm" name="dni" type="text"
-                                           autocomplete="off" onkeypress="return validarNum(event)"
+                                    <span class=" control-label"> Numero de Dni</span>
+                                    <input class="form-control input-sm" name="dni" id="dni"type="text"
+                                           autocomplete="off" onchange="validarDni('dni','spandni')"
                                            placeholder="ejmp:75879887" required>
+
+                                    <span style="color: red" class=" control-label" id="spandni" > </span>
                                 </div>
+
                             </div>
-                            <div class="form-group-sm" ALIGN="right">
-                                <span class="col-sm-2">Nombres</span>
+                            <div class="form-group-sm" align="left">
+
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="nombres" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)"
+                                    <span class="control-label" >Nombres</span>
+                                    <input class="form-control input-sm" name="nombres" id='nombre'type="text"
+                                           autocomplete="off"  onchange="validarNombre('nombre','spannombre')"
                                            placeholder="ejmp:Juan Fernando" required>
+                                    <span style="color: red" class=" control-label" id="spannombre" > </span>
+                                </div>
+
+                            </div>
+                            <div class="form-group-sm" align="left">
+
+                                <div class="col-sm-4">
+                                    <span class="control-label">Apellidos</span>
+                                    <input class="form-control input-sm" name="apellidos" id="apellidos" type="text"
+                                           autocomplete="off"   onchange="validarNombre('apellidos','spanapellidos')"
+                                           placeholder="ejmp: Benites Alaya" required>
+                                    <span style="color: red" class="control-label" id="spanapellidos"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12 row form-group">
-                            <div class="form-group-sm">
-                                <span class="col-sm-2">Apellidos</span>
-                                <div class="col-sm-3">
-                                    <input class="form-control input-sm" name="apellidos" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)"
-                                           placeholder="ejmp: Benites Alaya" required>
-                                </div>
-                            </div>
-                            <div class="form-group-sm" align="right">
-                                <span class="col-sm-2">Correo</span>
+
+                            <div class="form-group-sm" >
+
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="correo" type="email"
+                                    <span class="control-label">Correo</span>
+                                    <input class="form-control input-sm" name="correo" id="correo" type="email"
                                            autocomplete="off"
-                                           placeholder="Ejem: unt@gmail.com" required>
+                                           placeholder="Ejem: unt@gmail.com" onchange="validarCorreo('correo','spancorreo')" required>
+                                    <span style="color: red" class="control-label" id="spancorreo"></span>
                                 </div>
                             </div>
                         </div>
@@ -106,8 +118,9 @@
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label">Tipo de cuenta</span>
+
                                 <div class="col-sm-3">
+                                    <span class="control-label">Tipo de cuenta</span>
                                     <select class="form-control " name="tipocuenta">
                                         <option>Administrador</option>
                                         <option>Ventanilla</option>
@@ -117,28 +130,41 @@
                                 </div>
                             </div>
                             <div class="form-group-sm">
-                                <span class="col-sm-2">Codigo personal</span>
-                                <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="codigoPersonal" type="text"
-                                           placeholder="ejmp: 00025487" required>
+
+                                <div class="col-sm-2">
+                                    <span class="control-label">Codigo personal</span>
+                                    <input class="form-control input-sm" name="codigoPersonal" id="codigoPersonal" type="text"
+                                           placeholder="ejmp: 00025487" onchange="validarNumeros('codigoPersonal','spancodigoPersonal')" required>
+                                    <span style="color: red" class="control-label" id="spancodigoPersonal"></span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label"> Cuenta</span>
-                                <div class="col-sm-3">
+
+                                <div class="col-sm-2">
+                                    <span class="control-label">Cuenta</span>
                                     <input class="form-control input-sm" name="cuentaAgregar" type="text"
                                            autocomplete="off" required>
                                 </div>
                             </div>
-                            <div class="form-group-sm">
-                                <span class="col-sm-2">Contraseña</span>
-                                <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="contraseñaAgregar" type="password"
+                            <div class="form-group-sm" >
+
+                                <div class="col-sm-2">
+                                    <span class="control-label">Contraseña</span>
+                                    <input class="form-control input-sm" id="contraseñaAgregar" name="contraseñaAgregar" type="password"
                                            autocomplete="off" required>
                                 </div>
+                                <div class="col-sm-2">
+                                    <span class="control-label">Repita contraseña</span>
+                                    <input class="form-control input-sm" id="contraseñavalidar" type="password"
+                                    autocomplete="off" onchange="validarContraseña('contraseñaAgregar','contraseñavalidar','spancontraseñavalidar')" required>
+                                    <span class="control-label" id="spancontraseñavalidar"></span>
+                                </div>
+
+
                             </div>
+                        </div>
+                        <div class="col-sm-12 row form-group">
+
                         </div>
                     </div>
                 </div>
@@ -148,7 +174,11 @@
                                 class="glyphicon glyphicon-ban-circle"></span>
                         Cancelar</a>
                     <div class="col-md-2"></div>
-                    <button type="submit" name="enviar" class="col-md-2 btn btn-success"><span
+                    <button type="submit" name="enviar" id="enviar" class="col-md-2 btn btn-success"
+                            onclick="activarboton(['spandni','spannombre',
+                            'spanapellidos','spancorreo','spancodigoPersonal',
+                            'spancontraseñavalidar'],'enviar')">
+                        <span
                                 class="glyphicon glyphicon-ok"></span> Guardar
                     </button>
                     <div class="col-md-3"></div>

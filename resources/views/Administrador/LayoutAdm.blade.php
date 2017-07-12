@@ -67,7 +67,7 @@
         <!-- Google-Fonts -->
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:100,300,400,600,700,900,400italic'
               rel='stylesheet'>
-
+        <script src="{{asset('assets/js/utilidades.js')}}"></script>
 
         <!--Animation css-->
         <link href="{{asset('assets/css/animate.css')}}" rel="stylesheet">
