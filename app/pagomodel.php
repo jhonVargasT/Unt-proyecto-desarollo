@@ -556,6 +556,45 @@ class pagomodel
         return $pagobd;
     }
 
+    public function consultarCodigoPagoReporteBV($codPago)
+    {
+        try {
+            $pagobd = DB::select('SELECT 
+                    pago.codPago,
+                    p1.dni AS p1dni,
+                    p1.nombres AS p1nombres,
+                    p1.apellidos AS p1apellidos,
+                    subtramite.nombre,
+                    pago.fecha AS pfecha,
+                    precio,
+                    pago.modalidad,
+                    detalle,
+                    estadodeuda
+                FROM
+                    pago
+                        LEFT JOIN
+                    subtramite ON pago.idSubtramite = subtramite.codSubtramite
+                        LEFT JOIN
+                    personal ON pago.coPersonal = personal.idPersonal
+                        LEFT JOIN
+                    persona AS p1 ON p1.codPersona = pago.idPersona
+                WHERE
+                    pago.idSubtramite = subtramite.codSubtramite
+                        AND p1.codPersona = pago.idPersona
+                        AND pago.estado = 1
+                        AND subtramite.estado = 1
+                        AND p1.estado = 1
+                        AND pago.estadodeuda = 0
+                        AND pago.codPago = ' . $codPago . '
+                ORDER BY pago.codPago DESC');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarCodigoPagoReporteR/pagomodel');
+            return null;
+        }
+        return $pagobd;
+    }
+
     public function consultarCodigoPersonal($codPersonal)
     {
         try {

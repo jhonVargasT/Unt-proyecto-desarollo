@@ -451,13 +451,9 @@
         }
     </script>
     <script>
-        var hidden = false;
         function action() {
-            hidden = !hidden;
-            if (hidden) {
-                document.getElementById('print').style.visibility = 'hidden';
-            } else {
-                document.getElementById('print').style.visibility = 'visible';
+            if (document.getElementById("print").style.display !== "none") {
+                document.getElementById('print').style.display = 'none';
             }
         }
     </script>

@@ -401,7 +401,7 @@
                                 </div>
                                 <div class="col-sm-3">
                                     <input class="form-control" name="multiplicador" id="mp" value="1"
-                                           onkeypress="return validarNum(event)" onchange="multiply()">
+                                           onkeypress="return validarNum(event)">
                                 </div>
                                 <div class="col-sm-1">
                                     =
@@ -410,12 +410,18 @@
                                     <input class="form-control" name="pagar" id="pg" readonly>
                                 </div>
                                 <script>
-                                    function multiply() {
+                                    $('#detalle').change(function () {
                                         var n2 = $('#mp').val();
                                         var n1 = $('#bp').val();
                                         var r = n1 * n2;
                                         $('#pg').val(r);
-                                    }
+                                    });
+                                    $('#mp').change(function () {
+                                        var n2 = $('#mp').val();
+                                        var n1 = $('#bp').val();
+                                        var r = n1 * n2;
+                                        $('#pg').val(r);
+                                    });
                                 </script>
                             </div>
                         </div>

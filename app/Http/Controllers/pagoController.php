@@ -53,7 +53,7 @@ class pagoController extends Controller
         $codigoS = $subt->consultarCodigoSubtramiteCodSubtramite($codSubtramite);//SQL, obtener codigoSubtramite de la tasa por su id de tasa
         date_default_timezone_set('America/Lima');
         $dato = date('Y-m-d H:i:s');
-        $pago = $request->boletapagar;
+        $pago = $request->pagar;
         $total = $request->total;
         $cantidad = $request->multiplicador;
         $p = new pagomodel();
@@ -85,7 +85,7 @@ class pagoController extends Controller
                 session()->put('text', $request->text);
                 return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' => $totalp,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
-                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador]);
+                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->pagar, 'siaf' => $csiaf, 'contador' => $contador]);
             } else {
                 Session::forget('txt');
                 Session::put('txt', $request->text);

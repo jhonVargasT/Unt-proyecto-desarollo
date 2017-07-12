@@ -84,8 +84,7 @@ class culqiController extends Controller
     }
 
 //Buscar contado por su nombre de la tasa
-    public
-    function contadorSubtramite($nombreSubtramite)
+    public function contadorSubtramite($nombreSubtramite)
     {
         $cont = null;
         $contador = DB::select('select contador from subtramite where subtramite.estado=1 and subtramite.nombre="' . $nombreSubtramite . '"');

@@ -60,7 +60,7 @@ class PdfController extends Controller
     {
         $pag = null;
         $pago = new pagomodel();
-        $pag = $pago->consultarCodigoPagoReporteR($codPago);//SQL, consultar pago por codigo de pago
+        $pag = $pago->consultarCodigoPagoReporteBV($codPago);//SQL, consultar pago por codigo de pago
 
         view()->share(['pago' => $pag]);
         $pdf = app('dompdf.wrapper');
