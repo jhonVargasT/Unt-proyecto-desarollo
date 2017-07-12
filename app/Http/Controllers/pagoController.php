@@ -536,6 +536,7 @@ class pagoController extends Controller
         } else {
             $estado = 1;
         }
+
         if ($request->opcTramite == 'Clasificador') {
             $tramites = $tramiteModel->consultarId($imput);//SQL, obtener id del clasificador por su nombre
             $tram = 'tr.codTramite';
@@ -558,7 +559,7 @@ class pagoController extends Controller
         } else {
             $tipRe = null;
         }
- 
+
         $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo,$centroProducion);//Listar: pago,personal,subtramite,escuela,facultad
         if (!is_null($result) && empty($result) != true) {
             foreach ($result as $sum) {
@@ -571,7 +572,7 @@ class pagoController extends Controller
 
         //  $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $cadena, MCRYPT_MODE_CBC, md5(md5($key))));
 
-        return view('Administrador/Reporte/Report')->with(['centroproduccion'=>$centroProducion,'result' => $result, 'total' => $total, 'estado' => $estado, 'modalidad' => $modalidad, 'fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta, 'tram' => $tram, 'tramites' => $tramites, 'tipRe' => $tipRe, 'fuenfin' => $fuenfin, 'lugar' => $lugar, 'codigo' => $codigo, 'encript' => $cadena]);
+       return view('Administrador/Reporte/Report')->with(['centroproduccion'=>$centroProducion,'result' => $result, 'total' => $total, 'estado' => $estado, 'modalidad' => $modalidad, 'fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta, 'tram' => $tram, 'tramites' => $tramites, 'tipRe' => $tipRe, 'fuenfin' => $fuenfin, 'lugar' => $lugar, 'codigo' => $codigo, 'encript' => $cadena]);
     }
 
     //Reenviar datos de la boleta de pago a la vista de: RealizarPago

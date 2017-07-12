@@ -193,8 +193,8 @@
                             <span class="control-label">Clasificador o tasa:</span>
                             <select class=" form-control" id="opcTramite" name="opcTramite">
                                 <option value="Todo">Todo</option>
-                                <option value="Tramite">Clasificador</option>
-                                <option value="SubTramite">Tasa</option>
+                                <option value="Clasificador">Clasificador</option>
+                                <option value="Tasa">Tasa</option>
                             </select>
 
                         </div>

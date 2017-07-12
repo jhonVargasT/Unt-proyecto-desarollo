@@ -143,7 +143,7 @@
                                         </th>
                                         <th>
                                             <div align="center">
-                                                UENTA
+                                                CUENTA
                                             </div>
                                         </th>
 

@@ -272,7 +272,7 @@ class pagomodel
     public function obtenerPagosresumensiaf($fecha)
     {
         try {
-            $pago = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre as nombresubtramite,sum(st.precio) as precio, count(po.codPago) as nurPagos
+            $pago = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre as nombresubtramite,sum(st.precio * po.cantidad) as precio, count(po.codPago) as nurPagos
                     FROM tramite as tr
                     LEFT JOIN subtramite st ON (tr.codTramite = st.idTramite)
                     LEFT JOIN pago po ON (st.codSubtramite=po.idSubtramite )
@@ -400,7 +400,7 @@ class pagomodel
     public function listarpagosresumen($tiempo)
     {
         try {
-            $result = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,sum(st.precio) as importe
+            $result = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,sum(st.precio * po.cantidad) as importe
                             FROM unt.tramite as tr
                             LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
                             LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )
@@ -844,7 +844,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                              FROM pago as po
                             LEFT JOIN persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
@@ -870,7 +870,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                              FROM pago as po
                             LEFT JOIN persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
@@ -896,7 +896,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                              FROM pago as po
                             LEFT JOIN persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
@@ -923,7 +923,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                              FROM pago as po
                             LEFT JOIN persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
@@ -949,7 +949,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                              FROM pago as po
                             LEFT JOIN persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
@@ -975,7 +975,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                              FROM pago as po
                             LEFT JOIN persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
@@ -1001,7 +1001,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                              FROM pago as po
                             LEFT JOIN persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
@@ -1027,7 +1027,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                              FROM pago as po
                             LEFT JOIN persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
@@ -1053,7 +1053,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                              FROM pago as po
                             LEFT JOIN persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
@@ -1079,7 +1079,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                              FROM pago as po
                             LEFT JOIN persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
@@ -1106,7 +1106,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                              FROM pago as po
                             LEFT JOIN persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
@@ -1132,7 +1132,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                              FROM pago as po
                             LEFT JOIN persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
@@ -1158,7 +1158,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                              FROM pago as po
                             LEFT JOIN persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
@@ -1184,7 +1184,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                              FROM pago as po
                             LEFT JOIN persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
@@ -1211,7 +1211,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad,pro.nombre  as nombresede, null as nombrefacultad,
                             null  as  nombreescuela, po.fecha as fechapago, tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                              FROM pago as po
                             LEFT JOIN persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
@@ -1241,7 +1241,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1270,7 +1270,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1298,7 +1298,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1326,7 +1326,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1354,7 +1354,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1381,7 +1381,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1408,7 +1408,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1435,7 +1435,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1462,7 +1462,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1489,7 +1489,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1516,7 +1516,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1544,7 +1544,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1571,7 +1571,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1598,7 +1598,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1625,7 +1625,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1653,7 +1653,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1681,7 +1681,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1708,7 +1708,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1735,7 +1735,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1762,7 +1762,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1789,7 +1789,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1816,7 +1816,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1843,7 +1843,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1871,7 +1871,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1899,7 +1899,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1927,7 +1927,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1954,7 +1954,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
@@ -1980,7 +1980,7 @@ class pagomodel
         try {
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
-                            st.precio as precio,po.detalle as pagodetalle
+                            st.precio * po.cantidad as precio,po.detalle as pagodetalle
                             FROM unt.pago as po
                             LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
                             LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
