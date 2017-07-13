@@ -27,7 +27,10 @@
     <div  style="background-color: #FFFFFF" >
 
         <div class="panel-body">
-            <form name="form" action="{{url('TramiteRegistrado')}}" role="form" method="POST" class="Vertical">
+            <form onsubmit="activarbotonform(event,['spanclasificador','spannombre'
+                            ],'enviar','mensaje')"
+
+                    name="form" action="{{url('TramiteRegistrado')}}" role="form" method="POST" class="Vertical">
                 {{csrf_field()}}
                 @if(session()->has('true'))
                     <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -62,7 +65,7 @@
                         <div class="col-sm-3">
                             <span class="control-label"> Tipo de recurso</span>
                             <input class=" form-control input-sm" name="tipoRecurso" type="text"
-                                   autocomplete="off" onkeypress="return validarLetras(event)"  placeholder="A">
+                                   autocomplete="off"   placeholder="A">
                         </div>
                     </div>
 
@@ -72,9 +75,12 @@
                             <span class=" control-label"> Fuente de financiamieto</span>
 
                             <input class="  form-control" name="fuentefinanc" type="text"
-                                   autocomplete="off" onkeypress="return validarNum(event)" placeholder="H">
+                                   autocomplete="off"  >
                         </div>
                     </div>
+                </div>
+                <div class="col-sm-12 row form-group" align="center">
+                    <span id="mensaje" class="control-label" style="color: red"></span>
                 </div>
                 <div class="col-sm-12 row form-group">
                     <div class="col-md-3"></div>
@@ -82,7 +88,8 @@
                                 class="glyphicon glyphicon-ban-circle"></span>
                         Cancelar</a>
                     <div class="col-md-2"></div>
-                    <button type="submit" name="enviar" class="col-md-2 btn btn-success"><span
+                    <button type="submit"  onmouseover="activarbotonform(event,['spanclasificador','spannombre'
+                            ],'enviar','mensaje')" name="enviar" id="enviar" class="col-md-2 btn btn-success"><span
                                 class="glyphicon glyphicon-ok"></span> Guardar
                     </button>
                     <div class="col-md-3"></div>

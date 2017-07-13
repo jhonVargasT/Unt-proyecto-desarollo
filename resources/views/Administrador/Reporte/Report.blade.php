@@ -22,8 +22,16 @@
     </div>
 @stop
 @section('content')
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
     <script type="text/javascript">
         function limpiarCampos() {
@@ -239,7 +247,7 @@
                             <span class=" control-label">Fecha desde:  </span>
 
                             <div class=" input-group date" data-provide="datepicker">
-                                <input type="text" id="fecdesde" name="fechaDesde"  class="form-control"
+                                <input type="text" id="fecdesde" name="fechaDesde" class="form-control"
                                        autocomplete="off" required>
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
