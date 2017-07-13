@@ -37,34 +37,41 @@
                 @endif
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm " align="left">
-                        <span class="col-sm-2 control-label"> SIAF </span>
+
                         <div class="col-sm-3">
-                            <input class="form-control input-sm" name="clasificador" type="text"
-                                   autocomplete="off" required onkeypress="return validarNum(event)">
+                            <span class=" control-label"> SIAF </span>
+                            <input class="form-control input-sm" name="clasificador" id="clasificador" type="text"
+                                   autocomplete="off" required onchange="validarNumeros('clasificador','spanclasificador')">
+                            <span class=" control-label" style="color:red" id="spanclasificador">  </span>
                         </div>
                     </div>
                     <div class=" form-group-sm" align="left">
-                        <span class="col-sm-2 control-label">C-CTE1</span>
-                        <div class="col-sm-4">
-                            <input class="form-control" name="nombre" type="text"
+
+                        <div class="col-sm-2">
+                            <span class=" control-label">Nombre de clasificador</span>
+                            <input class="form-control" name="nombre" id="nombre" type="text"
                                    autocomplete="off"
                                  required>
+                            <span class=" control-label" style="color:red" id="spannombre">  </span>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-12 row form-group">
+
+
                     <div class="form-group-sm " align="left">
-                        <span class="col-sm-2 control-label"> Tipo de recurso</span>
-                        <div class="col-sm-1">
-                            <input class="form-control input-sm" name="tipoRecurso" type="text"
+
+                        <div class="col-sm-3">
+                            <span class="control-label"> Tipo de recurso</span>
+                            <input class=" form-control input-sm" name="tipoRecurso" type="text"
                                    autocomplete="off" onkeypress="return validarLetras(event)"  placeholder="A">
                         </div>
                     </div>
-                    <div class="col-sm-2"></div>
+
                     <div class=" form-group-sm" align="left">
-                        <span class="col-sm-2 control-label"> Fuente de financiamieto</span>
-                        <div class="col-sm-1">
-                            <input class="form-control" name="fuentefinanc" type="text"
+
+                        <div class="col-sm-2">
+                            <span class=" control-label"> Fuente de financiamieto</span>
+
+                            <input class="  form-control" name="fuentefinanc" type="text"
                                    autocomplete="off" onkeypress="return validarNum(event)" placeholder="H">
                         </div>
                     </div>

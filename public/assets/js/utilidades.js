@@ -1,7 +1,23 @@
 /**
  * Created by JhO.On on 11/07/2017.
  */
-
+function decimales(idform,idspan) {
+    var texto=document.getElementById(idform).value;
+    if(isNaN(texto)){
+        document.getElementById(idform).style.backgroundColor = '#F6CECE';
+        document.getElementById(idspan).innerHTML = "Error: un numero no puede contener letras.";
+    }
+    else{
+        var expresion=/^([0-9][0-9].[0-9]{2})|([0-9])/;
+        if(expresion.test(texto)){
+            document.getElementById(idform).style.backgroundColor = '#FFFFFF';
+            document.getElementById(idspan).innerHTML = "";
+        }
+        else{
+            document.getElementById(idform).style.backgroundColor = '#F6CECE';
+            document.getElementById(idspan).innerHTML = "Error: No es un dato valido. ";
+        }
+    }}
 function alerta(mensaje)
 {
     swal({

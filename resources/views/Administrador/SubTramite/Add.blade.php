@@ -42,15 +42,15 @@
             @endif
             <form name="form" action="{{url('SubtramiteRegistrado')}}" role="form" method="POST" class="Horizontal">
                 {{csrf_field()}}
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                     <div class="panel-heading">Datos Clasificador</div>
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label">C-CTE1</span>
+
                                 <div class="col-sm-3">
+                                    <span class=" control-label">Nombre clasificador</span>
                                     <input class="typeahead form-control input-sm" type="text"
-                                           placeholder="ejmp : Carnet"
                                            name="nombreTramite"
                                            autocomplete="off" required>
                                     <script type="text/javascript">
@@ -68,37 +68,39 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                     <div class="panel-heading">Datos Tasa</div>
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label">Codigo de tasa</span>
+
                                 <div class="col-sm-3">
-                                    <input class="form-control input-sm" name="codigotasa" type="text"
-                                           autocomplete="off" onkeypress="return validarCodigoSiaf(event)"
-                                           placeholder="Ejm: 0729787548">
+                                    <span class=" control-label">Codigo de tasa</span>
+                                    <input class="form-control input-sm" name="codigotasa" id="codigotasa" type="text"
+                                           autocomplete="off" onchange="validarNumeros('codigotasa','spancodigotasa')"
+                                          >
+                                    <span class=" control-label" style="color: red;" id="spancodigotasa"></span>
                                 </div>
                             </div>
-                            <div class="form-group-sm" align="right">
-                                <span class="col-sm-2">Precio</span>
-                                <div class="input-group col-sm-2">
-                                    <div class="input-group-addon ">S/.</div>
-                                    <input type="text" class="form-control " name="precio"
-                                           autocomplete="off" onkeypress="return validarDouble(event)"
-                                           placeholder="ejmp: 2.50" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 row form-group">
-                        </div>
-                        <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label"> Nombre Tasa</span>
+
                                 <div class="col-sm-3">
+                                    <span class=" control-label"> Nombre Tasa</span>
                                     <input class="form-control input-sm" name="nombreSubTramite" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)" required
-                                           placeholder="ejmp: Biblioteca">
+                                           autocomplete="off"  required
+                                          >
+                                </div>
+                            </div>
+                            <div class="form-group-sm" align="lefth">
+                                <div class="col-sm-2">
+                                <span class="control-label">Precio</span>
+                                    <div class="input-group col-sm-12">
+                                    <div class="input-group-addon ">S/.</div>
+                                    <input type="text" class="form-control " name="precio" id="precio"
+                                           autocomplete="off" onkeypress="decimales('precio','spanprecio')"
+                                           placeholder="ejmp: 2.50" required>
+                                    </div>
+                                    <span class="control-label" style="color: red" id="spanprecio"></span>
                                 </div>
                             </div>
                         </div>
