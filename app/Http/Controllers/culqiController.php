@@ -87,7 +87,8 @@ class culqiController extends Controller
     public function contadorSubtramite($nombreSubtramite)
     {
         $cont = null;
-        $contador = DB::select('select contador from subtramite where subtramite.estado=1 and subtramite.nombre="' . $nombreSubtramite . '"');
+        //$contador = DB::select('select contador from subtramite where subtramite.estado=1 and subtramite.nombre="' . $nombreSubtramite . '"');
+        $contador = DB::select('select contador from subtramite where subtramite.estado=1 and subtramite.nombre=:nombre',['nombre'=>$nombreSubtramite]);
 
         foreach ($contador as $c) {
             $cont = $c->contador;
