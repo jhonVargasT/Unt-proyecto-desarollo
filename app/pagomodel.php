@@ -332,7 +332,7 @@ class pagomodel
     {
         try {
             $result = DB::transaction(function () use ($contaux) {//insertar pago y enviar correo de la boleta virtual al usuario
-                $id = DB::table('pago')->insertGetId(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'idProduccionAlumno' => $this->idProduccionAlumno]);
+                $id = DB::table('pago')->insertGetId(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'idProduccionAlumno' => $this->idProduccionAlumno, 'cantidad'=>1]);
                 DB::table('subtramite')->where('codSubtramite', $this->idSubtramite)->update(['contador' => $contaux]);
                 return $id;
             });

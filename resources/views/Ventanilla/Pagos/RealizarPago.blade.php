@@ -228,7 +228,6 @@
                                         data: {ct: id},
                                         success: function (data) {
                                             $('#st').val(data);
-                                            //$('#bp').attr("readonly", true);
                                             $.ajax({
                                                 url: '/precioSubtramite',
                                                 type: "get",
@@ -236,9 +235,6 @@
                                                 success: function (data) {
                                                     $('#bp').val(data);
                                                     $('#aux').val(data);
-                                                    /*if (data == 0 && $('#st').val()) {
-                                                     $('#bp').attr("readonly", false);
-                                                     }*/
                                                     var val = data * 100;
                                                     $('#p').val(val);
                                                 }
@@ -254,14 +250,12 @@
                                             data: {name: $('#ts').val()},
                                             success: function (data) {
                                                 if (data == 0) {
-                                                    //$('#bp').attr("readonly", false);
                                                     $('#bp').val(data);
                                                     $('#aux').val(data);
                                                     var val = data * 100;
                                                     $('#p').val(val);
                                                 }
                                                 else {
-                                                    //$('#bp').attr("readonly", true);
                                                     $('#bp').val(data);
                                                     $('#aux').val(data);
                                                     var val = data * 100;

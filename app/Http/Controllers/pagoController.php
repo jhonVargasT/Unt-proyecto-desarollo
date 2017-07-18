@@ -236,9 +236,9 @@ class pagoController extends Controller
     public function precioSubtramite(Request $request)
     {
         $pre = 0;
-        $var = $request->name;
-        $precioS = DB::select('select precio from subtramite
-        where nombre= "' . $var . '" and estado=1');
+        //$var = $request->name;
+        //$precioS = DB::select('select precio from subtramite where nombre= "' . $var . '" and estado=1');
+        $precioS = DB::select('select precio from subtramite where nombre=:nombre and estado=1',['nombre'=>$request->name]);
         foreach ($precioS as $ps) {
             $pre = $ps->precio;
         }
