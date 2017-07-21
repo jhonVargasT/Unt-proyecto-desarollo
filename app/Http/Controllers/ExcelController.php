@@ -713,7 +713,7 @@ class ExcelController extends Controller
                     $coS = null;
                     $coF = null;
                     if (!empty($value)) {
-                        //try {
+                        try {
                             $coS = DB::table('sede')->select('codSede')->where('nombresede', '' . $value['sede'] . ' ')->count();
                             if ($coS != 0) {
 
@@ -756,13 +756,13 @@ class ExcelController extends Controller
                                             $coE = $co->idEscuela;
                                         }
                                         $cantAl = 0;
-                                        $coP = DB::table('Persona')->select('idPersona')->where('dni', '=', $value['dni'])->count();
+                                        $coP = DB::table('persona')->select('idPersona')->where('dni', '=', $value['dni'])->count();
                                         if ($coP != 0) {
-                                            $coP = DB::table('Persona')->select('codPersona')->where('dni', '=', $value['dni'])->get();
+                                            $coP = DB::table('persona')->select('codPersona')->where('dni', '=', $value['dni'])->get();
                                             foreach ($coP as $co) {
                                                 $coP = $co->codPersona;
                                             }
-                                            $cantAl = DB::table('Alumno')->select('idAlumno')->where('idPersona', '=', $coP)->count();
+                                            $cantAl = DB::table('alumno')->select('idAlumno')->where('idPersona', '=', $coP)->count();
                                         }
                                         if ($cantAl == 0) {
                                             $alumno->setTipoAlummno(1);
@@ -778,9 +778,9 @@ class ExcelController extends Controller
                                     }
                                 }
                             }
-                        //} catch (Exception $e) {
-                            //return back()->with('false', 'No subieron los archivos');
-                        //}
+                        } catch (Exception $e) {
+                            return back()->with('false', 'No subieron los archivos');
+                        }
                     }
                 }
                 return back()->with('true', 'Se subio el archivo');
