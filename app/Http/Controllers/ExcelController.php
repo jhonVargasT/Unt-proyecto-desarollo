@@ -721,7 +721,6 @@ class ExcelController extends Controller
                                     $coS = $co->codSede;
                                 }
                                 $coF = null;
-
                                 $coF = DB::table('facultad')->select('idFacultad')
                                     ->where([
                                         ['coSede', '=', $coS],
@@ -780,7 +779,7 @@ class ExcelController extends Controller
                                 }
                             }
                         } catch (Exception $e) {
-                            return back()->with('false', 'Por favor, revisar su archivo.');
+                            return back()->with('false', 'No subieron los archivos');
                         }
                     }
                 }
