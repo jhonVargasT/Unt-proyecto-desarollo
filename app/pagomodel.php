@@ -332,7 +332,7 @@ class pagomodel
     {
         try {
             $result = DB::transaction(function () use ($contaux) {//insertar pago y enviar correo de la boleta virtual al usuario
-                $id = DB::table('pago')->insertGetId(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'idProduccionAlumno' => $this->idProduccionAlumno, 'cantidad'=>1]);
+                $id = DB::table('pago')->insertGetId(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'idProduccionAlumno' => $this->idProduccionAlumno, 'cantidad' => 1]);
                 DB::table('subtramite')->where('codSubtramite', $this->idSubtramite)->update(['contador' => $contaux]);
                 return $id;
             });
@@ -2011,7 +2011,7 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
                             LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )
                             LEFT JOIN unt.personal pl ON (pl.idPersonal=po.coPersonal )
-                            where po.fecha like "%' . $date . '%"  and idProduccionAlumno is null and pl.codPersonal="' . $codPersonal . '"
+                            where po.fecha like "%' . $date . '%"  and idProduccionAlumno is null and pl.codPersonal="' . $codPersonal . '" and po.estado = 1;
                             group by (st.codSubtramite) order by (tr.nombre)');
         } catch (PDOException $e) {
             $util = new util();

@@ -770,7 +770,7 @@ class ExcelController extends Controller
                                             $alumno->setDni($value['dni']);
                                             $alumno->setNombres($value['nombres']);
                                             $alumno->setApellidos($value['apellidos']);
-                                            $alumno->setCodAlumno($value['codigo']);
+                                            $alumno->setCodAlumno($value['codAlumno']);
                                             $alumno->setCorreo($value['correo']);
                                             $alumno->setFecha($value['fecha']);
                                             $alumno->setIdEscuela($coE);
