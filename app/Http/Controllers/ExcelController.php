@@ -710,9 +710,10 @@ class ExcelController extends Controller
             if (!empty($data)) {
                 foreach ($data as $value) {
                     $coP = null;
+                    $coS = null;
+                    $coF = null;
                     if (!empty($value)) {
-                        try {
-                            $coS = null;
+                        //try {
                             $coS = DB::table('sede')->select('codSede')->where('nombresede', '' . $value['sede'] . ' ')->count();
                             if ($coS != 0) {
 
@@ -720,7 +721,6 @@ class ExcelController extends Controller
                                 foreach ($coS as $co) {
                                     $coS = $co->codSede;
                                 }
-                                $coF = null;
                                 $coF = DB::table('facultad')->select('idFacultad')
                                     ->where([
                                         ['coSede', '=', $coS],
@@ -769,7 +769,7 @@ class ExcelController extends Controller
                                             $alumno->setDni($value['dni']);
                                             $alumno->setNombres($value['nombres']);
                                             $alumno->setApellidos($value['apellidos']);
-                                            $alumno->setCodAlumno($value['codAlumno']);
+                                            $alumno->setCodAlumno($value['codalumno']);
                                             $alumno->setCorreo($value['correo']);
                                             $alumno->setFecha($value['fecha']);
                                             $alumno->setIdEscuela($coE);
@@ -778,9 +778,9 @@ class ExcelController extends Controller
                                     }
                                 }
                             }
-                        } catch (Exception $e) {
-                            return back()->with('false', 'No subieron los archivos');
-                        }
+                        //} catch (Exception $e) {
+                            //return back()->with('false', 'No subieron los archivos');
+                        //}
                     }
                 }
                 return back()->with('true', 'Se subio el archivo');
