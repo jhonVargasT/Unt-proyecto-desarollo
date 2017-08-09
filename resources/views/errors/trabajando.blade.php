@@ -43,7 +43,6 @@
                 <div class="title"> Disculpe las molestias,
                     estamos trabajando.......</div>
                 <img src="{{ asset('assets/img/mantenimiento.jpg') }}">
-                <div class="title">ÑuxtuSoft...</div>
             </div>
         </div>
     </body>

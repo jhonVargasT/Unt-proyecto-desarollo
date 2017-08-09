@@ -10,6 +10,12 @@
 | to using a Closure or controller method. Build something great!
 |
 */
+route::get('/Mantenimiento'
+,function ()
+    {
+        return view('errors/trabajando');
+    }
+);
 
 Route::get('/Adm', function () {
     return view('Administrador/Body');
