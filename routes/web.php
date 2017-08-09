@@ -10,19 +10,19 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-route::get('/Mantenimiento'
+route::get('/'
 ,function ()
     {
         return view('errors/trabajando');
     }
-);
+)->name('index');
 
 Route::get('/Adm', function () {
     return view('Administrador/Body');
 });
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('index');
-})->name('index');
+})->name('index');*/
 
 
 Route::resource('/loguear', 'personalController@loguearPersonal');
