@@ -43,9 +43,9 @@ class personalController extends Controller
     //Inciciar session del personal
     public function loguearPersonal(Request $request)
     {
-        return view('errors/trabajando');
+       // return view('errors/trabajando');
 
-     /*   $personal = new personalmodel();
+       $personal = new personalmodel();
         $perso = new personamodel();
         //seguro que asi se accede ?
         $personal->setCuenta($request->cuenta);
@@ -109,7 +109,7 @@ class personalController extends Controller
                     }
                 }
             }
-        }*/
+        }
     }
 
     //Obtener los datos del personal
