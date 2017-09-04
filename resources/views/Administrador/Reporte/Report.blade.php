@@ -182,6 +182,7 @@
                             <select class="form-control" name="estado">
                                 <option>Pagado</option>
                                 <option>Anulado</option>
+                                <option>Eliminado</option>
                             </select>
                         </div>
                         <div class="form-group-sm col-sm-2 ">

@@ -55,6 +55,14 @@
                                     <option>Resumen total</option>
                                 </select>
                             </div>
+                            <div class="col-sm-2">
+                            <input type="checkbox" id="ccp" onclick="">
+                            Nro centro de produccion
+                                <div class="col-sm-5">
+                            <input class="typeaheads form-control " name="cp" id="cp"
+                                   autocomplete="off" readonly>
+                                </div>
+                        </div>
                             <div class="form-group-sm col-sm-2 col-lg-2 col-xs-2">
                                 <span class="control-label">Buscar por :</span>
                                 <select class=" form-control" name="combito" id="combito">
@@ -96,7 +104,10 @@
 
                                 </div>
                             </div>
-                            <div class="form-group-sm col-sm-1 col-lg-1 col-xs-1">
+
+
+
+                                <div class="form-group-sm col-sm-1 col-lg-1 col-xs-1">
                                 <span class=" control-label">.  </span>
                                 <button type="submit" class="btn btn-sm btn-success s-b-5" id="imp"><i
                                             class="ion-ios7-search"> </i> buscar

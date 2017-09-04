@@ -532,9 +532,13 @@ class pagoController extends Controller
             $lugar = null;
         }
         if ($estado == 'Anulado') {
-            $estado = 0;
+            $estado = 2;
         } else {
-            $estado = 1;
+            if($estado == 'Eliminado'){
+                $estado=0;
+            }
+            else{
+            $estado = 1;}
         }
 
         if ($request->opcTramite == 'Clasificador') {
