@@ -609,6 +609,29 @@ class alumnomodel extends personamodel
         return $alumnobd;
     }
 
+    public function consultarALumnoTodos()
+    {
+
+        try {
+            $alumnobd = DB::select('select codPersona, dni,nombres, apellidos,correo, codAlumno, fecha,escuela.nombre as enombre, facultad.nombre as fnombre, nombresede from persona
+        left join alumno on persona.codPersona=alumno.idPersona
+        left join escuela on alumno.coEscuela = escuela.idEscuela
+        left join facultad on escuela.codigoFacultad= facultad.idFacultad
+        left join sede on facultad.coSede = sede.codSede
+        where persona.codPersona=alumno.idPersona
+        and alumno.coEscuela = escuela.idEscuela
+        and escuela.codigoFacultad= facultad.idFacultad
+        and facultad.coSede = sede.codSede and persona.estado=1
+        and alumno.estado=1 and escuela.estado=1 and facultad.estado=1
+        and sede.estado=1 ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarAlumnoid/alumnomodel');
+            return null;
+        }
+        return $alumnobd;
+    }
+
     public function consultarAlumnoid($codPersona)
     {
         try {

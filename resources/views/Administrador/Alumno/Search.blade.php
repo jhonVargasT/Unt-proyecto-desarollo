@@ -33,18 +33,20 @@
         </div>
     </div>
 
+
 @stop
 @section('content')
-    @if(session()->has('true'))
-        <div class="alert alert-success" role="alert">{{session('true')}} </div>
-    @endif
-    @if(session()->has('false'))
-        <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
-    @endif
+
     <div class="panel-heading"><h3>Buscar Alumnos</h3></div>
     <div style="background-color: #FFFFFF">
 
         <div class="panel-body">
+            @if(session()->has('true'))
+                <div class="alert alert-success" role="alert">{{session('true')}} </div>
+            @endif
+            @if(session()->has('false'))
+                <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
+            @endif
             <form name="form" action="{{url('AlumnosBuscados')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
 
@@ -78,8 +80,9 @@
             <!--tabla-->
 
             <div class="table-responsive  col-sm-12 ">
+                <br>
                 @if(isset($nombre)!=null)
-                    <div class="alert alert-success" role="alert"> El alumno {{$nombre}} fue actualizada!!</div>
+                    <div class="alert alert-success" role="alert"> El registro {{$nombre}} fue actualizado!!</div>
                 @endif
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
@@ -111,18 +114,18 @@
                         <!--Contenido-->
                         @foreach($alumno as $a)
                             <tr>
-                                <td>{{$a->dni}}</td>
+                                <td align="center">{{$a->dni}}</td>
                                 <td>{{$a->nombres}} {{$a->apellidos}}</td>
                                 <td>{{$a->correo}}</td>
                                 <td>{{$a->codAlumno}}</td>
-                                <td>{{$a->fecha}}</td>
+                                <td align="center">{{$a->fecha}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}
                                     <a href="AlumnoCargar/{{$a->codPersona}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
+                                                class="glyphicon glyphicon-pencil" style="color: green;"></span> </a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <a href="AlumnoEliminar/{{$a->codPersona}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
+                                                class="glyphicon glyphicon-trash" style="color: red;"></span> </a>
                                 </td>
                             </tr>
                         @endforeach

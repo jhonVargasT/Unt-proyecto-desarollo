@@ -2,6 +2,11 @@
  * Created by JhO.On on 11/07/2017.
  */
 
+function eliminar(link){
+window.location.href("www.google.com");
+
+}
+
 function activarBusqueda(idselect,idtext,idboton) {
 var texto = document.getElementById(idselect).value;
 if(texto === "Todo")
@@ -62,10 +67,10 @@ function alerta(mensaje)
 
 function activarbotonform(event,myarray,idboton,idspanmensaje) {
     var cont = 0;
-    alert('asdsad');
     for (var i = 0; i < myarray.length; i++) {
 
         texto = document.getElementById("" + myarray[i] + "").innerHTML;
+
        if(texto === "") {
 
        }
@@ -74,12 +79,11 @@ function activarbotonform(event,myarray,idboton,idspanmensaje) {
 
        }
     }
-
+    alert(cont);
     if (cont>0){
 
         event && event.preventDefault();
         document.getElementById(idboton).setAttribute('class','col-md-2 btn btn-success disabled');
-        alerta("Completa los campos correctamente");
     }else{
 
         document.getElementById(idboton).setAttribute('class','col-md-2 btn btn-success');

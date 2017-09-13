@@ -41,8 +41,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="/resources/demos/style.css">
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <div class="panel-heading"><h3>Agregar Estudiante</h3></div>
@@ -54,7 +54,7 @@
                 @if(session()->has('false'))
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
                 @endif
-                <form name="form"  onsubmit="activarbotonform(event,['spandni'],'enviar','mensaje')" action="{{url('AlumnoRegistrado')}}" role="form" method="POST" class="Horizontal">
+                <form name="form"   onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos','spanemail','spancodAlumno'],'enviar','mensaje')" action="{{url('AlumnoRegistrado')}}" role="form" method="POST" class="Horizontal">
                     {{csrf_field()}}
                     <div class="panel panel-primary">
                         <div class="panel-heading">Datos personales</div>
@@ -156,7 +156,7 @@
 
                                     <input class="form-control input-sm" type="text"
                                            placeholder="Ejm: Mecanica" name="nombreEscuela" id="ne"
-                                           onkeypress="return validarLetras(event)" required disabled>
+                                           required disabled>
                                     <script>
                                         src = "{{ route('searchajax') }}";
                                         $("#ne").autocomplete({
@@ -217,8 +217,10 @@
                                     class="glyphicon glyphicon-ban-circle"></span>
                             Cancelar</a>
                         <div class="col-md-2"></div>
-                        <button type="submit" name="enviar" class="col-md-2 btn btn-sm btn-success"><span
-                                  onmouseover="activarbotonform(null,['spandni','spannombre'],'enviar','mensaje')"  class="glyphicon glyphicon-ok"></span> Guardar
+                        <button type="submit"    onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos','spanemail','spancodAlumno'],'enviar','mensaje')" name="enviar" id="enviar" class="col-md-2 btn btn-sm btn-success"><span
+                                    class="glyphicon glyphicon-ok"
+
+                            ></span> Guardar
                         </button>
                         <div class="col-md-3"></div>
                     </div>

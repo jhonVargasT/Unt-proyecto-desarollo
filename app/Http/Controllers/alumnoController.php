@@ -156,6 +156,10 @@ class alumnoController extends Controller
                         if ($request->select == 'Facultad') {
                             $alu = $alumno->consultarAlumnoFacultad($request->text);//Consulta buscar alumnos por la facultad a la que pertenece
                         }
+                        else
+                        {
+                            $alu =$alumno->consultarALumnoTodos();
+                        }
                     }
                 }
             }

@@ -20,6 +20,7 @@
 Route::get('/Adm', function () {
     return view('Administrador/Body');
 });
+
 Route::get('/', function () {
     return view('index');
 })->name('index');

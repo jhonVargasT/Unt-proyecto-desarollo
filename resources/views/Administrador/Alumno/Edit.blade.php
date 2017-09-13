@@ -26,7 +26,7 @@
             @endif
             @if($alumno)
                 @foreach($alumno as $a)
-                    <form name="form" action="{{ url('AlumnoEditado/' .$a->codPersona ) }}" role="form" method="Get"
+                    <form name="form"     action="{{ url('AlumnoEditado/' .$a->codPersona ) }}" role="form" method="Get"
                           class="Vertical">
                         {{csrf_field()}}
                         <div class="panel panel-primary">
@@ -35,29 +35,31 @@
                                 <div class=" row ">
                                     <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                         <span class="control-label"> Numero de Dni</span>
-                                        <input class="form-control input-sm" name="dni" type="text"
-                                               autocomplete="off" onkeypress="return validarNum(event)"
+                                        <input class="form-control input-sm" name="dni" id="dni" type="text"
+                                               autocomplete="off" onchange="validarDni('dni','spandni')"
                                                placeholder="Ejem: 72978792" required value="{{$a->dni}}">
-
+                                        <span style="color: red" class=" control-label" id="spandni" > </span>
                                     </div>
                                     <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                         <span class="control-label">Nombres</span>
-                                        <input class="form-control input-sm" name="nombres" type="text"
-                                               autocomplete="off" onkeypress="return validarLetras(event)"
+                                        <input class="form-control input-sm" name="nombres" id="nombres" type="text"
+                                               autocomplete="off" onchange="validarNombre('nombres','spannombre')"
                                                placeholder="Ejm:Jose Carlos" required value="{{$a->nombres}}">
-
+                                        <span style="color: red" class=" control-label" id="spannombre" > </span>
                                     </div>
                                     <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                         <span class="control-label">Apellidos</span>
                                         <input class="form-control input-sm" name="apellidos" type="text"
-                                               autocomplete="off" onkeypress="return validarLetras(event)"
+                                               autocomplete="off" id="apellidos" onmouseover="validarNombre('apellidos','spanapellidos')"
                                                placeholder="Ejem: Terenas Lory" required value="{{$a->apellidos}}">
+                                        <span style="color: red" class=" control-label" id="spanapellidos" > </span>
                                     </div>
                                     <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                         <span class="control-label">Correo</span>
-                                        <input class="form-control input-sm" name="correo" type="email"
-                                               autocomplete="off"
-                                               placeholder="Ejem: unt@gmail.com" required value="{{$a->correo}}">
+                                        <input class="form-control input-sm" id="correo" name="correo" type="email"
+                                               autocomplete="off" onchange="validarCorreo('correo','spanemail')"
+                                                required value="{{$a->correo}}">
+                                        <span style="color: red" class=" control-label" id="spanemail" > </span>
                                     </div>
                                 </div>
                             </div>
@@ -68,9 +70,10 @@
                                 <div class="panel-body">
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label"> Codigo alumno</span>
-                                    <input class="form-control input-sm" name="codAlumno" type="text"
-                                           autocomplete="off" placeholder="Ejm: 000104499" required
+                                    <input class="form-control input-sm" name="codAlumno" id="codAlumno" type="text"
+                                           autocomplete="off" onchange="validarNumeros('codAlumno','spancodalumno')" placeholder="Ejm: 000104499" required
                                            value="{{$a->codAlumno}}">
+                                    <span style="color: red" class=" control-label" id="spancodalumno" > </span>
                                 </div>
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label"> Fecha matricula</span>
@@ -85,7 +88,7 @@
                                     <span class="control-label">Sede</span>
                                     <input class="typeahead form-control" type="text"
                                            placeholder="Ejm: Trujillo" name="nombreSede" id="ns"
-                                           onkeypress="return validarLetras(event)" autocomplete="off" required
+                                            autocomplete="off" required
                                            value="{{$a->nombresede}}">
                                     <script type="text/javascript">
                                         var paths = "{{ route('autocompletesede')}}";
@@ -104,7 +107,7 @@
 
                                     <input class="form-control input-sm" type="text"
                                            placeholder="Ejm: Mecanica" name="nombreEscuela" id="ne"
-                                           onkeypress="return validarLetras(event)" required value="{{$a->enombre}}">
+                                            required value="{{$a->enombre}}">
                                     <script>
                                         src = "{{ route('searchajax') }}";
                                         $("#ne").autocomplete({
@@ -152,7 +155,9 @@
                                 </div>
                                 </div>
                             </div>
-
+                        <div class="col-sm-12 row form-group" align="center">
+                            <span id="mensaje" class="control-label" style="color: red"></span>
+                        </div>
                             <div class=" row ">
                                 <div class="col-md-3"></div>
                                 <a href="{{url('/admBuscarEstudiante')}}" class=" col-md-2 btn btn-sm btn-danger"><span
@@ -162,7 +167,7 @@
                                 <div class="col-md-2">
                                 </div>
                                 <div>
-                                    <button href="" type="submit" name="enviar"
+                                    <button href="" type="submit" name="enviar" id="enviar"
                                             class="col-md-2 btn btn-sm btn-success"><span
                                                 class="glyphicon glyphicon-ok"></span> Guardar
                                     </button>
