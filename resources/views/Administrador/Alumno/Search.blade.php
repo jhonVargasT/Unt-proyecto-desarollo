@@ -32,6 +32,7 @@
             </table>
         </div>
     </div>
+
 @stop
 @section('content')
     @if(session()->has('true'))
@@ -46,10 +47,12 @@
         <div class="panel-body">
             <form name="form" action="{{url('AlumnosBuscados')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
-                <div class=" row ">
+
+                <div class=" row col-sm-12" >
                     <div class="form-group-sm col-sm-2 ">
                         <span class="ontrol-label">Buscar por:</span>
-                        <select class=" form-control" name="select">
+                        <select class=" form-control" name="select" id="select" onclick='activarBusqueda("select","text","buscar");'>
+                            <option>Todo</option>
                             <option>Dni</option>
                             <option>Apellidos</option>
                             <option>Codigo alumno</option>
@@ -60,18 +63,14 @@
                     <div class="form-group-sm col-sm-8">
                         <ref></ref>
                         <span class="ontrol-label"> Ingresa datos aqui</span></ref>
-                        @if(isset($txt))
+
                             <span class="input-group-btn">
-                            <input type="text" name="text" class="form-control" value="{{$txt}}">
+                            <input type="text" name="text" disabled id="text" class="form-control"
+                                   autocomplete="off" onkeypress='buscarSearch("text","select","buscar")'>
                                 </span>
-                        @else
-                            <span class="input-group-btn">
-                            <input type="text" name="text" class="form-control"
-                                   autocomplete="off">
-                                </span>
-                        @endif
+
                         <span class="input-group-btn">
-                            <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
+                            <button class="btn btn-sm" type="submit" onmouseover='buscarSearch("text","select","buscar")' id="buscar" name="buscar">Buscar</button>
                         </span>
                     </div>
                 </div>
@@ -106,6 +105,7 @@
                         </th>
                     </tr>
                     </thead>
+                    <br>
                     <body>
                     @if(isset($alumno))
                         <!--Contenido-->

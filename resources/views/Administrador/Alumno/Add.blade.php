@@ -54,7 +54,7 @@
                 @if(session()->has('false'))
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
                 @endif
-                <form name="form" action="{{url('AlumnoRegistrado')}}" role="form" method="POST" class="Horizontal">
+                <form name="form"  onsubmit="activarbotonform(event,['spandni'],'enviar','mensaje')" action="{{url('AlumnoRegistrado')}}" role="form" method="POST" class="Horizontal">
                     {{csrf_field()}}
                     <div class="panel panel-primary">
                         <div class="panel-heading">Datos personales</div>
@@ -62,9 +62,10 @@
                             <div class=" row ">
                                 <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label"> Numero de Dni</span>
-                                    <input class="form-control input-sm" name="dni" type="text"
-                                           autocomplete="off" onkeypress="return validarNum(event)"
+                                    <input class="form-control input-sm" name="dni"  type="text"
+                                           autocomplete="off" onchange=" validarDni('dni','spandni')"
                                            placeholder="Ejem: 72978792" required id="dni">
+                                    <span style="color: red" class=" control-label" id="spandni" > </span>
                                     <script>
                                         $('#dni').change(function () {
                                             $.ajax({
@@ -88,21 +89,25 @@
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                     <span class="control-label">Nombres</span>
                                     <input class="form-control input-sm" name="nombres" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)"
+                                           autocomplete="off" onchange="validarNombre('nombres','spannombre')"
                                            placeholder="Ejm:Jose Carlos" required id="nombres">
+                                    <span style="color: red" class=" control-label" id="spannombre" > </span>
 
                                 </div>
                                 <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                     <span class="control-label">Apellidos</span>
                                     <input class="form-control input-sm" name="apellidos" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)"
+                                           autocomplete="off" onchange="validarNombre('apellidos','spanapellidos')"
                                            placeholder="Ejem: Terenas Lory" required id="apellidos">
+                                    <span style="color: red" class=" control-label" id="spanapellidos" > </span>
+
                                 </div>
                                 <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                     <span class="control-label">Correo</span>
-                                    <input class="form-control input-sm" name="correo" type="email"
-                                           autocomplete="off"
-                                           placeholder="Ejem: unt@gmail.com" required id="correo">
+                                    <input class="form-control input-sm" name="correo" type="email" id="email"
+                                           autocomplete="off" onchange="validarCorreo('email','spanemail')" required >
+                                    <span style="color: red" class=" control-label" id="spanemail" > </span>
+
                                 </div>
                             </div>
                         </div>
@@ -113,8 +118,9 @@
                             <div class="row">
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label"> Codigo alumno</span>
-                                    <input class="form-control input-sm" name="codAlumno" type="text"
+                                    <input class="form-control input-sm" name="codAlumno" type="text" onchange="validarNumeros('codAlumno','spancodAlumno')"
                                            autocomplete="off" placeholder="Ejm: 000104499" required id="codAlumno">
+                                    <span style="color: red" class=" control-label" id="spancodAlumno" > </span>
                                 </div>
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label"> Fecha matricula</span>
@@ -122,7 +128,7 @@
                                         <input type="text" name="fecha" class="form-control"
                                                value="<?php date_default_timezone_set('America/Lima');
                                                $date = date('m/d/Y');
-                                               echo $date ?>" id="fecha">
+                                               echo $date ?>" id="fecha" required>
                                         <div class="input-group-addon">
                                             <span class="glyphicon glyphicon-th"></span>
                                         </div>
@@ -131,9 +137,9 @@
                                 <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label">Sede</span>
 
-                                    <input class="typeahead form-control" type="text"
+                                    <input class="typeahead form-control"
                                            placeholder="Ejm: Trujillo" name="nombreSede" id="ns"
-                                           onkeypress="return validarLetras(event)" autocomplete="off" required>
+                                          autocomplete="off" required>
                                     <script type="text/javascript">
                                         var paths = "{{ route('autocompletesede')}}";
                                         $('input.typeahead').typeahead({
@@ -202,6 +208,9 @@
 
                         </div>
                     </div>
+                    <div class="col-sm-12 row form-group" align="center">
+                        <span id="mensaje" class="control-label" style="color: red"></span>
+                    </div>
                     <div class="row form-group">
                         <div class="col-md-3"></div>
                         <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
@@ -209,7 +218,7 @@
                             Cancelar</a>
                         <div class="col-md-2"></div>
                         <button type="submit" name="enviar" class="col-md-2 btn btn-sm btn-success"><span
-                                    class="glyphicon glyphicon-ok"></span> Guardar
+                                  onmouseover="activarbotonform(null,['spandni','spannombre'],'enviar','mensaje')"  class="glyphicon glyphicon-ok"></span> Guardar
                         </button>
                         <div class="col-md-3"></div>
                     </div>

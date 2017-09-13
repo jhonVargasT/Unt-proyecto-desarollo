@@ -64,8 +64,8 @@
                     </div>
                     <div class="col-sm-2">
                         <span class=" control-label">Tipo de recurso </span>
-                        <input class="form-control input-sm " name="TipoDeRecurso" type="text" id="tr" required
-                               disabled>
+                        <input class="form-control input-sm " name="TipoDeRecurso" type="text" id="tr"
+                               >
                         <script>
                             $('#name').change(function () {
                                 $.ajax({

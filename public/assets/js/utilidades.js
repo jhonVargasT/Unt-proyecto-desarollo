@@ -1,6 +1,38 @@
 /**
  * Created by JhO.On on 11/07/2017.
  */
+
+function activarBusqueda(idselect,idtext,idboton) {
+var texto = document.getElementById(idselect).value;
+if(texto === "Todo")
+{
+    document.getElementById(idtext).value='';
+    document.getElementById(idtext).disabled=true;
+    document.getElementById(idboton).disabled=false;
+}
+else {
+    document.getElementById(idtext).value='';
+    document.getElementById(idtext).disabled=false;
+    document.getElementById(idboton).disabled=false;
+}
+}
+function buscarSearch(idtext,idselect,idboton) {
+
+    var textoselect=document.getElementById(idselect).value;
+    var texto = document.getElementById(idtext).value;
+
+    if(textoselect !== "Todo")
+    {
+
+        if(texto === "")
+            document.getElementById(idboton).disabled=true;
+        else
+            document.getElementById(idboton).disabled=false;
+    }
+    else {
+        document.getElementById(idboton).disabled=false;
+    }
+}
 function decimales(idform,idspan) {
     var texto=document.getElementById(idform).value;
     if(isNaN(texto)){
@@ -30,6 +62,7 @@ function alerta(mensaje)
 
 function activarbotonform(event,myarray,idboton,idspanmensaje) {
     var cont = 0;
+    alert('asdsad');
     for (var i = 0; i < myarray.length; i++) {
 
         texto = document.getElementById("" + myarray[i] + "").innerHTML;
@@ -91,7 +124,7 @@ if(isNaN(texto)){
     document.getElementById(idspan).innerHTML = "Error: un dni no puede contener letras.";
 }
 else{
-    var expresion=/^[0-9]{8}/;
+    var expresion=/^[0-9]{7}/;
     if(expresion.test(texto)){
         document.getElementById(idform).style.backgroundColor = '#FFFFFF';
         document.getElementById(idspan).innerHTML = "";}

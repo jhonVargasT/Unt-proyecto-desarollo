@@ -27,8 +27,7 @@
     <div  style="background-color: #FFFFFF" >
 
         <div class="panel-body">
-            <form onsubmit="activarbotonform(event,['spanclasificador','spannombre'
-                            ],'enviar','mensaje')"
+            <form
 
                     name="form" action="{{url('TramiteRegistrado')}}" role="form" method="POST" class="Vertical">
                 {{csrf_field()}}
@@ -74,8 +73,8 @@
                         <div class="col-sm-2">
                             <span class=" control-label"> Fuente de financiamieto</span>
 
-                            <input class="  form-control" name="fuentefinanc" type="text"
-                                   autocomplete="off"  >
+                            <input class="form-control" name="fuentefinanc" type="text"
+                                   autocomplete="off"   >
                         </div>
                     </div>
                 </div>
@@ -88,8 +87,8 @@
                                 class="glyphicon glyphicon-ban-circle"></span>
                         Cancelar</a>
                     <div class="col-md-2"></div>
-                    <button type="submit"  onmouseover="activarbotonform(event,['spanclasificador','spannombre'
-                            ],'enviar','mensaje')" name="enviar" id="enviar" class="col-md-2 btn btn-success"><span
+                    <button type="submit"  name="enviar" id="enviar" class="col-md-2 btn btn-success">
+                        <span
                                 class="glyphicon glyphicon-ok"></span> Guardar
                     </button>
                     <div class="col-md-3"></div>
