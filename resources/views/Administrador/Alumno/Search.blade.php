@@ -123,7 +123,7 @@
                                     {{ csrf_field() }}
                                     <a title="Editar" href="AlumnoCargar/{{$a->codPersona}}"><span
                                                 class="glyphicon glyphicon-pencil" style="color: green;"></span> </a>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;
                                     <a onclick="eliminar(event,'AlumnoEliminar/{{$a->codPersona}}')" title="Eliminar" href=""><span
                                                 class="glyphicon glyphicon-trash" style="color: red;"></span> </a>
                                 </td>

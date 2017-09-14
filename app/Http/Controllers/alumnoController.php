@@ -194,6 +194,7 @@ class alumnoController extends Controller
                         $alu = $alumno->consultarAlumnoProduccionP($request->text);//Consulta buscar alumnos por la escuela a la que pertenece
                     }
                     else{
+
                         $alu=$alumno->consultarAlumnoProducciontodoP();
                     }
                 }

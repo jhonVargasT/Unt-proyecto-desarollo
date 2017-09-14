@@ -44,10 +44,13 @@ function buscarSearch(idtext,idselect,idboton) {
     if(textoselect !== "Todo")
     {
 
-        if(texto === "")
+        if(texto === ""){
             document.getElementById(idboton).disabled=true;
-        else
+
+        }
+        else{
             document.getElementById(idboton).disabled=false;
+        }
     }
     else {
         document.getElementById(idboton).disabled=false;

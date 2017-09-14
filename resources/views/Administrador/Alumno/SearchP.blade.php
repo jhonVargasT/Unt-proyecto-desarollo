@@ -34,12 +34,7 @@
     </div>
 @stop
 @section('content')
-    @if(session()->has('true'))
-        <div class="alert alert-success" role="alert">{{session('true')}} </div>
-    @endif
-    @if(session()->has('false'))
-        <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
-    @endif
+
     <div class="panel-heading"><h3>Buscar Alumnos Produccion</h3></div>
     <div style="background-color: #FFFFFF">
 
@@ -50,7 +45,7 @@
                 <div class=" row ">
                     <div class="form-group-sm col-sm-2 ">
                         <span class="ontrol-label">Buscar por:</span>
-                        <select class=" form-control" name="select" id="select" onclick="activarBusqueda('select','text','buscar')">
+                        <select class=" form-control" name="select" id="select" onclick="activarBusqueda('select','text','buscar');">
                             <option>Todo</option>
                             <option>Dni</option>
                             <option>Apellidos</option>
@@ -60,19 +55,15 @@
                     </div>
                     <div class="form-group-sm col-sm-8">
                         <ref></ref>
-                        <span class="ontrol-label"> Ingresa datos aqui</span></ref>
-                        @if(isset($txt))
+                        <span class="ontrol-label"> Ingresa datos aqui</span>
+
                             <span class="input-group-btn">
-                            <input type="text" name="text" id="text" class="form-control" value="{{$txt}}">
-                                </span>
-                        @else
-                            <span class="input-group-btn">
-                            <input type="text" name="text" class="form-control"
+                            <input type="text" disabled name="text" class="form-control"
                                    autocomplete="off" id="text">
                                 </span>
-                        @endif
-                        <span class="input-group-btn">
-                            <button class="btn btn-sm" type="submit" id="buscar" name="buscar">Buscar</button>
+
+                        <span class="input-group-btn"  onmouseover="buscarSearch('text','select','buscar')">
+                            <button class="btn btn-sm" type="submit"  id="buscar" name="buscar">Buscar</button>
                         </span>
                     </div>
                 </div>
@@ -83,8 +74,12 @@
 
             <div class="table-responsive  col-sm-12 ">
                 <br>
-                @if(isset($nombre)!=null)
-                    <div class="alert alert-success" role="alert"> El alumno {{$nombre}} fue actualizada!!</div>
+                <br>
+                @if(session()->has('true'))
+                    <div class="alert alert-success" role="alert">{{session('true')}} </div>
+                @endif
+                @if(session()->has('false'))
+                    <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
                 @endif
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
@@ -122,15 +117,15 @@
                                 <td>{{$a->nombres}} {{$a->apellidos}}</td>
                                 <td>{{$a->correo}}</td>
                                 <td>{{$a->codAlumno}}</td>
-                                <td>{{$a->fecha}}</td>
+                                <td align="center">{{$a->fecha}}</td>
                                 <td>{{$a->nombre}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}
-                                    <a href="AlumnoCargarP/{{$a->codPersona}}/{{$a->codProduccion}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="AlumnoEliminarP/{{$a->codPersona}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
+                                    <a title="Editar" href="AlumnoCargarP/{{$a->codPersona}}/{{$a->codProduccion}}"><span
+                                               style="color: green;" class="glyphicon glyphicon-pencil"></span> </a>
+                                    &nbsp;
+                                    <a title="Eliminar" href="" onclick="eliminar(event,'AlumnoEliminarP/{{$a->codPersona}}')"><span
+                                               style="color: red" class="glyphicon glyphicon-trash"></span> </a>
                                 </td>
                             </tr>
                         @endforeach
