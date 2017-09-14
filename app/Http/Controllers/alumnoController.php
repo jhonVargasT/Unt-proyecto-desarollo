@@ -193,6 +193,9 @@ class alumnoController extends Controller
                     if ($request->select == 'Centro produccion') {
                         $alu = $alumno->consultarAlumnoProduccionP($request->text);//Consulta buscar alumnos por la escuela a la que pertenece
                     }
+                    else{
+                        $alu=$alumno->consultarAlumnoProducciontodoP();
+                    }
                 }
             }
         }

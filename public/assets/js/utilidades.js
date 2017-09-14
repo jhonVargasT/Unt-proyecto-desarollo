@@ -2,9 +2,24 @@
  * Created by JhO.On on 11/07/2017.
  */
 
-function eliminar(link){
-window.location.href("www.google.com");
 
+function eliminar(event,url){
+    event.preventDefault();
+
+    swal({
+        title: 'Esta seguro de eliminar?',
+        text: "Si elimina este registro no podra recuperarlo! ",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Aceptar'
+    }).then(function () {
+
+        window.location=url;
+
+    })
+//window.location.href("www.google.com");
 }
 
 function activarBusqueda(idselect,idtext,idboton) {
@@ -79,7 +94,7 @@ function activarbotonform(event,myarray,idboton,idspanmensaje) {
 
        }
     }
-    alert(cont);
+
     if (cont>0){
 
         event && event.preventDefault();

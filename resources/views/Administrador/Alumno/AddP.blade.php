@@ -41,7 +41,7 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 
-        <div class="panel-heading"><h3>Agregar Estudiante</h3></div>
+        <div class="panel-heading"><h3>Agregar Estudiante Centro de Produccion</h3></div>
         <div style="background-color: #FFFFFF">
             <div class="panel-body">
                 @if(session()->has('true'))
@@ -50,7 +50,8 @@
                 @if(session()->has('false'))
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
                 @endif
-                <form name="form" action="{{url('AlumnoRegistradoP')}}" role="form" method="POST" class="Horizontal">
+                <form name="form"  onsubmit="activarbotonform(event,['spandni','spannombres','spanapellidos','spanemail','spancodAlumno'],'enviar','mensaje')"
+                      action="{{url('AlumnoRegistradoP')}}" role="form" method="POST" class="Horizontal">
                     {{csrf_field()}}
                     <div class="panel panel-primary">
                         <div class="panel-heading">Datos personales</div>
@@ -59,8 +60,9 @@
                                 <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label"> Numero de Dni</span>
                                     <input class="form-control input-sm" name="dni" type="text"
-                                           autocomplete="off" onkeypress="return validarNum(event)"
+                                           autocomplete="off" onchange="validarDni('dni','spandni')"
                                            placeholder="Ejem: 72978792" required id="dni">
+                                    <span class="control-label" style="color: red;" id="spandni"></span>
                                     <script>
                                         $('#dni').change(function () {
                                             $.ajax({
@@ -87,21 +89,23 @@
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                     <span class="control-label">Nombres</span>
                                     <input class="form-control input-sm" name="nombres" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)"
+                                           autocomplete="off" onchange="validarNombre('nombres','spannombres')"
                                            placeholder="Ejm:Jose Carlos" required id="nombres">
-
+                                    <span class="control-label" style="color: red" id="spannombres"></span>
                                 </div>
                                 <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                     <span class="control-label">Apellidos</span>
                                     <input class="form-control input-sm" name="apellidos" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)"
+                                           autocomplete="off" onchange="validarNombre('apellidos','spanapellidos')"
                                            placeholder="Ejem: Terenas Lory" required id="apellidos">
+                                    <span style="color: red" class="control-label" id="spanapellidos"></span>
                                 </div>
                                 <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                     <span class="control-label">Correo</span>
                                     <input class="form-control input-sm" name="correo" type="email"
-                                           autocomplete="off"
+                                           autocomplete="off" onchange="validarCorreo('correo','spanemail')"
                                            placeholder="Ejem: unt@gmail.com" required id="correo">
+                                    <span class="control-label" style="color: red" id="spanemail"></span>
                                 </div>
                             </div>
                         </div>
@@ -113,7 +117,9 @@
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label"> Codigo alumno</span>
                                     <input class="form-control input-sm" name="codAlumno" type="text"
+                                           onchange="validarNumeros('codAlumno','spancodAlumno')"
                                            autocomplete="off" placeholder="Ejm: 000104499" required id="codAlumno">
+                                    <span class="control-label" style="color: red" id="spancodAlumno"></span>
                                 </div>
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label"> Fecha matricula</span>
@@ -167,13 +173,16 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-sm-12 row form-group" align="center">
+                        <span id="mensaje" class="control-label" style="color: red"></span>
+                    </div>
                     <div class="row form-group">
                         <div class="col-md-3"></div>
                         <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
                                     class="glyphicon glyphicon-ban-circle"></span>
                             Cancelar</a>
                         <div class="col-md-2"></div>
-                        <button type="submit" name="enviar" class="col-md-2 btn btn-sm btn-success"><span
+                        <button  onmouseover="activarbotonform(null,['spandni','spannombres','spanapellidos','spanemail','spancodAlumno'],'enviar','mensaje')" type="submit" name="enviar" id="enviar" class="col-md-2 btn btn-sm btn-success"><span
                                     class="glyphicon glyphicon-ok"></span> Guardar
                         </button>
                         <div class="col-md-3"></div>

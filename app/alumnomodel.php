@@ -460,6 +460,33 @@ class alumnomodel extends personamodel
         }
         return $alumnobd;
     }
+    public function consultarAlumnoProducciontodoP()
+    {
+        try {
+            $alumnobd = DB::select('SELECT 
+                *
+            FROM
+                persona
+                    LEFT JOIN
+                alumno ON persona.codPersona = alumno.idPersona
+                    LEFT JOIN
+                produccionalumno ON produccionalumno.codAlumno = alumno.idAlumno
+                    LEFT JOIN
+                produccion ON produccion.codProduccion = produccionalumno.idProduccion
+            WHERE
+                persona.codPersona = alumno.idPersona
+                    AND produccionalumno.codAlumno = alumno.idAlumno
+                    AND produccion.codProduccion = produccionalumno.idProduccion
+                    AND persona.estado = 1
+                    AND alumno.estado = 1
+                    ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarAlumnoProduccionP/alumnomodel');
+            return null;
+        }
+        return $alumnobd;
+    }
 
     public function consultarAlumnoProduccionP($nombre)
     {

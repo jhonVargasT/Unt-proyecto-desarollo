@@ -110,11 +110,11 @@
                             <td>{{$p->tipoCuenta}}</td>
                             <td align="center">
                                 {{ csrf_field() }}
-                                <a href="PersonalCargar/{{$p->idPersona}}" title="editar"><span
-                                            class="glyphicon glyphicon-pencil"></span> </a>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a href="PersonalEliminar/{{$p->idPersona}}"><span
-                                            class="glyphicon glyphicon-trash"></span> </a>
+                                <a title="editar" href="PersonalCargar/{{$p->idPersona}}" title="editar"><span
+                                            style="color:green" class="glyphicon glyphicon-pencil"></span> </a>
+
+                                <a title="eliminar" onclick="eliminar(event,'PersonalEliminar/{{$p->idPersona}}')" href="PersonalEliminar/{{$p->idPersona}}"><span
+                                            style="color: red" class="glyphicon glyphicon-trash"></span> </a>
                             </td>
                         </tr>
                     @endforeach
