@@ -39,7 +39,7 @@
                         <div class="col-sm-7 ">
                             <select class=" form-control" name="select">
                                 <option selected=""> Todo</option>
-                                <option>codigo clasificador </option>
+                                <option>Codigo clasificador </option>
                                 <option>Tipo de recurso</option>
                                 <option>Nombre de clasificador</option>
                                 <option>Fuente de financiamiento</option>

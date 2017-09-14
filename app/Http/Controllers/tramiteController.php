@@ -6,6 +6,7 @@ use App\facultadmodel;
 use App\loguntemodel;
 use App\tramitemodel;
 use App\utilmodel;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use PhpParser\Node\Stmt\TryCatch;
@@ -23,6 +24,7 @@ class tramiteController extends Controller
             $tramite->setNombre($request->nombre);
             $tramite->setFuentefinanc($request->fuentefinanc);
             $tramite->setTipoRecurso($request->tipoRecurso);
+            $tramite->setAux($request->aux);
 
             $tram = $tramite->save();//SQL, insertar registro del clasificador
             if ($tram == true) {
@@ -54,6 +56,7 @@ class tramiteController extends Controller
         $tramite->setNombre($request->nombre);
         $tramite->setFuentefinanc($request->fuentefinanc);
         $tramite->setTipoRecurso($request->tipoRecurso);
+        $tramite->setAux($request->aux);
         $tramite->editarTramite($codTramite);//SQL, actualizar registro del clasificador
         return view('Administrador/Tramite/search')->with(['nombre' => $request->nombreTramite]);
     }
@@ -66,13 +69,13 @@ class tramiteController extends Controller
         $tra = null;
         $tramite = new tramitemodel();
 
-        if ($request->select == 'Clasificador Siaf') {
+        if ($request->select == 'Codigo clasificador') {
             $tra = $tramite->consultarTramiteCS($request->text);//SQL, obtener datos del clasificador por clasificador siaf
         } else {
             if ($request->select == 'Tipo de recurso') {
                 $tra = $tramite->consultarTramiteTR($request->text);//SQL, obtener datos del clasificador por tipo de recurso
             } else {
-                if ($request->select == 'Nombre de tramite') {
+                if ($request->select == 'Nombre de clasificador') {
                     $tra = $tramite->consultarTramiteN($request->text);//SQL, obtener datos del clasificador por nombre
                 } else {
                     if ($request->select == 'Fuente de financiamiento') {

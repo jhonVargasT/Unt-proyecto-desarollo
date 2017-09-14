@@ -672,7 +672,7 @@ class pagomodel
         $logunt->setCodigoPersonal($codPers);
         try {
             DB::transaction(function () use ($codPago, $logunt, $date) {
-                DB::table('pago')->where('codPago', $codPago)->update(['estado' => 0]);
+                DB::table('pago')->where('codPago', $codPago)->update(['estado' => 3]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {

@@ -20,8 +20,8 @@
     </div>
 @stop
 @section('content')
-    <div class="panel-heading"> <h3>Editar clasificador </h3></div>
-    <div  style="background-color: #FFFFFF" >
+    <div class="panel-heading"><h3>Editar clasificador </h3></div>
+    <div style="background-color: #FFFFFF">
         <div class="panel-body">
             @if(session()->has('true'))
                 <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -68,6 +68,14 @@
                                     <input class="form-control input-sm" name="fuentefinanc" type="text"
                                            autocomplete="off"
                                            onkeypress="return validarNum(event)" value="{{$t->fuentefinanc}}">
+                                </div>
+                            </div>
+                            <div class=" form-group-sm" align="left">
+                                <span class="col-sm-2 control-label">Aux </span>
+                                <div class="col-sm-1">
+                                    <input class="form-control input-sm" name="aux" type="text"
+                                           autocomplete="off"
+                                           onkeypress="return validarNum(event)" value="{{$t->aux}}">
                                 </div>
                             </div>
                         </div>

@@ -24,7 +24,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
     <div class="panel-heading"><h3>Agregar clasificador </h3></div>
-    <div  style="background-color: #FFFFFF" >
+    <div style="background-color: #FFFFFF">
 
         <div class="panel-body">
             <form
@@ -43,7 +43,8 @@
                         <div class="col-sm-3">
                             <span class=" control-label"> SIAF </span>
                             <input class="form-control input-sm" name="clasificador" id="clasificador" type="text"
-                                   autocomplete="off" required onchange="validarNumeros('clasificador','spanclasificador')">
+                                   autocomplete="off" required
+                                   onchange="validarNumeros('clasificador','spanclasificador')">
                             <span class=" control-label" style="color:red" id="spanclasificador">  </span>
                         </div>
                     </div>
@@ -53,28 +54,32 @@
                             <span class=" control-label">Nombre de clasificador</span>
                             <input class="form-control" name="nombre" id="nombre" type="text"
                                    autocomplete="off"
-                                 required>
+                                   required>
                             <span class=" control-label" style="color:red" id="spannombre">  </span>
                         </div>
                     </div>
-
-
                     <div class="form-group-sm " align="left">
 
                         <div class="col-sm-3">
                             <span class="control-label"> Tipo de recurso</span>
                             <input class=" form-control input-sm" name="tipoRecurso" type="text"
-                                   autocomplete="off"   placeholder="A">
+                                   autocomplete="off" placeholder="A">
                         </div>
                     </div>
-
                     <div class=" form-group-sm" align="left">
-
                         <div class="col-sm-2">
                             <span class=" control-label"> Fuente de financiamieto</span>
 
                             <input class="form-control" name="fuentefinanc" type="text"
-                                   autocomplete="off"   >
+                                   autocomplete="off">
+                        </div>
+                    </div>
+                    <div class=" form-group-sm" align="left">
+                        <div class="col-sm-2">
+                            <span class=" control-label"> Aux</span>
+
+                            <input class="form-control" name="aux" type="text"
+                                   autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -87,7 +92,7 @@
                                 class="glyphicon glyphicon-ban-circle"></span>
                         Cancelar</a>
                     <div class="col-md-2"></div>
-                    <button type="submit"  name="enviar" id="enviar" class="col-md-2 btn btn-success">
+                    <button type="submit" name="enviar" id="enviar" class="col-md-2 btn btn-success">
                         <span
                                 class="glyphicon glyphicon-ok"></span> Guardar
                     </button>

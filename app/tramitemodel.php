@@ -14,6 +14,7 @@ class tramitemodel
     private $fuentefinanc;
     private $tipoRecurso;
     private $estado;
+    private $aux;
 
     /**
      * tramitemodel constructor.
@@ -127,6 +128,25 @@ class tramitemodel
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getAux()
+    {
+        return $this->aux;
+    }
+
+    /**
+     * @param mixed $aux
+     * @return tramitemodel
+     */
+    public function setAux($aux)
+    {
+        $this->aux = $aux;
+        return $this;
+    }
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function consultarTramites()
@@ -156,8 +176,7 @@ class tramitemodel
             $util->insertarError($e->getMessage(), 'consultarNombre/tramitemodel');
             return null;
         }
-        echo $tramitebd;
-
+        return $tramitebd;
     }
 
     public function consultarTramiteFF($ff)
@@ -245,7 +264,7 @@ class tramitemodel
 
         try {
             DB::transaction(function () use ($logunt) {
-                DB::table('tramite')->insert(['clasificador' => $this->clasificador, 'nombre' => $this->nombre, 'fuentefinanc' => $this->fuentefinanc, 'tipoRecurso' => $this->tipoRecurso]);
+                DB::table('tramite')->insert(['clasificador' => $this->clasificador, 'nombre' => $this->nombre, 'fuentefinanc' => $this->fuentefinanc, 'tipoRecurso' => $this->tipoRecurso, 'aux'=>$this->aux]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -271,7 +290,7 @@ class tramitemodel
             DB::transaction(function () use ($codTramite, $logunt) {
                 DB::table('tramite')
                     ->where('codTramite', $codTramite)
-                    ->update(['clasificador' => $this->clasificador, 'nombre' => $this->nombre, 'fuentefinanc' => $this->fuentefinanc, 'tipoRecurso' => $this->tipoRecurso]);
+                    ->update(['clasificador' => $this->clasificador, 'nombre' => $this->nombre, 'fuentefinanc' => $this->fuentefinanc, 'tipoRecurso' => $this->tipoRecurso, 'aux'=>$this->aux]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
