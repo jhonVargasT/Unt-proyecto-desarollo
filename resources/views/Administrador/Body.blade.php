@@ -98,7 +98,8 @@
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="/admRegistrarEstudianteProduccion">Agregar Estudiante Centros De  Produccion </a>
+                                        <a href="/admRegistrarEstudianteProduccion">Agregar Estudiante Centros De
+                                            Produccion </a>
                                     </td>
                                 </tr>
                             </table>
@@ -418,6 +419,7 @@
                 tecla_final = String.fromCharCode(tecla);
                 return patron.test(tecla_final);
             }
+
             function validarLetras(e) {
                 tecla = (document.all) ? e.keyCode : e.which;
 
@@ -428,6 +430,7 @@
                 tecla_final = String.fromCharCode(tecla);
                 return patron.test(tecla_final);
             }
+
             function validarCodigoSiaf(e) {
                 tecla = (document.all) ? e.keyCode : e.which;
 
@@ -438,6 +441,7 @@
                 tecla_final = String.fromCharCode(tecla);
                 return patron.test(tecla_final);
             }
+
             function validarDouble(e) {
                 tecla = (document.all) ? e.keyCode : e.which;
 
