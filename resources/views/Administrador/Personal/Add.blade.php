@@ -35,19 +35,19 @@
             @endif
             <form name="form" onsubmit="activarbotonform(event,['spandni','spannombre',
                             'spanapellidos','spancorreo','spancodigoPersonal'
-                            ],'enviar','mensaje')" action="{{url('PersonalRegistrado')}}" role="form" method="POST" class="Vertical">
+                            ],'enviar','mensaje')" action="{{url('PersonalRegistrado')}}" role="form" method="POST"
+                  class="Vertical">
                 {{csrf_field()}}
                 <div class="panel  panel-primary">
                     <div class="panel-heading">Datos Sede</div>
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-
                                 <div class="col-sm-3">
                                     <span class=" control-label"> Sede</span>
                                     <input class="typeahead form-control input-sm" name="sede" type="text"
                                            autocomplete="off" onkeypress="return validarLetras(event)"
-                                            required>
+                                           required>
                                 </div>
                                 <script type="text/javascript">
                                     var path = "{{ route('autocompletesede') }}";
@@ -72,37 +72,33 @@
                                     <span class=" control-label"> Numero de Dni</span>
                                     <input class="form-control input-sm" name="dni" id="dni" type="text"
                                            autocomplete="off" onchange="validarDni('dni','spandni')"
-                                            required>
-
-                                    <span style="color: red" class=" control-label" id="spandni" > </span>
+                                           required>
+                                    <span style="color: red" class=" control-label" id="spandni"> </span>
                                 </div>
-
                             </div>
                             <div class="form-group-sm" align="left">
-
                                 <div class="col-sm-4">
-                                    <span class="control-label" >Nombres</span>
-                                    <input class="form-control input-sm" name="nombres" id='nombre'type="text"
-                                           autocomplete="off"  onchange="validarNombre('nombre','spannombre')"
-                                            required>
-                                    <span style="color: red" class=" control-label" id="spannombre" > </span>
+                                    <span class="control-label">Nombres</span>
+                                    <input class="form-control input-sm" name="nombres" id='nombre' type="text"
+                                           autocomplete="off" onchange="validarNombre('nombre','spannombre')"
+                                           required>
+                                    <span style="color: red" class=" control-label" id="spannombre"> </span>
                                 </div>
 
                             </div>
                             <div class="form-group-sm" align="left">
-
                                 <div class="col-sm-4">
                                     <span class="control-label">Apellidos</span>
                                     <input class="form-control input-sm" name="apellidos" id="apellidos" type="text"
-                                           autocomplete="off"   onchange="validarNombre('apellidos','spanapellidos')"
-                                            required>
+                                           autocomplete="off" onchange="validarNombre('apellidos','spanapellidos')"
+                                           required>
                                     <span style="color: red" class="control-label" id="spanapellidos"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12 row form-group">
 
-                            <div class="form-group-sm" >
+                            <div class="form-group-sm">
 
                                 <div class="col-sm-4">
                                     <span class="control-label">Correo</span>
@@ -135,8 +131,9 @@
 
                                 <div class="col-sm-2">
                                     <span class="control-label">Codigo personal</span>
-                                    <input class="form-control input-sm" name="codigoPersonal" id="codigoPersonal" type="text"
-                                            onchange="validarNumeros('codigoPersonal','spancodigoPersonal')" required>
+                                    <input class="form-control input-sm" name="codigoPersonal" id="codigoPersonal"
+                                           type="text"
+                                           onchange="validarNumeros('codigoPersonal','spancodigoPersonal')" required>
                                     <span style="color: red" class="control-label" id="spancodigoPersonal"></span>
                                 </div>
                             </div>
@@ -148,17 +145,20 @@
                                            autocomplete="off" required>
                                 </div>
                             </div>
-                            <div class="form-group-sm" >
+                            <div class="form-group-sm">
 
                                 <div class="col-sm-2">
                                     <span class="control-label">Contraseña</span>
-                                    <input class="form-control input-sm" id="contraseñaAgregar" name="contraseñaAgregar" type="password"
+                                    <input class="form-control input-sm" id="contraseñaAgregar" name="contraseñaAgregar"
+                                           type="password"
                                            autocomplete="off" required>
                                 </div>
                                 <div class="col-sm-2">
                                     <span class="control-label">Repita contraseña</span>
                                     <input class="form-control input-sm" id="contraseñavalidar" type="password"
-                                    autocomplete="off" onchange="validarContraseña('contraseñaAgregar','contraseñavalidar','spancontraseñavalidar')" required>
+                                           autocomplete="off"
+                                           onchange="validarContraseña('contraseñaAgregar','contraseñavalidar','spancontraseñavalidar')"
+                                           required>
                                     <span class="control-label" id="spancontraseñavalidar"></span>
                                 </div>
 
@@ -180,7 +180,7 @@
                         Cancelar</a>
                     <div class="col-md-2"></div>
                     <button type="submit" name="enviar" id="enviar" class=" col-md-2 btn btn-success"
-                          onmouseover="activarbotonform(null,['spandni','spannombre',
+                            onmouseover="activarbotonform(null,['spandni','spannombre',
                             'spanapellidos','spancorreo','spancodigoPersonal'
                             ],'enviar','mensaje')">
                         <span

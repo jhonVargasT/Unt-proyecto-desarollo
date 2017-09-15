@@ -20,8 +20,8 @@
     </div>
 @stop
 @section('content')
-    <div class="panel-heading"> <h3>Agregar sede</h3></div>
-    <div  style="background-color: #FFFFFF" >
+    <div class="panel-heading"><h3>Agregar sede</h3></div>
+    <div style="background-color: #FFFFFF">
         <div class="panel-body">
             <form name="form" action="{{url('SedeRegistrada')}}" role="form" method="POST" class="Vertical">
                 {{csrf_field()}}
@@ -31,35 +31,39 @@
                 @if(session()->has('false'))
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
                 @endif
-                <div class="col-sm-12 row form-group">
-                    <div class="form-group-sm " align="left">
-                        <span class="col-sm-2 control-label"> Sede </span>
-                        <div class="col-sm-4">
-                            <div class="input-group col-sm-12">
-                                <input class="form-control input-sm" name="nombreSede" type="text" autocomplete="off"
-                                       placeholder="ejmp: Trujillo"
-                                       onkeypress="return validarLetras(event)" required>
+                <div class="panel  panel-primary">
+                    <div class="panel-heading">Datos Sede</div>
+                    <div class="panel-body">
+                        <div class="col-sm-12 row form-group">
+                            <div class="form-group-sm " align="left">
+                                <div class="col-sm-3">
+                                    <span class=" control-label"> Sede</span>
+                                    <input class="form-control input-sm" name="nombresede" id="nombresede" type="text"
+                                           autocomplete="off" onchange="validarNombre('nombresede','spandni')"
+                                           required>
+                                    <span style="color: red" class=" control-label" id="spandni" > </span>
+                                </div>
+                            </div>
+                            <div class="form-group-sm " align="left">
+                                <div class="col-sm-3">
+                                    <span class=" control-label"> Codigo sede</span>
+                                    <input class="form-control input-sm" name="codigosede" id="codigosede" type="text"
+                                           autocomplete="off" onchange="validarNumeros('codigosede','spandni')"
+                                           required>
+                                    <span style="color: red" class=" control-label" id="spandni" > </span>
+                                </div>
+                            </div>
+                            <div class="form-group-sm " align="left">
+                                <div class="col-sm-3">
+                                    <span class=" control-label"> Direccion</span>
+                                    <input class="form-control input-sm" name="direccion" id="direccion" type="text"
+                                           autocomplete="off" required>
+                                    <span style="color: red" class=" control-label" id="spandni" > </span>
+                                </div>
+                            </div>
                             </div>
                         </div>
-                        <span class="col-sm-2 control-label"> Codigo Sede</span>
-                        <div class="col-sm-4">
-                            <input class="form-control input-sm" name="codigoSede" type="text" autocomplete="off"
-                                   placeholder="ejmp: 0002548"
-                                  required>
-                        </div>
                     </div>
-                </div>
-                <div class="col-sm-12 row form-group">
-                    <div class="form-group-sm " align="left">
-                        <span class="col-sm-2 control-label"> Direccion</span>
-                        <div class="col-sm-4">
-                            <input class="form-control input-sm" name="direccion" type="text" autocomplete="off"
-                                   placeholder="ejmp: Juan Pablo II"
-                                   required>
-                        </div>
-                    </div>
-
-                </div>
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm " align="left">
                         <div class="col-sm-5">

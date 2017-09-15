@@ -25,11 +25,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
     <div class="panel-heading"><h3>Agregar clasificador </h3></div>
     <div style="background-color: #FFFFFF">
-
         <div class="panel-body">
-            <form
-
-                    name="form" action="{{url('TramiteRegistrado')}}" role="form" method="POST" class="Vertical">
+            <form name="form" action="{{url('TramiteRegistrado')}}" role="form" method="POST" class="Vertical">
                 {{csrf_field()}}
                 @if(session()->has('true'))
                     <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -37,41 +34,46 @@
                 @if(session()->has('false'))
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
                 @endif
-                <div class="col-sm-12 row form-group">
-                    <div class="form-group-sm " align="left">
+                <div class="panel  panel-primary">
+                    <div class="panel-heading">Datos Clasificador</div>
+                    <div class="panel-body">
+                        <div class="col-sm-12 row form-group">
+                            <div class="form-group-sm " align="left">
+                                <div class="col-sm-3">
+                                    <span class=" control-label"> SIAF </span>
+                                    <input class="form-control input-sm" name="clasificador" id="clasificador"
+                                           type="text"
+                                           autocomplete="off" required
+                                           onchange="validarNumeros('clasificador','spanclasificador')">
+                                    <span class=" control-label" style="color:red" id="spanclasificador">  </span>
+                                </div>
+                            </div>
+                            <div class=" form-group-sm" align="left">
 
-                        <div class="col-sm-3">
-                            <span class=" control-label"> SIAF </span>
-                            <input class="form-control input-sm" name="clasificador" id="clasificador" type="text"
-                                   autocomplete="off" required
-                                   onchange="validarNumeros('clasificador','spanclasificador')">
-                            <span class=" control-label" style="color:red" id="spanclasificador">  </span>
-                        </div>
-                    </div>
-                    <div class=" form-group-sm" align="left">
+                                <div class="col-sm-2">
+                                    <span class=" control-label">Nombre de clasificador</span>
+                                    <input class="form-control" name="nombre" id="nombre" type="text"
+                                           autocomplete="off"
+                                           required>
+                                    <span class=" control-label" style="color:red" id="spannombre">  </span>
+                                </div>
+                            </div>
+                            <div class="form-group-sm " align="left">
 
-                        <div class="col-sm-2">
-                            <span class=" control-label">Nombre de clasificador</span>
-                            <input class="form-control" name="nombre" id="nombre" type="text"
-                                   autocomplete="off"
-                                   required>
-                            <span class=" control-label" style="color:red" id="spannombre">  </span>
-                        </div>
-                    </div>
-                    <div class="form-group-sm " align="left">
+                                <div class="col-sm-3">
+                                    <span class="control-label"> Tipo de recurso</span>
+                                    <input class=" form-control input-sm" name="tipoRecurso" type="text"
+                                           autocomplete="off" placeholder="A">
+                                </div>
+                            </div>
+                            <div class=" form-group-sm" align="left">
+                                <div class="col-sm-2">
+                                    <span class=" control-label"> Fuente de financiamieto</span>
 
-                        <div class="col-sm-3">
-                            <span class="control-label"> Tipo de recurso</span>
-                            <input class=" form-control input-sm" name="tipoRecurso" type="text"
-                                   autocomplete="off" placeholder="A">
-                        </div>
-                    </div>
-                    <div class=" form-group-sm" align="left">
-                        <div class="col-sm-2">
-                            <span class=" control-label"> Fuente de financiamieto</span>
-
-                            <input class="form-control" name="fuentefinanc" type="text"
-                                   autocomplete="off">
+                                    <input class="form-control" name="fuentefinanc" type="text"
+                                           autocomplete="off">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

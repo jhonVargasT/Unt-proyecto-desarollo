@@ -45,86 +45,109 @@
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
             @endif
             <!-- Search input-->
-                <div class="row ">
-                    <div class="form-group-sm col-sm-2">
-                        <span class="control-label"> C-CTE1</span>
-                        <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
-                               name="nombreTramite" id="name" autocomplete="off"
-                               required>
-                        <script type="text/javascript">
-                            var path = "{{ route('autocompletet') }}";
-                            $('input.typeahead').typeahead({
-                                source: function (query, process) {
-                                    return $.get(path, {query: query}, function (data) {
-                                        return process(data);
-                                    });
-                                }
-                            });
-                        </script>
-                    </div>
-                    <div class="col-sm-2">
-                        <span class=" control-label">Tipo de recurso </span>
-                        <input class="form-control input-sm " name="TipoDeRecurso" type="text" id="tr"
-                               readonly>
-                        <script>
-                            $('#name').change(function () {
-                                $.ajax({
-                                    url: '/tipoRecurso',
-                                    type: "get",
-                                    data: {name: $('#name').val()},
-                                    success: function (data) {
-                                        $('#tr').val(data);
-                                    }
-                                });
-                            });
-                        </script>
-                    </div>
-                    <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
-                        <span class="control-label"> Fecha</span>
-                        <div class="col-sm-12 input-group date" data-provide="datepicker">
-                            <input type="text" class="form-control"
-                                   value="<?php date_default_timezone_set('America/Lima');
-                                   $date = date('m/d/Y');
-                                   echo $date ?>" name="fecha">
-                            <div class="input-group-addon">
-                                <span class="glyphicon glyphicon-th"></span>
+                <div class="panel  panel-primary">
+                    <div class="panel-heading">Datos Clasificador</div>
+                    <div class="panel-body">
+                        <div class="col-sm-12 row form-group">
+                            <div class="form-group-sm " align="left">
+                                <div class="col-sm-3">
+                                    <span class=" control-label"> SIAF </span>
+                                    <input class="typeahead form-control" type="text"
+                                           placeholder="Ingresa datos aqui .."
+                                           name="nombreTramite" id="name" autocomplete="off"
+                                           required>
+                                    <script type="text/javascript">
+                                        var path = "{{ route('autocompletet') }}";
+                                        $('input.typeahead').typeahead({
+                                            source: function (query, process) {
+                                                return $.get(path, {query: query}, function (data) {
+                                                    return process(data);
+                                                });
+                                            }
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                            <div class="form-group-sm " align="left">
+                                <div class="col-sm-3">
+                                    <span class=" control-label"> Tipo de recurso </span>
+                                    <input class="form-control input-sm " name="TipoDeRecurso" type="text" id="tr"
+                                           readonly>
+                                    <script>
+                                        $('#name').change(function () {
+                                            $.ajax({
+                                                url: '/tipoRecurso',
+                                                type: "get",
+                                                data: {name: $('#name').val()},
+                                                success: function (data) {
+                                                    $('#tr').val(data);
+                                                }
+                                            });
+                                        });
+                                    </script>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class=" col-sm-2  form-group-sm">
-                        <span class="control-label">Monto</span>
-                        <div class="input-group ">
-                            <div class="input-group-addon ">S/.</div>
-                            <input type="text" class="form-control " name="monto"
-                                   autocomplete="off" onkeypress="return validarDouble(event)"
-                                   placeholder="ejmp: 2.50"
-                                   required>
-                        </div>
-                    </div>
-                    <div class=" col-sm-2 form-group-sm">
-                        <span class="control-label">Numero de resolucion</span>
-                        <input class="form-control " name="numResolucion" type="text"
-                               autocomplete="off" onkeypress="return validarNum(event)"
-                               placeholder="jmp: 124578" required>
                     </div>
                 </div>
-                <div class="row ">
-                    <div class=" col-sm-4">
-                        <span class="control-label">Descripcion </span>
-                        <textarea class="form-control" rows="2" name="descripcion"
-                                  placeholder="Agregue una breve descripcion"></textarea>
-
-                    </div>
-                    <div class="col-sm-2 form-group-sm ">
-                        <span class="control-label">Cuenta bancaria</span>
-                        <div class="input-group">
-                            <input class="form-control input-sm " name="cuenta" type="text" id="cuenta"
-                                   onkeypress="return validarNum(event)" required>
-                            <div class="input-group-addon"><a id="help_button"><i
-                                            class="glyphicon glyphicon-eye-open"></i></a>
+                <div class="panel  panel-primary">
+                    <div class="panel-heading">Datos Donaciones y transcacciones</div>
+                    <div class="panel-body">
+                        <div class="col-sm-12 row form-group">
+                            <div class="form-group-sm " align="left">
+                                <div class="col-sm-3">
+                                    <span class=" control-label"> Fecha </span>
+                                    <div class="col-sm-12 input-group date" data-provide="datepicker">
+                                        <input type="text" class="form-control"
+                                               value="<?php date_default_timezone_set('America/Lima');
+                                               $date = date('m/d/Y');
+                                               echo $date ?>" name="fecha">
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group-sm " align="left">
+                                <div class="col-sm-3">
+                                    <span class="glyphicon glyphicon-usd"> Monto</span>
+                                    <input type="text" class="form-control " name="monto"
+                                           autocomplete="off" onkeypress="return validarDouble(event)"
+                                           placeholder="ejmp: 2.50"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="form-group-sm " align="left">
+                                <div class="col-sm-3">
+                                    <span class=" control-label"> Numero de resolucion</span>
+                                    <input class="form-control input-sm" name="numResolucion" id="numResolucion"
+                                           type="text"
+                                           autocomplete="off" required
+                                           onchange="validarNumeros('numResolucion','spanclasificador')">
+                                    <span class=" control-label" style="color:red" id="spanclasificador">  </span>
+                                </div>
+                            </div>
+                            <div class="form-group-sm " align="left">
+                                <div class="col-sm-3">
+                                    <span class=" control-label"> Descripcion</span>
+                                    <input class="form-control input-sm" name="descripcion" id="descripcion"
+                                           type="text"
+                                           autocomplete="off" required
+                                           onchange="validarNombre('descripcion','spanclasificador')">
+                                    <span class=" control-label" style="color:red" id="spanclasificador">  </span>
+                                </div>
+                            </div>
+                            <div class="form-group-sm " align="left">
+                                <div class="col-sm-3">
+                                    <span class=" control-label"> Cuenta bancaria </span>
+                                    <input class="form-control input-sm " name="cuenta" type="text" id="cuenta"
+                                           onkeypress="return validarNum(event)" required>
+                                    <div class="input-group-addon"><a id="help_button"><i
+                                                    class="glyphicon glyphicon-eye-open"></i></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <br>

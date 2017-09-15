@@ -40,37 +40,36 @@
             @endif
             <form name="form" action="{{url('EscuelaRegistrada')}}" role="form" method="POST" class="Horizontal">
                 {{csrf_field()}}
-                <div class="panel panel-default">
+                <div class="panel  panel-primary">
                     <div class="panel-heading">Datos Sede y Facultad</div>
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label">Sede</span>
                                 <div class="col-sm-3">
-                                    <input class="typesede form-control input-sm" type="text"
-                                           placeholder="ejmp : Trujillo"
-                                           name="nombreSede" id="ns"
-                                           autocomplete="off" required>
-                                    <script type="text/javascript">
-                                        var paths = "{{ route('autocompletesede') }}";
-                                        $('input.typesede').typeahead({
-                                            source: function (querys, processe) {
-                                                return $.get(paths, {query: querys}, function (data) {
-                                                    return processe(data);
-                                                });
-                                            }
-                                        });
-                                    </script>
+                                    <span class=" control-label"> Sede</span>
+                                    <input class="typeahead form-control input-sm" name="sede" type="text"
+                                           autocomplete="off" onkeypress="return validarLetras(event)"
+                                           required>
                                 </div>
+                                <script type="text/javascript">
+                                    var path = "{{ route('autocompletesede') }}";
+                                    $('input.typeahead').typeahead({
+                                        source: function (query, process) {
+                                            return $.get(path, {query: query}, function (data) {
+                                                return process(data);
+                                            });
+                                        }
+                                    });
+                                </script>
                             </div>
-                            <div class="col-sm-1"></div>
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-1 control-label">Facultad</span>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
+                                    <span class=" control-label"> Facultad</span>
                                     <input class="facultad form-control input-sm" type="text"
                                            placeholder="ejmp : Ingenieria"
                                            name="nombreFacultad" id="fa"
                                            autocomplete="off" required>
+                                    <span style="color: red" class=" control-label" id="spandni"> </span>
                                     <script>
                                         src = "{{ route('searchsedeescuela') }}";
                                         $("#fa").autocomplete({
@@ -96,35 +95,38 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-default">
+                <div class="panel  panel-primary">
                     <div class="panel-heading">Datos Escuela</div>
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label"> Codigo Escuela</span>
                                 <div class="col-sm-3">
-                                    <input class="form-control input-sm" name="codEscuela" type="text"
-                                           placeholder="Ejm: 0729787548" autocomplete="off">
+                                    <span class=" control-label"> Codigo Escuela</span>
+                                    <input class="form-control input-sm" name="codEscuela" id="codEscuela"
+                                           type="text"
+                                           autocomplete="off" onchange="validarNumeros('codEscuela','spandni')"
+                                           required>
+                                    <span style="color: red" class=" control-label" id="spandni"> </span>
                                 </div>
                             </div>
-                            <div class="form-group-sm " align="right">
-                                <span class="col-sm-2 control-label">Nombre Escuela</span>
-                                <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="nombre" placeholder="Ejm: Electronica"
-                                           onkeypress="return validarLetras(event)">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 row form-group">
-
-                        </div>
-                        <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label">Cuenta Interna</span>
                                 <div class="col-sm-3">
-                                    <input class="form-control input-sm" name="nroCuenta" type="text"
-                                           autocomplete="off" onkeypress="return validarCodigoSiaf(event)"
-                                           placeholder="Ejm: 0729787548">
+                                    <span class=" control-label"> Nombre Escuela</span>
+                                    <input class="form-control input-sm" name="nombre" id="nombre"
+                                           type="text"
+                                           autocomplete="off" onchange="validarNombre('nombre','spandni')"
+                                           required>
+                                    <span style="color: red" class=" control-label" id="spandni"> </span>
+                                </div>
+                            </div>
+                            <div class="form-group-sm " align="left">
+                                <div class="col-sm-3">
+                                    <span class=" control-label"> Cuenta Interna</span>
+                                    <input class="form-control input-sm" name="nroCuenta" id="nroCuenta"
+                                           type="text"
+                                           autocomplete="off" onchange="validarNumeros('nroCuenta','spandni')"
+                                           required>
+                                    <span style="color: red" class=" control-label" id="spandni"> </span>
                                 </div>
                             </div>
                         </div>

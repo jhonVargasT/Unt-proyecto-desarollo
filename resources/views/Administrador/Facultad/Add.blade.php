@@ -23,8 +23,8 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
-    <div class="panel-heading"> <h3>Agregar facultad</h3></div>
-    <div  style="background-color: #FFFFFF" >
+    <div class="panel-heading"><h3>Agregar facultad</h3></div>
+    <div style="background-color: #FFFFFF">
         <div class="panel-body">
             <form name="form" action="{{url('FacultadRegistrada')}}" role="form" method="POST" class="Vertical">
                 {{csrf_field()}}
@@ -34,14 +34,17 @@
                 @if(session()->has('false'))
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
                 @endif
-                <div class="col-sm-12 row form-group">
-                    <div class="form-group-sm " align="left">
-                        <span class="col-sm-2 control-label"> Sede </span>
-                        <div class="col-sm-4">
-                            <div class="input-group col-sm-12">
-                                <input class="typeahead form-control" type="text" placeholder="ejmp : Trujillo"
-                                       name="nombreSede"
-                                       autocomplete="off" required onkeypress="return validarLetras(event)">
+                <div class="panel  panel-primary">
+                    <div class="panel-heading">Datos Sede</div>
+                    <div class="panel-body">
+                        <div class="col-sm-12 row form-group">
+                            <div class="form-group-sm " align="left">
+                                <div class="col-sm-3">
+                                    <span class=" control-label"> Sede</span>
+                                    <input class="typeahead form-control input-sm" name="sede" type="text"
+                                           autocomplete="off" onkeypress="return validarLetras(event)"
+                                           required>
+                                </div>
                                 <script type="text/javascript">
                                     var path = "{{ route('autocompletesede') }}";
                                     $('input.typeahead').typeahead({
@@ -54,32 +57,42 @@
                                 </script>
                             </div>
                         </div>
-                        <span class="col-sm-2 control-label"> Codigo Facultad</span>
-                        <div class="col-sm-4">
-                            <input class="form-control input-sm" name="CodigoFacultad" type="text" autocomplete="off" placeholder="ejmp: 0002548"
-                                    required>
-                        </div>
                     </div>
                 </div>
-                <div class="col-sm-12 row form-group">
-                    <div class="form-group-sm " align="left">
-                        <span class="col-sm-2 control-label"> Cuenta Interna</span>
-                        <div class="col-sm-4">
-                            <input class="form-control input-sm" name="CuentaInterna" type="text" autocomplete="off" placeholder="ejmp: 0002548"
-                                   onkeypress="return validarCodigoSiaf(event)" required>
-                        </div>
-                    </div>
-                    <div class=" form-group-sm" align="left">
-                        <span class="col-sm-2 control-label">Nombre Facultad </span>
-                        <div class="col-sm-4">
-                            <input class="form-control input-sm" name="NombreFacultad" type="text" autocomplete="off"
-                                   onkeypress="return validarLetras(event)" placeholder="ejmp: Ingenieria" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12 row form-group">
-                    <div class="form-group-sm " align="left">
-                        <div class="col-sm-5">
+                <div class="panel  panel-primary">
+                    <div class="panel-heading">Datos Facultad</div>
+                    <div class="panel-body">
+                        <div class="col-sm-12 row form-group">
+                            <div class="form-group-sm " align="left">
+                                <div class="col-sm-3">
+                                    <span class=" control-label"> Codigo Facultad</span>
+                                    <input class="form-control input-sm" name="CodigoFacultad" id="CodigoFacultad"
+                                           type="text"
+                                           autocomplete="off" onchange="validarNumeros('CodigoFacultad','spandni')"
+                                           required>
+                                    <span style="color: red" class=" control-label" id="spandni"> </span>
+                                </div>
+                            </div>
+                            <div class="form-group-sm " align="left">
+                                <div class="col-sm-3">
+                                    <span class=" control-label"> Cuenta interna</span>
+                                    <input class="form-control input-sm" name="CuentaInterna" id="CuentaInterna"
+                                           type="text"
+                                           autocomplete="off" onchange="validarNumeros('CuentaInterna','spandni')"
+                                           required>
+                                    <span style="color: red" class=" control-label" id="spandni"> </span>
+                                </div>
+                            </div>
+                            <div class="form-group-sm " align="left">
+                                <div class="col-sm-3">
+                                    <span class=" control-label"> Nombre Facultad</span>
+                                    <input class="form-control input-sm" name="NombreFacultad" id="NombreFacultad"
+                                           type="text"
+                                           autocomplete="off" onchange="validarNombre('NombreFacultad','spandni')"
+                                           required>
+                                    <span style="color: red" class=" control-label" id="spandni"> </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
