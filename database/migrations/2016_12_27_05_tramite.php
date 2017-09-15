@@ -22,7 +22,6 @@ class Tramite extends Migration
             $table->string('nombre');
             $table->string('fuentefinanc')->nullable();
             $table->char('tipoRecurso')->nullable();
-            $table->char('aux')->nullable();
             $table->boolean('estado')->default('1');
         });
     }

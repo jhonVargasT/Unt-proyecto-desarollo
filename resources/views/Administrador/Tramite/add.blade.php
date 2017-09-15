@@ -74,14 +74,6 @@
                                    autocomplete="off">
                         </div>
                     </div>
-                    <div class=" form-group-sm" align="left">
-                        <div class="col-sm-2">
-                            <span class=" control-label"> Aux</span>
-
-                            <input class="form-control" name="aux" type="text"
-                                   autocomplete="off">
-                        </div>
-                    </div>
                 </div>
                 <div class="col-sm-12 row form-group" align="center">
                     <span id="mensaje" class="control-label" style="color: red"></span>

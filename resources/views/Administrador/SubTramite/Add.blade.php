@@ -30,8 +30,8 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-    <div class="panel-heading"> <h3>Agregar tasa</h3></div>
-    <div  style="background-color: #FFFFFF" >
+    <div class="panel-heading"><h3>Agregar tasa</h3></div>
+    <div style="background-color: #FFFFFF">
 
         <div class="panel-body">
             @if(session()->has('true'))
@@ -73,32 +73,38 @@
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-
+                                <div class="col-sm-2">
+                                    <span class=" control-label"> Unidad Operativa</span>
+                                    <input class="form-control input-sm" name="nombreSubTramite" type="text"
+                                           autocomplete="off" required
+                                    >
+                                </div>
+                            </div>
+                            <div class="form-group-sm " align="left">
                                 <div class="col-sm-3">
                                     <span class=" control-label">Codigo de tasa</span>
                                     <input class="form-control input-sm" name="codigotasa" id="codigotasa" type="text"
                                            autocomplete="off" onchange="validarNumeros('codigotasa','spancodigotasa')"
-                                          >
+                                    >
                                     <span class=" control-label" style="color: red;" id="spancodigotasa"></span>
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
-
                                 <div class="col-sm-3">
                                     <span class=" control-label"> Nombre Tasa</span>
                                     <input class="form-control input-sm" name="nombreSubTramite" type="text"
-                                           autocomplete="off"  required
-                                          >
+                                           autocomplete="off" required
+                                    >
                                 </div>
                             </div>
                             <div class="form-group-sm" align="lefth">
                                 <div class="col-sm-2">
-                                <span class="control-label">Precio</span>
+                                    <span class="control-label">Precio</span>
                                     <div class="input-group col-sm-12">
-                                    <div class="input-group-addon ">S/.</div>
-                                    <input type="text" class="form-control " name="precio" id="precio"
-                                           autocomplete="off" onkeypress="decimales('precio','spanprecio')"
-                                           placeholder="ejmp: 2.50" required>
+                                        <div class="input-group-addon ">S/.</div>
+                                        <input type="text" class="form-control " name="precio" id="precio"
+                                               autocomplete="off" onkeypress="decimales('precio','spanprecio')"
+                                               placeholder="ejmp: 2.50" required>
                                     </div>
                                     <span class="control-label" style="color: red" id="spanprecio"></span>
                                 </div>

@@ -33,7 +33,7 @@
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-        <div class="panel-heading"><h3>Agregar Estudiante</h3></div>
+        <div class="panel-heading"><h3>Agregar Produccion</h3></div>
         <div style="background-color: #FFFFFF">
             <div class="panel-body">
                 @if(session()->has('true'))

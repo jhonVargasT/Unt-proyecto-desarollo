@@ -50,7 +50,7 @@
                         <span class="control-label"> C-CTE1</span>
                         <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
                                name="nombreTramite" id="name" autocomplete="off"
-                                required>
+                               required>
                         <script type="text/javascript">
                             var path = "{{ route('autocompletet') }}";
                             $('input.typeahead').typeahead({
@@ -65,7 +65,7 @@
                     <div class="col-sm-2">
                         <span class=" control-label">Tipo de recurso </span>
                         <input class="form-control input-sm " name="TipoDeRecurso" type="text" id="tr"
-                               >
+                               readonly>
                         <script>
                             $('#name').change(function () {
                                 $.ajax({
