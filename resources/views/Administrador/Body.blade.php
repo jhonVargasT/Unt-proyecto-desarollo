@@ -82,26 +82,26 @@
                                         <a href="/admBuscarEstudiante">Buscar Estudiantes De Universidad</a>
                                     </td>
                                 </tr>
-                                <tr>
+                                <!--<tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
                                         <a href="/admBuscarEstudianteProduccion">Buscar Estudiantes Centros De
                                             Produccion</a>
                                     </td>
-                                </tr>
+                                </tr>-->
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
                                         <a href="/admRegistrarEstudiante">Agregar Estudiante De Universidad</a>
                                     </td>
                                 </tr>
-                                <tr>
+                                <!--<tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
                                         <a href="/admRegistrarEstudianteProduccion">Agregar Estudiante Centros De
                                             Produccion </a>
                                     </td>
-                                </tr>
+                                </tr>-->
                             </table>
                         </div>
                     </div>

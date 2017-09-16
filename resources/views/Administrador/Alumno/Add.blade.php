@@ -9,26 +9,26 @@
                         <a href="/admBuscarEstudiante">Buscar Estudiantes</a>
                     </td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
                         <a href="/admBuscarEstudianteProduccion">Buscar Estudiantes
                             Produccion</a>
                     </td>
-                </tr>
+                </tr>-->
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
                         <a href="/admRegistrarEstudiante" style="color: #509f0c" target="_top">Agregar Estudiante</a>
                     </td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
                         <a href="/admRegistrarEstudianteProduccion">Agregar Estudiante
                             Produccion</a>
                     </td>
-                </tr>
+                </tr>-->
             </table>
         </div>
     </div>
