@@ -124,7 +124,7 @@
                             <div class=" row "></div>
                             <div class=" row ">
                                 <div class="col-md-3"></div>
-                                <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
+                                <a href="{{url('/Vent')}}" class=" col-md-2 btn btn-sm btn-danger"><span
                                             class="glyphicon glyphicon-ban-circle"></span>
                                     Regresar
                                 </a>

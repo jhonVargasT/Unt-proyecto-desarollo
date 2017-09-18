@@ -112,7 +112,7 @@
                     </div>
                     <div class="col-sm-12 row form-group">
                         <div class="col-md-3"></div>
-                        <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
+                        <a href="{{url('/Vent')}}" class=" col-md-2 btn btn-sm btn-danger"><span
                                     class="glyphicon glyphicon-ban-circle"></span>
                             Cancelar</a>
                         <div class="col-md-2"></div>

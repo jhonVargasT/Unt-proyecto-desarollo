@@ -36,10 +36,8 @@
 
 @stop
 @section('content')
-
     <div class="panel-heading"><h3>Buscar Alumnos</h3></div>
     <div style="background-color: #FFFFFF">
-
         <div class="panel-body">
             @if(session()->has('true'))
                 <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -64,7 +62,7 @@
                     </div>
                     <div class="form-group-sm col-sm-8">
                         <ref></ref>
-                        <span class="ontrol-label"> Ingresa datos aqui</span></ref>
+                        <span class="ontrol-label"> Ingresa datos aqui</span>
 
                             <span class="input-group-btn">
                             <input type="text" name="text" disabled id="text" class="form-control"

@@ -24,7 +24,6 @@ class tramiteController extends Controller
             $tramite->setNombre($request->nombre);
             $tramite->setFuentefinanc($request->fuentefinanc);
             $tramite->setTipoRecurso($request->tipoRecurso);
-            $tramite->setAux($request->aux);
 
             $tram = $tramite->save();//SQL, insertar registro del clasificador
             if ($tram == true) {
@@ -56,7 +55,7 @@ class tramiteController extends Controller
         $tramite->setNombre($request->nombre);
         $tramite->setFuentefinanc($request->fuentefinanc);
         $tramite->setTipoRecurso($request->tipoRecurso);
-        $tramite->setAux($request->aux);
+
         $tramite->editarTramite($codTramite);//SQL, actualizar registro del clasificador
         return view('Administrador/Tramite/search')->with(['nombre' => $request->nombreTramite]);
     }

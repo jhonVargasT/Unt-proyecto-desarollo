@@ -15,9 +15,7 @@ function eliminar(event, url) {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Aceptar'
     }).then(function () {
-
         window.location = url;
-
     })
 //window.location.href("www.google.com");
 }
