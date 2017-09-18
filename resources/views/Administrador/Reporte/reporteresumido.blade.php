@@ -30,7 +30,7 @@
         <div style="background-color: #FFFFFF">
             <div class="panel-body">
                 <div class="panel-body form-group ">
-                    <form id="miform" action="{{'admReporteresumido'}}" onsubmit="activarBotonreporte(event)" role="form" method="POST" class="Vertical">
+                    <form id="miform" action="{{'admReporteresumido'}}"  role="form" method="POST" class="Vertical">
                         {{csrf_field()}}
                         <div class="row ">
 
@@ -62,17 +62,16 @@
                                 <div class="col-sm-5 col-lg-5 col-xs-5">
                                     <input type="text" class="typeaheads form-control " name="textbox" id="textbox"
                                            autocomplete="off" disabled  required onchange="validarNumeros('textbox','spantext')">
-                                    <span class="control-label" style="color: red" id="spantext"> </span>
+                                    <span class="control-label" style="color: red" id="spantext"></span>
                                 </div>
                             </div>
-
-                            <div class="form-group-sm col-sm-1 col-lg-1 col-xs-1">
-                                <span class=" control-label"> &nbsp; </span>
-                                <button type="submit" class="btn btn-sm btn-success s-b-5" id="imp"><span
-                                            class="ion-ios7-search" onmouseover="activarBotonreporte(null)"> </span> buscar
+                                <div>&nbsp;</div>
+                                <button type="submit" class="col-md-2 btn btn-sm btn-success" id="imp" onmouseover="activarBotonreporte(null)">
+                                    <span class="ion-ios7-search" > </span> buscar
                                 </button>
-                            </div>
+
                         </div>
+                        &nbsp;
                         <div class="col-sm-12 row form-group" align="center">
                             <span id="mensaje" class="control-label" style="color: red"></span>
                         </div>

@@ -6,9 +6,27 @@ $(document).ready(function () {
 });
 
 function activarBotonreporte(event) {
+    var val=document.getElementById('combito').value;
+    var array;
+    if(val ==='Escojer')
+    {
+        event && event.preventDefault();
+        document.getElementById('imp').setAttribute('class', 'col-md-2 btn btn-success disabled');
+    }
+    else{
+        if(val==='Año') {
+            array =['spanaño','spantext'];
+            activarbotonform(event,array,'imp','mensaje');
+        }
+        else {
+            if(val==='Mes') {
+                array = ['spanaño1', 'spanmes', 'spantext'];
+                activarbotonform(event, array, 'imp', 'mensaje');
+            }
 
+        }
 
-    activarbotonform(event,['spanaño'],'imp','mensaje');
+    }
 }
 function cambiartabla(event) {
     event.preventDefault();
@@ -45,10 +63,10 @@ function validarAño() {
     else {
         if(valor<=fecha && valor >=1900)
         {
-            document.getElementById('spanaño').innerHTML = '';
+            document.getElementById('spanaño').innerHTML ='';
         }
         else{
-            document.getElementById('spanaño').innerHTML = "El año no debe ser mayor a "+fecha +" o menor a 1900";
+            document.getElementById('spanaño').innerHTML ="El año no debe ser mayor a "+fecha +" o menor a 1900";
         }
     }
 }
@@ -70,10 +88,10 @@ function validarMesyAño() {
     }
     else{
         if(valorAño >= 1900 && valorAño <=fecha){
-            document.getElementById('spanaño1').innerHTML = " ";
+            document.getElementById('spanaño1').innerHTML = "";
             if(valorMes >= 1 && valorMes <=12)
             {
-                document.getElementById('spanmes').innerHTML = " ";
+                document.getElementById('spanmes').innerHTML = "";
             }
             else {
                 document.getElementById('spanmes').innerHTML = "Error: el mes debe ser >0 o <13.";
@@ -95,19 +113,19 @@ function cambiarmenu(event) {
             +' autocomplete="off" '
             +'onchange="validarAño()">'
             +'<span class=" control-label" id="spanaño" style="color: red"></span>'
-            +   '</div>')
+            +   '</div>');
    }
        else {
        if(value==='Mes'){
            $('#opc').html('' +
                '<div id="div_2" class="row contenido">'
                +'<div class="col-sm-6 col-lg-6 col-xs-6">'
-              +'<span class=" control-label">Año :</span>'
+              +'<span class=" control-label" >Año :</span>'
            +'<input type="text" required class="form-control input-sm " id="año2" name="año2"'
            +'autocomplete="off" onchange="validarMesyAño()"><span class=" control-label" id="spanaño1" style="color: red"></span></div><div class="col-sm-6 col-lg-6 col-xs-6">'
            +'<span class=" control-label">Mes :</span>'
            +'<input type="text" onchange="validarMesyAño()" required class="form-control input-sm " id="mes2" name="mes2"'
-           +'autocomplete="off"> <span class=" control-label" id="spanmes" style="color: red"></span> </div></div>')
+           +'autocomplete="off"> <span class=" control-label" id="spanmes" style="color: red"></span> </div></div>');
        }
        else{
            if(value==='Dia'){
@@ -116,10 +134,10 @@ function cambiarmenu(event) {
                +'<div class="input-group date " data-provide="datepicker">'
                   + '<input required type="dia" name="fecha" class="form-control"'
               + 'autocomplete="off"><div class="input-group-addon"><span class="glyphicon glyphicon-th"></span>'
-               +'</div></div></div>')
+               +'</div></div></div>');
            }
            else {
-               $('#opc').html('')
+               $('#opc').html('');
             }
         }
     }
