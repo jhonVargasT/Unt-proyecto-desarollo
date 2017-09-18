@@ -34,14 +34,7 @@
     </div>
 @stop
 @section('content')
-    <script src="{{asset('assets/js/utilidades.js')}}"></script>
 
-    @if(session()->has('true'))
-        <div class="alert alert-success" role="alert">{{session('true')}} </div>
-    @endif
-    @if(session()->has('false'))
-        <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
-    @endif
     <div class="panel-heading"><h3>Buscar Alumnos</h3></div>
     <div style="background-color: #FFFFFF">
         <div class="panel-body">
@@ -51,13 +44,13 @@
             @if(session()->has('false'))
                 <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
             @endif
-
             <form name="form" action="{{url('AlumnosBuscados')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
                 <div class=" row ">
                     <div class="form-group-sm col-sm-2 ">
                         <span class="ontrol-label">Buscar por:</span>
-                        <select class=" form-control" name="select" id="select" onclick='activarBusqueda("select","text","buscar");'>
+                        <select class=" form-control" name="select" id="select"
+                                onclick='activarBusqueda("select","text","buscar");'>
                             <option>Todo</option>
                             <option>Dni</option>
                             <option>Apellidos</option>
@@ -76,13 +69,13 @@
                                 </span>
 
                         <span class="input-group-btn">
-                            <button class="btn btn-sm" type="submit" onmouseover='buscarSearch("text","select","buscar")' id="buscar" name="buscar">Buscar</button>
+                            <button class="btn btn-sm" type="submit"
+                                    onmouseover='buscarSearch("text","select","buscar")' id="buscar" name="buscar">Buscar</button>
                         </span>
                     </div>
                 </div>
             </form>
             <!--tabla-->
-
             <div class="table-responsive  col-sm-12 ">
                 @if(isset($nombre)!=null)
                     <div class="alert alert-success" role="alert"> El alumno {{$nombre}} fue actualizada!!</div>
@@ -122,7 +115,6 @@
                     </thead>
                     <body>
                     @if(isset($alumno))
-
                         <!--Contenido-->
                         @foreach($alumno as $a)
                             <tr>
@@ -139,7 +131,8 @@
                                     <a href="AlumnoCargar/{{$a->codPersona}}"><span
                                                 class="glyphicon glyphicon-pencil"></span> </a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a onclick="eliminar(event,'AlumnoEliminar/{{$a->codPersona}}')" title="Eliminar" href=""><span
+                                    <a onclick="eliminar(event,'AlumnoEliminar/{{$a->codPersona}}')" title="Eliminar"
+                                       href=""><span
                                                 class="glyphicon glyphicon-trash" style="color: red;"></span> </a>
                                 </td>
                             </tr>
