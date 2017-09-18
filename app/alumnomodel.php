@@ -384,6 +384,36 @@ class alumnomodel extends personamodel
     {
         try {
             $alumnobd = DB::select('SELECT 
+                codPersona, dni,nombres,apellidos,correo,facultad.nombre as nombref, escuela.nombre as nombree,codAlumno,fecha
+            FROM
+                persona
+                    LEFT JOIN
+                alumno ON persona.codPersona = alumno.idPersona
+                    LEFT JOIN
+                escuela ON escuela.idEscuela = alumno.coEscuela
+                    LEFT JOIN
+                facultad ON facultad.idFacultad = escuela.codigoFacultad
+            WHERE
+                persona.codPersona = alumno.idPersona
+                    AND facultad.idFacultad = escuela.codigoFacultad
+                    AND escuela.idEscuela = alumno.coEscuela
+                    AND persona.dni like "%' . $dni . '%"
+                    AND persona.estado = 1
+                    AND escuela.estado = 1
+                    AND facultad.estado = 1
+                    AND alumno.estado = 1');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarAlumnoDNI/alumnomodel');
+            return null;
+        }
+        return $alumnobd;
+    }
+
+    /*public function consultarAlumnoDNI($dni)
+    {
+        try {
+            $alumnobd = DB::select('SELECT
                 *
             FROM
                 persona
@@ -403,7 +433,7 @@ class alumnomodel extends personamodel
             return null;
         }
         return $alumnobd;
-    }
+    }*/
 
     public function consultarPersonaApellidosP($apellidos)
     {
