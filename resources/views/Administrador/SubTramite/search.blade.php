@@ -85,6 +85,9 @@
                             <div align="center">Nombre tasa</div>
                         </th>
                         <th>
+                            <div align="center">Unidad operativa</div>
+                        </th>
+                        <th>
                             <div align="center">Codigo tasa</div>
                         </th>
                         <th>
@@ -101,6 +104,7 @@
                         @foreach($subtramite as $s)
                             <tr>
                                 <td>{{$s->nombre}}</td>
+                                <td>{{$s->unidadOperativa}}</td>
                                 <td>{{$s->codigoSubtramite}}</td>
                                 <td>{{$s->precio}}</td>
                                 <td align="center">

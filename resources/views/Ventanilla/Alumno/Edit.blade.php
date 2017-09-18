@@ -9,26 +9,26 @@
                         <a href="/venBuscarEstudiante">Buscar Estudiantes</a>
                     </td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
                         <a href="/venBuscarEstudianteProduccion">Buscar Estudiantes
                             Produccion</a>
                     </td>
-                </tr>
+                </tr>-->
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
                         <a href="/venRegistrarEstudiante">Agregar Estudiante</a>
                     </td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
                         <a href="/venRegistrarEstudianteProduccion">Agregar Estudiante
                             Produccion</a>
                     </td>
-                </tr>
+                </tr>-->
             </table>
         </div>
     </div>
@@ -175,7 +175,7 @@
                             </div>
                             <div class=" row ">
                                 <div class="col-md-3"></div>
-                                <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
+                                <a href="{{url('/Vent')}}" class=" col-md-2 btn btn-sm btn-danger"><span
                                             class="glyphicon glyphicon-ban-circle"></span>
                                     Regresar
                                 </a>

@@ -19,6 +19,8 @@ class subtramiteController extends Controller
             $subtramite->setPrecio($request->precio);
             $idTra = $subtramite->bdTramite($request->nombreTramite);//SQL, obtener id de clasificador por nombre
             $subtramite->setIdTramite($idTra);
+            $subtramite->setUnidad($request->unidad);
+
             $sub = $subtramite->save();//SQL, insertar registro de la tasa
         } else {
             $sub = false;
@@ -47,6 +49,8 @@ class subtramiteController extends Controller
         $subtramite->setPrecio($request->precio);
         $idTra = $subtramite->bdTramite($request->nombreTramite);//SQL, obtener id de clasificador por nombre
         $subtramite->setIdTramite($idTra);
+        $subtramite->setUnidad($request->unidad);
+
         $subtramite->editarSubtramite($codSubtramite);//SQL, actualizar datos de la tasa
 
         return view('Administrador/SubTramite/search')->with(['nombre' => $request->nombreSubTramite]);

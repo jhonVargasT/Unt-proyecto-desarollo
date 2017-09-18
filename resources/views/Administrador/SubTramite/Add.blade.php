@@ -75,9 +75,8 @@
                             <div class="form-group-sm " align="left">
                                 <div class="col-sm-2">
                                     <span class=" control-label"> Unidad Operativa</span>
-                                    <input class="form-control input-sm" name="nombreSubTramite" type="text"
-                                           autocomplete="off" required
-                                    >
+                                    <input class="form-control input-sm" name="unidad" type="text"
+                                           autocomplete="off" required id="unidad">
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">

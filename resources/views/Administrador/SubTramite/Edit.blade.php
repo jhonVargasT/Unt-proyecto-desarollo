@@ -66,6 +66,13 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">Datos Tasa</div>
                             <div class="panel-body">
+                                <div class="form-group-sm " align="left">
+                                    <div class="col-sm-2">
+                                        <span class=" control-label"> Unidad Operativa</span>
+                                        <input class="form-control input-sm" name="unidad" type="text"
+                                               autocomplete="off" required id="unidad">
+                                    </div>
+                                </div>
                                 <div class="col-sm-12 row form-group">
                                     <div class="form-group-sm " align="left">
                                         <span class="col-sm-2 control-label">Codigo de tasa</span>

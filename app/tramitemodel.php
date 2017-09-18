@@ -14,7 +14,6 @@ class tramitemodel
     private $fuentefinanc;
     private $tipoRecurso;
     private $estado;
-    private $aux;
 
     /**
      * tramitemodel constructor.
@@ -125,24 +124,6 @@ class tramitemodel
     public function setEstado($estado)
     {
         $this->estado = $estado;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAux()
-    {
-        return $this->aux;
-    }
-
-    /**
-     * @param mixed $aux
-     * @return tramitemodel
-     */
-    public function setAux($aux)
-    {
-        $this->aux = $aux;
         return $this;
     }
 
@@ -264,7 +245,7 @@ class tramitemodel
 
         try {
             DB::transaction(function () use ($logunt) {
-                DB::table('tramite')->insert(['clasificador' => $this->clasificador, 'nombre' => $this->nombre, 'fuentefinanc' => $this->fuentefinanc, 'tipoRecurso' => $this->tipoRecurso, 'aux'=>$this->aux]);
+                DB::table('tramite')->insert(['clasificador' => $this->clasificador, 'nombre' => $this->nombre, 'fuentefinanc' => $this->fuentefinanc, 'tipoRecurso' => $this->tipoRecurso]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -290,7 +271,7 @@ class tramitemodel
             DB::transaction(function () use ($codTramite, $logunt) {
                 DB::table('tramite')
                     ->where('codTramite', $codTramite)
-                    ->update(['clasificador' => $this->clasificador, 'nombre' => $this->nombre, 'fuentefinanc' => $this->fuentefinanc, 'tipoRecurso' => $this->tipoRecurso, 'aux'=>$this->aux]);
+                    ->update(['clasificador' => $this->clasificador, 'nombre' => $this->nombre, 'fuentefinanc' => $this->fuentefinanc, 'tipoRecurso' => $this->tipoRecurso]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
