@@ -252,7 +252,7 @@ class subtramitemodel
     public function consultarSubtramiteTramite($nombreTramite)
     {
         try {
-            $subtramitebd = DB::select('select * from tramite left join subtramite on tramite.codTramite = subtramite.idTramite where 
+            $subtramitebd = DB::select('select * from tramite left join subtramite on tramite.codTramite = subtramite.idTramite, uniadOperativa where 
         tramite.codTramite = subtramite.idTramite and tramite.nombre like "%' . $nombreTramite . '%" and tramite.estado=1 and subtramite.estado=1');
         } catch (Exception $e) {
             $util = new util();
