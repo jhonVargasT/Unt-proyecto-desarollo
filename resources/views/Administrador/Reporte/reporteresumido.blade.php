@@ -30,7 +30,7 @@
         <div style="background-color: #FFFFFF">
             <div class="panel-body">
                 <div class="panel-body form-group ">
-                    <form id="miform" action="{{'admReporteresumido'}}"  role="form" method="POST" class="Vertical">
+                    <form id="miform" action="{{'admReporteresumido'}}" onsubmit="activarBotonreporte(event)" role="form" method="POST" class="Vertical">
                         {{csrf_field()}}
                         <div class="row ">
 
