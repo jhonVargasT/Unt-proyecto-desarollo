@@ -30,75 +30,51 @@
         <div style="background-color: #FFFFFF">
             <div class="panel-body">
                 <div class="panel-body form-group ">
-                    <form id="miform" action="{{'admReporteresumido'}}" role="form" method="POST" class="Vertical">
+                    <form id="miform" action="{{'admReporteresumido'}}" onsubmit="activarBotonreporte(event)" role="form" method="POST" class="Vertical">
                         {{csrf_field()}}
                         <div class="row ">
 
                             <div class="form-group-sm col-sm-3 col-lg-3 col-xs-3">
                                 <span class=" control-label">Tipo de reporte para :</span>
-                                <select class="form-control" name="tipreporte">
+                                <select class="form-control" id="tipreporte" onclick="cambiartabla(event)" name="tipreporte" >
 
                                     <option>Clasificador S.I.A.F</option>
                                     <option>Resumen total</option>
                                 </select>
+
                             </div>
-                            <div class="form-group-sm col-sm-2 col-lg-2 col-xs-2">
-                                <input type="checkbox" id="ccp" onclick="habilitarTexto(this.checked,'textbox')">
-                                Unidad operativa
-                                <div class="col-sm-5 col-lg-5 col-xs-5">
-                                    <input type="text" class="typeaheads form-control " name="textbox" id="textbox"
-                                           autocomplete="off" disabled>
-                                </div>
-                            </div>
+
                             <div class="form-group-sm col-sm-2 col-lg-2 col-xs-2">
                                 <span class="control-label">Buscar por :</span>
-                                <select class=" form-control" name="combito" id="combito">
+                                <select class=" form-control" name="combito" id="combito" onclick="cambiarmenu(event);">
                                     <option>Escojer</option>
-                                    <option value="1">Año</option>
-                                    <option value="2">Mes</option>
-                                    <option value="3">Dia</option>
+                                    <option >Año</option>
+                                    <option >Mes</option>
+                                    <option >Dia</option>
                                 </select>
                             </div>
                             <div class="form-group-sm col-sm-2 col-lg-2 col-xs-2" id="opc">
-                                <div id="div_1" class="contenido">
-                                    <span class=" control-label">Año :</span>
 
-                                    <input type="text" class="form-control input-sm " id="año1" name="año1"
-                                           autocomplete="off">
-
-                                </div>
-                                <div id="div_2" class="row contenido">
-                                    <div class="col-sm-6 col-lg-6 col-xs-6">
-                                        <span class=" control-label">Año :</span>
-                                        <input type="text" class="form-control input-sm " id="trinp" name="año2"
-                                               autocomplete="off">
-                                    </div>
-                                    <div class="col-sm-6 col-lg-6 col-xs-6">
-                                        <span class=" control-label">Mes :</span>
-                                        <input type="text" class="form-control input-sm " id="trinp" name="mes2"
-                                               autocomplete="off">
-                                    </div>
-                                </div>
-                                <div id="div_3" class="contenido ">
-                                    <span class=" control-label">Elija fecha :</span>
-                                    <div class="input-group date " data-provide="datepicker">
-                                        <input type="dia" name="fecha" class="form-control"
-                                               autocomplete="off">
-                                        <div class="input-group-addon">
-                                            <span class="glyphicon glyphicon-th"></span>
-                                        </div>
-                                    </div>
-
+                            </div>
+                            <div class="form-group-sm col-sm-2 col-lg-2 col-xs-2">
+                                <input type="checkbox" id="ccp" onclick="habilitarTexto(this.checked,'textbox','spantext')">
+                                Unidad operativa
+                                <div class="col-sm-5 col-lg-5 col-xs-5">
+                                    <input type="text" class="typeaheads form-control " name="textbox" id="textbox"
+                                           autocomplete="off" disabled  required onchange="validarNumeros('textbox','spantext')">
+                                    <span class="control-label" style="color: red" id="spantext"> </span>
                                 </div>
                             </div>
-
 
                             <div class="form-group-sm col-sm-1 col-lg-1 col-xs-1">
                                 <span class=" control-label"> &nbsp; </span>
-                                <button type="submit" class="btn btn-sm btn-success s-b-5" id="imp"><i
-                                            class="ion-ios7-search"> </i> buscar
+                                <button type="submit" class="btn btn-sm btn-success s-b-5" id="imp"><span
+                                            class="ion-ios7-search" onmouseover="activarBotonreporte(null)"> </span> buscar
                                 </button>
                             </div>
+                        </div>
+                        <div class="col-sm-12 row form-group" align="center">
+                            <span id="mensaje" class="control-label" style="color: red"></span>
                         </div>
                     </form>
                     <!--Tabla-->

@@ -16,7 +16,6 @@ class Subtramite extends Migration
         //
         Schema::create('subtramite', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-
             $table->increments('codSubtramite')->unique();
             $table->string('codigoSubtramite')->unique();
             $table->string('nombre');
