@@ -104,8 +104,8 @@ function activarbotonform(event, myarray, idboton, idspanmensaje) {
         document.getElementById(idboton).setAttribute('class', 'col-md-2 btn btn-success disabled');
         document.getElementById(idspanmensaje).innerHTML="Tiene errores de ingreso en el sistema, porfavor verifique el formulario";
     } else {
-        event && event.preventDefault();
-        document.getElementById(idboton).setAttribute('class', 'col-md-2 btn btn-success');
+
+        document.getElementById(idboton).setAttribute('class', 'col-md-2 btn btn-success ');
         document.getElementById(idspanmensaje).innerHTML="";
     }
 }
