@@ -1463,6 +1463,7 @@ class ExcelController extends Controller
 
                             "CLASIFICADOR S.I.A.F" => $p->clasificadorsiaf,
                             "NOMBRE DE CLASIFICADOR" => $p->nombreTramite,
+                            "UNIDAD OPERATIVA"=>$p->unop,
                             "CUENTA" => $p->codigoSubtramite,
                             "NOMBRE DE TASA" => $p->nombresubtramite,
                             "NRO PAGOS" => $p->nurPagos,
@@ -1473,7 +1474,7 @@ class ExcelController extends Controller
 
                     //************************Cabeza de hoja
                     //titulo
-                    $sheet->mergeCells('B1:G1');
+                    $sheet->mergeCells('B1:H1');
 
                     $sheet->cell('B1', function ($cell) {
                         $cell->setFont(array(
@@ -1484,7 +1485,7 @@ class ExcelController extends Controller
                         $cell->setValue('UNIVERSIDAD NACIONAL DE TRUJILLO');
                         $cell->setAlignment('center');
                     });
-                    $sheet->mergeCells('B2:G2');
+                    $sheet->mergeCells('B2:H2');
                     $sheet->cell('B2', function ($cell) {
                         $cell->setFont(array(
                             'family' => 'Arial',
@@ -1494,7 +1495,7 @@ class ExcelController extends Controller
                         $cell->setValue('OGSEF- OF.TEC. TESORERIA');
                         $cell->setAlignment('center');
                     });
-                    $sheet->mergeCells('B3:G3');
+                    $sheet->mergeCells('B3:H3');
                     $sheet->cell('B3', function ($cell) {
                         $cell->setFont(array(
                             'family' => 'Arial',
@@ -1504,7 +1505,7 @@ class ExcelController extends Controller
                         $cell->setValue('CAPTACION DE INGRESOS');
                         $cell->setAlignment('center');
                     });
-                    $sheet->mergeCells('B4:G4');
+                    $sheet->mergeCells('B4:H4');
                     $sheet->cell('B4', function ($cell) use ($var) {
                         $cell->setFont(array(
                             'family' => 'Arial',
@@ -1536,7 +1537,7 @@ class ExcelController extends Controller
                     });
 
                     //total
-                    $sheet->cell('F5', function ($cell) {
+                    $sheet->cell('G5', function ($cell) {
                         $cell->setFont(array(
                             'family' => 'Arial',
                             'size' => '12',
@@ -1545,20 +1546,20 @@ class ExcelController extends Controller
                         $cell->setValue('TOTAL INGRESOS :');
                         $cell->setAlignment('right');
                     });
-                    $sheet->cells('G5', function ($cells) {
+                    $sheet->cells('H5', function ($cells) {
                         $cells->setFont(array(
                             'family' => 'Arial',
                             'size' => '12'
                         ));
                         $cells->setAlignment('center');
                     });
-                    $sheet->cell('G5', function ($cell) use ($total) {
+                    $sheet->cell('H5', function ($cell) use ($total) {
                         $cell->setValue($total);
                     });
 
                     //*************************************************
                     //*******************cabecera de tabla
-                    $sheet->cells('B6:G6', function ($cells) {
+                    $sheet->cells('B6:H6', function ($cells) {
                         $cells->setBackground('#006600');
                         $cells->setFont(array(
                             'family' => 'Arial',
@@ -1603,6 +1604,13 @@ class ExcelController extends Controller
                         ));
                         $cells->setAlignment('center');
                     });
+                    $sheet->cells('H6:H' . ($cont + 6) . '', function ($cells) {
+                        $cells->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12'
+                        ));
+                        $cells->setAlignment('center');
+                    });
                     //bordes de la hoja
                     $sheet->setBorder('B6:B' . ($cont + 6) . '');
                     $sheet->setBorder('C6:C' . ($cont + 6) . '');
@@ -1610,6 +1618,7 @@ class ExcelController extends Controller
                     $sheet->setBorder('E6:E' . ($cont + 6) . '');
                     $sheet->setBorder('F6:F' . ($cont + 6) . '');
                     $sheet->setBorder('G6:G' . ($cont + 6) . '');
+                    $sheet->setBorder('H6:H' . ($cont + 6) . '');
 
                     //ubicacion de la data
                     $sheet->fromArray($data, null, 'B6', false);
