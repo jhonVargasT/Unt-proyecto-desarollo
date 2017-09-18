@@ -603,12 +603,17 @@ class pagoController extends Controller
     //Reporte de pagos, resumen
     public function obtenerPagosresumen(Request $request)
     {
+
+
+
         if ($request->combito !== 'Escojer') {
             $numero = '';
             $result = null;
             $pagoModel = new pagomodel();
             $varOpc = $request->tipreporte;
             $vartiemp = $request->combito;
+            $unidadOpera=$request->textbox;
+
             $varaño = $request->año1;
             if ($varOpc == 'Resumen total') {//Si se escoge: Resumen total
                 $tiempo = null;
@@ -616,13 +621,13 @@ class pagoController extends Controller
                 if ($vartiemp == 1) {
 
                     $tiempo = 'where Year(po.fecha) = ' . $varaño . '';
-                    $result = $pagoModel->listarpagosresumen($tiempo);//SQL, obtener pagos por año
+                    $result = $pagoModel->listarpagosresumen($tiempo,$unidadOpera);//SQL, obtener pagos por año
                     $numero = $varaño;
 
                 } else {
                     if ($vartiemp == 2) {
                         $tiempo = 'where MONTH(po.fecha) = ' . $request->mes2 . ' and Year(po.fecha)=' . $request->año2 . '';
-                        $result = $pagoModel->listarpagosresumen($tiempo);//SQL, obtener pagos por mes
+                        $result = $pagoModel->listarpagosresumen($tiempo,$unidadOpera);//SQL, obtener pagos por mes
                         $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
                         $valor = $meses[$request->mes2 - 1];
                         $numero = 'DE ' . $valor . ' DEL ' . $request->año2;
@@ -631,7 +636,7 @@ class pagoController extends Controller
                             $originalDate = $request->fecha;
                             $fecha = date("Y-m-d", strtotime($originalDate));
                             $tiempo = 'where DATE(po.fecha) =\'' . $fecha . '\'';
-                            $result = $pagoModel->listarpagosresumen($tiempo);//SQL, obtener pagos por fecha
+                            $result = $pagoModel->listarpagosresumen($tiempo,$unidadOpera);//SQL, obtener pagos por fecha
                             $numero = $fecha;
                         }
                     }
@@ -641,18 +646,18 @@ class pagoController extends Controller
                 foreach ($result as $r) {
                     $total += $r->importe;
                 }
-                return view('Administrador/Reporte/reporteresumido')->with(['resultresu' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp, 'tiempo' => $tiempo, 'numero' => $numero]);
+                return view('Administrador/Reporte/reporteresumido')->with(['resultresu' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp, 'tiempo' => $tiempo, 'numero' => $numero,'unop'=>$unidadOpera]);
             } elseif ($varOpc == 'Clasificador S.I.A.F') {//Si se escoge Clasificador SIAF
 
                 $tiempo = null;
                 if ($vartiemp == 1) {
 
                     $tiempo = 'where Year(po.fecha) = ' . $varaño . '';
-                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo);//SQL, obtener pagos resumidos por año resumido
+                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo,$unidadOpera);//SQL, obtener pagos resumidos por año resumido
                     $numero = $varaño;
                 } elseif ($vartiemp == 2) {
                     $tiempo = 'where MONTH(po.fecha) = ' . $request->mes2 . ' and Year(po.fecha)=' . $request->año2 . '';
-                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo);//SQL, obtener pagos resumidos por mes
+                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo,$unidadOpera);//SQL, obtener pagos resumidos por mes
                     $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
                     $valor = $meses[$request->mes2 - 1];
                     $numero = 'DE ' . $valor . ' DEL ' . $request->año2;
@@ -661,18 +666,19 @@ class pagoController extends Controller
                     $originalDate = $request->fecha;
                     $fecha = date("Y-m-d", strtotime($originalDate));
                     $tiempo = 'where DATE(po.fecha) =\'' . $fecha . '\'';
-                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo);//SQL, obtener pagos resumido por fecha
+                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo,$unidadOpera);//SQL, obtener pagos resumido por fecha
                     $numero = $fecha;
                 }
                 $total = 0;
                 foreach ($result as $r) {
                     $total += $r->precio;
                 }
-                return view('Administrador/Reporte/reporteresumido')->with(['resultsiaf' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp, 'tiempo' => $tiempo, 'numero' => $numero]);
+                return view('Administrador/Reporte/reporteresumido')->with(['resultsiaf' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp, 'tiempo' => $tiempo, 'numero' => $numero,'unop'=>$unidadOpera]);
 
             }
         } else {
             return view('Administrador/Reporte/reporteresumido');
         }
+
     }
 }

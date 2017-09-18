@@ -22,22 +22,9 @@
 @stop
 @section('content')
     @if( Session::has('tipoCuentaA'))
-
+        <script src="{{asset('assets/js/js-personalizados/reporteresumido.js')}}"></script>
         <script type="text/javascript">
-            $(document).ready(function () {
-                $(".contenido").hide();
-                $("#combito").change(function () {
-                    $(".contenido").hide();
-                    $("#div_" + $(this).val()).show();
-                });
 
-            });
-
-            function agregarMenu(val) {
-                if (val === 1) {
-                    document.getElementById('opc').innerHTML("<input class='form-control input-sm' type='text' @if(isset($fecha) ) value='{{$fecha}}' @endif name='fecha' required> ");
-                }
-            }
         </script>
         <div class="panel-heading"><h3>Reporte Pagos</h3></div>
         <div style="background-color: #FFFFFF">
@@ -55,14 +42,14 @@
                                     <option>Resumen total</option>
                                 </select>
                             </div>
-                            <div class="col-sm-2">
-                            <input type="checkbox" id="ccp" onclick="">
-                            Nro centro de produccion
-                                <div class="col-sm-5">
-                            <input class="typeaheads form-control " name="cp" id="cp"
-                                   autocomplete="off" readonly>
+                            <div class="form-group-sm col-sm-2 col-lg-2 col-xs-2">
+                                <input type="checkbox" id="ccp" onclick="habilitarTexto(this.checked,'textbox')">
+                                Unidad operativa
+                                <div class="col-sm-5 col-lg-5 col-xs-5">
+                                    <input type="text" class="typeaheads form-control " name="textbox" id="textbox"
+                                           autocomplete="off" disabled>
                                 </div>
-                        </div>
+                            </div>
                             <div class="form-group-sm col-sm-2 col-lg-2 col-xs-2">
                                 <span class="control-label">Buscar por :</span>
                                 <select class=" form-control" name="combito" id="combito">
@@ -106,9 +93,8 @@
                             </div>
 
 
-
-                                <div class="form-group-sm col-sm-1 col-lg-1 col-xs-1">
-                                <span class=" control-label">.  </span>
+                            <div class="form-group-sm col-sm-1 col-lg-1 col-xs-1">
+                                <span class=" control-label"> &nbsp; </span>
                                 <button type="submit" class="btn btn-sm btn-success s-b-5" id="imp"><i
                                             class="ion-ios7-search"> </i> buscar
                                 </button>
@@ -141,7 +127,9 @@
                                     <thead>
                                     <!--cabecear Tabla-->
                                     <tr>
-
+                                        <th>
+                                            Unidad Operativa
+                                        </th>
                                         <th>
                                             <div align="center">
                                                 CLASIFICADOR S.I.A.F
@@ -181,6 +169,7 @@
 
                                     @foreach($resultsiaf as $r)
                                         <tr>
+                                            <td><h6 align="center">{{$r->unop}}</h6></td>
                                             <td><h6 align="center">{{$r->clasificadorsiaf}}</h6></td>
                                             <td><h6 align="left">{{$r->nombreTramite}}</h6></td>
                                             <td><h6 align="center">{{$r->codigoSubtramite }}</h6></td>
@@ -193,13 +182,18 @@
 
                                 @else
                                     @if(isset($resultresu))
-                                        <thead >
+                                        <thead>
                                         <!--cabecear Tabla-->
                                         <tr>
 
                                             <th>
                                                 <div align="center">
                                                     CODIGO CLASIFICADOR S.I.A.F
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div align="center">
+                                                    UNIDAD OPERATIVA
                                                 </div>
                                             </th>
                                             <th>
@@ -222,6 +216,7 @@
                                         @foreach($resultresu as $r)
                                             <tr>
                                                 <td><h6 align="center">{{$r->clasificadorsiaf}}</h6></td>
+                                                <td><h6 align="center">{{$r->unop}}</h6></td>
                                                 <td><h6 align="left">{{$r->nombreTramite}}</h6></td>
                                                 <td><h6 align="center">{{$r->importe}}</h6></td>
 
@@ -229,7 +224,7 @@
                                         </tbody>
                                         @endforeach
                                     @else
-                                        <thead >
+                                        <thead>
                                         <!--cabecear Tabla-->
                                         <tr>
 
@@ -274,7 +269,7 @@
                             <div class="col-md-2">
                                 <!--Contenido-->
                                 @if(isset($tiprep))
-                                    <a href="excelresum/{{$tiprep}}/{{$varopc}}/{{$tiempo}}/{{$numero}}"
+                                    <a href="excelresum/{{$tiprep}}/{{$varopc}}/{{$tiempo}}/{{$numero}}/{{$unop}}"
                                        class="btn btn-sm s-b-5  btn-primary"><span
                                                 class="glyphicon glyphicon-print"></span> Imprimir
                                     </a>

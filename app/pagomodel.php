@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use PDOException;
 use App\Http\Controllers\util;
+use PhpParser\Node\Expr\Empty_;
 
 class pagomodel
 {
@@ -269,15 +270,27 @@ class pagomodel
         return $obj;
     }
 
-    public function obtenerPagosresumensiaf($fecha)
+    public function obtenerPagosresumensiaf($fecha,$uniope)
     {
         try {
-            $pago = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre as nombresubtramite,sum(st.precio * po.cantidad) as precio, count(po.codPago) as nurPagos
+            if(Empty($unidadOpe)){
+            $pago = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre as nombresubtramite,sum(st.precio * po.cantidad) as precio, count(po.codPago) as nurPagos
                     FROM tramite as tr
                     LEFT JOIN subtramite st ON (tr.codTramite = st.idTramite)
                     LEFT JOIN pago po ON (st.codSubtramite=po.idSubtramite )
                     ' . $fecha . ' 
+                    group by st.codSubtramite order by tr.nombre;');}
+                    else{
+                        $pago = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre as nombresubtramite,sum(st.precio * po.cantidad) as precio, count(po.codPago) as nurPagos
+                    FROM tramite as tr
+                    LEFT JOIN subtramite st ON (tr.codTramite = st.idTramite)
+                    LEFT JOIN pago po ON (st.codSubtramite=po.idSubtramite )
+                    ' . $fecha . ' and st.unidadOperativa = '.$uniope.'
                     group by st.codSubtramite order by tr.nombre;');
+
+
+
+                    }
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'obtenerPagosresumensiaf/pagomodel');
@@ -397,15 +410,26 @@ class pagomodel
         }
     }
 
-    public function listarpagosresumen($tiempo)
+    public function listarpagosresumen($tiempo,$uniope)
     {
+
         try {
-            $result = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,sum(st.precio * po.cantidad) as importe
+            if(Empty($uniope)) {
+                $result = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,sum(st.precio * po.cantidad) as importe
                             FROM unt.tramite as tr
                             LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
                             LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )
                             ' . $tiempo . '
                             group by (tr.codTramite) ');
+            }
+            else{
+                $result = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,sum(st.precio * po.cantidad) as importe
+                            FROM unt.tramite as tr
+                            LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
+                            LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )
+                            ' . $tiempo . ' and st.unidadOperativa = '.$uniope.'
+                            group by (tr.codTramite) ');
+            }
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'listarpagosresumen/pagomodel');

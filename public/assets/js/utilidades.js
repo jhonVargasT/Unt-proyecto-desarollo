@@ -158,6 +158,7 @@ function validarDni(idform, idspan) {
     }
 }
 
+
 function validarNombre(idform, idspan) {
     var texto = document.getElementById(idform).value;
     if (isNaN(texto)) {
