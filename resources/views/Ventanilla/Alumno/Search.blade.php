@@ -35,6 +35,7 @@
 @stop
 @section('content')
 
+
     <div class="panel-heading"><h3>Buscar Alumnos</h3></div>
     <div style="background-color: #FFFFFF">
         <div class="panel-body">
@@ -128,10 +129,10 @@
                                 <td>{{$a->fecha}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}
-                                    <a href="AlumnoCargar/{{$a->codPersona}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
+                                    <a title="Editar" href="AlumnoCargar/{{$a->codPersona}}"><span
+                                                class="glyphicon glyphicon-pencil" style="color: green;"></span> </a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a onclick="eliminar(event,'AlumnoEliminar/{{$a->codPersona}}')" title="Eliminar"
+                                    <a onclick="aca(event,'AlumnoEliminar/{{$a->codPersona}}')" title="Aca"
                                        href=""><span
                                                 class="glyphicon glyphicon-trash" style="color: red;"></span> </a>
                                 </td>
@@ -139,6 +140,22 @@
                         @endforeach
                     @endif
                     </body>
+                    <script>
+                        function aca(event, url) {
+                            event.preventDefault();
+                            swal({
+                                title: 'Esta seguro de eliminar?',
+                                text: "Si elimina este registro no podra recuperarlo!",
+                                type: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Aceptar'
+                            }).then(function () {
+                                window.location = url;
+                            })
+                        }
+                    </script>
                 </table>
             </div>
         </div>
