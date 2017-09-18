@@ -605,8 +605,7 @@ class pagoController extends Controller
     {
 
 
-
-        if ($request->combito !== 'Escojer') {
+       if ($request->combito !== 'Escojer') {
             $numero = '';
             $result = null;
             $pagoModel = new pagomodel();
@@ -618,21 +617,21 @@ class pagoController extends Controller
             if ($varOpc == 'Resumen total') {//Si se escoge: Resumen total
                 $tiempo = null;
 
-                if ($vartiemp == 1) {
+                if ($vartiemp == 'Año') {
 
                     $tiempo = 'where Year(po.fecha) = ' . $varaño . '';
                     $result = $pagoModel->listarpagosresumen($tiempo,$unidadOpera);//SQL, obtener pagos por año
                     $numero = $varaño;
 
                 } else {
-                    if ($vartiemp == 2) {
+                    if ($vartiemp == 'Mes') {
                         $tiempo = 'where MONTH(po.fecha) = ' . $request->mes2 . ' and Year(po.fecha)=' . $request->año2 . '';
                         $result = $pagoModel->listarpagosresumen($tiempo,$unidadOpera);//SQL, obtener pagos por mes
                         $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
                         $valor = $meses[$request->mes2 - 1];
                         $numero = 'DE ' . $valor . ' DEL ' . $request->año2;
                     } else {
-                        if ($vartiemp == 3) {
+                        if ($vartiemp == 'Dia') {
                             $originalDate = $request->fecha;
                             $fecha = date("Y-m-d", strtotime($originalDate));
                             $tiempo = 'where DATE(po.fecha) =\'' . $fecha . '\'';
@@ -650,19 +649,19 @@ class pagoController extends Controller
             } elseif ($varOpc == 'Clasificador S.I.A.F') {//Si se escoge Clasificador SIAF
 
                 $tiempo = null;
-                if ($vartiemp == 1) {
+                if ($vartiemp == 'Año') {
 
                     $tiempo = 'where Year(po.fecha) = ' . $varaño . '';
                     $result = $pagoModel->obtenerPagosresumensiaf($tiempo,$unidadOpera);//SQL, obtener pagos resumidos por año resumido
                     $numero = $varaño;
-                } elseif ($vartiemp == 2) {
+                } elseif ($vartiemp == 'Mes') {
                     $tiempo = 'where MONTH(po.fecha) = ' . $request->mes2 . ' and Year(po.fecha)=' . $request->año2 . '';
                     $result = $pagoModel->obtenerPagosresumensiaf($tiempo,$unidadOpera);//SQL, obtener pagos resumidos por mes
                     $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
                     $valor = $meses[$request->mes2 - 1];
                     $numero = 'DE ' . $valor . ' DEL ' . $request->año2;
 
-                } elseif ($vartiemp == 3) {
+                } elseif ($vartiemp == 'Dia') {
                     $originalDate = $request->fecha;
                     $fecha = date("Y-m-d", strtotime($originalDate));
                     $tiempo = 'where DATE(po.fecha) =\'' . $fecha . '\'';
