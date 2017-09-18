@@ -98,6 +98,9 @@
                             <div align="center">Correo</div>
                         </th>
                         <th>
+                            <div align="center">Sede</div>
+                        </th>
+                        <th>
                             <div align="center">Facultad</div>
                         </th>
                         <th>
@@ -123,6 +126,7 @@
                                 <td align="center">{{$a->dni}}</td>
                                 <td>{{$a->nombres}} {{$a->apellidos}}</td>
                                 <td>{{$a->correo}}</td>
+                                <td>{{$a->nombresede}}</td>
                                 <td>{{$a->nombref}}</td>
                                 <td>{{$a->nombree}}</td>
                                 <td>{{$a->codAlumno}}</td>

@@ -384,7 +384,7 @@ class alumnomodel extends personamodel
     {
         try {
             $alumnobd = DB::select('SELECT 
-                codPersona, dni,nombres,apellidos,correo,facultad.nombre as nombref, escuela.nombre as nombree,codAlumno,fecha
+                codPersona, dni,nombres,apellidos,correo,facultad.nombre as nombref, escuela.nombre as nombree,codAlumno,fecha, nombresede
             FROM
                 persona
                     LEFT JOIN
@@ -393,9 +393,13 @@ class alumnomodel extends personamodel
                 escuela ON escuela.idEscuela = alumno.coEscuela
                     LEFT JOIN
                 facultad ON facultad.idFacultad = escuela.codigoFacultad
+                    LEFT JOIN
+                sede ON sede.codSede = facultad.coSede
             WHERE
                 persona.codPersona = alumno.idPersona
                     AND facultad.idFacultad = escuela.codigoFacultad
+                    AND sede.codSede = facultad.coSede
+                    AND sede.estado = 1
                     AND escuela.idEscuela = alumno.coEscuela
                     AND persona.dni like "%' . $dni . '%"
                     AND persona.estado = 1
@@ -554,7 +558,7 @@ class alumnomodel extends personamodel
     {
         try {
             $alumnobd = DB::select('SELECT 
-               codPersona, dni,nombres,apellidos,correo,facultad.nombre as nombref, escuela.nombre as nombree,codAlumno,fecha
+               codPersona, dni,nombres,apellidos,correo,facultad.nombre as nombref, escuela.nombre as nombree,codAlumno,fecha, nombresede
             FROM
                 persona
                     LEFT JOIN
@@ -563,14 +567,18 @@ class alumnomodel extends personamodel
                 escuela ON escuela.idEscuela = alumno.coEscuela
                     LEFT JOIN
                 facultad ON facultad.idFacultad = escuela.codigoFacultad
+                    LEFT JOIN
+                sede ON sede.codSede = facultad.coSede
             WHERE
                 persona.codPersona = alumno.idPersona
                     AND escuela.idEscuela = alumno.coEscuela
+                    AND sede.codSede = facultad.coSede
                     AND facultad.idFacultad = escuela.codigoFacultad
                     AND persona.apellidos like "%' . $apellidos . '%"
                     AND persona.estado = 1
                     AND facultad.estado = 1
-                    AND alumno.estado = 1');
+                    AND alumno.estado = 1
+                    AND sede.estado = 1');
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'consultarPersonaApellidos/alumnomodel');
@@ -583,7 +591,7 @@ class alumnomodel extends personamodel
     {
         try {
             $alumnobd = DB::select('SELECT 
-              codPersona, dni,nombres,apellidos,correo,facultad.nombre as nombref, escuela.nombre as nombree,codAlumno,fecha
+              codPersona, dni,nombres,apellidos,correo,facultad.nombre as nombref, escuela.nombre as nombree,codAlumno,fecha, nombresede
             FROM
                 persona
                     LEFT JOIN
@@ -592,14 +600,18 @@ class alumnomodel extends personamodel
                 escuela ON escuela.idEscuela = alumno.coEscuela
                     LEFT JOIN
                 facultad ON facultad.idFacultad = escuela.codigoFacultad
+                    LEFT JOIN
+                sede ON sede.codSede = facultad.coSede
             WHERE
                 persona.codPersona = alumno.idPersona
                     AND facultad.idFacultad = escuela.codigoFacultad
+                    AND sede.codSede = facultad.coSede
                     AND escuela.idEscuela = alumno.coEscuela
                     AND alumno.codAlumno like "%' . $codAlumno . '%"
                     AND persona.estado = 1
                     AND facultad.estado = 1
-                    AND alumno.estado = 1');
+                    AND alumno.estado = 1
+                    AND sede.estado = 1');
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'consultarAlumnoCodigo/alumnomodel');
@@ -611,16 +623,19 @@ class alumnomodel extends personamodel
     public function consultarAlumnoEscuela($nombreEscuela)
     {
         try {
-            $alumnobd = DB::select('select codPersona, dni,nombres,apellidos,correo,facultad.nombre as nombref, escuela.nombre as nombree,codAlumno,fecha from persona 
+            $alumnobd = DB::select('select codPersona, dni,nombres,apellidos,correo,facultad.nombre as nombref, escuela.nombre as nombree,codAlumno,fecha, nombresede from persona 
         left join alumno on persona.codPersona = alumno.idPersona 
         left join escuela on escuela.idEscuela = alumno.coEscuela
-        left join facultad ON facultad.idFacultad = escuela.codigoFacultad 
+        left join facultad ON facultad.idFacultad = escuela.codigoFacultad
+        left join sede ON sede.codSede = facultad.coSede
         where persona.codPersona = alumno.idPersona
-        and facultad.idFacultad = escuela.codigoFacultad  
+        and facultad.idFacultad = escuela.codigoFacultad
+        and sede.codSede = facultad.coSede
         and escuela.idEscuela = alumno.coEscuela 
         and facultad.estado =1
         and escuela.nombre like "%' . $nombreEscuela . '%"
-        and persona.estado = 1');
+        and persona.estado = 1
+        and sede.estado =1');
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'consultarAlumnoEscuela/alumnomodel');
@@ -632,15 +647,18 @@ class alumnomodel extends personamodel
     public function consultarAlumnoFacultad($nombreFacultad)
     {
         try {
-            $alumnobd = DB::select('select codPersona, dni,nombres,apellidos,correo,facultad.nombre as nombref, escuela.nombre as nombree,codAlumno,fecha from persona 
+            $alumnobd = DB::select('select codPersona, dni,nombres,apellidos,correo,facultad.nombre as nombref, escuela.nombre as nombree,codAlumno,fecha,nombresede from persona 
         left join alumno on persona.codPersona = alumno.idPersona 
         left join escuela on escuela.idEscuela = alumno.coEscuela 
         left join facultad on facultad.idFacultad = escuela.codigoFacultad 
+        left join sede ON sede.codSede = facultad.coSede
         where persona.codPersona = alumno.idPersona 
+        and sede.codSede = facultad.coSede
         and escuela.idEscuela = alumno.coEscuela 
         and facultad.idFacultad = escuela.codigoFacultad
         and facultad.nombre like "%' . $nombreFacultad . '%"
-        and persona.estado=1');
+        and persona.estado=1
+        and sede.estado = 1');
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'consultarAlumnoFacultad/alumnomodel');
@@ -653,7 +671,7 @@ class alumnomodel extends personamodel
     {
 
         try {
-            $alumnobd = DB::select('select codPersona, dni,nombres, apellidos,correo, codAlumno, fecha,escuela.nombre as enombre, facultad.nombre as fnombre, nombresede from persona
+            $alumnobd = DB::select('select codPersona, dni,nombres,apellidos,correo,facultad.nombre as nombref, escuela.nombre as nombree,codAlumno,fecha,nombresede from persona
         left join alumno on persona.codPersona=alumno.idPersona
         left join escuela on alumno.coEscuela = escuela.idEscuela
         left join facultad on escuela.codigoFacultad= facultad.idFacultad
