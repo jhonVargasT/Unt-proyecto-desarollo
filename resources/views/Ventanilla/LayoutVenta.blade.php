@@ -17,20 +17,21 @@
 
         <!-- BOOTSTRAP SCRIPTS -->
         <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+        <script src="{{asset('assets/js/utilidades.js')}}"></script>
         <!-- Custom styles for this template -->
 
         <!-- METISMENU SCRIPTS -->
 
         <!-- MORRIS CHART SCRIPTS -->
         <script src="{{asset('assets/js/morris/raphael-2.1.0.min.js')}}"></script>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.6/sweetalert2.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.6/sweetalert2.css">
         <!-- Include jQuery -->
 
         <!-- Include Date Range Picker -->
         <script type="text/javascript"
                 src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-        <link rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
         <!-- Javascript -->
 
         <!-- <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script> -->

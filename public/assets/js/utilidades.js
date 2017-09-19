@@ -1,8 +1,36 @@
 /**
  * Created by JhO.On on 11/07/2017.
  */
+function imprimir(event,url) {
+    event.preventDefault();
 
+    swal({
+        title: 'Desea imprimir el pago?',
+        text: "iEl pago se imprimira! ",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Aceptar'
+    }).then(function () {
+        window.location = url;
+    })
+}
+function  devolver(event,url) {
+    event.preventDefault();
 
+    swal({
+        title: 'Esta seguro que desea devolver el pago?',
+        text: "Si devuelve este registro no podra visualizarlo! ",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Aceptar'
+    }).then(function () {
+        window.location = url;
+    })
+}
 function eliminar(event, url) {
     event.preventDefault();
 

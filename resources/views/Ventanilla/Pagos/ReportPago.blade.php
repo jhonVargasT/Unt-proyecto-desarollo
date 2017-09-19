@@ -35,13 +35,14 @@
                     <div class="form-group-sm col-sm-6 ">
                         <span class="col-sm-3 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
-                            <select class=" form-control" name="selected" id="selected">
+                            <select class=" form-control" name="selected"  id="selected">
+                                <option value="Todo">Todo</option>
                                 <option value="Dni">Dni</option>
                                 <option value="Codigo alumno">Codigo alumno</option>
                                 <option value="Ruc">Ruc</option>
                                 <option value="Codigo pago">Codigo pago</option>
                                 <option value="Codigo personal">Reporte diario</option>
-                                <option value="Todo">Todo</option>
+
                             </select>
                         </div>
                     </div>
@@ -100,52 +101,52 @@
                     <tr>
                         <th>
                             <div align="center">
-                                <small>Codigo de pago</small>
+                                Cod. pago
                             </div>
                         </th>
                         <th>
                             <div align="center">
-                                <small>Dni</small>
+                                Dni
                             </div>
                         </th>
                         <th>
                             <div align="center">
-                                <small>Nombres y apellidos</small>
+                                Nombres y apellidos
                             </div>
                         </th>
                         <th>
                             <div align="center">
-                                <small>Tasa</small>
+                                Tasa
                             </div>
                         </th>
                         <th>
                             <div align="center">
-                                <small>Fecha de pago</small>
+                                Fecha pago
                             </div>
                         </th>
                         <th>
                             <div align="center">
-                                <small>Monto</small>
+                                Monto
                             </div>
                         </th>
                         <th>
                             <div align="center">
-                                <small>Modalidad</small>
+                                Modalidad
                             </div>
                         </th>
                         <th>
                             <div align="center">
-                                <small>Detalle</small>
+                                Detalle
                             </div>
                         </th>
                         <th>
                             <div align="center">
-                                <small>Nombre cajero</small>
+                                Nombre cajero
                             </div>
                         </th>
-                        <th>
+                        <th  >
                             <div align="center">
-                                <small>Opcion</small>
+                                Opcion
                             </div>
                         </th>
                     </tr>
@@ -163,27 +164,28 @@
                                 <td>{{$p->modalidad}}</td>
                                 <td>{{$p->detalle}}</td>
                                 <td>{{$p->pnombres}} {{$p->papellidos}}</td>
-                                <td align="center">
+                                <td align="center" >
+
                                     {{ csrf_field() }}
                                     @if($p->estadodeuda == 1)
                                         <a href="PagoDeuda/{{$p->codPago}}"><span
                                                     class="glyphicon glyphicon-usd"></span> </a>
                                     @endif
                                     @if($p->pnombres)
-                                        <a href="PagoImprimir/{{$p->codPago}}/{{$p->estadodeuda}}"><span
+                                        <a title="Imprimir"  onclick="imprimir(event,'PagoImprimir/{{$p->codPago}}/{{$p->estadodeuda}}')" href=""><span
                                                     class="glyphicon glyphicon-print"></span> </a>
                                     @else
-                                        <a href="PagoImprimirO/{{$p->codPago}}/{{$p->estadodeuda}}"><span
+                                        <a title="Imprimir"  onclick="imprimir(event,'PagoImprimirO/{{$p->codPago}}/{{$p->estadodeuda}}')" href=""><span
                                                     class="glyphicon glyphicon-print"></span> </a>
                                     @endif&nbsp;&nbsp;&nbsp;
                                     @if($p->modalidad=='Online'||$p->modalidad=='Banco')
                                         <a><span class="glyphicon glyphicon-trash"></span> </a>
                                     @else
-                                        <a href="DevolucionPago/{{$p->codPago}}"><span
-                                                    class="glyphicon glyphicon-minus"></span> </a>
+                                        <a  title="Devolver" onclick="devolver(event,'DevolucionPago/{{$p->codPago}}')" href=""><span
+                                                    class="glyphicon glyphicon-minus" style="color: orange "></span> </a>
                                         &nbsp;&nbsp;&nbsp;
-                                        <a href="PagoEliminar/{{$p->codPago}}"><span
-                                                    class="glyphicon glyphicon-trash"></span> </a>
+                                        <a href="" title="Eliminar"  onclick="eliminar(event,'PagoEliminar/{{$p->codPago}}')"><span
+                                                    class="glyphicon glyphicon-trash" style="color: red"></span> </a>
                                     @endif
                                 </td>
                             </tr>
