@@ -23,7 +23,9 @@
     <div class="panel-heading"><h3>Agregar sede</h3></div>
     <div style="background-color: #FFFFFF">
         <div class="panel-body">
-            <form name="form" action="{{url('SedeRegistrada')}}" role="form" method="POST" class="Vertical">
+            <form name="form"
+                  onsubmit="activarbotonform(event,['spansede','spancodigosede'],'enviar','mensaje')"
+                  action="{{url('SedeRegistrada')}}" role="form" method="POST" class="Vertical">
                 {{csrf_field()}}
                 @if(session()->has('true'))
                     <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -39,18 +41,18 @@
                                 <div class="col-sm-3">
                                     <span class=" control-label"> Sede</span>
                                     <input class="form-control input-sm" name="nombresede" id="nombresede" type="text"
-                                           autocomplete="off" onchange="validarNombre('nombresede','spandni')"
+                                           autocomplete="off" onchange="validarNombre('nombresede','spansede')"
                                            required>
-                                    <span style="color: red" class=" control-label" id="spandni" > </span>
+                                    <span style="color: red" class=" control-label" id="spansede"> </span>
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
                                 <div class="col-sm-3">
                                     <span class=" control-label"> Codigo sede</span>
                                     <input class="form-control input-sm" name="codigosede" id="codigosede" type="text"
-                                           autocomplete="off" onchange="validarNumeros('codigosede','spandni')"
+                                           autocomplete="off" onchange="validarNumeros('codigosede','spancodigosede')"
                                            required>
-                                    <span style="color: red" class=" control-label" id="spandni" > </span>
+                                    <span style="color: red" class=" control-label" id="spancodigosede"> </span>
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
@@ -58,12 +60,11 @@
                                     <span class=" control-label"> Direccion</span>
                                     <input class="form-control input-sm" name="direccion" id="direccion" type="text"
                                            autocomplete="off" required>
-                                    <span style="color: red" class=" control-label" id="spandni" > </span>
                                 </div>
-                            </div>
                             </div>
                         </div>
                     </div>
+                </div>
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm " align="left">
                         <div class="col-sm-5">
@@ -79,7 +80,9 @@
                     <div class="col-md-2">
                     </div>
                     <div>
-                        <button type="submit" name="enviar" class="col-md-2 btn btn-sm btn-success"><span
+                        <button type="submit"
+                                onmouseover="activarbotonform(null,['spansede','spancodigosede'],'enviar','mensaje')"
+                                name="enviar" class="col-md-2 btn btn-sm btn-success"><span
                                     class="glyphicon glyphicon-ok"></span> Guardar
                         </button>
                     </div>

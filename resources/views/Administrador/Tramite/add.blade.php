@@ -26,7 +26,8 @@
     <div class="panel-heading"><h3>Agregar clasificador </h3></div>
     <div style="background-color: #FFFFFF">
         <div class="panel-body">
-            <form name="form" action="{{url('TramiteRegistrado')}}" role="form" method="POST" class="Vertical">
+            <form name="form" onsubmit="activarbotonform(event,['spanclasificador','spannombre'],'enviar','mensaje')"
+                  action="{{url('TramiteRegistrado')}}" role="form" method="POST" class="Vertical">
                 {{csrf_field()}}
                 @if(session()->has('true'))
                     <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -54,8 +55,8 @@
                                     <span class=" control-label">Nombre de clasificador</span>
                                     <input class="form-control" name="nombre" id="nombre" type="text"
                                            autocomplete="off"
-                                           required>
-                                    <span class=" control-label" style="color:red" id="spannombre">  </span>
+                                           onchange="validarNombre('nombre','spannombre')" required>
+                                    <span class=" control-label" style="color:red" id="spannombre"></span>
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
@@ -63,15 +64,18 @@
                                 <div class="col-sm-3">
                                     <span class="control-label"> Tipo de recurso</span>
                                     <input class=" form-control input-sm" name="tipoRecurso" type="text"
-                                           autocomplete="off" placeholder="A">
+                                           autocomplete="off" placeholder="A" id="tipoRecurso"
+                                           onchange="validarNombre('tipoRecurso','spantiporecurso')">
+                                    <span class=" control-label" style="color:red" id="spantiporecurso"></span>
                                 </div>
                             </div>
                             <div class=" form-group-sm" align="left">
                                 <div class="col-sm-2">
                                     <span class=" control-label"> Fuente de financiamieto</span>
-
                                     <input class="form-control" name="fuentefinanc" type="text"
-                                           autocomplete="off">
+                                           autocomplete="off" placeholder="1" id="fuentefinac"
+                                           onchange="validarNumeros('fuentefinac','spanfuente')">
+                                    <span class=" control-label" style="color:red" id="spanfuente"></span>
                                 </div>
                             </div>
                         </div>
@@ -86,7 +90,9 @@
                                 class="glyphicon glyphicon-ban-circle"></span>
                         Cancelar</a>
                     <div class="col-md-2"></div>
-                    <button type="submit" name="enviar" id="enviar" class="col-md-2 btn btn-success">
+                    <button type="submit"
+                            onmouseover="activarbotonform(null,['spanclasificador','spannombre'],'enviar','mensaje')"
+                            name="enviar" id="enviar" class="col-md-2 btn btn-success">
                         <span
                                 class="glyphicon glyphicon-ok"></span> Guardar
                     </button>

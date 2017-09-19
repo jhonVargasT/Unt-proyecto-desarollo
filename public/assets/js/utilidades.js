@@ -110,7 +110,7 @@ function activarbotonform(event, myarray, idboton, idspanmensaje) {
     }
 }
 
-function validarContraseña(idContra, idRepContra, idspan) {
+function validarContrasena(idContra, idRepContra, idspan) {
     var texto1 = document.getElementById(idContra).value;
     var texto2 = document.getElementById(idRepContra).value;
     if (texto1 === texto2) {
@@ -132,6 +132,7 @@ function validarNumeros(idform, idspan) {
     if (isNaN(texto)) {
 
         document.getElementById(idspan).innerHTML = "Error: no puede contener letras.";
+        document.getElementById(idform).style.backgroundColor = '#F6CECE';
     } else {
 
         document.getElementById(idspan).innerHTML = "";
