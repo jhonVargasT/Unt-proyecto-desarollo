@@ -134,7 +134,7 @@ function validarNumeros(idform, idspan) {
         document.getElementById(idspan).innerHTML = "Error: no puede contener letras.";
         document.getElementById(idform).style.backgroundColor = '#F6CECE';
     } else {
-
+        document.getElementById(idform).style.backgroundColor = '#FFFFFF';
         document.getElementById(idspan).innerHTML = "";
     }
 

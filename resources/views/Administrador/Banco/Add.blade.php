@@ -40,7 +40,9 @@
                 @if(session()->has('false'))
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
                 @endif
-                <form name="form" action="{{url('BancoRegistrado')}}" role="form" method="POST" class="Horizontal">
+                <form name="form"
+                      onsubmit="activarbotonform(event,['spanbanco','spancuenta'],'enviar','mensaje')"
+                      action="{{url('BancoRegistrado')}}" role="form" method="POST" class="Horizontal">
                     {{csrf_field()}}
                     <div class="panel panel-primary">
                         <div class="panel-heading">Datos Banco</div>
@@ -48,15 +50,17 @@
                             <div class=" row ">
                                 <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label">Banco</span>
-                                    <input class="form-control input-sm" name="banco" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)"
+                                    <input class="form-control input-sm" name="banco" type="text" id="banco"
+                                           autocomplete="off" onchange="validarNombre('banco','spanbanco')"
                                            placeholder="Ejem: Banco de la Nacion" required>
+                                    <span class=" control-label" style="color:red" id="spanbanco">  </span>
                                 </div>
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                     <span class="control-label">Cuenta</span>
-                                    <input class="form-control input-sm" name="cuenta" type="text"
-                                           autocomplete="off" onkeypress="return validarNum(event)"
+                                    <input class="form-control input-sm" name="cuenta" type="text" id="cuenta"
+                                           autocomplete="off" onchange="validarNumeros('cuenta','spancuenta')"
                                            placeholder="Ejm:123456 " required>
+                                    <span class=" control-label" style="color:red" id="spancuenta">  </span>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +71,9 @@
                                     class="glyphicon glyphicon-ban-circle"></span>
                             Cancelar</a>
                         <div class="col-md-2"></div>
-                        <button type="submit" name="enviar" class="col-md-2 btn btn-sm btn-success"><span
+                        <button type="submit"
+                                onmouseover="activarbotonform(null,['spanbanco','spancuenta'],'enviar','mensaje')"
+                                name="enviar" class="col-md-2 btn btn-sm btn-success"><span
                                     class="glyphicon glyphicon-ok"></span> Guardar
                         </button>
                         <div class="col-md-3"></div>
