@@ -33,9 +33,9 @@
             @if(session()->has('false'))
                 <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
             @endif
-            <form name="form" onsubmit="activarbotonform(event,['spandni','spannombre',
-                            'spanapellidos','spancorreo','spancodigoPersonal'
-                            ],'enviar','mensaje')" action="{{url('PersonalRegistrado')}}" role="form" method="POST"
+            <form name="form" onsubmit="activarbotonform(event,['spansede','spandni','spannombre',
+                            'spanapellidos','spancorreo','spancodigoPersonal','spancontrasenavalidar'],'enviar','mensaje')"
+                  action="{{url('PersonalRegistrado')}}" role="form" method="POST"
                   class="Vertical">
                 {{csrf_field()}}
                 <div class="panel  panel-primary">
@@ -46,8 +46,9 @@
                                 <div class="col-sm-3">
                                     <span class=" control-label"> Sede</span>
                                     <input class="typeahead form-control input-sm" name="sede" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)"
-                                           required>
+                                           autocomplete="off" onchange=" validarNombre('sede','spansede')"
+                                           required id="sede">
+                                    <span style="color: red" class=" control-label" id="spansede"> </span>
                                 </div>
                                 <script type="text/javascript">
                                     var path = "{{ route('autocompletesede') }}";
@@ -149,17 +150,17 @@
 
                                 <div class="col-sm-2">
                                     <span class="control-label">Contraseña</span>
-                                    <input class="form-control input-sm" id="contraseñaAgregar" name="contraseñaAgregar"
+                                    <input class="form-control input-sm" id="contrasenavalidar" name="contraseñaAgregar"
                                            type="password"
                                            autocomplete="off" required>
                                 </div>
                                 <div class="col-sm-2">
                                     <span class="control-label">Repita contraseña</span>
-                                    <input class="form-control input-sm" id="contraseñavalidar" type="password"
+                                    <input class="form-control input-sm" id="contrasenavalidar" type="password"
                                            autocomplete="off"
-                                           onchange="validarContraseña('contraseñaAgregar','contraseñavalidar','spancontraseñavalidar')"
+                                           onchange="validarContrasena('contrasenavalidar','contrasenavalidar','spancontrasenavalidar')"
                                            required>
-                                    <span class="control-label" id="spancontraseñavalidar"></span>
+                                    <span class="control-label" id="spancontrasenavalidar"></span>
                                 </div>
 
 
@@ -181,7 +182,7 @@
                     <div class="col-md-2"></div>
                     <button type="submit" name="enviar" id="enviar" class=" col-md-2 btn btn-success"
                             onmouseover="activarbotonform(null,['spandni','spannombre',
-                            'spanapellidos','spancorreo','spancodigoPersonal'
+                            'spanapellidos','spancorreo','spancodigoPersonal','spancontrasenavalidar'
                             ],'enviar','mensaje')">
                         <span
                                 class="glyphicon glyphicon-ok"></span> Guardar

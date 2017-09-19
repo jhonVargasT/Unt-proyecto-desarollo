@@ -36,7 +36,9 @@
 
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
             <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-            <form name="form" action="{{url('DonacionRegistrada')}}" role="form" method="POST" class="Horizontal">
+            <form name="form"
+                  onsubmit="activarbotonform(event,['spansiaf','spanmonto','spanresolucion','spancuenta'],'enviar','mensaje')"
+                  action="{{url('DonacionRegistrada')}}" role="form" method="POST" class="Horizontal">
                 {{csrf_field()}}
                 @if(session()->has('true'))
                     <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -55,7 +57,8 @@
                                     <input class="typeahead form-control" type="text"
                                            placeholder="Ingresa datos aqui .."
                                            name="nombreTramite" id="name" autocomplete="off"
-                                           required>
+                                           required onchange=" validarNombre('name','spansiaf')">
+                                    <span style="color: red" class=" control-label" id="spansiaf"> </span>
                                     <script type="text/javascript">
                                         var path = "{{ route('autocompletet') }}";
                                         $('input.typeahead').typeahead({
@@ -112,9 +115,9 @@
                                 <div class="col-sm-3">
                                     <span class="glyphicon glyphicon-usd"> Monto</span>
                                     <input type="text" class="form-control " name="monto"
-                                           autocomplete="off" onkeypress="return validarDouble(event)"
-                                           placeholder="ejmp: 2.50"
-                                           required>
+                                           autocomplete="off" placeholder="ejmp: 2.50" id="monto"
+                                           required onchange=" validarNumeros('monto','spanmonto')">
+                                    <span style="color: red" class=" control-label" id="spanmonto"> </span>
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
@@ -123,8 +126,8 @@
                                     <input class="form-control input-sm" name="numResolucion" id="numResolucion"
                                            type="text"
                                            autocomplete="off" required
-                                           onchange="validarNumeros('numResolucion','spanclasificador')">
-                                    <span class=" control-label" style="color:red" id="spanclasificador">  </span>
+                                           onchange="validarNumeros('numResolucion','spanresolucion')">
+                                    <span class=" control-label" style="color:red" id="spanresolucion">  </span>
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
@@ -132,18 +135,19 @@
                                     <span class=" control-label"> Descripcion</span>
                                     <input class="form-control input-sm" name="descripcion" id="descripcion"
                                            type="text"
-                                           autocomplete="off" required
-                                           onchange="validarNombre('descripcion','spanclasificador')">
-                                    <span class=" control-label" style="color:red" id="spanclasificador">  </span>
+                                           autocomplete="off" required>
                                 </div>
                             </div>
-                            <div class="form-group-sm " align="left">
-                                <div class="col-sm-3">
-                                    <span class=" control-label"> Cuenta bancaria </span>
-                                    <input class="form-control input-sm " name="cuenta" type="text" id="cuenta"
-                                           onkeypress="return validarNum(event)" required>
-                                    <div class="input-group-addon"><a id="help_button"><i
-                                                    class="glyphicon glyphicon-eye-open"></i></a>
+                            <div class="col-sm-12 row form-group">
+                                <div class="form-group-sm " align="left">
+                                    <div class="col-sm-3">
+                                        <span class=" control-label"> Cuenta bancaria </span>
+                                        <input class="form-control input-sm " name="cuenta" type="text" id="cuenta"
+                                               onchange="validarNumeros('cuenta','spancuenta')">
+                                        <div class="input-group-addon"><a id="help_button"><i
+                                                        class="glyphicon glyphicon-eye-open"></i></a>
+                                        </div>
+                                        <span class=" control-label" style="color:red" id="spancuenta">  </span>
                                     </div>
                                 </div>
                             </div>
@@ -194,7 +198,9 @@
                                 class="glyphicon glyphicon-ban-circle"></span>
                         Cancelar</a>
                     <div class="col-md-2"></div>
-                    <button type="submit" name="enviar" class="col-md-2 btn  btn-success"><span
+                    <button type="submit"
+                            onmouseover="activarbotonform(null,['spansiaf','spanmonto','spanresolucion','spancuenta'],'enviar','mensaje')"
+                            name="enviar" class="col-md-2 btn  btn-success"><span
                                 class="glyphicon glyphicon-ok"></span> Guardar
                     </button>
                     <div class="col-md-3"></div>

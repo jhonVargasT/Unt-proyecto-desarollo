@@ -38,7 +38,9 @@
             @if(session()->has('false'))
                 <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
             @endif
-            <form name="form" action="{{url('EscuelaRegistrada')}}" role="form" method="POST" class="Horizontal">
+            <form name="form"
+                  onsubmit="activarbotonform(event,['spansede','spanfacultad','spancodigoescuela','spanescuela'],'enviar','mensaje')"
+                  action="{{url('EscuelaRegistrada')}}" role="form" method="POST" class="Horizontal">
                 {{csrf_field()}}
                 <div class="panel  panel-primary">
                     <div class="panel-heading">Datos Sede y Facultad</div>
@@ -47,9 +49,10 @@
                             <div class="form-group-sm " align="left">
                                 <div class="col-sm-3">
                                     <span class=" control-label"> Sede</span>
-                                    <input class="typeahead form-control input-sm" name="sede" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)"
-                                           required>
+                                    <input class="typeahead form-control input-sm" name="nombreSede" type="text"
+                                           autocomplete="off" onchange="validarNombre('ns','spansede')"
+                                           required id="ns">
+                                    <span style="color: red" class=" control-label" id="spansede"> </span>
                                 </div>
                                 <script type="text/javascript">
                                     var path = "{{ route('autocompletesede') }}";
@@ -66,10 +69,9 @@
                                 <div class="col-sm-3">
                                     <span class=" control-label"> Facultad</span>
                                     <input class="facultad form-control input-sm" type="text"
-                                           placeholder="ejmp : Ingenieria"
-                                           name="nombreFacultad" id="fa"
-                                           autocomplete="off" required>
-                                    <span style="color: red" class=" control-label" id="spandni"> </span>
+                                           placeholder="ejmp : Ingenieria" onchange="validarNombre('fa','spanfacultad')"
+                                           name="nombreFacultad" id="fa" autocomplete="off" required>
+                                    <span style="color: red" class=" control-label" id="spanfacultad"> </span>
                                     <script>
                                         src = "{{ route('searchsedeescuela') }}";
                                         $("#fa").autocomplete({
@@ -104,9 +106,10 @@
                                     <span class=" control-label"> Codigo Escuela</span>
                                     <input class="form-control input-sm" name="codEscuela" id="codEscuela"
                                            type="text"
-                                           autocomplete="off" onchange="validarNumeros('codEscuela','spandni')"
+                                           autocomplete="off"
+                                           onchange="validarNumeros('codEscuela','spancodigoescuela')"
                                            required>
-                                    <span style="color: red" class=" control-label" id="spandni"> </span>
+                                    <span style="color: red" class=" control-label" id="spancodigoescuela"> </span>
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
@@ -114,9 +117,9 @@
                                     <span class=" control-label"> Nombre Escuela</span>
                                     <input class="form-control input-sm" name="nombre" id="nombre"
                                            type="text"
-                                           autocomplete="off" onchange="validarNombre('nombre','spandni')"
+                                           autocomplete="off" onchange="validarNombre('nombre','spanescuela')"
                                            required>
-                                    <span style="color: red" class=" control-label" id="spandni"> </span>
+                                    <span style="color: red" class=" control-label" id="spanescuela"> </span>
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
@@ -124,9 +127,8 @@
                                     <span class=" control-label"> Cuenta Interna</span>
                                     <input class="form-control input-sm" name="nroCuenta" id="nroCuenta"
                                            type="text"
-                                           autocomplete="off" onchange="validarNumeros('nroCuenta','spandni')"
-                                           required>
-                                    <span style="color: red" class=" control-label" id="spandni"> </span>
+                                           autocomplete="off" onchange="validarNumeros('nroCuenta','spancuenta')">
+                                    <span style="color: red" class=" control-label" id="spancuenta"> </span>
                                 </div>
                             </div>
                         </div>
@@ -138,7 +140,9 @@
                                 class="glyphicon glyphicon-ban-circle"></span>
                         Cancelar</a>
                     <div class="col-md-2"></div>
-                    <button type="submit" name="enviar" class="col-md-2 btn btn-success"><span
+                    <button type="submit"
+                            onmouseover="activarbotonform(null,['spansede','spanfacultad','spancodigoescuela','spanescuela'],'enviar','mensaje')"
+                            name="enviar" class="col-md-2 btn btn-success"><span
                                 class="glyphicon glyphicon-ok"></span> Guardar
                     </button>
                     <div class="col-md-3"></div>

@@ -26,7 +26,9 @@
     <div class="panel-heading"><h3>Agregar facultad</h3></div>
     <div style="background-color: #FFFFFF">
         <div class="panel-body">
-            <form name="form" action="{{url('FacultadRegistrada')}}" role="form" method="POST" class="Vertical">
+            <form name="form"
+                  onsubmit="activarbotonform(event,['spansede','spancodigofacultad','spancuenta','spannombre'],'enviar','mensaje')"
+                  action="{{url('FacultadRegistrada')}}" role="form" method="POST" class="Vertical">
                 {{csrf_field()}}
                 @if(session()->has('true'))
                     <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -42,8 +44,9 @@
                                 <div class="col-sm-3">
                                     <span class=" control-label"> Sede</span>
                                     <input class="typeahead form-control input-sm" name="sede" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)"
-                                           required>
+                                           autocomplete="off" onchange="validarNombre('sede','spansede')"
+                                           required id="sede">
+                                    <span style="color: red" class=" control-label" id="spansede"> </span>
                                 </div>
                                 <script type="text/javascript">
                                     var path = "{{ route('autocompletesede') }}";
@@ -68,9 +71,10 @@
                                     <span class=" control-label"> Codigo Facultad</span>
                                     <input class="form-control input-sm" name="CodigoFacultad" id="CodigoFacultad"
                                            type="text"
-                                           autocomplete="off" onchange="validarNumeros('CodigoFacultad','spandni')"
+                                           autocomplete="off"
+                                           onchange="validarNumeros('CodigoFacultad','spancodigofacultad')"
                                            required>
-                                    <span style="color: red" class=" control-label" id="spandni"> </span>
+                                    <span style="color: red" class=" control-label" id="spancodigofacultad"> </span>
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
@@ -78,9 +82,9 @@
                                     <span class=" control-label"> Cuenta interna</span>
                                     <input class="form-control input-sm" name="CuentaInterna" id="CuentaInterna"
                                            type="text"
-                                           autocomplete="off" onchange="validarNumeros('CuentaInterna','spandni')"
+                                           autocomplete="off" onchange="validarNumeros('CuentaInterna','spancuenta')"
                                            required>
-                                    <span style="color: red" class=" control-label" id="spandni"> </span>
+                                    <span style="color: red" class=" control-label" id="spancuenta"> </span>
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
@@ -88,9 +92,9 @@
                                     <span class=" control-label"> Nombre Facultad</span>
                                     <input class="form-control input-sm" name="NombreFacultad" id="NombreFacultad"
                                            type="text"
-                                           autocomplete="off" onchange="validarNombre('NombreFacultad','spandni')"
+                                           autocomplete="off" onchange="validarNombre('NombreFacultad','spannombre')"
                                            required>
-                                    <span style="color: red" class=" control-label" id="spandni"> </span>
+                                    <span style="color: red" class=" control-label" id="spannombre"> </span>
                                 </div>
                             </div>
                         </div>
@@ -105,7 +109,9 @@
                     <div class="col-md-2">
                     </div>
                     <div>
-                        <button type="submit" name="enviar" class="col-md-2 btn btn-sm btn-success"><span
+                        <button type="submit"
+                                onmouseover="activarbotonform(null,['spansede','spancodigofacultad','spancuenta','spannombre'],'enviar','mensaje')"
+                                name="enviar" class="col-md-2 btn btn-sm btn-success"><span
                                     class="glyphicon glyphicon-ok"></span> Guardar
                         </button>
                     </div>

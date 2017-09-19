@@ -52,7 +52,7 @@
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
                 @endif
                 <form name="form"
-                      onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos','spanemail','spancodAlumno'],'enviar','mensaje')"
+                      onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos','spanemail','spancodAlumno','spansede','spanescuela'],'enviar','mensaje')"
                       action="{{url('AlumnoRegistrado')}}" role="form" method="POST" class="Horizontal">
                     {{csrf_field()}}
                     <div class="panel panel-primary">
@@ -134,7 +134,8 @@
                                     <span class="control-label">Sede</span>
                                     <input class="typeahead form-control"
                                            placeholder="Ejm: Trujillo" name="nombreSede" id="ns"
-                                           autocomplete="off" required>
+                                           autocomplete="off" required onchange="validarNombre('ns','spansede')">
+                                    <span style="color: red" class=" control-label" id="spansede"> </span>
                                     <script type="text/javascript">
                                         var paths = "{{ route('autocompletesede')}}";
                                         $('input.typeahead').typeahead({
@@ -150,7 +151,8 @@
                                     <span class="control-label">Escuela</span>
                                     <input class="form-control input-sm" type="text"
                                            placeholder="Ejm: Mecanica" name="nombreEscuela" id="ne"
-                                           required disabled>
+                                           required disabled onchange="validarNombre('ne','spanescuela')">
+                                    <span style="color: red" class=" control-label" id="spanescuela"> </span>
                                     <script>
                                         src = "{{ route('searchajax') }}";
                                         $("#ne").autocomplete({
@@ -210,7 +212,7 @@
                             Cancelar</a>
                         <div class="col-md-2"></div>
                         <button type="submit"
-                                onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos','spanemail','spancodAlumno'],'enviar','mensaje')"
+                                onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos','spanemail','spancodAlumno','spansede','spanescuela'],'enviar','mensaje')"
                                 name="enviar" id="enviar" class="col-md-2 btn btn-sm btn-success"><span
                                     class="glyphicon glyphicon-ok"></span> Guardar
                         </button>
