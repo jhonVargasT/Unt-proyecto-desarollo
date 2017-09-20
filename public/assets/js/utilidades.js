@@ -129,7 +129,6 @@ function activarbotonform(event, myarray, idboton, idspanmensaje) {
     }
 
     if (cont > 0) {
-
         event && event.preventDefault();
         document.getElementById(idboton).setAttribute('class', 'col-md-2 btn btn-success disabled');
         document.getElementById(idspanmensaje).innerHTML = "Tiene errores de ingreso en el sistema, porfavor verifique el formulario";

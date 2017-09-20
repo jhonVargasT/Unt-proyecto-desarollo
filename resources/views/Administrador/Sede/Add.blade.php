@@ -65,11 +65,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 row form-group">
-                    <div class="form-group-sm " align="left">
-                        <div class="col-sm-5">
-                        </div>
-                    </div>
+                <div class="col-sm-12 row form-group" align="center">
+                    <span id="mensaje" class="control-label" style="color: red"></span>
                 </div>
                 <div class="col-sm-12 row form-group">
                     <div class="col-md-3"></div>
@@ -80,7 +77,7 @@
                     <div class="col-md-2">
                     </div>
                     <div>
-                        <button type="submit"
+                        <button type="submit" id="enviar"
                                 onmouseover="activarbotonform(null,['spansede','spancodigosede'],'enviar','mensaje')"
                                 name="enviar" class="col-md-2 btn btn-sm btn-success"><span
                                     class="glyphicon glyphicon-ok"></span> Guardar
