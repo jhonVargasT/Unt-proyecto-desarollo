@@ -30,46 +30,46 @@
         <div style="background-color: #FFFFFF">
             <div class="panel-body">
                 <div class="panel-body form-group ">
-                    <form id="miform" action="{{'admReporteresumido'}}" onsubmit="activarBotonreporte(event)" role="form" method="POST" class="Vertical">
+                    <form id="miform" action="{{'admReporteresumido'}}" onsubmit="activarBotonreporte(event)"
+                          role="form" method="POST" class="Vertical">
                         {{csrf_field()}}
                         <div class="row ">
 
                             <div class="form-group-sm col-sm-3 col-lg-3 col-xs-3">
                                 <span class=" control-label">Tipo de reporte para :</span>
-                                <select class="form-control" id="tipreporte" onclick="cambiartabla(event)" name="tipreporte" >
-
+                                <select class="form-control" id="tipreporte" onclick="cambiartabla(event)"
+                                        name="tipreporte">
                                     <option>Clasificador S.I.A.F</option>
                                     <option>Resumen total</option>
                                 </select>
-
                             </div>
-
                             <div class="form-group-sm col-sm-2 col-lg-2 col-xs-2">
                                 <span class="control-label">Buscar por :</span>
                                 <select class=" form-control" name="combito" id="combito" onclick="cambiarmenu(event);">
                                     <option>Escojer</option>
-                                    <option >Año</option>
-                                    <option >Mes</option>
-                                    <option >Dia</option>
+                                    <option>Año</option>
+                                    <option>Mes</option>
+                                    <option>Dia</option>
                                 </select>
                             </div>
                             <div class="form-group-sm col-sm-2 col-lg-2 col-xs-2" id="opc">
-
                             </div>
                             <div class="form-group-sm col-sm-2 col-lg-2 col-xs-2">
-                                <input type="checkbox" id="ccp" onclick="habilitarTexto(this.checked,'textbox','spantext')">
+                                <input type="checkbox" id="ccp"
+                                       onclick="habilitarTexto(this.checked,'textbox','spantext')">
                                 Unidad operativa
-                                <div class="col-sm-5 col-lg-5 col-xs-5">
+                                <div class="col-sm-5 col-lg-6 col-xs-5">
                                     <input type="text" class="typeaheads form-control " name="textbox" id="textbox"
-                                           autocomplete="off" disabled  required onchange="validarNumeros('textbox','spantext')">
+                                           autocomplete="off" disabled required
+                                           onchange="validarNumeros('textbox','spantext')">
                                     <span class="control-label" style="color: red" id="spantext"></span>
                                 </div>
                             </div>
-                                <div>&nbsp;</div>
-                                <button type="submit" class="col-md-2 btn btn-sm btn-success" id="imp" onmouseover="activarBotonreporte(null)">
-                                    <span class="ion-ios7-search" > </span> buscar
-                                </button>
-
+                            <div>&nbsp;</div>
+                            <button type="submit" class="col-md-2 btn btn-sm btn-success" id="imp"
+                                    onmouseover="activarBotonreporte(null)">
+                                <span class="ion-ios7-search"> </span> buscar
+                            </button>
                         </div>
                         &nbsp;
                         <div class="col-sm-12 row form-group" align="center">
@@ -81,7 +81,6 @@
                     <div class=" row form-group ">
                         <div class="col-sm-12 row form-group ">
                             <div class="col-sm-8">
-
                             </div>
                             <div class="col-sm-4">
                                 <div class="col-sm-4"></div>
@@ -97,7 +96,6 @@
                         </div>
                         <div class="table-responsive col-sm-12">
                             <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-
                                 @if(isset($resultsiaf))
                                     <thead>
                                     <!--cabecear Tabla-->
@@ -120,7 +118,6 @@
                                                 CUENTA
                                             </div>
                                         </th>
-
                                         <th>
                                             <div align="center">
                                                 NOMBRE DE TASA
@@ -136,12 +133,10 @@
                                                 NRO PAGOS
                                             </div>
                                         </th>
-
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <!--Contenido-->
-
                                     @foreach($resultsiaf as $r)
                                         <tr>
                                             <td><h6 align="center">{{$r->unop}}</h6></td>
@@ -154,13 +149,11 @@
                                         </tr>
                                     </tbody>
                                     @endforeach
-
                                 @else
                                     @if(isset($resultresu))
                                         <thead>
                                         <!--cabecear Tabla-->
                                         <tr>
-
                                             <th>
                                                 <div align="center">
                                                     CODIGO CLASIFICADOR S.I.A.F
@@ -181,8 +174,6 @@
                                                     IMPORTE
                                                 </div>
                                             </th>
-
-
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -194,7 +185,6 @@
                                                 <td><h6 align="center">{{$r->unop}}</h6></td>
                                                 <td><h6 align="left">{{$r->nombreTramite}}</h6></td>
                                                 <td><h6 align="center">{{$r->importe}}</h6></td>
-
                                             </tr>
                                         </tbody>
                                         @endforeach
@@ -202,7 +192,6 @@
                                         <thead>
                                         <!--cabecear Tabla-->
                                         <tr>
-
                                             <th>
                                                 <div align="center">
                                                     CODIGO CLASIFICADOR S.I.A.F
@@ -218,18 +207,13 @@
                                                     IMPORTE
                                                 </div>
                                             </th>
-
-
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <!--Contenido-->
-
                                         </tbody>
                                     @endif
                                 @endif
-
-
                             </table>
                         </div>
                         <div class="col-sm-12 row form-group">
@@ -254,7 +238,6 @@
                                     </a>
                                 @endif
                             </div>
-
                             <div class="col-md-3"></div>
                         </div>
                     </div>
@@ -275,6 +258,7 @@
                 document.getElementById("ff").disabled = true;
             }
         }
+
         function habilitartr(value) {
             if (value == true) {
                 document.getElementById("trinp").disabled = false;
@@ -282,6 +266,7 @@
                 document.getElementById("trinp").disabled = true;
             }
         }
+
         function habilitarsed(value) {
             if (value == true) {
                 document.getElementById("sede").disabled = false;
@@ -289,6 +274,7 @@
                 document.getElementById("sede").disabled = true;
             }
         }
+
         function habilitarfac(value) {
 
             if (value == true) {
@@ -301,6 +287,7 @@
                 document.getElementById("sede").disabled = true;
             }
         }
+
         function habilitaresc(value) {
             if (value == true) {
                 document.getElementById("sed").checked = true;
@@ -317,5 +304,4 @@
             }
         }
     </script>
-
 @endsection

@@ -1,7 +1,7 @@
 /**
  * Created by JhO.On on 11/07/2017.
  */
-function imprimir(event,url) {
+function imprimir(event, url) {
     event.preventDefault();
 
     swal({
@@ -16,7 +16,8 @@ function imprimir(event,url) {
         window.location = url;
     })
 }
-function  devolver(event,url) {
+
+function devolver(event, url) {
     event.preventDefault();
 
     swal({
@@ -31,6 +32,7 @@ function  devolver(event,url) {
         window.location = url;
     })
 }
+
 function eliminar(event, url) {
     event.preventDefault();
 
@@ -118,7 +120,7 @@ function activarbotonform(event, myarray, idboton, idspanmensaje) {
 
         texto = document.getElementById("" + myarray[i] + "").innerHTML;
 
-        if (texto === "" ) {
+        if (texto === "") {
 
         }
         else {
@@ -130,11 +132,11 @@ function activarbotonform(event, myarray, idboton, idspanmensaje) {
 
         event && event.preventDefault();
         document.getElementById(idboton).setAttribute('class', 'col-md-2 btn btn-success disabled');
-        document.getElementById(idspanmensaje).innerHTML="Tiene errores de ingreso en el sistema, porfavor verifique el formulario";
+        document.getElementById(idspanmensaje).innerHTML = "Tiene errores de ingreso en el sistema, porfavor verifique el formulario";
     } else {
 
         document.getElementById(idboton).setAttribute('class', 'col-md-2 btn btn-success ');
-        document.getElementById(idspanmensaje).innerHTML="";
+        document.getElementById(idspanmensaje).innerHTML = "";
     }
 }
 
@@ -171,7 +173,7 @@ function validarNumeros(idform, idspan) {
 function validarDni(idform, idspan) {
 
     var texto = document.getElementById(idform).value;
-    if (isNaN(texto)) {
+    if (texto) {
         document.getElementById(idform).style.backgroundColor = '#F6CECE';
         document.getElementById(idspan).innerHTML = "Error: un dni no puede contener letras.";
     }
@@ -191,13 +193,12 @@ function validarDni(idform, idspan) {
 
 function validarNombre(idform, idspan) {
     var texto = document.getElementById(idform).value;
-    if (isNaN(texto)) {
+    if (texto) {
         var expresion = /^[a-zA-Z\s]+$/;
-        var numeros = /^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/;
         if (expresion.test(texto)) {
             document.getElementById(idform).value = (texto.toUpperCase());
             document.getElementById(idform).style.backgroundColor = '#FFFFFF';
-            document.getElementById(idspan).innerHTML = "";
+            document.getElementById(idspan).innerHTML = " ";
         }
         else {
             document.getElementById(idform).style.backgroundColor = '#F6CECE';
@@ -205,8 +206,8 @@ function validarNombre(idform, idspan) {
         }
     }
     else {
-        document.getElementById(idform).style.backgroundColor = '#F6CECE';
-        document.getElementById(idspan).innerHTML = "Error: No puede incluir numeros.";
+        document.getElementById(idform).style.backgroundColor = '';
+        document.getElementById(idspan).innerHTML = "";
     }
 }
 

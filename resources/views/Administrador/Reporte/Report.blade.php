@@ -28,10 +28,6 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
 
-
-
-
-
     <script type="text/javascript">
         function limpiarCampos() {
 
@@ -65,7 +61,7 @@
 
 
         function habilitarCP(value) {
-            if (value == true) {
+            if (value) {
                 document.getElementById("cp").readOnly = false;
                 document.getElementById("sede").readOnly = true;
                 document.getElementById("fac").readOnly = true;
@@ -78,38 +74,48 @@
                 document.getElementById("sed").checked = false;
                 document.getElementById("cfac").checked = false;
                 document.getElementById("cesc").checked = false;
+                document.getElementById("cp").style.backgroundColor = '#FFFFFF ';
 
-            } else if (value == false) {
+            } else {
                 document.getElementById("cp").readOnly = true;
                 document.getElementById("cp").value = "";
-
+                document.getElementById("cp").style.backgroundColor = '#e6e6e6';
+                document.getElementById("spanproduccion").innerHTML = "";
             }
         }
 
         function habilitarff(value) {
-            if (value == true) {
+            if (value) {
                 document.getElementById("ff").readOnly = false;
-            } else if (value == false) {
+                document.getElementById("ff").style.backgroundColor = '#FFFFFF';
+            } else {
                 document.getElementById("ff").readOnly = true;
                 document.getElementById("ff").value = "";
-
+                document.getElementById("ff").style.backgroundColor = '#e6e6e6';
+                document.getElementById("spanff").innerHTML = "";
             }
         }
+
         function habilitartr(value) {
-            if (value == true) {
+            if (value) {
                 document.getElementById("trinp").readOnly = false;
-            } else if (value == false) {
+                document.getElementById("trinp").style.backgroundColor = '#FFFFFF';
+            } else {
                 document.getElementById("trinp").readOnly = true;
                 document.getElementById("trinp").value = "";
+                document.getElementById("trinp").style.backgroundColor = '#e6e6e6';
+                document.getElementById("spantr").innerHTML = "";
             }
         }
+
         function habilitarsed(value) {
-            if (value == true) {
+            if (value) {
                 document.getElementById("cp").value = "";
                 document.getElementById("ccp").checked = false;
                 document.getElementById("cp").readOnly = true;
                 document.getElementById("sede").readOnly = false;
-            } else if (value == false) {
+                document.getElementById("sede").style.backgroundColor = '#FFFFFF';
+            } else {
                 document.getElementById("sede").readOnly = true;
                 document.getElementById("fac").readOnly = true;
                 document.getElementById("esc").readOnly = true;
@@ -123,11 +129,13 @@
                 document.getElementById("cfac").checked = false;
                 document.getElementById("cesc").checked = false;
 
+                document.getElementById("sede").style.backgroundColor = '#e6e6e6 ';
+                document.getElementById("spansede").innerHTML = "";
             }
         }
-        function habilitarfac(value) {
 
-            if (value == true) {
+        function habilitarfac(value) {
+            if (value) {
                 document.getElementById("ccp").checked = false;
                 document.getElementById("sed").checked = false;
                 document.getElementById("cp").readOnly = true;
@@ -136,17 +144,23 @@
                 document.getElementById("sed").checked = true;
                 document.getElementById("fac").readOnly = false;
                 document.getElementById("sede").readOnly = false;
-            } else if (value == false) {
+
+                document.getElementById("fac").style.backgroundColor = '#FFFFFF';
+            } else {
                 document.getElementById("sed").checked = false;
                 document.getElementById("fac").readOnly = true;
                 document.getElementById("sede").readOnly = true;
 
                 document.getElementById("fac").value = "";
                 document.getElementById("sede").value = "";
+
+                document.getElementById("fac").style.backgroundColor = '#e6e6e6 ';
+                document.getElementById("spanfacultad").innerHTML = "";
             }
         }
+
         function habilitaresc(value) {
-            if (value == true) {
+            if (value) {
                 document.getElementById("ccp").checked = false;
                 document.getElementById("cp").value = "";
                 document.getElementById("cp").readOnly = true;
@@ -155,7 +169,8 @@
                 document.getElementById("fac").readOnly = false;
                 document.getElementById("sede").readOnly = false;
                 document.getElementById("esc").readOnly = false;
-            } else if (value == false) {
+                document.getElementById("esc").style.backgroundColor = '#FFFFFF';
+            } else {
                 document.getElementById("sed").checked = false;
                 document.getElementById("cfac").checked = false;
                 document.getElementById("esc").readOnly = true;
@@ -166,6 +181,8 @@
                 document.getElementById("fac").value = "";
                 document.getElementById("sede").value = "";
 
+                document.getElementById("esc").style.backgroundColor = '#e6e6e6 ';
+                document.getElementById("spanescuela").innerHTML = "";
             }
         }
 
@@ -201,25 +218,35 @@
                                 <option value="Clasificador">Clasificador</option>
                                 <option value="Tasa">Tasa</option>
                             </select>
-
                         </div>
                         <div class="form-group-sm col-sm-2 ">
                             <script>
                                 $('#opcTramite').change(function () {
                                     var value = $('#opcTramite option:selected').attr('value');
-                                    document.getElementById("input").readOnly = value == 'Todo';
+                                    if (value === 'Todo') {
+                                        document.getElementById("input").readOnly = true;
+                                        document.getElementById("input").style.backgroundColor = '#e6e6e6 ';
+                                        document.getElementById("spaninput").innerHTML = "";
+                                        document.getElementById("input").value = "";
+                                    }
+                                    else {
+                                        document.getElementById("input").readOnly = false;
+                                    }
                                 });
                             </script>
                             @if(isset($Tram))
                                 <span class="control-label"> . </span>
                                 <input type="text" class="typeahead form-control input-sm " id="input"
                                        name="inputTram"
-                                       autocomplete="off" value="{{$Tram}}" readonly>
+                                       autocomplete="off" value="{{$Tram}}" readonly
+                                       onchange=" validarNombre('input','spaninput')">
+                                <span style="color: red" class=" control-label" id="spaninput"> </span>
                             @else
                                 <span class="control-label">. </span>
                                 <input type="text" class="typeahead form-control input-sm " id="input"
-                                       name="inputTram"
+                                       name="inputTram" onchange=" validarNombre('input','spaninput')"
                                        autocomplete="off" readonly>
+                                <span style="color: red" class=" control-label" id="spaninput"> </span>
                             @endif
                             <script>
                                 var path = "{{ route('autocompletet') }}";
@@ -275,10 +302,12 @@
                             Centro de produccion
                             @if(isset($produccion))
                                 <input class="typeaheads form-control " name="cp" value="{{$produccion}}" id="cp"
-                                       autocomplete="off" readonly>
+                                       autocomplete="off" readonly onchange=" validarNombre('cp','spanproduccion')">
+                                <span style="color: red" class=" control-label" id="spanproduccion"> </span>
                             @else
                                 <input class="typeaheads form-control " name="cp" id="cp" autocomplete="off"
-                                       readonly>
+                                       readonly onchange=" validarNombre('cp','spanproduccion')">
+                                <span style="color: red" class=" control-label" id="spanproduccion"> </span>
                             @endif
                             <script>
                                 var pathcp = "{{ route('autocompleteprod')}}";
@@ -296,10 +325,12 @@
                             Sede
                             @if(isset($sede))
                                 <input class="typeaheads form-control " name="sed" value="{{$sede}}" id="sede"
-                                       autocomplete="off" readonly>
+                                       autocomplete="off" readonly onchange=" validarNombre('sede','spansede')">
+                                <span style="color: red" class=" control-label" id="spansede"> </span>
                             @else
                                 <input class="typeaheads form-control " name="sed" id="sede" autocomplete="off"
-                                       readonly>
+                                       readonly onchange=" validarNombre('sede','spansede')">
+                                <span style="color: red" class=" control-label" id="spansede"> </span>
                             @endif
                             <script>
                                 var pathsede = "{{ route('autocompletesede')}}";
@@ -317,10 +348,12 @@
                             facultad
                             @if(isset($fac))
                                 <input class="form-control " name="fac" id="fac"
-                                       value="{{$fac}}" readOnly>
+                                       value="{{$fac}}" readOnly onchange=" validarNombre('fac','spanfacultad')">
+                                <span style="color: red" class=" control-label" id="spanfacultad"> </span>
                             @else
                                 <input class="form-control " name="fac" id="fac"
-                                       readOnly>
+                                       readOnly onchange=" validarNombre('fac','spanfacultad')">
+                                <span style="color: red" class=" control-label" id="spanfacultad"> </span>
                             @endif
                             <script>
                                 srcF = "{{ route('searchF') }}";
@@ -348,10 +381,12 @@
                             Escuela
                             @if(isset($esc))
                                 <input class="typeahead form-control " name="esc" id="esc" autocomplete="off"
-                                       value="{{$esc}}" readOnly>
+                                       value="{{$esc}}" readOnly onchange=" validarNombre('esc','spanescuela')">
+                                <span style="color: red" class=" control-label" id="spanescuela"> </span>
                             @else
                                 <input class="typeahead form-control " name="esc" id="esc" autocomplete="off"
-                                       readOnly>
+                                       readOnly onchange=" validarNombre('esc','spanescuela')">
+                                <span style="color: red" class=" control-label" id="spanescuela"> </span>
                             @endif
                             <script>
                                 srcE = "{{ route('searchE') }}";
@@ -377,26 +412,25 @@
                         <div class="form-group-sm col-sm-2">
                             <div class="form-group-sm col-sm-12">
                                 <input type="checkbox" id="ctr" onclick=" habilitartr(this.checked)">
-
                                 Tipo de recurso
                             </div>
-                            <div class="form-group-sm col-sm-4">
-
+                            <div class="form-group-sm col-sm-5">
                                 <input type="text" class="form-control input-sm " id="trinp" name="tr"
-                                       autocomplete="off"
+                                       autocomplete="off" onchange="validarNombre('trinp','spantr')"
                                        readOnly>
+                                <span style="color: red" class=" control-label" id="spantr"> </span>
                             </div>
-
                         </div>
                         <div class="form-group-sm col-sm-2">
-                            <div class="form-group-sm col-sm-12">
+                            <div class="form-group-sm col-sm-14">
                                 <input type="checkbox" id="cff" onclick="habilitarff(this.checked)">
                                 Fuente de financiamiento
                             </div>
 
-                            <div class="form-group-sm col-sm-4">
+                            <div class="form-group-sm col-sm-5">
                                 <input type="text" class="form-control input-sm " id="ff" name="fuf"
-                                       autocomplete="off" readOnly>
+                                       autocomplete="off" readOnly onchange="validarNumeros('ff','spanff')">
+                                <span style="color: red" class=" control-label" id="spanff"> </span>
                             </div>
                         </div>
 
