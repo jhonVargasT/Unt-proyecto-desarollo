@@ -150,13 +150,15 @@ function agregarMenu(val) {
 }
 
 function habilitarTexto(value, idtexto,idSpan) {
-    if(value === true) {
+    if(value) {
         document.getElementById(idtexto).disabled = false;
+        document.getElementById(idtexto).style.backgroundColor = '#FFFFFF';
     }
     else {
         document.getElementById(idtexto).disabled = true;
         document.getElementById(idtexto).readonly = false;
         document.getElementById(idtexto).value='';
         document.getElementById(idSpan).innerHTML='';
+        document.getElementById(idtexto).style.backgroundColor = '#e6e6e6';
     }
 }
