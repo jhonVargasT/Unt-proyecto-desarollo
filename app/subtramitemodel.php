@@ -2,6 +2,7 @@
 
 namespace App;
 
+use http\Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use PDOException;
@@ -138,7 +139,6 @@ class subtramitemodel
     }
 
 
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function bdTramite($nombre)
@@ -186,7 +186,7 @@ class subtramitemodel
         $logunt->setCodigoPersonal($codPers);
         try {
             DB::transaction(function () use ($logunt) {
-                DB::table('subtramite')->insert(['codigoSubtramite' => $this->codigotasa, 'nombre' => $this->nombre, 'precio' => $this->precio, 'idTramite' => $this->idTramite, 'unidadOperativa'=>$this->unidad]);
+                DB::table('subtramite')->insert(['codigoSubtramite' => $this->codigotasa, 'nombre' => $this->nombre, 'precio' => $this->precio, 'idTramite' => $this->idTramite, 'unidadOperativa' => $this->unidad]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -209,7 +209,7 @@ class subtramitemodel
         $logunt->setCodigoPersonal($codPers);
         try {
             DB::transaction(function () use ($codSubtramite, $logunt) {
-                DB::table('subtramite')->where('codSubtramite', $codSubtramite)->update(['codigoSubtramite' => $this->codigotasa, 'nombre' => $this->nombre, 'precio' => $this->precio, 'idTramite' => $this->idTramite, 'unidadOperativa'=>$this->unidad]);
+                DB::table('subtramite')->where('codSubtramite', $codSubtramite)->update(['codigoSubtramite' => $this->codigotasa, 'nombre' => $this->nombre, 'precio' => $this->precio, 'idTramite' => $this->idTramite, 'unidadOperativa' => $this->unidad]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -239,7 +239,7 @@ class subtramitemodel
     public function consultarSubtramiteid($codSubtramite)
     {
         try {
-            $subtramitebd = DB::select('select  codSubtramite, codigoSubtramite, subtramite.nombre as snombre, precio, tramite.nombre as tnombre from tramite left join subtramite on tramite.codTramite = subtramite.idTramite where 
+            $subtramitebd = DB::select('select  codSubtramite, codigoSubtramite, subtramite.nombre as snombre, precio, tramite.nombre as tnombre, unidadOperativa from tramite left join subtramite on tramite.codTramite = subtramite.idTramite where 
         tramite.codTramite = subtramite.idTramite and subtramite.codSubtramite = ' . $codSubtramite . ' and tramite.estado=1 and subtramite.estado=1');
         } catch (PDOException $e) {
             $util = new util();

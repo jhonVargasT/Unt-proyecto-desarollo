@@ -29,7 +29,7 @@
         <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
     @endif
     <div class="panel-heading"><h3>Buscar clasificador</h3></div>
-    <div style="background-color: #FFFFFF" >
+    <div style="background-color: #FFFFFF">
         <div class="panel-body">
             <form name="form" action="{{url('TramitesBuscadas')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
@@ -39,7 +39,7 @@
                         <div class="col-sm-7 ">
                             <select class=" form-control" name="select">
                                 <option selected=""> Todo</option>
-                                <option>Codigo clasificador </option>
+                                <option>Codigo clasificador</option>
                                 <option>Tipo de recurso</option>
                                 <option>Nombre de clasificador</option>
                                 <option>Fuente de financiamiento</option>
@@ -98,12 +98,11 @@
                                 <td>{{$t->tipoRecurso}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}
-                                    <a href="TramiteCargar/{{$t->codTramite}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
+                                    <a href="TramiteCargar/{{$t->codTramite}}" title="Editar"><span
+                                                style="color:green" class="glyphicon glyphicon-pencil"></span> </a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="TramiteEliminar/{{$t->codTramite}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
-
+                                    <a onclick="eliminar(event,'TramiteEliminar/{{$t->codTramite}}')" title="Eliminar"
+                                       href=""><span class="glyphicon glyphicon-trash" style="color: red;"></span></a>
                                 </td>
                             </tr>
                         @endforeach

@@ -1,26 +1,5 @@
-@extends('Administrador/Body')
-@section('donaciones')
-    <div id="collapseSeven" class="collapse in">
-        <div class="panel-body">
-            <table class="table">
-                <tr>
-                    <td>
-                        <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarDonaciones" style="color: #509f0c" target="_top">Buscar Donaciones y
-                            transacciones</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarDonaciones">Agregar Donaciones y transacciones</a>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-@stop
-@section('content')
+@extends('Administrador.LayoutAdm')
+@section('body')
     <div class="panel-heading"><h3>Editar Donaciones y
             transferencias</h3>
     </div>
@@ -35,84 +14,111 @@
                           method="get" class="Horizontal">
                     {{csrf_field()}}
                     <!-- Search input-->
-                        <div class="row ">
-                            <div class="form-group-sm col-sm-2">
-                                <span class="control-label"> Nombre clasificador</span>
-                                <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
-                                       name="nombreTramite" id="name" autocomplete="off"
-                                       onkeypress="return validarLetras(event)" required value="{{$d->tnombre}}">
-                                <script type="text/javascript">
-                                    var path = "{{ route('autocompletet') }}";
-                                    $('input.typeahead').typeahead({
-                                        source: function (query, process) {
-                                            return $.get(path, {query: query}, function (data) {
-                                                return process(data);
-                                            });
-                                        }
-                                    });
-                                </script>
-                            </div>
-                            <div class="col-sm-2">
-                                <span class=" control-label">Tipo de recurso </span>
-                                <input class="form-control input-sm " name="TipoDeRecurso" type="text" id="tr" required
-                                       disabled value="{{$d->tipoRecurso}}">
-                                <script>
-                                    $('#name').change(function () {
-                                        $.ajax({
-                                            url: '/tipoRecurso',
-                                            type: "get",
-                                            data: {name: $('#name').val()},
-                                            success: function (data) {
-                                                $('#tr').val(data);
-                                            }
-                                        });
-                                    });
-                                </script>
-                            </div>
-                            <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
-                                <span class="control-label"> Fecha</span>
-                                <div class="col-sm-12 input-group date" data-provide="datepicker">
-                                    <input type="text" class="form-control"
-                                           value="{{$d->fechaIngreso}}" name="fecha">
-                                    <div class="input-group-addon">
-                                        <span class="glyphicon glyphicon-th"></span>
+                        <div class="panel  panel-primary">
+                            <div class="panel-heading">Datos Clasificador</div>
+                            <div class="panel-body">
+                                <div class="col-sm-12 row form-group">
+                                    <div class="form-group-sm " align="left">
+                                        <div class="col-sm-3">
+                                            <span class=" control-label"> SIAF </span>
+                                            <input class="typeahead form-control" type="text"
+                                                   placeholder="Ingresa datos aqui .." value="{{$d->tnombre}}"
+                                                   name="nombreTramite" id="name" autocomplete="off"
+                                                   required onchange=" validarNombre('name','spansiaf')">
+                                            <span style="color: red" class=" control-label" id="spansiaf"> </span>
+                                            <script type="text/javascript">
+                                                var path = "{{ route('autocompletet') }}";
+                                                $('input.typeahead').typeahead({
+                                                    source: function (query, process) {
+                                                        return $.get(path, {query: query}, function (data) {
+                                                            return process(data);
+                                                        });
+                                                    }
+                                                });
+                                            </script>
+                                        </div>
+                                    </div>
+                                    <div class="form-group-sm " align="left">
+                                        <div class="col-sm-3">
+                                            <span class=" control-label"> Tipo de recurso </span>
+                                            <input class="form-control input-sm " name="TipoDeRecurso" type="text"
+                                                   id="tr" value="{{$d->tipoRecurso}}"
+                                                   readonly>
+                                            <script>
+                                                $('#name').change(function () {
+                                                    $.ajax({
+                                                        url: '/tipoRecurso',
+                                                        type: "get",
+                                                        data: {name: $('#name').val()},
+                                                        success: function (data) {
+                                                            $('#tr').val(data);
+                                                        }
+                                                    });
+                                                });
+                                            </script>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class=" col-sm-2  form-group-sm">
-                                <span class="control-label">Monto</span>
-                                <div class="input-group ">
-                                    <div class="input-group-addon ">S/.</div>
-                                    <input type="text" class="form-control " name="monto"
-                                           autocomplete="off" onkeypress="return validarDouble(event)"
-                                           placeholder="ejmp: 2.50"
-                                           required value="{{$d->monto}}">
-                                </div>
-                            </div>
-                            <div class=" col-sm-2 form-group-sm">
-                                <span class="control-label">Numero de resolucion</span>
-                                <input class="form-control " name="numResolucion" type="text"
-                                       autocomplete="off" onkeypress="return validarNum(event)"
-                                       placeholder="jmp: 124578" required value="{{$d->numResolucion}}">
                             </div>
                         </div>
-                        <div class="row ">
-                            <div class=" col-sm-4">
-                                <span class="control-label">Descripcion </span>
-                                <textarea class="form-control" rows="2" name="descripcion"
-                                          placeholder="Agregue una breve descripcion">{{$d->descripcion}}</textarea>
-
-                            </div>
-                            <div class="col-sm-2 form-group-sm ">
-                                <span class="control-label">Cuenta bancaria</span>
-                                <div class="input-group">
-                                    <input class="form-control input-sm " name="cuenta" type="text" id="cuenta"
-                                           onkeypress="return validarNum(event)" required value="{{$d->bcuenta}}">
-                                    <div class="input-group-addon"><a id="help_button"><i
-                                                    class="glyphicon glyphicon-eye-open"></i></a>
+                        <div class="panel  panel-primary">
+                            <div class="panel-heading">Datos Donaciones y transcacciones</div>
+                            <div class="panel-body">
+                                <div class="col-sm-12 row form-group">
+                                    <div class="form-group-sm " align="left">
+                                        <div class="col-sm-3">
+                                            <span class=" control-label"> Fecha </span>
+                                            <div class="col-sm-12 input-group date" data-provide="datepicker">
+                                                <input type="text" class="form-control"
+                                                       value="{{$d->fechaIngreso}}" name="fecha">
+                                                <div class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-th"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group-sm " align="left">
+                                        <div class="col-sm-3">
+                                            <span class="glyphicon glyphicon-usd"> Monto</span>
+                                            <input type="text" class="form-control " name="monto" value="{{$d->monto}}"
+                                                   autocomplete="off" placeholder="ejmp: 2.50" id="monto"
+                                                   required onchange=" validarNumeros('monto','spanmonto')">
+                                            <span style="color: red" class=" control-label" id="spanmonto"> </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group-sm " align="left">
+                                        <div class="col-sm-3">
+                                            <span class=" control-label"> Numero de resolucion</span>
+                                            <input class="form-control input-sm" name="numResolucion" id="numResolucion"
+                                                   type="text" value="{{$d->numResolucion}}"
+                                                   autocomplete="off" required
+                                                   onchange="validarNumeros('numResolucion','spanresolucion')">
+                                            <span class=" control-label" style="color:red" id="spanresolucion">  </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group-sm " align="left">
+                                        <div class="col-sm-3">
+                                            <span class=" control-label"> Descripcion</span>
+                                            <input class="form-control input-sm" name="descripcion" id="descripcion"
+                                                   type="text" {{$d->descripcion}}
+                                                   autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 row form-group">
+                                        <div class="form-group-sm " align="left">
+                                            <div class="col-sm-3">
+                                                <span class=" control-label"> Cuenta bancaria </span>
+                                                <input class="form-control input-sm " name="cuenta" type="text"
+                                                       id="cuenta" value="{{$d->bcuenta}}"
+                                                       onchange="validarNumeros('cuenta','spancuenta')">
+                                                <div class="input-group-addon"><a id="help_button"><i
+                                                                class="glyphicon glyphicon-eye-open"></i></a>
+                                                </div>
+                                                <span class=" control-label" style="color:red" id="spancuenta">  </span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                         <br>
@@ -153,14 +159,16 @@
                                 background-color: #dddddd;
                             }
                         </style>
-
+                        <div class="col-sm-12 row form-group" align="center">
+                            <span id="mensaje" class="control-label" style="color: red"></span>
+                        </div>
                         <div class="col-sm-12 row form-group">
                             <div class="col-md-3"></div>
                             <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
                                         class="glyphicon glyphicon-ban-circle"></span>
                                 Cancelar</a>
                             <div class="col-md-2"></div>
-                            <button type="submit" name="enviar" class="col-md-2 btn  btn-success"><span
+                            <button type="submit" id="enviar" name="enviar" class="col-md-2 btn  btn-success"><span
                                         class="glyphicon glyphicon-ok"></span> Guardar
                             </button>
                             <div class="col-md-3"></div>

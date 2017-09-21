@@ -112,9 +112,9 @@
                                 {{ csrf_field() }}
                                 <a title="editar" href="PersonalCargar/{{$p->idPersona}}" title="editar"><span
                                             style="color:green" class="glyphicon glyphicon-pencil"></span> </a>
-
-                                <a title="eliminar" onclick="eliminar(event,'PersonalEliminar/{{$p->idPersona}}')" href="PersonalEliminar/{{$p->idPersona}}"><span
-                                            style="color: red" class="glyphicon glyphicon-trash"></span> </a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a onclick="eliminar(event,'PersonalEliminar/{{$p->idPersona}}')" title="Eliminar" href=""><span
+                                            class="glyphicon glyphicon-trash" style="color: red;"></span> </a>
                             </td>
                         </tr>
                     @endforeach

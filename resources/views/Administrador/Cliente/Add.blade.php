@@ -92,18 +92,23 @@
                         <div class=" row ">
                             <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                 <span class="control-label"> Ruc</span>
-                                <input class="form-control input-sm" name="ruc" type="text"
-                                       autocomplete="off" onkeypress="return validarNum(event)"
+                                <input class="form-control input-sm" name="ruc" type="text" id="ruc"
+                                       autocomplete="off" onchange="validarNumeros('ruc','spanruc')"
                                        placeholder="Ejm: 0729787548">
+                                <span style="color: red" class=" control-label" id="spanruc"> </span>
                             </div>
                             <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                 <span class="control-label"> Razon social</span>
                                 <input class="form-control input-sm" name="razonSocial"
                                        placeholder="Ejm: PRICEWATERHOUSE" id="razonSocial"
-                                       onkeypress="return validarLetras(event)">
+                                       onchange="validarNombre('razonSocial','spanrazon')">
+                                <span style="color: red" class=" control-label" id="spanrazon"> </span>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-sm-12 row form-group" align="center">
+                    <span id="mensaje" class="control-label" style="color: red"></span>
                 </div>
                 <div class="col-sm-12 row form-group">
                     <div class="col-md-3"></div>
@@ -111,7 +116,7 @@
                                 class="glyphicon glyphicon-ban-circle"></span>
                         Cancelar</a>
                     <div class="col-md-2"></div>
-                    <button type="submit"
+                    <button type="submit" id="enviar"
                             onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos','spanemail'],'enviar','mensaje')"
                             name="enviar" class="col-md-2 btn btn-success"><span
                                 class="glyphicon glyphicon-ok"></span> Guardar

@@ -191,7 +191,9 @@
                         /*background-color: #dddddd;*/
                     }
                 </style>
-
+                <div class="col-sm-12 row form-group" align="center">
+                    <span id="mensaje" class="control-label" style="color: red"></span>
+                </div>
                 <div class="col-sm-12 row form-group">
                     <div class="col-md-3"></div>
                     <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
@@ -200,7 +202,7 @@
                     <div class="col-md-2"></div>
                     <button type="submit"
                             onmouseover="activarbotonform(null,['spansiaf','spanmonto','spanresolucion','spancuenta'],'enviar','mensaje')"
-                            name="enviar" class="col-md-2 btn  btn-success"><span
+                            name="enviar" class="col-md-2 btn  btn-success" id="enviar"><span
                                 class="glyphicon glyphicon-ok"></span> Guardar
                     </button>
                     <div class="col-md-3"></div>

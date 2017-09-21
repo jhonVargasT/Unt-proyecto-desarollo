@@ -39,8 +39,10 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
         <div class="panel-heading"><h3>Agregar Estudiante</h3></div>
         <div style="background-color: #FFFFFF">
@@ -52,7 +54,7 @@
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
                 @endif
                 <form name="form"
-                      onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos','spanemail','spancodAlumno','spansede','spanescuela'],'enviar','mensaje')"
+                      onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos','spanemail','spancodalumno','spansede','spanescuela'],'enviar','mensaje')"
                       action="{{url('AlumnoRegistrado')}}" role="form" method="POST" class="Horizontal">
                     {{csrf_field()}}
                     <div class="panel panel-primary">
@@ -116,7 +118,7 @@
                                     <input class="form-control input-sm" name="codAlumno" type="text"
                                            onchange="validarNumeros('codAlumno','spancodAlumno')"
                                            autocomplete="off" placeholder="Ejm: 000104499" required id="codAlumno">
-                                    <span style="color: red" class=" control-label" id="spancodAlumno"> </span>
+                                    <span style="color: red" class=" control-label" id="spancodalumno"> </span>
                                 </div>
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label"> Fecha matricula</span>
@@ -163,8 +165,7 @@
                                                     dataType: "json",
                                                     data: {
                                                         term: $('#ne').val(),
-                                                        sede: $('#ns').val(),
-                                                        dni: $('#dni').val()
+                                                        sede: $('#ns').val()
                                                     },
                                                     success: function (data) {
                                                         response(data);
@@ -212,7 +213,7 @@
                             Cancelar</a>
                         <div class="col-md-2"></div>
                         <button type="submit"
-                                onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos','spanemail','spancodAlumno','spansede','spanescuela'],'enviar','mensaje')"
+                                onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos','spanemail','spancodalumno','spansede','spanescuela'],'enviar','mensaje')"
                                 name="enviar" id="enviar" class="col-md-2 btn btn-sm btn-success"><span
                                     class="glyphicon glyphicon-ok"></span> Guardar
                         </button>

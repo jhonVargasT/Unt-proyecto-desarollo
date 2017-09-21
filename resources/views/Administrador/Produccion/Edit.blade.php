@@ -72,7 +72,7 @@
                                             class="glyphicon glyphicon-ban-circle"></span>
                                     Cancelar</a>
                                 <div class="col-md-2"></div>
-                                <button type="submit" name="enviar" class="col-md-2 btn btn-sm btn-success"><span
+                                <button type="submit" id="enviar" name="enviar" class="col-md-2 btn btn-sm btn-success"><span
                                             class="glyphicon glyphicon-ok"></span> Guardar
                                 </button>
                                 <div class="col-md-3"></div>

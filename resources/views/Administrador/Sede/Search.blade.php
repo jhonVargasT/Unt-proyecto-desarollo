@@ -89,11 +89,11 @@
                                 <td>{{$s->direccion}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}
-                                    <a href="SedeCargar/{{$s->codSede}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
+                                    <a href="SedeCargar/{{$s->codSede}}" title="Editar"><span
+                                                style="color:green" class="glyphicon glyphicon-pencil"></span> </a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="SedeEliminar/{{$s->codSede}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
+                                    <a onclick="eliminar(event,'SedeEliminar/{{$s->codSede}}')" title="Eliminar" href=""><span
+                                                class="glyphicon glyphicon-trash" style="color: red;"></span> </a>
                                 </td>
                             </tr>
                         @endforeach
