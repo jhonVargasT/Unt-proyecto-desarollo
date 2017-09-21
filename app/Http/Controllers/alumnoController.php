@@ -155,10 +155,8 @@ class alumnoController extends Controller
                     } else {
                         if ($request->select == 'Facultad') {
                             $alu = $alumno->consultarAlumnoFacultad($request->text);//Consulta buscar alumnos por la facultad a la que pertenece
-                        }
-                        else
-                        {
-                            $alu =$alumno->consultarALumnoTodos();
+                        } else {
+                            $alu = $alumno->consultarALumnoTodos();
                         }
                     }
                 }
@@ -192,10 +190,9 @@ class alumnoController extends Controller
                 } else {
                     if ($request->select == 'Centro produccion') {
                         $alu = $alumno->consultarAlumnoProduccionP($request->text);//Consulta buscar alumnos por la escuela a la que pertenece
-                    }
-                    else{
+                    } else {
 
-                        $alu=$alumno->consultarAlumnoProducciontodoP();
+                        $alu = $alumno->consultarAlumnoProducciontodoP();
                     }
                 }
             }
