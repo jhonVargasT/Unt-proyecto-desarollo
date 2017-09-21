@@ -80,7 +80,7 @@
                     <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                         <!--cabecear Tabla-->
-                        <tr >
+                        <tr>
                             <th>Sede</th>
                             <th>Nombre Escuela</th>
                             <th>Codigo Escuela</th>
@@ -90,23 +90,25 @@
                         </thead>
                         <body>
                         @if(isset($escuela))
-                                <!--Contenido-->
-                        @foreach($escuela as $es)
-                            <tr>
-                                <td>{{$es->nombresede}}</td>
-                                <td>{{$es->nombre}}</td>
-                                <td>{{$es->codEscuela}}</td>
-                                <td>{{$es->nroCuenta}}</td>
-                                <td align="center">
-                                    {{ csrf_field() }}
-                                    <a href="EscuelaCargar/{{$es->idEscuela}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="EscuelaEliminar/{{$es->idEscuela}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
-                                </td>
-                            </tr>
-                        @endforeach
+                            <!--Contenido-->
+                            @foreach($escuela as $es)
+                                <tr>
+                                    <td>{{$es->nombresede}}</td>
+                                    <td>{{$es->nombre}}</td>
+                                    <td>{{$es->codEscuela}}</td>
+                                    <td>{{$es->nroCuenta}}</td>
+                                    <td align="center">
+                                        {{ csrf_field() }}
+                                        <a href="EscuelaCargar/{{$es->idEscuela}}" title="Editar"><span
+                                                    style="color:green" class="glyphicon glyphicon-pencil"></span> </a>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a onclick="eliminar(event,'EscuelaEliminar/{{$es->idEscuela}}')"
+                                           title="Eliminar"
+                                           href=""><span class="glyphicon glyphicon-trash"
+                                                         style="color: red;"></span></a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         @endif
                         </body>
                     </table>

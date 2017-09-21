@@ -1,28 +1,7 @@
-@extends('Administrador/Body')
-@section('facultad')
-    <div id="collapseThrees" class="collapse in">
-        <div class="panel-body">
-            <table class="table">
-                <tr>
-                    <td>
-                        <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarFacultad " style="color: #509f0c">Buscar Facultades</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarFacultad" target="_top">Agregar Facultad</a>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-@stop
-@section('content')
+@extends('Administrador.LayoutAdm')
+@section('body')
     <div class="panel-heading"><h3>Editar Facultad</h3></div>
     <div style="background-color: #FFFFFF">
-
         <div class="panel-body">
             @if(session()->has('true'))
                 <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -32,18 +11,23 @@
             @endif
             @if($facultad)
                 @foreach($facultad as $f)
-                    <form name="form" action="{{ url('FacultadEditada/' .$f->idFacultad ) }}" role="form" method="get"
+                    <form name="form"
+                          onsubmit="activarbotonform(event,['spansede','spancodigofacultad','spancuenta','spannombre'],'enviar','mensaje')"
+                          action="{{ url('FacultadEditada/' .$f->idFacultad ) }}" role="form" method="get"
                           class="Vertical">
                         {{csrf_field()}}
-                        <div class="col-sm-12 row form-group">
-                            <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label"> Sede </span>
-                                <div class="col-sm-4">
-                                    <div class="input-group col-sm-12">
-                                        <input class="typeahead form-control" type="text" placeholder="ejmp : Trujillo"
-                                               name="nombreSede"
-                                               autocomplete="off" required onkeypress="return validarLetras(event)"
-                                               value="{{$f->nombresede}}">
+                        <div class="panel  panel-primary">
+                            <div class="panel-heading">Datos Sede</div>
+                            <div class="panel-body">
+                                <div class="col-sm-12 row form-group">
+                                    <div class="form-group-sm " align="left">
+                                        <div class="col-sm-3">
+                                            <span class=" control-label"> Sede</span>
+                                            <input class="typeahead form-control input-sm" name="sede" type="text"
+                                                   autocomplete="off" onchange="validarNombre('sede','spansede')"
+                                                   required id="sede" value="{{$f->nombresede}}">
+                                            <span style="color: red" class=" control-label" id="spansede"> </span>
+                                        </div>
                                         <script type="text/javascript">
                                             var path = "{{ route('autocompletesede') }}";
                                             $('input.typeahead').typeahead({
@@ -56,50 +40,65 @@
                                         </script>
                                     </div>
                                 </div>
-                                <span class="col-sm-2 control-label"> Codigo Facultad</span>
-                                <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="CodigoFacultad" type="text"
-                                           autocomplete="off" placeholder="ejmp: 0002548"
-                                           required value="{{$f->codFacultad}}">
+                            </div>
+                        </div>
+                        <div class="panel  panel-primary">
+                            <div class="panel-heading">Datos Facultad</div>
+                            <div class="panel-body">
+                                <div class="col-sm-12 row form-group">
+                                    <div class="form-group-sm " align="left">
+                                        <div class="col-sm-3">
+                                            <span class=" control-label"> Codigo Facultad</span>
+                                            <input class="form-control input-sm" name="CodigoFacultad"
+                                                   id="CodigoFacultad"
+                                                   type="text" value="{{$f->codFacultad}}" autocomplete="off"
+                                                   onchange="validarNumeros('CodigoFacultad','spancodigofacultad')"
+                                                   required>
+                                            <span style="color: red" class=" control-label"
+                                                  id="spancodigofacultad"> </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group-sm " align="left">
+                                        <div class="col-sm-3">
+                                            <span class=" control-label"> Cuenta interna</span>
+                                            <input class="form-control input-sm" name="CuentaInterna" id="CuentaInterna"
+                                                   type="text" value="{{$f->nroCuenta}}"
+                                                   autocomplete="off"
+                                                   onchange="validarNumeros('CuentaInterna','spancuenta')"
+                                                   required>
+                                            <span style="color: red" class=" control-label" id="spancuenta"> </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group-sm " align="left">
+                                        <div class="col-sm-3">
+                                            <span class=" control-label"> Nombre Facultad</span>
+                                            <input class="form-control input-sm" name="NombreFacultad"
+                                                   id="NombreFacultad" value="{{$f->nombre}}"
+                                                   type="text"
+                                                   autocomplete="off"
+                                                   onchange="validarNombre('NombreFacultad','spannombre')"
+                                                   required>
+                                            <span style="color: red" class=" control-label" id="spannombre"> </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 row form-group">
-                            <div class="form-group-sm " align="left">
-                                <span class="col-sm-2 control-label"> Cuenta Interna</span>
-                                <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="CuentaInterna" type="text"
-                                           autocomplete="off" placeholder="ejmp: 0002548"
-                                           onkeypress="return validarCodigoSiaf(event)" required
-                                           value="{{$f->nroCuenta}}">
-                                </div>
-                            </div>
-                            <div class=" form-group-sm" align="left">
-                                <span class="col-sm-2 control-label">Nombre Facultad </span>
-                                <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="NombreFacultad" type="text"
-                                           autocomplete="off"
-                                           onkeypress="return validarLetras(event)" placeholder="ejmp: Ingenieria"
-                                           required value="{{$f->nombre}}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 row form-group">
-                            <div class="form-group-sm " align="left">
-                                <div class="col-sm-5">
-                                </div>
-                            </div>
+                        <div class="col-sm-12 row form-group" align="center">
+                            <span id="mensaje" class="control-label" style="color: red"></span>
                         </div>
                         <div class="col-sm-12 row form-group">
                             <div class="col-md-3"></div>
-                            <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
+                            <a href="{{url('/admBuscarFacultad')}}" class=" col-md-2 btn btn-sm btn-danger"><span
                                         class="glyphicon glyphicon-ban-circle"></span>
                                 Regresar
                             </a>
                             <div class="col-md-2">
                             </div>
                             <div>
-                                <button type="submit" name="enviar" class="col-md-2 btn btn-sm btn-success"><span
+                                <button type="submit" id="enviar"
+                                        onmouseover="activarbotonform(null,['spansede','spancodigofacultad','spancuenta','spannombre'],'enviar','mensaje')"
+                                        name="enviar" class="col-md-2 btn btn-sm btn-success"><span
                                             class="glyphicon glyphicon-ok"></span> Guardar
                                 </button>
                             </div>

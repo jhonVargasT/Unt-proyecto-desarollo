@@ -1,5 +1,4 @@
 @extends('Administrador.LayoutAdm')
-
 @section('body')
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -26,7 +25,9 @@
                 @endif
                 @if($alumno)
                     @foreach($alumno as $a)
-                        <form name="form" action="{{ url('AlumnoEditado/' .$a->codPersona ) }}" role="form" method="Get"
+                        <form name="form"
+                              onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos','spanemail','spancodalumno','spansede','spanescuela'],'enviar','mensaje')"
+                              action="{{ url('AlumnoEditado/' .$a->codPersona ) }}" role="form" method="Get"
                               class="Vertical">
                             {{csrf_field()}}
                             <div class="panel panel-primary">
@@ -91,7 +92,8 @@
                                         <input class="typeahead form-control" type="text"
                                                placeholder="Ejm: Trujillo" name="nombreSede" id="ns"
                                                autocomplete="off" required
-                                               value="{{$a->nombresede}}">
+                                               value="{{$a->nombresede}}" onchange="validarNombre('ns','spansede')">
+                                        <span style="color: red" class=" control-label" id="spansede"> </span>
                                         <script type="text/javascript">
                                             var paths = "{{ route('autocompletesede')}}";
                                             $('input.typeahead').typeahead({
@@ -108,7 +110,9 @@
                                         <span class="control-label">Escuela</span>
                                         <input class="form-control input-sm" type="text"
                                                placeholder="Ejm: Mecanica" name="nombreEscuela" id="ne"
-                                               required value="{{$a->enombre}}">
+                                               required value="{{$a->enombre}}"
+                                               onchange="validarNombre('ne','spanescuela')">
+                                        <span style="color: red" class=" control-label" id="spanescuela"> </span>
                                         <script>
                                             src = "{{ route('searchajax') }}";
                                             $("#ne").autocomplete({
@@ -169,8 +173,9 @@
                                 <div class="col-md-2">
                                 </div>
                                 <div>
-                                    <button href="" type="submit" name="enviar" id="enviar"
-                                            class="col-md-2 btn btn-sm btn-success"><span
+                                    <button type="submit"
+                                            onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos','spanemail','spancodalumno','spansede','spanescuela'],'enviar','mensaje')"
+                                            name="enviar" id="enviar" class="col-md-2 btn btn-sm btn-success"><span
                                                 class="glyphicon glyphicon-ok"></span> Guardar
                                     </button>
                                 </div>

@@ -97,11 +97,11 @@
                             <td>{{$c->razonSocial}}</td>
                             <td align="center">
                                 {{ csrf_field() }}
-                                <a href="ClienteCargar/{{$c->codPersona}}"><span
-                                            class="glyphicon glyphicon-pencil"></span> </a>
+                                <a title="Editar" href="ClienteCargar/{{$c->codPersona}}"><span
+                                            class="glyphicon glyphicon-pencil" style="color: green;"></span> </a>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a href="ClienteEliminar/{{$c->codPersona}}"><span
-                                            class="glyphicon glyphicon-trash"></span> </a>
+                                <a onclick="eliminar(event,'ClienteEliminar/{{$c->codPersona}}')" title="Eliminar" href=""><span
+                                            class="glyphicon glyphicon-trash" style="color: red;"></span> </a>
                             </td>
                         </tr>
                     @endforeach

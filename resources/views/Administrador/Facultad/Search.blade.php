@@ -27,7 +27,7 @@
         <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
     @endif
     <div class="panel-heading"><h3> Buscar Facultades</h3></div>
-    <div  style="background-color: #FFFFFF" >
+    <div style="background-color: #FFFFFF">
 
         <div class="panel-body">
             <form name="form" action="{{url('FacultadesBuscadas')}}" role="form" method="POST" class="Vertical">
@@ -66,7 +66,7 @@
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <!--cabecear Tabla-->
-                    <tr >
+                    <tr>
                         <th>
                             <div align="center">Sede</div>
                         </th>
@@ -94,12 +94,12 @@
                                 <td>{{$f->nombre}}</td>
                                 <td>{{$f->nroCuenta}}</td>
                                 <td align="center">
-                                    {{ csrf_field() }}
-                                    <a href="FacultadCargar/{{$f->idFacultad}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
+                                    {{ csrf_field()}}
+                                    <a href="FacultadCargar/{{$f->idFacultad}}" title="Editar"><span
+                                                style="color:green" class="glyphicon glyphicon-pencil"></span> </a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="FacultadEliminar/{{$f->idFacultad}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
+                                    <a onclick="eliminar(event,'FacultadEliminar/{{$f->idFacultad}}')" title="Eliminar"
+                                       href=""><span class="glyphicon glyphicon-trash" style="color: red;"></span></a>
                                 </td>
                             </tr>
                         @endforeach

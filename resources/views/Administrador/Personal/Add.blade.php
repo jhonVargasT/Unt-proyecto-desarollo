@@ -162,12 +162,9 @@
                                            required>
                                     <span class="control-label" id="spancontrasenavalidar"></span>
                                 </div>
-
-
                             </div>
                         </div>
                         <div class="col-sm-12 row form-group">
-
                         </div>
                     </div>
                 </div>

@@ -12,7 +12,7 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarBanco" >Agregar Banco</a>
+                        <a href="/admRegistrarBanco">Agregar Banco</a>
                     </td>
                 </tr>
             </table>
@@ -90,11 +90,13 @@
                                 <td>{{$b->cuenta}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}
-                                    <a href="BancoCargar/{{$b->codBanco}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
+                                    <a href="BancoCargar/{{$b->codBanco}}" title="Editar"><span
+                                                style="color:green" class="glyphicon glyphicon-pencil"></span> </a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="AlumnoEliminar/{{$b->codBanco}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
+                                    <a onclick="eliminar(event,'BancoEliminar/{{$b->codBanco}}')"
+                                       title="Eliminar"
+                                       href=""><span class="glyphicon glyphicon-trash"
+                                                     style="color: red;"></span></a>
                                 </td>
                             </tr>
                         @endforeach

@@ -6,7 +6,8 @@
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarSubtramite" style="color: #509f0c" target="_top" autocomplete="off">Buscar Tasa</a>
+                        <a href="/admBuscarSubtramite" style="color: #509f0c" target="_top" autocomplete="off">Buscar
+                            Tasa</a>
                     </td>
                 </tr>
                 <tr>
@@ -25,10 +26,10 @@
     @endif
     @if(session()->has('false'))
         <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
-    @endif  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
-    <div class="panel-heading"> <h3>Buscar SubTasa</h3></div>
-    <div style="background-color: #FFFFFF" >
-
+    @endif
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+    <div class="panel-heading"><h3>Buscar SubTasa</h3></div>
+    <div style="background-color: #FFFFFF">
         <div class="panel-body">
             <form name="form" action="{{url('SubtramitesBuscadas')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
@@ -49,7 +50,7 @@
                             <input type="text" name="text" class="form-control" value="{{$txt}}">
                         @else
                             <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
-                                   name="text" id="text" >
+                                   name="text" id="text">
                             <script>
                                 var path = "{{ route('autocompletet') }}";
                                 $('input.typeahead').typeahead({
@@ -80,7 +81,7 @@
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <!--cabecear Tabla-->
-                    <tr >
+                    <tr>
                         <th>
                             <div align="center">Nombre tasa</div>
                         </th>
@@ -109,12 +110,12 @@
                                 <td>{{$s->precio}}</td>
                                 <td align="center">
                                     {{ csrf_field() }}
-                                    <a href="SubtramiteCargar/{{$s->codSubtramite}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
+                                    <a href="SubtramiteCargar/{{$s->codSubtramite}}" title="Editar"><span
+                                                style="color:green" class="glyphicon glyphicon-pencil"></span> </a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="SubtramiteEliminar/{{$s->codSubtramite}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
-
+                                    <a onclick="eliminar(event,'SubtramiteEliminar/{{$s->codSubtramite}}')"
+                                       title="Eliminar"
+                                       href=""><span class="glyphicon glyphicon-trash" style="color: red;"></span></a>
                                 </td>
                             </tr>
                         @endforeach
