@@ -18,6 +18,7 @@
         <!-- BOOTSTRAP SCRIPTS -->
         <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
         <script src="{{asset('assets/js/utilidades.js')}}"></script>
+        <script src="{{asset('assets/js/js-personalizados/reporteventanilla.js')}}"></script>
         <!-- Custom styles for this template -->
 
         <!-- METISMENU SCRIPTS -->

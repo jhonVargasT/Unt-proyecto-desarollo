@@ -181,7 +181,7 @@
                             <span class=" control-label">Estado :</span>
                             <select class="form-control" name="estado">
                                 <option>Pagado</option>
-                                <option>Anulado</option>
+                                <option>Devuelto</option>
                                 <option>Eliminado</option>
                             </select>
                         </div>

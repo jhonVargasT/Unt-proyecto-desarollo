@@ -238,7 +238,7 @@ class pagoController extends Controller
         $pre = 0;
         //$var = $request->name;
         //$precioS = DB::select('select precio from subtramite where nombre= "' . $var . '" and estado=1');
-        $precioS = DB::select('select precio from subtramite where nombre=:nombre and estado=1',['nombre'=>$request->name]);
+        $precioS = DB::select('select precio from subtramite where nombre=:nombre and estado=1', ['nombre' => $request->name]);
         foreach ($precioS as $ps) {
             $pre = $ps->precio;
         }
@@ -255,6 +255,7 @@ class pagoController extends Controller
     //Buscar pagos
     public function listarPago(Request $request)
     {
+        /*
         $valueA = Session::get('tipoCuentaA');
         $valueV = Session::get('tipoCuentaV');
         $valueR = Session::get('tipoCuentaR');
@@ -286,7 +287,7 @@ class pagoController extends Controller
                                     $cont = 0;
                                     $pago = new pagomodel();
                                     $pag = $pago->listarPagosPersonal($request->text);//SQL, obtener datos del pago realizado por el personal (diario)
-
+                                    var_dump($pag);
                                     foreach ($pag as $p) {
                                         $total += $p->precio;
                                     }
@@ -426,7 +427,7 @@ class pagoController extends Controller
                                             'size' => '12'
                                         ));
                                         $cells->setAlignment('center');
-                                    });*/
+                                    });
                                     //bordes de la hoja
                                     $sheet->setBorder('B7:B' . ($cont + 7) . '');
                                     $sheet->setBorder('C7:C' . ($cont + 7) . '');
@@ -462,6 +463,7 @@ class pagoController extends Controller
             return view('Ventanilla/Pagos/ReportPago')->with(['pagos' => $pag, 'txt' => $request->text, 'select' => $request->selected, 'total' => $total]);
         if ($valueR == 'Reportes')
             return view('Reportes/Pagos/ReportPago')->with(['pagos' => $pag, 'txt' => $request->text, 'select' => $request->selected, 'total' => $total]);
+    */
     }
 
     //Eliminar (cambiar estado de 1 a 0) registro del pago
@@ -510,7 +512,7 @@ class pagoController extends Controller
         $fechaHasta = date("Y-m-d", strtotime($fechaHasta));
         $estado = $request->estado;
         $modalidad = $request->modalidad;
-        $centroProducion=$request->cp;
+        $centroProducion = $request->cp;
         $total = 0;
         $imput = $request->inputTram;
         $lugar = null;
@@ -532,13 +534,13 @@ class pagoController extends Controller
             $lugar = null;
         }
         if ($estado == 'Anulado') {
-            $estado = 2;
+            $estado = 3;
         } else {
-            if($estado == 'Eliminado'){
-                $estado=0;
+            if ($estado == 'Eliminado') {
+                $estado = 0;
+            } else {
+                $estado = 1;
             }
-            else{
-            $estado = 1;}
         }
 
         if ($request->opcTramite == 'Clasificador') {
@@ -564,7 +566,7 @@ class pagoController extends Controller
             $tipRe = null;
         }
 
-        $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo,$centroProducion);//Listar: pago,personal,subtramite,escuela,facultad
+        $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $centroProducion);//Listar: pago,personal,subtramite,escuela,facultad
         if (!is_null($result) && empty($result) != true) {
             foreach ($result as $sum) {
                 $total = $total + $sum->precio;
@@ -572,11 +574,11 @@ class pagoController extends Controller
         } else {
             $total = 0;
         }
-        $cadena = $estado . ';' . $modalidad . ';' . $fechaDesde . ';' . $fechaHasta . ';' . $tram . ';' . $tramites . ';' . $tipRe . ';' . $fuenfin . ';' . $lugar . ';' . $codigo. ';' .$centroProducion;
+        $cadena = $estado . ';' . $modalidad . ';' . $fechaDesde . ';' . $fechaHasta . ';' . $tram . ';' . $tramites . ';' . $tipRe . ';' . $fuenfin . ';' . $lugar . ';' . $codigo . ';' . $centroProducion;
 
         //  $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $cadena, MCRYPT_MODE_CBC, md5(md5($key))));
 
-       return view('Administrador/Reporte/Report')->with(['centroproduccion'=>$centroProducion,'result' => $result, 'total' => $total, 'estado' => $estado, 'modalidad' => $modalidad, 'fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta, 'tram' => $tram, 'tramites' => $tramites, 'tipRe' => $tipRe, 'fuenfin' => $fuenfin, 'lugar' => $lugar, 'codigo' => $codigo, 'encript' => $cadena]);
+        return view('Administrador/Reporte/Report')->with(['centroproduccion' => $centroProducion, 'result' => $result, 'total' => $total, 'estado' => $estado, 'modalidad' => $modalidad, 'fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta, 'tram' => $tram, 'tramites' => $tramites, 'tipRe' => $tipRe, 'fuenfin' => $fuenfin, 'lugar' => $lugar, 'codigo' => $codigo, 'encript' => $cadena]);
     }
 
     //Reenviar datos de la boleta de pago a la vista de: RealizarPago
@@ -605,13 +607,13 @@ class pagoController extends Controller
     {
 
 
-       if ($request->combito !== 'Escojer') {
+        if ($request->combito !== 'Escojer') {
             $numero = '';
             $result = null;
             $pagoModel = new pagomodel();
             $varOpc = $request->tipreporte;
             $vartiemp = $request->combito;
-            $unidadOpera=$request->textbox;
+            $unidadOpera = $request->textbox;
 
             $varaño = $request->año1;
             if ($varOpc == 'Resumen total') {//Si se escoge: Resumen total
@@ -620,13 +622,13 @@ class pagoController extends Controller
                 if ($vartiemp == 'Año') {
 
                     $tiempo = 'where Year(po.fecha) = ' . $varaño . '';
-                    $result = $pagoModel->listarpagosresumen($tiempo,$unidadOpera);//SQL, obtener pagos por año
+                    $result = $pagoModel->listarpagosresumen($tiempo, $unidadOpera);//SQL, obtener pagos por año
                     $numero = $varaño;
 
                 } else {
                     if ($vartiemp == 'Mes') {
                         $tiempo = 'where MONTH(po.fecha) = ' . $request->mes2 . ' and Year(po.fecha)=' . $request->año2 . '';
-                        $result = $pagoModel->listarpagosresumen($tiempo,$unidadOpera);//SQL, obtener pagos por mes
+                        $result = $pagoModel->listarpagosresumen($tiempo, $unidadOpera);//SQL, obtener pagos por mes
                         $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
                         $valor = $meses[$request->mes2 - 1];
                         $numero = 'DE ' . $valor . ' DEL ' . $request->año2;
@@ -635,7 +637,7 @@ class pagoController extends Controller
                             $originalDate = $request->fecha;
                             $fecha = date("Y-m-d", strtotime($originalDate));
                             $tiempo = 'where DATE(po.fecha) =\'' . $fecha . '\'';
-                            $result = $pagoModel->listarpagosresumen($tiempo,$unidadOpera);//SQL, obtener pagos por fecha
+                            $result = $pagoModel->listarpagosresumen($tiempo, $unidadOpera);//SQL, obtener pagos por fecha
                             $numero = $fecha;
                         }
                     }
@@ -645,18 +647,18 @@ class pagoController extends Controller
                 foreach ($result as $r) {
                     $total += $r->importe;
                 }
-                return view('Administrador/Reporte/reporteresumido')->with(['resultresu' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp, 'tiempo' => $tiempo, 'numero' => $numero,'unop'=>$unidadOpera]);
+                return view('Administrador/Reporte/reporteresumido')->with(['resultresu' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp, 'tiempo' => $tiempo, 'numero' => $numero, 'unop' => $unidadOpera]);
             } elseif ($varOpc == 'Clasificador S.I.A.F') {//Si se escoge Clasificador SIAF
 
                 $tiempo = null;
                 if ($vartiemp == 'Año') {
 
                     $tiempo = 'where Year(po.fecha) = ' . $varaño . '';
-                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo,$unidadOpera);//SQL, obtener pagos resumidos por año resumido
+                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo, $unidadOpera);//SQL, obtener pagos resumidos por año resumido
                     $numero = $varaño;
                 } elseif ($vartiemp == 'Mes') {
                     $tiempo = 'where MONTH(po.fecha) = ' . $request->mes2 . ' and Year(po.fecha)=' . $request->año2 . '';
-                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo,$unidadOpera);//SQL, obtener pagos resumidos por mes
+                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo, $unidadOpera);//SQL, obtener pagos resumidos por mes
                     $meses = array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE");
                     $valor = $meses[$request->mes2 - 1];
                     $numero = 'DE ' . $valor . ' DEL ' . $request->año2;
@@ -665,14 +667,14 @@ class pagoController extends Controller
                     $originalDate = $request->fecha;
                     $fecha = date("Y-m-d", strtotime($originalDate));
                     $tiempo = 'where DATE(po.fecha) =\'' . $fecha . '\'';
-                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo,$unidadOpera);//SQL, obtener pagos resumido por fecha
+                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo, $unidadOpera);//SQL, obtener pagos resumido por fecha
                     $numero = $fecha;
                 }
                 $total = 0;
                 foreach ($result as $r) {
                     $total += $r->precio;
                 }
-                return view('Administrador/Reporte/reporteresumido')->with(['resultsiaf' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp, 'tiempo' => $tiempo, 'numero' => $numero,'unop'=>$unidadOpera]);
+                return view('Administrador/Reporte/reporteresumido')->with(['resultsiaf' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp, 'tiempo' => $tiempo, 'numero' => $numero, 'unop' => $unidadOpera]);
 
             }
         } else {

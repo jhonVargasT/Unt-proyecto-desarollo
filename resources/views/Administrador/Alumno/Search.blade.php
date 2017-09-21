@@ -69,7 +69,7 @@
                             <span class="input-group-btn">
                             <input type="text" name="text" disabled id="text" class="form-control"
                                    autocomplete="off" onkeypress='buscarSearch("text","select","buscar")'>
-                                </span>
+                            </span>
 
                         <span class="input-group-btn">
                             <button class="btn btn-sm" type="submit" onmouseover='buscarSearch("text","select","buscar")' id="buscar" name="buscar">Buscar</button>

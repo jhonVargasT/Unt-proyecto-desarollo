@@ -20,6 +20,7 @@
     </div>
 @stop
 @section('content')
+
     <div class="panel-heading"><h3> Reportar Pago</h3></div>
     <div style="background-color: #FFFFFF">
         <div class="panel-body">
@@ -32,52 +33,30 @@
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
                 @endif
                 <div class="col-sm-12 row form-group">
-                    <div class="form-group-sm col-sm-6 ">
-                        <span class="col-sm-3 control-label">Buscar por:</span>
-                        <div class="col-sm-7 ">
-                            <select class=" form-control" name="selected"  id="selected">
+                    <div class="form-group-sm col-sm-2 ">
+                        <span class=" control-label">Buscar por:</span>
+
+                            <select class=" form-control" name="selected" onclick="searchreporteventanilla('select','texto','buscar')" id="select">
                                 <option value="Todo">Todo</option>
                                 <option value="Dni">Dni</option>
                                 <option value="Codigo alumno">Codigo alumno</option>
                                 <option value="Ruc">Ruc</option>
                                 <option value="Codigo pago">Codigo pago</option>
-                                <option value="Codigo personal">Reporte diario</option>
+                                <option value="Reporte diario">Reporte diario</option>
 
                             </select>
-                        </div>
-                    </div>
-                    <div class="form-group-sm input-group col-sm-6">
-                        <input type="text" name="text" class="form-control" @if(isset($txt)) value="{{$txt}}"
-                               @endif id="text" required>
-                        <script>
-                            $('#text').prop('required', true);
-                            document.getElementById("text").value = "";
-                            $('#selected').change(function () {
-                                var value = $('#selected option:selected').attr('value');
-                                if (value == 'Todo') {
-                                    var x = document.getElementById("text");
-                                    x.setAttribute("type", "text");
-                                    $('#text').prop('required', false);
-                                    document.getElementById("text").value = " ";
-                                }
-                                else {
-                                    if (value == 'Codigo personal') {
-                                        var x = document.getElementById("text");
-                                        x.setAttribute("type", "hidden");
-                                        document.getElementById("text").value = '{{Session::get('codPersonal')}}';
-                                    }
-                                    else {
-                                        var x = document.getElementById("text");
-                                        x.setAttribute("type", "text");
-                                        document.getElementById("text").value = '';
-                                        $('#text').prop('required', true);
-                                    }
 
-                                }
-                            });
-                        </script>
+                    </div>
+                    <div class="form-group-sm col-sm-8" id="boton">
+                        <span class="ontrol-label"> Ingresa datos aqui</span></ref>
+
                         <span class="input-group-btn">
-                            <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
+                            <input type="text" name="text" disabled id="texto" class="form-control"
+                                   autocomplete="off" >
+                            </span>
+
+                        <span class="input-group-btn">
+                            <button class="btn btn-sm" type="submit"  id="buscar" name="buscar">Buscar</button>
                         </span>
                     </div>
                 </div>
@@ -89,12 +68,13 @@
                     </div>
                 </div>-->
             </form>
+
             <!--tabla-->
             <div class="table-responsive col-sm-12">
                 @if(isset($nombre)!=null)
                     <div class="alert alert-success" role="alert">El alumno {{$nombre}} fue actualizada!!</div>
                 @endif
-
+                    <br>
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <!--cabecear Tabla-->
@@ -211,10 +191,8 @@
                 </div>
             </div>
             <div class="col-sm-12">
-                <br>
-                <div class="col-sm-5">
-                </div>
-                <div class="col-sm-2">
+
+                <div  align="center">
                     <!--Contenido-->
                     @if(isset($pagos))
                         <?php $var = 1; ?>
@@ -224,7 +202,7 @@
                             @endif
                         @endforeach
                         <a href="excel/{{$txt}}/{{$select}}/{{ $var }}" class="btn btn-sm btn-primary"><span
-                                    class="glyphicon glyphicon-print"></span> Imprimir
+                                    class="glyphicon glyphicon-print"></span> Imprimir reporte
                         </a>
                     @endif
                 </div>
