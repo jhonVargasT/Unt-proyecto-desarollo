@@ -833,6 +833,7 @@ class ExcelController extends Controller
                                 $subtramite->setCodigotasa($v['codigo']);
                                 $subtramite->setNombre($v['nombre']);
                                 $subtramite->setPrecio($v['precio']);
+                                $subtramite->setUnidad($v['unidad']);
                                 $idTra = $subtramite->bdTramitexClasificador($v['siaf']);
                                 $subtramite->setIdTramite($idTra);
                                 $subtramite->save();
