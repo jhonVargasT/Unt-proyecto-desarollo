@@ -41,7 +41,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="/resources/demos/style.css">
+        <!--<link rel="stylesheet" href="/resources/demos/style.css">-->
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
         <div class="panel-heading"><h3>Agregar Estudiante</h3></div>
@@ -116,8 +116,8 @@
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label"> Codigo alumno</span>
                                     <input class="form-control input-sm" name="codAlumno" type="text"
-                                           onchange="validarNumeros('codAlumno','spancodAlumno')"
-                                           autocomplete="off" placeholder="Ejm: 000104499" required id="codAlumno">
+                                           onchange="validarNumeros('codalumno','spancodalumno')"
+                                           autocomplete="off" placeholder="Ejm: 000104499" required id="codalumno">
                                     <span style="color: red" class=" control-label" id="spancodalumno"> </span>
                                 </div>
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
