@@ -34,7 +34,7 @@
                 <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
             @endif
             <form name="form" onsubmit="activarbotonform(event,['spansede','spandni','spannombre',
-                            'spanapellidos','spancorreo','spancodigoPersonal','spancontrasenavalidar'],'enviar','mensaje')"
+                            'spanapellidos','spancorreo','spancodigoPersonal'],'enviar','mensaje')"
                   action="{{url('PersonalRegistrado')}}" role="form" method="POST"
                   class="Vertical">
                 {{csrf_field()}}
@@ -98,9 +98,7 @@
                             </div>
                         </div>
                         <div class="col-sm-12 row form-group">
-
                             <div class="form-group-sm">
-
                                 <div class="col-sm-4">
                                     <span class="control-label">Correo</span>
                                     <input class="form-control input-sm" name="correo" id="correo" type="email"
@@ -147,19 +145,19 @@
                                 </div>
                             </div>
                             <div class="form-group-sm">
-
                                 <div class="col-sm-2">
                                     <span class="control-label">Contraseña</span>
-                                    <input class="form-control input-sm" id="contrasenavalidar" name="contraseñaAgregar"
+                                    <input class="form-control input-sm" id="contrasenavalidar1"
+                                           name="contraseñaAgregar"
                                            type="password"
                                            autocomplete="off" required>
                                 </div>
                                 <div class="col-sm-2">
                                     <span class="control-label">Repita contraseña</span>
-                                    <input class="form-control input-sm" id="contrasenavalidar" type="password"
-                                           autocomplete="off"
-                                           onchange="validarContrasena('contrasenavalidar','contrasenavalidar','spancontrasenavalidar')"
-                                           required>
+                                    <input class="form-control input-sm" id="contrasenavalidar2"
+                                           name="contrasenavalidar"
+                                           onchange="validarContrasena('contrasenavalidar1','contrasenavalidar2','spancontrasenavalidar')"
+                                           type="password" autocomplete="off" required>
                                     <span class="control-label" id="spancontrasenavalidar"></span>
                                 </div>
                             </div>
@@ -178,9 +176,8 @@
                         Cancelar</a>
                     <div class="col-md-2"></div>
                     <button type="submit" name="enviar" id="enviar" class=" col-md-2 btn btn-success"
-                            onmouseover="activarbotonform(null,['spandni','spannombre',
-                            'spanapellidos','spancorreo','spancodigoPersonal','spancontrasenavalidar'
-                            ],'enviar','mensaje')">
+                            onmouseover="activarbotonform(null,['spansede','spandni','spannombre',
+                            'spanapellidos','spancorreo','spancodigoPersonal'],'enviar','mensaje')">
                         <span
                                 class="glyphicon glyphicon-ok"></span> Guardar
                     </button>
