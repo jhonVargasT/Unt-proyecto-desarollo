@@ -85,34 +85,36 @@
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
-                                <div class="col-sm-3">
+                                <div class="col-sm-2">
                                     <span class=" control-label">Codigo de tasa</span>
-                                    <input class="form-control input-sm" name="codigotasa" id="codigotasa" type="text"
-                                           autocomplete="off" onchange="validarNumeros('codigotasa','spancodigotasa')">
-                                    <span class=" control-label" style="color: red;" id="spancodigotasa"></span>
+                                    <input class="form-control input-sm" name="codigotasa" type="text"
+                                           autocomplete="off" required id="codigotasa"
+                                           onchange="validarNumeros('codigotasa','spancodigotasa')">
+                                    <span class=" control-label" style="color:red" id="spancodigotasa">  </span>
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
-                                <div class="col-sm-3">
-                                    <span class=" control-label"> Nombre Tasa</span>
+                                <div class="col-sm-2">
+                                    <span class=" control-label">Nombre Tasa</span>
                                     <input class="form-control input-sm" name="nombreSubTramite" type="text"
                                            autocomplete="off" required id="nombreSubTramite"
                                            onchange="validarNombre('nombreSubTramite','spantasa')">
-                                    <span class=" control-label" style="color: red;" id="spantasa"></span>
+                                    <span class=" control-label" style="color:red" id="spantasa">  </span>
                                 </div>
                             </div>
-                            <div class="form-group-sm" align="lefth">
+                            <div class="form-group-sm " align="left">
                                 <div class="col-sm-2">
-                                    <span class="control-label">Precio</span>
+                                    <span class=" control-label">Precio</span>
                                     <div class="input-group col-sm-12">
                                         <div class="input-group-addon ">S/.</div>
-                                        <input type="text" class="form-control " name="precio" id="precio"
-                                               autocomplete="off" onchange="decimales('precio','spanprecio')"
-                                               placeholder="ejmp: 2.50" required>
+                                        <input class="form-control " name="precio" type="text"
+                                               autocomplete="off" required id="precio"
+                                               onchange="decimales('precio','spanprecio')">
                                     </div>
-                                    <span class="control-label" style="color: red" id="spanprecio"></span>
+                                    <span class=" control-label" style="color:red" id="spanprecio">  </span>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

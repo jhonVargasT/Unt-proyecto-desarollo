@@ -107,11 +107,13 @@ function alerta(mensaje) {
     })
 }
 
-function activarbotonform(event, myarray, idboton, idspanmensaje) {
+/*function activarbotonform(event, myarray, idboton, idspanmensaje) {
     var cont = 0;
+    var texto = [];
     for (var i = 0; i < myarray.length; i++) {
-        texto = document.getElementById("" + myarray[i] + "").innerHTML;
-        if (texto === " ") {
+        texto[i] = document.getElementById("" + myarray[i] + "").innerHTML;
+        if (texto[i] === "") {
+            cont = 0;
         }
         else {
             ++cont;
@@ -125,13 +127,13 @@ function activarbotonform(event, myarray, idboton, idspanmensaje) {
         document.getElementById(idboton).setAttribute('class', 'col-md-2 btn btn-success');
         document.getElementById(idspanmensaje).innerHTML = "";
     }
-}
+}*/
 
 function activarbotonform(event, myarray, idboton, idspanmensaje) {
     var cont = 0;
     for (var i = 0; i < myarray.length; i++) {
         texto = document.getElementById("" + myarray[i] + "").innerHTML;
-        if (texto === " ") {
+        if (texto === "") {
         }
         else {
             ++cont;

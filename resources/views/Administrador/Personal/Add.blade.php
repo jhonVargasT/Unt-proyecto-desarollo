@@ -34,7 +34,7 @@
                 <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
             @endif
             <form name="form" onsubmit="activarbotonform(event,['spansede','spandni','spannombre',
-                            'spanapellidos','spancorreo','spancodigoPersonal'],'enviar','mensaje')"
+                            'spanapellidos','spanemail','spancodigopersonal'],'enviar','mensaje')"
                   action="{{url('PersonalRegistrado')}}" role="form" method="POST"
                   class="Vertical">
                 {{csrf_field()}}
@@ -71,9 +71,9 @@
                             <div class="form-group-sm " align="left">
                                 <div class="col-sm-3">
                                     <span class=" control-label"> Numero de Dni</span>
-                                    <input class="form-control input-sm" name="dni" id="dni" type="text"
-                                           autocomplete="off" onchange="validarDni('dni','spandni')"
-                                           required>
+                                    <input class="form-control input-sm" name="dni" type="text"
+                                           autocomplete="off" onchange=" validarDni('dni','spandni')"
+                                           placeholder="Ejem: 72978792" required id="dni">
                                     <span style="color: red" class=" control-label" id="spandni"> </span>
                                 </div>
                             </div>
@@ -87,26 +87,19 @@
                                 </div>
 
                             </div>
-                            <div class="form-group-sm" align="left">
-                                <div class="col-sm-4">
-                                    <span class="control-label">Apellidos</span>
-                                    <input class="form-control input-sm" name="apellidos" id="apellidos" type="text"
-                                           autocomplete="off" onchange="validarNombre('apellidos','spanapellidos')"
-                                           required>
-                                    <span style="color: red" class="control-label" id="spanapellidos"></span>
-                                </div>
+                            <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
+                                <span class="control-label">Apellidos</span>
+                                <input class="form-control input-sm" name="apellidos" type="text"
+                                       autocomplete="off" onchange="validarNombre('apellidos','spanapellidos')"
+                                       placeholder="Ejem: Terenas Lory" required id="apellidos">
+                                <span style="color: red" class=" control-label" id="spanapellidos"> </span>
                             </div>
                         </div>
-                        <div class="col-sm-12 row form-group">
-                            <div class="form-group-sm">
-                                <div class="col-sm-4">
-                                    <span class="control-label">Correo</span>
-                                    <input class="form-control input-sm" name="correo" id="correo" type="email"
-                                           autocomplete="off"
-                                           onchange="validarCorreo('correo','spancorreo')" required>
-                                    <span style="color: red" class="control-label" id="spancorreo"></span>
-                                </div>
-                            </div>
+                        <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
+                            <span class="control-label">Correo</span>
+                            <input class="form-control input-sm" name="correo" type="email" id="email"
+                                   autocomplete="off" onchange="validarCorreo('email','spanemail')" required>
+                            <span style="color: red" class=" control-label" id="spanemail"> </span>
                         </div>
                     </div>
                 </div>
@@ -127,13 +120,12 @@
                                 </div>
                             </div>
                             <div class="form-group-sm">
-
-                                <div class="col-sm-2">
-                                    <span class="control-label">Codigo personal</span>
-                                    <input class="form-control input-sm" name="codigoPersonal" id="codigoPersonal"
-                                           type="text"
-                                           onchange="validarNumeros('codigoPersonal','spancodigoPersonal')" required>
-                                    <span style="color: red" class="control-label" id="spancodigoPersonal"></span>
+                                <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
+                                    <span class="control-label"> Codigo alumno</span>
+                                    <input class="form-control input-sm" name="codigoPersonal" type="text"
+                                           onchange="validarNumeros('codigoPersonal','spancodigopersonal')"
+                                           autocomplete="off" placeholder="Ejm: 000104499" required id="codigoPersonal">
+                                    <span style="color: red" class=" control-label" id="spancodigopersonal"> </span>
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
@@ -177,7 +169,7 @@
                     <div class="col-md-2"></div>
                     <button type="submit" name="enviar" id="enviar" class=" col-md-2 btn btn-success"
                             onmouseover="activarbotonform(null,['spansede','spandni','spannombre',
-                            'spanapellidos','spancorreo','spancodigoPersonal'],'enviar','mensaje')">
+                            'spanapellidos','spanemail','spancodigopersonal'],'enviar','mensaje')">
                         <span
                                 class="glyphicon glyphicon-ok"></span> Guardar
                     </button>

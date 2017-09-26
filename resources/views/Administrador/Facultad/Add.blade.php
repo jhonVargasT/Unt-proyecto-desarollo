@@ -27,7 +27,7 @@
     <div style="background-color: #FFFFFF">
         <div class="panel-body">
             <form name="form"
-                  onsubmit="activarbotonform(event,['spansede','spancodigofacultad','spancuenta','spannombre'],'enviar','mensaje')"
+                  onsubmit="activarbotonform(event,['spansede','spancodigofacultad','spannombre'],'enviar','mensaje')"
                   action="{{url('FacultadRegistrada')}}" role="form" method="POST" class="Vertical">
                 {{csrf_field()}}
                 @if(session()->has('true'))
@@ -113,7 +113,7 @@
                     </div>
                     <div>
                         <button type="submit" id="enviar"
-                                onmouseover="activarbotonform(null,['spansede','spancodigofacultad','spancuenta','spannombre'],'enviar','mensaje')"
+                                onmouseover="activarbotonform(null,['spansede','spancodigofacultad','spannombre'],'enviar','mensaje')"
                                 name="enviar" class="col-md-2 btn btn-sm btn-success"><span
                                     class="glyphicon glyphicon-ok"></span> Guardar
                         </button>
