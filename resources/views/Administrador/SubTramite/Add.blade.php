@@ -114,7 +114,6 @@
                                     <span class=" control-label" style="color:red" id="spanprecio">  </span>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
