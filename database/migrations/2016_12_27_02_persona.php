@@ -18,7 +18,7 @@ class Persona extends Migration
             $table->engine = 'InnoDB';
 
             $table->increments('codPersona')->unique();
-            $table->string('dni')->unique();
+            $table->string('dni')->nullable();
             $table->string('nombres');
             $table->string('apellidos');
             $table->string('correo')->unique()->nullable();
