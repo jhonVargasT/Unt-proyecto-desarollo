@@ -13,7 +13,7 @@
                 @foreach($facultad as $f)
                     <form name="form"
                           onsubmit="activarbotonform(event,['spansede','spancodigofacultad','spancuenta','spannombre'],'enviar','mensaje')"
-                          action="{{ url('FacultadEditada/' .$f->idFacultad ) }}" role="form" method="get"
+                          action="{{ url('FacultadEditada/' .$f->idFacultad ) }}" role="form" method="GET"
                           class="Vertical">
                         {{csrf_field()}}
                         <div class="panel  panel-primary">
@@ -26,7 +26,7 @@
                                             <input class="typeahead form-control input-sm" name="sede" type="text"
                                                    autocomplete="off" onchange="validarNombre('sede','spansede')"
                                                    required id="sede" value="{{$f->nombresede}}">
-                                            <span style="color: red" class=" control-label" id="spansede"> </span>
+                                            <span style="color: red" class=" control-label" id="spansede"></span>
                                         </div>
                                         <script type="text/javascript">
                                             var path = "{{ route('autocompletesede') }}";
@@ -55,7 +55,7 @@
                                                    onchange="validarNumeros('CodigoFacultad','spancodigofacultad')"
                                                    required>
                                             <span style="color: red" class=" control-label"
-                                                  id="spancodigofacultad"> </span>
+                                                  id="spancodigofacultad"></span>
                                         </div>
                                     </div>
                                     <div class="form-group-sm " align="left">
@@ -65,7 +65,7 @@
                                                    type="text" value="{{$f->nroCuenta}}"
                                                    autocomplete="off"
                                                    onchange="validarNumeros('CuentaInterna','spancuenta')">
-                                            <span style="color: red" class=" control-label" id="spancuenta"> </span>
+                                            <span style="color: red" class=" control-label" id="spancuenta"></span>
                                         </div>
                                     </div>
                                     <div class="form-group-sm " align="left">
@@ -77,7 +77,7 @@
                                                    autocomplete="off"
                                                    onchange="validarNombre('NombreFacultad','spannombre')"
                                                    required>
-                                            <span style="color: red" class=" control-label" id="spannombre"> </span>
+                                            <span style="color: red" class=" control-label" id="spannombre"></span>
                                         </div>
                                     </div>
                                 </div>

@@ -73,7 +73,7 @@
                             </div>
                             <div class="form-group-sm " align="left">
                                 <div class="col-sm-3">
-                                    <span class=" control-label"> Tipo de recurso </span>
+                                    <span class=" control-label"> Tipo de recurso</span>
                                     <input class="form-control input-sm " name="TipoDeRecurso" type="text" id="tr"
                                            readonly>
                                     <script>
@@ -120,7 +120,7 @@
                                                autocomplete="off" required id="monto"
                                                onchange="decimales('monto','spanmonto')">
                                     </div>
-                                    <span class=" control-label" style="color:red" id="spanmonto">  </span>
+                                    <span class=" control-label" style="color:red" id="spanmonto"> </span>
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
@@ -130,7 +130,7 @@
                                            type="text"
                                            autocomplete="off" required
                                            onchange="validarNumeros('numResolucion','spanresolucion')">
-                                    <span class=" control-label" style="color:red" id="spanresolucion">  </span>
+                                    <span class=" control-label" style="color:red" id="spanresolucion"> </span>
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
@@ -144,7 +144,7 @@
                             <div class="col-sm-12 row form-group">
                                 <div class="form-group-sm " align="left">
                                     <div class="col-sm-3">
-                                        <span class=" control-label"> Cuenta bancaria </span>
+                                        <span class=" control-label"> Cuenta bancaria</span>
                                         <div class="input-group col-sm-12">
                                             <input class="form-control input-sm " name="cuenta" type="text" id="cuenta"
                                                    onchange="validarNumeros('cuenta','spancuenta')">
@@ -152,7 +152,7 @@
                                                             class="glyphicon glyphicon-eye-open"></i></a>
                                             </div>
                                         </div>
-                                        <span class=" control-label" style="color:red" id="spancuenta">  </span>
+                                        <span class=" control-label" style="color:red" id="spancuenta"> </span>
                                     </div>
                                 </div>
                             </div>

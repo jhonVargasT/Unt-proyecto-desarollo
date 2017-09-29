@@ -127,28 +127,6 @@ function activarbotonform(event, myarray, idboton, idspanmensaje) {
     }
 }
 
-function activarbotonformE(event, myarray, idboton, idspanmensaje) {
-    var cont = 0;
-    for (var i = 0; i < myarray.length; i++) {
-        texto = document.getElementById("" + myarray[i] + "").innerHTML;
-        if (!texto) {
-        }
-        else {
-            ++cont;
-        }
-    }
-    alert(cont);
-
-    if (cont > 0) {
-        event && event.preventDefault();
-        document.getElementById(idboton).setAttribute('class', 'col-md-2 btn btn-success disabled');
-        document.getElementById(idspanmensaje).innerHTML = "Tiene errores de ingreso en el sistema, porfavor verifique el formulario";
-    } else {
-        document.getElementById(idboton).setAttribute('class', 'col-md-2 btn btn-success');
-        document.getElementById(idspanmensaje).innerHTML = "";
-    }
-}
-
 function validarContrasena(idContra, idRepContra, idspan) {
     var texto1 = document.getElementById(idContra).value;
     var texto2 = document.getElementById(idRepContra).value;
@@ -169,20 +147,18 @@ function validarContrasena(idContra, idRepContra, idspan) {
 function validarNumeros(idform, idspan) {
     var texto = document.getElementById(idform).value;
     if (isNaN(texto)) {
-
-        document.getElementById(idspan).innerHTML = "Error: no puede contener letras.";
         document.getElementById(idform).style.backgroundColor = '#F6CECE';
+        document.getElementById(idspan).innerHTML = "Error: no puede contener letras.";
     } else {
         document.getElementById(idform).style.backgroundColor = '#FFFFFF';
         document.getElementById(idspan).innerHTML = "";
     }
-
 }
 
 function validarDni(idform, idspan) {
 
     var texto = document.getElementById(idform).value;
-    if (isNaN(texto)) {
+    if (!texto) {
         document.getElementById(idform).style.backgroundColor = '#F6CECE';
         document.getElementById(idspan).innerHTML = "Error: un dni no puede contener letras.";
     }
@@ -202,7 +178,7 @@ function validarDni(idform, idspan) {
 function validarNombre(idform, idspan) {
     var texto = document.getElementById(idform).value;
     if (texto) {
-        var expresion = /^[a-zA-Z\s]+$/;
+        var expresion = /^[a-zA-Z\s]/;
         if (expresion.test(texto)) {
             document.getElementById(idform).value = (texto.toUpperCase());
             document.getElementById(idform).style.backgroundColor = '#FFFFFF';

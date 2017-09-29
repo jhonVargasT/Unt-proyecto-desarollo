@@ -53,14 +53,14 @@
                                     <input class="form-control input-sm" name="banco" type="text" id="banco"
                                            autocomplete="off" onchange="validarNombre('banco','spanbanco')"
                                            placeholder="Ejem: Banco de la Nacion" required>
-                                    <span class=" control-label" style="color:red" id="spanbanco">  </span>
+                                    <span class=" control-label" style="color:red" id="spanbanco"> </span>
                                 </div>
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                     <span class="control-label">Cuenta</span>
                                     <input class="form-control input-sm" name="cuenta" type="text" id="cuenta"
                                            autocomplete="off" onchange="validarNumeros('cuenta','spancuenta')"
                                            placeholder="Ejm:123456 " required>
-                                    <span class=" control-label" style="color:red" id="spancuenta">  </span>
+                                    <span class=" control-label" style="color:red" id="spancuenta"> </span>
                                 </div>
                             </div>
                         </div>

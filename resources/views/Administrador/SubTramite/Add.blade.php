@@ -55,7 +55,7 @@
                                            name="nombreTramite" id="nombreTramite"
                                            onchange="validarNombre('nombreTramite','spanclasificador')"
                                            autocomplete="off" required>
-                                    <span class=" control-label" style="color:red" id="spanclasificador">  </span>
+                                    <span class=" control-label" style="color:red" id="spanclasificador"> </span>
                                     <script type="text/javascript">
                                         var path = "{{ route('autocompletet') }}";
                                         $('input.typeahead').typeahead({
@@ -81,7 +81,7 @@
                                     <input class="form-control input-sm" name="unidad" type="text"
                                            autocomplete="off" required id="unidad"
                                            onchange="validarNumeros('unidad','spanunidad')">
-                                    <span class=" control-label" style="color:red" id="spanunidad">  </span>
+                                    <span class=" control-label" style="color:red" id="spanunidad"> </span>
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
@@ -90,7 +90,7 @@
                                     <input class="form-control input-sm" name="codigotasa" type="text"
                                            autocomplete="off" required id="codigotasa"
                                            onchange="validarNumeros('codigotasa','spancodigotasa')">
-                                    <span class=" control-label" style="color:red" id="spancodigotasa">  </span>
+                                    <span class=" control-label" style="color:red" id="spancodigotasa"> </span>
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
@@ -99,7 +99,7 @@
                                     <input class="form-control input-sm" name="nombreSubTramite" type="text"
                                            autocomplete="off" required id="nombreSubTramite"
                                            onchange="validarNombre('nombreSubTramite','spantasa')">
-                                    <span class=" control-label" style="color:red" id="spantasa">  </span>
+                                    <span class=" control-label" style="color:red" id="spantasa"> </span>
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
@@ -111,7 +111,7 @@
                                                autocomplete="off" required id="precio"
                                                onchange="decimales('precio','spanprecio')">
                                     </div>
-                                    <span class=" control-label" style="color:red" id="spanprecio">  </span>
+                                    <span class=" control-label" style="color:red" id="spanprecio"> </span>
                                 </div>
                             </div>
                         </div>

@@ -27,7 +27,7 @@
                                             <input class="typeahead form-control input-sm" name="sede" type="text"
                                                    autocomplete="off" onchange=" validarNombre('sede','spansede')"
                                                    required id="sede" value="{{$per->nombresede}}">
-                                            <span style="color: red" class=" control-label" id="spansede"> </span>
+                                            <span style="color: red" class=" control-label" id="spansede"></span>
                                         </div>
                                         <script type="text/javascript">
                                             var path = "{{ route('autocompletesede') }}";
@@ -53,7 +53,7 @@
                                             <input class="form-control input-sm" name="dni" id="dni" type="text"
                                                    autocomplete="off" onchange="validarDni('dni','spandni')"
                                                    required value="{{$per->dni}}">
-                                            <span style="color: red" class=" control-label" id="spandni"> </span>
+                                            <span style="color: red" class=" control-label" id="spandni"></span>
                                         </div>
                                     </div>
                                     <div class="form-group-sm" align="left">
@@ -62,7 +62,7 @@
                                             <input class="form-control input-sm" name="nombres" id='nombre' type="text"
                                                    autocomplete="off" onchange="validarNombre('nombre','spannombre')"
                                                    required value="{{$per->nombres}}">
-                                            <span style="color: red" class=" control-label" id="spannombre"> </span>
+                                            <span style="color: red" class=" control-label" id="spannombre"></span>
                                         </div>
 
                                     </div>

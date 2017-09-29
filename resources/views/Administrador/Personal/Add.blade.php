@@ -150,7 +150,7 @@
                                            name="contrasenavalidar"
                                            onchange="validarContrasena('contrasenavalidar1','contrasenavalidar2','spancontrasenavalidar')"
                                            type="password" autocomplete="off" required>
-                                    <span class="control-label" id="spancontrasenavalidar"></span>
+                                    <span class="control-label" id="spancontrasenavalidar"> </span>
                                 </div>
                             </div>
                         </div>

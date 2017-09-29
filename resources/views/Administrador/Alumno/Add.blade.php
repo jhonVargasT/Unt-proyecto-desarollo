@@ -128,7 +128,7 @@
                                                $date = date('m/d/Y');
                                                echo $date ?>" id="fecha" required>
                                         <div class="input-group-addon">
-                                            <span class="glyphicon glyphicon-th"></span>
+                                            <span class="glyphicon glyphicon-th"> </span>
                                         </div>
                                     </div>
                                 </div>

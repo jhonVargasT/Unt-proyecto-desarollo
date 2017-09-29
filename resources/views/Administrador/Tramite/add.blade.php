@@ -46,7 +46,7 @@
                                            type="text"
                                            autocomplete="off" required
                                            onchange="validarNumeros('clasificador','spanclasificador')">
-                                    <span class=" control-label" style="color:red" id="spanclasificador">  </span>
+                                    <span class=" control-label" style="color:red" id="spanclasificador"> </span>
                                 </div>
 
                                 <div class="form-group-sm " align="left">
@@ -56,7 +56,7 @@
                                                type="text"
                                                autocomplete="off" required
                                                onchange="validarNombre('nombre','spannombre')">
-                                        <span class=" control-label" style="color:red" id="spannombre">  </span>
+                                        <span class=" control-label" style="color:red" id="spannombre"> </span>
                                     </div>
                                 </div>
                             <div class="form-group-sm " align="left">
@@ -66,7 +66,7 @@
                                     <input class=" form-control input-sm" name="tipoRecurso" type="text"
                                            autocomplete="off" placeholder="A" id="tipoRecurso"
                                            onchange="validarNombre('tipoRecurso','spantiporecurso')">
-                                    <span class=" control-label" style="color:red" id="spantiporecurso"></span>
+                                    <span class=" control-label" style="color:red" id="spantiporecurso"> </span>
                                 </div>
                             </div>
                             <div class=" form-group-sm" align="left">
@@ -75,7 +75,7 @@
                                     <input class="form-control" name="fuentefinanc" type="text"
                                            autocomplete="off" placeholder="1" id="fuentefinac"
                                            onchange="validarNumeros('fuentefinac','spanfuente')">
-                                    <span class=" control-label" style="color:red" id="spanfuente"></span>
+                                    <span class=" control-label" style="color:red" id="spanfuente"> </span>
                                 </div>
                             </div>
                         </div>
