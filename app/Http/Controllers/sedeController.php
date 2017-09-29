@@ -14,8 +14,8 @@ class sedeController extends Controller
     public function registrarSede(Request $request)
     {
         $sede = new sedemodel();
-        $sede->setCodigoSede($request->codigoSede);
-        $sede->setNombreSede($request->nombreSede);
+        $sede->setCodigoSede($request->codigosede);
+        $sede->setNombreSede($request->nombresede);
         $sede->setDireccion($request->direccion);
 
         $sed = $sede->save();//SQL, insertar registro de la sede
@@ -39,8 +39,8 @@ class sedeController extends Controller
     public function editarSede($codSede, Request $request)
     {
         $sede = new sedemodel();
-        $sede->setCodigoSede($request->codigoSede);
-        $sede->setNombreSede($request->nombreSede);
+        $sede->setCodigoSede($request->codigosede);
+        $sede->setNombreSede($request->nombresede);
         $sede->setDireccion($request->direccion);
         $sede->editarSede($codSede);//SQL, actualizar datos de la sede
         return view('Administrador/Sede/search')->with(['nombre' => $request->nombreSede]);

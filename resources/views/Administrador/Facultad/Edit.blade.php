@@ -64,8 +64,7 @@
                                             <input class="form-control input-sm" name="CuentaInterna" id="CuentaInterna"
                                                    type="text" value="{{$f->nroCuenta}}"
                                                    autocomplete="off"
-                                                   onchange="validarNumeros('CuentaInterna','spancuenta')"
-                                                   required>
+                                                   onchange="validarNumeros('CuentaInterna','spancuenta')">
                                             <span style="color: red" class=" control-label" id="spancuenta"> </span>
                                         </div>
                                     </div>

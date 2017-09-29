@@ -82,8 +82,7 @@
                                     <span class=" control-label"> Cuenta interna</span>
                                     <input class="form-control input-sm" name="CuentaInterna" id="CuentaInterna"
                                            type="text"
-                                           autocomplete="off" onchange="validarNumeros('CuentaInterna','spancuenta')"
-                                           required>
+                                           autocomplete="off" onchange="validarNumeros('CuentaInterna','spancuenta')">
                                     <span style="color: red" class=" control-label" id="spancuenta"> </span>
                                 </div>
                             </div>
