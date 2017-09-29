@@ -11,7 +11,7 @@
             @endif
             @if($sede)
                 @foreach($sede as $s)
-                    <form name="form"
+                    <form name="form" onsubmit="activarbotonform(event,['spansede','spancodigosede'],'enviar','mensaje')"
                           action="{{ url('SedeEditada/' .$s->codSede ) }}" role="form" method="Get"
                           class="Vertical">
                         {{csrf_field()}}
@@ -63,7 +63,7 @@
                             </div>
                             <div>
                                 <button
-
+                                        onmouseover="activarbotonform(event,['spansede','spancodigosede'],'enviar','mensaje')"
                                         class="col-md-2 btn btn-sm btn-success"><span
                                             class="glyphicon glyphicon-ok"></span> Guardar
                                 </button>
