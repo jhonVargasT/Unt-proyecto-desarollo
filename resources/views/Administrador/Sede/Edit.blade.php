@@ -62,8 +62,8 @@
                             <div class="col-md-2">
                             </div>
                             <div>
-                                <button
-                                        onmouseover="activarbotonform(event,['spansede','spancodigosede'],'enviar','mensaje')"
+                                <button name="enviar" id="enviar" type="submit"
+                                        onmouseover="activarbotonform(null,['spansede','spancodigosede'],'enviar','mensaje')"
                                         class="col-md-2 btn btn-sm btn-success"><span
                                             class="glyphicon glyphicon-ok"></span> Guardar
                                 </button>
