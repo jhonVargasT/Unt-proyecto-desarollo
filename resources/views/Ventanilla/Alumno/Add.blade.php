@@ -12,7 +12,7 @@
                 <!--<tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/venBuscarEstudianteProduccion">Buscar Estudiantes
+                        <a href="/admBuscarEstudianteProduccion">Buscar Estudiantes
                             Produccion</a>
                     </td>
                 </tr>-->
@@ -25,7 +25,7 @@
                 <!--<tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/venRegistrarEstudianteProduccion">Agregar Estudiante
+                        <a href="/admRegistrarEstudianteProduccion">Agregar Estudiante
                             Produccion</a>
                     </td>
                 </tr>-->
@@ -33,7 +33,6 @@
         </div>
     </div>
 @stop
-
 @section('content')
     @if( Session::has('tipoCuentaV'))
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -43,7 +42,6 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="/resources/demos/style.css">
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script src="{{asset('assets/js/utilidades.js')}}"></script>
 
         <div class="panel-heading"><h3>Agregar Estudiante</h3></div>
         <div style="background-color: #FFFFFF">
@@ -55,7 +53,7 @@
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
                 @endif
                 <form name="form"
-                      onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos','spanemail','spancodAlumno','spansede','spanescuela'],'enviar','mensaje')"
+                      onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos','spanemail','spancodalumno','spansede','spanescuela'],'enviar','mensaje')"
                       action="{{url('AlumnoRegistrado')}}" role="form" method="POST" class="Horizontal">
                     {{csrf_field()}}
                     <div class="panel panel-primary">
@@ -117,9 +115,9 @@
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label"> Codigo alumno</span>
                                     <input class="form-control input-sm" name="codAlumno" type="text"
-                                           onchange="validarNumeros('codAlumno','spancodAlumno')"
+                                           onchange="validarNumeros('codAlumno','spancodalumno')"
                                            autocomplete="off" placeholder="Ejm: 000104499" required id="codAlumno">
-                                    <span style="color: red" class=" control-label" id="spancodAlumno"> </span>
+                                    <span style="color: red" class=" control-label" id="spancodalumno"> </span>
                                 </div>
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label"> Fecha matricula</span>
@@ -127,19 +125,18 @@
                                         <input type="text" name="fecha" class="form-control"
                                                value="<?php date_default_timezone_set('America/Lima');
                                                $date = date('m/d/Y');
-                                               echo $date ?>" id="fecha">
+                                               echo $date ?>" id="fecha" required>
                                         <div class="input-group-addon">
-                                            <span class="glyphicon glyphicon-th"></span>
+                                            <span class="glyphicon glyphicon-th"> </span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label">Sede</span>
-                                    <input class="typeahead form-control" type="text"
+                                    <input class="typeahead form-control"
                                            placeholder="Ejm: Trujillo" name="nombreSede" id="ns"
-                                           onchange="validarNombre('ns','spansede')" autocomplete="off" required>
+                                           autocomplete="off" required onchange="validarNombre('ns','spansede')">
                                     <span style="color: red" class=" control-label" id="spansede"> </span>
-
                                     <script type="text/javascript">
                                         var paths = "{{ route('autocompletesede')}}";
                                         $('input.typeahead').typeahead({
@@ -195,7 +192,6 @@
                                     </script>
                                     <script>
                                         $('#ns').on('input', function () {
-
                                             if ($(this).val().length)
                                                 $('#ne').prop('disabled', false);
                                             else
@@ -216,7 +212,7 @@
                             Cancelar</a>
                         <div class="col-md-2"></div>
                         <button type="submit"
-                                onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos','spanemail','spancodAlumno','spansede','spanescuela'],'enviar','mensaje')"
+                                onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos','spanemail','spancodalumno','spansede','spanescuela'],'enviar','mensaje')"
                                 name="enviar" id="enviar" class="col-md-2 btn btn-sm btn-success"><span
                                     class="glyphicon glyphicon-ok"></span> Guardar
                         </button>

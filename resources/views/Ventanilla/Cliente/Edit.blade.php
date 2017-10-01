@@ -20,14 +20,14 @@
                                             <input class="form-control input-sm" name="dni" id="dni" type="text"
                                                    autocomplete="off" onchange="validarDni('dni','spandni')"
                                                    placeholder="Ejem: 72978792" required value="{{$c->dni}}">
-                                            <span style="color: red" class=" control-label" id="spandni"> </span>
+                                            <span style="color: red" class=" control-label" id="spandni"></span>
                                         </div>
                                         <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                             <span class="control-label">Nombres</span>
                                             <input class="form-control input-sm" name="nombres" id="nombres" type="text"
                                                    autocomplete="off" onchange="validarNombre('nombres','spannombre')"
                                                    placeholder="Ejm:Jose Carlos" required value="{{$c->nombres}}">
-                                            <span style="color: red" class=" control-label" id="spannombre"> </span>
+                                            <span style="color: red" class=" control-label" id="spannombre"></span>
                                         </div>
                                         <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                             <span class="control-label">Apellidos</span>
@@ -35,14 +35,14 @@
                                                    autocomplete="off" id="apellidos"
                                                    onmouseover="validarNombre('apellidos','spanapellidos')"
                                                    placeholder="Ejem: Terenas Lory" required value="{{$c->apellidos}}">
-                                            <span style="color: red" class=" control-label" id="spanapellidos"> </span>
+                                            <span style="color: red" class=" control-label" id="spanapellidos"></span>
                                         </div>
                                         <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                             <span class="control-label">Correo</span>
                                             <input class="form-control input-sm" id="correo" name="correo" type="email"
                                                    autocomplete="off" onchange="validarCorreo('correo','spanemail')"
                                                    required value="{{$c->correo}}">
-                                            <span style="color: red" class=" control-label" id="spanemail"> </span>
+                                            <span style="color: red" class=" control-label" id="spanemail"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@
                                             <input class="form-control input-sm" name="ruc" type="text" id="ruc"
                                                    autocomplete="off" onchange="validarNumeros('ruc','spanruc')"
                                                    placeholder="Ejm: 0729787548" value="{{$c->ruc}}">
-                                            <span style="color: red" class=" control-label" id="spanruc"> </span>
+                                            <span style="color: red" class=" control-label" id="spanruc"></span>
                                         </div>
                                         <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                             <span class="control-label"> Razon social</span>
@@ -64,7 +64,7 @@
                                                    placeholder="Ejm: PRICEWATERHOUSE" id="razonSocial"
                                                    onchange="validarNombre('razonSocial','spanrazon')"
                                                    value="{{$c->razonSocial}}">
-                                            <span style="color: red" class=" control-label" id="spanrazon"> </span>
+                                            <span style="color: red" class=" control-label" id="spanrazon"></span>
                                         </div>
                                     </div>
                                 </div>
