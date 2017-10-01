@@ -9,7 +9,7 @@
                         <form name="form"
                               onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos','spanemail'],'enviar','mensaje')"
                               action="{{ url('ClienteEditado/' .$c->codPersona ) }}" role="form"
-                              method="get" class="Vertical">
+                              method="GET" class="Vertical">
                             {{csrf_field()}}
                             <div class="panel panel-primary">
                                 <div class="panel-heading">Datos persona</div>
