@@ -18,7 +18,6 @@ class tramiteController extends Controller
     public function registrarTramite(Request $request)
     {
         Try {
-
             $tramite = new tramitemodel();
             $tramite->setClasificador($request->clasificador);
             $tramite->setNombre($request->nombre);
@@ -31,9 +30,8 @@ class tramiteController extends Controller
             } else {
                 return back()->with('false', 'Tramite ' . $request->nombre . ' no guardada, puede que ya exista ');
             }
-        }catch (Exception $e)
-        {
-           
+        } catch (Exception $e) {
+
             return back()->with('false', 'Tramite ' . $request->nombre . ' no guardada, puede que ya exista ');
         }
 
@@ -55,9 +53,8 @@ class tramiteController extends Controller
         $tramite->setNombre($request->nombre);
         $tramite->setFuentefinanc($request->fuentefinanc);
         $tramite->setTipoRecurso($request->tipoRecurso);
-
         $tramite->editarTramite($codTramite);//SQL, actualizar registro del clasificador
-        return view('Administrador/Tramite/search')->with(['nombre' => $request->nombreTramite]);
+        return view('Administrador/Tramite/search')->with(['nombre' => $request->clasificador]);
     }
 
     //Buscar clasificadores

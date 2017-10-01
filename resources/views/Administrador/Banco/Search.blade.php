@@ -20,18 +20,18 @@
     </div>
 @stop
 @section('content')
-    @if(session()->has('true'))
-        <div class="alert alert-success" role="alert">{{session('true')}} </div>
-    @endif
-    @if(session()->has('false'))
-        <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
-    @endif
     <div class="panel-heading"><h3>Buscar Bancos</h3></div>
     <div style="background-color: #FFFFFF">
         <div class="panel-body">
+            @if(session()->has('true'))
+                <div class="alert alert-success" role="alert">{{session('true')}} </div>
+            @endif
+            @if(session()->has('false'))
+                <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
+            @endif
             <form name="form" action="{{url('BancosBuscados')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
-                <div class=" row ">
+                <div class=" row col-sm-12" >
                     <div class="form-group-sm col-sm-2 ">
                         <span class="ontrol-label">Buscar por:</span>
                         <select class=" form-control" name="select">
@@ -60,12 +60,11 @@
                 </div>
             </form>
             <!--tabla-->
-
             <div class="table-responsive  col-sm-12 ">
+                <br>
                 @if(isset($nombre)!=null)
                     <div class="alert alert-success" role="alert">El alumno {{$nombre}} fue actualizada!!</div>
                 @endif
-
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <!--cabecear Tabla-->

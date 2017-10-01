@@ -42,7 +42,6 @@ class escuelaController extends Controller
     //Cargar los datos de la escuela para modifcar
     public function cargarEscuela($idEscuela)
     {
-
         $escuela = new escuelamodel();
         $esc = $escuela->consultarEscuelaid($idEscuela);//SQL, obtener datos de la escuela meidante su id
 

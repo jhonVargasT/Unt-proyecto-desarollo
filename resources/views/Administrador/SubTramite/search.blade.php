@@ -21,16 +21,16 @@
     </div>
 @stop
 @section('content')
-    @if(session()->has('true'))
-        <div class="alert alert-success" role="alert">{{session('true')}} </div>
-    @endif
-    @if(session()->has('false'))
-        <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
-    @endif
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
     <div class="panel-heading"><h3>Buscar SubTasa</h3></div>
     <div style="background-color: #FFFFFF">
         <div class="panel-body">
+            @if(session()->has('true'))
+                <div class="alert alert-success" role="alert">{{session('true')}} </div>
+            @endif
+            @if(session()->has('false'))
+                <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
+            @endif
             <form name="form" action="{{url('SubtramitesBuscadas')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
                 <div class="col-sm-12 row form-group">

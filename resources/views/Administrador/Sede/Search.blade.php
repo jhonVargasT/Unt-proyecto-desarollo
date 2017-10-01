@@ -20,15 +20,15 @@
     </div>
 @stop
 @section('content')
-    @if(session()->has('true'))
-        <div class="alert alert-success" role="alert">{{session('true')}} </div>
-    @endif
-    @if(session()->has('false'))
-        <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
-    @endif
     <div class="panel-heading"> <h3>Buscar Sedes</h3></div>
     <div style="background-color: #FFFFFF" >
         <div class="panel-body">
+            @if(session()->has('true'))
+                <div class="alert alert-success" role="alert">{{session('true')}} </div>
+            @endif
+            @if(session()->has('false'))
+                <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
+            @endif
             <form name="form" action="{{url('SedesBuscadas')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
                 <div class="col-sm-12 row form-group">
