@@ -20,11 +20,10 @@
     </div>
 @stop
 @section('content')
-
     <div class="panel-heading"><h3> Reportar Pago</h3></div>
     <div style="background-color: #FFFFFF">
         <div class="panel-body">
-            <form name="form" action="{{url('PagosBuscados')}}" role="form" method="POST" class="Vertical">
+            <form name="form" action="{{url('PagosBuscados')}}" role="Form" method="POST" class="Vertical">
                 {{ csrf_field() }}
                 @if(session()->has('true'))
                     <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -33,30 +32,51 @@
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
                 @endif
                 <div class="col-sm-12 row form-group">
-                    <div class="form-group-sm col-sm-2 ">
-                        <span class=" control-label">Buscar por:</span>
-
-                            <select class=" form-control" name="selected" onclick="searchreporteventanilla('select','texto','buscar')" id="select">
-                                <option value="Todo">Todo</option>
+                    <div class="form-group-sm col-sm-6 ">
+                        <span class="col-sm-3 control-label">Buscar por:</span>
+                        <div class="col-sm-7 ">
+                            <select class=" form-control" name="selected" id="selected">
                                 <option value="Dni">Dni</option>
                                 <option value="Codigo alumno">Codigo alumno</option>
                                 <option value="Ruc">Ruc</option>
                                 <option value="Codigo pago">Codigo pago</option>
                                 <option value="Reporte diario">Reporte diario</option>
-
+                                <option value="Todo">Todo</option>
                             </select>
-
+                        </div>
                     </div>
-                    <div class="form-group-sm col-sm-8" id="boton">
-                        <span class="ontrol-label"> Ingresa datos aqui</span></ref>
-
+                    <div class="form-group-sm input-group col-sm-6">
+                        <input type="Text" name="text" class="form-control" @if(isset($txt)) value="{{$txt}}"
+                               @endif id="text" required>
+                        <script>
+                            $('#text').prop('required', true);
+                            document.getElementById("text").value = "";
+                            $('#selected').change(function () {
+                                var value = $('#selected option:selected').attr('value');
+                                if (value === 'Todo') {
+                                    var x = document.getElementById("text");
+                                    x.setAttribute("type", "text");
+                                    $('#text').prop('required', false);
+                                    document.getElementById("text").value = " ";
+                                    $('#text').prop('readonly', true);
+                                }
+                                else {
+                                    if (value === 'Reporte diario') {
+                                        var x = document.getElementById("text");
+                                        x.setAttribute("type", "hidden");
+                                        document.getElementById("text").value = '{{Session::get('codPersonal')}}';
+                                    }
+                                    else {
+                                        var x = document.getElementById("text");
+                                        x.setAttribute("type", "text");
+                                        document.getElementById("text").value = '';
+                                        $('#text').prop('required', true);
+                                    }
+                                }
+                            });
+                        </script>
                         <span class="input-group-btn">
-                            <input type="text" name="text" disabled id="texto" class="form-control"
-                                   autocomplete="off" >
-                            </span>
-
-                        <span class="input-group-btn">
-                            <button class="btn btn-sm" type="submit"  id="buscar" name="buscar">Buscar</button>
+                            <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
                         </span>
                     </div>
                 </div>
@@ -68,13 +88,12 @@
                     </div>
                 </div>-->
             </form>
-
             <!--tabla-->
             <div class="table-responsive col-sm-12">
                 @if(isset($nombre)!=null)
                     <div class="alert alert-success" role="alert">El alumno {{$nombre}} fue actualizada!!</div>
                 @endif
-                    <br>
+                <br>
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <!--cabecear Tabla-->
@@ -124,7 +143,7 @@
                                 Nombre cajero
                             </div>
                         </th>
-                        <th  >
+                        <th>
                             <div align="center">
                                 Opcion
                             </div>
@@ -144,27 +163,33 @@
                                 <td>{{$p->modalidad}}</td>
                                 <td>{{$p->detalle}}</td>
                                 <td>{{$p->pnombres}} {{$p->papellidos}}</td>
-                                <td align="center" >
-
+                                <td align="center">
                                     {{ csrf_field() }}
                                     @if($p->estadodeuda == 1)
                                         <a href="PagoDeuda/{{$p->codPago}}"><span
                                                     class="glyphicon glyphicon-usd"></span> </a>
                                     @endif
                                     @if($p->pnombres)
-                                        <a title="Imprimir"  onclick="imprimir(event,'PagoImprimir/{{$p->codPago}}/{{$p->estadodeuda}}')" href=""><span
+                                        <a title="Imprimir"
+                                           onclick="imprimir(event,'PagoImprimir/{{$p->codPago}}/{{$p->estadodeuda}}')"
+                                           href=""><span
                                                     class="glyphicon glyphicon-print"></span> </a>
                                     @else
-                                        <a title="Imprimir"  onclick="imprimir(event,'PagoImprimirO/{{$p->codPago}}/{{$p->estadodeuda}}')" href=""><span
+                                        <a title="Imprimir"
+                                           onclick="imprimir(event,'PagoImprimirO/{{$p->codPago}}/{{$p->estadodeuda}}')"
+                                           href=""><span
                                                     class="glyphicon glyphicon-print"></span> </a>
                                     @endif&nbsp;&nbsp;&nbsp;
                                     @if($p->modalidad=='Online'||$p->modalidad=='Banco')
                                         <a><span class="glyphicon glyphicon-trash"></span> </a>
                                     @else
-                                        <a  title="Devolver" onclick="devolver(event,'DevolucionPago/{{$p->codPago}}')" href=""><span
-                                                    class="glyphicon glyphicon-minus" style="color: orange "></span> </a>
+                                        <a title="Devolver" onclick="devolver(event,'DevolucionPago/{{$p->codPago}}')"
+                                           href=""><span
+                                                    class="glyphicon glyphicon-minus" style="color: orange "></span>
+                                        </a>
                                         &nbsp;&nbsp;&nbsp;
-                                        <a href="" title="Eliminar"  onclick="eliminar(event,'PagoEliminar/{{$p->codPago}}')"><span
+                                        <a href="" title="Eliminar"
+                                           onclick="eliminar(event,'PagoEliminar/{{$p->codPago}}')"><span
                                                     class="glyphicon glyphicon-trash" style="color: red"></span> </a>
                                     @endif
                                 </td>
@@ -191,8 +216,7 @@
                 </div>
             </div>
             <div class="col-sm-12">
-
-                <div  align="center">
+                <div align="center">
                     <!--Contenido-->
                     @if(isset($pagos))
                         <?php $var = 1; ?>

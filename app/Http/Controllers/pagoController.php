@@ -255,10 +255,11 @@ class pagoController extends Controller
     //Buscar pagos
     public function listarPago(Request $request)
     {
-        /*
         $valueA = Session::get('tipoCuentaA');
         $valueV = Session::get('tipoCuentaV');
         $valueR = Session::get('tipoCuentaR');
+        date_default_timezone_set('America/Lima');
+        $date = date('Y-m-d');
         $val = 0;
         $total = 0;
         $pag = null;
@@ -278,8 +279,8 @@ class pagoController extends Controller
                     if ($request->selected == 'Codigo pago') {
                         $pag = $pago->consultarCodigoPago($request->text, $val);//SQL, buscar datos del pago por codigo del pago
                     } else {
-                        if ($request->selected == 'Codigo personal') {//Reporte del reporte diario del personal logueado
-                            Excel::create('Laravel Excel', function ($excel) use ($request) {
+                        if ($request->selected == 'Reporte diario') {//Reporte del reporte diario del personal logueado
+                            Excel::create('Reporte diario "' . $date . '"', function ($excel) use ($request) {
                                 $excel->sheet('Reporte Diario', function ($sheet) use ($request) {
                                     $data = null;
                                     $pag = null;
@@ -287,7 +288,7 @@ class pagoController extends Controller
                                     $cont = 0;
                                     $pago = new pagomodel();
                                     $pag = $pago->listarPagosPersonal($request->text);//SQL, obtener datos del pago realizado por el personal (diario)
-                                    var_dump($pag);
+
                                     foreach ($pag as $p) {
                                         $total += $p->precio;
                                     }
@@ -427,7 +428,7 @@ class pagoController extends Controller
                                             'size' => '12'
                                         ));
                                         $cells->setAlignment('center');
-                                    });
+                                    });*/
                                     //bordes de la hoja
                                     $sheet->setBorder('B7:B' . ($cont + 7) . '');
                                     $sheet->setBorder('C7:C' . ($cont + 7) . '');
@@ -444,11 +445,7 @@ class pagoController extends Controller
                                 });
                             })->export('xls');
                         } else {
-                            if ($request->selected == 'Reporte diario') {
-                                $pag = $pago->listarPagosPersonal($request->text);
-                            } else {
-                                $pag = $pago->consultarPagos($val);
-                            }
+                            $pag = $pago->consultarPagos($val);
                         }
                     }
                 }
@@ -463,7 +460,7 @@ class pagoController extends Controller
             return view('Ventanilla/Pagos/ReportPago')->with(['pagos' => $pag, 'txt' => $request->text, 'select' => $request->selected, 'total' => $total]);
         if ($valueR == 'Reportes')
             return view('Reportes/Pagos/ReportPago')->with(['pagos' => $pag, 'txt' => $request->text, 'select' => $request->selected, 'total' => $total]);
-    */
+
     }
 
     //Eliminar (cambiar estado de 1 a 0) registro del pago
