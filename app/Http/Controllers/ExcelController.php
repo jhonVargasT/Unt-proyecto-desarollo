@@ -386,61 +386,6 @@ class ExcelController extends Controller
         })->export('xls');
     }
 
-    //Importar lista de alumno a la bd , en prueba
-    public function importarAlumnos(Request $request)
-    {
-        $archivo = $request->file('import_file');
-        $nombreOriginal = $archivo->getClientOriginalName();
-        $extension = $archivo->getClientOriginalExtension();
-        $rl = Storage::disk('excelalumnos')->put($nombreOriginal, \File::get($archivo));
-        $ruta = storage_path('excelalumnos') . '/' . $nombreOriginal;
-        if ($rl) {
-            $ct = 0;
-            Excel::selectSheetsByIndex(0)->load($ruta, function ($hoja) use ($ct) {
-
-                $hoja->each(function ($fila) {
-                    $alumno = new alumnomodel();
-                    $alumno = new alumnomodel();
-                    $alumno->setDni($fila->dni);
-                    echo $fila->dni;
-                    $alumno->setNombres($fila->nombres);
-                    $alumno->setApellidos($fila->apellido_paterno . ' ' . $fila->apellido_materno);
-                    $alumno->setCodAlumno($fila->codigo_alumno);
-                    $alumno->setFecha($fila->fecha);
-                    $alumno->setIdEscuela(1);
-                    $alumno->setCorreo('asdasd');
-                    $al = $alumno->savealumno($fila->dni);
-
-                });
-                echo $ct;
-            });
-        }
-        $val = null;
-        $contaux = null;
-        $sede = new sedemodel();
-        $facultad = new facultadmodel();
-        $escuela = new escuelamodel();
-        if ($request->hasFile('D:\TesoreriaAlumnos_Huamachuco')) {
-            $path = Input::file('Alumnos_Huamachuco')->getRealPath();
-            $data = Excel::load($path, function ($reader) {
-            })->get();
-            if (!empty($data) && $data->count()) {
-                foreach ($data->toArray() as $key => $value) {
-                    echo 'aqui';
-                    if (!empty($value)) {
-                        foreach ($value as $v) {
-                            $codSede = $sede->obtenerId($request->nombreSede);
-                            $codfacultad = $facultad->obteneridSede($codSede, $v['Facultad']);
-                            $codescuela = $escuela->obtenerIdEscuela($codfacultad, $v['Escuela']);
-                            echo 'codise' . $codSede . 'fac' . $codfacultad . 'cod' . $codescuela;
-
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     //Importar pagos realizados por el banco, TXT
     public function importTxtBanco(Request $request)
     {
@@ -660,46 +605,6 @@ class ExcelController extends Controller
         })->export('xls');
     }
 
-    //Importar datos del banco, excel
-    /*public function importExcel(Request $request)
-    {
-        $val = null;
-        $contaux = null;
-        $persona = new personamodel();
-        $subtramite = new subtramitemodel();
-        $pago = new pagomodel();
-        if ($request->hasFile('import_file')) {
-            $path = Input::file('import_file')->getRealPath();
-            $data = Excel::load($path, function ($reader) {
-            })->get();
-            if (!empty($data) && $data->count()) {
-                foreach ($data->toArray() as $key => $value) {
-                    if (!empty($value)) {
-                        foreach ($value as $v) {
-                            $codPer = $persona->obtnerIdDni($v['dni']);
-                            $codSubt = $subtramite->consultarId($v['tasa']);
-                            $cont = $this->contadorSubtramite($v['tasa']);
-                            $contaux = $cont + 1;
-                            $pago->setDetalle($v['detalle']);
-                            $date = implode("-", array_reverse(explode("/", $v['fecha'])));
-                            $pago->setFecha($date);
-                            $pago->setModalidad('Banco');
-                            $pago->setIdPersona($codPer);
-                            $pago->setIdSubtramite($codSubt);
-                            $val = $pago->saveExcel($contaux);
-                        }
-                        if ($val == true) {
-                            return back()->with('true', 'Guardada con exito')->withInput();
-                        } else {
-                            return back()->with('false', 'No guardada');
-                        }
-                    }
-                }
-            }
-        }
-        return back()->with('error', 'Please Check your file, Something is wrong there.');
-    }*/
-
     public function importExcelAlumno(Request $request)
     {
         $alumno = new alumnomodel();
@@ -713,9 +618,8 @@ class ExcelController extends Controller
                     $coS = null;
                     $coF = null;
                     if (!empty($value)) {
-                        //try {
-                        echo $value['sede'];
-                            /*$coS = DB::table('sede')->select('codSede')->where('nombresede', '' . $value['sede'] . ' ')->count();
+                        try {
+                            $coS = DB::table('sede')->select('codSede')->where('nombresede', '' . $value['sede'] . ' ')->count();
                             if ($coS != 0) {
                                 $coS = DB::table('sede')->select('codSede')->where('nombresede', '' . $value['sede'] . ' ')->get();
                                 foreach ($coS as $co) {
@@ -778,17 +682,17 @@ class ExcelController extends Controller
                                         }
                                     }
                                 }
-                            }*/
-                        //} catch (Exception $e) {
-                            //return back()->with('false', 'No subieron los archivos');
-                        //}
+                            }
+                        } catch (Exception $e) {
+                            return back()->with('false', 'No subieron los archivos');
+                        }
                     }
                 }
-                //return back()->with('true', 'Se subio el archivo');
+                return back()->with('true', 'Se subio el archivo');
             }
-            //return back()->with('false', 'Por favor, revisar su archivo.');
+            return back()->with('false', 'Por favor, revisar su archivo.');
         }
-        //return back()->with('false', 'Por favor, revisar su archivo.');
+        return back()->with('false', 'Por favor, revisar su archivo.');
     }
 
     public function importExcelClasificador(Request $request)
@@ -849,37 +753,6 @@ class ExcelController extends Controller
         }
         return back()->with('false', 'Por favor, revisar su archivo.');
     }
-
-    /*public function importExcelTasa(Request $request)
-    {
-        $subtramite = new subtramitemodel();
-        if ($request->hasFile('import_file')) {
-            $path = Input::file('import_file')->getRealPath();
-            $data = Excel::load($path, function ($reader) {
-            })->get();
-            if (!empty($data) && $data->count()) {
-                foreach ($data->toArray() as $key => $value) {
-                    if (!empty($value)) {
-                        try {
-                            foreach ($value as $v) {
-                                $subtramite->setCodigotasa($v['codigo']);
-                                $subtramite->setNombre($v['nombre']);
-                                $subtramite->setPrecio($v['precio']);
-                                $subtramite->setUnidad($v['unidad']);
-                                $idTra = $subtramite->bdTramitexClasificador($v['siaf']);
-                                $subtramite->setIdTramite($idTra);
-                                $subtramite->save();
-                            }
-                        } catch (Exception $e) {
-                            return back()->with('false', 'Error, por favor revisar su archivo.');
-                        }
-                    }
-                }
-                return back()->with('true', 'Se subio el archivo')->withInput();
-            }
-        }
-        return back()->with('false', 'Por favor, revisar su archivo.');
-    }*/
 
     public
     function importExcelSede(Request $request)
