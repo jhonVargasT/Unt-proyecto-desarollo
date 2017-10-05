@@ -64,13 +64,9 @@ class importarListaAlumnos extends Controller
                                     $coE = $co->idEscuela;
                                 }
                                 $cantAl = 0;
-                                $coP = DB::table('persona')->select('idPersona')->where('dni', '=', $value['DNI'])->count();
+                                $coP = DB::table('alumno')->select('idAlumno')->where('codAlumno', '=', $value['CODIGO'])->count();
                                 if ($coP != 0) {
-                                    $coP = DB::table('persona')->select('codPersona')->where('dni', '=', $value['DNI'])->get();
-                                    foreach ($coP as $co) {
-                                        $coP = $co->codPersona;
-                                    }
-                                    $cantAl = DB::table('alumno')->select('idAlumno')->where('idPersona', '=', $coP)->count();
+                                    $cantAl = DB::table('alumno')->select('idAlumno')->where('codAlumno', '=', $value['CODIGO'])->count();
                                 }
                                 if ($cantAl == 0) {
                                     $alumno->setTipoAlummno(1);
@@ -81,7 +77,7 @@ class importarListaAlumnos extends Controller
                                     $alumno->setCorreo($value['CORREO']);
                                     $alumno->setFecha($value['FECHA']);
                                     $alumno->setIdEscuela($coE);
-                                    $alumno->savealumno($value['DNI']);
+                                    $alumno->saveAlumnoImportar($value['CODIGO']);
                                 }
                             }
                         }
@@ -90,9 +86,8 @@ class importarListaAlumnos extends Controller
                     return back()->with('false', 'No subieron los alumnos');
                 }
             }
-        }
-        else{
-            return back()->with('false', 'No subieron los alumnos');
+        } else {
+            return back()->with('false', 'No subieron los alumnos, esta vacio');
         }
         return back()->with('true', 'Exito');
     }

@@ -714,17 +714,17 @@ class ExcelController extends Controller
                     $coF = null;
                     if (!empty($value)) {
                         try {
-                            $coS = DB::table('sede')->select('codSede')->where('nombresede', '' . $value['sede'] . ' ')->count();
+                            $coS = DB::table('sede')->select('codSede')->where('nombresede', '' . $value['SEDE'] . ' ')->count();
                             if ($coS != 0) {
 
-                                $coS = DB::table('sede')->select('codSede')->where('nombresede', '' . $value['sede'] . ' ')->get();
+                                $coS = DB::table('sede')->select('codSede')->where('nombresede', '' . $value['SEDE'] . ' ')->get();
                                 foreach ($coS as $co) {
                                     $coS = $co->codSede;
                                 }
                                 $coF = DB::table('facultad')->select('idFacultad')
                                     ->where([
                                         ['coSede', '=', $coS],
-                                        ['nombre', '=', '' . $value['facultad'] . ' '],
+                                        ['nombre', '=', '' . $value['FACULTAD'] . ''],
                                         ['estado', '=', 1]
                                     ])->count();
 
@@ -732,7 +732,7 @@ class ExcelController extends Controller
                                     $coF = DB::table('facultad')->select('idFacultad')
                                         ->where([
                                             ['coSede', '=', $coS],
-                                            ['nombre', '=', '' . $value['facultad'] . ' '],
+                                            ['nombre', '=', '' . $value['FACULTAD'] . ' '],
                                             ['estado', '=', 1]
                                         ])->get();
                                     foreach ($coF as $co) {
@@ -741,14 +741,14 @@ class ExcelController extends Controller
 
                                     $coE = DB::table('escuela')->select('idEscuela')->where(
                                         [
-                                            ['nombre', '=', $value['escuela']],
+                                            ['nombre', '=', $value['ESCUELA']],
                                             ['codigoFacultad', '=', $coF]
                                         ]
                                     )->count();
                                     if ($coE != 0) {
                                         $coE = DB::table('escuela')->select('idEscuela')->where(
                                             [
-                                                ['nombre', '=', $value['escuela']],
+                                                ['nombre', '=', $value['ESCUELA']],
                                                 ['codigoFacultad', '=', $coF]
                                             ]
                                         )->get();
@@ -756,24 +756,20 @@ class ExcelController extends Controller
                                             $coE = $co->idEscuela;
                                         }
                                         $cantAl = 0;
-                                        $coP = DB::table('persona')->select('idPersona')->where('dni', '=', $value['dni'])->count();
+                                        $coP = DB::table('alumno')->select('idAlumno')->where('codAlumno', '=', $value['CODIGO'])->count();
                                         if ($coP != 0) {
-                                            $coP = DB::table('persona')->select('codPersona')->where('dni', '=', $value['dni'])->get();
-                                            foreach ($coP as $co) {
-                                                $coP = $co->codPersona;
-                                            }
-                                            $cantAl = DB::table('alumno')->select('idAlumno')->where('idPersona', '=', $coP)->count();
+                                            $cantAl = DB::table('alumno')->select('idAlumno')->where('codAlumno', '=', $value['CODIGO'])->count();
                                         }
                                         if ($cantAl == 0) {
                                             $alumno->setTipoAlummno(1);
-                                            $alumno->setDni($value['dni']);
-                                            $alumno->setNombres($value['nombres']);
-                                            $alumno->setApellidos($value['apellidos']);
-                                            $alumno->setCodAlumno($value['codalumno']);
-                                            $alumno->setCorreo($value['correo']);
-                                            $alumno->setFecha($value['fecha']);
+                                            $alumno->setDni($value['DNI']);
+                                            $alumno->setNombres($value['NOMBRES']);
+                                            $alumno->setApellidos($value['APELLIDOS']);
+                                            $alumno->setCodAlumno($value['CODIGO']);
+                                            $alumno->setCorreo($value['CORREO']);
+                                            $alumno->setFecha($value['FECHA']);
                                             $alumno->setIdEscuela($coE);
-                                            $alumno->savealumno($value['dni']);
+                                            $alumno->saveAlumnoImportar($value['CODIGO']);
                                         }
                                     }
                                 }
