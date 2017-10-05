@@ -226,7 +226,6 @@ class alumnomodel extends personamodel
 
     public function saveAlumnoImportar($codigo)
     {
-        $idp = null;
         date_default_timezone_set('Etc/GMT+5');
         $date = date('Y-m-d H:i:s', time());
         $logunt = new loguntemodel();
@@ -236,21 +235,14 @@ class alumnomodel extends personamodel
         $logunt->setDescripcion('registrarAlumnoImportar');
         $logunt->setCodigoPersonal($codPers);
         try {
-            DB::transaction(function () use ($logunt, $idp, $codigo) {
+            DB::transaction(function () use ($logunt, $codigo) {
                 $alumnobd = DB::select('select codPersona from persona left join alumno on persona.codPersona = alumno.idPersona where 
                 persona.codPersona = alumno.idPersona and alumno.codAlumno = ' . $codigo . ' and persona.estado = 1 and alumno.estado=1');
-                foreach ($alumnobd as $pbd) {
-                    $idp = $pbd->codPersona;
+                if ($alumnobd == null) {
+                    $id = DB::table('persona')->insertGetId(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(), 'correo' => $this->getCorreo()]);
+                    DB::table('alumno')->insert(['codAlumno' => $this->codAlumno, 'fecha' => $this->fecha, 'idPersona' => $id, 'coEscuela' => $this->idEscuela, 'tipoAlumno' => $this->tipoAlummno]);
                 }
-                if ($idp == null) {
-                    DB::table('persona')->insert(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(), 'correo' => $this->getCorreo()]);
-                    $personabd = DB::table('persona')->where('dni', $this->getDni())->get();
-                    foreach ($personabd as $pbd) {
-                        $idp = $pbd->codPersona;
-                    }
-                    DB::table('alumno')->insert(['codAlumno' => $this->codAlumno, 'fecha' => $this->fecha, 'idPersona' => $idp, 'coEscuela' => $this->idEscuela, 'tipoAlumno' => $this->tipoAlummno]);
-                    $logunt->saveLogUnt();
-                }
+                $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
             $util = new util();
@@ -259,6 +251,44 @@ class alumnomodel extends personamodel
         }
         return true;
     }
+
+    /*public function saveAlumnoImportar($codigo)
+    {
+        $idp = null;
+        date_default_timezone_set('Etc/GMT+5');
+        $date = date('Y-m-d H:i:s', time());
+        $logunt = new loguntemodel();
+        $value = Session::get('personalC');
+        $codPers = $logunt->obtenerCodigoPersonal($value);
+        $logunt->setFecha($date);
+        $logunt->setDescripcion('registrarAlumno');
+        $logunt->setCodigoPersonal($codPers);
+        try {
+            DB::transaction(function () use ($logunt, $idp, $codigo) {
+                $alumnobd = DB::select('select codPersona from persona left join alumno on persona.codPersona = alumno.idPersona where 
+                persona.codPersona = alumno.idPersona and alumno.codAlumno = ' . $codigo . ' and persona.estado = 1 and alumno.estado=1');
+                foreach ($alumnobd as $pbd) {
+                    $idp = $pbd->codPersona;
+                }
+                if ($idp != null) {
+                    DB::table('alumno')->where('idPersona', $idp)->update(['coEscuela' => $this->idEscuela]);
+                } else {
+                    $id = DB::table('persona')->insertGetId(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(), 'correo' => $this->getCorreo()]);
+                    $personabd = DB::table('persona')->where('codPersona', $id)->get();
+                    foreach ($personabd as $pbd) {
+                        $idp = $pbd->codPersona;
+                    }
+                    DB::table('alumno')->insert(['codAlumno' => $this->codAlumno, 'fecha' => $this->fecha, 'idPersona' => $idp, 'coEscuela' => $this->idEscuela, 'tipoAlumno' => $this->tipoAlummno]);
+                }
+                $logunt->saveLogUnt();
+            });
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'savealumno/alumnomodel');
+            return false;
+        }
+        return true;
+    }*/
 
     public function savealumnoProduccion($dni)
     {
