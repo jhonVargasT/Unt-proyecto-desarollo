@@ -239,7 +239,7 @@ class alumnomodel extends personamodel
                 $alumnobd = DB::select('select codPersona from persona left join alumno on persona.codPersona = alumno.idPersona where 
                 persona.codPersona = alumno.idPersona and alumno.codAlumno = ' . $codigo . ' and persona.estado = 1 and alumno.estado=1');
                 if ($alumnobd == null) {
-                    $id = DB::table('persona')->insertGetId(['dni' => $this->getDni(), 'nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(), 'correo' => $this->getCorreo()]);
+                    $id = DB::table('persona')->insertGetId(['nombres' => $this->getNombres(), 'apellidos' => $this->getApellidos(), 'correo' => $this->getCorreo()]);
                     DB::table('alumno')->insert(['codAlumno' => $this->codAlumno, 'fecha' => $this->fecha, 'idPersona' => $id, 'coEscuela' => $this->idEscuela, 'tipoAlumno' => $this->tipoAlummno]);
                 }
                 $logunt->saveLogUnt();

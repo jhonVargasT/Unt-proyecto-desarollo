@@ -15,7 +15,6 @@ class importarListaAlumnos extends Controller
         $alumno = new alumnomodel();
         $lista = new listasAlumno();
         $persona = $lista->listaAlumno();
-
         if (!empty($persona)) {
             foreach ($persona as $value) {
                 $coP = null;
@@ -70,7 +69,6 @@ class importarListaAlumnos extends Controller
                                 }
                                 if ($cantAl == 0) {
                                     $alumno->setTipoAlummno(1);
-                                    $alumno->setDni($value['DNI']);
                                     $alumno->setNombres($value['NOMBRES']);
                                     $alumno->setApellidos($value['APELLIDOS']);
                                     $alumno->setCodAlumno($value['CODIGO']);

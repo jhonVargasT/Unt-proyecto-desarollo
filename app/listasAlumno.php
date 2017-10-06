@@ -7,7 +7,6 @@ class listasAlumno
     public function listaAlumno()
     {
 	$persona = array();
-
         return $persona;
     }
 }
