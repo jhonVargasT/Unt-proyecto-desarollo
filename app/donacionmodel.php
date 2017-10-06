@@ -172,7 +172,7 @@ class donacionmodel
     public function saveDonacion()
     {
         date_default_timezone_set('Etc/GMT+5');
-        $date = date('Y-m-d H:i:s', time());
+        $date = date('Y-m-d ');
         $logunt = new loguntemodel();
         $value = Session::get('personalC');
         $codPers = $logunt->obtenerCodigoPersonal($value);
@@ -182,6 +182,7 @@ class donacionmodel
 
         try {
             DB::transaction(function () use ($logunt) {
+
                 DB::table('donacion')->insert(['numResolucion' => $this->numResolucion, 'fechaIngreso' => $this->fechaIngreso, 'descripcion' => $this->descripcion, 'monto' => $this->monto, 'idTramite' => $this->idTramite, 'idBanco' => $this->idBanco]);
                 $logunt->saveLogUnt();
             });

@@ -15,7 +15,10 @@ class donacionController extends Controller
     {
         $donacion = new donacionmodel();
         $donacion->setNumResolucion($request->numResolucion);
-        $date = implode("-", array_reverse(explode("/", $request->fecha)));
+        $d = $request->fecha;
+        $fecha = date("Y-m-d", strtotime($d));
+        $date = implode("-", array_reverse(explode("/", $fecha)));
+        echo $date;
         $donacion->setFechaIngreso($date);
         $donacion->setDescripcion($request->descripcion);
         $donacion->setMonto($request->monto);
@@ -26,7 +29,7 @@ class donacionController extends Controller
         $donacion->setIdBanco($idB);
         $dona = $donacion->saveDonacion();//SQL, insercion de los datos de la donacion o transferencias
 
-        if ($dona == true) {
+       if ($dona == true) {
             return back()->with('true', 'Donacion ' . $request->numResolucion . ' guardada con exito')->withInput();
         } else {
             return back()->with('false', 'Donacion ' . $request->numResolucion . ' no guardada, puede que ya exista');
@@ -67,7 +70,8 @@ class donacionController extends Controller
         $donacion = new donacionmodel();
         $donacion->setNumResolucion($request->numResolucion);
         $d = $request->fecha;
-        $date = implode("-", array_reverse(explode("/", $d)));
+        $fecha = date("Y-m-d", strtotime($d));
+        $date = implode("-", array_reverse(explode("/", $fecha)));
         $donacion->setFechaIngreso($date);
         $donacion->setDescripcion($request->descripcion);
         $donacion->setMonto($request->monto);
@@ -77,10 +81,10 @@ class donacionController extends Controller
         $idB = $donacion->obteneridBanco($request->cuenta);//SQL, obtener el id del banco mediante su numero de cuenta
         $donacion->setIdBanco($idB);
         $donacion->editarDonacion($codDonacion);//SQL, actualizar los datos de la donacion y transferencia
-        if($valueA == 'Administrador')
+        if ($valueA == 'Administrador')
             return view('Administrador/DonacionesYTransacciones/Search')->with(['nombre' => $request->numResolucion]);
 
-        if($valueR == 'Reportes')
+        if ($valueR == 'Reportes')
             return view('Reportes/DonacionesYTransacciones/Search')->with(['nombre' => $request->numResolucion]);
 
     }
@@ -88,19 +92,25 @@ class donacionController extends Controller
     //Buscar donaciones y transfencias
     public function listarDonaciones(Request $request)
     {
+
+
         $valueA = Session::get('tipoCuentaA');
         $valueR = Session::get('tipoCuentaR');
-        $tiempo=null;
+
+        $tiempo = null;
         $numero = '';
         $result = null;
-        $donacion= new donacionmodel();
+        $donacion = new donacionmodel();
         $vartiemp = $request->combito;
         $varaño = $request->año1;
+
         if ($request->combito !== 'Escojer') {
             if ($vartiemp == 1) {
+                echo 'aqui';
                 $tiempo = 'where Year(d.fechaIngreso) = ' . $varaño . '';
                 $result = $donacion->consultarDonaciones($tiempo);//SQL, buscar a la donacion y transferencia fecha
                 $numero = 'DEL AÑO -' . $varaño;
+                var_dump($result);
             } elseif ($vartiemp == 2) {
                 $tiempo = 'where MONTH(d.fechaIngreso) = ' . $request->mes2 . ' and Year(d.fechaIngreso)=' . $request->año2 . '';
                 $result = $donacion->consultarDonaciones($tiempo);//SQL, buscar a la donacion y transferencia fecha
@@ -110,7 +120,7 @@ class donacionController extends Controller
 
             } elseif ($vartiemp == 3) {
                 $originalDate = $request->fecha;
-                $fecha = date("Y-m-d", strtotime($originalDate));
+                $fecha = date("Y-d-m", strtotime($originalDate));
                 $tiempo = 'where DATE(d.fechaIngreso) =\'' . $fecha . '\'';
                 $result = $donacion->consultarDonaciones($tiempo);//SQL, buscar a la donacion y transferencia fecha
                 $numero = 'DE ' . $fecha;
@@ -119,20 +129,22 @@ class donacionController extends Controller
             foreach ($result as $r) {
                 $total += $r->importe;
             }
-            if($valueA == 'Administrador')
-                return view('Administrador/DonacionesYTransacciones/Search')->with(['nombre' => $request->numResolucion]);
 
-            if($valueR == 'Reportes')
-                return view('Reportes/DonacionesYTransacciones/Search')->with(['nombre' => $request->numResolucion]);
-            return view('Administrador/DonacionesYTransacciones/Search')->with(['result' => $result, 'total' => $total, 'fecha' => $tiempo, 'numero' => $numero]);
-
+            if ($valueA == 'Administrador') {
+                if (!Empty($result))
+                    return view('Administrador/DonacionesYTransacciones/Search')->with(['result' => $result, 'total' => $total, 'fecha' => $tiempo, 'numero' => $numero]);
+                else
+                    return view('Administrador/DonacionesYTransacciones/Search');
+            }
+            if ($valueR == 'Reportes') {
+                if (!Empty($result))
+                    return view('Reportes/DonacionesYTransacciones/Search')->with(['result' => $result, 'total' => $total, 'fecha' => $tiempo, 'numero' => $numero]);
+                else
+                    return view('Reportes/DonacionesYTransacciones/Search');
+            }
+        } else {
+            return back();
         }
-        else{
-
-            return view('Administrador/DonacionesYTransacciones/Search');
-
-        }
-
     }
 
     //Eliminar(cambiar de estado 1 a 0) el registro de donacion y transferencia

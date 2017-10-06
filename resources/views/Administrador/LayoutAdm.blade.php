@@ -108,7 +108,7 @@
         <script type="text/javascript" language="javascript"
                 src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js">
         </script>
-        <!--
+
                 <script type="text/javascript">
                     $(document).ready(function () {
                         $('#example').DataTable( {
@@ -139,7 +139,7 @@
                         }
                         );
                     });
-                </script>-->
+                </script>
     </head>
     <body style="background-color:#ccd0d2">
     <div class="row  ">
