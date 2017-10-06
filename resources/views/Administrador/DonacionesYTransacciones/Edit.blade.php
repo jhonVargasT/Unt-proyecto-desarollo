@@ -25,7 +25,7 @@
                                                    placeholder="Ingresa datos aqui .." value="{{$d->tnombre}}"
                                                    name="nombreTramite" id="name" autocomplete="off"
                                                    required onchange=" validarNombre('name','spansiaf')">
-                                            <span style="color: red" class=" control-label" id="spansiaf"> </span>
+                                            <span style="color: red" class=" control-label" id="spansiaf"></span>
                                             <script type="text/javascript">
                                                 var path = "{{ route('autocompletet') }}";
                                                 $('input.typeahead').typeahead({
@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="form-group-sm " align="left">
                                         <div class="col-sm-3">
-                                            <span class=" control-label"> Tipo de recurso </span>
+                                            <span class=" control-label"> Tipo de recurso</span>
                                             <input class="form-control input-sm " name="TipoDeRecurso" type="text"
                                                    id="tr" value="{{$d->tipoRecurso}}"
                                                    readonly>
@@ -83,7 +83,7 @@
                                             <input type="text" class="form-control " name="monto" value="{{$d->monto}}"
                                                    autocomplete="off" placeholder="ejmp: 2.50" id="monto"
                                                    required onchange=" validarNumeros('monto','spanmonto')">
-                                            <span style="color: red" class=" control-label" id="spanmonto"> </span>
+                                            <span style="color: red" class=" control-label" id="spanmonto"></span>
                                         </div>
                                     </div>
                                     <div class="form-group-sm " align="left">
@@ -93,7 +93,7 @@
                                                    type="text" value="{{$d->numResolucion}}"
                                                    autocomplete="off" required
                                                    onchange="validarNumeros('numResolucion','spanresolucion')">
-                                            <span class=" control-label" style="color:red" id="spanresolucion">  </span>
+                                            <span class=" control-label" style="color:red" id="spanresolucion"></span>
                                         </div>
                                     </div>
                                     <div class="form-group-sm " align="left">
@@ -114,7 +114,7 @@
                                                 <div class="input-group-addon"><a id="help_button"><i
                                                                 class="glyphicon glyphicon-eye-open"></i></a>
                                                 </div>
-                                                <span class=" control-label" style="color:red" id="spancuenta">  </span>
+                                                <span class=" control-label" style="color:red" id="spancuenta"></span>
                                             </div>
                                         </div>
                                     </div>

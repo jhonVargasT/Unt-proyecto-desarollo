@@ -33,6 +33,8 @@
                         <input type="file" name="import_file">
                         <br>
                         <button type="submit" class="btn btn-primary">Importar</button>
+                        <a title="Importar" href="/importAlumnoAutomatico"><span
+                                    class="btn btn-primary"> Importacion automatica</span> </a>
                     </form>
                 </div>
             </div>

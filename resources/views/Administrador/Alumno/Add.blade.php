@@ -114,7 +114,7 @@
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label"> Codigo alumno</span>
                                     <input class="form-control input-sm" name="codAlumno" type="text"
-                                           onchange="validarNumeros('codAlumno','spancodAlumno')"
+                                           onchange="validarNumeros('codAlumno','spancodalumno')"
                                            autocomplete="off" placeholder="Ejm: 000104499" required id="codAlumno">
                                     <span style="color: red" class=" control-label" id="spancodAlumno"></span>
                                 </div>
@@ -126,7 +126,7 @@
                                                $date = date('m/d/Y');
                                                echo $date ?>" id="fecha" required>
                                         <div class="input-group-addon">
-                                            <span class="glyphicon glyphicon-th"></span>
+                                            <span class="glyphicon glyphicon-th"> </span>
                                         </div>
                                     </div>
                                 </div>

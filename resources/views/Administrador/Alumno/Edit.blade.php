@@ -5,7 +5,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <div class="form-control col-sm-12">
         <br>
@@ -39,14 +38,14 @@
                                             <input class="form-control input-sm" name="dni" id="dni" type="text"
                                                    autocomplete="off" onchange="validarDni('dni','spandni')"
                                                    placeholder="Ejem: 72978792" required value="{{$a->dni}}">
-                                            <span style="color: red" class=" control-label" id="spandni"> </span>
+                                            <span style="color: red" class=" control-label" id="spandni"></span>
                                         </div>
                                         <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                             <span class="control-label">Nombres</span>
                                             <input class="form-control input-sm" name="nombres" id="nombres" type="text"
                                                    autocomplete="off" onchange="validarNombre('nombres','spannombre')"
                                                    placeholder="Ejm:Jose Carlos" required value="{{$a->nombres}}">
-                                            <span style="color: red" class=" control-label" id="spannombre"> </span>
+                                            <span style="color: red" class=" control-label" id="spannombre"></span>
                                         </div>
                                         <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                             <span class="control-label">Apellidos</span>
@@ -54,14 +53,14 @@
                                                    autocomplete="off" id="apellidos"
                                                    onmouseover="validarNombre('apellidos','spanapellidos')"
                                                    placeholder="Ejem: Terenas Lory" required value="{{$a->apellidos}}">
-                                            <span style="color: red" class=" control-label" id="spanapellidos"> </span>
+                                            <span style="color: red" class=" control-label" id="spanapellidos"></span>
                                         </div>
                                         <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                             <span class="control-label">Correo</span>
                                             <input class="form-control input-sm" id="correo" name="correo" type="email"
                                                    autocomplete="off" onchange="validarCorreo('correo','spanemail')"
                                                    required value="{{$a->correo}}">
-                                            <span style="color: red" class=" control-label" id="spanemail"> </span>
+                                            <span style="color: red" class=" control-label" id="spanemail"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -76,7 +75,7 @@
                                                autocomplete="off" onchange="validarNumeros('codAlumno','spancodalumno')"
                                                placeholder="Ejm: 000104499" required
                                                value="{{$a->codAlumno}}">
-                                        <span style="color: red" class=" control-label" id="spancodalumno"> </span>
+                                        <span style="color: red" class=" control-label" id="spancodalumno"></span>
                                     </div>
                                     <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                         <span class="control-label"> Fecha matricula</span>
@@ -93,7 +92,7 @@
                                                placeholder="Ejm: Trujillo" name="nombreSede" id="ns"
                                                autocomplete="off" required
                                                value="{{$a->nombresede}}" onchange="validarNombre('ns','spansede')">
-                                        <span style="color: red" class=" control-label" id="spansede"> </span>
+                                        <span style="color: red" class=" control-label" id="spansede"></span>
                                         <script type="text/javascript">
                                             var paths = "{{ route('autocompletesede')}}";
                                             $('input.typeahead').typeahead({
@@ -104,7 +103,6 @@
                                                 }
                                             });
                                         </script>
-
                                     </div>
                                     <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                         <span class="control-label">Escuela</span>
@@ -112,7 +110,7 @@
                                                placeholder="Ejm: Mecanica" name="nombreEscuela" id="ne"
                                                required value="{{$a->enombre}}"
                                                onchange="validarNombre('ne','spanescuela')">
-                                        <span style="color: red" class=" control-label" id="spanescuela"> </span>
+                                        <span style="color: red" class=" control-label" id="spanescuela"></span>
                                         <script>
                                             src = "{{ route('searchajax') }}";
                                             $("#ne").autocomplete({

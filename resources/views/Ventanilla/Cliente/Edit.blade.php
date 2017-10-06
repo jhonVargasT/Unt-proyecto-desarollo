@@ -1,111 +1,88 @@
 @extends('Ventanilla.Body')
-@section('cliente')
-    <div id="collapseClie" class="collapse in">
-        <div class="panel-body">
-            <table class="table">
-                <tr>
-                    <td>
-                        <span class="glyphicon glyphicon-search"></span>
-                        <a href="/ventBuscarCliente" style="color: #509f0c" target="_top">Buscar Clientes</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/ventRegistrarCliente">Agregar Clientes</a>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-@stop
-@section('content')
+@section('body')
     <fieldset>
         <div class="panel-heading"><h3>Editar Cliente</h3></div>
         <div style="background-color: #FFFFFF">
             <div class="panel-body">
                 @if($cliente)
                     @foreach($cliente as $c)
-                        <form name="form" action="{{ url('ClienteEditado/' .$c->codPersona ) }}" role="form"
-                              method="get"
-                              class="Vertical">
+                        <form name="form"
+                              onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos','spanemail'],'enviar','mensaje')"
+                              action="{{ url('ClienteEditado/' .$c->codPersona ) }}" role="form"
+                              method="GET" class="Vertical">
                             {{csrf_field()}}
-                            <div class="panel panel-default">
+                            <div class="panel panel-primary">
                                 <div class="panel-heading">Datos persona</div>
                                 <div class="panel-body">
-                                    <div class="col-sm-12 row form-group">
-                                        <div class="form-group-sm " align="left">
-                                            <span class="col-sm-2 control-label"> Numero de Dni</span>
-                                            <div class="col-sm-3">
-                                                <input class="form-control input-sm" name="dni" type="text"
-                                                       autocomplete="off" onkeypress="return validarNum(event)"
-                                                       placeholder="Ejm:72978754" required value="{{$c->dni}}">
-                                            </div>
+                                    <div class=" row ">
+                                        <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
+                                            <span class="control-label"> Numero de Dni</span>
+                                            <input class="form-control input-sm" name="dni" id="dni" type="text"
+                                                   autocomplete="off" onchange="validarDni('dni','spandni')"
+                                                   placeholder="Ejem: 72978792" required value="{{$c->dni}}">
+                                            <span style="color: red" class=" control-label" id="spandni"></span>
                                         </div>
-                                        <div class="form-group-sm" align="right">
-                                            <span class="col-sm-2">Nombres</span>
-                                            <div class="col-sm-4">
-                                                <input class="form-control input-sm" name="nombres" type="text"
-                                                       autocomplete="off" onkeypress="return validarLetras(event)"
-                                                       placeholder="Ejm: Jose Fernando" required
-                                                       value="{{$c->nombres}}">
-                                            </div>
+                                        <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm">
+                                            <span class="control-label">Nombres</span>
+                                            <input class="form-control input-sm" name="nombres" id="nombres" type="text"
+                                                   autocomplete="off" onchange="validarNombre('nombres','spannombre')"
+                                                   placeholder="Ejm:Jose Carlos" required value="{{$c->nombres}}">
+                                            <span style="color: red" class=" control-label" id="spannombre"></span>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-12 row form-group">
-                                        <div class="form-group-sm">
-                                            <span class="col-sm-2">Apellidos</span>
-                                            <div class="col-sm-3">
-                                                <input class="form-control input-sm" name="apellidos" type="text"
-                                                       autocomplete="off" onkeypress="return validarLetras(event)"
-                                                       placeholder="Terenas Lory" value="{{$c->apellidos}}">
-                                            </div>
+                                        <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
+                                            <span class="control-label">Apellidos</span>
+                                            <input class="form-control input-sm" name="apellidos" type="text"
+                                                   autocomplete="off" id="apellidos"
+                                                   onmouseover="validarNombre('apellidos','spanapellidos')"
+                                                   placeholder="Ejem: Terenas Lory" required value="{{$c->apellidos}}">
+                                            <span style="color: red" class=" control-label" id="spanapellidos"></span>
                                         </div>
-                                        <div class="form-group-sm" align="right">
-                                            <span class="col-sm-2">Correo</span>
-                                            <div class="col-sm-4">
-                                                <input class="form-control input-sm" name="correo" type="email"
-                                                       autocomplete="off"
-                                                       placeholder="Ejem: unt@gmail.com" required
-                                                       value="{{$c->correo}}">
-                                            </div>
+                                        <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
+                                            <span class="control-label">Correo</span>
+                                            <input class="form-control input-sm" id="correo" name="correo" type="email"
+                                                   autocomplete="off" onchange="validarCorreo('correo','spanemail')"
+                                                   required value="{{$c->correo}}">
+                                            <span style="color: red" class=" control-label" id="spanemail"></span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel panel-default">
+                            <div class="panel  panel-primary">
                                 <div class="panel-heading">Datos cliente</div>
                                 <div class="panel-body">
-                                    <div class="col-sm-12 row form-group">
-                                        <div class="form-group-sm " align="left">
-                                            <span class="col-sm-2 control-label"> Ruc:</span>
-                                            <div class="col-sm-3">
-                                                <input class="form-control input-sm" name="ruc" type="text"
-                                                       autocomplete="off" onkeypress="return validarNum(event)"
-                                                       placeholder="Ejm: 0729787548" value="{{$c->ruc}}">
-                                            </div>
+                                    <div class=" row ">
+                                        <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
+                                            <span class="control-label"> Ruc</span>
+                                            <input class="form-control input-sm" name="ruc" type="text" id="ruc"
+                                                   autocomplete="off" onchange="validarNumeros('ruc','spanruc')"
+                                                   placeholder="Ejm: 0729787548" value="{{$c->ruc}}">
+                                            <span style="color: red" class=" control-label" id="spanruc"></span>
                                         </div>
-                                        <div class="form-group-sm " align="right">
-                                            <span class="col-sm-2 control-label"> Razon social</span>
-                                            <div class="col-sm-4">
-                                                <input class="form-control input-sm" name="razonSocial" placeholder="Ejm:
-                                                    PRICEWATERHOUSE  " onkeypress="return validarLetras(event)"
-                                                       value="{{$c->razonSocial}}">
-                                            </div>
+                                        <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
+                                            <span class="control-label"> Razon social</span>
+                                            <input class="form-control input-sm" name="razonSocial"
+                                                   placeholder="Ejm: PRICEWATERHOUSE" id="razonSocial"
+                                                   onchange="validarNombre('razonSocial','spanrazon')"
+                                                   value="{{$c->razonSocial}}">
+                                            <span style="color: red" class=" control-label" id="spanrazon"></span>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-sm-12 row form-group" align="center">
+                                <span id="mensaje" class="control-label" style="color: red"></span>
                             </div>
                             <div class="col-sm-12 row form-group">
                                 <div class="col-md-3"></div>
-                                <a href="{{url('/Vent')}}" class=" col-md-2 btn btn-sm btn-danger"><span
+                                <a href="{{url('/ventBuscarCliente')}}" class=" col-md-2 btn btn-sm btn-danger"><span
                                             class="glyphicon glyphicon-ban-circle"></span>
                                     Regresar
                                 </a>
                                 <div class="col-md-2">
                                 </div>
                                 <div>
-                                    <button href="" type="submit" name="enviar"
+                                    <button href="" type="submit" name="enviar" id="enviar"
+                                            onmouseover="activarbotonform(event,['spandni','spannombre','spanapellidos','spanemail'],'enviar','mensaje')"
                                             class="col-md-2 btn btn-sm btn-success"><span
                                                 class="glyphicon glyphicon-ok"></span> Guardar
                                     </button>

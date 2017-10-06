@@ -333,28 +333,6 @@
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseExcel">
-                                <span class="glyphicon glyphicon-pushpin">
-                            </span> Importar datos</a>
-                        </h4>
-                    </div>
-                    @yield('excel')
-                    <div id="collapseExcel" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="/admImportarExcel">Agregar pagos</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseBanco">
                                 <span class="fa fa-building-o">
                             </span> Banco</a>
@@ -380,6 +358,29 @@
                         </div>
                     </div>
                 </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseExcel">
+                                <span class="glyphicon glyphicon-pushpin">
+                            </span> Importar datos</a>
+                        </h4>
+                    </div>
+                    @yield('excel')
+                    <div id="collapseExcel" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                        <a href="/admImportarExcel">Agregar pagos</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">

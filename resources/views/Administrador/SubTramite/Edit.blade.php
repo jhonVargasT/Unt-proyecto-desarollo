@@ -31,7 +31,7 @@
                                                    onchange="validarNombre('nombreTramite','spanclasificador')"
                                                    autocomplete="off" required>
                                             <span class=" control-label" style="color:red"
-                                                  id="spanclasificador">  </span>
+                                                  id="spanclasificador"></span>
                                             <script type="text/javascript">
                                                 var path = "{{ route('autocompletet') }}";
                                                 $('input.typeahead').typeahead({
@@ -58,7 +58,7 @@
                                                    autocomplete="off" required id="unidad"
                                                    value="{{$s->unidadOperativa}}"
                                                    onchange="validarNumeros('unidad','spanunidad')">
-                                            <span class=" control-label" style="color:red" id="spanunidad">  </span>
+                                            <span class=" control-label" style="color:red" id="spanunidad"></span>
                                         </div>
                                     </div>
                                     <div class="form-group-sm " align="left">

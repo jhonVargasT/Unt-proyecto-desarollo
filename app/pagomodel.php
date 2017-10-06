@@ -270,27 +270,26 @@ class pagomodel
         return $obj;
     }
 
-    public function obtenerPagosresumensiaf($fecha,$uniope)
+    public function obtenerPagosresumensiaf($fecha, $uniope)
     {
         try {
-            if(Empty($unidadOpe)){
-            $pago = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre as nombresubtramite,sum(st.precio * po.cantidad) as precio, count(po.codPago) as nurPagos
+            if (Empty($unidadOpe)) {
+                $pago = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre as nombresubtramite,sum(st.precio * po.cantidad) as precio, count(po.codPago) as nurPagos
                     FROM tramite as tr
                     LEFT JOIN subtramite st ON (tr.codTramite = st.idTramite)
                     LEFT JOIN pago po ON (st.codSubtramite=po.idSubtramite )
                     ' . $fecha . ' 
-                    group by st.codSubtramite order by tr.nombre;');}
-                    else{
-                        $pago = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre as nombresubtramite,sum(st.precio * po.cantidad) as precio, count(po.codPago) as nurPagos
+                    group by st.codSubtramite order by tr.nombre;');
+            } else {
+                $pago = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre as nombresubtramite,sum(st.precio * po.cantidad) as precio, count(po.codPago) as nurPagos
                     FROM tramite as tr
                     LEFT JOIN subtramite st ON (tr.codTramite = st.idTramite)
                     LEFT JOIN pago po ON (st.codSubtramite=po.idSubtramite )
-                    ' . $fecha . ' and st.unidadOperativa = '.$uniope.'
+                    ' . $fecha . ' and st.unidadOperativa = ' . $uniope . '
                     group by st.codSubtramite order by tr.nombre;');
 
 
-
-                    }
+            }
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'obtenerPagosresumensiaf/pagomodel');
@@ -410,24 +409,23 @@ class pagomodel
         }
     }
 
-    public function listarpagosresumen($tiempo,$uniope)
+    public function listarpagosresumen($tiempo, $uniope)
     {
 
         try {
-            if(Empty($uniope)) {
+            if (Empty($uniope)) {
                 $result = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,sum(st.precio * po.cantidad) as importe
                             FROM unt.tramite as tr
                             LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
                             LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )
                             ' . $tiempo . '
                             group by (tr.codTramite) ');
-            }
-            else{
+            } else {
                 $result = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,sum(st.precio * po.cantidad) as importe
                             FROM unt.tramite as tr
                             LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
                             LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )
-                            ' . $tiempo . ' and st.unidadOperativa = '.$uniope.'
+                            ' . $tiempo . ' and st.unidadOperativa = ' . $uniope . '
                             group by (tr.codTramite) ');
             }
         } catch (PDOException $e) {
@@ -696,7 +694,7 @@ class pagomodel
         $logunt->setCodigoPersonal($codPers);
         try {
             DB::transaction(function () use ($codPago, $logunt, $date) {
-                DB::table('pago')->where('codPago', $codPago)->update(['estado' => 3]);
+                DB::table('pago')->where('codPago', $codPago)->update(['estado' => 2]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -2035,7 +2033,7 @@ class pagomodel
                             LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
                             LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )
                             LEFT JOIN unt.personal pl ON (pl.idPersonal=po.coPersonal )
-                            where po.fecha like "%' . $date . '%"  and idProduccionAlumno is null and pl.codPersonal="' . $codPersonal . '" and po.estado = 1;
+                            where po.fecha like "%' . $date . '%"  and idProduccionAlumno is null and pl.codPersonal="' . $codPersonal . '"
                             group by (st.codSubtramite) order by (tr.nombre)');
         } catch (PDOException $e) {
             $util = new util();
@@ -2044,4 +2042,24 @@ class pagomodel
         }
         return $pago;
     }
+
+    /*public function listarPagosPersonal($codPersonal)
+    {
+        try {
+            date_default_timezone_set('America/Lima');
+            $date = date('Y-m-d');
+            $pago = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre,sum((cantidad*precio)) as precio, count(po.codPago) as nurPagos
+                            FROM unt.tramite as tr
+                            LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
+                            LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )
+                            LEFT JOIN unt.personal pl ON (pl.idPersonal=po.coPersonal )
+                            where po.fecha like "%' . $date . '%"  and idProduccionAlumno is null and pl.codPersonal="' . $codPersonal . '" and po.estado = 1;
+                            group by (st.codSubtramite) order by (tr.nombre)');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarPagosPersonal/pagomodel');
+            return null;
+        }
+        return $pago;
+    }*/
 }

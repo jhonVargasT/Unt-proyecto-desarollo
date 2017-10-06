@@ -33,7 +33,7 @@
                                             <input class="typeahead form-control input-sm" name="nombreSede" type="text"
                                                    autocomplete="off" onchange="validarNombre('ns','spansede')"
                                                    required id="ns" value="{{$e->nombresede}}">
-                                            <span style="color: red" class=" control-label" id="spansede"> </span>
+                                            <span style="color: red" class=" control-label" id="spansede"></span>
                                         </div>
                                         <script type="text/javascript">
                                             var path = "{{ route('autocompletesede') }}";
@@ -54,7 +54,7 @@
                                                    onchange="validarNombre('fa','spanfacultad')"
                                                    name="nombreFacultad" id="fa" autocomplete="off" required
                                                    value="{{$e->fnombre}}">
-                                            <span style="color: red" class=" control-label" id="spanfacultad"> </span>
+                                            <span style="color: red" class=" control-label" id="spanfacultad"></span>
                                             <script>
                                                 src = "{{ route('searchsedeescuela') }}";
                                                 $("#fa").autocomplete({
@@ -93,7 +93,7 @@
                                                    onchange="validarNumeros('codEscuela','spancodigoescuela')"
                                                    required value="{{$e->codEscuela}}">
                                             <span style="color: red" class=" control-label"
-                                                  id="spancodigoescuela"> </span>
+                                                  id="spancodigoescuela"></span>
                                         </div>
                                     </div>
                                     <div class="form-group-sm " align="left">
@@ -103,7 +103,7 @@
                                                    type="text" value="{{$e->nombre}}"
                                                    autocomplete="off" onchange="validarNombre('nombre','spanescuela')"
                                                    required>
-                                            <span style="color: red" class=" control-label" id="spanescuela"> </span>
+                                            <span style="color: red" class=" control-label" id="spanescuela"></span>
                                         </div>
                                     </div>
                                     <div class="form-group-sm " align="left">
@@ -113,7 +113,7 @@
                                                    type="text" value="{{$e->nroCuenta}}"
                                                    autocomplete="off"
                                                    onchange="validarNumeros('nroCuenta','spancuenta')">
-                                            <span style="color: red" class=" control-label" id="spancuenta"> </span>
+                                            <span style="color: red" class=" control-label" id="spancuenta"></span>
                                         </div>
                                     </div>
                                 </div>

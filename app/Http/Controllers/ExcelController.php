@@ -825,6 +825,36 @@ class ExcelController extends Controller
             $path = Input::file('import_file')->getRealPath();
             $data = Excel::load($path, function ($reader) {
             })->get();
+            if (!empty($data)) {
+                foreach ($data as $value) {
+                    if (!empty($value)) {
+                        try {
+                            $subtramite->setCodigotasa($value['codigo']);
+                            $subtramite->setNombre($value['nombre']);
+                            $subtramite->setPrecio($value['precio']);
+                            $subtramite->setUnidad($value['unidad']);
+                            $idTra = $subtramite->bdTramitexClasificador($value['siaf']);
+                            $subtramite->setIdTramite($idTra);
+                            $subtramite->save();
+                        } catch
+                        (Exception $e) {
+                            return back()->with('false', 'Error, por favor revisar su archivo.');
+                        }
+                    }
+                }
+                return back()->with('true', 'Se subio el archivo')->withInput();
+            }
+        }
+        return back()->with('false', 'Por favor, revisar su archivo.');
+    }
+
+    /*public function importExcelTasa(Request $request)
+    {
+        $subtramite = new subtramitemodel();
+        if ($request->hasFile('import_file')) {
+            $path = Input::file('import_file')->getRealPath();
+            $data = Excel::load($path, function ($reader) {
+            })->get();
             if (!empty($data) && $data->count()) {
                 foreach ($data->toArray() as $key => $value) {
                     if (!empty($value)) {
@@ -833,6 +863,7 @@ class ExcelController extends Controller
                                 $subtramite->setCodigotasa($v['codigo']);
                                 $subtramite->setNombre($v['nombre']);
                                 $subtramite->setPrecio($v['precio']);
+                                $subtramite->setUnidad($v['unidad']);
                                 $idTra = $subtramite->bdTramitexClasificador($v['siaf']);
                                 $subtramite->setIdTramite($idTra);
                                 $subtramite->save();
@@ -846,9 +877,10 @@ class ExcelController extends Controller
             }
         }
         return back()->with('false', 'Por favor, revisar su archivo.');
-    }
+    }*/
 
-    public function importExcelSede(Request $request)
+    public
+    function importExcelSede(Request $request)
     {
         $sede = new sedemodel();
         if ($request->hasFile('import_file')) {
@@ -878,7 +910,8 @@ class ExcelController extends Controller
         return back()->with('false', 'Por favor, revisar su archivo.');
     }
 
-    public function importExcelFacultad(Request $request)
+    public
+    function importExcelFacultad(Request $request)
     {
         $facultad = new facultadmodel();
         if ($request->hasFile('import_file')) {
@@ -931,7 +964,8 @@ class ExcelController extends Controller
         return back()->with('false', 'Por favor, revisar su archivo.');
     }
 
-    public function importExcelEscuela(Request $request)
+    public
+    function importExcelEscuela(Request $request)
     {
         $escuela = new escuelamodel();
 
@@ -1007,7 +1041,8 @@ class ExcelController extends Controller
     }
 
     //Jhon, no encuentro donde esta esto
-    public function reportepagodetalle($estado, $modalidad, $opctram, $valtram, $sede, $facultad, $escuela, $tipre, $fuefi, $fechades, $fechahas)
+    public
+    function reportepagodetalle($estado, $modalidad, $opctram, $valtram, $sede, $facultad, $escuela, $tipre, $fuefi, $fechades, $fechahas)
     {
         date_default_timezone_set('America/Lima');
         $fechahoy = date('Y-m-d');
@@ -1287,12 +1322,12 @@ class ExcelController extends Controller
     }
 
     //Reporte resumido, formato excel
-    function reportePagoresu($tiporep, $varopc, $tiempo, $numero,$unop)
+    function reportePagoresu($tiporep, $varopc, $tiempo, $numero, $unop)
     {
         date_default_timezone_set('America/Lima');
         $fechahoy = date('Y-m-d');
-        Excel::create('Reporte resumido  :  ' . $fechahoy . '', function ($excel) use ($tiporep, $varopc, $tiempo, $fechahoy, $numero,$unop) {
-            $excel->sheet('resumen', function ($sheet) use ($tiporep, $varopc, $tiempo, $fechahoy, $numero,$unop) {
+        Excel::create('Reporte resumido  :  ' . $fechahoy . '', function ($excel) use ($tiporep, $varopc, $tiempo, $fechahoy, $numero, $unop) {
+            $excel->sheet('resumen', function ($sheet) use ($tiporep, $varopc, $tiempo, $fechahoy, $numero, $unop) {
                 $pagoModel = new pagomodel();
                 $fecha = '';
                 if ($varopc == 'Resumen total') {
@@ -1300,13 +1335,13 @@ class ExcelController extends Controller
                     $tiempo = null;
                     $result = null;
                     if ($tiporep == 1) {
-                        $result = $pagoModel->listarpagosresumen($tiempo,$unop);//SQL, buscar pagos por fecha
+                        $result = $pagoModel->listarpagosresumen($tiempo, $unop);//SQL, buscar pagos por fecha
                         $fecha = 'AÑO';
                     } elseif ($tiporep == 2) {
-                        $result = $pagoModel->listarpagosresumen($tiempo,$unop);//SQL, buscar pagos por fecha
+                        $result = $pagoModel->listarpagosresumen($tiempo, $unop);//SQL, buscar pagos por fecha
                         $fecha = 'MES';
                     } elseif ($tiporep == 3) {
-                        $result = $pagoModel->listarpagosresumen($tiempo,$unop);//SQL, buscar pagos por fecha
+                        $result = $pagoModel->listarpagosresumen($tiempo, $unop);//SQL, buscar pagos por fecha
                         $fecha = 'DIA';
                     }
                     $total = 0;
@@ -1318,7 +1353,7 @@ class ExcelController extends Controller
                         $cont++;
                         $data[] = array(
                             "CLASIFICADOR S.I.A.F" => $p->clasificadorsiaf,
-                            "UNIDAD OPERATIVA"=>$p->unop,
+                            "UNIDAD OPERATIVA" => $p->unop,
                             "NOMBRE DE CLASIFICADOR" => $p->nombreTramite,
                             "IMPORTE" => $p->importe,
                         );
@@ -1440,14 +1475,14 @@ class ExcelController extends Controller
                     $var = '';
                     $tiempo = null;
                     if ($tiporep == 1) {
-                        $result = $pagoModel->obtenerPagosresumensiaf($tiempo,$unop);
+                        $result = $pagoModel->obtenerPagosresumensiaf($tiempo, $unop);
                         $fecha = 'AÑO';
                     } elseif ($tiporep == 2) {
-                        $result = $pagoModel->obtenerPagosresumensiaf($tiempo,$unop);
+                        $result = $pagoModel->obtenerPagosresumensiaf($tiempo, $unop);
                         $fecha = 'MES';
                         // $valor = $meses[$valor - 1];
                     } elseif ($tiporep == 3) {
-                        $result = $pagoModel->obtenerPagosresumensiaf($tiempo,$unop);
+                        $result = $pagoModel->obtenerPagosresumensiaf($tiempo, $unop);
                         $fecha = 'DIA';
                     }
                     $var = 'RESUMEN DEL ' . $fecha . ' - ' . $numero;
@@ -1463,7 +1498,7 @@ class ExcelController extends Controller
 
                             "CLASIFICADOR S.I.A.F" => $p->clasificadorsiaf,
                             "NOMBRE DE CLASIFICADOR" => $p->nombreTramite,
-                            "UNIDAD OPERATIVA"=>$p->unop,
+                            "UNIDAD OPERATIVA" => $p->unop,
                             "CUENTA" => $p->codigoSubtramite,
                             "NOMBRE DE TASA" => $p->nombresubtramite,
                             "NRO PAGOS" => $p->nurPagos,

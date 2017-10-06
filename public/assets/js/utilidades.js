@@ -1,9 +1,8 @@
 /**
  * Created by JhO.On on 11/07/2017.
  */
-function imprimir(event,url) {
+function imprimir(event, url) {
     event.preventDefault();
-
     swal({
         title: 'Desea imprimir el pago?',
         text: "iEl pago se imprimira! ",
@@ -16,9 +15,9 @@ function imprimir(event,url) {
         window.location = url;
     })
 }
-function  devolver(event,url) {
-    event.preventDefault();
 
+function devolver(event, url) {
+    event.preventDefault();
     swal({
         title: 'Esta seguro que desea devolver el pago?',
         text: "Si devuelve este registro no podra visualizarlo! ",
@@ -31,9 +30,9 @@ function  devolver(event,url) {
         window.location = url;
     })
 }
+
 function eliminar(event, url) {
     event.preventDefault();
-
     swal({
         title: 'Esta seguro de eliminar?',
         text: "Si elimina este registro no podra recuperarlo! ",
@@ -68,10 +67,8 @@ function buscarSearch(idtext, idselect, idboton) {
     var texto = document.getElementById(idtext).value;
 
     if (textoselect !== "Todo") {
-
         if (texto === "") {
             document.getElementById(idboton).disabled = true;
-
         }
         else {
             document.getElementById(idboton).disabled = false;
@@ -112,32 +109,25 @@ function alerta(mensaje) {
 
 function activarbotonform(event, myarray, idboton, idspanmensaje) {
     var cont = 0;
-
-
     for (var i = 0; i < myarray.length; i++) {
-
-        var texto = document.getElementById("" + myarray[i] + "").innerHTML;
+        texto = document.getElementById("" + myarray[i] + "").innerHTML;
         if (!texto) {
-
-
         }
-        else{
-          cont++;
+        else {
+            ++cont;
         }
-
     }
-
-    if (cont <= 0) {
-        alert(cont);
-        document.getElementById(idboton).setAttribute('class', 'col-md-2 btn btn-success ');
-    } else {
-        alert(cont);
+    if (cont > 0) {
+        event && event.preventDefault();
         document.getElementById(idboton).setAttribute('class', 'col-md-2 btn btn-success disabled');
-
+        document.getElementById(idspanmensaje).innerHTML = "Tiene errores de ingreso en el sistema, porfavor verifique el formulario";
+    } else {
+        document.getElementById(idboton).setAttribute('class', 'col-md-2 btn btn-success');
+        document.getElementById(idspanmensaje).innerHTML = "";
     }
 }
 
-function validarContraseña(idContra, idRepContra, idspan) {
+function validarContrasena(idContra, idRepContra, idspan) {
     var texto1 = document.getElementById(idContra).value;
     var texto2 = document.getElementById(idRepContra).value;
     if (texto1 === texto2) {
@@ -156,21 +146,19 @@ function validarContraseña(idContra, idRepContra, idspan) {
 
 function validarNumeros(idform, idspan) {
     var texto = document.getElementById(idform).value;
-    alert(idspan+ " " + idform)
-    alert(texto);
     if (isNaN(texto)) {
-        //document.getElementById(idspan).innerHTML = "Error: no puede contener letras.";
+        document.getElementById(idform).style.backgroundColor = '#F6CECE';
+        document.getElementById(idspan).innerHTML = "Error: no puede contener letras.";
     } else {
-
-       // document.getElementById(idspan).innerHTML ="";
+        document.getElementById(idform).style.backgroundColor = '#FFFFFF';
+        document.getElementById(idspan).innerHTML = "";
     }
-
 }
 
 function validarDni(idform, idspan) {
 
     var texto = document.getElementById(idform).value;
-    if (isNaN(texto)) {
+    if (!texto) {
         document.getElementById(idform).style.backgroundColor = '#F6CECE';
         document.getElementById(idspan).innerHTML = "Error: un dni no puede contener letras.";
     }
@@ -187,12 +175,10 @@ function validarDni(idform, idspan) {
     }
 }
 
-
 function validarNombre(idform, idspan) {
     var texto = document.getElementById(idform).value;
-    if (isNaN(texto)) {
-        var expresion = /^[a-zA-Z\s]+$/;
-        var numeros = /^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/;
+    if (texto) {
+        var expresion = /^[a-zA-Z\s]/;
         if (expresion.test(texto)) {
             document.getElementById(idform).value = (texto.toUpperCase());
             document.getElementById(idform).style.backgroundColor = '#FFFFFF';
@@ -204,8 +190,8 @@ function validarNombre(idform, idspan) {
         }
     }
     else {
-        document.getElementById(idform).style.backgroundColor = '#F6CECE';
-        document.getElementById(idspan).innerHTML = "Error: No puede incluir numeros.";
+        document.getElementById(idform).style.backgroundColor = '#FFFFFF';
+        document.getElementById(idspan).innerHTML = "";
     }
 }
 

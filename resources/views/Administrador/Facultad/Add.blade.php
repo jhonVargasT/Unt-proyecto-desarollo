@@ -27,7 +27,7 @@
     <div style="background-color: #FFFFFF">
         <div class="panel-body">
             <form name="form"
-                  onsubmit="activarbotonform(event,['spansede','spancodigofacultad','spancuenta','spannombre'],'enviar','mensaje')"
+                  onsubmit="activarbotonform(event,['spansede','spancodigofacultad','spannombre'],'enviar','mensaje')"
                   action="{{url('FacultadRegistrada')}}" role="form" method="POST" class="Vertical">
                 {{csrf_field()}}
                 @if(session()->has('true'))
@@ -82,8 +82,7 @@
                                     <span class=" control-label"> Cuenta interna</span>
                                     <input class="form-control input-sm" name="CuentaInterna" id="CuentaInterna"
                                            type="text"
-                                           autocomplete="off" onchange="validarNumeros('CuentaInterna','spancuenta')"
-                                           required>
+                                           autocomplete="off" onchange="validarNumeros('CuentaInterna','spancuenta')">
                                     <span style="color: red" class=" control-label" id="spancuenta"> </span>
                                 </div>
                             </div>
@@ -113,7 +112,7 @@
                     </div>
                     <div>
                         <button type="submit" id="enviar"
-                                onmouseover="activarbotonform(null,['spansede','spancodigofacultad','spancuenta','spannombre'],'enviar','mensaje')"
+                                onmouseover="activarbotonform(null,['spansede','spancodigofacultad','spannombre'],'enviar','mensaje')"
                                 name="enviar" class="col-md-2 btn btn-sm btn-success"><span
                                     class="glyphicon glyphicon-ok"></span> Guardar
                         </button>

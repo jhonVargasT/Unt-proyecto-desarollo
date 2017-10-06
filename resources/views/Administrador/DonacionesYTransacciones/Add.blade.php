@@ -73,7 +73,7 @@
                             </div>
                             <div class="form-group-sm " align="left">
                                 <div class="col-sm-3">
-                                    <span class=" control-label"> Tipo de recurso </span>
+                                    <span class=" control-label"> Tipo de recurso</span>
                                     <input class="form-control input-sm " name="TipoDeRecurso" type="text" id="tr"
                                            readonly>
                                     <script>
@@ -112,12 +112,15 @@
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
-                                <div class="col-sm-3">
-                                    <span class="glyphicon glyphicon-usd"> Monto</span>
-                                    <input type="text" class="form-control " name="monto"
-                                           autocomplete="off" placeholder="ejmp: 2.50" id="monto"
-                                           required onchange=" validarNumeros('monto','spanmonto')">
-                                    <span style="color: red" class=" control-label" id="spanmonto"> </span>
+                                <div class="col-sm-2">
+                                    <span class=" control-label">Monto</span>
+                                    <div class="input-group col-sm-12">
+                                        <div class="input-group-addon ">S/.</div>
+                                        <input class="form-control " name="monto" type="text"
+                                               autocomplete="off" required id="monto"
+                                               onchange="decimales('monto','spanmonto')">
+                                    </div>
+                                    <span class=" control-label" style="color:red" id="spanmonto"> </span>
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
@@ -127,7 +130,7 @@
                                            type="text"
                                            autocomplete="off" required
                                            onchange="validarNumeros('numResolucion','spanresolucion')">
-                                    <span class=" control-label" style="color:red" id="spanresolucion">  </span>
+                                    <span class=" control-label" style="color:red" id="spanresolucion"> </span>
                                 </div>
                             </div>
                             <div class="form-group-sm " align="left">
@@ -141,13 +144,15 @@
                             <div class="col-sm-12 row form-group">
                                 <div class="form-group-sm " align="left">
                                     <div class="col-sm-3">
-                                        <span class=" control-label"> Cuenta bancaria </span>
-                                        <input class="form-control input-sm " name="cuenta" type="text" id="cuenta"
-                                               onchange="validarNumeros('cuenta','spancuenta')">
-                                        <div class="input-group-addon"><a id="help_button"><i
-                                                        class="glyphicon glyphicon-eye-open"></i></a>
+                                        <span class=" control-label"> Cuenta bancaria</span>
+                                        <div class="input-group col-sm-12">
+                                            <input class="form-control input-sm " name="cuenta" type="text" id="cuenta"
+                                                   onchange="validarNumeros('cuenta','spancuenta')">
+                                            <div class="input-group-addon"><a id="help_button"><i
+                                                            class="glyphicon glyphicon-eye-open"></i></a>
+                                            </div>
                                         </div>
-                                        <span class=" control-label" style="color:red" id="spancuenta">  </span>
+                                        <span class=" control-label" style="color:red" id="spancuenta"> </span>
                                     </div>
                                 </div>
                             </div>

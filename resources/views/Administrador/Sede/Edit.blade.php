@@ -12,8 +12,8 @@
             @if($sede)
                 @foreach($sede as $s)
                     <form name="form"
-                          onsubmit="activarbotonform(event,['spansede','spancodigosede'],'enviar','mensaje')"
-                          action="{{ url('SedeEditada/' .$s->codSede ) }}" role="form" method="Get"
+                          onsubmit="activarbotonform(event,['spansede'],'enviar','mensaje')"
+                          action="{{ url('SedeEditada/' .$s->codSede ) }}" role="form" method="GET"
                           class="Vertical">
                         {{csrf_field()}}
                         <div class="panel  panel-primary">
@@ -23,22 +23,21 @@
                                     <div class="form-group-sm " align="left">
                                         <div class="col-sm-3">
                                             <span class=" control-label"> Sede</span>
-                                            <input class="form-control input-sm" name="nombresede" id="nombresede"
-                                                   type="text"
-                                                   autocomplete="off" onchange="validarNombre('nombresede','spansede')"
+                                            <input class="form-control input-sm" name="nombresede" id="sede"
+                                                   type="text" autocomplete="off"
+                                                   onchange="validarNombre('sede','spansede')"
                                                    required value="{{$s->nombresede}}">
-                                            <span style="color: red" class=" control-label" id="spansede"> </span>
+                                            <span style="color: red" class=" control-label" id="spansede"></span>
                                         </div>
                                     </div>
                                     <div class="form-group-sm " align="left">
                                         <div class="col-sm-3">
                                             <span class=" control-label"> Codigo sede</span>
-                                            <input class="form-control input-sm" name="codigosede" id="codigosede"
-                                                   type="text"
-                                                   autocomplete="off"
-                                                   onchange="validarNumeros('codigosede','spancodigosede')"
+                                            <input class="form-control input-sm" name="codigosede" id="codigo"
+                                                   type="text" autocomplete="off"
+                                                   onchange="validarNumeros('codigo','spancodigosede')"
                                                    required value="{{$s->codigosede}}">
-                                            <span style="color: red" class=" control-label" id="spancodigosede"> </span>
+                                            <span style="color: red" class=" control-label" id="spancodigosede"></span>
                                         </div>
                                     </div>
                                     <div class="form-group-sm " align="left">
@@ -46,7 +45,7 @@
                                             <span class=" control-label"> Direccion</span>
                                             <input class="form-control input-sm" name="direccion" id="direccion"
                                                    type="text"
-                                                   autocomplete="off" required value="{{$s->direccion}}">
+                                                   autocomplete="off" value="{{$s->direccion}}">
                                         </div>
                                     </div>
                                 </div>
@@ -64,9 +63,9 @@
                             <div class="col-md-2">
                             </div>
                             <div>
-                                <button type="submit" name="enviar" id="enviar"
-                                        onmouseover="activarbotonform(null,['spansede','spancodigosede'],'enviar','mensaje')"
-                                        class="col-md-2 btn btn-sm btn-success"><span
+                                <button type="submit" id="enviar"
+                                        onmouseover="activarbotonform(null,['spansede'],'enviar','mensaje')"
+                                        name="enviar" class="col-md-2 btn btn-sm btn-success"><span
                                             class="glyphicon glyphicon-ok"></span> Guardar
                                 </button>
                             </div>

@@ -48,7 +48,7 @@
                                                    autocomplete="off" required
                                                    onchange="validarNumeros('clasificador','spanclasificador')">
                                             <span class=" control-label" style="color:red"
-                                                  id="spanclasificador">  </span>
+                                                  id="spanclasificador"></span>
                                         </div>
                                     </div>
                                     <div class=" form-group-sm" align="left">

@@ -46,19 +46,19 @@
                                            type="text"
                                            autocomplete="off" required
                                            onchange="validarNumeros('clasificador','spanclasificador')">
-                                    <span class=" control-label" style="color:red" id="spanclasificador">  </span>
+                                    <span class=" control-label" style="color:red" id="spanclasificador"> </span>
                                 </div>
-                            </div>
-                            <div class=" form-group-sm" align="left">
 
-                                <div class="col-sm-2">
-                                    <span class=" control-label">Nombre de clasificador</span>
-                                    <input class="form-control" name="nombre" id="nombre" type="text"
-                                           autocomplete="off"
-                                           onchange="validarNombre('nombre','spannombre')" required>
-                                    <span class=" control-label" style="color:red" id="spannombre"></span>
+                                <div class="form-group-sm " align="left">
+                                    <div class="col-sm-3">
+                                        <span class=" control-label">Nombre de clasificador</span>
+                                        <input class="form-control input-sm" name="nombre" id="nombre"
+                                               type="text"
+                                               autocomplete="off" required
+                                               onchange="validarNombre('nombre','spannombre')">
+                                        <span class=" control-label" style="color:red" id="spannombre"> </span>
+                                    </div>
                                 </div>
-                            </div>
                             <div class="form-group-sm " align="left">
 
                                 <div class="col-sm-3">
@@ -66,7 +66,7 @@
                                     <input class=" form-control input-sm" name="tipoRecurso" type="text"
                                            autocomplete="off" placeholder="A" id="tipoRecurso"
                                            onchange="validarNombre('tipoRecurso','spantiporecurso')">
-                                    <span class=" control-label" style="color:red" id="spantiporecurso"></span>
+                                    <span class=" control-label" style="color:red" id="spantiporecurso"> </span>
                                 </div>
                             </div>
                             <div class=" form-group-sm" align="left">
@@ -75,7 +75,7 @@
                                     <input class="form-control" name="fuentefinanc" type="text"
                                            autocomplete="off" placeholder="1" id="fuentefinac"
                                            onchange="validarNumeros('fuentefinac','spanfuente')">
-                                    <span class=" control-label" style="color:red" id="spanfuente"></span>
+                                    <span class=" control-label" style="color:red" id="spanfuente"> </span>
                                 </div>
                             </div>
                         </div>

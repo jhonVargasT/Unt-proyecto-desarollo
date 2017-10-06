@@ -498,3 +498,5 @@ Route::get('/impTasas', function () {
     return view('Importaciones/Importacion/Tasa');
 });
 Route::resource('/importTasas','ExcelController@importExcelTasa');
+
+Route::get('/importAlumnoAutomatico','importarListaAlumnos@importExcelAlumno');

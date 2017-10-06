@@ -32,14 +32,10 @@
             </table>
         </div>
     </div>
-
-
 @stop
 @section('content')
-
     <div class="panel-heading"><h3>Buscar Alumnos</h3></div>
     <div style="background-color: #FFFFFF">
-
         <div class="panel-body">
             @if(session()->has('true'))
                 <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -49,7 +45,6 @@
             @endif
             <form name="form" action="{{url('AlumnosBuscados')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
-
                 <div class=" row col-sm-12" >
                     <div class="form-group-sm col-sm-2 ">
                         <span class="ontrol-label">Buscar por:</span>

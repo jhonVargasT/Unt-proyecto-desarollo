@@ -20,19 +20,19 @@
     </div>
 @stop
 @section('content')
-    @if(session()->has('true'))
-        <div class="alert alert-success" role="alert">{{session('true')}} </div>
-    @endif
-    @if(session()->has('false'))
-        <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
-    @endif
-    <div class="panel-heading"><h3> Buscar Clientes</h3></div>
+    <div class="panel-heading"><h3>Buscar Clientes</h3></div>
     <div style="background-color: #FFFFFF">
         <div class="panel-body">
-            <form name="form" action="{{url('ClientesBuscados')}}" role="form" method="POST" class="Vertical">
+            @if(session()->has('true'))
+                <div class="alert alert-success" role="alert">{{session('true')}} </div>
+            @endif
+            @if(session()->has('false'))
+                <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
+            @endif
+            <form name="form" action="{{url('/ClientesBuscados')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
                 <div class="col-sm-12 row form-group">
-                    <div class="form-group-sm col-sm-6 ">
+                    <div class="form-group-sm col-sm-4 ">
                         <span class="col-sm-5 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
                             <select class=" form-control" name="select">
@@ -57,57 +57,63 @@
                 </div>
             </form>
             <!--tabla-->
-            @if(isset($nombre)!=null)
-                <div class="alert alert-success" role="alert">El cliente {{$nombre}} fue actualizada!!</div>
-            @endif
             <div class="table-responsive  col-sm-12 ">
-                <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                    <thead>
-                    <!--cabecear Tabla-->
-                    <tr>
-                        <th>
-                            <div align="center">Dni</div>
-                        </th>
-                        <th>
-                            <div align="center">Nombres y apellidos</div>
-                        </th>
-                        <th>
-                            <div align="center">Correo</div>
-                        </th>
-                        <th>
-                            <div align="center">Ruc</div>
-                        </th>
-                        <th>
-                            <div align="center">Razon Social</div>
-                        </th>
-                        <th>
-                            <div align="center">Opciones</div>
-                        </th>
-                    </tr>
-                    </thead>
-                    <body>
-                    @if(isset($cliente))
-                        <!--Contenido-->
-                        @foreach($cliente as $c)
-                            <tr>
-                                <td>{{$c->dni}}</td>
-                                <td>{{$c->nombres}} {{$c->apellidos}}</td>
-                                <td>{{$c->correo}}</td>
-                                <td>{{$c->ruc}}</td>
-                                <td>{{$c->razonSocial}}</td>
-                                <td align="center">
-                                    {{ csrf_field() }}
-                                    <a href="ClienteCargar/{{$c->codPersona}}"><span
-                                                class="glyphicon glyphicon-pencil"></span> </a>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a href="ClienteEliminar/{{$c->codPersona}}"><span
-                                                class="glyphicon glyphicon-trash"></span> </a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    @endif
-                    </body>
-                </table>
+                <br>
+                @if(isset($nombre)!=null)
+                    <div class="alert alert-success" role="alert">El cliente {{$nombre}} fue actualizada!!</div>
+                @endif
+                <div class="table-responsive  col-sm-12 ">
+                    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                        <!--cabecear Tabla-->
+                        <tr>
+                            <th>
+                                <div align="center">Dni</div>
+                            </th>
+                            <th>
+                                <div align="center">Nombres y apellidos</div>
+                            </th>
+                            <th>
+                                <div align="center">Correo</div>
+                            </th>
+                            <th>
+                                <div align="center">Ruc</div>
+                            </th>
+                            <th>
+                                <div align="center">Razon Social</div>
+                            </th>
+                            <th>
+                                <div align="center">Opciones</div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <body>
+                        @if(isset($cliente))
+                            <!--Contenido-->
+                            @foreach($cliente as $c)
+                                <tr>
+                                    <td>{{$c->dni}}</td>
+                                    <td>{{$c->nombres}} {{$c->apellidos}}</td>
+                                    <td>{{$c->correo}}</td>
+                                    <td>{{$c->ruc}}</td>
+                                    <td>{{$c->razonSocial}}</td>
+                                    <td align="center">
+                                        {{ csrf_field() }}
+                                        <a title="Editar" href="ClienteCargar/{{$c->codPersona}}"><span
+                                                    class="glyphicon glyphicon-pencil" style="color: green;"></span>
+                                        </a>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a onclick="eliminar(event,'ClienteEliminar/{{$c->codPersona}}')"
+                                           title="Eliminar"
+                                           href=""><span
+                                                    class="glyphicon glyphicon-trash" style="color: red;"></span> </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
+                        </body>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
