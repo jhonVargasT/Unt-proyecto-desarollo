@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use app;
 use App\alumnomodel;
 use App\listasAlumno;
 use Exception;
@@ -69,6 +68,7 @@ class importarListaAlumnos extends Controller
                                 }
                                 if ($cantAl == 0) {
                                     $alumno->setTipoAlummno(1);
+                                    $alumno->setDni($value['DNI']);
                                     $alumno->setNombres($value['NOMBRES']);
                                     $alumno->setApellidos($value['APELLIDOS']);
                                     $alumno->setCodAlumno($value['CODIGO']);
