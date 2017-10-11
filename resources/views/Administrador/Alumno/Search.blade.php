@@ -49,7 +49,7 @@
                     <div class="form-group-sm col-sm-2 ">
                         <span class="ontrol-label">Buscar por:</span>
                         <select class=" form-control" name="select" id="select" onclick='activarBusqueda("select","text","buscar");'>
-                            <option>Todo</option>
+                            <!--<option>Todo</option>-->
                             <option>Dni</option>
                             <option>Apellidos</option>
                             <option>Codigo alumno</option>
