@@ -546,7 +546,7 @@
                             </th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <body>
                         @if(isset($result))
                             <!--Contenido-->
                             @foreach($result as $r)
@@ -565,9 +565,10 @@
                                     <td><h6 align="center">{{$r->precio}}</h6></td>
                                     <td><h6 align="left">{{$r->pagodetalle}}</h6></td>
                                 </tr>
-                        </tbody>
-                        @endforeach
+
+                            @endforeach
                         @endif
+                        </body>
                     </table>
                 </div>
                 <div class="col-sm-12 row form-group">
