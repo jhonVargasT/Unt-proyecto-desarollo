@@ -45,10 +45,10 @@
             @endif
             <form name="form" action="{{url('AlumnosBuscados')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
-                <div class=" row col-sm-12" >
+                <div class=" row col-sm-12">
                     <div class="form-group-sm col-sm-2 ">
                         <span class="ontrol-label">Buscar por:</span>
-                        <select class=" form-control" name="select" id="select" onclick='activarBusqueda("select","text","buscar");'>
+                        <select class=" form-control" name="select" id="select">
                             <!--<option>Todo</option>-->
                             <option>Dni</option>
                             <option>Apellidos</option>
@@ -61,13 +61,13 @@
                         <ref></ref>
                         <span class="ontrol-label"> Ingresa datos aqui</span></ref>
 
-                            <span class="input-group-btn">
-                            <input type="text" name="text" disabled id="text" class="form-control"
-                                   autocomplete="off" onkeypress='buscarSearch("text","select","buscar")'>
-                            </span>
-
                         <span class="input-group-btn">
-                            <button class="btn btn-sm" type="submit" onmouseover='buscarSearch("text","select","buscar")' id="buscar" name="buscar">Buscar</button>
+                            <input type="text" name="text" id="text" class="form-control"
+                                   autocomplete="off" required>
+                             <span style="color: red" class=" control-label" id="spanemail"></span>
+                            </span>
+                        <span class="input-group-btn">
+                            <button class="btn btn-sm" type="submit" id="buscar" name="buscar">Buscar</button>
                         </span>
                     </div>
                 </div>
@@ -131,7 +131,8 @@
                                     <a title="Editar" href="AlumnoCargar/{{$a->codPersona}}"><span
                                                 class="glyphicon glyphicon-pencil" style="color: green;"></span> </a>
                                     &nbsp;&nbsp;
-                                    <a onclick="eliminar(event,'AlumnoEliminar/{{$a->codPersona}}')" title="Eliminar" href=""><span
+                                    <a onclick="eliminar(event,'AlumnoEliminar/{{$a->codPersona}}')" title="Eliminar"
+                                       href=""><span
                                                 class="glyphicon glyphicon-trash" style="color: red;"></span> </a>
                                 </td>
                             </tr>
