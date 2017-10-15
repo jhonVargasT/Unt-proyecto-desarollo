@@ -41,7 +41,7 @@
                                 <option value="Ruc">Ruc</option>
                                 <option value="Codigo pago">Codigo pago</option>
                                 <option value="Reporte diario">Reporte diario</option>
-                                <option value="Todo">Todo</option>
+                                <!--<option value="Todo">Todo</option>-->
                             </select>
                         </div>
                     </div>
