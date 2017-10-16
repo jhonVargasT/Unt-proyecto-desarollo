@@ -43,13 +43,13 @@
             @if(session()->has('false'))
                 <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
             @endif
-            <form name="form" action="{{url('AlumnosBuscados')}}" role="form" method="POST" class="Vertical">
+            <form name="form" action="{{url('AlumnosBuscados')}}" role="Form" method="POST" class="Vertical">
                 {{ csrf_field() }}
-                <div class=" row col-sm-12" >
+                <div class=" row col-sm-12">
                     <div class="form-group-sm col-sm-2 ">
                         <span class="ontrol-label">Buscar por:</span>
-                        <select class=" form-control" name="select" id="select" onclick='activarBusqueda("select","text","buscar");'>
-                            <option>Todo</option>
+                        <select class=" form-control" name="select" id="select"
+                                onclick='activarBusqueda("select","text","buscar");'>
                             <option>Dni</option>
                             <option>Apellidos</option>
                             <option>Codigo alumno</option>
@@ -67,13 +67,13 @@
                             </span>
 
                         <span class="input-group-btn">
-                            <button class="btn btn-sm" type="submit" onmouseover='buscarSearch("text","select","buscar")' id="buscar" name="buscar">Buscar</button>
+                            <button class="btn btn-sm" type="submit"
+                                    onmouseover='buscarSearch("text","select","buscar")' id="buscar" name="buscar">Buscar</button>
                         </span>
                     </div>
                 </div>
             </form>
             <!--tabla-->
-
             <div class="table-responsive  col-sm-12 ">
                 <br>
                 @if(isset($nombre)!=null)
@@ -131,7 +131,8 @@
                                     <a title="Editar" href="AlumnoCargar/{{$a->codPersona}}"><span
                                                 class="glyphicon glyphicon-pencil" style="color: green;"></span> </a>
                                     &nbsp;&nbsp;
-                                    <a onclick="eliminar(event,'AlumnoEliminar/{{$a->codPersona}}')" title="Eliminar" href=""><span
+                                    <a onclick="eliminar(event,'AlumnoEliminar/{{$a->codPersona}}')" title="Eliminar"
+                                       href=""><span
                                                 class="glyphicon glyphicon-trash" style="color: red;"></span> </a>
                                 </td>
                             </tr>

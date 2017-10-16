@@ -18,7 +18,7 @@ class Alumno extends Migration
         {
             $table->engine = 'InnoDB';
             $table-> increments('idAlumno')->unique();
-            $table ->string('codAlumno')->unique();
+            $table ->string('codAlumno')->nullable()->unique();
             $table -> string('fecha')->nullable();
             $table -> boolean('estado')->default('1');
             $table->integer('idPersona')-> unsigned();

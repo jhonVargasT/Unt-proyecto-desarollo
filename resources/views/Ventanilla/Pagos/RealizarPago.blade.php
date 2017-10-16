@@ -40,9 +40,9 @@
                         <div class="form-group-sm " align="right">
                             <div class="col-sm-2">
                                 <select class=" form-group-sm form-control" id="select" name="select">
+                                    <option value="Codigo de alumno">Codigo de alumno</option>
                                     <option value="Dni">Dni</option>
                                     <option value="Ruc">Ruc</option>
-                                    <option value="Codigo de alumno">Codigo de alumno</option>
                                 </select>
                             </div>
                             @if(isset($buscar))
