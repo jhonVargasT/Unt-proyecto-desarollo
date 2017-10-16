@@ -358,7 +358,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-primary">
+                <!--<div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseExcel">
@@ -379,7 +379,7 @@
                             </table>
                         </div>
                     </div>
-                </div>
+                </div>-->
 
                 <div class="panel panel-primary">
                     <div class="panel-heading">
