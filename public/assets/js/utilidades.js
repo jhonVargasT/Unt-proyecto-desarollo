@@ -119,10 +119,10 @@ function activarbotonform(event, myarray, idboton, idspanmensaje) {
     }
     if (cont > 0) {
         event && event.preventDefault();
-        document.getElementById(idboton).setAttribute('class', 'col-md-2 btn btn-success disabled');
+        document.getElementById(idboton).setAttribute('class', 'justify-content-end col-md-1 btn btn-success disabled');
         document.getElementById(idspanmensaje).innerHTML = "Tiene errores de ingreso en el sistema, porfavor verifique el formulario";
     } else {
-        document.getElementById(idboton).setAttribute('class', 'col-md-2 btn btn-success');
+        document.getElementById(idboton).setAttribute('class', 'justify-content-end col-md-1 btn btn-success');
         document.getElementById(idspanmensaje).innerHTML = "";
     }
 }
@@ -143,7 +143,14 @@ function validarContrasena(idContra, idRepContra, idspan) {
         document.getElementById(idspan).innerHTML = "Error: Las ontraseñas no coinciden.";
     }
 }
-
+function compararFechas(idFec1,idFec2,idSpam) {
+    var f1=document.getElementById(idFec1).value;
+    var f2=document.getElementById(idFec2).value;
+    if(f2<f1){
+        document.getElementById(idSpam).innerHTML="Error la fecha hasta debe ser mayor a la fecha desde";}
+    else{
+        document.getElementById(idSpam).innerHTML="";}
+}
 function validarNumeros(idform, idspan) {
     var texto = document.getElementById(idform).value;
     if (isNaN(texto)) {

@@ -194,16 +194,16 @@
                 <form id="miform" action="{{'reportePago'}}" role="form" method="POST" class="Vertical">
                     <input type="hidden" name="_token" value="{{csrf_token() }}"/>
                     <div class=" row ">
-                        <div class="form-group-sm col-sm-2 ">
-                            <span class=" control-label">Estado :</span>
+                        <div class="form-group-sm col-sm-2 col-xs-2 col-lg-2">
+                            <span class=" control-label">Estado </span>
                             <select class="form-control" name="estado">
                                 <option>Pagado</option>
                                 <option>Devuelto</option>
                                 <option>Eliminado</option>
                             </select>
                         </div>
-                        <div class="form-group-sm col-sm-2 ">
-                            <span class="control-label">Modalidad :</span>
+                        <div class="form-group-sm col-sm-2 col-xs-2 col-lg-2">
+                            <span class="control-label">Modalidad </span>
                             <select class=" form-control small" name="modalidad">
                                 <option>Todo</option>
                                 <option>Banco</option>
@@ -211,15 +211,15 @@
                                 <option>Ventanilla</option>
                             </select>
                         </div>
-                        <div class="form-group-sm col-sm-2 ">
-                            <span class="control-label">Clasificador o tasa:</span>
+                        <div class="form-group-sm col-sm-2 col-xs-2 col-lg-2">
+                            <span class="control-label">Clasificador o tasa</span>
                             <select class=" form-control" id="opcTramite" name="opcTramite">
                                 <option value="Todo">Todo</option>
                                 <option value="Clasificador">Clasificador</option>
                                 <option value="Tasa">Tasa</option>
                             </select>
                         </div>
-                        <div class="form-group-sm col-sm-2 ">
+                        <div class="form-group-sm col-sm-2 col-xs-2 col-lg-2">
                             <script>
                                 $('#opcTramite').change(function () {
                                     var value = $('#opcTramite option:selected').attr('value');
@@ -235,14 +235,14 @@
                                 });
                             </script>
                             @if(isset($Tram))
-                                <span class="control-label"> . </span>
+                                <span class="control-label"> &nbsp; </span>
                                 <input type="text" class="typeahead form-control input-sm " id="input"
                                        name="inputTram"
                                        autocomplete="off" value="{{$Tram}}" readonly
                                        onchange=" validarNombre('input','spaninput')">
                                 <span style="color: red" class=" control-label" id="spaninput"> </span>
                             @else
-                                <span class="control-label">. </span>
+                                <span class="control-label">&nbsp; </span>
                                 <input type="text" class="typeahead form-control input-sm " id="input"
                                        name="inputTram" onchange=" validarNombre('input','spaninput')"
                                        autocomplete="off" readonly>
@@ -270,7 +270,7 @@
                                 });
                             </script>
                         </div>
-                        <div class="form-group-sm col-sm-2 ">
+                        <div class="form-group-sm col-sm-2 col-xs-2 col-lg-2">
                             <span class=" control-label">Fecha desde:  </span>
 
                             <div class=" input-group date" data-provide="datepicker">
@@ -282,13 +282,14 @@
                             </div>
 
                         </div>
-                        <div class="form-group-sm col-sm-2 ">
+                        <div class="form-group-sm col-sm-2 col-xs-2 col-lg-2">
                             <span class=" control-label">Fecha hasta:  </span>
 
                             <div class="input-group date" data-provide="datepicker">
                                 <input type="text" id="fecHasta" name="fechaHasta" class="form-control"
 
-                                       autocomplete="off" required>
+                                       autocomplete="off" onchange="compararFechas('fecdesde','fecHasta','mensaje')"
+                                       required>
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </div>
@@ -297,7 +298,7 @@
                         </div>
                     </div>
                     <div class="row  ">
-                        <div class="form-group-sm col-sm-2">
+                        <div class="form-group-sm col-sm-2 col-xs-2 col-lg-2">
                             <input type="checkbox" id="ccp" onclick="habilitarCP(this.checked)">
                             Centro de produccion
                             @if(isset($produccion))
@@ -320,7 +321,7 @@
                                 });
                             </script>
                         </div>
-                        <div class="form-group-sm col-sm-2 ">
+                        <div class="form-group-sm col-sm-2 col-xs-2 col-lg-2">
                             <input type="checkbox" id="sed" onclick="habilitarsed(this.checked)">
                             Sede
                             @if(isset($sede))
@@ -343,7 +344,7 @@
                                 });
                             </script>
                         </div>
-                        <div class="form-group-sm col-sm-2 ">
+                        <div class="form-group-sm col-sm-2 col-xs-2 col-lg-2">
                             <input type="checkbox" id="cfac" onclick="habilitarfac(this.checked)">
                             facultad
                             @if(isset($fac))
@@ -376,7 +377,7 @@
                                 });
                             </script>
                         </div>
-                        <div class="form-group-sm col-sm-2">
+                        <div class="form-group-sm col-sm-2 col-xs-2 col-lg-2">
                             <input type="checkbox" id="cesc" onclick=" habilitaresc(this.checked)">
                             Escuela
                             @if(isset($esc))
@@ -409,69 +410,55 @@
                                 });
                             </script>
                         </div>
-                        <div class="form-group-sm col-sm-2">
-                            <div class="form-group-sm col-sm-12">
+
+
+                        <div class="form-group-sm col-sm-2 col-xs-2 col-lg-2">
+                            <div class="form-group-sm ">
                                 <input type="checkbox" id="ctr" onclick=" habilitartr(this.checked)">
-                                Tipo de recurso
+                                Tipo recurso
                             </div>
-                            <div class="form-group-sm col-sm-5">
+                            <div class="col-sm-3">
                                 <input type="text" class="form-control input-sm " id="trinp" name="tr"
                                        autocomplete="off" onchange="validarNombre('trinp','spantr')"
                                        readOnly>
-                                <span style="color: red" class=" control-label" id="spantr"> </span>
-                            </div>
-                        </div>
-                        <div class="form-group-sm col-sm-2">
-                            <div class="form-group-sm col-sm-14">
-                                <input type="checkbox" id="cff" onclick="habilitarff(this.checked)">
-                                Fuente de financiamiento
-                            </div>
+                                <span style="color: red" class=" control-label" id="spantr"> </span></div>
 
-                            <div class="form-group-sm col-sm-5">
+                        </div>
+                        <div class="  form-group-sm col-sm-2 col-xs-2 col-lg-2">
+                            <div class="form-group-sm ">
+                                <input type="checkbox" id="cff" onclick="habilitarff(this.checked)">
+                                Fuente financiamiento
+                            </div>
+                            <div class="col-sm-3">
                                 <input type="text" class="form-control input-sm " id="ff" name="fuf"
                                        autocomplete="off" readOnly onchange="validarNumeros('ff','spanff')">
                                 <span style="color: red" class=" control-label" id="spanff"> </span>
                             </div>
                         </div>
 
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class=" col-sm-4">
-
+                        <div class=" col-sm-12  col-xs-12 col-lg-12 row form-group " align="center">
+                            <span id="mensaje" class="control-label" style="color: red"></span>
                         </div>
-                        <div class="col-md-2 form-group-sm">
-                            <button type="submit" name="enviar" class=" btn btn-success"><span
+                    </div>
+                        <div class="row col-sm-12 col-xs-12 col-lg-12" align="center">
+                            <button type="submit" name="enviar" class=" btn btn-sm  btn-success"><span
                                         class="glyphicon glyphicon-refresh"></span> Actualizar
                             </button>
 
-                        </div>
-                        <div class="col-md-2 form-group-sm">
-                            <a class=" btn btn-warning" onclick="limpiarCampos(this);">
+                            <a class=" btn btn-sm btn-warning" onclick="limpiarCampos(this);">
                                 <span class="glyphicon glyphicon-erase">
-
                                 </span> Limpiar campos
                             </a>
                         </div>
-                        <div class="col-sm-4">
-
-                        </div>
-                    </div>
                 </form>
                 <!--Tabla-->
 
-                <div align="center" class=" row  ">
-
-                    <div class="col-sm-10"></div>
-
-                    <div class="col-sm-2">
-                        Total :
-                        @if(isset($total) )
-                            {{$total}}
-                        @endif
+                <div class="row   col-sm-12  col-xs-12 col-lg-12 row form-group ">
+                    <div align="right">
+                        Total : @if(isset($total) )S/. {{$total}} @else S/. 0.00 @endif
                     </div>
                 </div>
-                <div class="table-responsive col-sm-12">
+                <div class="table-responsive col-sm-12 col-xs-12 col-lg-12">
                     <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 
                         <thead align="center">
@@ -571,34 +558,24 @@
                         </body>
                     </table>
                 </div>
-                <div class="col-sm-12 row form-group">
-                </div>
-                <div class=" row ">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-2">
-                        <a href="{{url('/Adm')}}" class="btn btn-sm s-b-5  btn-primary"><span
-                                    class="glyphicon glyphicon-arrow-left"></span> Regresar
+
+                <div class="row  col-sm-12 col-xs-12 col-lg-12" align="center">
+
+                    <a href="{{url('/Adm')}}" class="btn btn-sm  btn-primary"><span
+                                class="glyphicon glyphicon-arrow-left"></span> Regresar
+                    </a>
+                    <!--Contenido-->
+                    @if(isset($encript))
+                        <a href="exceldetallado/{{$encript}}"
+                           class="btn btn-sm   btn-primary"><span
+                                    class="glyphicon glyphicon-print"></span> Imprimir
                         </a>
-                    </div>
-
-                    <div class="col-md-2">
-                        <!--Contenido-->
-                        @if(isset($encript))
-                            <a href="exceldetallado/{{$encript}}"
-                               class="btn btn-sm s-b-5  btn-primary"><span
-                                        class="glyphicon glyphicon-print"></span> Imprimir
-                            </a>
-                        @else
-                            <a class="btn btn-sm s-b-5  btn-primary"><span
-                                        class="glyphicon glyphicon-print"></span> Imprimir
-                            </a>
-                        @endif
-                    </div>
-
-                    <div class="col-md-3"></div>
+                    @else
+                        <a class="btn btn-sm   btn-primary"><span
+                                    class="glyphicon glyphicon-print"></span> Imprimir
+                        </a>
+                    @endif
                 </div>
-
-                <div class="col-md-5"></div>
             </div>
         </div>
     </div>

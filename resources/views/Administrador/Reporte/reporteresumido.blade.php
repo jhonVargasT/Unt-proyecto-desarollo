@@ -33,18 +33,18 @@
                     <form id="miform" action="{{'admReporteresumido'}}" onsubmit="activarBotonreporte(event)"
                           role="form" method="POST" class="Vertical">
                         {{csrf_field()}}
-                        <div class="row ">
+                        <div class="row justify-content-center">
 
-                            <div class="form-group-sm col-sm-3 col-lg-3 col-xs-3">
-                                <span class=" control-label">Tipo de reporte para :</span>
-                                <select class="form-control" id="tipreporte" onclick="cambiartabla(event)"
+                            <div class=" form-group-sm col-sm-2 col-lg-2 col-xs-2">
+                                <span class=" control-label text-justify">Tipo de reporte para :</span>
+                                <select class="form-control " id="tipreporte" onclick="cambiartabla(event)"
                                         name="tipreporte">
-                                    <option>Clasificador S.I.A.F</option>
-                                    <option>Resumen total</option>
+                                    <option >Clasificador S.I.A.F</option>
+                                    <option >Resumen total</option>
                                 </select>
                             </div>
                             <div class="form-group-sm col-sm-2 col-lg-2 col-xs-2">
-                                <span class="control-label">Buscar por :</span>
+                                <span class="control-label text-justify">Buscar por :</span>
                                 <select class=" form-control" name="combito" id="combito" onclick="cambiarmenu(event);">
                                     <option>Escojer</option>
                                     <option>Año</option>
@@ -54,45 +54,36 @@
                             </div>
                             <div class="form-group-sm col-sm-2 col-lg-2 col-xs-2" id="opc">
                             </div>
-                            <div class="form-group-sm col-sm-2 col-lg-2 col-xs-2">
+                            <div class=" text-justify form-group-sm col-sm-2 col-lg-2 col-xs-2">
                                 <input type="checkbox" id="ccp"
                                        onclick="habilitarTexto(this.checked,'textbox','spantext')">
                                 Unidad operativa
                                 <div class="col-sm-5 col-lg-6 col-xs-5">
-                                    <input type="text" class="typeaheads form-control " name="textbox" id="textbox"
+                                    <input type="text" class="form-control " name="textbox" id="textbox"
                                            autocomplete="off" disabled required
                                            onchange="validarNumeros('textbox','spantext')">
-                                    <span class="control-label" style="color: red" id="spantext"></span>
+                                    <span class=" text-justify control-label" style="color: red" id="spantext"></span>
                                 </div>
                             </div>
                             <div>&nbsp;</div>
-                            <button type="submit" class="col-md-2 btn btn-sm btn-success" id="imp"
+                            <button type="submit" class=" justify-content-end col-md-1 btn btn-sm btn-success" id="imp"
                                     onmouseover="activarBotonreporte(null)">
-                                <span class="ion-ios7-search"> </span> buscar
+                                <span class="text-justify ion-ios7-search"> </span> buscar
                             </button>
                         </div>
                         &nbsp;
-                        <div class="col-sm-12 row form-group" align="center">
+                        <div class=" col-sm-12 row form-group " align="center">
                             <span id="mensaje" class="control-label" style="color: red"></span>
                         </div>
                     </form>
                     <!--Tabla-->
                     <br>
                     <div class=" row form-group ">
-                        <div class="col-sm-12 row form-group ">
-                            <div class="col-sm-8">
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="col-sm-4"></div>
-                                <div class="col-sm-4">
-                                    Total :
+                        <div class=" row   col-sm-12 row form-group ">
+                                <div align="right" >
+                                    Total :@if(isset($total) ) &nbsp; S/. {{$total}}
+                                    @else S/. 0.00 @endif
                                 </div>
-                                <div class="col-sm-4">
-                                    @if(isset($total) )
-                                        S./ {{$total}}
-                                    @endif
-                                </div>
-                            </div>
                         </div>
                         <div class="table-responsive col-sm-12">
                             <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">

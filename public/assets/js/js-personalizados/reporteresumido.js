@@ -11,7 +11,7 @@ function activarBotonreporte(event) {
     if(val ==='Escojer')
     {
         event && event.preventDefault();
-        document.getElementById('imp').setAttribute('class', 'col-md-2 btn btn-success disabled');
+        document.getElementById('imp').setAttribute('class', ' justify-content-end col-md-1  btn btn-success disabled');
     }
     else{
         if(val==='Año') {
