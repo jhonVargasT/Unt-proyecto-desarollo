@@ -552,7 +552,6 @@
                                     <td><h6 align="center">{{$r->precio}}</h6></td>
                                     <td><h6 align="left">{{$r->pagodetalle}}    </h6></td>
                                 </tr>
-
                             @endforeach
                         @endif
                         </body>
