@@ -31,7 +31,7 @@
             <div class="panel-body">
                 <div class="panel-body form-group ">
                     <form id="miform" action="{{'admReporteresumido'}}" onsubmit="activarBotonreporte(event)"
-                          role="form" method="POST" class="Vertical">
+                          role="Form" method="POST" class="Vertical">
                         {{csrf_field()}}
                         <div class="row justify-content-center">
 
@@ -178,13 +178,15 @@
                                             </tr>
                                         @endforeach
                                         @else
-                                        </tbody>
                                         <thead>
                                         <!--cabecear Tabla-->
                                         <tr>
                                             <th>
+                                                Unidad Operativa
+                                            </th>
+                                            <th>
                                                 <div align="center">
-                                                    CODIGO CLASIFICADOR S.I.A.F
+                                                    CLASIFICADOR S.I.A.F
                                                 </div>
                                             </th>
                                             <th>
@@ -194,14 +196,26 @@
                                             </th>
                                             <th>
                                                 <div align="center">
+                                                    CUENTA
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div align="center">
+                                                    NOMBRE DE TASA
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div align="center">
                                                     IMPORTE
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div align="center">
+                                                    NRO PAGOS
                                                 </div>
                                             </th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <!--Contenido-->
-                                        </tbody>
                                     @endif
                                 @endif
                             </table>

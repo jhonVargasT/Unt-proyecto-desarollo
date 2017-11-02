@@ -19,9 +19,6 @@
         </div>
     </div>
 @stop
-@if(isset($buscar))
-    @section('buscar',$buscar)
-@endif
 @section('content')
     <div class="panel-heading"><h3>Buscar personal</h3></div>
     <div style="background-color: #FFFFFF">
@@ -32,13 +29,13 @@
             <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
         @endif
         <div class="panel-body">
-            <form name="form" action="{{url('PersonalBuscado')}}" role="form" method="POST" class="Vertical">
+            <form name="form" action="{{url('PersonalBuscado')}}" role="Form" method="POST" class="Vertical">
                 {{ csrf_field() }}
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm col-sm-6 ">
                         <span class="col-sm-5 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
-                            <select class=" form-control" name="select">
+                            <select class=" form-control" name="select"  id="select" onclick="activarBusqueda('select','text','buscar');">
                                 <option selected>Todo</option>
                                 <option>Dni</option>
                                 <option>Apellidos</option>
@@ -47,14 +44,11 @@
                                 <option>Tipo de cuenta</option>
                             </select>
                         </div>
-
                     </div>
                     <div class="form-group-sm input-group col-sm-6">
-
-                        <input type="text" name="text" class="form-control" value="@yield('buscar')">
-
+                        <input name="text" class="form-control" id="text" value="@yield('buscar')" disabled required>
                         <span class="input-group-btn">
-                            <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
+                            <button class="btn btn-sm" name="buscar" id="buscar">Buscar</button>
                         </span>
                     </div>
                 </div>
@@ -98,26 +92,27 @@
 
                     <body>
                     @if(isset($personal))
-                            <!--Contenido-->
-                    @foreach($personal as $p)
-                        <tr>
-                            <td>{{$p->dni}}</td>
-                            <td>{{$p->nombres}} {{$p->apellidos}}</td>
-                            <td>{{$p->correo}}</td>
-                            <td>{{$p->codPersonal}}</td>
-                            <td>{{$p->cuenta}}</td>
-                            <td>{{$p->password}}</td>
-                            <td>{{$p->tipoCuenta}}</td>
-                            <td align="center">
-                                {{ csrf_field() }}
-                                <a title="editar" href="PersonalCargar/{{$p->idPersona}}" title="editar"><span
-                                            style="color:green" class="glyphicon glyphicon-pencil"></span> </a>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a onclick="eliminar(event,'PersonalEliminar/{{$p->idPersona}}')" title="Eliminar" href=""><span
-                                            class="glyphicon glyphicon-trash" style="color: red;"></span> </a>
-                            </td>
-                        </tr>
-                    @endforeach
+                        <!--Contenido-->
+                        @foreach($personal as $p)
+                            <tr>
+                                <td>{{$p->dni}}</td>
+                                <td>{{$p->nombres}} {{$p->apellidos}}</td>
+                                <td>{{$p->correo}}</td>
+                                <td>{{$p->codPersonal}}</td>
+                                <td>{{$p->cuenta}}</td>
+                                <td>{{$p->password}}</td>
+                                <td>{{$p->tipoCuenta}}</td>
+                                <td align="center">
+                                    {{ csrf_field() }}
+                                    <a title="editar" href="PersonalCargar/{{$p->idPersona}}" title="editar"><span
+                                                style="color:green" class="glyphicon glyphicon-pencil"></span> </a>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a onclick="eliminar(event,'PersonalEliminar/{{$p->idPersona}}')" title="Eliminar"
+                                       href=""><span
+                                                class="glyphicon glyphicon-trash" style="color: red;"></span> </a>
+                                </td>
+                            </tr>
+                        @endforeach
                     @endif
                     </body>
                 </table>

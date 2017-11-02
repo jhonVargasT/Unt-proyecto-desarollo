@@ -31,10 +31,11 @@
             @endif
             <form name="form" action="{{url('BancosBuscados')}}" role="form" method="POST" class="Vertical">
                 {{ csrf_field() }}
-                <div class=" row col-sm-12" >
+                <div class=" row col-sm-12">
                     <div class="form-group-sm col-sm-2 ">
                         <span class="ontrol-label">Buscar por:</span>
-                        <select class=" form-control" name="select">
+                        <select class=" form-control" name="select" id="select"
+                                onclick="activarBusqueda('select','text','buscar');">
                             <option selected>Todo</option>
                             <option>Nombre Banco</option>
                             <option>Cuenta Banco</option>
@@ -45,16 +46,15 @@
                         <span class="ontrol-label"> Ingresa datos aqui</span></ref>
                         @if(isset($txt))
                             <span class="input-group-btn">
-                            <input type="text" name="text" class="form-control" value="{{$txt}}">
+                            <input name="text" class="form-control" value="{{$txt}}" id="text" required>
                                 </span>
                         @else
                             <span class="input-group-btn">
-                            <input type="text" name="text" class="form-control"
-                                   autocomplete="off">
+                            <input name="text" class="form-control" autocomplete="off" id="text" required disabled>
                                 </span>
                         @endif
                         <span class="input-group-btn">
-                            <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
+                            <button class="btn btn-sm" name="buscar" id="buscar">Buscar</button>
                         </span>
                     </div>
                 </div>

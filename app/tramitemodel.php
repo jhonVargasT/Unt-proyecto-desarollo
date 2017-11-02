@@ -164,7 +164,7 @@ class tramitemodel
     {
         try {
             $tramitebd = DB::table('tramite')
-                ->where('fuentefinanc', 'like', '%' . $ff . '%')
+                ->where('fuentefinanc', 'like', '' . $ff . '%')
                 ->where('estado', 1)
                 ->orderBy('codTramite', 'desc')->get();
         } catch (PDOException $e) {
@@ -179,7 +179,7 @@ class tramitemodel
     {
         try {
             $tramitebd = DB::table('tramite')
-                ->where('clasificador', 'like', '%' . $cs . '%')
+                ->where('clasificador', 'like', '' . $cs . '%')
                 ->where('estado', 1)
                 ->orderBy('codTramite', 'desc')->get();
         } catch (PDOException $e) {
@@ -194,7 +194,7 @@ class tramitemodel
     {
         try {
             $tramitebd = DB::table('tramite')
-                ->where('tipoRecurso', 'like', '%' . $tr . '%')
+                ->where('tipoRecurso', 'like', '' . $tr . '%')
                 ->where('estado', 1)
                 ->orderBy('codTramite', 'desc')->get();
         } catch (PDOException $e) {
@@ -209,7 +209,7 @@ class tramitemodel
     {
         try {
         $tramitebd = DB::table('tramite')
-            ->where('nombre', 'like', '%' . $nombre . '%')
+            ->where('nombre', 'like', '' . $nombre . '%')
             ->where('estado', 1)
             ->orderBy('codTramite', 'desc')->get();
         } catch (PDOException $e) {

@@ -153,7 +153,7 @@ class facultadmodel
             $facultadbd = DB::select('SELECT idFacultad, codFacultad,nombre, nroCuenta, nombresede FROM facultad 
         LEFT JOIN sede ON facultad.coSede= sede.codSede
         WHERE facultad.coSede= sede.codSede
-        and sede.estado=1 and facultad.estado=1 and facultad.codFacultad like "%' . $codigo . '%"');
+        and sede.estado=1 and facultad.estado=1 and facultad.codFacultad like "' . $codigo . '%"');
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'consultarFacultadesCodigo/facultadmodel');
@@ -168,7 +168,7 @@ class facultadmodel
             $facultadbd = DB::select('SELECT  idFacultad,codFacultad,nombre, nroCuenta, nombresede FROM facultad 
         LEFT JOIN sede ON facultad.coSede= sede.codSede
         WHERE facultad.coSede= sede.codSede
-        and sede.estado=1 and facultad.estado=1 and facultad.nombre like "%' . $nombre . '%"');
+        and sede.estado=1 and facultad.estado=1 and facultad.nombre like "' . $nombre . '%"');
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'consultarFacultadesNombre/facultadmodel');
@@ -195,8 +195,8 @@ class facultadmodel
     public function consultarFacultadesSede($sede)
     {
         try {
-            $facultadbd = DB::select('SELECT  idFacultad,codFacultad,nombre, nroCuenta, nombresede FROM facultad LEFT JOIN sede ON facultad.idFacultad = sede.codSede WHERE
-        facultad.idFacultad = sede.codSede and sede.nombresede like "%' . $sede . '%" ');
+            $facultadbd = DB::select('SELECT  idFacultad,codFacultad,nombre, nroCuenta, nombresede FROM facultad LEFT JOIN sede ON facultad.coSede = sede.codSede WHERE
+        sede.nombresede like "' . $sede . '%" ');
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'consultarFacultadesSede/facultadmodel');
@@ -211,7 +211,7 @@ class facultadmodel
             $facultadbd = DB::select('SELECT  idFacultad,codFacultad,nombre, nroCuenta, nombresede FROM facultad 
         LEFT JOIN sede ON facultad.coSede= sede.codSede
         WHERE facultad.coSede= sede.codSede
-        and sede.estado=1 and facultad.estado=1 and facultad.nroCuenta like "%' . $nroCuenta . '%"');
+        and sede.estado=1 and facultad.estado=1 and facultad.nroCuenta like "' . $nroCuenta . '%"');
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'consultarFacultadesCuentaInterna/facultadmodel');

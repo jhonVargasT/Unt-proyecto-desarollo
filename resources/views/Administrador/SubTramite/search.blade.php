@@ -37,9 +37,10 @@
                     <div class="form-group-sm col-sm-6 ">
                         <span class="col-sm-5 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
-                            <select class=" form-control" name="select" id="select">
+                            <select class=" form-control" name="select" id="select"
+                                    onclick="activarBusqueda('select','text','buscar');">
                                 <option>Todo</option>
-                                <option value="Tramite">Nombre Clasificador</option>
+                                <option value="Nombre Clasificador">Nombre Clasificador</option>
                                 <option>Nombre Tasa</option>
                                 <option>Codigo Tasa</option>
                             </select>
@@ -47,17 +48,17 @@
                     </div>
                     <div class="form-group-sm input-group col-sm-6">
                         @if(isset($txt))
-                            <input type="text" name="text" class="form-control" value="{{$txt}}">
+                            <input name="text" class="form-control" value="{{$txt}}" id="text" required>
                         @else
-                            <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
-                                   name="text" id="text">
+                            <input class="typeahead form-control" placeholder="Ingresa datos aqui .."
+                                   name="text" id="text" required disabled>
                             <script>
                                 var path = "{{ route('autocompletet') }}";
                                 $('input.typeahead').typeahead({
                                     source: function (query, process) {
                                         return $.get(path, {query: query}, function (data) {
                                             var value = $('#select option:selected').attr('value');
-                                            if (value == 'Tramite') {
+                                            if (value === 'Nombre Clasificador') {
                                                 return process(data);
                                             }
                                         });

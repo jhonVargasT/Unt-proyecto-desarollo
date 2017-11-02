@@ -6,7 +6,6 @@
         <div class="col-sm-2 " style="background-color: #FFFFFF">
             <br>
             <div class="panel-group" id="accordion">
-
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">

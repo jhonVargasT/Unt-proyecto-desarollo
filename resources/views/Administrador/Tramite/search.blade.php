@@ -35,7 +35,8 @@
                     <div class="form-group-sm col-sm-6 ">
                         <span class="col-sm-5 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
-                            <select class=" form-control" name="select">
+                            <select class=" form-control" name="select" id="select"
+                                    onclick="activarBusqueda('select','text','buscar');">
                                 <option selected=""> Todo</option>
                                 <option>Codigo clasificador</option>
                                 <option>Tipo de recurso</option>
@@ -46,13 +47,13 @@
                     </div>
                     <div class="form-group-sm input-group col-sm-6">
                         @if(isset($txt))
-                            <input type="text" name="text" class="form-control" value="{{$txt}}">
+                            <input name="text" class="form-control" value="{{$txt}}" id="text" required>
                         @else
-                            <input type="text" name="text" class="form-control" placeholder="Ingresa datos aqui .."
-                                   autocomplete="off">
+                            <input name="text" class="form-control" placeholder="Ingresa datos aqui .."
+                                   autocomplete="off" id="text" disabled required>
                         @endif
                         <span class="input-group-btn">
-                            <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
+                            <button class="btn btn-sm" name="buscar" id="buscar">Buscar</button>
                         </span>
                     </div>
                 </div>

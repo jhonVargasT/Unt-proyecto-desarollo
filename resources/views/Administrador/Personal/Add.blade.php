@@ -108,7 +108,6 @@
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
-
                                 <div class="col-sm-3">
                                     <span class="control-label">Tipo de cuenta</span>
                                     <select class="form-control " name="tipocuenta">

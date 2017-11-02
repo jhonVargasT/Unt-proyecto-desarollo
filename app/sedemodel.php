@@ -185,7 +185,7 @@ class sedemodel
     {
         try {
             $sedebd = DB::table('sede')
-                ->where('nombresede', 'like', '%' . $nombre . '%')
+                ->where('nombresede', 'like', '' . $nombre . '%')
                 ->where('estado', 1)->orderBy('codSede', 'desc')->get();
         } catch (PDOException $e) {
             $util = new util();
@@ -199,7 +199,7 @@ class sedemodel
     {
         try {
             $sedebd = DB::table('sede')
-                ->where('codigosede', 'like', '%' . $codigo . '%')
+                ->where('codigosede', 'like', '' . $codigo . '%')
                 ->where('estado', 1)->orderBy('codSede', 'desc')->get();
         } catch (PDOException $e) {
             $util = new util();
@@ -213,7 +213,7 @@ class sedemodel
     {
         try {
             $sedebd = DB::table('sede')
-                ->where('direccion', 'like', '%' . $direccion . '%')
+                ->where('direccion', 'like', '' . $direccion . '%')
                 ->where('estado', 1)->orderBy('codSede', 'desc')->get();
         } catch (PDOException $e) {
             $util = new util();
