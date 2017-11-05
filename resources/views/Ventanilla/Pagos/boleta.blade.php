@@ -20,45 +20,44 @@
             <td><input type="hidden" name="buscar" value="{{$buscar}}" readonly></td>
             <td><input type="hidden" name="facultad" value="{{$facultad}}" readonly></td>
             <td><input type="hidden" name="selected" value="{{$select}}" readonly></td>
+
             <tr>
-                <th></th>
-                <td>
-                    <input name="contador" value="{{$contador}}" readonly id="contador">
-                </td>
+                <th>BOLETA:</th>
+                <td><input name="contador" value="{{$contador}}" readonly id="contador"></td>
             </tr>
             <tr>
                 <th>SIAF:</th>
                 <td>
-                    <input name="siaf" value="{{$siaf}}" readonly id="siaf">
+                    <input name="siaf" value="{{$siaf}}" readonly id="siaf" style='width:100%;'>
                 </td>
             </tr>
             <tr>
                 <th>HE RECIBIDO DE:</th>
                 <td>
-                    <input name="nomape" value="{{$apellidos}}, {{$nombre}} " readonly size="30">
+                    <input name="nomape" value="{{$apellidos}}, {{$nombre}} " readonly style='width:100%;'>
                 </td>
             </tr>
             <tr>
                 <th>ESCUELA:</th>
-                <td><input name="escuela" value="{{$escuela}}" readonly id="escuela"></td>
+                <td><input name="escuela" value="{{$escuela}}" readonly id="escuela" style='width:100%;'></td>
             </tr>
             <tr>
                 <th>POR CONCEPTO DE:</th>
-                <td><input name="detalle" value="{{$detalle}}" readonly id="detalle"></td>
+                <td><input name="detalle" value="{{$detalle}}" readonly id="detalle" style='width:100%;'></td>
             </tr>
             <tr>
                 <th>FECHA:</th>
-                <td><input name="fecha" value="{{$fecha}}" readonly id="fecha"></td>
+                <td><input name="fecha" value="{{$fecha}}" readonly id="fecha" style='width:100%;'></td>
             </tr>
             <tr>
                 <th>MONTO:</th>
                 <td>
-                    <input name="boleta" value="{{$boleta}}" readonly>
+                    <input name="boleta" value=" S/.{{$boleta}}" readonly style='width:100%;'>
                 </td>
             </tr>
             <tr>
                 <th></th>
-                <td><input size="30" id="wo" readonly></td>
+                <td><input id="wo" readonly style='width:100%;'></td>
             </tr>
             <tr>
                 <th>CAJERO:</th>
@@ -67,55 +66,52 @@
             </tr>
             </tbody>
         </table>
-
         <table>
             <tbody>
             <tr>
-                <th></th>
-                <td>
-                    <input name="contador" value="{{$contador}}" readonly>
-                </td>
+                <th>BOLETA:</th>
+                <td><input name="contador" value="{{$contador}}" readonly id="contador"></td>
             </tr>
             <tr>
                 <th>SIAF:</th>
                 <td>
-                    <input name="siaf" value="{{$siaf}}" readonly>
+                    <input name="siaf" value="{{$siaf}}" readonly style='width:100%;'>
                 </td>
             </tr>
             <tr>
                 <th>HE RECIBIDO DE:</th>
                 <td>
-                    <input name="nomape" value="{{$apellidos}}, {{$nombre}} " readonly size="30">
-                    <input type="hidden" name="apellidos" value="{{$apellidos}}" readonly>
-                    <input type="hidden" name="nombres" value="{{$nombre}}" readonly>
+                    <input name="nomape" value="{{$apellidos}}, {{$nombre}} " readonly style='width:100%;'>
                 </td>
             </tr>
             <tr>
                 <th>ESCUELA</th>
-                <td><input name="escuela" value="{{$escuela}}" readonly></td>
+                <td><input name="escuela" value="{{$escuela}}" readonly id="escuela" style='width:100%;'></td>
             </tr>
             <tr>
                 <th>POR CONCEPTO DE:</th>
-                <td><input name="detalle" value="{{$detalle}}" readonly></td>
+                <td><input name="detalle" value="{{$detalle}}" readonly style='width:100%;'></td>
             </tr>
             <tr>
                 <th>FECHA</th>
-                <td><input name="fecha" value="{{$fecha}}" readonly></td>
+                <td><input name="fecha" value="{{$fecha}}" readonly style='width:100%;'></td>
             </tr>
             <tr>
                 <th>MONTO</th>
                 <td>
-
-                    <input id="boleta" name="boleta" value="{{$boleta}}" onchange="updatePrice()" readonly>
+                    <input value="S/. {{$boleta}}" readonly style='width:100%;'>
+                    <input type="hidden" id="boleta" name="boleta" value="{{$boleta}}" onchange="updatePrice()"
+                           readonly>
                 </td>
             </tr>
             <tr>
                 <th></th>
-                <td><input size="30" id="wo2" readonly></td>
+                <td><input id="wo2" readonly style='width:100%;'></td>
             </tr>
             <tr>
                 <th>CAJERO</th>
-                <td><input name="cajero" value="{{Session::get('misession','No existe session')}}" readonly size="30">
+                <td><input name="cajero" value="{{Session::get('misession','No existe session')}}" readonly
+                           style='width:100%;'>
                 </td>
             </tr>
             </tbody>
@@ -135,7 +131,7 @@
             document.body.innerHTML = originalContents;
         }
 
-        bool = printDiv('printableArea');
+        //printDiv('printableArea');
         setTimeout(function () {
             document.getElementById('togglee').style.visibility = 'visible';
         }, 450);
@@ -261,9 +257,12 @@
                 return Decenas(decenas);
             }//Centenas()
 
+            /**
+             * @return {string}
+             */
             function Seccion(num, divisor, strSingular, strPlural) {
-                cientos = Math.floor(num / divisor)
-                resto = num - (cientos * divisor)
+                cientos = Math.floor(num / divisor);
+                resto = num - (cientos * divisor);
                 letras = "";
                 if (cientos > 0)
                     if (cientos > 1)
@@ -280,8 +279,8 @@
              */
             function Miles(num) {
                 divisor = 1000;
-                cientos = Math.floor(num / divisor)
-                resto = num - (cientos * divisor)
+                cientos = Math.floor(num / divisor);
+                resto = num - (cientos * divisor);
                 strMiles = Seccion(num, divisor, "mil", "mil");
                 strCentenas = Centenas(resto);
                 if (strMiles === "")
@@ -294,8 +293,8 @@
              */
             function Millones(num) {
                 divisor = 1000000;
-                cientos = Math.floor(num / divisor)
-                resto = num - (cientos * divisor)
+                cientos = Math.floor(num / divisor);
+                resto = num - (cientos * divisor);
                 strMillones = Seccion(num, divisor, "un millon de", "millones de");
                 strMiles = Miles(resto);
                 if (strMillones === "")
@@ -350,9 +349,9 @@
             $("#boleta").trigger('change');
         }
 
-        updatePrice($("#boleta").val());
+        updatePrice($("#boletat").val());
 
-        document.getElementById('togglee').click();
+        //document.getElementById('togglee').click();
 
     </script>
 </form>
