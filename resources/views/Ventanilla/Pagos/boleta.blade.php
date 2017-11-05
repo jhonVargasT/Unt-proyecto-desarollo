@@ -131,7 +131,7 @@
             document.body.innerHTML = originalContents;
         }
 
-        //printDiv('printableArea');
+        printDiv('printableArea');
         setTimeout(function () {
             document.getElementById('togglee').style.visibility = 'visible';
         }, 450);
@@ -351,7 +351,7 @@
 
         updatePrice($("#boletat").val());
 
-        //document.getElementById('togglee').click();
+        document.getElementById('togglee').click();
 
     </script>
 </form>
