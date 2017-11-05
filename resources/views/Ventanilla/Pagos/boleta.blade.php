@@ -8,31 +8,34 @@
 </head>
 <br><br><br>
 <body>
-<form name="form" action="{{url('datos')}}" role="form" method="POST" class="Vertical">
+<form name="form" action="{{url('datos')}}" role="Form" method="POST" class="Vertical">
     {{csrf_field()}}
     <div id="printableArea">
         <table>
             <tbody>
-            <td><input type="hidden" name="buscar" value="{{$buscar}}" readonly id="buscar"></td>
             <td><input type="hidden" name="facultad" value="{{$facultad}}" readonly></td>
+            <td><input type="hidden" name="apellidos" value="{{$apellidos}}" readonly id="apellidos"></td>
+            <td><input type="hidden" name="nombres" value="{{$nombre}}" readonly id="nombres"></td>
+            <td><input type="hidden" name="total" value="{{$total}}" readonly></td>
+            <td><input type="hidden" name="buscar" value="{{$buscar}}" readonly></td>
+            <td><input type="hidden" name="facultad" value="{{$facultad}}" readonly></td>
+            <td><input type="hidden" name="selected" value="{{$select}}" readonly></td>
             <tr>
                 <th></th>
                 <td>
-                    <input name="contador" value="{{$contador}}" readonly id="contdor">
+                    <input name="contador" value="{{$contador}}" readonly id="contador">
                 </td>
             </tr>
             <tr>
                 <th>SIAF:</th>
                 <td>
-                    <input type="text" name="siaf" value="{{$siaf}}" readonly id="siaf">
+                    <input name="siaf" value="{{$siaf}}" readonly id="siaf">
                 </td>
             </tr>
             <tr>
                 <th>HE RECIBIDO DE:</th>
                 <td>
                     <input name="nomape" value="{{$apellidos}}, {{$nombre}} " readonly size="30">
-                    <input type="hidden" name="apellidos" value="{{$apellidos}}" readonly id="apellidos" >
-                    <input type="hidden" name="nombres" value="{{$nombre}}" readonly id="nombres">
                 </td>
             </tr>
             <tr>
@@ -50,7 +53,6 @@
             <tr>
                 <th>MONTO:</th>
                 <td>
-                    <input type="hidden" name="total" value="{{$total}}" readonly>
                     <input name="boleta" value="{{$boleta}}" readonly>
                 </td>
             </tr>
@@ -60,15 +62,14 @@
             </tr>
             <tr>
                 <th>CAJERO:</th>
-                <td><input name="cajero" value="{{Session::get('misession','No existe session')}}" readonly size="30"></td>
+                <td><input name="cajero" value="{{Session::get('misession','No existe session')}}" readonly size="30">
+                </td>
             </tr>
             </tbody>
         </table>
 
         <table>
             <tbody>
-            <td><input type="hidden" name="buscar" value="{{$buscar}}" readonly></td>
-            <td><input type="hidden" name="facultad" value="{{$facultad}}" readonly></td>
             <tr>
                 <th></th>
                 <td>
@@ -104,8 +105,8 @@
             <tr>
                 <th>MONTO</th>
                 <td>
-                    <input type="hidden" name="total" value="{{$total}}" readonly>
-                    <input type="text" id="boleta" name="boleta" value="{{$boleta}}" onchange="updatePrice()" readonly>
+
+                    <input id="boleta" name="boleta" value="{{$boleta}}" onchange="updatePrice()" readonly>
                 </td>
             </tr>
             <tr>
@@ -114,16 +115,18 @@
             </tr>
             <tr>
                 <th>CAJERO</th>
-                <td><input name="cajero" value="{{Session::get('misession','No existe session')}}" readonly size="30"></td>
+                <td><input name="cajero" value="{{Session::get('misession','No existe session')}}" readonly size="30">
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
     <div align="center">
-        <button type="submit" id="togglee">Regresar</button>
+        <button id="togglee">Regresar</button>
     </div>
     <script>
         document.getElementById('togglee').style.visibility = 'hidden';
+
         function printDiv(divName) {
             var printContents = document.getElementById(divName).innerHTML;
             var originalContents = document.body.innerHTML;
@@ -131,12 +134,16 @@
             window.print();
             document.body.innerHTML = originalContents;
         }
+
         bool = printDiv('printableArea');
         setTimeout(function () {
             document.getElementById('togglee').style.visibility = 'visible';
         }, 450);
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         $("#boleta").change(function () {
+            /**
+             * @return {string}
+             */
             function Unidades(num) {
 
                 switch (num) {
@@ -159,15 +166,15 @@
                     case 9:
                         return "nueve";
                 }
-
                 return "";
             }//Unidades()
 
+            /**
+             * @return {string}
+             */
             function Decenas(num) {
-
                 decena = Math.floor(num / 10);
                 unidad = num - (decena * 10);
-
                 switch (decena) {
                     case 1:
                         switch (unidad) {
@@ -212,6 +219,9 @@
                 }
             }//Unidades()
 
+            /**
+             * @return {string}
+             */
             function DecenasY(strSin, numUnidades) {
                 if (numUnidades > 0)
                     return strSin + " y " + Unidades(numUnidades)
@@ -219,6 +229,9 @@
                 return strSin;
             }//DecenasY()
 
+            /**
+             * @return {string}
+             */
             function Centenas(num) {
                 centenas = Math.floor(num / 100);
                 decenas = num - (centenas * 100);
@@ -245,56 +258,55 @@
                     case 9:
                         return "novecientos " + Decenas(decenas);
                 }
-
                 return Decenas(decenas);
             }//Centenas()
 
             function Seccion(num, divisor, strSingular, strPlural) {
                 cientos = Math.floor(num / divisor)
                 resto = num - (cientos * divisor)
-
                 letras = "";
-
                 if (cientos > 0)
                     if (cientos > 1)
                         letras = Centenas(cientos) + "" + strPlural;
                     else
                         letras = strSingular;
-
                 if (resto > 0)
                     letras += "";
-
                 return letras;
             }//Seccion()
 
+            /**
+             * @return {string}
+             */
             function Miles(num) {
                 divisor = 1000;
                 cientos = Math.floor(num / divisor)
                 resto = num - (cientos * divisor)
-
                 strMiles = Seccion(num, divisor, "mil", "mil");
                 strCentenas = Centenas(resto);
-
-                if (strMiles == "")
+                if (strMiles === "")
                     return strCentenas;
-
                 return strMiles + "" + strCentenas;
             }//Miles()
 
+            /**
+             * @return {string}
+             */
             function Millones(num) {
                 divisor = 1000000;
                 cientos = Math.floor(num / divisor)
                 resto = num - (cientos * divisor)
-
                 strMillones = Seccion(num, divisor, "un millon de", "millones de");
                 strMiles = Miles(resto);
-
-                if (strMillones == "")
+                if (strMillones === "")
                     return strMiles;
 
                 return strMillones + "" + strMiles;
             }//Millones()
 
+            /**
+             * @return {string}
+             */
             function NumeroALetras(num) {
                 var data = {
                     numero: num,
@@ -310,15 +322,15 @@
 
                 if (data.centavos > 0) {
                     data.letrasCentavos = "con" + (function () {
-                            if (data.centavos == 1)
-                                return Millones(data.centavos) + " " + data.letrasMonedaCentavoSingular;
-                            else
-                                return Millones(data.centavos) + " " + data.letrasMonedaCentavoPlural;
-                        })();
+                        if (data.centavos === 1)
+                            return Millones(data.centavos) + " " + data.letrasMonedaCentavoSingular;
+                        else
+                            return Millones(data.centavos) + " " + data.letrasMonedaCentavoPlural;
+                    })();
                 }
-                if (data.enteros == 0)
+                if (data.enteros === 0)
                     return "CERO" + data.letrasMonedaPlural + " " + data.letrasCentavos;
-                if (data.enteros == 1)
+                if (data.enteros === 1)
                     return Millones(data.enteros) + " " + data.letrasMonedaSingular + " " + data.letrasCentavos;
                 else
                     return Millones(data.enteros) + " " + data.letrasMonedaPlural + " " + data.letrasCentavos;
@@ -342,8 +354,6 @@
 
         document.getElementById('togglee').click();
 
-    </script>
-    <script Type="text/javascript">
     </script>
 </form>
 </body>

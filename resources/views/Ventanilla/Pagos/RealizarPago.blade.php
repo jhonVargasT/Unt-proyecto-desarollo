@@ -33,16 +33,32 @@
             @if(session()->has('false'))
                 <div class="alert alert-danger" role="alert">{{session('false')}} </div>
             @endif
-            <form name="form" action="{{url('pagar')}}" role="form" method="POST" class="Vertical">
+            <form name="form" action="{{url('pagar')}}" role="Form" method="POST" class="Vertical">
                 {{csrf_field()}}
                 <div class="col-sm-12">
                     <div class="col-sm-12 row form-group">
                         <div class="form-group-sm " align="right">
                             <div class="col-sm-2">
                                 <select class=" form-group-sm form-control" id="select" name="select">
-                                    <option value="Codigo de alumno">Codigo de alumno</option>
-                                    <option value="Dni">Dni</option>
-                                    <option value="Ruc">Ruc</option>
+                                    @if(isset($selected))
+                                        @if($selected==='Codigo de alumno')
+                                            <option value="Codigo de alumno">Codigo de alumno</option>
+                                            <option value="Dni">Dni</option>
+                                            <option value="Ruc">Ruc</option>
+                                        @elseif($selected === 'Dni')
+                                            <option value="Dni">Dni</option>
+                                            <option value="Codigo de alumno">Codigo de alumno</option>
+                                            <option value="Ruc">Ruc</option>
+                                        @elseif($selected === 'Ruc')
+                                            <option value="Ruc">Ruc</option>
+                                            <option value="Dni">Dni</option>
+                                            <option value="Codigo de alumno">Codigo de alumno</option>
+                                        @endif
+                                    @else
+                                        <option value="Codigo de alumno">Codigo de alumno</option>
+                                        <option value="Dni">Dni</option>
+                                        <option value="Ruc">Ruc</option>
+                                    @endif
                                 </select>
                             </div>
                             @if(isset($buscar))

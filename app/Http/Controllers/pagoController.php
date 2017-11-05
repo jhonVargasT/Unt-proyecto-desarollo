@@ -85,13 +85,13 @@ class pagoController extends Controller
                 session()->put('text', $request->text);
                 return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' => $totalp,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
-                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->pagar, 'siaf' => $csiaf, 'contador' => $contador]);
+                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->pagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select]);
             } else {
                 Session::forget('txt');
                 Session::put('txt', $request->text);
                 return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' => $request->boletapagar,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
-                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador]);
+                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select]);
             }
         } else {
             return back()->with('false', 'Error cliente o alumno no registrador');
@@ -460,7 +460,6 @@ class pagoController extends Controller
             return view('Ventanilla/Pagos/ReportPago')->with(['pagos' => $pag, 'txt' => $request->text, 'select' => $request->selected, 'total' => $total]);
         if ($valueR == 'Reportes')
             return view('Reportes/Pagos/ReportPago')->with(['pagos' => $pag, 'txt' => $request->text, 'select' => $request->selected, 'total' => $total]);
-
     }
 
     //Eliminar (cambiar estado de 1 a 0) registro del pago
@@ -473,7 +472,6 @@ class pagoController extends Controller
         if ($bool == false)
             return back()->with('false', 'Pago no eliminado')->withInput();
     }
-
 
     //Devolucion de pago
     public function DevolucionPago($codPago)
@@ -539,7 +537,6 @@ class pagoController extends Controller
                 $estado = 1;
             }
         }
-
         if ($request->opcTramite == 'Clasificador') {
             $tramites = $tramiteModel->consultarId($imput);//SQL, obtener id del clasificador por su nombre
             $tram = 'tr.codTramite';
@@ -562,7 +559,6 @@ class pagoController extends Controller
         } else {
             $tipRe = null;
         }
-
         $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $centroProducion);//Listar: pago,personal,subtramite,escuela,facultad
         if (!is_null($result) && empty($result) != true) {
             foreach ($result as $sum) {
@@ -572,9 +568,7 @@ class pagoController extends Controller
             $total = 0;
         }
         $cadena = $estado . ';' . $modalidad . ';' . $fechaDesde . ';' . $fechaHasta . ';' . $tram . ';' . $tramites . ';' . $tipRe . ';' . $fuenfin . ';' . $lugar . ';' . $codigo . ';' . $centroProducion;
-
         //  $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $cadena, MCRYPT_MODE_CBC, md5(md5($key))));
-
         return view('Administrador/Reporte/Report')->with(['centroproduccion' => $centroProducion, 'result' => $result, 'total' => $total, 'estado' => $estado, 'modalidad' => $modalidad, 'fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta, 'tram' => $tram, 'tramites' => $tramites, 'tipRe' => $tipRe, 'fuenfin' => $fuenfin, 'lugar' => $lugar, 'codigo' => $codigo, 'encript' => $cadena]);
     }
 
@@ -589,9 +583,10 @@ class pagoController extends Controller
         $facultad = $request->facultad;
         $detalle = $request->detalle;
         $fecha = $request->fecha;
+        $select = $request->selected;
         return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $total,
             'nombre' => $nombre, 'apellidos' => $apellidos, 'escuela' => $escuela,
-            'facultad' => $facultad, 'detalle' => $detalle, 'fecha' => $fecha]);
+            'facultad' => $facultad, 'detalle' => $detalle, 'fecha' => $fecha, 'selected' => $select]);
     }
 
     public function reporteCentrosDeProduccion(Request $request)
@@ -602,8 +597,6 @@ class pagoController extends Controller
     //Reporte de pagos, resumen
     public function obtenerPagosresumen(Request $request)
     {
-
-
         if ($request->combito !== 'Escojer') {
             $numero = '';
             $result = null;
@@ -611,7 +604,6 @@ class pagoController extends Controller
             $varOpc = $request->tipreporte;
             $vartiemp = $request->combito;
             $unidadOpera = $request->textbox;
-
             $varaño = $request->año1;
             if ($varOpc == 'Resumen total') {//Si se escoge: Resumen total
                 $tiempo = null;
@@ -672,7 +664,6 @@ class pagoController extends Controller
                     $total += $r->precio;
                 }
                 return view('Administrador/Reporte/reporteresumido')->with(['resultsiaf' => $result, 'total' => $total, 'varopc' => $varOpc, 'tiprep' => $vartiemp, 'tiempo' => $tiempo, 'numero' => $numero, 'unop' => $unidadOpera]);
-
             }
         } else {
             return view('Administrador/Reporte/reporteresumido');

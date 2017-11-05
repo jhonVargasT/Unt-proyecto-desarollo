@@ -208,7 +208,7 @@
                         <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
                                     class="glyphicon glyphicon-ban-circle"></span>
                             Cancelar</a>
-
+                        <div class="col-md-2"></div>
                         <button type="submit"
                                 onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos','spanemail','spancodAlumno'],'enviar','mensaje')"
                                 name="enviar" id="enviar" class="col-md-2 btn btn-sm btn-success"><span
