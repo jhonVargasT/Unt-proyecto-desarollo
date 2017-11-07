@@ -83,15 +83,13 @@ class pagoController extends Controller
             if ($val == $request->text) {
                 $totalp = $total + $pago;
                 session()->put('text', $request->text);
-                return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' => $totalp,
-                    'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
-                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->pagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select]);
+                return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' => $totalp, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
+                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->pagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select, 'tasa' => $request->subtramite]);
             } else {
                 Session::forget('txt');
                 Session::put('txt', $request->text);
-                return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' => $request->boletapagar,
-                    'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
-                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select]);
+                return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' => $request->boletapagar, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
+                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select, 'tasa' => $request->subtramite]);
             }
         } else {
             return back()->with('false', 'Error cliente o alumno no registrador');
@@ -584,8 +582,9 @@ class pagoController extends Controller
         $detalle = $request->detalle;
         $fecha = $request->fecha;
         $select = $request->selected;
+        $tasa = $request->tasa;
         return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $total,
-            'nombre' => $nombre, 'apellidos' => $apellidos, 'escuela' => $escuela,
+            'nombre' => $nombre, 'apellidos' => $apellidos, 'escuela' => $escuela, 'tasa' => $tasa,
             'facultad' => $facultad, 'detalle' => $detalle, 'fecha' => $fecha, 'selected' => $select]);
     }
 

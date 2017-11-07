@@ -236,7 +236,7 @@
                         <script>
                             $('#ts').change(function () {
                                 var value = $('#selectt option:selected').attr('value');
-                                if (value == 'Codigo tasa') {
+                                if (value === 'Codigo tasa') {
                                     var id = $('#ts').val();
                                     $.ajax({
                                         url: "/nombreSCT",
@@ -259,13 +259,13 @@
                                     });
                                 }
                                 else {
-                                    if (value == 'Nombre tasa') {
+                                    if (value === 'Nombre tasa') {
                                         $.ajax({
                                             url: '/precioSubtramite',
                                             type: "get",
                                             data: {name: $('#ts').val()},
                                             success: function (data) {
-                                                if (data == 0) {
+                                                if (data === 0) {
                                                     $('#bp').val(data);
                                                     $('#aux').val(data);
                                                     var val = data * 100;
@@ -300,7 +300,7 @@
                                     $('#enviar').attr('disabled', true);
 
                                     $('#detalle').keyup(function () {
-                                        if ($(this).val().length != 0) {
+                                        if ($(this).val().length !== 0) {
                                             $('#enviar').attr('disabled', false);
                                         }
                                         else {

@@ -12,7 +12,6 @@
     {{csrf_field()}}
     <div id="printableArea">
         <table>
-            <tbody>
             <td><input type="hidden" name="facultad" value="{{$facultad}}" readonly></td>
             <td><input type="hidden" name="apellidos" value="{{$apellidos}}" readonly id="apellidos"></td>
             <td><input type="hidden" name="nombres" value="{{$nombre}}" readonly id="nombres"></td>
@@ -21,100 +20,92 @@
             <td><input type="hidden" name="facultad" value="{{$facultad}}" readonly></td>
             <td><input type="hidden" name="selected" value="{{$select}}" readonly></td>
 
-            <tr>
-                <th>BOLETA:</th>
-                <td><input name="contador" value="{{$contador}}" readonly id="contador"></td>
+            <tr align="center">
+                <th colspan="2"><input name="contador" value="{{$contador}}" readonly id="contador"></th>
             </tr>
             <tr>
                 <th>SIAF:</th>
-                <td>
-                    <input name="siaf" value="{{$siaf}}" readonly id="siaf" style='width:100%;'>
-                </td>
+                <th><input name="siaf" value="{{$siaf}}" readonly size="45"></th>
             </tr>
             <tr>
-                <th>HE RECIBIDO DE:</th>
-                <td>
-                    <input name="nomape" value="{{$apellidos}}, {{$nombre}} " readonly style='width:100%;'>
-                </td>
+                <th>RECIBIDO DE:</th>
+                <th><input name="nomape" value="{{$apellidos}}, {{$nombre}}" readonly size="45"></th>
             </tr>
             <tr>
                 <th>ESCUELA:</th>
-                <td><input name="escuela" value="{{$escuela}}" readonly id="escuela" style='width:100%;'></td>
+                <th><input name="escuela" value="{{$escuela}}" readonly id="escuela" size="45"></th>
             </tr>
             <tr>
-                <th>POR CONCEPTO DE:</th>
-                <td><input name="detalle" value="{{$detalle}}" readonly id="detalle" style='width:100%;'></td>
+                <th>TASA:</th>
+                <th><textarea name="tasa" readonly rows="2" cols="45">{{$tasa}}</textarea></th>
+            </tr>
+            <tr>
+                <th>CONCEPTO:</th>
+                <th><input name="detalle" value="{{$detalle}}" readonly size="45"></th>
             </tr>
             <tr>
                 <th>FECHA:</th>
-                <td><input name="fecha" value="{{$fecha}}" readonly id="fecha" style='width:100%;'></td>
+                <th><input name="fecha" value="{{$fecha}}" readonly size="45"></th>
             </tr>
             <tr>
                 <th>MONTO:</th>
-                <td>
-                    <input name="boleta" value=" S/.{{$boleta}}" readonly style='width:100%;'>
-                </td>
+                <th><input value="S/. {{$boleta}}" readonly size="45">
+                </th>
             </tr>
             <tr>
                 <th></th>
-                <td><input id="wo" readonly style='width:100%;'></td>
+                <th><input id="wo" readonly size="45"></th>
             </tr>
             <tr>
                 <th>CAJERO:</th>
-                <td><input name="cajero" value="{{Session::get('misession','No existe session')}}" readonly size="30">
-                </td>
+                <th><input name="cajero" value="{{Session::get('misession','No existe session')}}" readonly size="45">
+                </th>
             </tr>
-            </tbody>
         </table>
         <table>
-            <tbody>
-            <tr>
-                <th>BOLETA:</th>
-                <td><input name="contador" value="{{$contador}}" readonly id="contador"></td>
+            <tr align="center">
+                <th colspan="2"><input name="contador" value="{{$contador}}" readonly id="contador"></th>
             </tr>
             <tr>
                 <th>SIAF:</th>
-                <td>
-                    <input name="siaf" value="{{$siaf}}" readonly style='width:100%;'>
-                </td>
+                <th><input name="siaf" value="{{$siaf}}" readonly size="45"></th>
             </tr>
             <tr>
-                <th>HE RECIBIDO DE:</th>
-                <td>
-                    <input name="nomape" value="{{$apellidos}}, {{$nombre}} " readonly style='width:100%;'>
-                </td>
+                <th>RECIBIDO DE:</th>
+                <th><input name="nomape" value="{{$apellidos}}, {{$nombre}}" readonly size="45"></th>
             </tr>
             <tr>
-                <th>ESCUELA</th>
-                <td><input name="escuela" value="{{$escuela}}" readonly id="escuela" style='width:100%;'></td>
+                <th>ESCUELA:</th>
+                <th><input name="escuela" value="{{$escuela}}" readonly id="escuela" size="45"></th>
             </tr>
             <tr>
-                <th>POR CONCEPTO DE:</th>
-                <td><input name="detalle" value="{{$detalle}}" readonly style='width:100%;'></td>
+                <th>TASA:</th>
+                <th><textarea name="tasa" readonly rows="2" cols="45">{{$tasa}}</textarea></th>
             </tr>
             <tr>
-                <th>FECHA</th>
-                <td><input name="fecha" value="{{$fecha}}" readonly style='width:100%;'></td>
+                <th>CONCEPTO:</th>
+                <th><input name="detalle" value="{{$detalle}}" readonly size="45"></th>
             </tr>
             <tr>
-                <th>MONTO</th>
-                <td>
-                    <input value="S/. {{$boleta}}" readonly style='width:100%;'>
+                <th>FECHA:</th>
+                <th><input name="fecha" value="{{$fecha}}" readonly size="45"></th>
+            </tr>
+            <tr>
+                <th>MONTO:</th>
+                <th><input value="S/. {{$boleta}}" readonly size="45">
                     <input type="hidden" id="boleta" name="boleta" value="{{$boleta}}" onchange="updatePrice()"
                            readonly>
-                </td>
+                </th>
             </tr>
             <tr>
                 <th></th>
-                <td><input id="wo2" readonly style='width:100%;'></td>
+                <th><input id="wo2" readonly size="45"></th>
             </tr>
             <tr>
-                <th>CAJERO</th>
-                <td><input name="cajero" value="{{Session::get('misession','No existe session')}}" readonly
-                           style='width:100%;'>
-                </td>
+                <th>CAJERO:</th>
+                <th><input name="cajero" value="{{Session::get('misession','No existe session')}}" readonly size="45">
+                </th>
             </tr>
-            </tbody>
         </table>
     </div>
     <div align="center">
@@ -349,7 +340,7 @@
             $("#boleta").trigger('change');
         }
 
-        updatePrice($("#boletat").val());
+        updatePrice($("#boleta").val());
 
         document.getElementById('togglee').click();
 
