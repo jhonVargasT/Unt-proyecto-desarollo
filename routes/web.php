@@ -368,6 +368,10 @@ Route::get('/banco','donacionController@banco');
 Route::get('/pagoonline', function () {
     return view('Ventanilla/Culqi/pagoonline');
 });
+
+Route::get('/visa', function () {
+    return view('Ventanilla/Culqi/visanet');
+});
 Route::post('pagoculqi', 'culqiController@culqi');
 //Route::get("autocompleteTram",array('as'=>'autocomplete','uses'=> 'tramiteController@autocompletar'));
 
