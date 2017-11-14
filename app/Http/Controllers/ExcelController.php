@@ -49,6 +49,7 @@ class ExcelController extends Controller
 
                     );
                 }
+                $sheet->protect('admin');
                 //$sheet->FromArray($data);
                 $sheet->mergeCells('B1:H1');
                 $var = 'RESUMEN  ' . $numero;
@@ -203,6 +204,7 @@ class ExcelController extends Controller
                 $cont = 0;
                 $pag = null;
                 $pago = new pagomodel();
+                $sheet->protect('admin');
                 if ($select == 'Dni') {
                     $pag = $pago->consultarAlumnoDNI($txt, $val);//SQL, buscar alumnos por su dni
                 } else {
@@ -490,7 +492,7 @@ class ExcelController extends Controller
     {
         Excel::create('Reporte', function ($excel) use ($data) {
             $excel->sheet('Alumnos', function ($sheet) use ($data) {
-
+                $sheet->protect('admin');
                 $sheet->mergeCells('B1:F1');
 
                 $sheet->cell('B1', function ($cell) {
@@ -923,7 +925,7 @@ class ExcelController extends Controller
         $fechahoy = date('Y-m-d');
         Excel::create('Reporte detallado :  ' . $fechahoy . '', function ($excel) use ($estado, $modalidad, $opctram, $valtram, $sede, $facultad, $escuela, $tipre, $fuefi, $fechades, $fechahas) {
             $excel->sheet('resumen', function ($sheet) use ($estado, $modalidad, $opctram, $valtram, $sede, $facultad, $escuela, $tipre, $fuefi, $fechades, $fechahas) {
-
+                $sheet->protect('admin');
                 $data = null;
                 $sede = new sedemodel();
                 $fac = new facultadmodel();
@@ -1012,7 +1014,7 @@ class ExcelController extends Controller
 
         list($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $centroProducion) = explode(';', $encriptado);
         date_default_timezone_set('America/Lima');
-        $fechahoy = date('Y-m-d');
+        $fechahoy = date('Y-m-d h:m:s');
 
         Excel::create('Reporte detallado  :  ' . $fechahoy . '', function ($excel) use ($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $fechahoy, $centroProducion) {
             $excel->sheet('detalle', function ($sheet) use ($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $fechahoy, $centroProducion) {
@@ -1021,7 +1023,7 @@ class ExcelController extends Controller
                 $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $centroProducion);//pago,personal,subtramite,escuela,facultad
                 $total = 0;
                 $cont = 0;
-
+                $sheet->protect('admin');
                 foreach ($result as $r) {
 
                     $total += $r->precio;
@@ -1036,78 +1038,123 @@ class ExcelController extends Controller
                     , "FACULTAD" => $r->nombrefacultad
                     , "ESCUELA" => $r->nombreescuela
                     , "CLASIFICADOR S.I.A.F" => $r->clasi
-                    , "TIP REC" => $r->tiporecurso
-                    , "FUE FIN" => $r->fuentefinanc
                     , "CLASIFICADOR" => $r->nombretramite
                     , "TASA" => $r->nombresubtramite
                     , "FECHA" => $r->fechapago
-                    , "PRECIO" => $r->precio
                     , "DETALLE" => $r->pagodetalle
+                    , "PRECIO" => $r->precio
+
 
                     );
                 }
 
-                $sheet->mergeCells('B1:N1');
+                $sheet->mergeCells('B1:l1');
 
                 $sheet->cell('B1', function ($cell) {
                     $cell->setFont(array(
                         'family' => 'Arial',
-                        'size' => '12',
+                        'size' => '14',
                         'bold' => true
                     ));
                     $cell->setValue('UNIVERSIDAD NACIONAL DE TRUJILLO');
                     $cell->setAlignment('center');
                 });
-                $sheet->mergeCells('B2:N2');
+                $sheet->mergeCells('B2:l2');
                 $sheet->cell('B2', function ($cell) {
                     $cell->setFont(array(
                         'family' => 'Arial',
-                        'size' => '12',
+                        'size' => '14',
                         'bold' => false
                     ));
                     $cell->setValue('OGSEF- OF.TEC. TESORERIA');
                     $cell->setAlignment('center');
                 });
-                $sheet->mergeCells('B3:N3');
+                $sheet->mergeCells('B3:l3');
 
                 $sheet->cell('B3', function ($cell) {
                     $cell->setFont(array(
                         'family' => 'Arial',
-                        'size' => '12',
+                        'size' => '14',
                         'bold' => true
                     ));
                     $cell->setValue('Reporte de pagos detallado');
                     $cell->setAlignment('center');
                 });
+                //datos
+                $sheet->mergeCells('B4:C4');
 
-                //total
-                $sheet->cell('M6', function ($cell) {
+                $sheet->cell('B4', function ($cell) {
                     $cell->setFont(array(
                         'family' => 'Arial',
-                        'size' => '12',
+                        'size' => '14',
+                        'bold' => true
+                    ));
+                    $cell->setValue('Fecha de impresion :');
+                    $cell->setAlignment('left');
+                });
+
+
+                $sheet->cell('D4', function ($cell) use ($fechahoy){
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '11',
+
+                    ));
+                    $cell->setValue($fechahoy);
+                    $cell->setAlignment('left');
+                });
+                $sheet->mergeCells('D5:L5');
+                //datos
+                $sheet->mergeCells('B5:C5');
+
+                $sheet->cell('B5', function ($cell) {
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '14',
+                        'bold' => true
+                    ));
+                    $cell->setValue('Datos de reporte :');
+                    $cell->setAlignment('left');
+                });
+                $sheet->cell('D5', function ($cell) use ($estado, $modalidad, $fechaDesde, $fechaHasta, $tram,
+                    $tramites, $tipRe, $fuenfin, $lugar, $codigo, $fechahoy, $centroProducion) {
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '11',
+
+                    ));
+                    $cell->setValue('Modalidad - '.$modalidad.' |fecha de busqueda : desde  '.$fechaDesde.
+                        ' hasta '.$fechaHasta);
+                    $cell->setAlignment('left');
+                });
+                //total
+                $sheet->cell('k6', function ($cell) {
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '14',
                         'bold' => true
                     ));
                     $cell->setValue('Total de ingresos :');
                     $cell->setAlignment('right');
                 });
-                $sheet->cell('N6', function ($cell) use ($total) {
+                $sheet->cell('l6', function ($cell) use ($total) {
                     $cell->setValue($total);
                 });
-                $sheet->cells('N6', function ($cells) {
+                $sheet->cells('l6', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
-                        'size' => '12'
+                        'size' => '14'
                     ));
                     $cells->setAlignment('center');
                 });
 
                 //*************************************************
                 //*******************cabecera de tabla
-                $sheet->cells('B7:N7', function ($cells) {
+                $sheet->cells('B7:l7', function ($cells) {
                     $cells->setBackground('#006600');
                     $cells->setFont(array(
                         'family' => 'Arial',
-                        'size' => '12',
+                        'size' => '14',
                         'bold' => true
                     ));
                     $cells->setBorder(array(
@@ -1123,7 +1170,7 @@ class ExcelController extends Controller
                 $sheet->cells('B7:B' . ($cont + 7) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
-                        'size' => '12'
+                        'size' => '14'
                     ));
                     $cells->setAlignment('center');
                 });
@@ -1131,7 +1178,7 @@ class ExcelController extends Controller
                 $sheet->cells('G7:G' . ($cont + 7) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
-                        'size' => '12'
+                        'size' => '14'
                     ));
                     $cells->setAlignment('center');
                 });
@@ -1145,7 +1192,7 @@ class ExcelController extends Controller
                 $sheet->cells('I7:I' . ($cont + 7) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
-                        'size' => '12'
+                        'size' => '14'
                     ));
                     $cells->setAlignment('center');
                 });
@@ -1159,19 +1206,13 @@ class ExcelController extends Controller
                 $sheet->cells('L7:L' . ($cont + 7) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
-                        'size' => '12'
+                        'size' => '14'
                     ));
                     $cells->setAlignment('center');
                 });
-                $sheet->cells('M7:M' . ($cont + 7) . '', function ($cells) {
-                    $cells->setFont(array(
-                        'family' => 'Arial',
-                        'size' => '12'
-                    ));
-                    $cells->setAlignment('center');
-                });
+
                 //bordes de la hoja
-                $sheet->setBorder('B7:B' . ($cont + 7) . '');
+                $sheet->setBorder('B7:B' . ($cont + 5) . '');
                 $sheet->setBorder('C7:C' . ($cont + 7) . '');
                 $sheet->setBorder('D7:D' . ($cont + 7) . '');
                 $sheet->setBorder('E7:E' . ($cont + 7) . '');
@@ -1182,8 +1223,7 @@ class ExcelController extends Controller
                 $sheet->setBorder('J7:J' . ($cont + 7) . '');
                 $sheet->setBorder('K7:K' . ($cont + 7) . '');
                 $sheet->setBorder('L7:L' . ($cont + 7) . '');
-                $sheet->setBorder('M7:M' . ($cont + 7) . '');
-                $sheet->setBorder('N7:N' . ($cont + 7) . '');
+
                 //ubicacion de la data
                 $sheet->fromArray($data, null, 'B7', false);
                 //nombre de hoja
@@ -1207,6 +1247,7 @@ class ExcelController extends Controller
         {
             $excel->sheet('resumen', function ($sheet) use ($tiporep, $varopc, $tiempo, $fechahoy, $numero, $unop)
             {
+                $sheet->protect('admin');
                 $pagoModel=new pagomodel();
                 if ($varopc == 'Resumen total') {
 
@@ -1249,7 +1290,7 @@ class ExcelController extends Controller
                     $sheet->cell('B1', function ($cell) {
                         $cell->setFont(array(
                             'family' => 'Arial',
-                            'size' => '12',
+                            'size' => '14',
                             'bold' => true
                         ));
                         $cell->setValue('UNIVERSIDAD NACIONAL DE TRUJILLO');
@@ -1259,7 +1300,7 @@ class ExcelController extends Controller
                     $sheet->cell('B2', function ($cell) {
                         $cell->setFont(array(
                             'family' => 'Arial',
-                            'size' => '12',
+                            'size' => '14',
                             'bold' => false
                         ));
                         $cell->setValue('OGSEF- OF.TEC. TESORERIA');
@@ -1270,7 +1311,7 @@ class ExcelController extends Controller
                     $sheet->cell('B3', function ($cell) use ($var) {
                         $cell->setFont(array(
                             'family' => 'Arial',
-                            'size' => '12',
+                            'size' => '14',
                             'bold' => true
                         ));
                         $cell->setValue($var);
@@ -1280,7 +1321,7 @@ class ExcelController extends Controller
                     $sheet->cell('D' . ($cont + 5) . '', function ($cell) {
                         $cell->setFont(array(
                             'family' => 'Arial',
-                            'size' => '12',
+                            'size' => '14',
                             'bold' => true
                         ));
                         $cell->setValue('Total de ingresos :');
@@ -1292,7 +1333,7 @@ class ExcelController extends Controller
                     $sheet->cells('E' . ($cont + 5) . '', function ($cells) {
                         $cells->setFont(array(
                             'family' => 'Arial',
-                            'size' => '12'
+                            'size' => '14'
                         ));
                         $cells->setAlignment('center');
                     });
