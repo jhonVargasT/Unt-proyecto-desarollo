@@ -140,7 +140,7 @@ class personalmodel extends personamodel
         } catch
         (PDOException $e) {
             $util = new util();
-           $util->insertarError($e->getMessage(), 'logear/personalmodel');
+            $util->insertarError($e->getMessage(), 'logear/personalmodel');
             return null;
 
         }
@@ -243,7 +243,7 @@ class personalmodel extends personamodel
             $personabd = DB::table('personal')
                 ->join('persona', function ($join) use ($dni) {
                     $join->on('personal.idPersona', '=', 'persona.codPersona')
-                        ->where('persona.dni', 'like', '%' . $dni . '%')->where(['persona.estado' => 1, 'personal.estado' => 1]);
+                        ->where('persona.dni', 'like', '' . $dni . '%')->where(['persona.estado' => 1, 'personal.estado' => 1]);
                 })
                 ->get();
         } catch (PDOException $e) {
@@ -260,7 +260,7 @@ class personalmodel extends personamodel
             $personabd = DB::table('personal')
                 ->join('persona', function ($join) use ($apellidos) {
                     $join->on('personal.idPersona', '=', 'persona.codPersona')
-                        ->where('persona.apellidos', 'like', '%' . $apellidos . '%')->where(['persona.estado' => 1, 'personal.estado' => 1]);
+                        ->where('persona.apellidos', 'like', '' . $apellidos . '%')->where(['persona.estado' => 1, 'personal.estado' => 1]);
                 })
                 ->get();
         } catch (PDOException $e) {
@@ -278,7 +278,7 @@ class personalmodel extends personamodel
             $personabd = DB::table('personal')
                 ->join('persona', function ($join) use ($codPersonal) {
                     $join->on('personal.idPersona', '=', 'persona.codPersona')
-                        ->where('personal.codPersonal', 'like', '%' . $codPersonal . '%')->where(['persona.estado' => 1, 'personal.estado' => 1]);
+                        ->where('personal.codPersonal', 'like', '' . $codPersonal . '%')->where(['persona.estado' => 1, 'personal.estado' => 1]);
                 })
                 ->get();
         } catch (PDOException $e) {
@@ -296,7 +296,7 @@ class personalmodel extends personamodel
             $personabd = DB::table('personal')
                 ->join('persona', function ($join) use ($cuenta) {
                     $join->on('personal.idPersona', '=', 'persona.codPersona')
-                        ->where('personal.cuenta', 'like', '%' . $cuenta . '%')->where(['persona.estado' => 1, 'personal.estado' => 1]);
+                        ->where('personal.cuenta', 'like', '' . $cuenta . '%')->where(['persona.estado' => 1, 'personal.estado' => 1]);
                 })
                 ->get();
         } catch (PDOException $e) {
@@ -314,7 +314,7 @@ class personalmodel extends personamodel
             $personabd = DB::table('personal')
                 ->join('persona', function ($join) use ($tipoCuenta) {
                     $join->on('personal.idPersona', '=', 'persona.codPersona')
-                        ->where(['personal.tipoCuenta', 'like', '%' . $tipoCuenta . '%', 'persona.estado' => 1, 'personal.estado' => 1]);
+                        ->where('personal.tipoCuenta', 'like', '' . $tipoCuenta . '%')->where(['persona.estado' => 1, 'personal.estado' => 1]);
                 })
                 ->get();
         } catch (PDOException $e) {

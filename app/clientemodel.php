@@ -153,7 +153,7 @@ class clientemodel extends personamodel
     {
         try {
             $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
-        persona.codPersona = cliente.idPersona and persona.dni like "%' . $dni . '%" and persona.estado = 1');
+        persona.codPersona = cliente.idPersona and persona.dni like "' . $dni . '%" and persona.estado = 1');
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'consultarClienteDNI/clientemodel');
@@ -166,7 +166,7 @@ class clientemodel extends personamodel
     {
         try {
             $clientebd = DB::select('select * from persona left join cliente on persona.codPersona = cliente.idPersona where 
-        persona.codPersona = cliente.idPersona and persona.apellidos like "%' . $apellidos . '%" and persona.estado=1');
+        persona.codPersona = cliente.idPersona and persona.apellidos like "' . $apellidos . '%" and persona.estado=1');
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'consultarClienteApellidos/clientemodel');
@@ -179,7 +179,7 @@ class clientemodel extends personamodel
     {
         try {
             $clientebd = DB::table('persona')->leftJoin('cliente', 'persona.codPersona', '=', 'cliente.idPersona')
-                ->where('cliente.ruc', 'like', '%' . $ruc . '%')
+                ->where('cliente.ruc', 'like', '' . $ruc . '%')
                 ->where('persona.estado', '=', 1)->orderBy('persona.codPersona', 'desc')->get();
         } catch (PDOException $e) {
             $util = new util();
@@ -212,7 +212,7 @@ class clientemodel extends personamodel
         $clientbd = null;
         try {
             $clientebd = DB::table('persona')->leftJoin('cliente', 'persona.codPersona', '=', 'cliente.idPersona')
-                ->where('cliente.razonSocial', 'like', '%' . $razonSocial . '%')
+                ->where('cliente.razonSocial', 'like', '' . $razonSocial . '%')
                 ->where('persona.estado', '=', 1)->orderBy('persona.codPersona', 'desc')->get();
         } catch (PDOException $e) {
             $util = new util();

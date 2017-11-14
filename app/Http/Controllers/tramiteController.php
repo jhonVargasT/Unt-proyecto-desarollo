@@ -31,7 +31,6 @@ class tramiteController extends Controller
                 return back()->with('false', 'Tramite ' . $request->nombre . ' no guardada, puede que ya exista ');
             }
         } catch (Exception $e) {
-
             return back()->with('false', 'Tramite ' . $request->nombre . ' no guardada, puede que ya exista ');
         }
 

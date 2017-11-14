@@ -467,7 +467,7 @@ class alumnomodel extends personamodel
                     AND sede.codSede = facultad.coSede
                     AND sede.estado = 1
                     AND escuela.idEscuela = alumno.coEscuela
-                    AND persona.dni like "%' . $dni . '%"
+                    AND persona.dni like "' . $dni . '%"
                     AND persona.estado = 1
                     AND escuela.estado = 1
                     AND facultad.estado = 1
@@ -640,7 +640,7 @@ class alumnomodel extends personamodel
                     AND escuela.idEscuela = alumno.coEscuela
                     AND sede.codSede = facultad.coSede
                     AND facultad.idFacultad = escuela.codigoFacultad
-                    AND persona.apellidos like "%' . $apellidos . '%"
+                    AND persona.apellidos like "' . $apellidos . '%"
                     AND persona.estado = 1
                     AND facultad.estado = 1
                     AND alumno.estado = 1
@@ -673,7 +673,7 @@ class alumnomodel extends personamodel
                     AND facultad.idFacultad = escuela.codigoFacultad
                     AND sede.codSede = facultad.coSede
                     AND escuela.idEscuela = alumno.coEscuela
-                    AND alumno.codAlumno like "%' . $codAlumno . '%"
+                    AND alumno.codAlumno like "' . $codAlumno . '%"
                     AND persona.estado = 1
                     AND facultad.estado = 1
                     AND alumno.estado = 1
@@ -699,7 +699,7 @@ class alumnomodel extends personamodel
         and sede.codSede = facultad.coSede
         and escuela.idEscuela = alumno.coEscuela 
         and facultad.estado =1
-        and escuela.nombre like "%' . $nombreEscuela . '%"
+        and escuela.nombre like "' . $nombreEscuela . '%"
         and persona.estado = 1
         and sede.estado =1');
         } catch (PDOException $e) {
@@ -722,7 +722,7 @@ class alumnomodel extends personamodel
         and sede.codSede = facultad.coSede
         and escuela.idEscuela = alumno.coEscuela 
         and facultad.idFacultad = escuela.codigoFacultad
-        and facultad.nombre like "%' . $nombreFacultad . '%"
+        and facultad.nombre like "' . $nombreFacultad . '%"
         and persona.estado=1
         and sede.estado = 1');
         } catch (PDOException $e) {

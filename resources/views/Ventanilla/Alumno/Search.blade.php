@@ -48,8 +48,7 @@
                 <div class=" row col-sm-12">
                     <div class="form-group-sm col-sm-2 ">
                         <span class="ontrol-label">Buscar por:</span>
-                        <select class=" form-control" name="select" id="select"
-                                onclick='activarBusqueda("select","text","buscar");'>
+                        <select class=" form-control" name="select" id="select">
                             <option>Dni</option>
                             <option>Apellidos</option>
                             <option>Codigo alumno</option>
@@ -60,15 +59,13 @@
                     <div class="form-group-sm col-sm-8">
                         <ref></ref>
                         <span class="ontrol-label"> Ingresa datos aqui</span></ref>
-
                         <span class="input-group-btn">
-                            <input type="text" name="text" disabled id="text" class="form-control"
-                                   autocomplete="off" onkeypress='buscarSearch("text","select","buscar")'>
+                            <input name="text" id="text" class="form-control"
+                                   autocomplete="off" required>
                             </span>
 
                         <span class="input-group-btn">
-                            <button class="btn btn-sm" type="submit"
-                                    onmouseover='buscarSearch("text","select","buscar")' id="buscar" name="buscar">Buscar</button>
+                            <button class="btn btn-sm" id="buscar" name="buscar">Buscar</button>
                         </span>
                     </div>
                 </div>

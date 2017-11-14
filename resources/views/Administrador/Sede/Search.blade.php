@@ -20,8 +20,8 @@
     </div>
 @stop
 @section('content')
-    <div class="panel-heading"> <h3>Buscar Sedes</h3></div>
-    <div style="background-color: #FFFFFF" >
+    <div class="panel-heading"><h3>Buscar Sedes</h3></div>
+    <div style="background-color: #FFFFFF">
         <div class="panel-body">
             @if(session()->has('true'))
                 <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -35,7 +35,8 @@
                     <div class="form-group-sm col-sm-6 ">
                         <span class="col-sm-5 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
-                            <select class=" form-control" name="select">
+                            <select class=" form-control" name="select" id="select"
+                                    onclick="activarBusqueda('select','text','buscar');">
                                 <option selected>Todo</option>
                                 <option>Nombre Sede</option>
                                 <option>Codigo Sede</option>
@@ -45,13 +46,14 @@
                     </div>
                     <div class="form-group-sm input-group col-sm-6">
                         @if(isset($txt))
-                            <input type="text" name="text" class="form-control" value="{{$txt}}" autocomplete="off">
+                            <input name="text" class="form-control" value="{{$txt}}" autocomplete="off" id="text"
+                                   required>
                         @else
-                            <input type="text" name="text" class="form-control" placeholder="Ingresa datos aqui .."
-                                   autocomplete="off">
+                            <input name="text" class="form-control" placeholder="Ingresa datos aqui .."
+                                   autocomplete="off" id="text" required disabled>
                         @endif
                         <span class="input-group-btn">
-                            <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
+                            <button class="btn btn-sm" name="buscar" id="buscar">Buscar</button>
                         </span>
                     </div>
                 </div>
@@ -64,7 +66,7 @@
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <!--cabecear Tabla-->
-                    <tr >
+                    <tr>
                         <th>
                             <div align="center">Codigo Sede</div>
                         </th>
@@ -92,7 +94,8 @@
                                     <a href="SedeCargar/{{$s->codSede}}" title="Editar"><span
                                                 style="color:green" class="glyphicon glyphicon-pencil"></span> </a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a onclick="eliminar(event,'SedeEliminar/{{$s->codSede}}')" title="Eliminar" href=""><span
+                                    <a onclick="eliminar(event,'SedeEliminar/{{$s->codSede}}')" title="Eliminar"
+                                       href=""><span
                                                 class="glyphicon glyphicon-trash" style="color: red;"></span> </a>
                                 </td>
                             </tr>

@@ -11,12 +11,14 @@ table{
 }
 td,th{
     padding: 5px;
-    font-size: 10px;
+    font-size: 9px;
 }
 input{
     border:none;
-    font-size: 10px;
+    font-size: 9px;
 }
 textarea{
     border:none;
+    resize: none;
+    font-size: 10px;
 }

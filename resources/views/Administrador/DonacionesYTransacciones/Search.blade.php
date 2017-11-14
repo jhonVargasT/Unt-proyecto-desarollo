@@ -73,19 +73,19 @@
                         <div id="div_2" class="row contenido">
                             <div class="col-sm-6 col-lg-6 col-xs-6">
                                 <span class=" control-label">Año :</span>
-                                <input type="text" class="form-control input-sm " id="trinp" name="año2"
+                                <input class="form-control input-sm " id="trinp" name="año2"
                                        autocomplete="off">
                             </div>
                             <div class="col-sm-6 col-lg-6 col-xs-6">
                                 <span class=" control-label">Mes :</span>
-                                <input type="text" class="form-control input-sm " id="trinp" name="mes2"
+                                <input class="form-control input-sm " id="trinp" name="mes2"
                                        autocomplete="off">
                             </div>
                         </div>
                         <div id="div_3" class="contenido ">
                             <span class=" control-label">Elija fecha :</span>
                             <div class="input-group date " data-provide="datepicker">
-                                <input type="dia" name="fecha" class="form-control"
+                                <input name="fecha" class="form-control"
                                        autocomplete="off">
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
@@ -95,7 +95,7 @@
                         </div>
                     </div>
                     <div class="form-group-sm col-sm-1 col-lg-1 col-xs-1">
-                        <span class=" control-label">. .. </span>
+                        <span class=" control-label">...</span>
                         <button type="submit" class="btn btn-sm btn-success s-b-5" id="imp"><i
                                     class="ion-ios7-search"> </i> buscar
                         </button>
@@ -152,26 +152,26 @@
                 </thead>
                 <body>
                 @if(isset($result))
-                        <!--Contenido-->
-                @foreach($result as $d)
-                    <tr>
-                        <td>{{$d->numResolucion}}</td>
-                        <td>{{$d->banco}}</td>
-                        <td>{{$d->cuenta}}</td>
-                        <td>{{$d->nombre}}</td>
-                        <td>{{$d->fechaIngreso}}</td>
-                        <td>{{$d->descripcion}}</td>
-                        <td>{{$d->importe}}</td>
-                        <td align="center">
-                            {{ csrf_field() }}
-                            <a href="DonacionCargar/{{$d->codigo}}" title="Click para editar"><span
-                                        class="glyphicon glyphicon-pencil"></span> </a>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a href="DonacionEliminar/{{$d->codigo}}" title="Click para eliminar"><span
-                                        class="glyphicon glyphicon-trash"></span> </a>
-                        </td>
-                    </tr>
-                @endforeach
+                    <!--Contenido-->
+                    @foreach($result as $d)
+                        <tr>
+                            <td>{{$d->numResolucion}}</td>
+                            <td>{{$d->banco}}</td>
+                            <td>{{$d->cuenta}}</td>
+                            <td>{{$d->nombre}}</td>
+                            <td>{{$d->fechaIngreso}}</td>
+                            <td>{{$d->descripcion}}</td>
+                            <td>{{$d->importe}}</td>
+                            <td align="center">
+                                {{ csrf_field() }}
+                                <a href="DonacionCargar/{{$d->codigo}}" title="Click para editar"><span
+                                            class="glyphicon glyphicon-pencil"></span> </a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="DonacionEliminar/{{$d->codigo}}" title="Click para eliminar"><span
+                                            class="glyphicon glyphicon-trash"></span> </a>
+                            </td>
+                        </tr>
+                    @endforeach
                 @endif
                 </body>
             </table>

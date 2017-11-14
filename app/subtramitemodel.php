@@ -252,8 +252,10 @@ class subtramitemodel
     public function consultarSubtramiteTramite($nombreTramite)
     {
         try {
-            $subtramitebd = DB::select('select * from tramite left join subtramite on tramite.codTramite = subtramite.idTramite, uniadOperativa where 
-        tramite.codTramite = subtramite.idTramite and tramite.nombre like "%' . $nombreTramite . '%" and tramite.estado=1 and subtramite.estado=1');
+            $subtramitebd = DB::select('SELECT * FROM tramite
+          LEFT JOIN subtramite ON tramite.codTramite = subtramite.idTramite
+          WHERE tramite.nombre like "' . $nombreTramite . '%"
+          AND tramite.estado = 1 AND subtramite.estado = 1');
         } catch (Exception $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), ' consultarSubtramiteTramite/subtramitemodel');
@@ -266,7 +268,7 @@ class subtramitemodel
     {
         try {
             $subtramitebd = DB::table('subtramite')
-                ->where('nombre', 'like', '%' . $nombreSubtramite . '%')
+                ->where('nombre', 'like', '' . $nombreSubtramite . '%')
                 ->where('estado', 1)
                 ->orderBy('codSubtramite', 'desc')->get();
         } catch (Exception $e) {
@@ -318,7 +320,7 @@ class subtramitemodel
     {
         try {
             $subtramitebd = DB::table('subtramite')
-                ->where('codigoSubtramite', 'like', '%' . $codigo . '%')
+                ->where('codigoSubtramite', 'like', '' . $codigo . '%')
                 ->where('estado', 1)
                 ->orderBy('codSubtramite', 'desc')->get();
         } catch (PDOException $e) {

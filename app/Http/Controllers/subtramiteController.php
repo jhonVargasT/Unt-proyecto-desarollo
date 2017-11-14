@@ -64,10 +64,10 @@ class subtramiteController extends Controller
         $sub = null;
         $subtramite = new subtramitemodel();
 
-        if ($request->select == 'Tramite') {
+        if ($request->select == 'Nombre Clasificador') {
             $sub = $subtramite->consultarSubtramiteTramite($request->text);//SQL, buscar tasas por clasificador al que pertenece
         } else {
-            if ($request->select == 'Nombre subtramite') {
+            if ($request->select == 'Nombre Tasa') {
                 $sub = $subtramite->consultarSubtramiteNombre($request->text);//SQL, buscar tasa por nombre
             } else {
                 if ($request->select == 'Codigo Tasa') {

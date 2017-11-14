@@ -38,7 +38,7 @@
                     <div class="form-group-sm col-sm-6 ">
                         <span class="col-sm-5 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
-                            <select class=" form-control" name="select" id="select">
+                            <select class=" form-control" name="select" id="select" onclick="activarBusqueda('select','text','buscar');">
                                 <option>Todo</option>
                                 <option value="Facultad">Facultad</option>
                                 <option>Codigo Escuela</option>
@@ -49,10 +49,10 @@
                     </div>
                     <div class="form-group-sm input-group col-sm-6">
                         @if(isset($txt))
-                            <input type="text" name="text" class="form-control" value="{{$txt}}">
+                            <input name="text" class="form-control" value="{{$txt}}" id="text" required>
                         @else
-                            <input class="typeahead form-control" type="text" placeholder="Ingresa datos aqui .."
-                                   name="text" id="text">
+                            <input class="typeahead form-control" placeholder="Ingresa datos aqui .."
+                                   name="text" id="text" disabled required>
                             <script>
                                 var path = "{{ route('autocompletee') }}";
                                 $('input.typeahead').typeahead({
@@ -68,7 +68,7 @@
                             </script>
                         @endif
                         <span class="input-group-btn">
-                            <button class="btn btn-sm" type="submit" name="buscar">Buscar</button>
+                            <button class="btn btn-sm" name="buscar" id="buscar">Buscar</button>
                         </span>
                     </div>
                 </div>
@@ -82,6 +82,7 @@
                         <!--cabecear Tabla-->
                         <tr>
                             <th>Sede</th>
+                            <th>Facultad</th>
                             <th>Nombre Escuela</th>
                             <th>Codigo Escuela</th>
                             <th>Cuenta interna</th>
@@ -94,6 +95,7 @@
                             @foreach($escuela as $es)
                                 <tr>
                                     <td>{{$es->nombresede}}</td>
+                                    <td>{{$es->fnombre}}</td>
                                     <td>{{$es->nombre}}</td>
                                     <td>{{$es->codEscuela}}</td>
                                     <td>{{$es->nroCuenta}}</td>

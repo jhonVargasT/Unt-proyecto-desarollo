@@ -31,7 +31,7 @@
             <div class="panel-body">
                 <div class="panel-body form-group ">
                     <form id="miform" action="{{'admReporteresumido'}}" onsubmit="activarBotonreporte(event)"
-                          role="form" method="POST" class="Vertical">
+                          role="Form" method="POST" class="Vertical">
                         {{csrf_field()}}
                         <div class="row justify-content-center">
 
@@ -39,8 +39,8 @@
                                 <span class=" control-label text-justify">Tipo de reporte para :</span>
                                 <select class="form-control " id="tipreporte" onclick="cambiartabla(event)"
                                         name="tipreporte">
-                                    <option >Clasificador S.I.A.F</option>
-                                    <option >Resumen total</option>
+                                    <option>Clasificador S.I.A.F</option>
+                                    <option>Resumen total</option>
                                 </select>
                             </div>
                             <div class="form-group-sm col-sm-2 col-lg-2 col-xs-2">
@@ -80,10 +80,10 @@
                     <br>
                     <div class=" row form-group ">
                         <div class=" row   col-sm-12 row form-group ">
-                                <div align="right" >
-                                    Total :@if(isset($total) ) &nbsp; S/. {{$total}}
-                                    @else S/. 0.00 @endif
-                                </div>
+                            <div align="right">
+                                Total :@if(isset($total) ) &nbsp; S/. {{$total}}
+                                @else S/. 0.00 @endif
+                            </div>
                         </div>
                         <div class="table-responsive col-sm-12">
                             <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -138,9 +138,9 @@
                                             <td><h6 align="center">{{$r-> precio}}</h6></td>
                                             <td><h6 align="center">{{$r->nurPagos }}</h6></td>
                                         </tr>
-                                    </tbody>
                                     @endforeach
-                                @else
+                                    @else
+                                    </tbody>
                                     @if(isset($resultresu))
                                         <thead>
                                         <!--cabecear Tabla-->
@@ -169,7 +169,6 @@
                                         </thead>
                                         <tbody>
                                         <!--Contenido-->
-
                                         @foreach($resultresu as $r)
                                             <tr>
                                                 <td><h6 align="center">{{$r->clasificadorsiaf}}</h6></td>
@@ -177,15 +176,17 @@
                                                 <td><h6 align="left">{{$r->nombreTramite}}</h6></td>
                                                 <td><h6 align="center">{{$r->importe}}</h6></td>
                                             </tr>
-                                        </tbody>
                                         @endforeach
-                                    @else
+                                        @else
                                         <thead>
                                         <!--cabecear Tabla-->
                                         <tr>
                                             <th>
+                                                Unidad Operativa
+                                            </th>
+                                            <th>
                                                 <div align="center">
-                                                    CODIGO CLASIFICADOR S.I.A.F
+                                                    CLASIFICADOR S.I.A.F
                                                 </div>
                                             </th>
                                             <th>
@@ -195,14 +196,26 @@
                                             </th>
                                             <th>
                                                 <div align="center">
+                                                    CUENTA
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div align="center">
+                                                    NOMBRE DE TASA
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div align="center">
                                                     IMPORTE
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div align="center">
+                                                    NRO PAGOS
                                                 </div>
                                             </th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <!--Contenido-->
-                                        </tbody>
                                     @endif
                                 @endif
                             </table>
