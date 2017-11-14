@@ -1240,7 +1240,6 @@ class ExcelController extends Controller
     function reportePagoresu($tiporep, $varopc, $tiempo, $numero, $unop)
     {
 
-
       date_default_timezone_set('America/Lima');
         $fechahoy = date('Y-m-d');
         Excel::create('Reporte resumido  :  ' . $fechahoy . '', function ($excel) use ($tiporep, $varopc, $tiempo, $fechahoy, $numero, $unop)

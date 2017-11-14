@@ -272,8 +272,9 @@ class pagomodel
 
     public function obtenerPagosresumensiaf($fecha, $uniope)
     {
+
         try {
-            if (Empty($uniope) || $uniope == 0) {
+            if (Empty($uniope) || strcmp('v',$uniope) == 0) {
                 $pago = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre as nombresubtramite,sum(st.precio * po.cantidad) as precio, count(po.codPago) as nurPagos
                     FROM tramite as tr
                     LEFT JOIN subtramite st ON (tr.codTramite = st.idTramite)
@@ -295,7 +296,7 @@ class pagomodel
             $util->insertarError($e->getMessage(), 'obtenerPagosresumensiaf/pagomodel');
             return null;
         }
-
+            var_dump($pago);
        return $pago;
     }
 
@@ -414,7 +415,7 @@ class pagomodel
     {
 
             try {
-            if (Empty($uniope) || $uniope == 0) {
+            if (Empty($uniope) || strcmp('v',$uniope) == 0) {
                 $result = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,sum(st.precio * po.cantidad) as importe
                             FROM unt.tramite as tr
                             LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
@@ -434,6 +435,7 @@ class pagomodel
             $util->insertarError($e->getMessage(), 'listarpagosresumen/pagomodel');
             return null;
         }
+
         return $result;
     }
 

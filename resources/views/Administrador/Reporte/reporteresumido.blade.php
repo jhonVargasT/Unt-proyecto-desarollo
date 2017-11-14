@@ -237,7 +237,7 @@
                                            class="btn btn-sm s-b-5  btn-primary"><span
                                                     class="glyphicon glyphicon-print"></span> Imprimir </a>
                                             @else
-                                                <a href="excelresum/{{$tiprep}}/{{$varopc}}/{{$tiempo}}/{{$numero}}/0"
+                                                <a href="excelresum/{{$tiprep}}/{{$varopc}}/{{$tiempo}}/{{$numero}}/v"
                                                    class="btn btn-sm s-b-5  btn-primary"><span
                                                             class="glyphicon glyphicon-print"></span> Imprimir </a>
                                                     @endif
