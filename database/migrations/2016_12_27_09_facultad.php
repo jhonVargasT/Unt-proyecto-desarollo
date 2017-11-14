@@ -16,6 +16,8 @@ class Facultad extends Migration
         //
         Schema::create('facultad', function (Blueprint $table) {
             $table->engine = 'InnoDB';
+            $table->charset = 'utf8';
+            $table->collate = 'utf8_spanish_ci';
 
             $table->increments('idFacultad')->unique();
             $table->string('codFacultad');

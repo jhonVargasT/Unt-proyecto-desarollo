@@ -17,6 +17,8 @@ class Donacion extends Migration
         Schema::create('donacion', function (Blueprint $table)
         {
             $table->engine = 'InnoDB';
+            $table->charset = 'utf8';
+            $table->collate = 'utf8_spanish_ci';
 
             $table ->increments('codDonacion')->unique();
             $table ->string('numResolucion')->unique();

@@ -17,6 +17,9 @@ class Alumno extends Migration
         Schema::create('alumno', function(Blueprint $table)
         {
             $table->engine = 'InnoDB';
+            $table->charset = 'utf8';
+            $table->collate = 'utf8_spanish_ci';
+
             $table-> increments('idAlumno')->unique();
             $table ->string('codAlumno')->nullable()->unique();
             $table -> string('fecha')->nullable();

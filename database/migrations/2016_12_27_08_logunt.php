@@ -17,6 +17,8 @@ class Logunt extends Migration
         Schema::create('logunt', function (Blueprint $table)
         {
             $table->engine = 'InnoDB';
+            $table->charset = 'utf8';
+            $table->collate = 'utf8_spanish_ci';
 
             $table ->increments('codLog')->unique();
             $table ->string('descripcion');

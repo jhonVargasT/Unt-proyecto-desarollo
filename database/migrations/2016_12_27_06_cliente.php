@@ -17,6 +17,8 @@ class Cliente extends Migration
         Schema::create('cliente', function (Blueprint $table)
         {
             $table->engine = 'InnoDB';
+            $table->charset = 'utf8';
+            $table->collate = 'utf8_spanish_ci';
 
             $table ->increments('codCliente')->unique();
             $table ->string('ruc')->nullable()->unique();

@@ -16,6 +16,8 @@ class ProduccionAlumno extends Migration
         //
         Schema::create('produccionalumno', function (Blueprint $table) {
             $table->engine = 'InnoDB';
+            $table->charset = 'utf8';
+            $table->collate = 'utf8_spanish_ci';
 
             $table->increments('codProduccionAlumno')->unique();
 

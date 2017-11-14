@@ -17,6 +17,9 @@ class Logerrores extends Migration
         Schema::create('log_errores_sistema', function(Blueprint $table)
         {
             $table->engine = 'InnoDB';
+            $table->charset = 'utf8';
+            $table->collate = 'utf8_spanish_ci';
+
             $table-> increments('idLogErrores')->unique();
             $table->timestamp('fechaRegistro');
             $table->string('mensaje');

@@ -17,6 +17,8 @@ class Banco extends Migration
         Schema::create('banco', function (Blueprint $table)
         {
             $table->engine = 'InnoDB';
+            $table->charset = 'utf8';
+            $table->collate = 'utf8_spanish_ci';
 
             $table -> increments('codBanco')->unique();
             $table -> string('banco');

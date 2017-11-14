@@ -17,6 +17,8 @@ class Sede extends Migration
         Schema::create('sede', function (Blueprint $table)
         {
             $table->engine = 'InnoDB';
+            $table->charset = 'utf8';
+            $table->collate = 'utf8_spanish_ci';
 
             $table ->increments('codSede')->unique();
             $table ->string('nombresede')->unique();

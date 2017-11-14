@@ -17,6 +17,9 @@ class Escuela extends Migration
         Schema::create('escuela', function (Blueprint $table)
         {
             $table->engine = 'InnoDB';
+            $table->charset = 'utf8';
+            $table->collate = 'utf8_spanish_ci';
+
             $table-> increments('idEscuela')->unique();
             $table ->string('codEscuela');
             $table ->string('nombre');
