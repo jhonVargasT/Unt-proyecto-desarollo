@@ -48,7 +48,7 @@
                 <div class=" row col-sm-12">
                     <div class="form-group-sm col-sm-2 ">
                         <span class="ontrol-label">Buscar por:</span>
-                        <select class=" form-control" name="select" id="select">
+                        <select class=" form-control" name="select" id="select" onclick="activarBusqueda('select','text','buscar');">
                             <!--<option>Todo</option>-->
                             <option>Dni</option>
                             <option>Apellidos</option>
@@ -66,7 +66,7 @@
                                    autocomplete="off" required>
                              <span style="color: red" class=" control-label" id="spanemail"></span>
                             </span>
-                        <span class="input-group-btn">
+                        <span class="input-group-btn" onmouseover="buscarSearch('text','select','buscar')">
                             <button class="btn btn-sm" type="submit" id="buscar" name="buscar">Buscar</button>
                         </span>
                     </div>
