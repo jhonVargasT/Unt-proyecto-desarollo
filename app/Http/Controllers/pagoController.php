@@ -84,12 +84,12 @@ class pagoController extends Controller
                 $totalp = $total + $pago;
                 session()->put('text', $request->text);
                 return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' => $totalp, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
-                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->pagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select, 'tasa' => $request->subtramite]);
+                    'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->pagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select, 'tasa' => $request->subtramite]);
             } else {
                 Session::forget('txt');
                 Session::put('txt', $request->text);
                 return view('/Ventanilla/Pagos/boleta')->with(['buscar' => $buscar, 'total' => $request->boletapagar, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
-                    'facultad' => $request->facultad, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select, 'tasa' => $request->subtramite]);
+                    'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select, 'tasa' => $request->subtramite]);
             }
         } else {
             return back()->with('false', 'Error cliente o alumno no registrador');
@@ -120,7 +120,8 @@ class pagoController extends Controller
                 apellidos,
                 escuela.nombre enombre,
                 facultad.nombre fnombre,
-                produccion.nombre pnombre
+                produccion.nombre pnombre,
+                nombresede
             FROM
                 persona
                     LEFT JOIN
@@ -133,21 +134,25 @@ class pagoController extends Controller
                 escuela ON escuela.idEscuela = alumno.coEscuela
                     LEFT OUTER JOIN
                 facultad ON facultad.idFacultad = escuela.codigoFacultad
+                    LEFT OUTER JOIN
+                sede on sede.codSede = facultad.coSede
             WHERE
                 persona.codPersona = alumno.idPersona
                     AND persona.dni = ' . $var . '
                     AND persona.estado = 1
-                    AND alumno.estado = 1');
+                    AND alumno.estado = 1
+                    AND sede.estado = 1');
         foreach ($nombresa as $np) {
             $dato[0] = $np->nombres;
             $dato[1] = $np->apellidos;
             $dato[2] = $np->enombre;
             $dato[3] = $np->fnombre;
+            $dato[4] = $np->nombresede;
             $ar[$c] = $np->pnombre;
             $c++;
         }
         foreach ($ar as $p) {
-            $dato[4][$i] = $p;
+            $dato[5][$i] = $p;
             $i++;
         }
         return response()->json($dato);
@@ -197,7 +202,8 @@ class pagoController extends Controller
                 apellidos,
                 escuela.nombre enombre,
                 facultad.nombre fnombre,
-                produccion.nombre pnombre
+                produccion.nombre pnombre,
+                nombresede
             FROM
                 persona
                     LEFT JOIN
@@ -210,21 +216,25 @@ class pagoController extends Controller
                 escuela ON escuela.idEscuela = alumno.coEscuela
                     LEFT OUTER JOIN
                 facultad ON facultad.idFacultad = escuela.codigoFacultad
+                    LEFT OUTER JOIN
+                sede on sede.codSede = facultad.coSede
             WHERE
                 persona.codPersona = alumno.idPersona
                     AND alumno.codAlumno = "' . $var . '"
                     AND persona.estado = 1
-                    AND alumno.estado = 1');
+                    AND alumno.estado = 1
+                    AND sede.estado = 1');
         foreach ($nombresa as $np) {
             $dato[0] = $np->nombres;
             $dato[1] = $np->apellidos;
             $dato[2] = $np->enombre;
             $dato[3] = $np->fnombre;
+            $dato[4] = $np->nombresede;
             $ar[$c] = $np->pnombre;
             $c++;
         }
         foreach ($ar as $p) {
-            $dato[4][$i] = $p;
+            $dato[5][$i] = $p;
             $i++;
         }
         return response()->json($dato);
@@ -583,8 +593,9 @@ class pagoController extends Controller
         $fecha = $request->fecha;
         $select = $request->selected;
         $tasa = $request->tasa;
+        $sede = $request->sede;
         return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $total,
-            'nombre' => $nombre, 'apellidos' => $apellidos, 'escuela' => $escuela, 'tasa' => $tasa,
+            'nombre' => $nombre, 'apellidos' => $apellidos, 'escuela' => $escuela, 'tasa' => $tasa, 'sede' => $sede,
             'facultad' => $facultad, 'detalle' => $detalle, 'fecha' => $fecha, 'selected' => $select]);
     }
 

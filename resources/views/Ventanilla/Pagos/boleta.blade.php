@@ -18,6 +18,7 @@
             <td><input type="hidden" name="total" value="{{$total}}" readonly></td>
             <td><input type="hidden" name="buscar" value="{{$buscar}}" readonly></td>
             <td><input type="hidden" name="facultad" value="{{$facultad}}" readonly></td>
+            <td><input type="hidden" name="sede" value="{{$sede}}" readonly></td>
             <td><input type="hidden" name="selected" value="{{$select}}" readonly></td>
 
             <tr align="center">

@@ -63,12 +63,12 @@
                             </div>
                             @if(isset($buscar))
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm " id="buscar" name="text" type="text"
+                                    <input class="form-control input-sm " id="buscar" name="text"
                                            autocomplete="off" value="{{$buscar}}" required>
                                 </div>
                             @else
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm " id="buscar" name="text" type="text"
+                                    <input class="form-control input-sm " id="buscar" name="text"
                                            autocomplete="off" required>
                                 </div>
                             @endif
@@ -76,7 +76,7 @@
                         <div class="form-group-sm">
                             <span class="col-sm-2">Nombres</span>
                             <div class="col-sm-4">
-                                <input class="form-control input-sm" name="nombres" type="text" id="nombres"
+                                <input class="form-control input-sm" name="nombres" id="nombres"
                                        @if(isset($nombre))value="{{$nombre}}" @endif readonly>
                                 <script>
                                     $('#buscar').change(function () {
@@ -98,6 +98,7 @@
                                                                 $('#apellidos').val(data[1]);
                                                                 $('#escuela').val('');
                                                                 $('#facultad').val('');
+                                                                $('#sede').val('');
                                                                 document.getElementById("selectP").disabled = true;
                                                                 document.getElementById("selectP").required = false;
                                                             }
@@ -108,7 +109,8 @@
                                                         $('#apellidos').val(data[1]);
                                                         $('#escuela').val(data[2]);
                                                         $('#facultad').val(data[3]);
-                                                        if (data[4][0] === null) {
+                                                        $('#sede').val(data[4]);
+                                                        if (data[5][0] === null) {
                                                             $("#selectP").empty();
                                                             document.getElementById("selectP").disabled = true;
                                                             document.getElementById("selectP").required = false;
@@ -147,7 +149,8 @@
                                                             $('#apellidos').val(data[1]);
                                                             $('#escuela').val(data[2]);
                                                             $('#facultad').val(data[3]);
-                                                            if (data[4][0] === null) {
+                                                            $('#sede').val(data[4]);
+                                                            if (data[5][0] === null) {
                                                                 $("#selectP").empty();
                                                                 document.getElementById("selectP").disabled = true;
                                                                 document.getElementById("selectP").required = false;
@@ -174,13 +177,23 @@
                         <div class="form-group-sm">
                             <span class="col-sm-2">Apellidos</span>
                             <div class="col-sm-4">
-                                <input class="form-control input-sm" name="apellidos" type="text" id="apellidos"
+                                <input class="form-control input-sm" name="apellidos" id="apellidos"
                                        @if(isset($apellidos))value="{{$apellidos}}" @endif
                                        readonly>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 row form-group">
+                        <div class="form-group-sm">
+                            <span class="col-sm-2">Sede</span>
+                            <div class="col-sm-4">
+                                <input class="form-control input-sm" name="sede" readonly id="sede"
+                                       @if(isset($sede)) value="{{$sede}}" @endif >
+
+                            </div>
                             <span class="col-sm-2">Escuela</span>
                             <div class="col-sm-4">
-                                <input class="form-control input-sm" name="escuela" type="text" readonly id="escuela"
+                                <input class="form-control input-sm" name="escuela" readonly id="escuela"
                                        @if(isset($escuela)) value="{{$escuela}}" @endif >
 
                             </div>
@@ -190,116 +203,119 @@
                         <div class="form-group-sm">
                             <span class="col-sm-2">Facultad</span>
                             <div class="col-sm-4">
-                                <input class="form-control input-sm" name="facultad" type="text" readonly id="facultad"
+                                <input class="form-control input-sm" name="facultad" readonly id="facultad"
                                        @if(isset($facultad)) value="{{$facultad}}" @endif >
                             </div>
                         </div>
-                        <div class="col-sm-2 ">
-                            <select class=" form-group-sm form-control" id="selectt" name="selectt">
-                                <option value="Codigo tasa"> Codigo tasa</option>
-                                <option value="Nombre tasa"> Nombre tasa</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-4">
-                            <input class="typeahead form-control" type="text" name="txtsub" id="ts" required>
-                            <script>
-                                var path = "{{ route('autocompletes') }}";
-                                $('input.typeahead').typeahead({
-                                    source: function (query, process) {
-                                        return $.get(path, {query: query}, function (data) {
-                                            var value = $('#selectt option:selected').attr('value');
-                                            if (value == 'Nombre tasa') {
-                                                return process(data);
-                                            }
-                                        });
-                                    }
-                                });
-                            </script>
-                            <script>
-                                $('#selectt').change(function () {
-                                    var value = $('#selectt option:selected').attr('value');
-                                    if (value == 'Codigo tasa') {
-                                        var y = document.getElementById("st");
-                                        y.type = "text";
-                                        document.getElementById("nsub").style.visibility = "visible";
-                                    }
-                                    else {
-                                        if (value == 'Nombre tasa') {
-                                            var x = document.getElementById("st");
-                                            x.type = "hidden";
-                                            document.getElementById("nsub").style.visibility = "hidden";
-                                        }
-                                    }
-                                });
-                            </script>
-                        </div>
-                        <script>
-                            $('#ts').change(function () {
-                                var value = $('#selectt option:selected').attr('value');
-                                if (value === 'Codigo tasa') {
-                                    var id = $('#ts').val();
-                                    $.ajax({
-                                        url: "/nombreSCT",
-                                        type: "get",
-                                        data: {ct: id},
-                                        success: function (data) {
-                                            $('#st').val(data);
-                                            $.ajax({
-                                                url: '/precioSubtramite',
-                                                type: "get",
-                                                data: {name: $('#st').val()},
-                                                success: function (data) {
-                                                    $('#bp').val(data);
-                                                    $('#aux').val(data);
-                                                    var val = data * 100;
-                                                    $('#p').val(val);
+                    </div>
+                    <div class="col-sm-12 row form-group">
+                        <div class="form-group-sm">
+                            <div class="col-sm-2 ">
+                                <select class=" form-group-sm form-control" id="selectt" name="selectt">
+                                    <option value="Codigo tasa"> Codigo tasa</option>
+                                    <option value="Nombre tasa"> Nombre tasa</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <input class="typeahead form-control" name="txtsub" id="ts" required>
+                                <script>
+                                    var path = "{{ route('autocompletes') }}";
+                                    $('input.typeahead').typeahead({
+                                        source: function (query, process) {
+                                            return $.get(path, {query: query}, function (data) {
+                                                var value = $('#selectt option:selected').attr('value');
+                                                if (value == 'Nombre tasa') {
+                                                    return process(data);
                                                 }
                                             });
                                         }
                                     });
-                                }
-                                else {
-                                    if (value === 'Nombre tasa') {
+                                </script>
+                                <script>
+                                    $('#selectt').change(function () {
+                                        var value = $('#selectt option:selected').attr('value');
+                                        if (value == 'Codigo tasa') {
+                                            var y = document.getElementById("st");
+                                            y.type = "text";
+                                            document.getElementById("nsub").style.visibility = "visible";
+                                        }
+                                        else {
+                                            if (value == 'Nombre tasa') {
+                                                var x = document.getElementById("st");
+                                                x.type = "hidden";
+                                                document.getElementById("nsub").style.visibility = "hidden";
+                                            }
+                                        }
+                                    });
+                                </script>
+                            </div>
+                            <script>
+                                $('#ts').change(function () {
+                                    var value = $('#selectt option:selected').attr('value');
+                                    if (value === 'Codigo tasa') {
+                                        var id = $('#ts').val();
                                         $.ajax({
-                                            url: '/precioSubtramite',
+                                            url: "/nombreSCT",
                                             type: "get",
-                                            data: {name: $('#ts').val()},
+                                            data: {ct: id},
                                             success: function (data) {
-                                                if (data === 0) {
-                                                    $('#bp').val(data);
-                                                    $('#aux').val(data);
-                                                    var val = data * 100;
-                                                    $('#p').val(val);
-                                                }
-                                                else {
-                                                    $('#bp').val(data);
-                                                    $('#aux').val(data);
-                                                    var val = data * 100;
-                                                    $('#p').val(val);
-                                                }
+                                                $('#st').val(data);
+                                                $.ajax({
+                                                    url: '/precioSubtramite',
+                                                    type: "get",
+                                                    data: {name: $('#st').val()},
+                                                    success: function (data) {
+                                                        $('#bp').val(data);
+                                                        $('#aux').val(data);
+                                                        var val = data * 100;
+                                                        $('#p').val(val);
+                                                    }
+                                                });
                                             }
                                         });
                                     }
-                                }
-                            });
-                        </script>
+                                    else {
+                                        if (value === 'Nombre tasa') {
+                                            $.ajax({
+                                                url: '/precioSubtramite',
+                                                type: "get",
+                                                data: {name: $('#ts').val()},
+                                                success: function (data) {
+                                                    if (data === 0) {
+                                                        $('#bp').val(data);
+                                                        $('#aux').val(data);
+                                                        var val = data * 100;
+                                                        $('#p').val(val);
+                                                    }
+                                                    else {
+                                                        $('#bp').val(data);
+                                                        $('#aux').val(data);
+                                                        var val = data * 100;
+                                                        $('#p').val(val);
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+                            </script>
+                            <span class="col-sm-2" id="nsub">Nombre de tasa:</span>
+                            <div class="col-sm-4">
+                                <input class="form-control" name="subtramite" id="st" required readonly>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-sm-12 row form-group">
-                        <span class="col-sm-2" id="nsub">Nombre de tasa:</span>
-                        <div class="col-sm-4">
-                            <input class="form-control" type="text" name="subtramite" id="st" required readonly>
-                        </div>
                         <div class="form-group-sm">
-                            <span class="col-sm-2 required">Detalle:</span>
+                            <span class="col-sm-2">Detalle:</span>
                             <div class="col-sm-4">
                                 <textarea class="form-control input-sm" name="detalle" placeholder="Detalle"
-                                          id="detalle" required></textarea>
+                                          id="detalle"></textarea>
                             </div>
                             <script>
                                 $(document).ready(function () {
                                     $('#enviar').attr('disabled', true);
-
-                                    $('#detalle').keyup(function () {
+                                    $('#ts').keyup(function () {
                                         if ($(this).val().length !== 0) {
                                             $('#enviar').attr('disabled', false);
                                         }
@@ -309,12 +325,12 @@
                                     })
                                 });
                             </script>
-                            <style>
+                            <!--<style>
                                 .required:after {
                                     content: " (*) ";
                                     color: #C00;
                                 }
-                            </style>
+                            </style>-->
                         </div>
                         <!--<div class="form-group-sm">
                             <div class="col-sm-4">
@@ -397,7 +413,7 @@
                     <br>
                     <div class="col-sm-12 row form-group">
                         <div class="form-group-sm">
-                            <span class="col-sm-2 ">Costo de boleta:</span>
+                            <span class="col-sm-2">Costo de boleta:</span>
                             <div class=" col-sm-4">
                                 <div class="col-sm-1">
                                     S/.
@@ -444,53 +460,57 @@
                                     <div class="col-sm-1">
                                         S/.
                                     </div>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="total" id="tp" value="{{$total}}"
+                                    <div class="col-sm-7">
+                                        <input class="form-control" name="total" id="tp" value="{{$total}}"
                                                readonly>
                                     </div>
                                 </div>
-                            @else
-                                <span class="col-sm-2">Costo total a pagar:</span>
+                            @endif
+                        </div>
+                    </div>
+                    @if(isset($total))
+                        <div class="col-sm-12 row form-group">
+                            <div class="form-group-sm">
+                                <span class="col-sm-2">Pago con:</span>
                                 <div class="col-sm-2">
                                     <div class="col-sm-1">
                                         S/.
                                     </div>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="total" id="tp"
-                                               readonly value="0">
+                                    <div class="col-sm-7">
+                                        <input class="form-control " name="pagocon" id="pc">
                                     </div>
                                 </div>
-                            @endif
-                            <span class="col-sm-1">Pago con:</span>
-                            <div class="col-sm-1">
-                                <input type="text" class="form-control " name="pagocon" id="pc">
                             </div>
-                            <span class="col-sm-1">Vuelto :</span>
-                            <div class="col-sm-2">
-                                <div class="col-sm-1">
-                                    S/.
-                                </div>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control " name="vuelto" id="v" readonly
-                                           value="0.00">
-                                </div>
-                            </div>
-                            <script>
-                                $('#pc').change(function () {
-                                    var n1 = $('#pc').val();
-                                    var n2 = $('#tp').val();
-                                    var r = n1 - n2;
-                                    r = r.toFixed(2);
-                                    $('#v').val(r);
-                                });
-                            </script>
                         </div>
-                    </div>
+                        <div class="col-sm-12 row form-group">
+                            <div class="form-group-sm">
+                                <span class="col-sm-2">Vuelto:</span>
+                                <div class="col-sm-2">
+                                    <div class="col-sm-1">
+                                        S/.
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <input class="form-control " name="vuelto" id="v" readonly
+                                               value="0.00">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            $('#pc').change(function () {
+                                var n1 = $('#pc').val();
+                                var n2 = $('#tp').val();
+                                var r = n1 - n2;
+                                r = r.toFixed(2);
+                                $('#v').val(r);
+                            });
+                        </script>
+                    @endif
                 </div>
                 <div class="col-sm-12 row form-group">
                     <div class="col-md-5"></div>
                     <div class="col-md-2" align="center">
-                        <button type="submit" name="enviar" id="enviar" class="col-md-12 btn btn-success" disabled><span
+                        <button name="enviar" id="enviar" class="col-md-12 btn btn-success" disabled><span
                                     class="glyphicon glyphicon-check"></span> Guardar
                         </button>
                     </div>
