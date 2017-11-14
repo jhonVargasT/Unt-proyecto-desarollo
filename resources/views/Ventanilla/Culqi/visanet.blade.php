@@ -1,19 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- CSS -->
+
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
     <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/font-awesome/css/font-awesome.min.css')}}">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
     <style>
         body {
             overflow-x: hidden !important;
@@ -28,13 +23,12 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/boleta.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 </head>
-<body style="background-color: #ccd0d2">
+
 <div class="row  ">
     <div class="row " style="background-color: #FFFFFF">
         <br>
@@ -52,10 +46,18 @@
         </div>
     </div>
 </div>
-<div class="row " style="margin: 20px">
-    <br>
-    <div class="panel panel-primary" style="background-color: #FFFFFF">
-        <div class="panel-heading "> Pago con tarjeta</div>
+<body style="background-color: #ccd0d2">
+<div class="panel-body">
+    @if(session()->has('true'))
+        <div class="alert alert-success" role="alert">{{session('true')}} </div>
+    @endif
+    @if(session()->has('false'))
+        <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
+    @endif
+    <div class="panel-heading"><h3>Pago con VISA</h3></div>
+    {{csrf_field()}}
+    <div class="panel  panel-primary">
+        <div class="panel-heading">Datos cliente</div>
         <div class="panel-body">
             @if(session()->has('true'))
                 <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -63,7 +65,7 @@
             @if(session()->has('false'))
                 <div class="alert alert-danger" role="alert">{{session('false')}} </div>
             @endif
-            <div class="row form-group">
+            <div class="row">
                 <div class="col-sm-2 col-lg-2 col-xs-2">
                     <select class=" form-group-sm form-control" id="select" name="select">
                         <option value="Dni"> Dni</option>
@@ -185,7 +187,8 @@
                     <input type="hidden" id="lastname">
                 </div>
             </div>
-            <div class="row form-group">
+            <br>
+            <div class="row">
                 <span class="col-sm-2 col-lg-2 col-xs-2">Escuela :</span>
                 <div class="col-sm-2 col-lg-2 col-xs-2">
                     <input class="form-control input-sm" name="escuela" type="text" readonly
@@ -200,6 +203,9 @@
                                @if(isset($facultad)) value="{{$facultad}}" @endif >
                     </div>
                 </div>
+            </div>
+            <br>
+            <div class="row">
                 <div class="col-sm-2 col-lg-2 col-xs-2">
                     <select class=" form-group-sm form-control" id="selectt" name="selectt">
                         <option value="Codigo tasa"> Codigo tasa</option>
@@ -283,26 +289,10 @@
                         }
                     });
                 </script>
-            </div>
-            <div class="row form-group">
                 <span class="col-sm-2 col-lg-2 col-xs-2" id="nsub">Nombre de tasa :</span>
                 <div class="col-sm-2 col-lg-2 col-xs-2">
                     <input class="form-control" type="text" name="subtramite" id="st" required readonly>
                 </div>
-                <!--<span class="col-sm-2 required ">Produccion :</span>
-                <div class="col-sm-2">
-                    <!--<select class=" form-group-sm form-control" id="selectP" name="selectP" required disabled>
-                        <option selected disabled>Seleccionar..</option>
-                    </select>
-                    <script>
-                        $('#selectP').change(function () {
-                            var value = $('#selectP option:selected').attr('value');
-                            if (value != 'Seleccionar..') {
-                                $('#buyButton').removeAttr('disabled');
-                            }
-                        });
-                    </script>
-                </div>-->
                 <span class="col-sm-2 required ">Detalle :</span>
                 <div class="col-sm-2 ">
                     <textarea class="form-control input-sm" name="detalle" placeholder="Detalle"
@@ -328,7 +318,8 @@
                     });
                 </script>
             </div>
-            <div class="row form-group">
+            <br>
+            <div class="row">
                 <span class="col-sm-2 col-lg-2 col-xs-2">Costo:</span>
                 <div class=" col-sm-2 col-lg-2 col-xs-2">
                     <div class="col-sm-2 col-lg-2 col-xs-2">
@@ -339,8 +330,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row form-group">
-                <span class="col-sm-1 col-lg-2 col-xs-2">Total a pagar <font color="red">(+4%)</font>:</span>
+            <br>
+            <div class="row">
+                <span class="col-sm-1 col-lg-2 col-xs-2">Total a pagar <font color="red">(+2.5%)</font>:</span>
                 <div class=" col-sm-2 col-lg-2 col-xs-2">
                     <div class="col-sm-2 col-lg-2 col-xs-2">
                         S/.
@@ -353,110 +345,35 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4 col-lg-2 col-xs-4"></div>
-            <a href="http://www.google.com.pe" class=" btn btn-danger col-sm-2"> <span
-                        class="glyphicon glyphicon-ban-circle"></span> Cancelar
-            </a>
-            <div class="col-sm-1"></div>
-            <button id="buyButton" type="submit" name="enviar" class="col-sm-2 btn btn-success" disabled><span
-                        class="glyphicon glyphicon-check"></span> Pagar
-            </button>
-            <div class="col-sm-1"></div>
-            <a class=" btn btn-warning col-sm-2" style="display: none;" id="print" onclick="action()"><span
-                        class="glyphicon glyphicon-print"></span> Imprimir</a>
-        </div>
-        <div class="row">
-            <footer class="footer row col-sm-12 col-lg-12 col-xs-12">
-                <p align="right">© 2016 ÑuxtuSoft, S.A.C.</p>
-            </footer>
+            <br>
+            <div class="row">
+                <div class="col-xs-5"></div>
+                <div class="col-xs-4">
+                    <form action="{{url('/pagovisa')}}" method='POST'>
+                        <script src='https://static-content.vnforapps.com/v1/js/checkout.js?qa=true'
+                                data-sessiontoken=''
+                                data-merchantid=''
+                                data-merchantlogo='img/comercio.png'
+                                data-formbuttoncolor='#D80000'
+                                data-purchasenumber=’’
+                                data-amount=''
+                        ></script>
+                    </form>
+                    <script>
+                        jQuery.ajax({
+                            url: 'https://devapice.vnforapps.com/api.ecommerce/api/v1/ecommerce/token/merchantId',
+                            type: 'POST',
+                            dataType: "application/json",
+                            data: {amount: 2098},
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader('VisaNet-Session-Key', '');
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- Incluyendo .js de Culqi Checkout-->
-    <script src="https://checkout.culqi.com/v2"></script>
-    <!-- Configurando el checkout-->
-    <script>
-        Culqi.publicKey = 'pk_test_kenUEv1GL5NAM7OO';
-    </script>
-    <!-- Configurando el checkout-->
-    <script>
-        $('#detalle').change(function () {
-            if ($('#st').val()) {
-                var x = document.getElementById("st").value;
-            }
-            else {
-                var x = document.getElementById("ts").value;
-            }
-            Culqi.settings({
-                title: 'Tesoreria UNT',
-                currency: 'PEN',
-                description: x,
-                amount: $('#p').val()
-            });
-        });
-    </script>
-    <script>
-        $('#buyButton').on('click', function (e) {
-            // Abre el formulario con las opciones de Culqi.settings
-            Culqi.open();
-            e.preventDefault()
-        });
-    </script>
-    <script>
-        function culqi() {
-            if (Culqi.token) { // ¡Token creado exitosamente!
-                // Get the token ID:
-                var token = Culqi.token.id;
-                //alert('Se ha creado un token:'+token);
-                $.ajax({
-                    url: 'pagoculqi',
-                    type: "post",
-                    datatype: 'json',
-                    data: {
-                        '_token': '{!! csrf_token() !!}',
-                        token: token,
-                        buscar: $('#buscar').val(),
-                        precio: $('#p').val(),
-                        select: $('#select').val(),
-                        subtramite: $('#st').val(),
-                        nombres: $('#names').val(),
-                        apellidos: $('#lastname').val(),
-                        detalle: $('#detalle').val(),
-                        selectP: $('#selectP').val(),
-                        text: $('#ts').val(),
-                        email: Culqi.token.email
-                    },
-                    success: function (data) {
-                        if (data != 'bad') {
-                            alert('Se guardo pago, imprima su boleta');
-                            document.getElementById("print").style.display = "";
-                            document.getElementById("print").href = '/BoletaVirtual/' + data + '';
-                        }
-                        else {
-                            if (data == 'bad') {
-                                document.getElementById("print").style.display = "none";
-                                document.getElementById("print").href = "#";
-                                alert('No se guardo pago');
-                            }
-                        }
-                    }
-                });
-            } else { // ¡Hubo algún problema!
-                // Mostramos JSON de objeto error en consola
-                console.log(Culqi.error);
-                alert(Culqi.error.mensaje);
-            }
-        }
-    </script>
-    <script>
-        function action() {
-            if (document.getElementById("print").style.display !== "none") {
-                document.getElementById('print').style.display = 'none';
-            }
-        }
-    </script>
-    <!-- Modal -->
     <div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel"
          aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
@@ -472,7 +389,7 @@
                 </div>
                 <div class="modal-body">
                     <p><font color="red">*IMPORTANTE*</font></p>
-                    <p><font color="red">LOS PAGOS ONLINE TIENEN UN COSTE ADICIONAL DEL 4% POR GASTOS
+                    <p><font color="red">LOS PAGOS ONLINE TIENEN UN COSTE ADICIONAL DEL 2.5% POR GASTOS
                             ADMINISTRATIVOS</font></p>
                 </div>
                 <div class="modal-footer">
@@ -486,39 +403,26 @@
             $('#memberModal').modal('show');
         });
     </script>
-    <!-- /#wrapper -->
-    <!-- /#wrapper -->
-    <!-- /#wrapper -->
-    <!-- /. WRAPPER  -->
-    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-    <!-- JQUERY SCRIPTS -->
+    <script>
+        function visa() {
+            $('#visa').modal('show');
+        }
+    </script>
+
     <script src="{{asset('assets/js/jquery-1.10.2.js')}}"></script>
-    <!-- BOOTSTRAP SCRIPTS -->
     <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
-    <!-- METISMENU SCRIPTS -->
     <script src="{{asset('assets/js/jquery.metisMenu.js')}}"></script>
-    <!-- MORRIS CHART SCRIPTS -->
     <script src="{{asset('assets/js/morris/raphael-2.1.0.min.js')}}"></script>
     <script src="{{asset('assets/js/morris/morris.js')}}"></script>
-    <!-- CUSTOM SCRIPTS -->
     <script src="{{asset('assets/js/custom.js')}}"></script>
-    <!-- Extra JavaScript/CSS added manually in "Settings" tab -->
-    <!-- Include jQuery -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <!-- Include Date Range Picker -->
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-    <!-- Javascript -->
     <script src="{{asset('assets/js/jquery-1.11.1.min.js')}}"></script>
     <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('assets/js/jquery.backstretch.min.js')}}"></script>
-
-    <!--[if lt IE 10]>
     <script src="{{asset('assets/js/placeholder.js')}}"></script>
-    <![endif]-->
-</div>
 </div>
 </body>
-</html>
