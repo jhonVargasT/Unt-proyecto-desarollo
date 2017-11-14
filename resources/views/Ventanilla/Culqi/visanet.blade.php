@@ -349,16 +349,27 @@
             <div class="row">
                 <div class="col-xs-5"></div>
                 <div class="col-xs-4">
-                    <form action="{{url('/pagoculqi')}}" method='POST'>
+                    <form action="{{url('/pagovisa')}}" method='POST'>
                         <script src='https://static-content.vnforapps.com/v1/js/checkout.js?qa=true'
-                                data-sessiontoken='123456ABCD789'
-                                data-merchantid='123456789'
+                                data-sessiontoken=''
+                                data-merchantid=''
                                 data-merchantlogo='img/comercio.png'
                                 data-formbuttoncolor='#D80000'
-                                data-purchasenumber=’123’
-                                data-amount='2098'
+                                data-purchasenumber=’’
+                                data-amount=''
                         ></script>
                     </form>
+                    <script>
+                        jQuery.ajax({
+                            url: 'https://devapice.vnforapps.com/api.ecommerce/api/v1/ecommerce/token/merchantId',
+                            type: 'POST',
+                            dataType: "application/json",
+                            data: {amount: 2098},
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader('VisaNet-Session-Key', '');
+                            }
+                        });
+                    </script>
                 </div>
             </div>
         </div>
