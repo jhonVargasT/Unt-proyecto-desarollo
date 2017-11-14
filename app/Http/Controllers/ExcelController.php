@@ -1014,8 +1014,8 @@ class ExcelController extends Controller
         date_default_timezone_set('America/Lima');
         $fechahoy = date('Y-m-d');
 
-        Excel::create('Reporte resumido  :  ' . $fechahoy . '', function ($excel) use ($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $fechahoy, $centroProducion) {
-            $excel->sheet('resumen', function ($sheet) use ($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $fechahoy, $centroProducion) {
+        Excel::create('Reporte detallado  :  ' . $fechahoy . '', function ($excel) use ($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $fechahoy, $centroProducion) {
+            $excel->sheet('detalle', function ($sheet) use ($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $fechahoy, $centroProducion) {
                 $pagoModel = new pagomodel();
                 $data = null;
                 $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $centroProducion);//pago,personal,subtramite,escuela,facultad
@@ -1199,34 +1199,41 @@ class ExcelController extends Controller
     //Reporte resumido, formato excel
     function reportePagoresu($tiporep, $varopc, $tiempo, $numero, $unop)
     {
-        date_default_timezone_set('America/Lima');
+
+
+      date_default_timezone_set('America/Lima');
         $fechahoy = date('Y-m-d');
-        Excel::create('Reporte resumido  :  ' . $fechahoy . '', function ($excel) use ($tiporep, $varopc, $tiempo, $fechahoy, $numero, $unop) {
-            $excel->sheet('resumen', function ($sheet) use ($tiporep, $varopc, $tiempo, $fechahoy, $numero, $unop) {
-                $pagoModel = new pagomodel();
-                $fecha = '';
+        Excel::create('Reporte resumido  :  ' . $fechahoy . '', function ($excel) use ($tiporep, $varopc, $tiempo, $fechahoy, $numero, $unop)
+        {
+            $excel->sheet('resumen', function ($sheet) use ($tiporep, $varopc, $tiempo, $fechahoy, $numero, $unop)
+            {
+                $pagoModel=new pagomodel();
                 if ($varopc == 'Resumen total') {
+
                     $data = null;
                     $tiempo = null;
                     $result = null;
-                    if ($tiporep == 1) {
+                    if ($tiporep == 'Año') {
                         $result = $pagoModel->listarpagosresumen($tiempo, $unop);//SQL, buscar pagos por fecha
                         $fecha = 'AÑO';
-                    } elseif ($tiporep == 2) {
+                    } elseif ($tiporep == 'Mes') {
                         $result = $pagoModel->listarpagosresumen($tiempo, $unop);//SQL, buscar pagos por fecha
                         $fecha = 'MES';
-                    } elseif ($tiporep == 3) {
+                    } elseif ($tiporep == 'Dia') {
                         $result = $pagoModel->listarpagosresumen($tiempo, $unop);//SQL, buscar pagos por fecha
                         $fecha = 'DIA';
                     }
                     $total = 0;
                     $cont = 0;
+
+
                     foreach ($result as $r) {
                         $total += $r->importe;
                     }
                     foreach ($result as $p) {
                         $cont++;
                         $data[] = array(
+
                             "CLASIFICADOR S.I.A.F" => $p->clasificadorsiaf,
                             "UNIDAD OPERATIVA" => $p->unop,
                             "NOMBRE DE CLASIFICADOR" => $p->nombreTramite,
@@ -1346,38 +1353,42 @@ class ExcelController extends Controller
                     $sheet->setAutoSize(true);
 
                 } elseif ($varopc == 'Clasificador S.I.A.F') {
+
+                    $result = null;
                     $data = null;
                     $var = '';
                     $tiempo = null;
-                    if ($tiporep == 1) {
+                    if ($tiporep == 'Año') {
                         $result = $pagoModel->obtenerPagosresumensiaf($tiempo, $unop);
                         $fecha = 'AÑO';
-                    } elseif ($tiporep == 2) {
+                    } elseif ($tiporep == 'Mes') {
                         $result = $pagoModel->obtenerPagosresumensiaf($tiempo, $unop);
                         $fecha = 'MES';
                         // $valor = $meses[$valor - 1];
-                    } elseif ($tiporep == 3) {
+                    } elseif ($tiporep == 'Dia') {
                         $result = $pagoModel->obtenerPagosresumensiaf($tiempo, $unop);
                         $fecha = 'DIA';
                     }
+
                     $var = 'RESUMEN DEL ' . $fecha . ' - ' . $numero;
                     $total = 0;
                     $cont = 0;
-                    echo $tiempo;
+
                     foreach ($result as $r) {
                         $total += $r->precio;
                         $cont++;
                     }
+
                     foreach ($result as $p) {
                         $data[] = array(
 
-                            "CLASIFICADOR S.I.A.F" => $p->clasificadorsiaf,
-                            "NOMBRE DE CLASIFICADOR" => $p->nombreTramite,
-                            "UNIDAD OPERATIVA" => $p->unop,
-                            "CUENTA" => $p->codigoSubtramite,
-                            "NOMBRE DE TASA" => $p->nombresubtramite,
-                            "NRO PAGOS" => $p->nurPagos,
-                            "IMPORTE" => $p->precio
+                             "CLASIFICADOR S.I.A.F" => $p->clasificadorsiaf,
+                             "NOMBRE DE CLASIFICADOR" => $p->nombreTramite,
+                             "UNIDAD OPERATIVA" => $p->unop,
+                             "CUENTA" => $p->codigoSubtramite,
+                             "NOMBRE DE TASA" => $p->nombresubtramite,
+                             "NRO PAGOS" => $p->nurPagos,
+                             "IMPORTE" => $p->precio
                         );
 
                     }
@@ -1536,6 +1547,7 @@ class ExcelController extends Controller
                     $sheet->setTitle('Lista de reportes');
                     //par que la data se ajuste
                     $sheet->setAutoSize(true);
+
                 }
             });
         })->export('xls');

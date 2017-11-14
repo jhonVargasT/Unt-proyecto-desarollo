@@ -177,7 +177,7 @@
                                                 <td><h6 align="center">{{$r->importe}}</h6></td>
                                             </tr>
                                         @endforeach
-                                        @else
+                                    @else
                                         <thead>
                                         <!--cabecear Tabla-->
                                         <tr>
@@ -232,15 +232,20 @@
                             <div class="col-md-2">
                                 <!--Contenido-->
                                 @if(isset($tiprep))
-                                    <a href="excelresum/{{$tiprep}}/{{$varopc}}/{{$tiempo}}/{{$numero}}/{{$unop}}"
-                                       class="btn btn-sm s-b-5  btn-primary"><span
-                                                class="glyphicon glyphicon-print"></span> Imprimir
-                                    </a>
-                                @else
-                                    <a class="btn btn-sm s-b-5  btn-primary"><span
-                                                class="glyphicon glyphicon-print"></span> Imprimir
-                                    </a>
-                                @endif
+                                    @if(isset($unop))
+                                        <a href="excelresum/{{$tiprep}}/{{$varopc}}/{{$tiempo}}/{{$numero}}/{{$unop}}"
+                                           class="btn btn-sm s-b-5  btn-primary"><span
+                                                    class="glyphicon glyphicon-print"></span> Imprimir </a>
+                                            @else
+                                                <a href="excelresum/{{$tiprep}}/{{$varopc}}/{{$tiempo}}/{{$numero}}/0"
+                                                   class="btn btn-sm s-b-5  btn-primary"><span
+                                                            class="glyphicon glyphicon-print"></span> Imprimir </a>
+                                                    @endif
+                                                    @else
+                                                        <a class="btn btn-sm s-b-5  btn-primary"><span
+                                                                    class="glyphicon glyphicon-print"></span> Imprimir
+                                                        </a>
+                                    @endif
                             </div>
                             <div class="col-md-3"></div>
                         </div>
