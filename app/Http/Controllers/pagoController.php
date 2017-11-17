@@ -263,12 +263,11 @@ class pagoController extends Controller
     //Buscar pagos
     public function listarPago(Request $request)
     {
-
         $valueA = Session::get('tipoCuentaA');
         $valueV = Session::get('tipoCuentaV');
         $valueR = Session::get('tipoCuentaR');
         date_default_timezone_set('America/Lima');
-        $date = date('Y-m-d');
+        $date = date('d-m-Y H:i:s');
         $val = 0;
         $total = 0;
         $pag = null;
@@ -289,17 +288,22 @@ class pagoController extends Controller
                         $pag = $pago->consultarCodigoPago($request->text, $val);//SQL, buscar datos del pago por codigo del pago
                     } else {
                         if ($request->selected == 'Reporte diario') {//Reporte del reporte diario del personal logueado
-                            Excel::create('Reporte diario "' . $date . '"', function ($excel) use ($request) {
-                                $excel->sheet('Reporte Diario', function ($sheet) use ($request) {
+                            Excel::create('Reporte diario/' . $date . '', function ($excel) use ($request, $date) {
+                                $excel->sheet('Reporte Diario', function ($sheet) use ($request, $date) {
                                     $data = null;
                                     $pag = null;
                                     $total = 0;
                                     $cont = 0;
+                                    $usuario = null;
                                     $pago = new pagomodel();
                                     $pag = $pago->listarPagosPersonal($request->text);//SQL, obtener datos del pago realizado por el personal (diario)
 
                                     foreach ($pag as $p) {
                                         $total += $p->precio;
+                                    }
+
+                                    foreach ($pag as $p) {
+                                        $usuario = $p->papellidos . ', ' . $p->pnombres;
                                     }
 
                                     foreach ($pag as $p) {
@@ -313,8 +317,6 @@ class pagoController extends Controller
                                             "Numero de Pagos" => $p->nurPagos,
                                         );
                                     }
-
-                                    //$sheet->FromArray($data);
                                     $sheet->mergeCells('B1:G1');
 
                                     $sheet->cell('B1', function ($cell) {
@@ -345,6 +347,47 @@ class pagoController extends Controller
                                             'bold' => true
                                         ));
                                         $cell->setValue('Reporte diaro');
+                                        $cell->setAlignment('center');
+                                    });
+
+                                    $sheet->cell('B4', function ($cell) {
+                                        $cell->setFont(array(
+                                            'family' => 'Arial',
+                                            'size' => '12',
+                                            'bold' => true
+                                        ));
+                                        $cell->setValue('Fecha:');
+                                        $cell->setAlignment('center');
+                                    });
+
+                                    $sheet->cell('C4', function ($cell) use ($date) {
+                                        $cell->setFont(array(
+                                            'family' => 'Arial',
+                                            'size' => '12',
+                                            'bold' => true
+                                        ));
+                                        $cell->setValue($date);
+                                        $cell->setAlignment('center');
+                                    });
+
+                                    $sheet->cell('E4', function ($cell) {
+                                        $cell->setFont(array(
+                                            'family' => 'Arial',
+                                            'size' => '12',
+                                            'bold' => true
+                                        ));
+                                        $cell->setValue('Impreso por:');
+                                        $cell->setAlignment('center');
+                                    });
+
+                                    $sheet->mergeCells('F4:G4');
+                                    $sheet->cell('F4', function ($cell) use ($usuario) {
+                                        $cell->setFont(array(
+                                            'family' => 'Arial',
+                                            'size' => '12',
+                                            'bold' => true
+                                        ));
+                                        $cell->setValue($usuario);
                                         $cell->setAlignment('center');
                                     });
 
@@ -431,13 +474,6 @@ class pagoController extends Controller
                                         ));
                                         $cells->setAlignment('center');
                                     });
-                                    /*$sheet->cells('M7:M' . ($cont + 7) . '', function ($cells) {
-                                        $cells->setFont(array(
-                                            'family' => 'Arial',
-                                            'size' => '12'
-                                        ));
-                                        $cells->setAlignment('center');
-                                    });*/
                                     //bordes de la hoja
                                     $sheet->setBorder('B7:B' . ($cont + 7) . '');
                                     $sheet->setBorder('C7:C' . ($cont + 7) . '');
@@ -522,32 +558,32 @@ class pagoController extends Controller
         $imput = $request->inputTram;
         $lugar = null;
         $codigo = null;
-        $opcBusqueda='Fecha desde : '.$fechaDesde.' hasta :'.$fechaHasta .'| Estado :'.$estado;
-        if($modalidad !== 'Todo'){
-            $opcBusqueda.='| Modalidad :'.$modalidad;}
-       if($request->opcTramite !== 'Todo'){
-            $opcBusqueda.='| '.$request->opcTramite .' : '.$imput;
-       }
-       if(empty($centroProducion) != true)
-       {
-           $opcBusqueda.='| Centro de produccion : '.$centroProducion;
-       }
+        $opcBusqueda = 'Fecha desde : ' . $fechaDesde . ' hasta :' . $fechaHasta . '| Estado :' . $estado;
+        if ($modalidad !== 'Todo') {
+            $opcBusqueda .= '| Modalidad :' . $modalidad;
+        }
+        if ($request->opcTramite !== 'Todo') {
+            $opcBusqueda .= '| ' . $request->opcTramite . ' : ' . $imput;
+        }
+        if (empty($centroProducion) != true) {
+            $opcBusqueda .= '| Centro de produccion : ' . $centroProducion;
+        }
 
-       if (empty($request->sed) != true) {
+        if (empty($request->sed) != true) {
             if (empty($request->fac) != true) {
                 if (empty($request->esc) != true) {
                     $codigo = $esc->obtenerId($request->esc);//SQL, obtener id de la escuela por su nombre
                     $lugar = 'es.idEscuela';
-                    $opcBusqueda.='|Sede : '.$request->sed.'| Facultad : '.$request->fac.'| Escuela : '.$request->esc;
+                    $opcBusqueda .= '|Sede : ' . $request->sed . '| Facultad : ' . $request->fac . '| Escuela : ' . $request->esc;
                 } else {
                     $codigo = $fac->obtenerId($request->fac);//SQL, obtener id de la facultad por su nombre
                     $lugar = 'fac.idFacultad';
-                    $opcBusqueda.='| Sede : '.$request->sed.'| Facultad : '.$request->fac.'';
+                    $opcBusqueda .= '| Sede : ' . $request->sed . '| Facultad : ' . $request->fac . '';
                 }
             } else {
                 $codigo = $sede->obtenerId($request->sed);//SQL, obtener id de la sede por su nombre
                 $lugar = 'se.codSede';
-                $opcBusqueda.='| Sede : '.$request->sed;
+                $opcBusqueda .= '| Sede : ' . $request->sed;
             }
         } else {
             $lugar = null;
@@ -576,13 +612,13 @@ class pagoController extends Controller
         }
         if (empty($request->fuf) != true) {
             $fuenfin = $request->fuf;
-            $opcBusqueda.='| Fuente de financiamiento : '.$fuenfin;
+            $opcBusqueda .= '| Fuente de financiamiento : ' . $fuenfin;
         } else {
             $fuenfin = null;
         }
         if (empty($request->tr) != true) {
             $tipRe = $request->tr;
-            $opcBusqueda.='| Tipo reporte : '.$tipRe;
+            $opcBusqueda .= '| Tipo reporte : ' . $tipRe;
         } else {
             $tipRe = null;
         }
@@ -596,10 +632,9 @@ class pagoController extends Controller
         }
 
 
-
         $cadena = $estado . ';' . $modalidad . ';' . $fechaDesde . ';' . $fechaHasta . ';' . $tram . ';' . $tramites . ';' . $tipRe . ';' . $fuenfin . ';' . $lugar . ';' . $codigo . ';' . $centroProducion;
         //  $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $cadena, MCRYPT_MODE_CBC, md5(md5($key))));
-        return view('Administrador/Reporte/Report')->with(['centroproduccion' => $centroProducion, 'result' => $result, 'total' => $total, 'estado' => $estado, 'modalidad' => $modalidad, 'fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta, 'tram' => $tram, 'tramites' => $tramites, 'tipRe' => $tipRe, 'fuenfin' => $fuenfin, 'lugar' => $lugar, 'codigo' => $codigo, 'encript' => $cadena,'opcionesbusqueda'=>$opcBusqueda]);
+        return view('Administrador/Reporte/Report')->with(['centroproduccion' => $centroProducion, 'result' => $result, 'total' => $total, 'estado' => $estado, 'modalidad' => $modalidad, 'fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta, 'tram' => $tram, 'tramites' => $tramites, 'tipRe' => $tipRe, 'fuenfin' => $fuenfin, 'lugar' => $lugar, 'codigo' => $codigo, 'encript' => $cadena, 'opcionesbusqueda' => $opcBusqueda]);
     }
 
     //Reenviar datos de la boleta de pago a la vista de: RealizarPago

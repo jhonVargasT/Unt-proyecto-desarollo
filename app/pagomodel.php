@@ -274,7 +274,7 @@ class pagomodel
     {
 
         try {
-            if (Empty($uniope) || strcmp('v',$uniope) == 0) {
+            if (Empty($uniope) || strcmp('v', $uniope) == 0) {
                 $pago = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre as nombresubtramite,sum(st.precio * po.cantidad) as precio, count(po.codPago) as nurPagos
                     FROM tramite as tr
                     LEFT JOIN subtramite st ON (tr.codTramite = st.idTramite)
@@ -296,8 +296,8 @@ class pagomodel
             $util->insertarError($e->getMessage(), 'obtenerPagosresumensiaf/pagomodel');
             return null;
         }
-            var_dump($pago);
-       return $pago;
+        var_dump($pago);
+        return $pago;
     }
 
     //Guardar pago
@@ -414,8 +414,8 @@ class pagomodel
     public function listarpagosresumen($tiempo, $uniope)
     {
 
-            try {
-            if (Empty($uniope) || strcmp('v',$uniope) == 0) {
+        try {
+            if (Empty($uniope) || strcmp('v', $uniope) == 0) {
                 $result = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,sum(st.precio * po.cantidad) as importe
                             FROM unt.tramite as tr
                             LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
@@ -2031,11 +2031,13 @@ class pagomodel
         try {
             date_default_timezone_set('America/Lima');
             $date = date('Y-m-d');
-            $pago = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre,sum((cantidad*precio)) as precio, count(po.codPago) as nurPagos
+            $pago = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite 
+            as codigoSubtramite, st.nombre,sum((cantidad*precio)) as precio, count(po.codPago) as nurPagos , p.nombres as pnombres, p.apellidos as papellidos
                             FROM unt.tramite as tr
                             LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
                             LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )
                             LEFT JOIN unt.personal pl ON (pl.idPersonal=po.coPersonal )
+                            LEFT JOIN unt.persona p ON (pl.idPersona = p.codPersona )
                             where po.fecha like "%' . $date . '%"  and idProduccionAlumno is null and pl.codPersonal="' . $codPersonal . '"
                             group by (st.codSubtramite) order by (tr.nombre)');
         } catch (PDOException $e) {
