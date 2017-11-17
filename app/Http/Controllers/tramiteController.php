@@ -26,12 +26,12 @@ class tramiteController extends Controller
 
             $tram = $tramite->save();//SQL, insertar registro del clasificador
             if ($tram == true) {
-                return back()->with('true', 'Tramite ' . $request->nombre . ' guardada con exito')->withInput();
+                return back()->with('true', 'Clasificador ' . $request->nombre . ' guardada con exito')->withInput();
             } else {
-                return back()->with('false', 'Tramite ' . $request->nombre . ' no guardada, puede que ya exista ');
+                return back()->with('false', 'Clasificador ' . $request->nombre . ' no guardada, puede que ya exista ');
             }
         } catch (Exception $e) {
-            return back()->with('false', 'Tramite ' . $request->nombre . ' no guardada, puede que ya exista ');
+            return back()->with('false', 'Clasificador ' . $request->nombre . ' no guardada, puede que ya exista ');
         }
 
     }
@@ -93,9 +93,9 @@ class tramiteController extends Controller
         $tramite = new tramitemodel();
         $tram = $tramite->eliminarTramite($codTramite);//SQL, eliminar (cambiar estado de 1 a 0) el registro del clasificador por codigo de clasificador
         if ($tram == true) {
-            return back()->with('true', 'Tramite ' . $request->nombre . ' se eliminado con exito')->withInput();
+            return back()->with('true', 'Clasificador ' . $request->nombre . ' se eliminado con exito')->withInput();
         } else {
-            return back()->with('false', 'Tramite ' . $request->nombre . ' no se elimino');
+            return back()->with('false', 'Clasificador ' . $request->nombre . ' no se elimino');
         }
     }
 

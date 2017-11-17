@@ -26,9 +26,9 @@ class subtramiteController extends Controller
             $sub = false;
         }
         if ($sub == true) {
-            return back()->with('true', 'Subtramite ' . $request->nombre . ' guardada con exito')->withInput();
+            return back()->with('true', 'Tasa ' . $request->nombre . ' guardada con exito')->withInput();
         } else {
-            return back()->with('false', 'Subtramite ' . $request->nombre . ' no guardada, puede que ya exista');
+            return back()->with('false', 'Tasa ' . $request->nombre . ' no guardada, puede que ya exista');
         }
     }
 
@@ -86,13 +86,14 @@ class subtramiteController extends Controller
     //Eliminar registro de la tasa
     public function eliminarSubtramite($codSubtramite, Request $request)
     {
-        $subtramite = new subtramitemodel();
-        $sub = $subtramite->eliminarSubtramite($codSubtramite);//SQL, eliminar(cambiar de 1 a 0) el registro de la tasa por codigo de tasa
 
+        $subtramite = new subtramitemodel();
+       $sub = $subtramite->eliminarSubtramite($codSubtramite);//SQL, eliminar(cambiar de 1 a 0) el registro de la tasa por codigo de tasa
+        echo $sub;
         if ($sub == true) {
-            return back()->with('true', 'Subtramite ' . $request->nombre . ' se elimino con exito')->withInput();
+           // return back()->with('true', 'Tasa ' . $request->nombre . ' se elimino con exito')->withInput();
         } else {
-            return back()->with('false', 'Subtramite ' . $request->nombre . ' no se elimino');
+           // return back()->with('false', 'Tasa ' . $request->nombre . ' no se elimino');
         }
     }
 

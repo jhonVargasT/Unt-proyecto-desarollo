@@ -335,7 +335,7 @@ class subtramitemodel
     {
         try {
             $sub = null;
-            $subtramitebd = DB::select('select codigoSubtramite from subtramite where codSubtramite = "' . $codSubtramite . '"');
+            $subtramitebd = DB::select('select codigoSubtramite from subtramite where codSubtramite = "' . $codSubtramite . '" and estado = 1');
             foreach ($subtramitebd as $s) {
                 $sub = $s->codigoSubtramite;
             }
@@ -351,7 +351,7 @@ class subtramitemodel
     {
         try {
             $subtramitebd = DB::table('subtramite')
-                ->orderBy('codSubtramite', 'desc')->get();
+                ->orderBy('codSubtramite', 'desc')->where('estado',1)->get();
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'consultarSubtramites/subtramitemodel');
