@@ -263,6 +263,7 @@ class pagoController extends Controller
     //Buscar pagos
     public function listarPago(Request $request)
     {
+
         $valueA = Session::get('tipoCuentaA');
         $valueV = Session::get('tipoCuentaV');
         $valueR = Session::get('tipoCuentaR');
@@ -503,6 +504,7 @@ class pagoController extends Controller
     //Buscar pagos, detallado
     public function reportePagos(Request $request)
     {
+
         $sede = new sedemodel();
         $fac = new facultadmodel();
         $esc = new escuelamodel();
@@ -520,22 +522,37 @@ class pagoController extends Controller
         $imput = $request->inputTram;
         $lugar = null;
         $codigo = null;
-        if (empty($request->sed) != true) {
+        $opcBusqueda='Fecha desde : '.$fechaDesde.' hasta :'.$fechaHasta .'| Estado :'.$estado;
+        if($modalidad !== 'Todo'){
+            $opcBusqueda.='| Modalidad :'.$modalidad;}
+       if($request->opcTramite !== 'Todo'){
+            $opcBusqueda.='| '.$request->opcTramite .' : '.$imput;
+       }
+       if(empty($centroProducion) != true)
+       {
+           $opcBusqueda.='| Centro de produccion : '.$centroProducion;
+       }
+
+       if (empty($request->sed) != true) {
             if (empty($request->fac) != true) {
                 if (empty($request->esc) != true) {
                     $codigo = $esc->obtenerId($request->esc);//SQL, obtener id de la escuela por su nombre
                     $lugar = 'es.idEscuela';
+                    $opcBusqueda.='|Sede : '.$request->sed.'| Facultad : '.$request->fac.'| Escuela : '.$request->esc;
                 } else {
                     $codigo = $fac->obtenerId($request->fac);//SQL, obtener id de la facultad por su nombre
                     $lugar = 'fac.idFacultad';
+                    $opcBusqueda.='| Sede : '.$request->sed.'| Facultad : '.$request->fac.'';
                 }
             } else {
                 $codigo = $sede->obtenerId($request->sed);//SQL, obtener id de la sede por su nombre
                 $lugar = 'se.codSede';
+                $opcBusqueda.='| Sede : '.$request->sed;
             }
         } else {
             $lugar = null;
         }
+
         if ($estado == 'Anulado') {
             $estado = 3;
         } else {
@@ -559,11 +576,13 @@ class pagoController extends Controller
         }
         if (empty($request->fuf) != true) {
             $fuenfin = $request->fuf;
+            $opcBusqueda.='| Fuente de financiamiento : '.$fuenfin;
         } else {
             $fuenfin = null;
         }
         if (empty($request->tr) != true) {
             $tipRe = $request->tr;
+            $opcBusqueda.='| Tipo reporte : '.$tipRe;
         } else {
             $tipRe = null;
         }
@@ -575,9 +594,12 @@ class pagoController extends Controller
         } else {
             $total = 0;
         }
+
+
+
         $cadena = $estado . ';' . $modalidad . ';' . $fechaDesde . ';' . $fechaHasta . ';' . $tram . ';' . $tramites . ';' . $tipRe . ';' . $fuenfin . ';' . $lugar . ';' . $codigo . ';' . $centroProducion;
         //  $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $cadena, MCRYPT_MODE_CBC, md5(md5($key))));
-        return view('Administrador/Reporte/Report')->with(['centroproduccion' => $centroProducion, 'result' => $result, 'total' => $total, 'estado' => $estado, 'modalidad' => $modalidad, 'fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta, 'tram' => $tram, 'tramites' => $tramites, 'tipRe' => $tipRe, 'fuenfin' => $fuenfin, 'lugar' => $lugar, 'codigo' => $codigo, 'encript' => $cadena]);
+        return view('Administrador/Reporte/Report')->with(['centroproduccion' => $centroProducion, 'result' => $result, 'total' => $total, 'estado' => $estado, 'modalidad' => $modalidad, 'fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta, 'tram' => $tram, 'tramites' => $tramites, 'tipRe' => $tipRe, 'fuenfin' => $fuenfin, 'lugar' => $lugar, 'codigo' => $codigo, 'encript' => $cadena,'opcbusqueda'=>$opcBusqueda]);
     }
 
     //Reenviar datos de la boleta de pago a la vista de: RealizarPago
