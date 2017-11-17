@@ -148,7 +148,6 @@ Route::get('ProduccionEditado/{codProduccion}', 'produccionController@editarProd
 Route::get('ProduccionEliminar/{codProduccion}', 'produccionController@eliminarProduccion');
 
 
-
 ////////////////////////////////// Facultad //////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/admRegistrarFacultad', function () {
@@ -221,7 +220,7 @@ Route::get('/admReportres', function () {
     return view('Administrador/Reporte/reporteresumido');
 });
 
-Route::resource('reportePago','pagoController@reportePagos');
+Route::resource('reportePago', 'pagoController@reportePagos');
 Route::resource('admReporteresumido', 'pagoController@obtenerPagosresumen');
 
 Route::resource('reporteProduccion', 'pagoController@reporteCentrosDeProduccion');
@@ -266,7 +265,6 @@ Route::get('/venBuscarEstudiante', function () {
 });
 
 
-
 Route::get('/venBuscarEstudianteProduccion', function () {
     return view('Ventanilla/Alumno/SearchP');
 });
@@ -279,10 +277,14 @@ Route::get('/admBuscarEstudiante', function () {
 Route::get('/ventRelizarPago', function () {
     return view('Ventanilla/Pagos/RealizarPago');
 });
+
+Route::get('/ventVoucherPago', function () {
+    return view('Ventanilla/Pagos/voucherPago');
+});
+
 Route::get('/ventReportPago', function () {
     return view('Ventanilla/Pagos/ReportPago');
 });
-
 
 
 Route::get('/ventBoleta', function () {
@@ -293,7 +295,7 @@ Route::get('/admImportarExcel', function () {
     return view('Administrador/Excel/import');
 });
 
-Route::resource('/pagar','pagoController@registrarPago');
+Route::resource('/pagar', 'pagoController@registrarPago');
 Route::resource('importExcel', 'ExcelController@importTxtBanco');
 Route::resource('importAlumnos', 'ExcelController@importarAlumnos');
 Route::resource('PagosBuscados', 'pagoController@listarPago');
@@ -305,15 +307,14 @@ Route::get('PagoImprimirO/{codPago}/{estadoimprimir}', 'PdfController@PagosBolet
 Route::get('/BoletaVirtual/{codPago}', 'PdfController@BoletaVirtual');
 
 
-
 Route::get('PagoDeuda/{codPago}', 'pagoController@eliminarDeuda');
 Route::get('ventBoleta', 'PdfController@PagosBoleta');
 Route::resource('datos', 'pagoController@obtenerDatos');
-Route::get('excelreportedet/{estado}/{modalidad}/{opctram}/{valtram}/{sede}/{facultad}/{escuela}/{tipre}/{fuefi}/{fechades}/{fechahas}','ExcelController@reportepagodetalle');
-Route::get('excelresum/{tiporep}/{varopc}/{tiempo}/{numero}/{unop}','ExcelController@reportePagoresu');
-Route::get('exceldonacion/{fecha}/{numero}','ExcelController@donacionExcel');
-Route::get('exceldetallado/{encriptado}','ExcelController@reporteDetallado');
-Route::get('excel/{txt}/{select}/{val}','ExcelController@reportePago');
+Route::get('excelreportedet/{estado}/{modalidad}/{opctram}/{valtram}/{sede}/{facultad}/{escuela}/{tipre}/{fuefi}/{fechades}/{fechahas}', 'ExcelController@reportepagodetalle');
+Route::get('excelresum/{tiporep}/{varopc}/{tiempo}/{numero}/{unop}', 'ExcelController@reportePagoresu');
+Route::get('exceldonacion/{fecha}/{numero}', 'ExcelController@donacionExcel');
+Route::get('exceldetallado/{encriptado}', 'ExcelController@reporteDetallado');
+Route::get('excel/{txt}/{select}/{val}', 'ExcelController@reportePago');
 
 
 Route::get('/buscarNombresD', 'pagoController@buscarNombresD');
@@ -348,21 +349,21 @@ Route::get('escuela', array('as' => 'escuela', 'uses' => 'alumnoController@escue
 
 Route::get('/buscarAlumno', 'alumnoController@buscarAlumno');
 
-Route::get('searchajax',array('as'=>'searchajax','uses'=>'alumnoController@autoComplete'));
+Route::get('searchajax', array('as' => 'searchajax', 'uses' => 'alumnoController@autoComplete'));
 
-Route::get('searchProduccion',array('as'=>'searchProduccion','uses'=>'produccionController@autocompleteprod'));
+Route::get('searchProduccion', array('as' => 'searchProduccion', 'uses' => 'produccionController@autocompleteprod'));
 
-Route::get('searchsedeescuela',array('as'=>'searchsedeescuela','uses'=>'escuelaController@autoCompleteEscuelaSede'));
+Route::get('searchsedeescuela', array('as' => 'searchsedeescuela', 'uses' => 'escuelaController@autoCompleteEscuelaSede'));
 
-Route::get('searchF',array('as'=>'searchF','uses'=>'facultadController@searchF'));
-Route::get('searchE',array('as'=>'searchE','uses'=>'escuelaController@searchE'));
+Route::get('searchF', array('as' => 'searchF', 'uses' => 'facultadController@searchF'));
+Route::get('searchE', array('as' => 'searchE', 'uses' => 'escuelaController@searchE'));
 
 Route::get('/tipoRecurso', 'donacionController@tipoRecurso');
 Route::get('/facultad', 'alumnoController@facultad');
 
-Route::get('/obtenerDatos','pagoController@obtenerDatos');
+Route::get('/obtenerDatos', 'pagoController@obtenerDatos');
 
-Route::get('/banco','donacionController@banco');
+Route::get('/banco', 'donacionController@banco');
 ////////////////////////CULQI///////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/pagoonline', function () {
@@ -470,41 +471,41 @@ Route::get('/boletavirtual', function () {
 Route::get('/impSedes', function () {
     return view('Importaciones/Importacion/Sede');
 });
-Route::resource('/importSedes','ExcelController@importExcelSede');
+Route::resource('/importSedes', 'ExcelController@importExcelSede');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/impFacultades', function () {
     return view('Importaciones/Importacion/Facultad');
 });
-Route::resource('/importFacultades','ExcelController@importExcelFacultad');
+Route::resource('/importFacultades', 'ExcelController@importExcelFacultad');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/impEscuelas', function () {
     return view('Importaciones/Importacion/Escuela');
 });
-Route::resource('/importEscuelas','ExcelController@importExcelEscuela');
+Route::resource('/importEscuelas', 'ExcelController@importExcelEscuela');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/impAlumnos', function () {
     return view('Importaciones/Importacion/Alumno');
 });
-Route::resource('/importAlumnos','ExcelController@importExcelAlumno');
+Route::resource('/importAlumnos', 'ExcelController@importExcelAlumno');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/impTramites', function () {
     return view('Importaciones/Importacion/Clasificador');
 });
-Route::resource('/importClasificadores','ExcelController@importExcelClasificador');
+Route::resource('/importClasificadores', 'ExcelController@importExcelClasificador');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/impTasas', function () {
     return view('Importaciones/Importacion/Tasa');
 });
-Route::resource('/importTasas','ExcelController@importExcelTasa');
+Route::resource('/importTasas', 'ExcelController@importExcelTasa');
 
-Route::get('/importAlumnoAutomatico','importarListaAlumnos@importExcelAlumno');
+Route::get('/importAlumnoAutomatico', 'importarListaAlumnos@importExcelAlumno');
