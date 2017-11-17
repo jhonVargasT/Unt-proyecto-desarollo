@@ -11,6 +11,12 @@
                 </tr>
                 <tr>
                     <td>
+                        <i class="icomoon icon-coin"></i>
+                        <a href="/ventVoucherPago">Canjear voucher</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <i class="glyphicon glyphicon-list-alt"></i>
                         <a href="/ventReportPago" style="color: #509f0c" target="_top">Mostrar pagos</a>
                     </td>
@@ -80,15 +86,7 @@
                         </span>
                     </div>
                 </div>
-                <!--<div class="col-sm-7 row form-group">
-                    <div class="form-group-sm col-sm-6 ">
-                        <div class="col-sm-7 ">
-                            <input type="checkbox" name="checkbox" value="1"> Deudas<br>
-                        </div>
-                    </div>
-                </div>-->
             </form>
-            <!--tabla-->
             <div class="table-responsive col-sm-12">
                 @if(isset($nombre)!=null)
                     <div class="alert alert-success" role="alert">El alumno {{$nombre}} fue actualizada!!</div>
@@ -96,7 +94,6 @@
                 <br>
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
-                    <!--cabecear Tabla-->
                     <tr>
                         <th>
                             <div align="center">
@@ -201,7 +198,6 @@
             </div>
             <div class="col-sm-12 row">
                 <div class="col-sm-4"></div>
-                <!--paginadro-->
                 <div class="col-sm-4">
 
                 </div>

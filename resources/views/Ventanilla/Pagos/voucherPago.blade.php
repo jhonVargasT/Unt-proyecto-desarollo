@@ -6,13 +6,13 @@
                 <tr>
                     <td>
                         <i class="icomoon icon-coin"></i>
-                        <a href="/ventRelizarPago" style="color: #509f0c" target="_top">Realizar pago</a>
+                        <a href="/ventRelizarPago">Realizar pago</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <i class="icomoon icon-coin"></i>
-                        <a href="/ventVoucherPago">Canjear voucher</a>
+                        <a href="/ventVoucherPago" style="color: #509f0c" target="_top">Canjear voucher</a>
                     </td>
                 </tr>
                 <tr>
@@ -272,9 +272,9 @@
                                                     data: {name: $('#st').val()},
                                                     success: function (data) {
                                                         $('#bp').val(data);
+                                                        $('#aux').val(data);
                                                         var val = data * 100;
                                                         $('#p').val(val);
-                                                        $('#pg').val(data);
                                                     }
                                                 });
                                             }
@@ -289,15 +289,15 @@
                                                 success: function (data) {
                                                     if (data === 0) {
                                                         $('#bp').val(data);
+                                                        $('#aux').val(data);
                                                         var val = data * 100;
                                                         $('#p').val(val);
-                                                        $('#pg').val(data);
                                                     }
                                                     else {
                                                         $('#bp').val(data);
+                                                        $('#aux').val(data);
                                                         var val = data * 100;
                                                         $('#p').val(val);
-                                                        $('#pg').val(data);
                                                     }
                                                 }
                                             });
@@ -318,6 +318,19 @@
                                 <textarea class="form-control input-sm" name="detalle" placeholder="Detalle"
                                           id="detalle"></textarea>
                             </div>
+                            <script>
+                                $(document).ready(function () {
+                                    $('#enviar').attr('disabled', true);
+                                    $('#ts').keyup(function () {
+                                        if ($(this).val().length !== 0) {
+                                            $('#enviar').attr('disabled', false);
+                                        }
+                                        else {
+                                            $('#enviar').attr('disabled', true);
+                                        }
+                                    })
+                                });
+                            </script>
                             <!--<style>
                                 .required:after {
                                     content: " (*) ";
@@ -428,15 +441,13 @@
                                 <div class="col-sm-3">
                                     <input class="form-control" name="pagar" id="pg" readonly>
                                 </div>
-                                <!--<script>
-                                    $('#ts').change(function () {
+                                <script>
+                                    $('#detalle').change(function () {
                                         var n2 = $('#mp').val();
                                         var n1 = $('#bp').val();
-                                        var r = n2 * n1;
+                                        var r = n1 * n2;
                                         $('#pg').val(r);
                                     });
-                                </script>-->
-                                <script>
                                     $('#mp').change(function () {
                                         var n2 = $('#mp').val();
                                         var n1 = $('#bp').val();
@@ -505,7 +516,7 @@
                 <div class="col-sm-12 row form-group">
                     <div class="col-md-5"></div>
                     <div class="col-md-2" align="center">
-                        <button name="enviar" id="enviar" class="col-md-12 btn btn-success"><span
+                        <button name="enviar" id="enviar" class="col-md-12 btn btn-success" disabled><span
                                     class="glyphicon glyphicon-check"></span> Guardar
                         </button>
                     </div>
