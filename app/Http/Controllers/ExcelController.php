@@ -1012,12 +1012,13 @@ class ExcelController extends Controller
     function reporteDetallado($encriptado)
     {
 
-        list($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $centroProducion) = explode(';', $encriptado);
+        list($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $centroProducion, $opcBusqueda) = explode(';', $encriptado);
         date_default_timezone_set('America/Lima');
         $fechahoy = date('Y-m-d h:m:s');
+        $opcBuscar = explode('|', $opcBusqueda);
 
-        Excel::create('Reporte detallado  :  ' . $fechahoy . '', function ($excel) use ($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $fechahoy, $centroProducion) {
-            $excel->sheet('detalle', function ($sheet) use ($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $fechahoy, $centroProducion) {
+        Excel::create('Reporte detallado  :  ' . $fechahoy . '', function ($excel) use ($opcBuscar, $estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $fechahoy, $centroProducion) {
+            $excel->sheet('detalle', function ($sheet) use ($opcBuscar, $estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $fechahoy, $centroProducion) {
                 $pagoModel = new pagomodel();
                 $data = null;
                 $result = $pagoModel->listarGeneral($estado, $modalidad, $fechaDesde, $fechaHasta, $tram, $tramites, $tipRe, $fuenfin, $lugar, $codigo, $centroProducion);//pago,personal,subtramite,escuela,facultad
@@ -1094,7 +1095,7 @@ class ExcelController extends Controller
                 });
 
 
-                $sheet->cell('D4', function ($cell) use ($fechahoy){
+                $sheet->cell('D4', function ($cell) use ($fechahoy) {
                     $cell->setFont(array(
                         'family' => 'Arial',
                         'size' => '11',
@@ -1105,6 +1106,9 @@ class ExcelController extends Controller
                 });
                 $sheet->mergeCells('D5:L5');
                 //datos
+
+                $cont = count($opcBuscar);
+
                 $sheet->mergeCells('B5:C5');
 
                 $sheet->cell('B5', function ($cell) {
@@ -1113,22 +1117,55 @@ class ExcelController extends Controller
                         'size' => '14',
                         'bold' => true
                     ));
-                    $cell->setValue('Datos de reporte :');
+                    $cell->setValue('Opciones seleccionadas :');
                     $cell->setAlignment('left');
                 });
-                $sheet->cell('D5', function ($cell) use ($estado, $modalidad, $fechaDesde, $fechaHasta, $tram,
-                    $tramites, $tipRe, $fuenfin, $lugar, $codigo, $fechahoy, $centroProducion) {
+
+                $sheet->cell('D5', function ($cell) use ($opcBuscar, $cont) {
                     $cell->setFont(array(
                         'family' => 'Arial',
                         'size' => '11',
 
                     ));
-                    $cell->setValue('Modalidad - '.$modalidad.' |fecha de busqueda : desde  '.$fechaDesde.
-                        ' hasta '.$fechaHasta);
+                    $dat = null;
+                    for ($i = 0; $i < $cont; $i++) {
+                        if ($i == 3) {
+                            break;
+                        } else {
+                            if ($i == $cont - 1) {
+                                $dat .= ' ' . $opcBuscar[$i] . '.';
+                            } else {
+                                $dat .= ' ' . $opcBuscar[$i] . ';';
+                            }
+                        }
+                    }
+                    $cell->setValue($dat
+                    );
                     $cell->setAlignment('left');
                 });
+                if ($cont > 3) {
+                    $sheet->mergeCells('B6:L6');
+                    $sheet->cell('B6', function ($cell) use ($opcBuscar, $cont) {
+                        $cell->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '11',
+
+                        ));
+                        $dat = null;
+                        for ($i = 3; $i < $cont; $i++) {
+
+                            if ($i == $cont - 1) {
+                                $dat .= ' ' . $opcBuscar[$i] . '.';
+                            } else {
+                                $dat .= ' ' . $opcBuscar[$i] . ';';
+                            }
+                        }
+                        $cell->setValue($dat);
+                        $cell->setAlignment('left');
+                    });
+                }
                 //total
-                $sheet->cell('k6', function ($cell) {
+                $sheet->cell('k7', function ($cell) {
                     $cell->setFont(array(
                         'family' => 'Arial',
                         'size' => '14',
@@ -1137,10 +1174,10 @@ class ExcelController extends Controller
                     $cell->setValue('Total de ingresos :');
                     $cell->setAlignment('right');
                 });
-                $sheet->cell('l6', function ($cell) use ($total) {
+                $sheet->cell('l7', function ($cell) use ($total) {
                     $cell->setValue($total);
                 });
-                $sheet->cells('l6', function ($cells) {
+                $sheet->cells('l7', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
                         'size' => '14'
@@ -1150,7 +1187,7 @@ class ExcelController extends Controller
 
                 //*************************************************
                 //*******************cabecera de tabla
-                $sheet->cells('B7:l7', function ($cells) {
+                $sheet->cells('B8:l8', function ($cells) {
                     $cells->setBackground('#006600');
                     $cells->setFont(array(
                         'family' => 'Arial',
@@ -1167,7 +1204,7 @@ class ExcelController extends Controller
                 //*****************************************
                 //*******************************cuerpo de tabla
                 //estilos
-                $sheet->cells('B7:B' . ($cont + 7) . '', function ($cells) {
+                $sheet->cells('B8:B' . ($cont + 8) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
                         'size' => '14'
@@ -1175,35 +1212,35 @@ class ExcelController extends Controller
                     $cells->setAlignment('center');
                 });
 
-                $sheet->cells('G7:G' . ($cont + 7) . '', function ($cells) {
+                $sheet->cells('G8:G' . ($cont + 8) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
                         'size' => '14'
                     ));
                     $cells->setAlignment('center');
                 });
-                $sheet->cells('H7:H' . ($cont + 7) . '', function ($cells) {
+                $sheet->cells('H8:H' . ($cont + 8) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
                         'size' => '12'
                     ));
                     $cells->setAlignment('center');
                 });
-                $sheet->cells('I7:I' . ($cont + 7) . '', function ($cells) {
+                $sheet->cells('I8:I' . ($cont + 8) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
                         'size' => '14'
                     ));
                     $cells->setAlignment('center');
                 });
-                $sheet->cells('J7:J' . ($cont + 7) . '', function ($cells) {
+                $sheet->cells('J8:J' . ($cont + 8) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
                         'size' => '12'
                     ));
                     $cells->setAlignment('center');
                 });
-                $sheet->cells('L7:L' . ($cont + 7) . '', function ($cells) {
+                $sheet->cells('L8:L' . ($cont + 8) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
                         'size' => '14'
@@ -1212,20 +1249,20 @@ class ExcelController extends Controller
                 });
 
                 //bordes de la hoja
-                $sheet->setBorder('B7:B' . ($cont + 5) . '');
-                $sheet->setBorder('C7:C' . ($cont + 7) . '');
-                $sheet->setBorder('D7:D' . ($cont + 7) . '');
-                $sheet->setBorder('E7:E' . ($cont + 7) . '');
-                $sheet->setBorder('F7:F' . ($cont + 7) . '');
-                $sheet->setBorder('G7:G' . ($cont + 7) . '');
-                $sheet->setBorder('H7:H' . ($cont + 7) . '');
-                $sheet->setBorder('I7:I' . ($cont + 7) . '');
-                $sheet->setBorder('J7:J' . ($cont + 7) . '');
-                $sheet->setBorder('K7:K' . ($cont + 7) . '');
-                $sheet->setBorder('L7:L' . ($cont + 7) . '');
+                $sheet->setBorder('B8:B' . ($cont + 8) . '');
+                $sheet->setBorder('C8:C' . ($cont + 8) . '');
+                $sheet->setBorder('D8:D' . ($cont + 8) . '');
+                $sheet->setBorder('E8:E' . ($cont + 8) . '');
+                $sheet->setBorder('F8:F' . ($cont + 8) . '');
+                $sheet->setBorder('G8:G' . ($cont + 8) . '');
+                $sheet->setBorder('H8:H' . ($cont + 8) . '');
+                $sheet->setBorder('I8:I' . ($cont + 8) . '');
+                $sheet->setBorder('J8:J' . ($cont + 8) . '');
+                $sheet->setBorder('K8:K' . ($cont + 8) . '');
+                $sheet->setBorder('L8:L' . ($cont + 8) . '');
 
                 //ubicacion de la data
-                $sheet->fromArray($data, null, 'B7', false);
+                $sheet->fromArray($data, null, 'B8', false);
                 //nombre de hoja
                 $sheet->setTitle('Lista de reportes resumido');
                 //par que la data se ajuste
@@ -1236,18 +1273,16 @@ class ExcelController extends Controller
         })->export('xls');
     }
 
-    //Reporte resumido, formato excel
+//Reporte resumido, formato excel
     function reportePagoresu($tiporep, $varopc, $tiempo, $numero, $unop)
     {
 
-      date_default_timezone_set('America/Lima');
+        date_default_timezone_set('America/Lima');
         $fechahoy = date('Y-m-d');
-        Excel::create('Reporte resumido  :  ' . $fechahoy . '', function ($excel) use ($tiporep, $varopc, $tiempo, $fechahoy, $numero, $unop)
-        {
-            $excel->sheet('resumen', function ($sheet) use ($tiporep, $varopc, $tiempo, $fechahoy, $numero, $unop)
-            {
+        Excel::create('Reporte resumido  :  ' . $fechahoy . '', function ($excel) use ($tiporep, $varopc, $tiempo, $fechahoy, $numero, $unop) {
+            $excel->sheet('resumen', function ($sheet) use ($tiporep, $varopc, $tiempo, $fechahoy, $numero, $unop) {
                 $sheet->protect('admin');
-                $pagoModel=new pagomodel();
+                $pagoModel = new pagomodel();
                 if ($varopc == 'Resumen total') {
 
                     $data = null;
@@ -1422,13 +1457,13 @@ class ExcelController extends Controller
                     foreach ($result as $p) {
                         $data[] = array(
 
-                             "CLASIFICADOR S.I.A.F" => $p->clasificadorsiaf,
-                             "NOMBRE DE CLASIFICADOR" => $p->nombreTramite,
-                             "UNIDAD OPERATIVA" => $p->unop,
-                             "CUENTA" => $p->codigoSubtramite,
-                             "NOMBRE DE TASA" => $p->nombresubtramite,
-                             "NRO PAGOS" => $p->nurPagos,
-                             "IMPORTE" => $p->precio
+                            "CLASIFICADOR S.I.A.F" => $p->clasificadorsiaf,
+                            "NOMBRE DE CLASIFICADOR" => $p->nombreTramite,
+                            "UNIDAD OPERATIVA" => $p->unop,
+                            "CUENTA" => $p->codigoSubtramite,
+                            "NOMBRE DE TASA" => $p->nombresubtramite,
+                            "NRO PAGOS" => $p->nurPagos,
+                            "IMPORTE" => $p->precio
                         );
 
                     }
@@ -1594,7 +1629,7 @@ class ExcelController extends Controller
     }
 
 
-    //Consultar contador del subtramite
+//Consultar contador del subtramite
     function contadorSubtramite($codSubtramite)
     {
         $cont = null;
