@@ -11,12 +11,6 @@
                 </tr>
                 <tr>
                     <td>
-                        <i class="icomoon icon-coin"></i>
-                        <a href="/ventVoucherPago">Canjear voucher</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         <i class="glyphicon glyphicon-list-alt"></i>
                         <a href="/ventReportPago" style="color: #509f0c" target="_top">Mostrar pagos</a>
                     </td>

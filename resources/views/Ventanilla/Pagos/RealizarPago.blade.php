@@ -11,12 +11,6 @@
                 </tr>
                 <tr>
                     <td>
-                        <i class="icomoon icon-coin"></i>
-                        <a href="/ventVoucherPago">Canjear voucher</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         <i class="glyphicon glyphicon-list-alt"></i>
                         <a href="/ventReportPago">Mostrar pagos</a>
                     </td>
@@ -39,9 +33,27 @@
             @if(session()->has('false'))
                 <div class="alert alert-danger" role="alert">{{session('false')}} </div>
             @endif
-            <form name="form" action="{{url('pagar')}}" role="Form" method="POST" class="Vertical">
+            <form name="form" action="{{url('/pagar')}}" role="Form" method="POST" class="Vertical">
                 {{csrf_field()}}
                 <div class="col-sm-12">
+                    <div class="col-sm-12 row form-group">
+                        <div class="form-group-sm">
+                            <span class="col-sm-2">Voucher?</span>
+                            <div class="col-sm-4">
+                                <input type="checkbox" id="cvoucher">
+                            </div>
+                            <script>
+                                $(document).ready(function () {
+                                    $('#cvoucher').change(function () {
+                                        if (this.checked)
+                                            $('#dvoucher').fadeIn('slow');
+                                        else
+                                            $('#dvoucher').fadeOut('slow');
+                                    });
+                                });
+                            </script>
+                        </div>
+                    </div>
                     <div class="col-sm-12 row form-group">
                         <div class="form-group-sm " align="right">
                             <div class="col-sm-2">
@@ -318,18 +330,36 @@
                                 <textarea class="form-control input-sm" name="detalle" placeholder="Detalle"
                                           id="detalle"></textarea>
                             </div>
-                            <!--<style>
-                                .required:after {
-                                    content: " (*) ";
-                                    color: #C00;
-                                }
-                            </style>-->
                         </div>
-                        <!--<div class="form-group-sm">
-                            <div class="col-sm-4">
-                                <input type="checkbox" name="checkbox" value="1"> Deuda<br>
+                    </div>
+                    <div id="dvoucher" hidden>
+                        <div class="col-sm-12 row form-group">
+                            <div class="form-group-sm">
+                                <span class="col-sm-2"># Voucher</span>
+                                <div class="col-sm-4">
+                                    <input class="form-control input-sm" name="voucher" id="voucher">
+                                </div>
                             </div>
-                        </div>-->
+                            <div class="form-group-sm">
+                                <span class="col-sm-2">Fecha</span>
+                                <div class="col-sm-4">
+                                    <div class="col-sm-12 input-group date" data-provide="datepicker">
+                                        <input type="text" name="fecha" class="form-control" id="fecha">
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 row form-group">
+                            <div class="form-group-sm">
+                                <span class="col-sm-2"># Cuenta</span>
+                                <div class="col-sm-4">
+                                    <input class="form-control input-sm" name="cuenta" id="cuenta">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-sm-12 row form-group">
                         <!--<span class="col-sm-2 required">Produccion:</span>-->
@@ -403,48 +433,37 @@
                             @endif
                         </div>
                     </div>
-                    <br>
-                    <div class="col-sm-12 row form-group">
+                    <div class="col-xs-12 row form-group">
                         <div class="form-group-sm">
                             <span class="col-sm-2">Costo de boleta:</span>
-                            <div class=" col-sm-4">
-                                <div class="col-sm-1">
-                                    S/.
-                                </div>
-                                <div class="col-sm-3">
-                                    <input class="form-control" name="boletapagar" id="bp"
-                                           readonly>
-                                </div>
-                                <div class="col-sm-1">
-                                    x
-                                </div>
-                                <div class="col-sm-3">
-                                    <input class="form-control" name="multiplicador" id="mp" value="1"
-                                           onkeypress="return validarNum(event)">
-                                </div>
-                                <div class="col-sm-1">
-                                    =
-                                </div>
-                                <div class="col-sm-3">
-                                    <input class="form-control" name="pagar" id="pg" readonly>
-                                </div>
-                                <!--<script>
-                                    $('#ts').change(function () {
-                                        var n2 = $('#mp').val();
-                                        var n1 = $('#bp').val();
-                                        var r = n2 * n1;
-                                        $('#pg').val(r);
-                                    });
-                                </script>-->
-                                <script>
-                                    $('#mp').change(function () {
-                                        var n2 = $('#mp').val();
-                                        var n1 = $('#bp').val();
-                                        var r = n1 * n2;
-                                        $('#pg').val(r);
-                                    });
-                                </script>
+                            <div class="col-sm-1">
+                                S/.
                             </div>
+                            <div class="col-sm-1">
+                                <input class="form-control" name="boletapagar" id="bp"
+                                       readonly>
+                            </div>
+                            <div class="col-sm-1">
+                                x
+                            </div>
+                            <div class="col-sm-1">
+                                <input class="form-control" name="multiplicador" id="mp" value="1"
+                                       onkeypress="return validarNum(event)">
+                            </div>
+                            <div class="col-sm-1">
+                                =
+                            </div>
+                            <div class="col-sm-1">
+                                <input class="form-control" name="pagar" id="pg" readonly>
+                            </div>
+                            <script>
+                                $('#mp').change(function () {
+                                    var n2 = $('#mp').val();
+                                    var n1 = $('#bp').val();
+                                    var r = n1 * n2;
+                                    $('#pg').val(r);
+                                });
+                            </script>
                         </div>
                     </div>
                     <div class="col-sm-12 row form-group">

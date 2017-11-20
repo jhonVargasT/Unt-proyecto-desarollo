@@ -450,7 +450,7 @@ class pagomodel
         LEFT JOIN persona AS p2 ON p2.codPersona = personal.idPersona
         WHERE pago.idSubtramite = subtramite.codSubtramite
         AND p1.codPersona = pago.idPersona AND pago.estado = 1 
-        and pago.estadodeuda = ' . $val . '
+        and pago.estadodeuda = ' . $val . ' and pago.modalidad = "ventanilla" or pago.modalidad ="banco" 
         AND p1.dni = ' . $dni . ' order by pago.codPago desc ');
         } catch (PDOException $e) {
             $util = new util();
@@ -472,7 +472,7 @@ class pagomodel
         where pago.idSubtramite = subtramite.codSubtramite
         and p1.codPersona = pago.idPersona
         and p1.codPersona=alumno.idPersona
-        and pago.estadodeuda = ' . $val . '
+        and pago.estadodeuda = ' . $val . ' and pago.modalidad = "ventanilla" and pago.modalidad ="banco" 
         and pago.estado=1 and alumno.codAlumno =:codAlumno order by pago.codPago desc ', ['codAlumno' => $codAlumno]);
         } catch (PDOException $e) {
             $util = new util();
@@ -494,7 +494,7 @@ class pagomodel
         where pago.idSubtramite = subtramite.codSubtramite
         and p1.codPersona = pago.idPersona
         and p1.codPersona=cliente.idPersona
-        and pago.estadodeuda = ' . $val . '
+        and pago.estadodeuda = ' . $val . ' , pago.modalidad = "ventanilla" and pago.modalidad ="banco"
         and pago.estado=1  and cliente.ruc = ' . $ruc . ' order by pago.codPago desc ');
         } catch (PDOException $e) {
             $util = new util();
@@ -513,7 +513,7 @@ class pagomodel
         left join persona as p1 on p1.codPersona = pago.idPersona
         left join persona as p2 on p2.codPersona = personal.idPersona
         where pago.idSubtramite = subtramite.codSubtramite
-        and p1.codPersona = pago.idPersona
+        and p1.codPersona = pago.idPersona, and pago.modalidad = "banco" and pago.modalidad ="ventanilla"
         and pago.estado=1 and pago.estadodeuda = ' . $val . ' and pago.codPago = ' . $codPago . ' order by pago.codPago desc');
         } catch (PDOException $e) {
             $util = new util();
@@ -2038,7 +2038,8 @@ class pagomodel
                             LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )
                             LEFT JOIN unt.personal pl ON (pl.idPersonal=po.coPersonal )
                             LEFT JOIN unt.persona p ON (pl.idPersona = p.codPersona )
-                            where po.fecha like "%' . $date . '%"  and idProduccionAlumno is null and pl.codPersonal="' . $codPersonal . '"
+                            where po.fecha like "%' . $date . '%"  and idProduccionAlumno is null and pl.codPersonal="' . $codPersonal . '" and po.estado =1
+                            and po.modalidad = "ventanilla" or po.modalidad = "banco"
                             group by (st.codSubtramite) order by (tr.nombre)');
         } catch (PDOException $e) {
             $util = new util();
