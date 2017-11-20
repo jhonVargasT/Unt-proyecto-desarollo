@@ -1204,7 +1204,7 @@ class ExcelController extends Controller
                 //*****************************************
                 //*******************************cuerpo de tabla
                 //estilos
-                $sheet->cells('B8:B' . ($cont + 8) . '', function ($cells) {
+                $sheet->cells('B8:B' . ($cont + 9) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
                         'size' => '14'
@@ -1212,35 +1212,35 @@ class ExcelController extends Controller
                     $cells->setAlignment('center');
                 });
 
-                $sheet->cells('G8:G' . ($cont + 8) . '', function ($cells) {
+                $sheet->cells('G8:G' . ($cont + 9) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
                         'size' => '14'
                     ));
                     $cells->setAlignment('center');
                 });
-                $sheet->cells('H8:H' . ($cont + 8) . '', function ($cells) {
+                $sheet->cells('H8:H' . ($cont + 9) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
                         'size' => '12'
                     ));
                     $cells->setAlignment('center');
                 });
-                $sheet->cells('I8:I' . ($cont + 8) . '', function ($cells) {
+                $sheet->cells('I8:I' . ($cont + 9) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
                         'size' => '14'
                     ));
                     $cells->setAlignment('center');
                 });
-                $sheet->cells('J8:J' . ($cont + 8) . '', function ($cells) {
+                $sheet->cells('J8:J' . ($cont + 9) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
                         'size' => '12'
                     ));
                     $cells->setAlignment('center');
                 });
-                $sheet->cells('L8:L' . ($cont + 8) . '', function ($cells) {
+                $sheet->cells('L8:L' . ($cont + 9) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
                         'size' => '14'
@@ -1249,17 +1249,17 @@ class ExcelController extends Controller
                 });
 
                 //bordes de la hoja
-                $sheet->setBorder('B8:B' . ($cont + 8) . '');
-                $sheet->setBorder('C8:C' . ($cont + 8) . '');
-                $sheet->setBorder('D8:D' . ($cont + 8) . '');
-                $sheet->setBorder('E8:E' . ($cont + 8) . '');
-                $sheet->setBorder('F8:F' . ($cont + 8) . '');
-                $sheet->setBorder('G8:G' . ($cont + 8) . '');
-                $sheet->setBorder('H8:H' . ($cont + 8) . '');
-                $sheet->setBorder('I8:I' . ($cont + 8) . '');
-                $sheet->setBorder('J8:J' . ($cont + 8) . '');
-                $sheet->setBorder('K8:K' . ($cont + 8) . '');
-                $sheet->setBorder('L8:L' . ($cont + 8) . '');
+                $sheet->setBorder('B8:B' . ($cont + 9) . '');
+                $sheet->setBorder('C8:C' . ($cont + 9) . '');
+                $sheet->setBorder('D8:D' . ($cont + 9) . '');
+                $sheet->setBorder('E8:E' . ($cont + 9) . '');
+                $sheet->setBorder('F8:F' . ($cont + 9) . '');
+                $sheet->setBorder('G8:G' . ($cont + 9) . '');
+                $sheet->setBorder('H8:H' . ($cont + 9) . '');
+                $sheet->setBorder('I8:I' . ($cont + 9) . '');
+                $sheet->setBorder('J8:J' . ($cont + 9) . '');
+                $sheet->setBorder('K8:K' . ($cont + 9) . '');
+                $sheet->setBorder('L8:L' . ($cont + 9) . '');
 
                 //ubicacion de la data
                 $sheet->fromArray($data, null, 'B8', false);
@@ -1316,7 +1316,7 @@ class ExcelController extends Controller
                         );
                     }
 
-                    $var = 'CAPTACION DE INGRESOS DEL ' . $fecha . ' - ' . $numero;
+                    /*$var = 'CAPTACION DE INGRESOS DEL ' . $fecha . ' - ' . $numero;
                     //************************Cabeza de hoja
                     //titulo
                     $sheet->mergeCells('B1:E1');
@@ -1425,7 +1425,7 @@ class ExcelController extends Controller
                     //nombre de hoja
                     $sheet->setTitle('Lista de reportes resumido');
                     //par que la data se ajuste
-                    $sheet->setAutoSize(true);
+                    $sheet->setAutoSize(true);*/
 
                 } elseif ($varopc == 'Clasificador S.I.A.F') {
 
@@ -1468,7 +1468,7 @@ class ExcelController extends Controller
 
                     }
 
-                    //************************Cabeza de hoja
+                   /* //************************Cabeza de hoja
                     //titulo
                     $sheet->mergeCells('B1:H1');
 
@@ -1621,7 +1621,7 @@ class ExcelController extends Controller
                     //nombre de hoja
                     $sheet->setTitle('Lista de reportes');
                     //par que la data se ajuste
-                    $sheet->setAutoSize(true);
+                    $sheet->setAutoSize(true);*/
 
                 }
             });

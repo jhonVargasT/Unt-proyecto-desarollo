@@ -286,9 +286,8 @@ class pagomodel
                     FROM tramite as tr
                     LEFT JOIN subtramite st ON (tr.codTramite = st.idTramite)
                     LEFT JOIN pago po ON (st.codSubtramite=po.idSubtramite )
-                    ' . $fecha . ' and st.unidadOperativa = ' . $uniope . '
+                    ' . $fecha . ' 
                     group by st.codSubtramite order by tr.nombre;');
-
 
             }
         } catch (PDOException $e) {
@@ -296,7 +295,6 @@ class pagomodel
             $util->insertarError($e->getMessage(), 'obtenerPagosresumensiaf/pagomodel');
             return null;
         }
-        var_dump($pago);
         return $pago;
     }
 
