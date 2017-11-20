@@ -45,10 +45,18 @@
                             <script>
                                 $(document).ready(function () {
                                     $('#cvoucher').change(function () {
-                                        if (this.checked)
+                                        if (this.checked) {
                                             $('#dvoucher').fadeIn('slow');
-                                        else
+                                            document.getElementById("vfecha").required = true;
+                                            document.getElementById("vcuenta").required = true;
+                                            document.getElementById("voucher").required = true;
+                                        }
+                                        else {
                                             $('#dvoucher').fadeOut('slow');
+                                            document.getElementById("vfecha").required = false;
+                                            document.getElementById("vcuenta").required = false;
+                                            document.getElementById("voucher").required = false;
+                                        }
                                     });
                                 });
                             </script>
@@ -344,7 +352,10 @@
                                 <span class="col-sm-2">Fecha</span>
                                 <div class="col-sm-4">
                                     <div class="col-sm-12 input-group date" data-provide="datepicker">
-                                        <input type="text" name="vfecha" class="form-control" id="vfecha">
+                                        <input type="text" name="vfecha" class="form-control" id="vfecha"
+                                               value="<?php date_default_timezone_set('America/Lima');
+                                               $date = date('m/d/Y');
+                                               echo $date ?>">
                                         <div class="input-group-addon">
                                             <span class="glyphicon glyphicon-th"> </span>
                                         </div>
@@ -356,7 +367,7 @@
                             <div class="form-group-sm">
                                 <span class="col-sm-2"># Cuenta</span>
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="cuenta" id="cuenta">
+                                    <input class="form-control input-sm" name="vcuenta" id="vcuenta">
                                 </div>
                             </div>
                         </div>

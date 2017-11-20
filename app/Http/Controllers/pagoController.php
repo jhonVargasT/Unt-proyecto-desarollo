@@ -58,8 +58,17 @@ class pagoController extends Controller
         $cantidad = $request->multiplicador;
         $p = new pagomodel();
         $p->setDetalle($request->detalle);
-        $p->setFecha($dato);
-        $p->setModalidad('ventanilla');
+        if ($request->voucher) {
+            $vfecha = $request->vfecha;
+            $fecha = date('Y-m-d', strtotime($vfecha));
+            $p->setFecha($fecha);
+            $p->setNroVoucher($request->voucher);
+            $p->setNroCuenta($request->vcuenta);
+            $p->setModalidad('banco');
+        } else {
+            $p->setFecha($dato);
+            $p->setModalidad('ventanilla');
+        }
         $idper = Session::get('idpersonal', 'No existe session');
         $p->setCoPersonal($idper);
         $p->setIdPersona($codper);
@@ -632,8 +641,7 @@ class pagoController extends Controller
         }
 
 
-
-        $cadena = $estado . ';' . $modalidad . ';' . $fechaDesde . ';' . $fechaHasta . ';' . $tram . ';' . $tramites . ';' . $tipRe . ';' . $fuenfin . ';' . $lugar . ';' . $codigo . ';' . $centroProducion.';'.$opcBusqueda;
+        $cadena = $estado . ';' . $modalidad . ';' . $fechaDesde . ';' . $fechaHasta . ';' . $tram . ';' . $tramites . ';' . $tipRe . ';' . $fuenfin . ';' . $lugar . ';' . $codigo . ';' . $centroProducion . ';' . $opcBusqueda;
         //  $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $cadena, MCRYPT_MODE_CBC, md5(md5($key))));
         return view('Administrador/Reporte/Report')->with(['centroproduccion' => $centroProducion, 'result' => $result, 'total' => $total, 'estado' => $estado, 'modalidad' => $modalidad, 'fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta, 'tram' => $tram, 'tramites' => $tramites, 'tipRe' => $tipRe, 'fuenfin' => $fuenfin, 'lugar' => $lugar, 'codigo' => $codigo, 'encript' => $cadena]);
     }

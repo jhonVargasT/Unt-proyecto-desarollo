@@ -21,6 +21,8 @@ class pagomodel
     private $deuda;
     private $cantidad;
     private $idProduccionAlumno;
+    private $nroVoucher;
+    private $nroCuenta;
 
     /**
      * pagomodel constructor.
@@ -28,6 +30,44 @@ class pagomodel
     public function __construct()
     {
     }
+
+    /**
+     * @return mixed
+     */
+    public function getNroVoucher()
+    {
+        return $this->nroVoucher;
+    }
+
+    /**
+     * @param mixed $nroVoucher
+     * @return pagomodel
+     */
+    public function setNroVoucher($nroVoucher)
+    {
+        $this->nroVoucher = $nroVoucher;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNroCuenta()
+    {
+        return $this->nroCuenta;
+    }
+
+    /**
+     * @param mixed $nroCuenta
+     * @return pagomodel
+     */
+    public function setNroCuenta($nroCuenta)
+    {
+        $this->nroCuenta = $nroCuenta;
+        return $this;
+    }
+
+
 
     /**
      * @return mixed
@@ -286,8 +326,9 @@ class pagomodel
                     FROM tramite as tr
                     LEFT JOIN subtramite st ON (tr.codTramite = st.idTramite)
                     LEFT JOIN pago po ON (st.codSubtramite=po.idSubtramite )
-                    ' . $fecha . ' 
+                    ' . $fecha . ' and st.unidadOperativa = ' . $uniope . '
                     group by st.codSubtramite order by tr.nombre;');
+
 
             }
         } catch (PDOException $e) {
@@ -295,6 +336,7 @@ class pagomodel
             $util->insertarError($e->getMessage(), 'obtenerPagosresumensiaf/pagomodel');
             return null;
         }
+        var_dump($pago);
         return $pago;
     }
 
@@ -321,10 +363,10 @@ class pagomodel
             try {
                 DB::transaction(function () use ($logunt, $contaux) {
                     if ($this->deuda == 0) {
-                        DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal, 'idProduccionAlumno' => $this->idProduccionAlumno, 'cantidad' => $this->cantidad]);
+                        DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal, 'idProduccionAlumno' => $this->idProduccionAlumno, 'cantidad' => $this->cantidad, 'nroVoucher' => $this->nroVoucher, 'nroCuenta' => $this->nroCuenta]);
                         DB::table('subtramite')->where('codSubtramite', $this->idSubtramite)->update(['contador' => $contaux]);
                     } elseif ($this->deuda != 0) {
-                        DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal, 'estadodeuda' => $this->deuda, 'cantidad' => $this->cantidad]);
+                        DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal, 'estadodeuda' => $this->deuda, 'cantidad' => $this->cantidad, 'nroVoucher' => $this->nroVoucher, 'nroCuenta' => $this->nroCuenta]);
                         DB::table('subtramite')->where('codSubtramite', $this->idSubtramite)->update(['contador' => $contaux]);
                     }
                     $logunt->saveLogUnt();

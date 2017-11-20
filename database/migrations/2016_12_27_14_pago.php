@@ -27,7 +27,7 @@ class Pago extends Migration
             $table->dateTime('fechaDevolucion')->nullable();
             $table->boolean('estadodeuda')->default('0');
             $table->integer('cantidad');
-            $table->string('nroVoucher');
+            $table->string('nroVoucher')->unique();
             $table->string('nroCuenta');
 
             $table->integer('idPersona')->unsigned();
