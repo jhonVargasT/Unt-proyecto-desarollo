@@ -20,7 +20,7 @@ class facultadController extends Controller
             $facultad->setCodFacultad($request->CodigoFacultad);
             $facultad->setNombre($request->NombreFacultad);
             $facultad->setNroCuenta($request->CuentaInterna);
-            $codsede = $facultad->bscSedeId($request->nombreSede);//SQL, buscar id de la sede por su nombre
+            $codsede = $facultad->bscSedeId($request->sede);//SQL, buscar id de la sede por su nombre
            echo $codsede;
             $facultad->setCodSede($codsede);
 

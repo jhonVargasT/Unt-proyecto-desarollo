@@ -22,7 +22,7 @@ class alumnoController extends Controller
         $alumno->setTipoAlummno(1);
         //$date = implode("-", array_reverse(explode("/", $request->fecha)));
         $alumno->setFecha($request->fecha);
-        $idE = $alumno->bdEscuela($request->nombreEscuela);//Consular el id de la escuela a la que va a pertenecer
+        $idE = $alumno->bdEscuelaSede($request->nombreEscuela,$request->nombreSede);//Consular el id de la escuela a la que va a pertenecer
         $alumno->setIdEscuela($idE);
         $al = $alumno->savealumno($request->dni);//Metodo de insercion en la bd al alumno (persona y alumno)
 

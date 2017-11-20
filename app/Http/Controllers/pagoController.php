@@ -540,7 +540,6 @@ class pagoController extends Controller
     //Buscar pagos, detallado
     public function reportePagos(Request $request)
     {
-
         $sede = new sedemodel();
         $fac = new facultadmodel();
         $esc = new escuelamodel();
@@ -568,7 +567,6 @@ class pagoController extends Controller
         if (empty($centroProducion) != true) {
             $opcBusqueda .= '| Centro de produccion : ' . $centroProducion;
         }
-
         if (empty($request->sed) != true) {
             if (empty($request->fac) != true) {
                 if (empty($request->esc) != true) {
@@ -630,8 +628,6 @@ class pagoController extends Controller
         } else {
             $total = 0;
         }
-
-
         $cadena = $estado . ';' . $modalidad . ';' . $fechaDesde . ';' . $fechaHasta . ';' . $tram . ';' . $tramites . ';' . $tipRe . ';' . $fuenfin . ';' . $lugar . ';' . $codigo . ';' . $centroProducion;
         //  $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $cadena, MCRYPT_MODE_CBC, md5(md5($key))));
         return view('Administrador/Reporte/Report')->with(['centroproduccion' => $centroProducion, 'result' => $result, 'total' => $total, 'estado' => $estado, 'modalidad' => $modalidad, 'fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta, 'tram' => $tram, 'tramites' => $tramites, 'tipRe' => $tipRe, 'fuenfin' => $fuenfin, 'lugar' => $lugar, 'codigo' => $codigo, 'encript' => $cadena, 'opcionesbusqueda' => $opcBusqueda]);
@@ -674,13 +670,10 @@ class pagoController extends Controller
             $varaño = $request->año1;
             if ($varOpc == 'Resumen total') {//Si se escoge: Resumen total
                 $tiempo = null;
-
                 if ($vartiemp == 'Año') {
-
                     $tiempo = 'where Year(po.fecha) = ' . $varaño . '';
                     $result = $pagoModel->listarpagosresumen($tiempo, $unidadOpera);//SQL, obtener pagos por año
                     $numero = $varaño;
-
                 } else {
                     if ($vartiemp == 'Mes') {
                         $tiempo = 'where MONTH(po.fecha) = ' . $request->mes2 . ' and Year(po.fecha)=' . $request->año2 . '';
@@ -708,7 +701,6 @@ class pagoController extends Controller
 
                 $tiempo = null;
                 if ($vartiemp == 'Año') {
-
                     $tiempo = 'where Year(po.fecha) = ' . $varaño . '';
                     $result = $pagoModel->obtenerPagosresumensiaf($tiempo, $unidadOpera);//SQL, obtener pagos resumidos por año resumido
                     $numero = $varaño;
@@ -735,6 +727,5 @@ class pagoController extends Controller
         } else {
             return view('Administrador/Reporte/reporteresumido');
         }
-
     }
 }
