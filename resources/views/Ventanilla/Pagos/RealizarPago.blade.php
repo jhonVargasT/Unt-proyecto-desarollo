@@ -344,7 +344,7 @@
                                 <span class="col-sm-2">Fecha</span>
                                 <div class="col-sm-4">
                                     <div class="col-sm-12 input-group date" data-provide="datepicker">
-                                        <input type="text" name="fecha" class="form-control" id="fecha">
+                                        <input type="text" name="vfecha" class="form-control" id="vfecha">
                                         <div class="input-group-addon">
                                             <span class="glyphicon glyphicon-th"> </span>
                                         </div>

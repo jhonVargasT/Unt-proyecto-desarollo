@@ -14,29 +14,29 @@ class Pago extends Migration
     public function up()
     {
         //
-        Schema::create('pago', function (Blueprint $table)
-        {
+        Schema::create('pago', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->charset = 'utf8';
             $table->collate = 'utf8_spanish_ci';
 
-            $table ->increments('codPago')->unique();
-            $table ->string('detalle');
-            $table ->string('fecha');
-            $table ->string('modalidad');
-            $table -> boolean('estado')->default('1');
-            $table ->dateTime('fechaDevolucion')->nullable();
-            $table -> boolean('estadodeuda')->default('0');
+            $table->increments('codPago')->unique();
+            $table->string('detalle');
+            $table->string('fecha');
+            $table->string('modalidad');
+            $table->boolean('estado')->default('1');
+            $table->dateTime('fechaDevolucion')->nullable();
+            $table->boolean('estadodeuda')->default('0');
             $table->integer('cantidad');
+            $table->string('nroVoucher');
+            $table->string('nroCuenta');
 
             $table->integer('idPersona')->unsigned();
             $table->integer('coPersonal')->unsigned()->nullable();
             $table->integer('idSubtramite')->unsigned();
             $table->integer('idProduccionAlumno')->unsigned()->nullable();
-
         });
 
-        Schema::table('pago', function( $table) {
+        Schema::table('pago', function ($table) {
             $table->foreign('idPersona')->references('codPersona')->on('persona');
             $table->foreign('coPersonal')->references('idPersonal')->on('personal');
             $table->foreign('idSubtramite')->references('codSubtramite')->on('subtramite');
