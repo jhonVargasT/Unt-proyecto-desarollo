@@ -357,6 +357,34 @@
                         </div>
                     </div>
                 </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseProd">
+                                <span class="fa fa-building-o">
+                            </span> Pagos Produccion</a>
+                        </h4>
+                    </div>
+                    @yield('produccion')
+                    <div id="collapseProd" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-search"></span>
+                                        <a href="/admBuscarBanco">Buscar Pagos Produccion</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                        <a href="/admRegistrarBanco">Agregar Pagos Produccion</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
                 <!--<div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">

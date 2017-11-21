@@ -92,17 +92,17 @@ class personalController extends Controller
         }
         //Redireccion a vista dependiendo del tipo de cuenta
         if ($personal->getTipoCuenta() == 'Administrador' && $personal->getCuenta() != '') {
-            return view('/Administrador/Body');
+            return redirect()->route('Adm');
         } else {
             if ($personal->getTipoCuenta() == 'Ventanilla' && $personal->getCuenta() != '') {
 
-                return view('Ventanilla/Body');
+                return redirect()->route('Adm');
             } else {
                 if ($personal->getTipoCuenta() == 'Reportes' && $personal->getCuenta() != '') {
-                    return view('Reportes/Body');
+                    return redirect()->route('Adm');
                 } else {
                     if ($personal->getTipoCuenta() == 'Importador' && $personal->getCuenta() != '') {
-                        return view('Importaciones/Body');
+                        return redirect()->route('Adm');
                     } else {
                         return back()->with('true', 'Cuenta ' . $personal->getCuenta() . ' no encontrada o contraseña incorrecta')->withInput();
                     }
