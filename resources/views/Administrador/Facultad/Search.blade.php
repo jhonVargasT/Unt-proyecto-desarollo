@@ -20,23 +20,23 @@
     </div>
 @stop
 @section('content')
-    @if(session()->has('true'))
-        <div class="alert alert-success" role="alert">{{session('true')}} </div>
-    @endif
-    @if(session()->has('false'))
-        <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
-    @endif
     <div class="panel-heading"><h3> Buscar Facultades</h3></div>
     <div style="background-color: #FFFFFF">
-
         <div class="panel-body">
+            @if(session()->has('true'))
+                <div class="alert alert-success" role="alert">{{session('true')}} </div>
+            @endif
+            @if(session()->has('false'))
+                <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
+            @endif
             <form name="form" action="{{url('FacultadesBuscadas')}}" role="Form" method="POST" class="Vertical">
                 {{ csrf_field() }}
                 <div class="col-sm-12 row form-group">
                     <div class="form-group-sm col-sm-6 ">
                         <span class="col-sm-5 control-label">Buscar por:</span>
                         <div class="col-sm-7 ">
-                            <select class=" form-control" name="select" id="select" onclick="activarBusqueda('select','text','buscar');">
+                            <select class=" form-control" name="select" id="select"
+                                    onclick="activarBusqueda('select','text','buscar');">
                                 <option selected>Todo</option>
                                 <option>Codigo Facultad</option>
                                 <option>Cuenta Interna</option>
@@ -47,7 +47,8 @@
                     </div>
                     <div class="form-group-sm input-group col-sm-6">
                         @if(isset($txt))
-                            <input name="text" class="form-control" value="{{$txt}}" autocomplete="off" id="text" required>
+                            <input name="text" class="form-control" value="{{$txt}}" autocomplete="off" id="text"
+                                   required>
                         @else
                             <input name="text" class="form-control" placeholder="Ingresa datos aqui .."
                                    autocomplete="off" id="text" disabled required>

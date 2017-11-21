@@ -345,7 +345,8 @@
                             <div class="form-group-sm">
                                 <span class="col-sm-2"># Voucher</span>
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="voucher" id="voucher">
+                                    <input class="form-control input-sm" name="voucher" id="voucher"
+                                           onkeypress="return validarNum(event)">
                                 </div>
                             </div>
                             <div class="form-group-sm">
@@ -367,7 +368,8 @@
                             <div class="form-group-sm">
                                 <span class="col-sm-2"># Cuenta</span>
                                 <div class="col-sm-4">
-                                    <input class="form-control input-sm" name="vcuenta" id="vcuenta">
+                                    <input class="form-control input-sm" name="vcuenta" id="vcuenta"
+                                           onkeypress="return validarNum(event)">
                                 </div>
                             </div>
                         </div>

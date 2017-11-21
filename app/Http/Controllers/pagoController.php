@@ -57,18 +57,22 @@ class pagoController extends Controller
         $total = $request->total;
         $cantidad = $request->multiplicador;
         $p = new pagomodel();
-        $p->setDetalle($request->detalle);
         if ($request->voucher) {
             $vfecha = $request->vfecha;
             $fecha = date('Y-m-d', strtotime($vfecha));
-            $p->setFecha($fecha);
             $p->setNroVoucher($request->voucher);
             $p->setNroCuenta($request->vcuenta);
             $p->setModalidad('banco');
+            if ($request->detalle) {
+                $p->setDetalle($request->detalle . '-' . $request->voucher . '-' . $request->vcuenta . '/' . $fecha);
+            } else {
+                $p->setDetalle($request->voucher . '-' . $request->vcuenta . '/' . $fecha);
+            }
         } else {
-            $p->setFecha($dato);
             $p->setModalidad('ventanilla');
+            $p->setDetalle($request->detalle);
         }
+        $p->setFecha($dato);
         $idper = Session::get('idpersonal', 'No existe session');
         $p->setCoPersonal($idper);
         $p->setIdPersona($codper);

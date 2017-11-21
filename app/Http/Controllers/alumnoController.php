@@ -99,7 +99,7 @@ class alumnoController extends Controller
         $alumno->setCorreo($request->correo);
         //$date = implode("-", array_reverse(explode("/", $request->fecha)));
         $alumno->setFecha($request->fecha);
-        $idE = $alumno->bdEscuela($request->nombreEscuela);//Consular el id de la escuela a la que va a pertenecer
+        $idE = $alumno->bdEscuelaSede($request->nombreEscuela,$request->nombreSede);//Consular el id de la escuela a la que va a pertenecer
         $alumno->setIdEscuela($idE);
         $alumno->editarAlumno($codPersona);//Ejecuta la consulta de actualizar los datos del alumno
 

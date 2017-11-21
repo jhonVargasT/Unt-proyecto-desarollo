@@ -60,8 +60,9 @@
             </form>
             <!--tabla-->
             <div class="table-responsive col-sm-12">
+                <br>
                 @if(isset($nombre)!=null)
-                    <div class="alert alert-success" role="alert">La sede {{$nombre}} fue actualizada!!</div>
+                    <div class="alert alert-success" role="alert"> La sede {{$nombre}} fue actualizada!!</div>
                 @endif
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>

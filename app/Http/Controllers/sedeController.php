@@ -43,7 +43,7 @@ class sedeController extends Controller
         $sede->setNombreSede($request->nombresede);
         $sede->setDireccion($request->direccion);
         $sede->editarSede($codSede);//SQL, actualizar datos de la sede
-        return view('Administrador/Sede/search')->with(['nombre' => $request->nombreSede]);
+        return view('Administrador/Sede/Search')->with(['nombre' => $request->nombresede]);
     }
 
     //Buscar sedes

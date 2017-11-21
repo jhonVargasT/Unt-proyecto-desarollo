@@ -113,14 +113,14 @@
                                     <select class="form-control " name="tipocuenta">
                                         <option>Administrador</option>
                                         <option>Ventanilla</option>
-                                        <option>Reportes</option>
+                                        <!--<option>Reportes</option>-->
                                         <option>Importador</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group-sm">
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
-                                    <span class="control-label"> Codigo alumno</span>
+                                    <span class="control-label">Codigo personal</span>
                                     <input class="form-control input-sm" name="codigoPersonal" type="text"
                                            onchange="validarNumeros('codigoPersonal','spancodigopersonal')"
                                            autocomplete="off" placeholder="Ejm: 000104499" required id="codigoPersonal">
