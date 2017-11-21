@@ -163,7 +163,7 @@ class bancomodel
     public function consultarBancoxNombre($nombreBanco)
     {
         try {
-            $bancobd = DB::select('select * from banco  where banco= "' . $nombreBanco . '" ');
+            $bancobd = DB::select('select * from banco  where banco= "' . $nombreBanco . '" and estado =1');
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'consultarBancoxNombre/bancomodel');
@@ -176,7 +176,7 @@ class bancomodel
     public function consultarBancoxCuenta($cuenta)
     {
         try {
-            $bancobd = DB::select('select * from banco  where cuenta= ' . $cuenta . ' ');
+            $bancobd = DB::select('select * from banco  where cuenta= ' . $cuenta . ' and estado=1 ');
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'consultarBancoxCuenta/bancomodel');
@@ -188,7 +188,7 @@ class bancomodel
     public function consultarBancos()
     {
         try {
-            $bancobd = DB::select('select * from banco');
+            $bancobd = DB::select('select * from banco where estado =1');
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'consultarBancos/bancomodel');

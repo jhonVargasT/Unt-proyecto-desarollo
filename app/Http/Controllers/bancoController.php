@@ -78,7 +78,7 @@ class bancoController extends Controller
         if ($val == true) {
             return back()->with('true', 'Banco ' . $request->nombreBanco . ' eliminado con exito')->withInput();
         } else {
-            return back()->with('false', 'Sede ' . $request->nombreBanco . ' no eliminada');
+            return back()->with('false', 'Banco ' . $request->nombreBanco . ' no eliminada');
         }
     }
 }

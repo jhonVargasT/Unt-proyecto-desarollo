@@ -88,12 +88,11 @@ class subtramiteController extends Controller
     {
 
         $subtramite = new subtramitemodel();
-       $sub = $subtramite->eliminarSubtramite($codSubtramite);//SQL, eliminar(cambiar de 1 a 0) el registro de la tasa por codigo de tasa
-        echo $sub;
+        $sub = $subtramite->eliminarSubtramite($codSubtramite);//SQL, eliminar(cambiar de 1 a 0) el registro de la tasa por codigo de tasa
         if ($sub == true) {
-           // return back()->with('true', 'Tasa ' . $request->nombre . ' se elimino con exito')->withInput();
+            return back()->with('true', 'Tasa ' . $request->nombre . ' se elimino con exito')->withInput();
         } else {
-           // return back()->with('false', 'Tasa ' . $request->nombre . ' no se elimino');
+            return back()->with('false', 'Tasa ' . $request->nombre . ' no se elimino');
         }
     }
 
