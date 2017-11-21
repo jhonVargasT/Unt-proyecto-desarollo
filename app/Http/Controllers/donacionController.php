@@ -18,7 +18,6 @@ class donacionController extends Controller
         $d = $request->fecha;
         $fecha = date("Y-m-d", strtotime($d));
         $date = implode("-", array_reverse(explode("/", $fecha)));
-        echo $date;
         $donacion->setFechaIngreso($date);
         $donacion->setDescripcion($request->descripcion);
         $donacion->setMonto($request->monto);
@@ -106,11 +105,9 @@ class donacionController extends Controller
 
         if ($request->combito !== 'Escojer') {
             if ($vartiemp == 1) {
-                echo 'aqui';
                 $tiempo = 'where Year(d.fechaIngreso) = ' . $varaño . '';
                 $result = $donacion->consultarDonaciones($tiempo);//SQL, buscar a la donacion y transferencia fecha
                 $numero = 'DEL AÑO -' . $varaño;
-                var_dump($result);
             } elseif ($vartiemp == 2) {
                 $tiempo = 'where MONTH(d.fechaIngreso) = ' . $request->mes2 . ' and Year(d.fechaIngreso)=' . $request->año2 . '';
                 $result = $donacion->consultarDonaciones($tiempo);//SQL, buscar a la donacion y transferencia fecha

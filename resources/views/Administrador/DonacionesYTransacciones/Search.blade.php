@@ -95,7 +95,7 @@
                         </div>
                     </div>
                     <div class="form-group-sm col-sm-1 col-lg-1 col-xs-1">
-                        <span class=" control-label">...</span>
+                        <span class=" control-label">&nbsp;</span>
                         <button type="submit" class="btn btn-sm btn-success s-b-5" id="imp"><i
                                     class="ion-ios7-search"> </i> buscar
                         </button>

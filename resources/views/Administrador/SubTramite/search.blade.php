@@ -84,6 +84,9 @@
                     <!--cabecear Tabla-->
                     <tr>
                         <th>
+                            <div align="center">Nombre clasificador</div>
+                        </th>
+                        <th>
                             <div align="center">Nombre tasa</div>
                         </th>
                         <th>
@@ -105,7 +108,8 @@
                         <!--Contenido-->
                         @foreach($subtramite as $s)
                             <tr>
-                                <td>{{$s->nombre}}</td>
+                                <td>{{$s->fnombre}}</td>
+                                <td>{{$s->tnombre}}</td>
                                 <td>{{$s->unidadOperativa}}</td>
                                 <td>{{$s->codigoSubtramite}}</td>
                                 <td>{{$s->precio}}</td>
