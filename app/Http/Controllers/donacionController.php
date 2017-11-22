@@ -28,7 +28,7 @@ class donacionController extends Controller
         $donacion->setIdBanco($idB);
         $dona = $donacion->saveDonacion();//SQL, insercion de los datos de la donacion o transferencias
 
-       if ($dona == true) {
+        if ($dona == true) {
             return back()->with('true', 'Donacion ' . $request->numResolucion . ' guardada con exito')->withInput();
         } else {
             return back()->with('false', 'Donacion ' . $request->numResolucion . ' no guardada, puede que ya exista');
@@ -165,6 +165,19 @@ class donacionController extends Controller
         $data = array();
         foreach ($products as $product) {
             $data[] = array($product->banco, $product->cuenta);
+        }
+        return $data;
+    }
+
+    public function buscarProduccion()
+    {
+        $produccion = DB::select('select nombre from produccion where estado=1');
+
+        $data = array();
+        $i = 0;
+        foreach ($produccion as $p) {
+            $data[$i] = array($p->nombre);
+            $i++;
         }
         return $data;
     }

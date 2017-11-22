@@ -110,12 +110,18 @@ Route::get('/admRegistrarDonaciones', function () {
 Route::get('/admBuscarDonaciones', function () {
     return view('Administrador/DonacionesYTransacciones/Search');
 });
+Route::get('/admRegistrarProduccionPagos', function () {
+    return view('Administrador/DonacionesYTransacciones/AddPagoProduccion');
+});
 
 Route::resource('DonacionRegistrada', 'donacionController@registrarDonaciones');
 Route::resource('DonacionesBuscadas', 'donacionController@listarDonaciones');
 Route::resource('DonacionCargar', 'donacionController@cargarDonacion');
 Route::get('DonacionEditada/{codDonacion}', 'donacionController@editarDonacion');
 Route::get('DonacionEliminar/{codDonacion}', 'donacionController@eliminarDonacion');
+
+Route::get('/obtenerProduccion', 'donacionController@buscarProduccion');
+
 
 ////////////////////////////////////////////Escuela//////////////////////////////////////////////////////////////////////
 
@@ -144,7 +150,7 @@ Route::get('/admBuscarProduccion', function () {
 Route::resource('ProduccionRegistrado', 'produccionController@registrarProduccion');
 Route::resource('ProduccionBuscadas', 'produccionController@listarProduccion');
 Route::resource('ProduccionCargar', 'produccionController@cargarProduccion');
-Route::get('ProduccionEditado/{codProduccion}', 'produccionController@editarProduccion');
+Route::get('ProduccionEditado/{codProduccion}/{CodProduccionAlumno}/{codAlumno}/{codPersona}', 'produccionController@editarProduccion');
 Route::get('ProduccionEliminar/{codProduccion}', 'produccionController@eliminarProduccion');
 
 
@@ -241,10 +247,9 @@ Route::get('SedeEliminar/{codSede}', 'sedeController@eliminarSede');
 
 /////////////////////////////////////////////////////CLIENTE////////////////////////////////////////////////////////////
 
-
 Route::get('/Vent', function () {
     return view('Ventanilla/Body');
-});
+})->name('Vent');
 ///////////////Cliente/////////////////////////
 Route::get('/ventRegistrarCliente', function () {
     return view('Ventanilla/Cliente/Add');

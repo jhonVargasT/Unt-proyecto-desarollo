@@ -95,8 +95,7 @@ class personalController extends Controller
             return redirect()->route('Adm');
         } else {
             if ($personal->getTipoCuenta() == 'Ventanilla' && $personal->getCuenta() != '') {
-
-                return redirect()->route('Adm');
+                return redirect()->route('Vent');
             } else {
                 if ($personal->getTipoCuenta() == 'Reportes' && $personal->getCuenta() != '') {
                     return redirect()->route('Adm');

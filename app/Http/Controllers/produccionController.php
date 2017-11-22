@@ -75,17 +75,4 @@ class produccionController extends Controller
         $data = DB::table('produccion')->select("nombre as name")->where("nombre", "LIKE", "%{$request->input('query')}%")->get();
         return response()->json($data);
     }
-
-    /*public function autocompleteprod(Request $request)
-    {
-        $products = DB::select('select ');
-        $data = array();
-        foreach ($products as $product) {
-            $data[] = array('value' => $product->nombre);
-        }
-        if (count($data))
-            return $data;
-        else
-            return ['value' => 'No se encuentra'];
-    }*/
 }
