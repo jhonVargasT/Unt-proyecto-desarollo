@@ -45,7 +45,7 @@
 
             <form name="form"
                   onsubmit="activarbotonform(event,['spansiaf','spanmonto','spanresolucion','spancuenta'],'enviar','mensaje')"
-                  action="{{url('DonacionRegistrada')}}" role="form" method="POST" class="Horizontal">
+                  action="{{url('/PagoProduccion')}}" role="form" method="POST" class="Horizontal">
                 {{csrf_field()}}
                 @if(session()->has('true'))
                     <div class="alert alert-success" role="alert">{{session('true')}} </div>
@@ -53,7 +53,6 @@
                 @if(session()->has('false'))
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
             @endif
-            <!-- Search input-->
                 <div class="panel  panel-primary">
                     <div class="panel-heading">Datos Centro de Produccion</div>
                     <div class="panel-body">
@@ -85,7 +84,7 @@
                     </div>
                 </div>
                 <div class="panel  panel-primary">
-                    <div class="panel-heading">Datos Tasas</div>
+                    <div class="panel-heading">Datos Tasa</div>
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm">

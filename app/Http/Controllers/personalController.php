@@ -98,10 +98,10 @@ class personalController extends Controller
                 return redirect()->route('Vent');
             } else {
                 if ($personal->getTipoCuenta() == 'Reportes' && $personal->getCuenta() != '') {
-                    return redirect()->route('Adm');
+                    return redirect()->route('Rep');
                 } else {
                     if ($personal->getTipoCuenta() == 'Importador' && $personal->getCuenta() != '') {
-                        return redirect()->route('Adm');
+                        return redirect()->route('Imp');
                     } else {
                         return back()->with('true', 'Cuenta ' . $personal->getCuenta() . ' no encontrada o contraseña incorrecta')->withInput();
                     }

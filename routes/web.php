@@ -113,6 +113,8 @@ Route::get('/admBuscarDonaciones', function () {
 Route::get('/admRegistrarProduccionPagos', function () {
     return view('Administrador/DonacionesYTransacciones/AddPagoProduccion');
 });
+Route::resource('/PagoProduccion', 'donacionController@registrarPagoProduccion');
+
 
 Route::resource('DonacionRegistrada', 'donacionController@registrarDonaciones');
 Route::resource('DonacionesBuscadas', 'donacionController@listarDonaciones');
@@ -472,6 +474,9 @@ Route::get('/boletavirtual', function () {
 });
 
 ///////////////////////////////IMPORTACIONES////////////////////////////////////////////////////////////////////////////
+Route::get('/Importador', function () {
+    return view('Importaciones/Body');
+})->name('Imp');
 
 Route::get('/impSedes', function () {
     return view('Importaciones/Importacion/Sede');

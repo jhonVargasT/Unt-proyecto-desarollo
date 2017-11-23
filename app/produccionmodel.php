@@ -214,7 +214,7 @@ class produccionmodel
         return true;
     }*/
 
-    public function eliminarProduccion($codProduccion)
+    public function eliminarProduccion($codProduccion, $codPersona, $idAlumno, $codProduccionAlumno)
     {
         date_default_timezone_set('Etc/GMT+5');
         $date = date('Y-m-d H:i:s', time());
@@ -224,10 +224,12 @@ class produccionmodel
         $logunt->setFecha($date);
         $logunt->setDescripcion('eliminarProduccion');
         $logunt->setCodigoPersonal($codPers);
-
         try {
-            DB::transaction(function () use ($codProduccion, $logunt) {
+            DB::transaction(function () use ($codProduccion, $codPersona, $idAlumno, $codProduccionAlumno, $logunt) {
                 DB::table('produccion')->where('codProduccion', $codProduccion)->update(['estado' => 0]);
+                DB::table('persona')->where('codPersona', $codPersona)->update(['estado' => 0]);
+                DB::table('alumno')->where('idAlumno', $idAlumno)->update(['estado' => 0]);
+                DB::table('produccionalumno')->where('codProduccionAlumno', $codProduccionAlumno)->update(['estado' => 0]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {
@@ -253,7 +255,11 @@ class produccionmodel
     public function consultarProduccion()
     {
         try {
-            $produccionbd = DB::select('select * from produccion');
+            $produccionbd = DB::select('select * from produccion 
+            left join produccionalumno on produccionalumno.idProduccion = produccion.codProduccion
+            left join alumno on produccionalumno.codAlumno = alumno.idAlumno
+            left join persona on alumno.idPersona = persona.codPersona
+            where produccion.estado = 1 and alumno.estado=1 and persona.estado =1');
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'consultarProduccion/produccionmodel');
@@ -277,7 +283,11 @@ class produccionmodel
     public function consultarProduccionxNombre($nombre)
     {
         try {
-            $produccionbd = DB::select('select * from produccion where nombre like "%' . $nombre . '%"');
+            $produccionbd = DB::select('select * from produccion 
+            left join produccionalumno on produccionalumno.idProduccion = produccion.codProduccion
+            left join alumno on produccionalumno.codAlumno = alumno.idAlumno
+            left join persona on alumno.idPersona = persona.codPersona
+            where produccion.estado = 1 and alumno.estado=1 and persona.estado =1 and nombre like "' . $nombre . '%"');
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'consultarProduccionxNombre/produccionmodel');
@@ -302,7 +312,11 @@ class produccionmodel
     public function consultarProduccionxDireccion($direccion)
     {
         try {
-            $produccionbd = DB::select('select * from produccion where direccion like "%' . $direccion . '%"');
+            $produccionbd = DB::select('select * from produccion 
+            left join produccionalumno on produccionalumno.idProduccion = produccion.codProduccion
+            left join alumno on produccionalumno.codAlumno = alumno.idAlumno
+            left join persona on alumno.idPersona = persona.codPersona
+            where produccion.estado = 1 and alumno.estado=1 and persona.estado =1 and direccion like "%' . $direccion . '%"');
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'consultarProduccionxDireccion/produccionmodel');

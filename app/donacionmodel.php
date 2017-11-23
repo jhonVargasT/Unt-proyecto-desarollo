@@ -320,7 +320,6 @@ class donacionmodel
     }
 
     public function consultarDonaciones($fecha)
-
     {
         try {
             $donacionbd = DB::select('SELECT d.codDonacion as codigo ,d.numResolucion,b.banco,b.cuenta,t.nombre,d.fechaIngreso,d.descripcion,d.monto as importe FROM donacion d  

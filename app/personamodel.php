@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Exception;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\util;
 
@@ -118,7 +119,7 @@ class personamodel
             $persona = DB::table('persona')->where(['codPersona' => $idPersona, 'estado' => 1])->get();
         } catch (Exception $e) {
             $util = new util();
-            $util->insertarError($e->getMessage(), 'saveProduccion/produccionmodel');
+            $util->insertarError($e->getMessage(), 'obtnerId/personalmodel');
             return null;
 
         }
@@ -134,10 +135,27 @@ class personamodel
             foreach ($persona as $p) {
                 $cp = $p->codPersona;
             }
-        }catch (\Exception $e)
+        }catch (Exception $e)
         {
             $util = new util();
-            $util->insertarError($e->getMessage(), 'saveProduccion/produccionmodel');
+            $util->insertarError($e->getMessage(), 'obtnerIdDni/personalmodel');
+            return null;
+        }
+        return $cp;
+    }
+
+    public function obtnerIdNombre($nombres)
+    {
+        try {
+            $cp = null;
+            $persona = DB::table('persona')->where(['nombres' => $nombres, 'estado' => 1])->get();
+            foreach ($persona as $p) {
+                $cp = $p->codPersona;
+            }
+        }catch (Exception $e)
+        {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'obtnerIdNombre/personalmodel');
             return null;
         }
         return $cp;

@@ -40,10 +40,10 @@ class produccionController extends Controller
         return view('Administrador/Produccion/Search')->with(['nombre' => $request->nombres]);
     }
 
-    public function eliminarProduccion($codProduccion, Request $request)
+    public function eliminarProduccion($codProduccion, $codPersona, $idAlumno, $codProduccionAlumno, Request $request)
     {
         $produccion = new produccionmodel();
-        $val = $produccion->eliminarProduccion($codProduccion);//SQL que cambia de estado al registro
+        $val = $produccion->eliminarProduccion($codProduccion, $codPersona, $idAlumno, $codProduccionAlumno);//SQL que cambia de estado al registro
         if ($val == true) {
             return back()->with('true', 'Banco ' . $request->nombre . ' eliminado con exito')->withInput();
         } else {

@@ -95,7 +95,7 @@
                                     <a href="ProduccionCargar/{{$p->codProduccion}}"><span
                                                 class="glyphicon glyphicon-pencil" style="color: green;"></span> </a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <a onclick="eliminar(event,'ProduccionEliminar/{{$p->codProduccion}}')"
+                                    <a onclick="eliminar(event,'ProduccionEliminar/{{$p->codProduccion}}/{{$p->codPersona}}/{{$p->idAlumno}}/{{$p->codProduccionAlumno}}')"
                                        title="Eliminar"
                                        href=""><span
                                                 class="glyphicon glyphicon-trash" style="color: red;"></span> </a>
