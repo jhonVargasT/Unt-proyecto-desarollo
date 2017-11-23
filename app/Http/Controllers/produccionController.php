@@ -31,12 +31,12 @@ class produccionController extends Controller
         return view('Administrador/Produccion/Edit')->with(['produccion' => $pro]);
     }
 
-    public function editarProduccion($codProduccion, Request $request)
+    public function editarProduccion($codProduccion, $codPersona, $idAlumno, $codProduccionAlumno, Request $request)
     {
         $produccion = new produccionmodel();
         $produccion->setNombre($request->nombre);
         $produccion->setDirecion($request->direccion);
-        $produccion->editarProduccion($codProduccion);//Ejecuta la consulta de actualizar los datos del alumno
+        $produccion->editarProduccion($codProduccion, $codPersona, $idAlumno, $codProduccionAlumno);//Ejecuta la consulta de actualizar los datos del alumno
         return view('Administrador/Produccion/Search')->with(['nombre' => $request->nombres]);
     }
 

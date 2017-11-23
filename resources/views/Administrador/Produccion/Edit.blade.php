@@ -43,7 +43,9 @@
                 @endif
                 @if($produccion)
                     @foreach($produccion as $p)
-                        <form name="form" action="{{ url('ProduccionEditado/' .$p->codProduccion ) }}" role="form"
+                        <form name="form"
+                              action="{{ url('ProduccionEditado/' .$p->codProduccion.'/'.$p->codPersona.'/'.$p->idAlumno.'/'.$p->codProduccionAlumno) }}"
+                              role="form"
                               method="get"
                               class="Horizontal">
                             {{csrf_field()}}

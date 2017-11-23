@@ -42,24 +42,25 @@
                 @if(session()->has('false'))
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
                 @endif
-                <form name="form" action="{{url('ProduccionRegistrado')}}" role="form" method="POST" class="Horizontal">
+                <form name="form" action="{{url('ProduccionRegistrado')}}" role="form" method="POST" class="Horizontal"
+                      onsubmit="activarbotonform(event,['spannombre'],'enviar','mensaje')">
                     {{csrf_field()}}
                     <div class="panel panel-primary">
                         <div class="panel-heading">Datos de Produccion</div>
                         <div class="panel-body">
                             <div class=" row ">
                                 <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
-                                    <span class="control-label"> Nombre</span>
+                                    <span class="control-label">Nombre</span>
                                     <input class="form-control input-sm" name="nombre" type="text"
-                                           autocomplete="off" onkeypress="return validarLetras(event)"
+                                           autocomplete="off" onchange="validarNombre('nombre','spannombre')"
                                            placeholder="Ejem: UNT" required id="nombre">
+                                    <span style="color: red" class=" control-label" id="spannombre"></span>
                                 </div>
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                     <span class="control-label">Direccion</span>
                                     <input class="form-control input-sm" name="direccion" type="text"
                                            autocomplete="off"
                                            placeholder="Ejm: Calle Juan Pablo Segundo" required id="direccion">
-
                                 </div>
                             </div>
                         </div>
@@ -73,7 +74,9 @@
                                     class="glyphicon glyphicon-ban-circle"></span>
                             Cancelar</a>
                         <div class="col-md-2"></div>
-                        <button type="submit" name="enviar" class="col-md-2 btn btn-sm btn-success"><span
+                        <button type="submit" id="enviar"
+                                onmouseover="activarbotonform(null,['spannombre'],'enviar','mensaje')"
+                                name="enviar" class="col-md-2 btn btn-sm btn-success"><span
                                     class="glyphicon glyphicon-ok"></span> Guardar
                         </button>
                         <div class="col-md-3"></div>

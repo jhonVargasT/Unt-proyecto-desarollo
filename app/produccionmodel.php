@@ -164,7 +164,7 @@ class produccionmodel
         }
         return true;
     }*/
-    public function editarProduccion($codProduccion)
+    public function editarProduccion($codProduccion, $codPersona, $idAlumno, $codProduccionAlumno)
     {
         date_default_timezone_set('Etc/GMT+5');
         $date = date('Y-m-d H:i:s', time());
@@ -175,19 +175,11 @@ class produccionmodel
         $logunt->setDescripcion('editarProduccion');
         $logunt->setCodigoPersonal($codPers);
         try {
-            DB::transaction(function () use ($codProduccion, $logunt) {
+            DB::transaction(function () use ($codProduccion, $codPersona, $idAlumno, $codProduccionAlumno, $logunt) {
                 DB::table('produccion')->where('codProduccion', $codProduccion)->update(['nombre' => $this->getNombre(), 'direccion' => $this->getDirecion()]);
-                /*$codp = DB::select('select codPersona from produccion
-                left join produccionalumno on produccionalumno.idProduccion = produccion.codProduccion
-                left join alumno on produccionalumno.codAlumno = alumno.idAlumno
-                left join persona on alumno.idPersona = persona.codPersona
-                where codProduccion =:codProduccion and produccion.estado = 1 and alumno.estado=1 and persona.estado =1',['codProduccion'=>$codProduccion]);*/
-                DB::table('persona')->where('codPersona', $codp)->update(['dni' => $codProduccion, 'nombres' => $this->getNombre(), 'apellidos' => $this->getNombre(), 'correo' => $this->getNombre() . '@gmail.com']);
-
-                DB::table('alumno')->where('idAlumno', $codProduccion)->update(['codAlumno' => $codProduccion . $idp, 'idPersona' => $idp]);
-
-                DB::table('produccionalumno')->where('codProduccionAlumno', $codProduccion)->update(['codAlumno' => $ida, 'idProduccion' => $idprod]);
-
+                DB::table('persona')->where('codPersona', $codPersona)->update(['dni' => $codProduccion, 'nombres' => $this->getNombre(), 'apellidos' => $this->getNombre(), 'correo' => $this->getNombre() . '@gmail.com']);
+                DB::table('alumno')->where('idAlumno', $idAlumno)->update(['codAlumno' => $codProduccion . $codPersona, 'idPersona' => $codPersona]);
+                DB::table('produccionalumno')->where('codProduccionAlumno', $codProduccionAlumno)->update(['codAlumno' => $idAlumno, 'idProduccion' => $codProduccion]);
                 $logunt->saveLogUnt();
             });
         } catch (PDOException $e) {

@@ -150,7 +150,7 @@ Route::get('/admBuscarProduccion', function () {
 Route::resource('ProduccionRegistrado', 'produccionController@registrarProduccion');
 Route::resource('ProduccionBuscadas', 'produccionController@listarProduccion');
 Route::resource('ProduccionCargar', 'produccionController@cargarProduccion');
-Route::get('ProduccionEditado/{codProduccion}/{CodProduccionAlumno}/{codAlumno}/{codPersona}', 'produccionController@editarProduccion');
+Route::get('ProduccionEditado/{codProduccion}/{CodProduccionAlumno}/{idAlumno}/{codPersona}', 'produccionController@editarProduccion');
 Route::get('ProduccionEliminar/{codProduccion}', 'produccionController@eliminarProduccion');
 
 
