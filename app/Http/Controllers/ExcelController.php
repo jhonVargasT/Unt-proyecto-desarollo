@@ -17,6 +17,7 @@ use App\alumnomodel;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Session;
 
 class ExcelController extends Controller
 {
@@ -1107,7 +1108,7 @@ class ExcelController extends Controller
                 $sheet->mergeCells('D5:L5');
                 //datos
 
-                $cont = count($opcBuscar);
+                $conta = count($opcBuscar);
 
                 $sheet->mergeCells('B5:C5');
 
@@ -1121,18 +1122,18 @@ class ExcelController extends Controller
                     $cell->setAlignment('left');
                 });
 
-                $sheet->cell('D5', function ($cell) use ($opcBuscar, $cont) {
+                $sheet->cell('D5', function ($cell) use ($opcBuscar, $conta) {
                     $cell->setFont(array(
                         'family' => 'Arial',
                         'size' => '11',
 
                     ));
                     $dat = null;
-                    for ($i = 0; $i < $cont; $i++) {
+                    for ($i = 0; $i < $conta; $i++) {
                         if ($i == 3) {
                             break;
                         } else {
-                            if ($i == $cont - 1) {
+                            if ($i == $conta - 1) {
                                 $dat .= ' ' . $opcBuscar[$i] . '.';
                             } else {
                                 $dat .= ' ' . $opcBuscar[$i] . ';';
@@ -1143,18 +1144,18 @@ class ExcelController extends Controller
                     );
                     $cell->setAlignment('left');
                 });
-                if ($cont > 3) {
+                if ($conta > 3) {
                     $sheet->mergeCells('B6:L6');
-                    $sheet->cell('B6', function ($cell) use ($opcBuscar, $cont) {
+                    $sheet->cell('B6', function ($cell) use ($opcBuscar, $conta) {
                         $cell->setFont(array(
                             'family' => 'Arial',
                             'size' => '11',
 
                         ));
                         $dat = null;
-                        for ($i = 3; $i < $cont; $i++) {
+                        for ($i = 3; $i < $conta; $i++) {
 
-                            if ($i == $cont - 1) {
+                            if ($i == $conta - 1) {
                                 $dat .= ' ' . $opcBuscar[$i] . '.';
                             } else {
                                 $dat .= ' ' . $opcBuscar[$i] . ';';
@@ -1204,7 +1205,7 @@ class ExcelController extends Controller
                 //*****************************************
                 //*******************************cuerpo de tabla
                 //estilos
-                $sheet->cells('B8:B' . ($cont + 9) . '', function ($cells) {
+                $sheet->cells('B8:B' . ($cont + 8) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
                         'size' => '14'
@@ -1212,35 +1213,35 @@ class ExcelController extends Controller
                     $cells->setAlignment('center');
                 });
 
-                $sheet->cells('G8:G' . ($cont + 9) . '', function ($cells) {
+                $sheet->cells('G8:G' . ($cont + 8) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
                         'size' => '14'
                     ));
                     $cells->setAlignment('center');
                 });
-                $sheet->cells('H8:H' . ($cont + 9) . '', function ($cells) {
+                $sheet->cells('H8:H' . ($cont + 8) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
                         'size' => '12'
                     ));
                     $cells->setAlignment('center');
                 });
-                $sheet->cells('I8:I' . ($cont + 9) . '', function ($cells) {
+                $sheet->cells('I8:I' . ($cont + 8) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
                         'size' => '14'
                     ));
                     $cells->setAlignment('center');
                 });
-                $sheet->cells('J8:J' . ($cont + 9) . '', function ($cells) {
+                $sheet->cells('J8:J' . ($cont + 8) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
                         'size' => '12'
                     ));
                     $cells->setAlignment('center');
                 });
-                $sheet->cells('L8:L' . ($cont + 9) . '', function ($cells) {
+                $sheet->cells('L8:L' . ($cont + 8) . '', function ($cells) {
                     $cells->setFont(array(
                         'family' => 'Arial',
                         'size' => '14'
@@ -1249,18 +1250,33 @@ class ExcelController extends Controller
                 });
 
                 //bordes de la hoja
-                $sheet->setBorder('B8:B' . ($cont + 9) . '');
-                $sheet->setBorder('C8:C' . ($cont + 9) . '');
-                $sheet->setBorder('D8:D' . ($cont + 9) . '');
-                $sheet->setBorder('E8:E' . ($cont + 9) . '');
-                $sheet->setBorder('F8:F' . ($cont + 9) . '');
-                $sheet->setBorder('G8:G' . ($cont + 9) . '');
-                $sheet->setBorder('H8:H' . ($cont + 9) . '');
-                $sheet->setBorder('I8:I' . ($cont + 9) . '');
-                $sheet->setBorder('J8:J' . ($cont + 9) . '');
-                $sheet->setBorder('K8:K' . ($cont + 9) . '');
-                $sheet->setBorder('L8:L' . ($cont + 9) . '');
+                $sheet->setBorder('B8:B' . ($cont + 8) . '');
+                $sheet->setBorder('C8:C' . ($cont + 8) . '');
+                $sheet->setBorder('D8:D' . ($cont + 8) . '');
+                $sheet->setBorder('E8:E' . ($cont + 8) . '');
+                $sheet->setBorder('F8:F' . ($cont + 8) . '');
+                $sheet->setBorder('G8:G' . ($cont + 8) . '');
+                $sheet->setBorder('H8:H' . ($cont + 8) . '');
+                $sheet->setBorder('I8:I' . ($cont + 8) . '');
+                $sheet->setBorder('J8:J' . ($cont + 8) . '');
+                $sheet->setBorder('K8:K' . ($cont + 8) . '');
+                $sheet->setBorder('L8:L' . ($cont + 8) . '');
+                //Firma
+                $sheet->cell('J' . ($cont + 11), function ($cell) {
 
+                    $cell->setFont(array(
+                        'family' => 'Arial',
+                        'size' => '12',
+                        'bold' => true
+                    ));
+                    $cuenta = Session::get('misession');
+                    $cell->setValue('Firma : ' . $cuenta);
+                });
+                $sheet->cells('J' . ($cont + 11), function ($cells) {
+
+                    $cells->setBorder('thin', null, null, null);
+                    $cells->setAlignment('center');
+                });
                 //ubicacion de la data
                 $sheet->fromArray($data, null, 'B8', false);
                 //nombre de hoja
@@ -1277,49 +1293,42 @@ class ExcelController extends Controller
     function reportePagoresu($tiporep, $varopc, $tiempo, $numero, $unop)
     {
 
+
         date_default_timezone_set('America/Lima');
-        $fechahoy = date('Y-m-d');
+        $fechahoy = date('Y-m-d h:m:s');
+
         Excel::create('Reporte resumido  :  ' . $fechahoy . '', function ($excel) use ($tiporep, $varopc, $tiempo, $fechahoy, $numero, $unop) {
+
             $excel->sheet('resumen', function ($sheet) use ($tiporep, $varopc, $tiempo, $fechahoy, $numero, $unop) {
                 $sheet->protect('admin');
                 $pagoModel = new pagomodel();
+                $opiones = 'Tipo reporte : ' . $varopc . '| Tiempo :' . $tiporep . ' ' . $numero;
+                if ($unop != 'v') {
+                    $opiones .= '| Unidad operativa :' . $unop;
+                }
                 if ($varopc == 'Resumen total') {
-
+                    $tiporep = strtoupper($tiporep);
+                    $result = $pagoModel->listarpagosresumen($tiempo, $unop);
                     $data = null;
-                    $tiempo = null;
-                    $result = null;
-                    if ($tiporep == 'Año') {
-                        $result = $pagoModel->listarpagosresumen($tiempo, $unop);//SQL, buscar pagos por fecha
-                        $fecha = 'AÑO';
-                    } elseif ($tiporep == 'Mes') {
-                        $result = $pagoModel->listarpagosresumen($tiempo, $unop);//SQL, buscar pagos por fecha
-                        $fecha = 'MES';
-                    } elseif ($tiporep == 'Dia') {
-                        $result = $pagoModel->listarpagosresumen($tiempo, $unop);//SQL, buscar pagos por fecha
-                        $fecha = 'DIA';
-                    }
-                    $total = 0;
+                    $total = null;
                     $cont = 0;
-
-
                     foreach ($result as $r) {
+                        $cont++;
                         $total += $r->importe;
                     }
                     foreach ($result as $p) {
-                        $cont++;
                         $data[] = array(
-
                             "CLASIFICADOR S.I.A.F" => $p->clasificadorsiaf,
                             "UNIDAD OPERATIVA" => $p->unop,
                             "NOMBRE DE CLASIFICADOR" => $p->nombreTramite,
-                            "IMPORTE" => $p->importe,
+                            "CANTIDAD" => $p->cantidad,
+                            "IMPORTE" => $p->importe
                         );
                     }
-
-                    /*$var = 'CAPTACION DE INGRESOS DEL ' . $fecha . ' - ' . $numero;
+                    $var = 'CAPTACION DE INGRESOS DEL ' . $tiporep . ' - ' . $numero;
                     //************************Cabeza de hoja
                     //titulo
-                    $sheet->mergeCells('B1:E1');
+                    $sheet->mergeCells('B1:F1');
 
                     $sheet->cell('B1', function ($cell) {
                         $cell->setFont(array(
@@ -1330,7 +1339,7 @@ class ExcelController extends Controller
                         $cell->setValue('UNIVERSIDAD NACIONAL DE TRUJILLO');
                         $cell->setAlignment('center');
                     });
-                    $sheet->mergeCells('B2:E2');
+                    $sheet->mergeCells('B2:F2');
                     $sheet->cell('B2', function ($cell) {
                         $cell->setFont(array(
                             'family' => 'Arial',
@@ -1340,7 +1349,7 @@ class ExcelController extends Controller
                         $cell->setValue('OGSEF- OF.TEC. TESORERIA');
                         $cell->setAlignment('center');
                     });
-                    $sheet->mergeCells('B3:E3');
+                    $sheet->mergeCells('B3:F3');
 
                     $sheet->cell('B3', function ($cell) use ($var) {
                         $cell->setFont(array(
@@ -1352,7 +1361,7 @@ class ExcelController extends Controller
                         $cell->setAlignment('center');
                     });
                     //total
-                    $sheet->cell('D' . ($cont + 5) . '', function ($cell) {
+                    $sheet->cell('E' . ($cont + 7) . '', function ($cell) {
                         $cell->setFont(array(
                             'family' => 'Arial',
                             'size' => '14',
@@ -1361,51 +1370,10 @@ class ExcelController extends Controller
                         $cell->setValue('Total de ingresos :');
                         $cell->setAlignment('right');
                     });
-                    $sheet->cell('E' . ($cont + 5) . '', function ($cell) use ($total) {
+                    $sheet->cell('F' . ($cont + 7) . '', function ($cell) use ($total) {
                         $cell->setValue($total);
                     });
-                    $sheet->cells('E' . ($cont + 5) . '', function ($cells) {
-                        $cells->setFont(array(
-                            'family' => 'Arial',
-                            'size' => '14'
-                        ));
-                        $cells->setAlignment('center');
-                    });
-
-                    //*************************************************
-                    //*******************cabecera de tabla
-                    $sheet->cells('B4:E4', function ($cells) {
-                        $cells->setBackground('#006600');
-                        $cells->setFont(array(
-                            'family' => 'Arial',
-                            'size' => '12',
-                            'bold' => true
-                        ));
-                        $cells->setBorder(array(
-                            'top' => array(
-                                'style' => 'solid'
-                            ),
-                        ));
-                        $cells->setAlignment('center');
-                    });
-                    //*****************************************
-                    //*******************************cuerpo de tabla
-                    //estilos
-                    $sheet->cells('B4:B' . ($cont + 4) . '', function ($cells) {
-                        $cells->setFont(array(
-                            'family' => 'Arial',
-                            'size' => '12'
-                        ));
-                        $cells->setAlignment('center');
-                    });
-                    $sheet->cells('C4:C' . ($cont + 4) . '', function ($cells) {
-                        $cells->setFont(array(
-                            'family' => 'Arial',
-                            'size' => '12'
-                        ));
-                        $cells->setAlignment('center');
-                    });
-                    $sheet->cells('E4:E' . ($cont + 4) . '', function ($cells) {
+                    $sheet->cells('F' . ($cont + 7) . '', function ($cells) {
                         $cells->setFont(array(
                             'family' => 'Arial',
                             'size' => '12'
@@ -1413,149 +1381,83 @@ class ExcelController extends Controller
                         $cells->setAlignment('center');
                     });
 
+                    //datos de impresion
 
-                    //bordes de la hoja
-                    $sheet->setBorder('B4:B' . ($cont + 4) . '');
-                    $sheet->setBorder('C4:C' . ($cont + 4) . '');
-                    $sheet->setBorder('D4:D' . ($cont + 4) . '');
-                    $sheet->setBorder('E4:E' . ($cont + 4) . '');
-
-                    //ubicacion de la data
-                    $sheet->fromArray($data, null, 'B4', false);
-                    //nombre de hoja
-                    $sheet->setTitle('Lista de reportes resumido');
-                    //par que la data se ajuste
-                    $sheet->setAutoSize(true);*/
-
-                } elseif ($varopc == 'Clasificador S.I.A.F') {
-
-                    $result = null;
-                    $data = null;
-                    $var = '';
-                    $tiempo = null;
-                    if ($tiporep == 'Año') {
-                        $result = $pagoModel->obtenerPagosresumensiaf($tiempo, $unop);
-                        $fecha = 'AÑO';
-                    } elseif ($tiporep == 'Mes') {
-                        $result = $pagoModel->obtenerPagosresumensiaf($tiempo, $unop);
-                        $fecha = 'MES';
-                        // $valor = $meses[$valor - 1];
-                    } elseif ($tiporep == 'Dia') {
-                        $result = $pagoModel->obtenerPagosresumensiaf($tiempo, $unop);
-                        $fecha = 'DIA';
-                    }
-
-                    $var = 'RESUMEN DEL ' . $fecha . ' - ' . $numero;
-                    $total = 0;
-                    $cont = 0;
-
-                    foreach ($result as $r) {
-                        $total += $r->precio;
-                        $cont++;
-                    }
-
-                    foreach ($result as $p) {
-                        $data[] = array(
-
-                            "CLASIFICADOR S.I.A.F" => $p->clasificadorsiaf,
-                            "NOMBRE DE CLASIFICADOR" => $p->nombreTramite,
-                            "UNIDAD OPERATIVA" => $p->unop,
-                            "CUENTA" => $p->codigoSubtramite,
-                            "NOMBRE DE TASA" => $p->nombresubtramite,
-                            "NRO PAGOS" => $p->nurPagos,
-                            "IMPORTE" => $p->precio
-                        );
-
-                    }
-
-                   /* //************************Cabeza de hoja
-                    //titulo
-                    $sheet->mergeCells('B1:H1');
-
-                    $sheet->cell('B1', function ($cell) {
+                    $sheet->cell('B' . (4) . '', function ($cell) {
                         $cell->setFont(array(
                             'family' => 'Arial',
-                            'size' => '12',
+                            'size' => '14',
                             'bold' => true
                         ));
-                        $cell->setValue('UNIVERSIDAD NACIONAL DE TRUJILLO');
-                        $cell->setAlignment('center');
-                    });
-                    $sheet->mergeCells('B2:H2');
-                    $sheet->cell('B2', function ($cell) {
-                        $cell->setFont(array(
-                            'family' => 'Arial',
-                            'size' => '12',
-                            'bold' => false
-                        ));
-                        $cell->setValue('OGSEF- OF.TEC. TESORERIA');
-                        $cell->setAlignment('center');
-                    });
-                    $sheet->mergeCells('B3:H3');
-                    $sheet->cell('B3', function ($cell) {
-                        $cell->setFont(array(
-                            'family' => 'Arial',
-                            'size' => '12',
-                            'bold' => true
-                        ));
-                        $cell->setValue('CAPTACION DE INGRESOS');
-                        $cell->setAlignment('center');
-                    });
-                    $sheet->mergeCells('B4:H4');
-                    $sheet->cell('B4', function ($cell) use ($var) {
-                        $cell->setFont(array(
-                            'family' => 'Arial',
-                            'size' => '12',
-                            'bold' => true
-                        ));
-                        $cell->setValue($var);
-                        $cell->setAlignment('center');
-                    });
-
-                    //cuerpo
-                    $sheet->cell('B5', function ($cell) {
-                        $cell->setFont(array(
-                            'family' => 'Arial',
-                            'size' => '12',
-                            'bold' => true
-                        ));
-                        $cell->setValue('FECHA DE IMPRESION :');
+                        $cell->setValue('Usuario : ');
                         $cell->setAlignment('left');
                     });
-                    $sheet->cell('C5', function ($cell) use ($fechahoy) {
+
+                    $sheet->mergeCells('C4:D4');
+                    $sheet->cell('C4', function ($cell) use ($total) {
+
                         $cell->setFont(array(
                             'family' => 'Arial',
-                            'size' => '12',
-                            'bold' => false
+                            'size' => '12'
                         ));
+                        $cuenta = Session::get('misession');
+                        $cell->setValue($cuenta);
+                        $cell->setAlignment('left');
+                    });
+                    //fecha de impresion
+                    $sheet->cell('E' . (4) . '', function ($cell) {
+                        $cell->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '14',
+                            'bold' => true
+                        ));
+                        $cell->setValue('Fecha de impresion: ');
+                        $cell->setAlignment('left');
+                    });
+                    $sheet->cell('F4', function ($cell) use ($fechahoy) {
+
+                        $cell->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12'
+                        ));
+
                         $cell->setValue($fechahoy);
                         $cell->setAlignment('left');
                     });
-
-                    //total
-                    $sheet->cell('G5', function ($cell) {
+                    //Datos de impresion
+                    $sheet->cell('B' . (5) . '', function ($cell) {
                         $cell->setFont(array(
                             'family' => 'Arial',
-                            'size' => '12',
+                            'size' => '14',
                             'bold' => true
                         ));
-                        $cell->setValue('TOTAL INGRESOS :');
-                        $cell->setAlignment('right');
+                        $cell->setValue('Datos de impresion');
+                        $cell->setAlignment('left');
                     });
-                    $sheet->cells('H5', function ($cells) {
-                        $cells->setFont(array(
+
+                    $sheet->cell('C4', function ($cell) use ($total) {
+
+                        $cell->setFont(array(
                             'family' => 'Arial',
                             'size' => '12'
                         ));
-                        $cells->setAlignment('center');
+                        $cuenta = Session::get('misession');
+                        $cell->setValue($cuenta);
                     });
-                    $sheet->cell('H5', function ($cell) use ($total) {
-                        $cell->setValue($total);
+                    //opciones de busqueda
+                    $sheet->mergeCells('C5:f5');
+                    $sheet->cell('C5', function ($cell) use ($opiones) {
+
+                        $cell->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12'
+                        ));
+                        $cell->setValue($opiones);
                     });
 
                     //*************************************************
                     //*******************cabecera de tabla
-                    $sheet->cells('B6:H6', function ($cells) {
+                    $sheet->cells('B6:F6', function ($cells) {
                         $cells->setBackground('#006600');
                         $cells->setFont(array(
                             'family' => 'Arial',
@@ -1569,8 +1471,8 @@ class ExcelController extends Controller
                         ));
                         $cells->setAlignment('center');
                     });
-                    //*****************************************
-                    //*******************************uerpo de tabla
+//*****************************************
+                    //*******************************cuerpo de tabla
                     //estilos
                     $sheet->cells('B6:B' . ($cont + 6) . '', function ($cells) {
                         $cells->setFont(array(
@@ -1579,7 +1481,14 @@ class ExcelController extends Controller
                         ));
                         $cells->setAlignment('center');
                     });
-                    $sheet->cells('D6:D' . ($cont + 6) . '', function ($cells) {
+                    $sheet->cells('C6:C' . ($cont + 6) . '', function ($cells) {
+                        $cells->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12'
+                        ));
+                        $cells->setAlignment('center');
+                    });
+                    $sheet->cells('E6:E' . ($cont + 6) . '', function ($cells) {
                         $cells->setFont(array(
                             'family' => 'Arial',
                             'size' => '12'
@@ -1593,36 +1502,266 @@ class ExcelController extends Controller
                         ));
                         $cells->setAlignment('center');
                     });
-                    $sheet->cells('G6:G' . ($cont + 6) . '', function ($cells) {
-                        $cells->setFont(array(
-                            'family' => 'Arial',
-                            'size' => '12'
-                        ));
-                        $cells->setAlignment('center');
-                    });
-                    $sheet->cells('H6:H' . ($cont + 6) . '', function ($cells) {
-                        $cells->setFont(array(
-                            'family' => 'Arial',
-                            'size' => '12'
-                        ));
-                        $cells->setAlignment('center');
-                    });
+
+
                     //bordes de la hoja
                     $sheet->setBorder('B6:B' . ($cont + 6) . '');
                     $sheet->setBorder('C6:C' . ($cont + 6) . '');
                     $sheet->setBorder('D6:D' . ($cont + 6) . '');
                     $sheet->setBorder('E6:E' . ($cont + 6) . '');
                     $sheet->setBorder('F6:F' . ($cont + 6) . '');
-                    $sheet->setBorder('G6:G' . ($cont + 6) . '');
-                    $sheet->setBorder('H6:H' . ($cont + 6) . '');
+                    //Firma
+                    $sheet->cell('E' . ($cont + 9), function ($cell) {
+
+                        $cell->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12',
+                            'bold' => true
+                        ));
+                        $cuenta = Session::get('misession');
+                        $cell->setValue('Firma : ' . $cuenta);
+                    });
+
+                    $sheet->cells('E' . ($cont + 9), function ($cells) {
+
+                        $cells->setBorder('thin', null, null, null);
+                        $cells->setAlignment('center');
+                    });
 
                     //ubicacion de la data
                     $sheet->fromArray($data, null, 'B6', false);
                     //nombre de hoja
-                    $sheet->setTitle('Lista de reportes');
+                    $sheet->setTitle('Lista de reportes resumido');
                     //par que la data se ajuste
-                    $sheet->setAutoSize(true);*/
+                    $sheet->setAutoSize(true);
+                } else {
+                    $tiporep = strtoupper($tiporep);
+                    $result = $pagoModel->obtenerPagosresumensiaf($tiempo, $unop);
+                    $data = null;
+                    $total = null;
+                    $cont = 0;
+                    foreach ($result as $r) {
+                        $cont++;
+                        $total += $r->precio;
+                    }
+                    foreach ($result as $r) {
+                        $data[] = array(
+                            "UNI. OP"=>  $r->unop,
+                            "NOMB CLASIF"=>$r->nombreTramite,
+                            "TASA" =>$r->nombresubtramite,
+                            "PRECIO"=>$r->precio,
+                            "NUM PAGOS"=>$r->nurPagos,
 
+                        );
+                    }
+                    $var = 'CAPTACION DE INGRESOS DEL ' . $tiporep . ' - ' . $numero;
+                    //************************Cabeza de hoja
+                    //titulo
+                    $sheet->mergeCells('B1:F1');
+
+                    $sheet->cell('B1', function ($cell) {
+                        $cell->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '14',
+                            'bold' => true
+                        ));
+                        $cell->setValue('UNIVERSIDAD NACIONAL DE TRUJILLO');
+                        $cell->setAlignment('center');
+                    });
+                    $sheet->mergeCells('B2:F2');
+                    $sheet->cell('B2', function ($cell) {
+                        $cell->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '14',
+                            'bold' => false
+                        ));
+                        $cell->setValue('OGSEF- OF.TEC. TESORERIA');
+                        $cell->setAlignment('center');
+                    });
+                    $sheet->mergeCells('B3:F3');
+
+                    $sheet->cell('B3', function ($cell) use ($var) {
+                        $cell->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '14',
+                            'bold' => true
+                        ));
+                        $cell->setValue($var);
+                        $cell->setAlignment('center');
+                    });
+                    //total
+                    $sheet->cell('E6', function ($cell) {
+                        $cell->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '14',
+                            'bold' => true
+                        ));
+                        $cell->setValue('Total de ingresos :');
+                        $cell->setAlignment('right');
+                    });
+                    $sheet->cell('F6', function ($cell) use ($total) {
+                        $cell->setValue($total);
+                    });
+                    $sheet->cells('F6', function ($cells) {
+                        $cells->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12'
+                        ));
+                        $cells->setAlignment('center');
+                    });
+                    //datos de impresion
+
+                    $sheet->cell('B4', function ($cell) {
+                        $cell->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '14',
+                            'bold' => true
+                        ));
+                        $cell->setValue('Usuario : ');
+                        $cell->setAlignment('left');
+                    });
+
+                    $sheet->mergeCells('C4:D4');
+                    $sheet->cell('C4', function ($cell) use ($total) {
+
+                        $cell->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12'
+                        ));
+                        $cuenta = Session::get('misession');
+                        $cell->setValue($cuenta);
+                        $cell->setAlignment('left');
+                    });
+                    //fecha de impresion
+                    $sheet->cell('E' . (4) . '', function ($cell) {
+                        $cell->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '14',
+                            'bold' => true
+                        ));
+                        $cell->setValue('Fecha de impresion: ');
+                        $cell->setAlignment('left');
+                    });
+                    $sheet->cell('F4', function ($cell) use ($fechahoy) {
+
+                        $cell->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12'
+                        ));
+
+                        $cell->setValue($fechahoy);
+                        $cell->setAlignment('left');
+                    });
+                    //Datos de impresion
+                    $sheet->cell('B' . (5) . '', function ($cell) {
+                        $cell->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '14',
+                            'bold' => true
+                        ));
+                        $cell->setValue('Datos de impresion');
+                        $cell->setAlignment('left');
+                    });
+
+                    $sheet->cell('C4', function ($cell) use ($total) {
+
+                        $cell->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12'
+                        ));
+                        $cuenta = Session::get('misession');
+                        $cell->setValue($cuenta);
+                    });
+                    //opciones de busqueda
+                    $sheet->mergeCells('C5:f5');
+                    $sheet->cell('C5', function ($cell) use ($opiones) {
+
+                        $cell->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12'
+                        ));
+                        $cell->setValue($opiones);
+                    });
+
+                    //*************************************************
+                    //*******************cabecera de tabla
+                    $sheet->cells('B7:F7', function ($cells) {
+                        $cells->setBackground('#006600');
+                        $cells->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12',
+                            'bold' => true
+                        ));
+                        $cells->setBorder(array(
+                            'top' => array(
+                                'style' => 'solid'
+                            ),
+                        ));
+                        $cells->setAlignment('center');
+                    });
+//*****************************************
+                    //*******************************cuerpo de tabla
+                    //estilos
+                    $sheet->cells('B8:B' . ($cont + 7) . '', function ($cells) {
+                        $cells->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12'
+                        ));
+                        $cells->setAlignment('center');
+                    });
+                    $sheet->cells('C8:C' . ($cont + 7) . '', function ($cells) {
+                        $cells->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12'
+                        ));
+                        $cells->setAlignment('center');
+                    });
+                    $sheet->cells('E8:E' . ($cont + 7) . '', function ($cells) {
+                        $cells->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12'
+                        ));
+                        $cells->setAlignment('center');
+                    });
+                    $sheet->cells('F8:F' . ($cont + 7) . '', function ($cells) {
+                        $cells->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12'
+                        ));
+                        $cells->setAlignment('center');
+                    });
+
+
+                    //bordes de la hoja
+                    $sheet->setBorder('B8:B' . ($cont + 7) . '');
+                    $sheet->setBorder('C8:C' . ($cont + 7) . '');
+                    $sheet->setBorder('D8:D' . ($cont + 7) . '');
+                    $sheet->setBorder('E8:E' . ($cont + 7) . '');
+                    $sheet->setBorder('F8:F' . ($cont + 7) . '');
+                    //Firma
+                    $sheet->cell('E' . ($cont + 10), function ($cell) {
+
+                        $cell->setFont(array(
+                            'family' => 'Arial',
+                            'size' => '12',
+                            'bold' => true
+                        ));
+                        $cuenta = Session::get('misession');
+                        $cell->setValue('Firma : ' . $cuenta);
+                    });
+
+                    $sheet->cells('E' . ($cont + 10), function ($cells) {
+
+                        $cells->setBorder('thin', null, null, null);
+                        $cells->setAlignment('center');
+                    });
+
+                    //ubicacion de la data
+                    $sheet->fromArray($data, null, 'B7', false);
+                    //nombre de hoja
+                    $sheet->setTitle('Lista de reportes resumido');
+                    //par que la data se ajuste
+                    $sheet->setAutoSize(true);
                 }
             });
         })->export('xls');

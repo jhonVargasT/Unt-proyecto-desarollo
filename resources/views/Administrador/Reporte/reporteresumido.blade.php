@@ -94,19 +94,10 @@
                                         <th>
                                             Unidad Operativa
                                         </th>
+
                                         <th>
                                             <div align="center">
-                                                CLASIFICADOR S.I.A.F
-                                            </div>
-                                        </th>
-                                        <th>
-                                            <div align="center">
-                                                NOMBRE DE CLASIFICADOR
-                                            </div>
-                                        </th>
-                                        <th>
-                                            <div align="center">
-                                                CUENTA
+                                                NOMBRE DE CLASIFICADOR S.I.A.F
                                             </div>
                                         </th>
                                         <th>
@@ -131,9 +122,7 @@
                                     @foreach($resultsiaf as $r)
                                         <tr>
                                             <td><h6 align="center">{{$r->unop}}</h6></td>
-                                            <td><h6 align="center">{{$r->clasificadorsiaf}}</h6></td>
                                             <td><h6 align="left">{{$r->nombreTramite}}</h6></td>
-                                            <td><h6 align="center">{{$r->codigoSubtramite }}</h6></td>
                                             <td><h6 align="left">{{$r->nombresubtramite}}</h6></td>
                                             <td><h6 align="center">{{$r-> precio}}</h6></td>
                                             <td><h6 align="center">{{$r->nurPagos }}</h6></td>

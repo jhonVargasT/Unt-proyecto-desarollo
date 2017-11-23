@@ -677,6 +677,8 @@ class pagoController extends Controller
     //Reporte de pagos, resumen
     public function obtenerPagosresumen(Request $request)
     {
+
+
         if ($request->combito !== 'Escojer') {
             $numero = '';
             $result = null;
@@ -685,6 +687,7 @@ class pagoController extends Controller
             $vartiemp = $request->combito;
             $unidadOpera = $request->textbox;
             $varaño = $request->año1;
+
             if ($varOpc == 'Resumen total') {//Si se escoge: Resumen total
                 $tiempo = null;
                 if ($vartiemp == 'Año') {

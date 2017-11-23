@@ -68,7 +68,6 @@ class pagomodel
     }
 
 
-
     /**
      * @return mixed
      */
@@ -315,19 +314,23 @@ class pagomodel
 
         try {
             if (Empty($uniope) || strcmp('v', $uniope) == 0) {
-                $pago = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre as nombresubtramite,sum(st.precio * po.cantidad) as precio, count(po.codPago) as nurPagos
+                $pago = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre
+                    as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre as nombresubtramite,sum(st.precio * po.cantidad) as 
+                    precio,  count(po.codPago) as nurPagos
                     FROM tramite as tr
                     LEFT JOIN subtramite st ON (tr.codTramite = st.idTramite)
                     LEFT JOIN pago po ON (st.codSubtramite=po.idSubtramite )
                     ' . $fecha . ' 
-                    group by st.codSubtramite order by tr.nombre;');
+                    group by st.codSubtramite order by tr.nombre');
             } else {
-                $pago = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre as nombresubtramite,sum(st.precio * po.cantidad) as precio, count(po.codPago) as nurPagos
+                $pago = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre
+                    as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre as nombresubtramite,sum(st.precio * po.cantidad) as 
+                    precio, count(1) as nurPagos
                     FROM tramite as tr
                     LEFT JOIN subtramite st ON (tr.codTramite = st.idTramite)
                     LEFT JOIN pago po ON (st.codSubtramite=po.idSubtramite )
-                    ' . $fecha . ' and st.unidadOperativa = ' . $uniope . '
-                    group by st.codSubtramite order by tr.nombre;');
+                    ' . $fecha . '  and st.unidadOperativa='.$uniope.'
+                    group by st.codSubtramite order by tr.nombre');
 
 
             }
@@ -336,7 +339,6 @@ class pagomodel
             $util->insertarError($e->getMessage(), 'obtenerPagosresumensiaf/pagomodel');
             return null;
         }
-        var_dump($pago);
         return $pago;
     }
 
@@ -456,18 +458,18 @@ class pagomodel
 
         try {
             if (Empty($uniope) || strcmp('v', $uniope) == 0) {
-                $result = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,sum(st.precio * po.cantidad) as importe
+                $result = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf,count(*) as cantidad, tr.nombre as nombreTramite,sum(st.precio * po.cantidad) as importe
                             FROM unt.tramite as tr
                             LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
                             LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )
                             ' . $tiempo . '
                             group by (tr.codTramite) ');
             } else {
-                $result = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,sum(st.precio * po.cantidad) as importe
+                $result = DB::select(' SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf,count(*) as cantidad, tr.nombre as nombreTramite,sum(st.precio * po.cantidad) as importe
                             FROM unt.tramite as tr
                             LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
                             LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )
-                            ' . $tiempo . ' and st.unidadOperativa = ' . $uniope . '
+                             ' . $tiempo . ' and st.unidadOperativa = ' . $uniope . '
                             group by (tr.codTramite) ');
             }
         } catch (PDOException $e) {
