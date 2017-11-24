@@ -211,32 +211,31 @@
                         </div>
                         <div class="col-sm-12 row form-group">
                         </div>
-                        <div class=" row ">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-2">
-                                <a href="{{url('/Adm')}}" class="btn btn-sm s-b-5  btn-primary"><span
+                        <div class=" row " align="center">
+
+
+                                <a href="{{url('/Adm')}}" class="btn btn-sm   btn-primary"><span
                                             class="glyphicon glyphicon-arrow-left"></span> Regresar
                                 </a>
-                            </div>
-                            <div class="col-md-2">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <!--Contenido-->
                                 @if(isset($tiprep))
                                     @if(isset($unop))
                                         <a href="excelresum/{{$tiprep}}/{{$varopc}}/{{$tiempo}}/{{$numero}}/{{$unop}}"
-                                           class="btn btn-sm s-b-5  btn-primary"><span
+                                           class="btn btn-sm   btn-primary"><span
                                                     class="glyphicon glyphicon-print"></span> Imprimir </a>
                                             @else
                                                 <a href="excelresum/{{$tiprep}}/{{$varopc}}/{{$tiempo}}/{{$numero}}/v"
-                                                   class="btn btn-sm s-b-5  btn-primary"><span
+                                                   class="btn btn-sm   btn-primary"><span
                                                             class="glyphicon glyphicon-print"></span> Imprimir </a>
                                                     @endif
                                                     @else
-                                                        <a class="btn btn-sm s-b-5  btn-primary"><span
+                                                        <a class="btn btn-sm  btn-primary"><span
                                                                     class="glyphicon glyphicon-print"></span> Imprimir
                                                         </a>
                                     @endif
-                            </div>
-                            <div class="col-md-3"></div>
+
+
                         </div>
                     </div>
                 </div>

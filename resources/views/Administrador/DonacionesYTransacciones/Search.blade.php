@@ -52,7 +52,7 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
     <div class="panel-heading"><h3> Buscar Donaciones y
-            transferencias</h3></div>
+            Transacciones</h3></div>
     <div style="background-color: #FFFFFF">
         <div class="panel-body">
             <form id="miform" action="{{'DonacionesBuscadas'}}" role="form" method="POST" class="Vertical">
@@ -184,14 +184,12 @@
 
             <div class="col-sm-12 row form-group">
             </div>
-            <div class=" row ">
-                <div class="col-md-4"></div>
-                <div class="col-md-2">
+            <div class=" row " align="center">
+
                     <a href="{{url('/Adm')}}" class="btn btn-sm s-b-5  btn-primary"><span
                                 class="glyphicon glyphicon-arrow-left"></span> Regresar
                     </a>
-                </div>
-                <div class="col-md-2">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <!--Contenido-->
                     @if(isset($fecha))
                         <a href="exceldonacion/{{$fecha}}/{{$numero}}"
@@ -203,9 +201,7 @@
                                     class="glyphicon glyphicon-print"></span> Imprimir
                         </a>
                     @endif
-                </div>
 
-                <div class="col-md-3"></div>
             </div>
         </div>
     </div>

@@ -131,21 +131,20 @@
                             </div>
                         </div>
 
-                        <div class=" row ">
-                            <div class="col-md-3"></div>
-                            <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
+                        <div class=" row " align="center">
+
+                            <a href="{{url('/Adm')}}" class="  btn btn-sm btn-danger"><span
                                         class="glyphicon glyphicon-ban-circle"></span>
                                 Regresar
                             </a>
-                            <div class="col-md-1">
-                            </div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <div>
                                 <button href="" type="submit" name="enviar"
-                                        class="col-md-2 btn btn-sm btn-success"><span
+                                        class=" btn btn-sm btn-success"><span
                                             class="glyphicon glyphicon-ok"></span> Guardar
                                 </button>
                             </div>
-                            <div class="col-md-3"></div>
+
                         </div>
                     </form>
 

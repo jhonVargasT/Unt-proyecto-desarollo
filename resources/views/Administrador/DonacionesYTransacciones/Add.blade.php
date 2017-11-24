@@ -59,7 +59,7 @@
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
                                 <div class="col-sm-3">
-                                    <span class=" control-label"> SIAF </span>
+                                    <span class=" control-label"> S.I.A.F </span>
                                     <input class="typeahead form-control" type="text"
                                            placeholder="Ingresa datos aqui .."
                                            name="nombreTramite" id="name" autocomplete="off"
@@ -100,7 +100,7 @@
                     </div>
                 </div>
                 <div class="panel  panel-primary">
-                    <div class="panel-heading">Datos Donaciones y transcacciones</div>
+                    <div class="panel-heading">Datos Donaciones y Transacciones</div>
                     <div class="panel-body">
                         <div class="col-sm-12 row form-group">
                             <div class="form-group-sm " align="left">
@@ -131,7 +131,7 @@
                             </div>
                             <div class="form-group-sm " align="left">
                                 <div class="col-sm-3">
-                                    <span class=" control-label"> Numero de resolucion</span>
+                                    <span class=" control-label"> Numero de resolución</span>
                                     <input class="form-control input-sm" name="numResolucion" id="numResolucion"
                                            type="text"
                                            autocomplete="off" required
@@ -141,7 +141,7 @@
                             </div>
                             <div class="form-group-sm " align="left">
                                 <div class="col-sm-3">
-                                    <span class=" control-label"> Descripcion</span>
+                                    <span class=" control-label"> Descripción</span>
                                     <input class="form-control input-sm" name="descripcion" id="descripcion"
                                            type="text"
                                            autocomplete="off" required>
@@ -205,18 +205,18 @@
                 <div class="col-sm-12 row form-group" align="center">
                     <span id="mensaje" class="control-label" style="color: red"></span>
                 </div>
-                <div class="col-sm-12 row form-group">
-                    <div class="col-md-3"></div>
-                    <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
+                <div class=" row " align="center">
+
+                    <a href="{{url('/Adm')}}" class=" btn btn-sm btn-danger"><span
                                 class="glyphicon glyphicon-ban-circle"></span>
                         Cancelar</a>
-                    <div class="col-md-2"></div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <button type="submit"
                             onmouseover="activarbotonform(null,['spansiaf','spanmonto','spanresolucion','spancuenta'],'enviar','mensaje')"
-                            name="enviar" class="col-md-2 btn  btn-success" id="enviar"><span
+                            name="enviar" class="btn btn-sm  btn-success" id="enviar"><span
                                 class="glyphicon glyphicon-ok"></span> Guardar
                     </button>
-                    <div class="col-md-3"></div>
+
                 </div>
             </form>
         </div>

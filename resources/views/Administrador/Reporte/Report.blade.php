@@ -192,8 +192,9 @@
         <div class="panel-body">
             <div class="panel-body form-group ">
                 <form id="miform" action="{{'reportePago'}}" role="form" method="POST" class="Vertical">
-                    <input type="hidden" name="_token" value="{{csrf_token() }}"/>
-                    <div class=" row ">
+
+                        <input type="hidden" name="_token" value="{{csrf_token() }}"/>
+                        <div class=" row ">
                         <div class="form-group-sm col-sm-2 col-xs-2 col-lg-2">
                             <span class=" control-label">Estado </span>
                             <select class="form-control" name="estado">
@@ -297,7 +298,7 @@
 
                         </div>
                     </div>
-                    <div class="row  ">
+                        <div class="row  ">
                         <div class="form-group-sm col-sm-2 col-xs-2 col-lg-2">
                             <input type="checkbox" id="ccp" onclick="habilitarCP(this.checked)">
                             Centro de produccion
@@ -417,7 +418,7 @@
                                 <input type="checkbox" id="ctr" onclick=" habilitartr(this.checked)">
                                 Tipo recurso
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-5">
                                 <input type="text" class="form-control input-sm " id="trinp" name="tr"
                                        autocomplete="off" onchange="validarNombre('trinp','spantr')"
                                        readOnly>
@@ -429,7 +430,7 @@
                                 <input type="checkbox" id="cff" onclick="habilitarff(this.checked)">
                                 Fuente financiamiento
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-5">
                                 <input type="text" class="form-control input-sm " id="ff" name="fuf"
                                        autocomplete="off" readOnly onchange="validarNumeros('ff','spanff')">
                                 <span style="color: red" class=" control-label" id="spanff"> </span>
@@ -444,12 +445,13 @@
                             <button type="submit" name="enviar" class=" btn btn-sm  btn-success"><span
                                         class="glyphicon glyphicon-refresh"></span> Actualizar
                             </button>
-
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <a class=" btn btn-sm btn-warning" onclick="limpiarCampos(this);">
                                 <span class="glyphicon glyphicon-erase">
                                 </span> Limpiar campos
                             </a>
                         </div>
+
                 </form>
                 <!--Tabla-->
 
@@ -563,6 +565,7 @@
                     <a href="{{url('/Adm')}}" class="btn btn-sm  btn-primary"><span
                                 class="glyphicon glyphicon-arrow-left"></span> Regresar
                     </a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <!--Contenido-->
                     @if(isset($encript))
                         <a href="exceldetallado/{{$encript}}"

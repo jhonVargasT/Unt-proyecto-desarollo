@@ -40,7 +40,7 @@
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven"><span
                                         class="fa fa-money">
-                            </span> Donaciones y transferencias</a>
+                            </span> Donaciones y Transacciones</a>
                         </h4>
                     </div>
                     @yield('donaciones')
@@ -50,13 +50,13 @@
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="/admBuscarDonaciones">Buscar Donaciones y transferencias</a>
+                                        <a href="/admBuscarDonaciones">Buscar Donaciones y Transacciones</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="/admRegistrarDonaciones">Agregar Donaciones y transferencias</a>
+                                        <a href="/admRegistrarDonaciones">Agregar Donaciones y Transacciones</a>
                                     </td>
                                 </tr>
                                 <tr>

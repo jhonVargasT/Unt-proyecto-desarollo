@@ -205,18 +205,18 @@
                     <div class="col-sm-12 row form-group" align="center">
                         <span id="mensaje" class="control-label" style="color: red"></span>
                     </div>
-                    <div class="row form-group" align="center">
-                        <div class="col-md-3"></div>
-                        <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
+                    <div class="row " align="center">
+
+                        <a href="{{url('/Adm')}}" class="  btn btn-sm btn-danger"><span
                                     class="glyphicon glyphicon-ban-circle"></span>
                             Cancelar</a>
-                        <div class="col-md-2"></div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <button type="submit"
                                 onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos','spanemail','spancodAlumno'],'enviar','mensaje')"
-                                name="enviar" id="enviar" class="col-md-2 btn btn-sm btn-success"><span
+                                name="enviar" id="enviar" class=" btn btn-sm btn-success"><span
                                     class="glyphicon glyphicon-ok"></span> Guardar
                         </button>
-                        <div class="col-md-3"></div>
+
                     </div>
                 </form>
             </div>
