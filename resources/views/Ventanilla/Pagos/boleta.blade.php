@@ -307,8 +307,8 @@
                     letrasMonedaPlural: 'soles',//“PESOS”, 'Dólares', 'Bolívares', 'etcs'
                     letrasMonedaSingular: 'sol', //“PESO”, 'Dólar', 'Bolivar', 'etc'
 
-                    letrasMonedaCentavoPlural: "centavos",
-                    letrasMonedaCentavoSingular: "centavo"
+                    letrasMonedaCentavoPlural: "centimos",
+                    letrasMonedaCentavoSingular: "centimo"
                 };
 
                 if (data.centavos > 0) {
