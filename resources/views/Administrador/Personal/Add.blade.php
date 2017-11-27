@@ -87,7 +87,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
+                            <div class="col-sm-4 col-xs-4 col-lg-4 form-group-sm">
                                 <span class="control-label">Apellidos</span>
                                 <input class="form-control input-sm" name="apellidos" type="text"
                                        autocomplete="off" onchange="validarNombre('apellidos','spanapellidos')"
@@ -95,7 +95,7 @@
                                 <span style="color: red" class=" control-label" id="spanapellidos"> </span>
                             </div>
                         </div>
-                        <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
+                        <div class="col-sm-4 col-xs-4 col-lg-4 form-group-sm">
                             <span class="control-label">Correo</span>
                             <input class="form-control input-sm" name="correo" type="email" id="email"
                                    autocomplete="off" onchange="validarCorreo('email','spanemail')" required>
@@ -153,26 +153,25 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 row form-group">
-                        </div>
+
                     </div>
                 </div>
                 <div class="col-sm-12 row form-group" align="center">
                     <span id="mensaje" class="control-label" style="color: red"></span>
                 </div>
-                <div class="col-sm-12 row form-group">
-                    <div class="col-md-3"></div>
-                    <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
+                <div class="col-sm-12  row " align="center">
+
+                    <a href="{{url('/Adm')}}" class=" btn btn-sm btn-danger"><span
                                 class="glyphicon glyphicon-ban-circle"></span>
-                        Cancelar</a>
-                    <div class="col-md-2"></div>
-                    <button type="submit" name="enviar" id="enviar" class=" col-md-2 btn btn-success"
+                        Cancelar </a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="submit" name="enviar" id="enviar" class=" btn-sm btn btn-success"
                             onmouseover="activarbotonform(null,['spansede','spandni','spannombre',
                             'spanapellidos','spanemail','spancodigopersonal'],'enviar','mensaje')">
                         <span
                                 class="glyphicon glyphicon-ok"></span> Guardar
                     </button>
-                    <div class="col-md-3"></div>
+
                 </div>
             </form>
         </div>

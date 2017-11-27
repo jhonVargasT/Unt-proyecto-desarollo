@@ -340,7 +340,7 @@
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseBanco">
                                 <span class="fa fa-building-o">
-                            </span> Banco</a>
+                            </span> Cuenta bancaria</a>
                         </h4>
                     </div>
                     @yield('banco')
@@ -350,13 +350,13 @@
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
-                                        <a href="/admBuscarBanco">Buscar Bancos</a>
+                                        <a href="/admBuscarBanco">Buscar cuenta bancaria</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="/admRegistrarBanco">Agregar Banco</a>
+                                        <a href="/admRegistrarBanco">Agregar cuenta bancaria</a>
                                     </td>
                                 </tr>
                             </table>

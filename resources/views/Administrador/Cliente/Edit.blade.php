@@ -73,21 +73,18 @@
                                 <span id="mensaje" class="control-label" style="color: red"></span>
                             </div>
                             <div class="col-sm-12 row form-group">
-                                <div class="col-md-3"></div>
-                                <a href="{{url('/admBuscarCliente')}}" class=" col-md-2 btn btn-sm btn-danger"><span
+
+                                <a href="{{url('/admBuscarCliente')}}" class="  btn btn-sm btn-danger"><span
                                             class="glyphicon glyphicon-ban-circle"></span>
                                     Regresar
                                 </a>
-                                <div class="col-md-2">
-                                </div>
-                                <div>
-                                    <button href="" type="submit" name="enviar" id="enviar"
-                                            onmouseover="activarbotonform(event,['spandni','spannombre','spanapellidos','spanemail'],'enviar','mensaje')"
-                                            class="col-md-2 btn btn-sm btn-success"><span
-                                                class="glyphicon glyphicon-ok"></span> Guardar
-                                    </button>
-                                </div>
-                                <div class="col-md-3"></div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                <button href="" type="submit" name="enviar" id="enviar"
+                                        onmouseover="activarbotonform(event,['spandni','spannombre','spanapellidos','spanemail'],'enviar','mensaje')"
+                                        class=" btn btn-sm btn-success"><span
+                                            class="glyphicon glyphicon-ok"></span> Guardar
+                                </button>
                             </div>
                         </form>
                     @endforeach
