@@ -314,23 +314,19 @@ class pagomodel
 
         try {
             if (Empty($uniope) || strcmp('v', $uniope) == 0) {
-                $pago = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre
-                    as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre as nombresubtramite,sum(st.precio * po.cantidad) as 
-                    precio,  count(po.codPago) as nurPagos
+                $pago = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre as nombresubtramite,sum(st.precio * po.cantidad) as precio, count(po.codPago) as nurPagos
                     FROM tramite as tr
                     LEFT JOIN subtramite st ON (tr.codTramite = st.idTramite)
                     LEFT JOIN pago po ON (st.codSubtramite=po.idSubtramite )
                     ' . $fecha . ' 
-                    group by st.codSubtramite order by tr.nombre');
+                    group by st.codSubtramite order by tr.nombre;');
             } else {
-                $pago = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre
-                    as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre as nombresubtramite,sum(st.precio * po.cantidad) as 
-                    precio, count(1) as nurPagos
+                $pago = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite as codigoSubtramite, st.nombre as nombresubtramite,sum(st.precio * po.cantidad) as precio, count(po.codPago) as nurPagos
                     FROM tramite as tr
                     LEFT JOIN subtramite st ON (tr.codTramite = st.idTramite)
                     LEFT JOIN pago po ON (st.codSubtramite=po.idSubtramite )
-                    ' . $fecha . '  and st.unidadOperativa='.$uniope.'
-                    group by st.codSubtramite order by tr.nombre');
+                    ' . $fecha . ' and st.unidadOperativa = ' . $uniope . '
+                    group by st.codSubtramite order by tr.nombre;');
 
 
             }
@@ -339,6 +335,7 @@ class pagomodel
             $util->insertarError($e->getMessage(), 'obtenerPagosresumensiaf/pagomodel');
             return null;
         }
+        var_dump($pago);
         return $pago;
     }
 
@@ -458,18 +455,18 @@ class pagomodel
 
         try {
             if (Empty($uniope) || strcmp('v', $uniope) == 0) {
-                $result = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf,count(*) as cantidad, tr.nombre as nombreTramite,sum(st.precio * po.cantidad) as importe
-                            FROM unt.tramite as tr
-                            LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
-                            LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )
+                $result = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,sum(st.precio * po.cantidad) as importe
+                            FROM tramite as tr
+                            LEFT JOIN subtramite st ON (tr.codTramite = st.idTramite)
+                            LEFT JOIN pago po ON (st.codSubtramite=po.idSubtramite )
                             ' . $tiempo . '
                             group by (tr.codTramite) ');
             } else {
-                $result = DB::select(' SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf,count(*) as cantidad, tr.nombre as nombreTramite,sum(st.precio * po.cantidad) as importe
-                            FROM unt.tramite as tr
-                            LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
-                            LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )
-                             ' . $tiempo . ' and st.unidadOperativa = ' . $uniope . '
+                $result = DB::select('SELECT st.unidadOperativa as unop, tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,sum(st.precio * po.cantidad) as importe
+                            FROM tramite as tr
+                            LEFT JOIN subtramite st ON (tr.codTramite = st.idTramite)
+                            LEFT JOIN pago po ON (st.codSubtramite=po.idSubtramite )
+                            ' . $tiempo . ' and st.unidadOperativa = ' . $uniope . '
                             group by (tr.codTramite) ');
             }
         } catch (PDOException $e) {
@@ -1309,17 +1306,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and   date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and ' . $local . '=\'' . $vallocal . '\'
                              and tr.tipoRecurso=\'' . $tipoRe . '\' ');
@@ -1338,17 +1335,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valloc . '\' and tr.fuentefinanc=\'' . $fuefi . '\'
                              and tr.tipoRecurso=\'' . $tipre . '\' and ' . $tram . '= \'' . $valtra . '\'');
@@ -1366,17 +1363,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valloc . '\' 
                              and tr.tipoRecurso=\'' . $tipre . '\' ');
@@ -1394,17 +1391,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . ' and idProduccionAlumno is null  and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and ' . $local . '=\'' . $valloc . '\' and tr.fuentefinanc=\'' . $fue . '\'
                             ');
@@ -1422,17 +1419,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . ' and idProduccionAlumno is null   and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and ' . $local . '=\'' . $valloc . '\' and ' . $tram . '= \'' . $valtra . '\'');
         } catch (PDOException $e) {
@@ -1449,17 +1446,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . ' and idProduccionAlumno is null  and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and ' . $local . '=\'' . $valloc . '\'');
         } catch (PDOException $e) {
@@ -1476,17 +1473,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'   
                              and tr.fuentefinanc=\'' . $fuen . '\'and ' . $tram . '= \'' . $valtra . '\'');
         } catch (PDOException $e) {
@@ -1503,17 +1500,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null  and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and tr.fuentefinanc=\'' . $fuen . '\'and ' . $tram . '= \'' . $valtra . '\'');
         } catch (PDOException $e) {
@@ -1530,17 +1527,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                             and tr.fuentefinanc=\'' . $fuen . '\'');
         } catch (PDOException $e) {
@@ -1557,17 +1554,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                               and tr.fuentefinanc=\'' . $fuen . '\'');
         } catch (PDOException $e) {
@@ -1584,17 +1581,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valloc . '\' 
                              and tr.tipoRecurso=\'' . $tipore . '\' and ' . $tram . '= \'' . $valtra . '\'');
@@ -1612,17 +1609,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'    and tr.fuentefinanc=\'' . $fuefi . '\'
                              and tr.tipoRecurso=\'' . $tipore . '\' and ' . $tram . '= \'' . $valtra . '\'');
         } catch (PDOException $e) {
@@ -1639,17 +1636,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  and tr.fuentefinanc=\'' . $fuefi . '\'
                              and tr.tipoRecurso=\'' . $tipore . '\' ');
         } catch (PDOException $e) {
@@ -1666,17 +1663,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'   
                              and tr.tipoRecurso=\'' . $tipore . '\' and ' . $tram . '= \'' . $valTram . '\'');
         } catch (PDOException $e) {
@@ -1693,17 +1690,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valloc . '\' 
                              and tr.tipoRecurso=\'' . $tipore . '\'');
@@ -1721,17 +1718,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and tr.fuentefinanc=\'' . $fuefi . '\'
                              and tr.tipoRecurso=\'' . $tipRe . '\' ');
@@ -1749,17 +1746,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and tr.tipoRecurso=\'' . $tipRe . '\' and ' . $tram . '= \'' . $valtra . '\'');
         } catch (PDOException $e) {
@@ -1776,17 +1773,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'   
                              and tr.tipoRecurso=\'' . $tipRe . '\'');
         } catch (PDOException $e) {
@@ -1803,17 +1800,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '   and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valLoc . '\' and tr.fuentefinanc=\'' . $fuefi . '\' and ' . $tram . '= \'' . $valtra . '\'');
         } catch (PDOException $e) {
@@ -1830,17 +1827,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $tram . '= \'' . $valtra . '\'');
         } catch (PDOException $e) {
@@ -1857,17 +1854,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\'and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valLoc . '\' and tr.fuentefinanc=\'' . $fuefi . '\'');
         } catch (PDOException $e) {
@@ -1884,17 +1881,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and ' . $local . '=\'' . $valLoc . '\'');
         } catch (PDOException $e) {
@@ -1911,17 +1908,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . ' and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  
                              and ' . $local . '=\'' . $valLoc . '\' and tr.fuentefinanc=\'' . $fuenteFin . '\'
                              and tr.tipoRecurso=\'' . $tipRe . '\'');
@@ -1939,17 +1936,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE  po.estado=' . $estado . '  and idProduccionAlumno is null and po.modalidad = \'' . $modalidad . '\' and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\' 
                              and tr.tipoRecurso=\'' . $tipRe . '\'');
         } catch (PDOException $e) {
@@ -1967,17 +1964,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE po.estado=' . $estado . '  and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'   and ' . $tramite . '= \'' . $tramiteVal . '\'
                              and ' . $local . '=\'' . $valLoc . '\'
                               and po.modalidad = \'' . $modalidad . '\'');
@@ -1995,17 +1992,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE po.estado= \'' . $estado . '\' and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'  and ' . $tramite . '= \'' . $tramiteVal . '\'
                               and po.modalidad = \'' . $modalidad . '\'');
         } catch (PDOException $e) {
@@ -2022,17 +2019,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                              ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE po.estado=' . $estado . '  and idProduccionAlumno is null and  date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'   and po.modalidad = \'' . $modalidad . '\'');
         } catch (PDOException $e) {
             $util = new util();
@@ -2048,17 +2045,17 @@ class pagomodel
             $pago = DB::select('SELECT po.codpago as codigopago,po.modalidad as modalidad, ifnull(se.nombresede,\'es cliente\') as nombresede,  ifnull(fac.nombre,\'es cliente\') as nombrefacultad,
                             ifnull(es.nombre,\'es cliente\') as  nombreescuela, po.fecha as fechapago,tr.nombre as nombretramite,tr.clasificador as clasi,tr.fuentefinanc as fuentefinanc,tr.tiporecurso as tiporecurso, st.nombre as nombresubtramite,
                             st.precio * po.cantidad as precio,po.detalle as pagodetalle
-                            FROM unt.pago as po
-                            LEFT JOIN unt.persona per ON (po.idpersona = per.codPersona)
-                            LEFT JOIN unt.alumno al ON (per.codPersona = al.idPersona)
-                            LEFT JOIN unt.escuela es ON (al.coEscuela=es.idEscuela)
-                            LEFT JOIN unt.facultad fac ON(es.codigoFacultad = fac.idFacultad)
-                            LEFT JOIN unt.sede sed ON (fac.coSede = sed.codSede)
-                            LEFT JOIN unt.personal ps ON (ps.idpersonal=po.copersonal)
-                            LEFT JOIN unt.persona pl ON (ps.idpersona=pl.codPersona)
-                            LEFT JOIN unt.subtramite st ON (po.idSubtramite =st.codSubtramite)
-                            LEFT JOIN unt.tramite tr ON (st.idTramite=tr.codTramite) 
-                            Left join unt.sede se ON(se.CodSede=fac.coSede)
+                            FROM pago as po
+                            LEFT JOIN persona per ON (po.idpersona = per.codPersona)
+                            LEFT JOIN alumno al ON (per.codPersona = al.idPersona)
+                            LEFT JOIN escuela es ON (al.coEscuela=es.idEscuela)
+                            LEFT JOIN facultad fac ON(es.codigoFacultad = fac.idFacultad)
+                            LEFT JOIN sede sed ON (fac.coSede = sed.codSede)
+                            LEFT JOIN personal ps ON (ps.idpersonal=po.copersonal)
+                            LEFT JOIN persona pl ON (ps.idpersona=pl.codPersona)
+                            LEFT JOIN subtramite st ON (po.idSubtramite =st.codSubtramite)
+                            LEFT JOIN tramite tr ON (st.idTramite=tr.codTramite) 
+                            Left join sede se ON(se.CodSede=fac.coSede)
                             WHERE po.estado=' . $estado . '  and idProduccionAlumno is null and date(po.fecha)  BETWEEN  \'' . $fechaDesde . '\' and \'' . $fechaHasta . '\'   ');
         } catch (PDOException $e) {
             $util = new util();
@@ -2075,13 +2072,13 @@ class pagomodel
             $date = date('Y-m-d');
             $pago = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite 
             as codigoSubtramite, st.nombre,sum((cantidad*precio)) as precio, count(po.codPago) as nurPagos , p.nombres as pnombres, p.apellidos as papellidos
-                            FROM unt.tramite as tr
-                            LEFT JOIN unt.subtramite st ON (tr.codTramite = st.idTramite)
-                            LEFT JOIN unt.pago po ON (st.codSubtramite=po.idSubtramite )
-                            LEFT JOIN unt.personal pl ON (pl.idPersonal=po.coPersonal )
-                            LEFT JOIN unt.persona p ON (pl.idPersona = p.codPersona )
+                            FROM tramite as tr
+                            LEFT JOIN subtramite st ON (tr.codTramite = st.idTramite)
+                            LEFT JOIN pago po ON (st.codSubtramite=po.idSubtramite )
+                            LEFT JOIN personal pl ON (pl.idPersonal=po.coPersonal )
+                            LEFT JOIN persona p ON (pl.idPersona = p.codPersona )
                             where po.fecha like "%' . $date . '%"  and idProduccionAlumno is null and pl.codPersonal="' . $codPersonal . '" and po.estado =1
-                            and po.modalidad = "ventanilla" or po.modalidad = "banco"
+            and po.modalidad = "ventanilla" or po.modalidad = "banco"
                             group by (st.codSubtramite) order by (tr.nombre)');
         } catch (PDOException $e) {
             $util = new util();
