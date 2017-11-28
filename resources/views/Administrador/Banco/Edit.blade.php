@@ -46,22 +46,19 @@
                         <div class="col-sm-12 row form-group" align="center">
                             <span id="mensaje" class="control-label" style="color: red"></span>
                         </div>
-                        <div class="row form-group">
-                            <div class="col-md-3"></div>
-                            <a href="{{url('/admBuscarBanco')}}" class=" col-md-2 btn btn-sm btn-danger"><span
+                        <div class="row form-group" align="center">
+
+                            <a href="{{url('/admBuscarBanco')}}" class=" btn btn-sm btn-danger"><span
                                         class="glyphicon glyphicon-ban-circle"></span>
                                 Regresar
                             </a>
-                            <div class="col-md-2">
-                            </div>
-                            <div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button type="submit" name="enviar" id="enviar"
                                         onmouseover="activarbotonform(null,['spanbanco','spancuenta'],'enviar','mensaje')"
-                                        class="col-md-2 btn btn-sm btn-success"><span
+                                        class=" btn btn-sm btn-success"><span
                                             class="glyphicon glyphicon-ok"></span> Guardar
                                 </button>
-                            </div>
-                            <div class="col-md-3"></div>
+
                         </div>
                     </form>
                 @endforeach

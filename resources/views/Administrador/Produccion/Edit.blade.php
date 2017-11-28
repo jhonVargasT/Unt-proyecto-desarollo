@@ -67,15 +67,15 @@
                                 </div>
                             </div>
                             <div class="row form-group">
-                                <div class="col-md-3"></div>
-                                <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
+
+                                <a href="{{url('/Adm')}}" class="  btn btn-sm btn-danger"><span
                                             class="glyphicon glyphicon-ban-circle"></span>
                                     Cancelar</a>
-                                <div class="col-md-2"></div>
-                                <button type="submit" id="enviar" name="enviar" class="col-md-2 btn btn-sm btn-success"><span
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button type="submit" id="enviar" name="enviar" class=" btn btn-sm btn-success"><span
                                             class="glyphicon glyphicon-ok"></span> Guardar
                                 </button>
-                                <div class="col-md-3"></div>
+
                             </div>
                         </form>
                     @endforeach
