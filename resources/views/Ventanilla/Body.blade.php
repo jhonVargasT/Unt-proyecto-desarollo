@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </div>
-              <!--  <div class="panel panel-primary">
+            <!--  <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
@@ -71,7 +71,7 @@
                                         <a href="/venRegistrarEstudianteProduccion">Agregar Estudiante Produccion</a>
                                     </td>
                                 </tr>-->
-                <!--
+            <!--
                             </table>
                         </div>
                     </div>
@@ -128,8 +128,8 @@
                 </div>
             </div>
             -->
+            </div>
         </div>
-
         <div class="col-sm-10" style="align-items: center">
             <br>
             @yield('content')
@@ -145,6 +145,7 @@
                 tecla_final = String.fromCharCode(tecla);
                 return patron.test(tecla_final);
             }
+
             function validarLetras(e) {
                 tecla = (document.all) ? e.keyCode : e.which;
 
