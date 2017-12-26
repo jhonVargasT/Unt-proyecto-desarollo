@@ -71,7 +71,7 @@
                     </div>
                 </div>
 
-                <!--
+
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">
@@ -97,7 +97,6 @@
                                             Produccion</a>
                                     </td>
                                 </tr>-->
-                <!--
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
@@ -111,7 +110,7 @@
                                             Produccion </a>
                                     </td>
                                 </tr>-->
-            <!--
+
                             </table>
                         </div>
                     </div>
@@ -393,7 +392,6 @@
                         </div>
                     </div>
                 </div>
-  -->
               <!--  <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">
