@@ -153,19 +153,20 @@
                         <div class="col-sm-12 row form-group" align="center">
                             <span id="mensaje" class="control-label" style="color: red"></span>
                         </div>
-                        <div class="col-sm-12 row form-group">
-                            <div class="col-md-3"></div>
+                        <div class="col-sm-12 row form-group" align="center">
+
+
                             <a href="{{url('/admBuscarPersonal')}}" class=" col-md-2 btn btn-sm btn-danger"><span
                                         class="glyphicon glyphicon-ban-circle"></span>
                                 Regresar
                             </a>
-                            <div class="col-md-2"></div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button type="submit" id="enviar" onmouseover="activarbotonform(null,['spandni','spannombre',
                             'spanapellidos','spancorreo','spancodigoPersonal','spancontrasenavalidar'
                             ],'enviar','mensaje')" name="enviar" class="col-md-2 btn btn-success"><span
                                         class="glyphicon glyphicon-ok"></span> Guardar
                             </button>
-                            <div class="col-md-3"></div>
+
                         </div>
                     </form>
                 @endforeach

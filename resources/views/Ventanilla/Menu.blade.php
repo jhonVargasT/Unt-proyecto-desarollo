@@ -34,6 +34,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">
@@ -88,6 +89,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-sm-10  " style="background-color:#ccd0d2 ">
                     @yield('content')
                 </div>

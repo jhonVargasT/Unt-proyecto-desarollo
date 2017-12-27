@@ -572,6 +572,8 @@ class pagoController extends Controller
         $lugar = null;
         $codigo = null;
         $opcBusqueda = 'Fecha desde : ' . $fechaDesde . ' hasta :' . $fechaHasta . '| Estado :' . $estado;
+        echo $centroProducion;
+
         if ($modalidad !== 'Todo') {
             $opcBusqueda .= '| Modalidad :' . $modalidad;
         }
@@ -648,7 +650,7 @@ class pagoController extends Controller
         $cadena = $estado . ';' . $modalidad . ';' . $fechaDesde . ';' . $fechaHasta . ';' . $tram . ';' . $tramites . ';' . $tipRe . ';' . $fuenfin . ';' . $lugar . ';' . $codigo . ';' . $centroProducion . ';' . $opcBusqueda;
         //  $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $cadena, MCRYPT_MODE_CBC, md5(md5($key))));
         return view('Administrador/Reporte/Report')->with(['centroproduccion' => $centroProducion, 'result' => $result, 'total' => $total, 'estado' => $estado, 'modalidad' => $modalidad, 'fechaDesde' => $fechaDesde, 'fechaHasta' => $fechaHasta, 'tram' => $tram, 'tramites' => $tramites, 'tipRe' => $tipRe, 'fuenfin' => $fuenfin, 'lugar' => $lugar, 'codigo' => $codigo, 'encript' => $cadena]);
-    }
+   }
 
     //Reenviar datos de la boleta de pago a la vista de: RealizarPago
     public function obtenerDatos(Request $request)

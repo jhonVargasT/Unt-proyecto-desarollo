@@ -59,44 +59,45 @@
                                         <span class=" control-label" style="color:red" id="spannombre"> </span>
                                     </div>
                                 </div>
-                            <div class="form-group-sm " align="left">
+                                <div class="form-group-sm " align="left">
 
-                                <div class="col-sm-3">
-                                    <span class="control-label"> Tipo de recurso</span>
-                                    <input class=" form-control input-sm" name="tipoRecurso" type="text"
-                                           autocomplete="off" placeholder="A" id="tipoRecurso"
-                                           onchange="validarNombre('tipoRecurso','spantiporecurso')">
-                                    <span class=" control-label" style="color:red" id="spantiporecurso"> </span>
+                                    <div class="col-sm-3">
+                                        <span class="control-label"> Tipo de recurso</span>
+                                        <input class=" form-control input-sm" name="tipoRecurso" type="text"
+                                               autocomplete="off" placeholder="A" id="tipoRecurso"
+                                               onchange="validarNombre('tipoRecurso','spantiporecurso')">
+                                        <span class=" control-label" style="color:red" id="spantiporecurso"> </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class=" form-group-sm" align="left">
-                                <div class="col-sm-2">
-                                    <span class=" control-label"> Fuente de financiamieto</span>
-                                    <input class="form-control" name="fuentefinanc" type="text"
-                                           autocomplete="off" placeholder="1" id="fuentefinac"
-                                           onchange="validarNumeros('fuentefinac','spanfuente')">
-                                    <span class=" control-label" style="color:red" id="spanfuente"> </span>
+                                <div class=" form-group-sm" align="left">
+                                    <div class="col-sm-2">
+                                        <span class=" control-label"> Fuente de financiamieto</span>
+                                        <input class="form-control" name="fuentefinanc" type="text"
+                                               autocomplete="off" placeholder="1" id="fuentefinac"
+                                               onchange="validarNumeros('fuentefinac','spanfuente')">
+                                        <span class=" control-label" style="color:red" id="spanfuente"> </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-12 row form-group" align="center">
-                    <span id="mensaje" class="control-label" style="color: red"></span>
-                </div>
-                <div class="col-sm-12 row form-group">
-                    <div class="col-md-3"></div>
-                    <a href="{{url('/Adm')}}" class=" col-md-2 btn btn-sm btn-danger"><span
-                                class="glyphicon glyphicon-ban-circle"></span>
-                        Cancelar</a>
-                    <div class="col-md-2"></div>
-                    <button type="submit"
-                            onmouseover="activarbotonform(null,['spanclasificador','spannombre'],'enviar','mensaje')"
-                            name="enviar" id="enviar" class="col-md-2 btn btn-success">
+                    <div class="col-sm-12 row form-group" align="center">
+                        <span id="mensaje" class="control-label" style="color: red"></span>
+                    </div>
+                    <div class="col-sm-12 row form-group" align="center">
+
+                        <a href="{{url('/Adm')}}" class=" btn btn-sm btn-danger"><span
+                                    class="glyphicon glyphicon-ban-circle"></span>
+                            Cancelar</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button type="submit"
+                                onmouseover="activarbotonform(null,['spanclasificador','spannombre'],'enviar','mensaje')"
+                                name="enviar" id="enviar" class=" btn btn-sm btn-success">
                         <span
                                 class="glyphicon glyphicon-ok"></span> Guardar
-                    </button>
-                    <div class="col-md-3"></div>
+                        </button>
+
+                    </div>
                 </div>
             </form>
         </div>
