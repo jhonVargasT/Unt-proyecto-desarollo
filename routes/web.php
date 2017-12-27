@@ -29,9 +29,9 @@ Route::get('/', function () {
 Route::resource('/loguear', 'personalController@loguearPersonal');
 Route::resource('/cerrarSesion', 'personalController@logOutPersonal');
 
-/*Route::get('/boleta2', function () {
+Route::get('/boleta2', function () {
     return view('Ventanilla/Pagos/boleta2');
-});*/
+});
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////ADMINISTRADOR/////////////////////////////////////////////////////////
