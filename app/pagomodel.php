@@ -335,7 +335,6 @@ class pagomodel
             $util->insertarError($e->getMessage(), 'obtenerPagosresumensiaf/pagomodel');
             return null;
         }
-        var_dump($pago);
         return $pago;
     }
 
