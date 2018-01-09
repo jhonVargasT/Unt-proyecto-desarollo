@@ -75,18 +75,18 @@
                 </div>
                 @if(isset($buscar))
                     <div class="col-sm-2 col-lg-2 col-xs-2">
-                        <input class="form-control input-sm " id="buscar" name="text" type="text"
+                        <input class="form-control input-sm " id="buscar" name="text"
                                autocomplete="off" value="{{$buscar}}" required>input class="form-control input-sm "
                     </div>
                 @else
                     <div class="col-sm-2 col-lg-2 col-xs-2">
-                        <input class="form-control input-sm " id="buscar" name="text" type="text"
+                        <input class="form-control input-sm " id="buscar" name="text"
                                autocomplete="off" required>
                     </div>
                 @endif
                 <span class="col-sm-2 col-lg-2 col-xs-2">Nombres :</span>
                 <div class="col-sm-2 col-lg-2 col-xs-2">
-                    <input class="form-control input-sm" name="nombres" type="text" id="nombres"
+                    <input class="form-control input-sm" name="nombres" id="nombres"
                            @if(isset($nombre)) value="{{$nombre}}" @endif readonly>
                     <input type="hidden" id="names">
                     <script>
@@ -181,7 +181,7 @@
                 </div>
                 <span class="col-sm-2 col-lg-2 col-xs-2">Apellidos :</span>
                 <div class="col-sm-2 col-lg-2 col-xs-2">
-                    <input class="form-control input-sm" name="apellidos" type="text" id="apellidos"
+                    <input class="form-control input-sm" name="apellidos" id="apellidos"
                            @if(isset($apellidos))value="{{$apellidos}}" @endif
                            readonly>
                     <input type="hidden" id="lastname">
@@ -191,14 +191,14 @@
             <div class="row">
                 <span class="col-sm-2 col-lg-2 col-xs-2">Escuela :</span>
                 <div class="col-sm-2 col-lg-2 col-xs-2">
-                    <input class="form-control input-sm" name="escuela" type="text" readonly
+                    <input class="form-control input-sm" name="escuela" readonly
                            id="escuela"
                            @if(isset($escuela)) value="{{$escuela}}" @endif >
                 </div>
                 <div class="form-group-sm">
                     <span class="col-sm-2 col-lg-2 col-xs-2">Facultad :</span>
                     <div class="col-sm-2 col-lg-2 col-xs-2">
-                        <input class="form-control input-sm" name="facultad" type="text" readonly
+                        <input class="form-control input-sm" name="facultad" readonly
                                id="facultad"
                                @if(isset($facultad)) value="{{$facultad}}" @endif >
                     </div>
@@ -213,7 +213,7 @@
                     </select>
                 </div>
                 <div class="col-sm-2 col-lg-2 col-xs-2">
-                    <input class="typeahead form-control" type="text" name="txtsub" id="ts" required>
+                    <input class="typeahead form-control" name="txtsub" id="ts" required>
                     <script>
                         var path = "{{ route('autocompletes') }}";
                         $('input.typeahead').typeahead({
@@ -291,7 +291,7 @@
                 </script>
                 <span class="col-sm-2 col-lg-2 col-xs-2" id="nsub">Nombre de tasa :</span>
                 <div class="col-sm-2 col-lg-2 col-xs-2">
-                    <input class="form-control" type="text" name="subtramite" id="st" required readonly>
+                    <input class="form-control" name="subtramite" id="st" required readonly>
                 </div>
                 <span class="col-sm-2 required ">Detalle :</span>
                 <div class="col-sm-2 ">
@@ -349,17 +349,18 @@
             <div class="row">
                 <div class="col-xs-5"></div>
                 <div class="col-xs-4">
-                    <form action="{{url('/pagovisa')}}" method='POST'>
+                    <form action="http://labceperu.com/boton_pago/qas/boton.php?sessionToken=75C2D052-95E0-927A-1A8C-82E1B0C94ABD"
+                          method='POST'>
                         <script src='https://static-content.vnforapps.com/v1/js/checkout.js?qa=true'
-                                data-sessiontoken=''
-                                data-merchantid=''
+                                data-sessiontoken='75C2D052-95E0-927A-1A8C-82E1B0C94ABD'
+                                data-merchantid='148131802'
                                 data-merchantlogo='img/comercio.png'
                                 data-formbuttoncolor='#D80000'
-                                data-purchasenumber=’’
-                                data-amount=''
+                                data-purchasenumber=’1’
+                                data-amount='2000'
                         ></script>
                     </form>
-                    <script>
+                    <!--<script>
                         jQuery.ajax({
                             url: 'https://devapice.vnforapps.com/api.ecommerce/api/v1/ecommerce/token/merchantId',
                             type: 'POST',
@@ -369,7 +370,7 @@
                                 xhr.setRequestHeader('VisaNet-Session-Key', '');
                             }
                         });
-                    </script>
+                    </script>-->
                 </div>
             </div>
         </div>
@@ -402,11 +403,6 @@
         $(document).ready(function () {
             $('#memberModal').modal('show');
         });
-    </script>
-    <script>
-        function visa() {
-            $('#visa').modal('show');
-        }
     </script>
 
     <script src="{{asset('assets/js/jquery-1.10.2.js')}}"></script>

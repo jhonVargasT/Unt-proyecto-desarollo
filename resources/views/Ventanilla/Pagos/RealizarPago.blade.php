@@ -103,7 +103,7 @@
                             <span class="col-sm-2">Nombres</span>
                             <div class="col-sm-4">
                                 <input class="form-control input-sm" name="nombres" id="nombres"
-                                       @if(isset($nombre))value="{{$nombre}}" @endif readonly>
+                                       @if(isset($nombre))value="{{$nombre}}" @endif readonly tabindex="-1">
                                 <script>
                                     $('#buscar').change(function () {
                                         var value = $('#select option:selected').attr('value');
@@ -205,7 +205,7 @@
                             <div class="col-sm-4">
                                 <input class="form-control input-sm" name="apellidos" id="apellidos"
                                        @if(isset($apellidos))value="{{$apellidos}}" @endif
-                                       readonly>
+                                       readonly tabindex="-1">
                             </div>
                         </div>
                     </div>
@@ -214,13 +214,13 @@
                             <span class="col-sm-2">Sede</span>
                             <div class="col-sm-4">
                                 <input class="form-control input-sm" name="sede" readonly id="sede"
-                                       @if(isset($sede)) value="{{$sede}}" @endif >
+                                       @if(isset($sede)) value="{{$sede}}" @endif  tabindex="-1">
 
                             </div>
                             <span class="col-sm-2">Escuela</span>
                             <div class="col-sm-4">
                                 <input class="form-control input-sm" name="escuela" readonly id="escuela"
-                                       @if(isset($escuela)) value="{{$escuela}}" @endif >
+                                       @if(isset($escuela)) value="{{$escuela}}" @endif  tabindex="-1">
 
                             </div>
                         </div>
@@ -230,7 +230,7 @@
                             <span class="col-sm-2">Facultad</span>
                             <div class="col-sm-4">
                                 <input class="form-control input-sm" name="facultad" readonly id="facultad"
-                                       @if(isset($facultad)) value="{{$facultad}}" @endif >
+                                       @if(isset($facultad)) value="{{$facultad}}" @endif  tabindex="-1">
                             </div>
                         </div>
                     </div>
@@ -327,7 +327,7 @@
                             </script>
                             <span class="col-sm-2" id="nsub">Nombre de tasa:</span>
                             <div class="col-sm-4">
-                                <input class="form-control" name="subtramite" id="st" required readonly>
+                                <input class="form-control" name="subtramite" id="st" required readonly tabindex="-1">
                             </div>
                         </div>
                     </div>
@@ -454,7 +454,7 @@
                             </div>
                             <div class="col-sm-1">
                                 <input class="form-control" name="boletapagar" id="bp"
-                                       readonly>
+                                       readonly tabindex="-1">
                             </div>
                             <div class="col-sm-1">
                                 x
@@ -467,7 +467,7 @@
                                 =
                             </div>
                             <div class="col-sm-1">
-                                <input class="form-control" name="pagar" id="pg" readonly>
+                                <input class="form-control" name="pagar" id="pg" readonly tabindex="-1">
                             </div>
                             <script>
                                 $('#mp').change(function () {
