@@ -3,27 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Boleta</title>
-    <link rel="stylesheet" type="text/css" href="css/boleta.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
 </head>
 <br><br><br>
 <body>
 <form name="form" action="{{url('datos')}}" role="Form" method="POST" class="Vertical">
     {{csrf_field()}}
+    <td><input type="hidden" name="facultad" value="{{$facultad}}" readonly></td>
+    <td><input type="hidden" name="apellidos" value="{{$apellidos}}" readonly id="apellidos"></td>
+    <td><input type="hidden" name="nombres" value="{{$nombre}}" readonly id="nombres"></td>
+    <td><input type="hidden" name="total" value="{{$total}}" readonly></td>
+    <td><input type="hidden" name="buscar" value="{{$buscar}}" readonly></td>
+    <td><input type="hidden" name="facultad" value="{{$facultad}}" readonly></td>
+    <td><input type="hidden" name="sede" value="{{$sede}}" readonly></td>
+    <td><input type="hidden" name="selected" value="{{$select}}" readonly></td>
+
     <div id="printableArea">
         <table>
             <tr>
                 <td>
                     <table>
-                        <td><input type="hidden" name="facultad" value="{{$facultad}}" readonly></td>
-                        <td><input type="hidden" name="apellidos" value="{{$apellidos}}" readonly id="apellidos"></td>
-                        <td><input type="hidden" name="nombres" value="{{$nombre}}" readonly id="nombres"></td>
-                        <td><input type="hidden" name="total" value="{{$total}}" readonly></td>
-                        <td><input type="hidden" name="buscar" value="{{$buscar}}" readonly></td>
-                        <td><input type="hidden" name="facultad" value="{{$facultad}}" readonly></td>
-                        <td><input type="hidden" name="sede" value="{{$sede}}" readonly></td>
-                        <td><input type="hidden" name="selected" value="{{$select}}" readonly></td>
-
                         <tr align="center">
                             <th colspan="2"><input name="contador" value="{{$contador}}" readonly id="contador"></th>
                         </tr>
@@ -40,11 +39,11 @@
                             <th><input name="escuela" value="{{$escuela}}" readonly id="escuela" size="45"></th>
                         </tr>
                         <tr>
-                            <th>TASA:</th>
-                            <th><textarea name="tasa" readonly rows="2" cols="45">{{$tasa}}</textarea></th>
+                            <th>CONCEPTO:</th>
+                            <th><textarea name="tasa" readonly rows="3" cols="34">{{$tasa}}</textarea></th>
                         </tr>
                         <tr>
-                            <th>CONCEPTO:</th>
+                            <th>DETALLE:</th>
                             <th><input name="detalle" value="{{$detalle}}" readonly size="45"></th>
                         </tr>
                         <tr>
@@ -86,11 +85,11 @@
                             <th><input name="escuela" value="{{$escuela}}" readonly id="escuela" size="45"></th>
                         </tr>
                         <tr>
-                            <th>TASA:</th>
-                            <th><textarea name="tasa" readonly rows="2" cols="45">{{$tasa}}</textarea></th>
+                            <th>CONCEPTO:</th>
+                            <th><textarea name="tasa" readonly rows="3" cols="34">{{$tasa}}</textarea></th>
                         </tr>
                         <tr>
-                            <th>CONCEPTO:</th>
+                            <th>DETALLE:</th>
                             <th><input name="detalle" value="{{$detalle}}" readonly size="45"></th>
                         </tr>
                         <tr>
@@ -121,12 +120,12 @@
         </table>
     </div>
     <div align="center">
-        <button id="togglee">Regresar</button>
+        <button id="togglee"></button>
     </div>
     <script>
-        document.getElementById('togglee').style.visibility = 'hidden';
+        //document.getElementById('togglee').style.visibility = 'hidden';
 
-        function printDiv(divName) {
+        /*function printDiv(divName) {
             var printContents = document.getElementById(divName).innerHTML;
             var originalContents = document.body.innerHTML;
             document.body.innerHTML = printContents;
@@ -137,7 +136,7 @@
         printDiv('printableArea');
         setTimeout(function () {
             document.getElementById('togglee').style.visibility = 'visible';
-        }, 450);
+        }, 450);*/
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         $("#boleta").change(function () {
             /**
@@ -354,7 +353,7 @@
 
         updatePrice($("#boleta").val());
 
-        document.getElementById('togglee').click();
+        //document.getElementById('togglee').click();
 
     </script>
 </form>
