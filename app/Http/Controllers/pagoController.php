@@ -210,8 +210,8 @@ class pagoController extends Controller
         for($i=0;$i<$num;$i++)
         {
             $cont=$i*60;
-            $conector->text( substr($var,$cont,60));
-            $conector->text( substr($var,$cont,60));
+            $conector->text( substr($var,$cont,60).'                                                  ');
+            $conector->text( substr($var,$cont,60).'                                                  ');
             $conector->text ( "\n");
         }
     }
@@ -223,13 +223,8 @@ class pagoController extends Controller
         $printer->initialize();
 
         //echo("DETALLE: $detalle");
-       // $this->formatear($detalle,$printer);
-
-
-
-
-
-         $printer->text("\n");
+       $this->formatear($detalle,$printer);
+        /*$printer->text("\n");
          $printer->text("\n");
          $printer->text("\n");
          $printer->text("\n");
@@ -265,7 +260,7 @@ class pagoController extends Controller
          $printer->text("                                                                         CAJERO: $personal");
          $printer->text("\n");
          $printer->text("\n");
-         $printer->text("\n");
+         $printer->text("\n");*/
          $printer->close();
 
     }
