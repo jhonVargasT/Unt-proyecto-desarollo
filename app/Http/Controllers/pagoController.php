@@ -241,7 +241,7 @@ class pagoController extends Controller
             $this->formato('DETALLE: ' . $detalle, $printer);
         }
         $this->formato('FECHA: ' . $fecha, $printer);
-        $this->formato('MONTO: ' . $monto, $printer);
+        $this->formato('MONTO: S/. ' . $monto, $printer);
         $this->formato('CAJERO: ' . $personal, $printer);
         $printer->close();
     }
