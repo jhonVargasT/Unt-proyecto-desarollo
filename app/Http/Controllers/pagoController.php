@@ -203,83 +203,47 @@ class pagoController extends Controller
         }
     }
 
-    function formato($var,$conector)
+    function formato($var, $conector)
     {
-        $var=strtoupper($var);
-        if(strlen($var)<=60) {
+        $var = strtoupper($var);
+        if (strlen($var) <= 60) {
             for ($i = strlen($var); $i < 80; $i++) {
-                $var = $var . 'm';
+                $var = $var . ' ';
             }
-            $conector->text($var ='<font face="Comic Sans MS,arial,verdana">'. $var . $var.'</font>');
-            $conector->text('<br>');
-        }else{
-            $result=chunk_split($var,60,'|');
-            $var=explode('|',$result);
-            foreach ($var as $v)
-            {
-                for ($i = strlen($v); $i < 80 && $i!= null ; $i++) {
-                    $v = $v . 'm';
+            $conector->text($var = '' . $var . $var . '');
+        } else {
+            $result = chunk_split($var, 60, '|');
+            $var = explode('|', $result);
+            foreach ($var as $v) {
+                for ($i = strlen($v); $i < 81 && $i != null; $i++) {
+                    $v = $v . ' ';
                 }
-                $conector->text( $v ='<font face="Comic Sans MS,arial,verdana">'. $v . $v.'</font>');
-                $conector->text('<br>');
+                $conector->text($v = '' . $v . $v . '');
             }
-
-
-
-
         }
     }
 
+
     public function imprimirBoleta($contador, $siaf, $nombres, $apellidos, $escuela, $concepto, $detalle, $fecha, $monto, $personal)
     {
-        $connector = new FilePrintConnector("/dev/usb/lp0");
+        //$connector = new FilePrintConnector("/dev/usb/lp0");
         $connector = new WindowsPrintConnector("EPSON FX-890");
         $printer = new Printer($connector);
-          $printer->initialize();
-        $this->formato($siaf,$printer);
-        $this->formato($nombres,$printer);
-        $this->formato($detalle,$printer);
-
-
-        /*$printer->text("\n");
-         $printer->text("\n");
-         $printer->text("\n");
-         $printer->text("\n");
-         $printer->text("                                $contador                                                   ");
-         $printer->text("                                $contador                                                   ");
-         $printer->text("\n");
-         $printer->text("SIAF: $siaf");
-         $printer->text("                                                                              SIAF: $siaf");
-         $printer->text("\n");
-         $printer->text("RECIBIDO DE: $nombres $apellidos");
-         $printer->text("                                                RECIBIDO DE: $nombres $apellidos");
-         $printer->text("\n");
-         $printer->text("ESCUELA: $escuela");
-         $printer->text("                                                ESCUELA: $escuela");
-         $printer->text("\n");
-         $printer->text("CONCEPTO: $concepto");
-         $printer->text("CONCEPTO: $concepto");
-         $printer->text("                                                                                 CONCEPTO: $concepto");$printer->setPrintWidth(600);
-         $printer->text("\n");
-         $printer->text("DETALLE: $detalle");
-         $printer->text("                                                                                 DETALLE: $detalle");
-         $printer->text("\n");
-         $printer->text("FECHA: $fecha");
-         $printer->text("                                                                FECHA: $fecha");
-         $printer->text("\n");
-         $printer->text("MONTO: S/. $monto");
-         $printer->text("                                                                             MONTO: S/. $monto");
-         $printer->text("\n");
-         $printer->text("DOS CIENTOS SOLES");
-         $printer->text("                                                                         DOS CIENTOS SOLES");
-         $printer->text("\n");
-         $printer->text("CAJERO: $personal");
-         $printer->text("                                                                         CAJERO: $personal");
-         $printer->text("\n");
-         $printer->text("\n");
-         $printer->text("\n");*/
-         $printer->close();
-
+        $printer->initialize();
+        $printer->setJustification(Printer::JUSTIFY_LEFT);
+        $this->formato('                ' . $contador, $printer);
+        $this->formato('   SIAF: ' . $siaf, $printer);
+        $this->formato('   NOMBRES: ' . $nombres, $printer);
+        $this->formato('   APELLIDOS: ' . $apellidos, $printer);
+        $this->formato('   ESCUELA: ' . $escuela, $printer);
+        $this->formato('   CONCEPTO: ' . $concepto, $printer);
+        if ($detalle == ' ') {
+            $this->formato('DETALLE: ' . $detalle, $printer);
+        }
+        $this->formato('FECHA: ' . $fecha, $printer);
+        $this->formato('MONTO: ' . $monto, $printer);
+        $this->formato('CAJERO: ' . $personal, $printer);
+        $printer->close();
     }
 
     //Obtener contador de la tasa por su nombre de tasa
