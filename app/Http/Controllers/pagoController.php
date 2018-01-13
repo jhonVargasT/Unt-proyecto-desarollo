@@ -223,13 +223,13 @@ class pagoController extends Controller
         $printer->initialize();
 
         //echo("DETALLE: $detalle");
-        $this->formatear($detalle,$printer);
+       // $this->formatear($detalle,$printer);
 
 
-        //echo("                                                                                 DETALLE: $detalle");
 
 
-        /* $printer->text("\n");
+
+         $printer->text("\n");
          $printer->text("\n");
          $printer->text("\n");
          $printer->text("\n");
@@ -265,7 +265,7 @@ class pagoController extends Controller
          $printer->text("                                                                         CAJERO: $personal");
          $printer->text("\n");
          $printer->text("\n");
-         $printer->text("\n");*/
+         $printer->text("\n");
          $printer->close();
 
     }
