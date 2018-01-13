@@ -188,42 +188,50 @@ class pagoController extends Controller
                 session()->put('text', $request->text);
                 $this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->pagar, $value = Session::get('misession'));
 
-               // return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $totalp, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
-                 //   'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->pagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select, 'tasa' => $request->subtramite]);
+                // return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $totalp, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
+                //   'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->pagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select, 'tasa' => $request->subtramite]);
             } else {
                 Session::forget('txt');
                 Session::put('txt', $request->text);
                 $this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->boletapagar, $value = Session::get('misession'));
 
-              //  return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $request->boletapagar, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
-                 //   'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select, 'tasa' => $request->subtramite]);
+                //  return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $request->boletapagar, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
+                //   'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select, 'tasa' => $request->subtramite]);
             }
         } else {
-           // return back()->with('false', 'Error cliente o alumno no registrador');
+            // return back()->with('false', 'Error cliente o alumno no registrador');
         }
     }
 
-    public function formatear($var,$conector)
+    public function formatear($var, $conector)
     {
-        $num= strlen($var)/60;
-        $num=ceil($num);
-        for($i=0;$i<$num;$i++)
-        {
-            $cont=$i*60;
-            $conector->text('                                                  '. substr($var,$cont,60).'                                                  ');
-            $conector->text('                                                  '. substr($var,$cont,60).'                                                  ');
-            $conector->text ( "\n");
+        $num = strlen($var) / 60;
+        $num = ceil($num);
+        for ($i = 0; $i < $num; $i++) {
+            $cont = $i * 60;
+            $cadena = substr($var, $cont, 60);
+            $contcadena = strlen($cadena);
+            $res =60 - $contcadena;
+            echo($cadena);
+            $esp = '';
+            for ($t = 0; $t <= $res; $t++) {
+                $esp=$esp.' ';
+            }
+            echo('                                          ' . $esp . $cadena);
+            echo('<br>');
+
         }
     }
+
     public function imprimirBoleta($contador, $siaf, $nombres, $apellidos, $escuela, $concepto, $detalle, $fecha, $monto, $personal)
     {
-        //$connector = new FilePrintConnector("/dev/usb/lp0");
+        $connector = new FilePrintConnector("/dev/usb/lp0");
         $connector = new WindowsPrintConnector("EPSON FX-890");
         $printer = new Printer($connector);
-        $printer->initialize();
+          $printer->initialize();
 
-        //echo("DETALLE: $detalle");
-       $this->formatear($detalle,$printer);
+
+        $this->formatear($detalle, $printer);
         /*$printer->text("\n");
          $printer->text("\n");
          $printer->text("\n");
