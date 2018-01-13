@@ -205,7 +205,7 @@ class pagoController extends Controller
 
     function formato($var, $conector)
     {
-        $var = strtoupper($var);
+        /*$var = strtoupper($var);
         if (strlen($var) <= 60) {
             for ($i = strlen($var); $i < 80; $i++) {
                 $var = $var . ' ';
@@ -220,7 +220,34 @@ class pagoController extends Controller
                 }
                 $conector->text($v = '' . $v . $v . '');
             }
+        }*/
+
+        $aux = array();
+        $aux2 = array();
+        $count = strlen($var);
+        for ($a = 0; $a < $count; $a++) {
+            if ($a < 69) {
+                $aux[$a] = $var[$a];
+            }
+            if ($a > 68) {
+                $aux2[$a] = $var[$a];
+            }
         }
+
+        $numletras = count($aux);
+        $numletras2 = count($aux2);
+        $espacios = abs($numletras - 71);
+        $conector->text(implode("", $aux));
+        $conector->text(str_repeat(" ", $espacios + 16));
+        $conector->text(implode("", $aux));
+        if ($numletras2 != null) {
+            $conector->text("\n");
+            $espacios2 = abs($numletras2 - 71);
+            $conector->text(implode("", $aux2));
+            $conector->text(str_repeat(" ", $espacios2 + 16));
+            $conector->text(implode("", $aux2));
+        }
+        $conector->text("\n");
     }
 
 
@@ -232,17 +259,17 @@ class pagoController extends Controller
         $printer->initialize();
         $printer->setJustification(Printer::JUSTIFY_LEFT);
         $this->formato('                ' . $contador, $printer);
-        $this->formato('   SIAF: ' . $siaf, $printer);
-        $this->formato('   NOMBRES: ' . $nombres, $printer);
-        $this->formato('   APELLIDOS: ' . $apellidos, $printer);
-        $this->formato('   ESCUELA: ' . $escuela, $printer);
-        $this->formato('   CONCEPTO: ' . $concepto, $printer);
+        $this->formato('SIAF:      ' . $siaf, $printer);
+        $this->formato('NOMBRES:   ' . $nombres, $printer);
+        $this->formato('APELLIDOS: ' . $apellidos, $printer);
+        $this->formato('ESCUELA:   ' . $escuela, $printer);
+        $this->formato('CONCEPTO:  ' . $concepto, $printer);
         if ($detalle == ' ') {
-            $this->formato('DETALLE: ' . $detalle, $printer);
+            $this->formato('DETALLE:   ' . $detalle, $printer);
         }
-        $this->formato('FECHA: ' . $fecha, $printer);
-        $this->formato('MONTO: S/. ' . $monto, $printer);
-        $this->formato('CAJERO: ' . $personal, $printer);
+        $this->formato('FECHA:     ' . $fecha, $printer);
+        $this->formato('MONTO:     S/. ' . $monto, $printer);
+        $this->formato('CAJERO:    ' . $personal, $printer);
         $printer->close();
     }
 
