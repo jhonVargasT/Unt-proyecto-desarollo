@@ -210,8 +210,8 @@ class pagoController extends Controller
         for($i=0;$i<$num;$i++)
         {
             $cont=$i*60;
-            $conector->text( substr($var,$cont,60).'                                                  ');
-            $conector->text( substr($var,$cont,60).'                                                  ');
+            $conector->text('                                                  '. substr($var,$cont,60).'                                                  ');
+            $conector->text('                                                  '. substr($var,$cont,60).'                                                  ');
             $conector->text ( "\n");
         }
     }
