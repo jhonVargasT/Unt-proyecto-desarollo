@@ -203,22 +203,29 @@ class pagoController extends Controller
         }
     }
 
-    public function formatear($var, $conector)
+    function formato($var,$conector)
     {
-        $num = strlen($var) / 60;
-        $num = ceil($num);
-        for ($i = 0; $i < $num; $i++) {
-            $cont = $i * 60;
-            $cadena = substr($var, $cont, 60);
-            $contcadena = strlen($cadena);
-            $res =60 - $contcadena;
-            echo($cadena);
-            $esp = '';
-            for ($t = 0; $t <= $res; $t++) {
-                $esp=$esp.' ';
+        $var=strtoupper($var);
+        if(strlen($var)<=60) {
+            for ($i = strlen($var); $i < 80; $i++) {
+                $var = $var . 'm';
             }
-            echo('                                          ' . $esp . $cadena);
-            echo('<br>');
+            $conector->text($var ='<font face="Comic Sans MS,arial,verdana">'. $var . $var.'</font>');
+            $conector->text('<br>');
+        }else{
+            $result=chunk_split($var,60,'|');
+            $var=explode('|',$result);
+            foreach ($var as $v)
+            {
+                for ($i = strlen($v); $i < 80 && $i!= null ; $i++) {
+                    $v = $v . 'm';
+                }
+                $conector->text( $v ='<font face="Comic Sans MS,arial,verdana">'. $v . $v.'</font>');
+                $conector->text('<br>');
+            }
+
+
+
 
         }
     }
@@ -229,9 +236,11 @@ class pagoController extends Controller
         $connector = new WindowsPrintConnector("EPSON FX-890");
         $printer = new Printer($connector);
           $printer->initialize();
+        $this->formato($siaf,$printer);
+        $this->formato($nombres,$printer);
+        $this->formato($detalle,$printer);
 
 
-        $this->formatear($detalle, $printer);
         /*$printer->text("\n");
          $printer->text("\n");
          $printer->text("\n");
