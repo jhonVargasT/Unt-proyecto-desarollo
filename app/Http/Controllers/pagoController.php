@@ -211,7 +211,6 @@ class pagoController extends Controller
         {
             $cont=$i*60;
             $conector->text( substr($var,$cont,60));
-            $conector->text ( "\n");
             $conector->text( substr($var,$cont,60));
             $conector->text ( "\n");
         }
