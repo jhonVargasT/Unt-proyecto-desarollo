@@ -212,6 +212,8 @@ class pagoController extends Controller
             $cont=$i*60;
             $conector->text( substr($var,$cont,60));
             $conector->text ( "\n");
+            $conector->text( substr($var,$cont,60));
+            $conector->text ( "\n");
         }
     }
     public function imprimirBoleta($contador, $siaf, $nombres, $apellidos, $escuela, $concepto, $detalle, $fecha, $monto, $personal)
@@ -264,8 +266,8 @@ class pagoController extends Controller
          $printer->text("                                                                         CAJERO: $personal");
          $printer->text("\n");
          $printer->text("\n");
-         $printer->text("\n");
-         $printer->close();*/
+         $printer->text("\n");*/
+         $printer->close();
 
     }
 
