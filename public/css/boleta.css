@@ -1,24 +1,4 @@
-#printableArea{
-    margin: 1px;
-    background: white;
-    clear: both;
-    text-align: left;
-}
-table{
-    padding: 65px;
-    display:inline-block;
-    border:none;
-}
-td,th{
-    padding: 5px;
-    font-size: 9px;
-}
-input{
-    border:none;
-    font-size: 9px;
-}
-textarea{
-    border:none;
-    resize: none;
-    font-size: 10px;
+#printableArea {
+    height: 351.49px;
+    width: 846.61px;
 }

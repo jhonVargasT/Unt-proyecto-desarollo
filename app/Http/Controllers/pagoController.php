@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
 use NumeroALetras;
@@ -159,7 +161,8 @@ class pagoController extends Controller
     public function imprimirBoleta($contador, $siaf, $nombres, $apellidos, $escuela, $concepto, $detalle, $fecha, $monto, $personal)
     {
         //$connector = new FilePrintConnector("/dev/usb/lp0");
-        $connector = new WindowsPrintConnector("EPSON FX-890");
+        $connector = new NetworkPrintConnector("192.168.3.109", 9100);
+        //$connector = new WindowsPrintConnector("EPSON FX-890");
         $printer = new Printer($connector);
         $printer->initialize();
         $printer->setJustification(Printer::JUSTIFY_LEFT);
