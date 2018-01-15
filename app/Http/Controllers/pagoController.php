@@ -117,7 +117,6 @@ class pagoController extends Controller
     {
         $aux = array();
         $aux2 = array();
-        $aux3 = array();
         $count = strlen($var);
         for ($a = 0; $a < $count; $a++) {
             if ($a < 69) {
@@ -126,19 +125,13 @@ class pagoController extends Controller
             if ($a > 68) {
                 $aux2[$a] = $var[$a];
             }
-            if ($a > 67) {
-                $aux3[$a] = $var[$a];
-            }
         }
         $numletras = count($aux);
         $numletras2 = count($aux2);
-        $numletras3 = count($aux3);
-
         $espacios = abs($numletras - 71);
         $conector->text(implode("", $aux));
         $conector->text(str_repeat(" ", $espacios + 20));
         $conector->text(implode("", $aux));
-
         if ($numletras2 != null) {
             $conector->text("\n");
             $espacios2 = abs($numletras2 - 71);
@@ -146,14 +139,9 @@ class pagoController extends Controller
             $conector->text(str_repeat(" ", $espacios2 + 20));
             $conector->text(implode("", $aux2));
         }
-        if ($numletras3 != null) {
-            $conector->text("\n");
-            $espacios3 = abs($numletras3 - 71);
-            $conector->text(implode("", $aux3));
-            $conector->text(str_repeat(" ", $espacios3 + 20));
-            $conector->text(implode("", $aux3));
-        }
         $conector->text("\n");
+
+        return $numletras;
     }
 
 
@@ -181,7 +169,10 @@ class pagoController extends Controller
         $this->formato('NOMBRES:   ' . $nombres, $printer);
         $this->formato('APELLIDOS: ' . $apellidos, $printer);
         $this->formato('ESCUELA:   ' . $escuela, $printer);
-        $this->formato('CONCEPTO:  ' . $concepto, $printer);
+        $count = $this->formato('CONCEPTO:  ' . $concepto, $printer);
+        if ($count < 69) {
+            $printer->text("\n");
+        }
         if ($detalle == ' ') {
             $this->formato('DETALLE:   ' . $detalle, $printer);
         } else {
