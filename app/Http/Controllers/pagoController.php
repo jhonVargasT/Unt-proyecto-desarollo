@@ -17,99 +17,11 @@ use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
+use NumeroALetras;
 
 
 class pagoController extends Controller
 {
-    //Registrar pagos
-    /*public function registrarPago(Request $request)
-    {
-        $csiaf = null;
-        $cont = 0;
-        $pers = new personamodel();
-        $cli = new clientemodel();
-        $al = new alumnomodel();
-        $subt = new subtramitemodel();
-        $codper = null;
-        $codSubtramite = null;
-        if ($request->select == 'Dni') {
-            $codper = $pers->obtnerIdDni($request->text);//SQL, obtener datos de la persona por su dni
-        } else {
-            if ($request->select == 'Ruc') {
-                $codper = $cli->consultarClienteRUC($request->text);//SQL, obtener datos del cliente por su ruc
-            } else {
-                if ($request->select == 'Codigo de alumno') {
-                    $codper = $al->consultaridPersonaAlumno($request->text);//SQL, obtener datos del alumno por su codigo de alumno
-                }
-            }
-        }
-        if ($request->subtramite) {//si existe nombre de la tasa
-            $codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);//SQL, obtener id de la tasa por nombre de tasa
-            $csiaf = $subt->consultarSiafNombreSubtramite($request->subtramite);//SQL, obtener clasificador siaf por el nombre de tasa
-            $cont = $this->contadorSubtramite($request->subtramite);//SQL, obtener contador de la tasa por nombre de tasa
-        } elseif ($request->txtsub) {//si existe codigo de la tasa
-            $codSubtramite = $subt->consultarSubtramiteidNombre($request->txtsub);//SQL, obtener id de la tasa por nombre de tasa
-            $csiaf = $subt->consultarSiafNombreSubtramite($request->txtsub);//SQL, obtener clasificador siaf por el nombre de tasa
-            $cont = $this->contadorSubtramite($request->txtsub);//SQL, obtener contador de la tasa por nombre de tasa
-        }
-        $codigoS = $subt->consultarCodigoSubtramiteCodSubtramite($codSubtramite);//SQL, obtener codigoSubtramite de la tasa por su id de tasa
-        date_default_timezone_set('America/Lima');
-        $dato = date('Y-m-d H:i:s');
-        $pago = $request->pagar;
-        $total = $request->total;
-        $cantidad = $request->multiplicador;
-        $p = new pagomodel();
-        if ($request->voucher) {
-            $vfecha = $request->vfecha;
-            $fecha = date('Y-m-d', strtotime($vfecha));
-            $p->setNroVoucher($request->voucher);
-            $p->setNroCuenta($request->vcuenta);
-            $p->setModalidad('banco');
-            if ($request->detalle) {
-                $p->setDetalle($request->detalle . '-' . $request->voucher . '-' . $request->vcuenta . '/' . $fecha);
-            } else {
-                $p->setDetalle($request->voucher . '-' . $request->vcuenta . '/' . $fecha);
-            }
-        } else {
-            $p->setModalidad('ventanilla');
-            $p->setDetalle($request->detalle);
-        }
-        $p->setFecha($dato);
-        $idper = Session::get('idpersonal', 'No existe session');
-        $p->setCoPersonal($idper);
-        $p->setIdPersona($codper);
-        $p->setIdSubtramite($codSubtramite);
-        $p->setCantidad($cantidad);
-        if ($request->selectP) {
-            $cpro = $al->bdProduccion($request->selectP);
-            $cod = $al->obtenerCodAlumnoxCodPersona($codper);
-            $ipa = $p->obteneridProduccionAlumno($cpro, $cod);
-            $p->setIdProduccionAlumno($ipa);
-        }
-        $contaux = $cont + 1;
-        if ($request->checkbox == 1) {
-            $p->setDeuda(1);
-        }
-        $valid = $p->savePago($contaux);//SQL, insersion del pago
-        $contador = $codigoS . '-' . $contaux;
-        $buscar = $request->text;
-        $val = Session::get('txt', 'No existe session');
-        if ($valid == true) {
-            if ($val == $request->text) {
-                $totalp = $total + $pago;
-                session()->put('text', $request->text);
-                return view('/Ventanilla/Pagos/boleta2')->with(['buscar' => $buscar, 'total' => $totalp, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
-                    'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->pagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select, 'tasa' => $request->subtramite]);
-            } else {
-                Session::forget('txt');
-                Session::put('txt', $request->text);
-                return view('/Ventanilla/Pagos/boleta2')->with(['buscar' => $buscar, 'total' => $request->boletapagar, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
-                    'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select, 'tasa' => $request->subtramite]);
-            }
-        } else {
-            return back()->with('false', 'Error cliente o alumno no registrador');
-        }
-    }*/
     public function registrarPago(Request $request)
     {
         $csiaf = null;
@@ -187,43 +99,25 @@ class pagoController extends Controller
                 $totalp = $total + $pago;
                 session()->put('text', $request->text);
                 $this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->pagar, $value = Session::get('misession'));
-
-                // return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $totalp, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
-                //   'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->pagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select, 'tasa' => $request->subtramite]);
+                return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $totalp, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
+                    'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->pagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select, 'tasa' => $request->subtramite]);
             } else {
                 Session::forget('txt');
                 Session::put('txt', $request->text);
                 $this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->boletapagar, $value = Session::get('misession'));
-
-                //  return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $request->boletapagar, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
-                //   'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select, 'tasa' => $request->subtramite]);
+                return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $request->boletapagar, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
+                    'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select, 'tasa' => $request->subtramite]);
             }
         } else {
-            // return back()->with('false', 'Error cliente o alumno no registrador');
+            return back()->with('false', 'Error cliente o alumno no registrador');
         }
     }
 
     function formato($var, $conector)
     {
-        /*$var = strtoupper($var);
-        if (strlen($var) <= 60) {
-            for ($i = strlen($var); $i < 80; $i++) {
-                $var = $var . ' ';
-            }
-            $conector->text($var = '' . $var . $var . '');
-        } else {
-            $result = chunk_split($var, 60, '|');
-            $var = explode('|', $result);
-            foreach ($var as $v) {
-                for ($i = strlen($v); $i < 81 && $i != null; $i++) {
-                    $v = $v . ' ';
-                }
-                $conector->text($v = '' . $v . $v . '');
-            }
-        }*/
-
         $aux = array();
         $aux2 = array();
+        $aux3 = array();
         $count = strlen($var);
         for ($a = 0; $a < $count; $a++) {
             if ($a < 69) {
@@ -232,24 +126,46 @@ class pagoController extends Controller
             if ($a > 68) {
                 $aux2[$a] = $var[$a];
             }
+            if ($a > 67) {
+                $aux3[$a] = $var[$a];
+            }
         }
-
         $numletras = count($aux);
         $numletras2 = count($aux2);
+        $numletras3 = count($aux3);
+
         $espacios = abs($numletras - 71);
         $conector->text(implode("", $aux));
-        $conector->text(str_repeat(" ", $espacios + 16));
+        $conector->text(str_repeat(" ", $espacios + 20));
         $conector->text(implode("", $aux));
+
         if ($numletras2 != null) {
             $conector->text("\n");
             $espacios2 = abs($numletras2 - 71);
             $conector->text(implode("", $aux2));
-            $conector->text(str_repeat(" ", $espacios2 + 16));
+            $conector->text(str_repeat(" ", $espacios2 + 20));
             $conector->text(implode("", $aux2));
+        }
+        if ($numletras3 != null) {
+            $conector->text("\n");
+            $espacios3 = abs($numletras3 - 71);
+            $conector->text(implode("", $aux3));
+            $conector->text(str_repeat(" ", $espacios3 + 20));
+            $conector->text(implode("", $aux3));
         }
         $conector->text("\n");
     }
 
+
+    function margenArriba($conector)
+    {
+        $conector->text(str_repeat("\n", 4));
+    }
+
+    function margenAbajo($conector)
+    {
+        $conector->text(str_repeat("\n", 5));
+    }
 
     public function imprimirBoleta($contador, $siaf, $nombres, $apellidos, $escuela, $concepto, $detalle, $fecha, $monto, $personal)
     {
@@ -258,6 +174,7 @@ class pagoController extends Controller
         $printer = new Printer($connector);
         $printer->initialize();
         $printer->setJustification(Printer::JUSTIFY_LEFT);
+        $this->margenArriba($printer);
         $this->formato('                ' . $contador, $printer);
         $this->formato('SIAF:      ' . $siaf, $printer);
         $this->formato('NOMBRES:   ' . $nombres, $printer);
@@ -266,10 +183,18 @@ class pagoController extends Controller
         $this->formato('CONCEPTO:  ' . $concepto, $printer);
         if ($detalle == ' ') {
             $this->formato('DETALLE:   ' . $detalle, $printer);
+        } else {
+            $this->formato('DETALLE:   ----------------', $printer);
         }
-        $this->formato('FECHA:     ' . $fecha, $printer);
+
+        $time = strtotime($fecha);
+        $newformat = date('d-m-Y H:i:s',$time);
+
+        $this->formato('FECHA:     ' . $newformat, $printer);
         $this->formato('MONTO:     S/. ' . $monto, $printer);
+        $this->formato('           ' . $letras = NumeroALetras::convertir($monto, 'SOLES', 'CENTIMOS'), $printer);
         $this->formato('CAJERO:    ' . $personal, $printer);
+        $printer->text(str_repeat("\n", 15));
         $printer->close();
     }
 

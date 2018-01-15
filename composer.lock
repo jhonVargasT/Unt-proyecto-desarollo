@@ -4,8 +4,51 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b8d89df94a841d71d8aab3b2b13db7d",
+    "content-hash": "be979d563fb6f40d82300b8b72c3c9c4",
     "packages": [
+        {
+            "name": "arielcr/numero-a-letras",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/arielcr/numero-a-letras.git",
+                "reference": "df3e5504b477059e290faecad3004ee79f4406a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/arielcr/numero-a-letras/zipball/df3e5504b477059e290faecad3004ee79f4406a4",
+                "reference": "df3e5504b477059e290faecad3004ee79f4406a4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "NumeroALetras": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ariel Orozco",
+                    "email": "bassplayer85@gmail.com",
+                    "homepage": "http://arielorozco.com"
+                }
+            ],
+            "description": "Convierte un número a su valor correspondiente en letras.",
+            "homepage": "https://github.com/arielcr/numero-a-letras",
+            "keywords": [
+                "convertir",
+                "letras",
+                "numero"
+            ],
+            "time": "2017-03-14T01:51:35+00:00"
+        },
         {
             "name": "barryvdh/laravel-dompdf",
             "version": "v0.8.1",
@@ -1981,16 +2024,16 @@
         },
         {
             "name": "ramsey/uuid",
-            "version": "3.7.1",
+            "version": "3.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramsey/uuid.git",
-                "reference": "45cffe822057a09e05f7bd09ec5fb88eeecd2334"
+                "reference": "bba83ad77bb9deb6d3c352a7361b818e415b221d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/uuid/zipball/45cffe822057a09e05f7bd09ec5fb88eeecd2334",
-                "reference": "45cffe822057a09e05f7bd09ec5fb88eeecd2334",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/bba83ad77bb9deb6d3c352a7361b818e415b221d",
+                "reference": "bba83ad77bb9deb6d3c352a7361b818e415b221d",
                 "shasum": ""
             },
             "require": {
@@ -2002,7 +2045,7 @@
             },
             "require-dev": {
                 "apigen/apigen": "^4.1",
-                "codeception/aspect-mock": "^1.0 | ^2.0",
+                "codeception/aspect-mock": "^1.0 | ~2.0.0",
                 "doctrine/annotations": "~1.2.0",
                 "goaop/framework": "1.0.0-alpha.2 | ^1.0 | ^2.1",
                 "ircmaxell/random-lib": "^1.1",
@@ -2010,7 +2053,7 @@
                 "mockery/mockery": "^0.9.4",
                 "moontoast/math": "^1.1",
                 "php-mock/php-mock-phpunit": "^0.3|^1.1",
-                "phpunit/phpunit": "^4.7|>=5.0 <5.4",
+                "phpunit/phpunit": "^4.7|^5.0",
                 "satooshi/php-coveralls": "^0.6.1",
                 "squizlabs/php_codesniffer": "^2.3"
             },
@@ -2059,7 +2102,7 @@
                 "identifier",
                 "uuid"
             ],
-            "time": "2017-09-22T20:46:04+00:00"
+            "time": "2018-01-13T22:22:03+00:00"
         },
         {
             "name": "rmccue/requests",
@@ -4684,7 +4727,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "arielcr/numero-a-letras": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

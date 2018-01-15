@@ -16,7 +16,8 @@
     "guzzlehttp/guzzle": "~5.3|~6.0",
     "phpmailer/phpmailer": "^5.2",
     "google/apiclient": "^2.0",
-    "mike42/escpos-php": "^1.6"
+    "mike42/escpos-php": "^1.6",
+    "arielcr/numero-a-letras": "dev-master"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",
