@@ -162,6 +162,7 @@ class pagoController extends Controller
         $conector->text(str_repeat("\n", 4));
     }
 
+    //4 espacios de margen arriba y 3 abajo.
     function margenAbajo($conector)
     {
         $conector->text(str_repeat("\n", 5));
@@ -186,15 +187,13 @@ class pagoController extends Controller
         } else {
             $this->formato('DETALLE:   ----------------', $printer);
         }
-
         $time = strtotime($fecha);
-        $newformat = date('d-m-Y H:i:s',$time);
-
+        $newformat = date('d-m-Y H:i:s', $time);
         $this->formato('FECHA:     ' . $newformat, $printer);
         $this->formato('MONTO:     S/. ' . $monto, $printer);
         $this->formato('           ' . $letras = NumeroALetras::convertir($monto, 'SOLES', 'CENTIMOS'), $printer);
         $this->formato('CAJERO:    ' . $personal, $printer);
-        $printer->text(str_repeat("\n", 15));
+        $this->margenAbajo($printer);
         $printer->close();
     }
 
