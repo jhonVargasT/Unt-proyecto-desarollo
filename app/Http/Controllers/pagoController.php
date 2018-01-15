@@ -161,12 +161,10 @@ class pagoController extends Controller
 
     public function imprimirBoleta($contador, $siaf, $nombres, $apellidos, $escuela, $concepto, $detalle, $fecha, $monto, $personal)
     {
-        /*$connector = new FilePrintConnector("/dev/usb/lp0");
+        //$connector = new FilePrintConnector("/dev/usb/lp0");
         $connector = new NetworkPrintConnector("192.168.3.109", 9100);
-        $connector = new WindowsPrintConnector("192.168.3.109/EPSON FX-890");*/
-        $profile = CapabilityProfile::load("EPSON FX-890");
-        $connector = new WindowsPrintConnector("smb://DSIC-SOFTWARE/EPSON FX-890");
-        $printer = new Printer($connector, $profile);
+        //$connector = new WindowsPrintConnector("192.168.3.109/EPSON FX-890");
+        $printer = new Printer($connector);
 
         $printer->initialize();
         $printer->setJustification(Printer::JUSTIFY_LEFT);
