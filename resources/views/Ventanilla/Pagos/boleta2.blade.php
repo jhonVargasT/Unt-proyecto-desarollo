@@ -18,100 +18,112 @@
     <td><input type="hidden" name="sede" value="{{$sede}}" readonly></td>
     <td><input type="hidden" name="selected" value="{{$select}}" readonly></td>
 
-    <div id="printableArea">
-        <table>
+    <div id="printableArea" align="center">
+        <table border="1">
             <tr>
                 <td>
-                    <table>
+                    <table id="left">
                         <tr align="center">
                             <th colspan="2"><input name="contador" value="{{$contador}}" readonly id="contador"></th>
                         </tr>
-                        <tr>
+                        <tr align="left">
                             <th>SIAF:</th>
-                            <th><input name="siaf" value="{{$siaf}}" readonly size="45"></th>
+                            <th><input name="siaf" value="{{$siaf}}" readonly size="76"></th>
                         </tr>
-                        <tr>
-                            <th>RECIBIDO DE:</th>
-                            <th><input name="nomape" value="{{$apellidos}}, {{$nombre}}" readonly size="45"></th>
+                        <tr align="left">
+                            <th>NOMBRES:</th>
+                            <th><input name="nomape" value="{{$nombre}}" readonly size="76"></th>
                         </tr>
-                        <tr>
+                        <tr align="left">
+                            <th>APELLIDOS:</th>
+                            <th><input name="nomape" value="{{$apellidos}}" readonly size="76"></th>
+                        </tr>
+                        <tr align="left">
                             <th>ESCUELA:</th>
-                            <th><input name="escuela" value="{{$escuela}}" readonly id="escuela" size="45"></th>
+                            <th><input name="escuela" value="{{$escuela}}" readonly id="escuela" size="76"></th>
                         </tr>
-                        <tr>
+                        <tr align="left">
                             <th>CONCEPTO:</th>
-                            <th><textarea name="tasa" readonly rows="3" cols="34">{{$tasa}}</textarea></th>
+                            <th><textarea name="tasa" readonly rows="2" cols="58">{{$tasa}}</textarea></th>
                         </tr>
-                        <tr>
+                        <tr align="left">
                             <th>DETALLE:</th>
-                            <th><input name="detalle" value="{{$detalle}}" readonly size="45"></th>
+                            <th><input name="detalle" value="{{$detalle}}" readonly size="76"></th>
                         </tr>
-                        <tr>
+                        <tr align="left">
                             <th>FECHA:</th>
-                            <th><input name="fecha" value="{{$fecha}}" readonly size="45"></th>
+                            <th><input name="fecha" value="{{Carbon\Carbon::parse($fecha)->format('d-m-Y H:i:s')}}"
+                                       readonly size="76"></th>
                         </tr>
-                        <tr>
+                        <tr align="left">
                             <th>MONTO:</th>
-                            <th><input value="S/. {{$boleta}}" readonly size="45">
+                            <th><input value="S/. {{$boleta}}" readonly size="76">
                             </th>
                         </tr>
-                        <tr>
+                        <tr align="left">
                             <th></th>
-                            <th><input id="wo" readonly size="45"></th>
+                            <th><input id="wo" readonly size="76"
+                                       value="{{$letras = NumeroALetras::convertir($boleta, 'SOLES', 'CENTIMOS')}}">
+                            </th>
                         </tr>
-                        <tr>
+                        <tr align="left">
                             <th>CAJERO:</th>
                             <th><input name="cajero" value="{{Session::get('misession','No existe session')}}" readonly
-                                       size="45">
+                                       size="76">
                             </th>
                         </tr>
                     </table>
                 </td>
                 <td>
-                    <table>
+                    <table id="right">
                         <tr align="center">
                             <th colspan="2"><input name="contador" value="{{$contador}}" readonly id="contador"></th>
                         </tr>
-                        <tr>
+                        <tr align="left">
                             <th>SIAF:</th>
-                            <th><input name="siaf" value="{{$siaf}}" readonly size="45"></th>
+                            <th><input name="siaf" value="{{$siaf}}" readonly size="76"></th>
                         </tr>
-                        <tr>
-                            <th>RECIBIDO DE:</th>
-                            <th><input name="nomape" value="{{$apellidos}}, {{$nombre}}" readonly size="45"></th>
+                        <tr align="left">
+                            <th>NOMBRES:</th>
+                            <th><input name="nomape" value="{{$nombre}}" readonly size="76"></th>
                         </tr>
-                        <tr>
+                        <tr align="left">
+                            <th>APELLIDOS:</th>
+                            <th><input name="nomape" value="{{$apellidos}}" readonly size="76"></th>
+                        </tr>
+                        <tr align="left">
                             <th>ESCUELA:</th>
-                            <th><input name="escuela" value="{{$escuela}}" readonly id="escuela" size="45"></th>
+                            <th><input name="escuela" value="{{$escuela}}" readonly id="escuela" size="76"></th>
                         </tr>
-                        <tr>
+                        <tr align="left">
                             <th>CONCEPTO:</th>
-                            <th><textarea name="tasa" readonly rows="3" cols="34">{{$tasa}}</textarea></th>
+                            <th><textarea name="tasa" readonly rows="2" cols="58">{{$tasa}}</textarea></th>
                         </tr>
-                        <tr>
+                        <tr align="left">
                             <th>DETALLE:</th>
-                            <th><input name="detalle" value="{{$detalle}}" readonly size="45"></th>
+                            <th><input name="detalle" value="{{$detalle}}" readonly size="76"></th>
                         </tr>
-                        <tr>
+                        <tr align="left">
                             <th>FECHA:</th>
-                            <th><input name="fecha" value="{{$fecha}}" readonly size="45"></th>
+                            <th><input name="fecha" value="{{Carbon\Carbon::parse($fecha)->format('d-m-Y H:i:s')}}"
+                                       readonly size="76"></th>
                         </tr>
-                        <tr>
+                        <tr align="left">
                             <th>MONTO:</th>
-                            <th><input value="S/. {{$boleta}}" readonly size="45">
-                                <input type="hidden" id="boleta" name="boleta" value="{{$boleta}}"
-                                       onchange="updatePrice()"
-                                       readonly>
+                            <th><input value="S/. {{$boleta}}" readonly size="76">
+                                <input type="hidden" id="boleta" name="boleta" value="{{$boleta}}" readonly size="76">
                             </th>
                         </tr>
-                        <tr>
+                        <tr align="left">
                             <th></th>
-                            <th><input id="wo2" readonly size="45"></th>
+                            <th><input id="wo" readonly size="76"
+                                       value="{{$letras = NumeroALetras::convertir($boleta, 'SOLES', 'CENTIMOS')}}">
+                            </th>
                         </tr>
-                        <tr>
+                        <tr align="left">
                             <th>CAJERO:</th>
                             <th><input name="cajero" value="{{Session::get('misession','No existe session')}}" readonly
-                                       size="45">
+                                       size="76">
                             </th>
                         </tr>
                     </table>
@@ -119,242 +131,25 @@
             </tr>
         </table>
     </div>
+    <style>
+        #left{
+            margin-left: 34px;
+            margin-right: 34px;
+        }
+        #right{
+            margin-left: 34px;
+            margin-right: 34px;
+        }
+    </style>
     <div align="center">
         <button id="togglee"></button>
     </div>
     <script>
-        //document.getElementById('togglee').style.visibility = 'hidden';
-
-        /*function printDiv(divName) {
-            var printContents = document.getElementById(divName).innerHTML;
-            var originalContents = document.body.innerHTML;
-            document.body.innerHTML = printContents;
-            window.print();
-            document.body.innerHTML = originalContents;
-        }
-
         printDiv('printableArea');
         setTimeout(function () {
             document.getElementById('togglee').style.visibility = 'visible';
-        }, 450);*/
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        $("#boleta").change(function () {
-            /**
-             * @return {string}
-             */
-            function Unidades(num) {
-
-                switch (num) {
-                    case 1:
-                        return "un";
-                    case 2:
-                        return "dos";
-                    case 3:
-                        return "tres";
-                    case 4:
-                        return "cuatro";
-                    case 5:
-                        return "cinco";
-                    case 6:
-                        return "seis";
-                    case 7:
-                        return "siete";
-                    case 8:
-                        return "ocho";
-                    case 9:
-                        return "nueve";
-                }
-                return "";
-            }//Unidades()
-
-            /**
-             * @return {string}
-             */
-            function Decenas(num) {
-                decena = Math.floor(num / 10);
-                unidad = num - (decena * 10);
-                switch (decena) {
-                    case 1:
-                        switch (unidad) {
-                            case 0:
-                                return "diez";
-                            case 1:
-                                return "once";
-                            case 2:
-                                return "doce";
-                            case 3:
-                                return "trece";
-                            case 4:
-                                return "catorce";
-                            case 5:
-                                return "quince";
-                            default:
-                                return "dieci" + Unidades(unidad);
-                        }
-                    case 2:
-                        switch (unidad) {
-                            case 0:
-                                return "veinte";
-                            default:
-                                return "veinti" + Unidades(unidad);
-                        }
-                    case 3:
-                        return DecenasY("treinta", unidad);
-                    case 4:
-                        return DecenasY("cuarenta", unidad);
-                    case 5:
-                        return DecenasY("cincuenta", unidad);
-                    case 6:
-                        return DecenasY("sesenta", unidad);
-                    case 7:
-                        return DecenasY("setenta", unidad);
-                    case 8:
-                        return DecenasY("ochenta", unidad);
-                    case 9:
-                        return DecenasY("noventa", unidad);
-                    case 0:
-                        return Unidades(unidad);
-                }
-            }//Unidades()
-
-            /**
-             * @return {string}
-             */
-            function DecenasY(strSin, numUnidades) {
-                if (numUnidades > 0)
-                    return strSin + " y " + Unidades(numUnidades)
-
-                return strSin;
-            }//DecenasY()
-
-            /**
-             * @return {string}
-             */
-            function Centenas(num) {
-                centenas = Math.floor(num / 100);
-                decenas = num - (centenas * 100);
-
-                switch (centenas) {
-                    case 1:
-                        if (decenas > 0)
-                            return "ciento " + Decenas(decenas);
-                        return "cien";
-                    case 2:
-                        return "doscientos " + Decenas(decenas);
-                    case 3:
-                        return "trescientos " + Decenas(decenas);
-                    case 4:
-                        return "cuatrocientos " + Decenas(decenas);
-                    case 5:
-                        return "quinientos " + Decenas(decenas);
-                    case 6:
-                        return "seiscientos " + Decenas(decenas);
-                    case 7:
-                        return "setecientos " + Decenas(decenas);
-                    case 8:
-                        return "ochocientos " + Decenas(decenas);
-                    case 9:
-                        return "novecientos " + Decenas(decenas);
-                }
-                return Decenas(decenas);
-            }//Centenas()
-
-            /**
-             * @return {string}
-             */
-            function Seccion(num, divisor, strSingular, strPlural) {
-                cientos = Math.floor(num / divisor);
-                resto = num - (cientos * divisor);
-                letras = "";
-                if (cientos > 0)
-                    if (cientos > 1)
-                        letras = Centenas(cientos) + "" + strPlural;
-                    else
-                        letras = strSingular;
-                if (resto > 0)
-                    letras += "";
-                return letras;
-            }//Seccion()
-
-            /**
-             * @return {string}
-             */
-            function Miles(num) {
-                divisor = 1000;
-                cientos = Math.floor(num / divisor);
-                resto = num - (cientos * divisor);
-                strMiles = Seccion(num, divisor, "mil", "mil");
-                strCentenas = Centenas(resto);
-                if (strMiles === "")
-                    return strCentenas;
-                return strMiles + "" + strCentenas;
-            }//Miles()
-
-            /**
-             * @return {string}
-             */
-            function Millones(num) {
-                divisor = 1000000;
-                cientos = Math.floor(num / divisor);
-                resto = num - (cientos * divisor);
-                strMillones = Seccion(num, divisor, "un millon de", "millones de");
-                strMiles = Miles(resto);
-                if (strMillones === "")
-                    return strMiles;
-
-                return strMillones + "" + strMiles;
-            }//Millones()
-
-            /**
-             * @return {string}
-             */
-            function NumeroALetras(num) {
-                var data = {
-                    numero: num,
-                    enteros: Math.floor(num),
-                    centavos: (((Math.round(num * 100)) - (Math.floor(num) * 100))),
-                    letrasCentavos: "",
-                    letrasMonedaPlural: 'soles',//“PESOS”, 'Dólares', 'Bolívares', 'etcs'
-                    letrasMonedaSingular: 'sol', //“PESO”, 'Dólar', 'Bolivar', 'etc'
-
-                    letrasMonedaCentavoPlural: "centimos",
-                    letrasMonedaCentavoSingular: "centimo"
-                };
-
-                if (data.centavos > 0) {
-                    data.letrasCentavos = "con" + (function () {
-                        if (data.centavos === 1)
-                            return Millones(data.centavos) + " " + data.letrasMonedaCentavoSingular;
-                        else
-                            return Millones(data.centavos) + " " + data.letrasMonedaCentavoPlural;
-                    })();
-                }
-                if (data.enteros === 0)
-                    return "CERO" + data.letrasMonedaPlural + " " + data.letrasCentavos;
-                if (data.enteros === 1)
-                    return Millones(data.enteros) + " " + data.letrasMonedaSingular + " " + data.letrasCentavos;
-                else
-                    return Millones(data.enteros) + " " + data.letrasMonedaPlural + " " + data.letrasCentavos;
-            }//NumeroALetras()
-
-            var val = $("#boleta").val();
-
-            var total = NumeroALetras(val);
-
-            $("#wo").val(total);
-            $("#wo2").val(total);
-        });
-
-
-        function updatePrice(val) {
-            $("#boleta").val(val);
-            $("#boleta").trigger('change');
-        }
-
-        updatePrice($("#boleta").val());
-
+        }, 450);
         //document.getElementById('togglee').click();
-
     </script>
 </form>
 </body>
