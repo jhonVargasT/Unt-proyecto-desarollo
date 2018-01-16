@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\pagomodel;
+use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 
 class PdfController extends Controller
@@ -67,4 +68,13 @@ class PdfController extends Controller
         $pdf->loadView('BoletaVirtual/boletavirtual');
         return $pdf->download('pagoAlumno.pdf');
     }
+
+    /*public function boleta($contado, $siaf, $nombres, $apellidos, $escuela, $concepto, $detalle, $fecha, $monto, $cajero)
+    {
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('Ventanilla/Pagos/boleta2', ['contado' => $contado, 'siaf' => $siaf, 'nombre' => $nombres,
+            'apellidos' => $apellidos, 'escuela' => $escuela, 'tasa' => $concepto, 'detalle' => $detalle, 'fecha' => $fecha,
+            'boleta' => $monto, 'cajero' => $cajero])->setPaper([0, 0, 685.98, 396.85], 'portrait');
+        return $pdf->download('pagoAlumno.pdf');
+    }*/
 }

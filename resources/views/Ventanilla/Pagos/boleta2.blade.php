@@ -68,9 +68,7 @@
                         </tr>
                         <tr align="left">
                             <th>CAJERO:</th>
-                            <th><input name="cajero" value="{{Session::get('misession','No existe session')}}" readonly
-                                       size="76">
-                            </th>
+                            <th><input name="cajero" value="{{$cajero}}" readonly size="76"></th>
                         </tr>
                     </table>
                 </td>
@@ -132,11 +130,12 @@
         </table>
     </div>
     <style>
-        #left{
+        #left {
             margin-left: 34px;
             margin-right: 34px;
         }
-        #right{
+
+        #right {
             margin-left: 34px;
             margin-right: 34px;
         }

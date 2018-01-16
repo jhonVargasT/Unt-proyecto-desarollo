@@ -101,14 +101,14 @@ class pagoController extends Controller
             if ($val == $request->text) {
                 $totalp = $total + $pago;
                 session()->put('text', $request->text);
-                //$this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->pagar, $value = Session::get('misession'));
-                return view('/Ventanilla/Pagos/boleta2')->with(['buscar' => $buscar, 'total' => $totalp, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
+                $this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->pagar, $value = Session::get('misession'));
+                return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $totalp, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
                     'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->pagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select, 'tasa' => $request->subtramite]);
             } else {
                 Session::forget('txt');
                 Session::put('txt', $request->text);
-                //$this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->boletapagar, $value = Session::get('misession'));
-                return view('/Ventanilla/Pagos/boleta2')->with(['buscar' => $buscar, 'total' => $request->boletapagar, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
+                $this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->boletapagar, $value = Session::get('misession'));
+                return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $request->boletapagar, 'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
                     'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato, 'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select, 'tasa' => $request->subtramite]);
             }
         } else {
@@ -116,7 +116,7 @@ class pagoController extends Controller
         }
     }
 
-    function formato($var)
+    function formato($var, $conector)
     {
         $aux = array();
         $aux2 = array();
@@ -132,68 +132,68 @@ class pagoController extends Controller
         $numletras = count($aux);
         $numletras2 = count($aux2);
         $espacios = abs($numletras - 71);
-        echo implode("", $aux);
-        //$conector->text(implode("", $aux));
-        echo str_repeat(" ", $espacios + 20);
-        //$conector->text(str_repeat(" ", $espacios + 20));
-        echo implode("", $aux);
-        //$conector->text(implode("", $aux));
+        //echo implode("", $aux);
+        $conector->text(implode("", $aux));
+        //echo str_repeat(" ", $espacios + 20);
+        $conector->text(str_repeat(" ", $espacios + 20));
+        //echo implode("", $aux);
+        $conector->text(implode("", $aux));
         if ($numletras2 != null) {
-            echo "\n";
+            $conector->text("\n");
             $espacios2 = abs($numletras2 - 71);
-            echo implode("", $aux2);
-            //$conector->text(implode("", $aux2));
-            echo str_repeat(" ", $espacios2 + 20);
-            //$conector->text(str_repeat(" ", $espacios2 + 20));
-            echo implode("", $aux2);
+            //echo implode("", $aux2);
+            $conector->text(implode("", $aux2));
+            //echo str_repeat(" ", $espacios2 + 20);
+            $conector->text(str_repeat(" ", $espacios2 + 20));
+            //echo implode("", $aux2);
+            $conector->text(implode("", $aux2));
         }
-        echo "\n";
+        $conector->text("\n");
         return $numletras;
     }
 
 
-    function margenArriba()
+    function margenArriba($conector)
     {
-        echo str_repeat("\n", 4);
+        $conector->text(str_repeat("\n", 4));
     }
 
-    //4 espacios de margen arriba y 3 abajo.
-    function margenAbajo()
+    function margenAbajo($conector)
     {
-        echo str_repeat("\n", 5);
+        $conector->text(str_repeat("\n", 5));
     }
 
     public function imprimirBoleta($contador, $siaf, $nombres, $apellidos, $escuela, $concepto, $detalle, $fecha, $monto, $personal)
     {
-        /*cconnector = new FilePrintConnector("/dev/usb/lp0");
-        $connector = new NetworkPrintConnector("192.168.3.109", 9100);
-        $connector = new WindowsPrintConnector("192.168.3.109/EPSON FX-890");
+        //cconnector = new FilePrintConnector("/dev/usb/lp0");
+        //$connector = new NetworkPrintConnector("192.168.3.109", 9100);
+        $connector = new WindowsPrintConnector("EPSON FX-890");
         $printer = new Printer($connector);
 
         $printer->initialize();
-        $printer->setJustification(Printer::JUSTIFY_LEFT);*/
-        $this->margenArriba();
-        $this->formato('                ' . $contador);
-        $this->formato('SIAF:      ' . $siaf);
-        $this->formato('NOMBRES:   ' . $nombres);
-        $this->formato('APELLIDOS: ' . $apellidos);
-        $this->formato('ESCUELA:   ' . $escuela);
-        $count = $this->formato('CONCEPTO:  ' . $concepto);
+        $printer->setJustification(Printer::JUSTIFY_LEFT);
+        $this->margenArriba($printer);
+        $this->formato('                ' . $contador, $printer);
+        $this->formato('SIAF:      ' . $siaf, $printer);
+        $this->formato('NOMBRES:   ' . $nombres, $printer);
+        $this->formato('APELLIDOS: ' . $apellidos, $printer);
+        $this->formato('ESCUELA:   ' . $escuela, $printer);
+        $count = $this->formato('CONCEPTO:  ' . $concepto, $printer);
         if ($count < 69) {
-            echo "\n";
+            $printer->text("\n");
         }
         if ($detalle == ' ') {
-            $this->formato('DETALLE:   ' . $detalle);
+            $this->formato('DETALLE:   ' . $detalle, $printer);
         } else {
-            $this->formato('DETALLE:   ----------------');
+            $this->formato('DETALLE:   ----------------', $printer);
         }
         $time = strtotime($fecha);
         $newformat = date('d-m-Y H:i:s', $time);
-        $this->formato('FECHA:     ' . $newformat);
-        $this->formato('MONTO:     S/. ' . $monto);
-        $this->formato('           ' . $letras = NumeroALetras::convertir($monto, 'SOLES', 'CENTIMOS'));
-        $this->formato('CAJERO:    ' . $personal);
-        $this->margenAbajo();
+        $this->formato('FECHA:     ' . $newformat, $printer);
+        $this->formato('MONTO:     S/. ' . $monto, $printer);
+        $this->formato('           ' . $letras = NumeroALetras::convertir($monto, 'SOLES', 'CENTIMOS'), $printer);
+        $this->formato('CAJERO:    ' . $personal, $printer);
+        $this->margenAbajo($printer);
         $printer->close();
     }
 
