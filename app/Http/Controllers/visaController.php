@@ -38,7 +38,7 @@ class visaController extends Controller
                 data-merchantid=\"$merchanId\"
                 data-buttonsize=\"large\"
                 data-buttoncolor=\"\" 
-                data-merchantlogo =\"http://www.logrosperu.com/images/logos/universidades/unitru.jpg\"
+                data-merchantlogo =\"http://www.unt.edu.pe/img/logo.png\"
                 data-merchantname=\"\"
                 data-formbuttoncolor=\"#0A0A2A\"
                 data-showamount=\"\"
@@ -67,19 +67,8 @@ class visaController extends Controller
         if (isset($request->transactionToken)) {
             $sessionToken = $this->recupera_sessionToken();
             $transactionToken = $request->transactionToken;
-            echo "<pre>";
-            var_dump($_POST);
-            echo "<pre>";
             $respuesta = $this->authorization("dev", '148131802', $transactionToken, 'AKIAJRWJQBFYLRVB22ZQ', 'fzi9pi12Gm+isyQtICGNzJfYVN6ZFcMOI5+uM0cN', $sessionToken);
-            if (version_compare(PHP_VERSION, '5.4.0', '<')) {
-                echo "<pre>";
-                echo $this->jsonpp($respuesta);
-                echo "<pre>";
-            } else {
-                echo "<pre>";
-                var_dump($respuesta);
-                echo "<pre>";
-            }
+            var_dump($this->jsonpp($respuesta));
         }
     }
 
