@@ -373,15 +373,19 @@ Route::get('/obtenerDatos', 'pagoController@obtenerDatos');
 Route::get('/banco', 'donacionController@banco');
 ////////////////////////CULQI///////////////////////////////////////////////////////////////////////////////////////////
 
-Route::get('/pagoonline', function () {
+/*Route::get('/pagoonline', function () {
     return view('Ventanilla/Culqi/pagoonline');
-});
+});*/
 
 Route::get('/visa', function () {
-    return view('Ventanilla/Culqi/visanet');
-});
-Route::post('pagoculqi', 'culqiController@culqi');
-//Route::get("autocompleteTram",array('as'=>'autocomplete','uses'=> 'tramiteController@autocompletar'));
+    return view('Ventanilla/Culqi/visa');
+});;
+
+Route::get('/redirect', 'visaController@redirect');
+Route::post('/visaPago', 'visaController@tokenVisa');
+Route::post('/transaction', 'visaController@transaction');
+
+Route::get("autocompleteTram",array('as'=>'autocomplete','uses'=> 'tramiteController@autocompletar'));
 
 /////////////////////////////////////////////////////REPORTE////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

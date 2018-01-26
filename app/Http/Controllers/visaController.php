@@ -3,29 +3,70 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class visaController extends Controller
 {
     public function tokenVisa(Request $request)
     {
-        if (isset($request->amount)) {
+        if (isset($request->total)) {
             $sessionToken = $this->getGUID();
-            $merchantid = '148131802';
-            $accessKey = 'AKIAJRWJQBFYLRVB22ZQ';
-            $secretAccessKey = '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';
-            $amount = $request->amount;
+            $merchantid = '137254211';
+            $accessKey = 'AKIAIKABOKKCTPS2LVSA';
+            $secretAccessKey = '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';
+            $amount = $request->total;
             $sessionKey = $this->create_token($amount, "dev", $merchantid, $accessKey, $secretAccessKey, $sessionToken);
             $this->guarda_sessionKey($sessionKey);
             $this->guarda_sessionToken($sessionToken);
-            $this->boton($sessionToken, $merchantid, $amount);
+            $form = $this->boton($sessionToken, $merchantid, $amount, $request->nombres, $request->apellidos);
+            return view('Ventanilla/Culqi/visa')->with(['form' => $form, 'nombres' => $request->nombres,
+                'apellidos' => $request->apellidos, 'select' => $request->select, 'text' => $request->text, 'escuela' => $request->escuela,
+                'facultad' => $request->facultad, 'selectt' => $request->selectt, 'txtsub' => $request->txtsub, 'subtramite' => $request->subtramite,
+                'detalle' => $request->detalle, 'boletapagar' => $request->boletapagar, 'total' => $request->total]);
+        } elseif (isset($request->total) == 0 || isset($request->total) == '') {
+            return view('Ventanilla/Culqi/visa');
         }
     }
 
-    public function boton($sessionToken, $merchantid, $amount)
+    public function boton($sessionToken, $merchanId, $amount, $nombres, $apellidos)
     {
-        if (isset($_POST['transactionToken'])) {
+        $numorden = $this->contador();
+        $formulario = "
+        <form action=\"{{url('/transaction')}}\" method='post'>
+            <script src=\"https://static-content.vnforapps.com/v1/js/checkout.js?qa=true\"
+                data-sessiontoken=\"$sessionToken\"
+                data-merchantid=\"$merchanId\"
+                data-buttonsize=\"large\"
+                data-buttoncolor=\"\" 
+                data-merchantlogo =\"http://www.logrosperu.com/images/logos/universidades/unitru.jpg\"
+                data-merchantname=\"\"
+                data-formbuttoncolor=\"#0A0A2A\"
+                data-showamount=\"\"
+                data-purchasenumber=\"$numorden\"
+                data-amount=\"$amount\"
+                data-cardholdername=\"$nombres\"
+                data-cardholderlastname=\"$apellidos\"
+                data-cardholderemail=\"\"
+                data-usertoken=\"\"
+                data-recurrence=\"false\"
+                data-frequency=\"Quarterly\"
+                data-recurrencetype=\"fixed\"
+                data-recurrenceamount=\"200\"
+                data-documenttype=\"0\"
+                data-documentid=\"\"
+                data-beneficiaryid=\"TEST1123\"
+                data-productid=\"\"
+                data-phone=\"\"
+            /></script>
+        </form>";
+        return $formulario;
+    }
+
+    public function transaction(Request $request)
+    {
+        if (isset($request->transactionToken)) {
             $sessionToken = $this->recupera_sessionToken();
-            $transactionToken = $_POST['transactionToken'];
+            $transactionToken = $request->transactionToken;
             echo "<pre>";
             var_dump($_POST);
             echo "<pre>";
@@ -39,39 +80,6 @@ class visaController extends Controller
                 var_dump($respuesta);
                 echo "<pre>";
             }
-        }
-
-        if (isset($sessionToken)) {
-            $numorden = $this->contador();
-            $formulario = "
-	        <form action=\"boton.php\" method='post'>
-		    <script src=\"https://static-content.vnforapps.com/v1/js/checkout.js?qa=true\"
-			data-sessiontoken=\"$sessionToken\"
-			data-merchantid=\"$merchantid\"
-			data-buttonsize=\"\"
-			data-buttoncolor=\"\" 
-			data-merchantlogo =\"http://labceperu.com/test/files/logo.png\"
-			data-merchantname=\"\"
-			data-formbuttoncolor=\"#0A0A2A\"
-			data-showamount=\"\"
-			data-purchasenumber=\"$numorden\"
-			data-amount=\"$amount\"
-			data-cardholdername=\"\"
-			data-cardholderlastname=\"\"
-			data-cardholderemail=\"\"
-			data-usertoken=\"\"
-			data-recurrence=\"false\"
-			data-frequency=\"Quarterly\"
-			data-recurrencetype=\"fixed\"
-			data-recurrenceamount=\"200\"
-			data-documenttype=\"0\"
-			data-documentid=\"\"
-			data-beneficiaryid=\"TEST1123\"
-			data-productid=\"\"
-			data-phone=\"\"
-		    /></script>
-	        </form>";
-            echo $formulario;
         }
     }
 
@@ -109,7 +117,7 @@ class visaController extends Controller
         $header = array("Content-Type: application/json", "VisaNet-Session-Key: $uuid");
         $request_body = "{
         \"amount\":{$amount}
-        }";
+    }";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
@@ -215,5 +223,10 @@ class visaController extends Controller
             }
         }
         return $result;
+    }
+
+    function redirect()
+    {
+        return Redirect::to('http://www.google.com');
     }
 }
