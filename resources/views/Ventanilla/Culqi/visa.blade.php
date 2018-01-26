@@ -403,7 +403,7 @@
         <div class="row">
             <div class="col-sm-3">
                 <h4 class="title">Contactanos</h4>
-                <p>Direccion: Av. Juan Pablo II, Trujillo</p>
+                <p>Direccion: Av. Juan Pablo II, Trujillo, Peru</p>
                 <p>Telefono: (044) 209020</p>
                 <p>Correo: unt.unitru.edu.pe</p>
                 <ul class="social-icon">
