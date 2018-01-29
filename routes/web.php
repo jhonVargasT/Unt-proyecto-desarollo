@@ -473,9 +473,6 @@ Route::get('/reporte', function () {
     return view('Ventanilla/Pagos/reporte');
 });
 
-Route::get('/boletavirtual', function () {
-    return view('BoletaVirtual/boletavirtual');
-});
 
 ///////////////////////////////IMPORTACIONES////////////////////////////////////////////////////////////////////////////
 Route::get('/Importador', function () {

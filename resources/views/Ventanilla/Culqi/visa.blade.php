@@ -1,5 +1,6 @@
 <head>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -17,8 +18,10 @@
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="{{asset('assets/ico/favicon.png')}}">
 
-    <script>window.Laravel = '<?php echo json_encode([
-            'csrfToken' => csrf_token(),]); ?>';
+    <script>
+        window.Laravel = ' {!! json_encode([
+        'csrfToken' => csrf_token(),
+    ]) !!}';
     </script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -353,7 +356,7 @@
     @if(isset($form))
         <div class="row">
             <div class="col-xs-3"></div>
-            <div class="col-xs-4">
+            <div class="col-xs-3">
                 <a href="{{url('/visa')}}" class=" col-md-6 btn btn-sm btn-warning"><span
                             class="glyphicon glyphicon-menu-left"></span>
                     Regresar

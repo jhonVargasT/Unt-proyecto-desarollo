@@ -28,14 +28,14 @@ class visaController extends Controller
         }
     }
 
-    public function boton($sessionToken, $merchanId, $amount, $nombres, $apellidos)
+    public function boton($sessionToken, $merchantid, $amount, $nombres, $apellidos)
     {
         $numorden = $this->contador();
         $formulario = "
-        <form action=\"{{url('/transaction')}}\" method='post'>
+        <form action=\"/transaction\" method='post'>
             <script src=\"https://static-content.vnforapps.com/v1/js/checkout.js?qa=true\"
                 data-sessiontoken=\"$sessionToken\"
-                data-merchantid=\"$merchanId\"
+                data-merchantid=\"$merchantid\"
                 data-buttonsize=\"large\"
                 data-buttoncolor=\"\" 
                 data-merchantlogo =\"http://www.unt.edu.pe/img/logo.png\"
@@ -52,7 +52,7 @@ class visaController extends Controller
                 data-frequency=\"Quarterly\"
                 data-recurrencetype=\"fixed\"
                 data-recurrenceamount=\"200\"
-                data-documenttype=\"0\"
+                data-documenttype=\"\"
                 data-documentid=\"\"
                 data-beneficiaryid=\"TEST1123\"
                 data-productid=\"\"
@@ -62,13 +62,15 @@ class visaController extends Controller
         return $formulario;
     }
 
+    //4547751138486006 fecha 0318 cvv 740
     public function transaction(Request $request)
     {
         if (isset($request->transactionToken)) {
             $sessionToken = $this->recupera_sessionToken();
             $transactionToken = $request->transactionToken;
-            $respuesta = $this->authorization("dev", '148131802', $transactionToken, 'AKIAJRWJQBFYLRVB22ZQ', 'fzi9pi12Gm+isyQtICGNzJfYVN6ZFcMOI5+uM0cN', $sessionToken);
-            var_dump($this->jsonpp($respuesta));
+            $respuesta = $this->authorization("dev", '137254211', $transactionToken, 'AKIAIKABOKKCTPS2LVSA', 'Cpe2yTzXCNGL6ZO9gqADsR9Cqmr2D+9dOpN4EgYs', $sessionToken);//return view('Ventanilla/Culqi/visa')->with(['respuesta' => $respuesta]);
+        } else {
+            return view('Ventanilla/Culqi/visa');
         }
     }
 
@@ -148,6 +150,7 @@ class visaController extends Controller
         return $valor;
     }
 
+
     function authorization($environment, $merchantId, $transactionToken, $accessKey, $secretKey, $sessionToken)
     {
         $url = null;
@@ -163,7 +166,7 @@ class visaController extends Controller
         $request_body = "{
         \"transactionToken\":\"$transactionToken\",
         \"sessionToken\":\"$sessionToken\"
-        }";
+    }";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
@@ -181,6 +184,7 @@ class visaController extends Controller
         } else {
             $json = json_encode($json, JSON_PRETTY_PRINT);
         }
+        //$dato = $json->sessionKey;
         return $json;
     }
 

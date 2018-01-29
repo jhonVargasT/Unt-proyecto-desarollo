@@ -154,7 +154,7 @@
                                 <td>{{$p->modalidad}}</td>
                                 <td>{{$p->detalle}}</td>
                                 <td>{{$p->pnombres}} {{$p->papellidos}}</td>
-                                <td align="center">
+                                <td>
                                     {{ csrf_field() }}
                                     @if($p->estadodeuda == 1)
                                         <a href="PagoDeuda/{{$p->codPago}}"><span
@@ -170,7 +170,7 @@
                                            onclick="imprimir(event,'PagoImprimirO/{{$p->codPago}}/{{$p->estadodeuda}}')"
                                            href=""><span
                                                     class="glyphicon glyphicon-print"></span> </a>
-                                    @endif&nbsp;&nbsp;&nbsp;
+                                    @endif
                                     @if($p->modalidad=='Online'||$p->modalidad=='Banco')
                                         <a><span class="glyphicon glyphicon-trash"></span> </a>
                                     @else
@@ -178,7 +178,6 @@
                                            href=""><span
                                                     class="glyphicon glyphicon-minus" style="color: orange "></span>
                                         </a>
-                                        &nbsp;&nbsp;&nbsp;
                                         <a href="" title="Eliminar"
                                            onclick="eliminar(event,'PagoEliminar/{{$p->codPago}}')"><span
                                                     class="glyphicon glyphicon-trash" style="color: red"></span> </a>
