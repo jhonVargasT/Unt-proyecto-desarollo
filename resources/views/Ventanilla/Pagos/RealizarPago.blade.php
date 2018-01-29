@@ -295,6 +295,12 @@
                                                         var val = data * 100;
                                                         $('#p').val(val);
                                                         $('#pg').val(data);
+                                                        if (val === 0 || val === '') {
+                                                            $('#enviar').attr('disabled', 'disabled');
+                                                        }
+                                                        else {
+                                                            $('#enviar').removeAttr('disabled');
+                                                        }
                                                     }
                                                 });
                                             }
@@ -307,17 +313,15 @@
                                                 type: "get",
                                                 data: {name: $('#ts').val()},
                                                 success: function (data) {
-                                                    if (data === 0) {
-                                                        $('#bp').val(data);
-                                                        var val = data * 100;
-                                                        $('#p').val(val);
-                                                        $('#pg').val(data);
+                                                    $('#bp').val(data);
+                                                    var val = data * 100;
+                                                    $('#p').val(val);
+                                                    $('#pg').val(data);
+                                                    if (val === 0 || val === '') {
+                                                        $('#enviar').attr('disabled', 'disabled');
                                                     }
                                                     else {
-                                                        $('#bp').val(data);
-                                                        var val = data * 100;
-                                                        $('#p').val(val);
-                                                        $('#pg').val(data);
+                                                        $('#enviar').removeAttr('disabled');
                                                     }
                                                 }
                                             });
@@ -537,7 +541,7 @@
                 <div class="col-sm-12 row form-group">
                     <div class="col-md-5"></div>
                     <div class="col-md-2" align="center">
-                        <button name="enviar" id="enviar" class="col-md-12 btn btn-success"><span
+                        <button name="enviar" id="enviar" class="col-md-12 btn btn-success" disabled><span
                                     class="glyphicon glyphicon-check"></span> Guardar
                         </button>
                     </div>
