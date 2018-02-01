@@ -316,7 +316,7 @@ class subtramitemodel
     {
         try {
             $subtramitebd = DB::select('select subtramite.codSubtramite,tramite.nombre as fnombre, subtramite.nombre as tnombre, subtramite.unidadOperativa, subtramite.codigoSubtramite, subtramite.precio  
-            from subtramite left join tramite on subtramite.idTramite = tramite.codTramite where tramite.estado =1 and subtramite.estado=1 and subtramite.codSubtramite=:codSubtramite', ["codSubtramite" => $codigo]);
+            from subtramite left join tramite on subtramite.idTramite = tramite.codTramite where tramite.estado =1 and subtramite.estado=1 and subtramite.codigoSubtramite=:codigoSubtramite', ["codigoSubtramite" => $codigo]);
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), ' consultarSubtramiteCodigoTasa/subtramitemodel');
