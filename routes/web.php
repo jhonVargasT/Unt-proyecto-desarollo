@@ -343,7 +343,7 @@ Route::get('/buscarEscuelaC', 'pagoController@buscarEscuelaC');
 Route::get('precioSubtramite', 'pagoController@precioSubtramite');
 
 Route::get('/nombreSCT', 'subtramiteController@nombreSCT');
-
+Route::get('/codigoSubtramite', 'subtramiteController@codigoSubtramite');
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

@@ -107,4 +107,15 @@ class subtramiteController extends Controller
         }
         return $sbnombre;
     }
+
+    public function codigoSubtramite(Request $request)
+    {
+        $sbcd = null;
+        $subtramitebd = DB::select('select codigoSubtramite from subtramite where nombre = "' . $request->name . '"');
+
+        foreach ($subtramitebd as $sb) {
+            $sbcd = $sb->codigoSubtramite;
+        }
+        return $sbcd;
+    }
 }

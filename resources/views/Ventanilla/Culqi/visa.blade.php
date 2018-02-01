@@ -184,11 +184,7 @@
                                 <option>@if(isset($selectt)){{$selectt}}@endif</option>
                             </select>
                         </div>
-                        <div class="col-sm-10 col-xs-5 col-lg-3 form-group-sm ">
-                            <span class="col-sm-1 col-lg-1 col-xs-1">&nbsp;</span>
-                            <input class="typeahead form-control" name="txtsub" id="ts" readonly
-                                   value="@if(isset($txtsub)){{$txtsub}}@endif">
-                        </div>
+
                     @else
                         <div class="col-sm-10 col-xs-5 col-lg-2 form-group-sm ">
                             <span class="col-sm-1 col-lg-1 col-xs-1  text-danger">(*)</span>
@@ -256,6 +252,7 @@
                                                     $('#enviar').attr('disabled', 'disabled');
                                                 }
                                                 else {
+                                                    $('#idt').val(id);
                                                     $('#enviar').removeAttr('disabled');
                                                 }
                                             }
@@ -270,6 +267,8 @@
                                         type: "get",
                                         data: {name: $('#ts').val()},
                                         success: function (data) {
+                                            var nombre = $('#ts').val();
+                                            $('#st').val(nombre);
                                             $('#bp').val(data);
                                             var val = data * 0.04;
                                             var value = (+val) + (+data);
@@ -278,6 +277,14 @@
                                                 $('#enviar').attr('disabled', 'disabled');
                                             }
                                             else {
+                                                $.ajax({
+                                                    url: '/codigoSubtramite',
+                                                    type: "get",
+                                                    data: {name: $('#ts').val()},
+                                                    success: function (data) {
+                                                        $('#idt').val(data);
+                                                    }
+                                                });
                                                 $('#enviar').removeAttr('disabled');
                                             }
                                         }
@@ -290,6 +297,8 @@
                         <span class="col-sm-1 col-lg-1 col-xs-1" id="nsub">Concepto:</span>
                         <input class="form-control" name="subtramite" id="st" required readonly
                                value="@if(isset($subtramite)){{$subtramite}}@endif" tabindex="-1">
+                        <input class="form-control" type="hidden" name="idt" id="idt" required readonly tabindex="-1"
+                               value="@if(isset($id)){{$id}}@endif">
                     </div>
                 </div>
                 <br>

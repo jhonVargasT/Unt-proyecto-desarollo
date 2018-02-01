@@ -18,17 +18,17 @@ class visaController extends Controller
             $sessionKey = $this->create_token($amount, "dev", $merchantid, $accessKey, $secretAccessKey, $sessionToken);
             $this->guarda_sessionKey($sessionKey);
             $this->guarda_sessionToken($sessionToken);
-            $form = $this->boton($sessionToken, $merchantid, $amount, $request->nombres, $request->apellidos);
+            $form = $this->boton($sessionToken, $merchantid, $amount, $request->nombres, $request->apellidos, $request->select, $request->text, $request->idt);
             return view('Ventanilla/Culqi/visa')->with(['form' => $form, 'nombres' => $request->nombres,
                 'apellidos' => $request->apellidos, 'select' => $request->select, 'text' => $request->text, 'escuela' => $request->escuela,
                 'facultad' => $request->facultad, 'selectt' => $request->selectt, 'txtsub' => $request->txtsub, 'subtramite' => $request->subtramite,
-                'detalle' => $request->detalle, 'boletapagar' => $request->boletapagar, 'total' => $request->total]);
+                'detalle' => $request->detalle, 'boletapagar' => $request->boletapagar, 'total' => $request->total, 'id' => $request->idt]);
         } elseif (isset($request->total) == 0 || isset($request->total) == '') {
             return view('Ventanilla/Culqi/visa');
         }
     }
 
-    public function boton($sessionToken, $merchantid, $amount, $nombres, $apellidos)
+    public function boton($sessionToken, $merchantid, $amount, $nombres, $apellidos, $select, $text, $idt)
     {
         $numorden = $this->contador();
         $formulario = "
@@ -52,10 +52,10 @@ class visaController extends Controller
                 data-frequency=\"Quarterly\"
                 data-recurrencetype=\"fixed\"
                 data-recurrenceamount=\"200\"
-                data-documenttype=\"\"
-                data-documentid=\"\"
-                data-beneficiaryid=\"TEST1123\"
-                data-productid=\"\"
+                data-documenttype=\"$select\"
+                data-documentid=\"$text\"
+                data-beneficiaryid=\"\"
+                data-productid=\"$idt\"
                 data-phone=\"\"
             /></script>
         </form>";
@@ -69,6 +69,7 @@ class visaController extends Controller
             $sessionToken = $this->recupera_sessionToken();
             $transactionToken = $request->transactionToken;
             $respuesta = $this->authorization("dev", '137254211', $transactionToken, 'AKIAIKABOKKCTPS2LVSA', 'Cpe2yTzXCNGL6ZO9gqADsR9Cqmr2D+9dOpN4EgYs', $sessionToken);//return view('Ventanilla/Culqi/visa')->with(['respuesta' => $respuesta]);
+            var_dump($respuesta);
         } else {
             return view('Ventanilla/Culqi/visa');
         }
