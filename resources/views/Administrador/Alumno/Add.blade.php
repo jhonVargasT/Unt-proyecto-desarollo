@@ -54,7 +54,7 @@
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
                 @endif
                 <form name="form"
-                      onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos','spanemail','spancodAlumno'],'enviar','mensaje')"
+                      onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos','spanemail','spancodalumno','spansede','spanescuela'],'enviar','mensaje')"
                       action="{{url('AlumnoRegistrado')}}" role="form" method="POST" class="Horizontal">
                     {{csrf_field()}}
                     <div class="panel panel-primary">
@@ -66,7 +66,7 @@
                                     <input class="form-control input-sm" name="dni" type="text"
                                            autocomplete="off" onchange=" validarDni('dni','spandni')"
                                            placeholder="Ejem: 72978792" required id="dni">
-                                    <span style="color: red" class=" control-label" id="spandni"></span>
+                                    <span style="color: red" class=" control-label" id="spandni"> </span>
                                     <script>
                                         $('#dni').change(function () {
                                             $.ajax({
@@ -91,20 +91,20 @@
                                     <input class="form-control input-sm" name="nombres" type="text"
                                            autocomplete="off" onchange="validarNombre('nombres','spannombre')"
                                            placeholder="Ejm:Jose Carlos" required id="nombres">
-                                    <span style="color: red" class=" control-label" id="spannombre"></span>
+                                    <span style="color: red" class=" control-label" id="spannombre"> </span>
                                 </div>
                                 <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                     <span class="control-label">Apellidos</span>
                                     <input class="form-control input-sm" name="apellidos" type="text"
                                            autocomplete="off" onchange="validarNombre('apellidos','spanapellidos')"
                                            placeholder="Ejem: Terenas Lory" required id="apellidos">
-                                    <span style="color: red" class=" control-label" id="spanapellidos"></span>
+                                    <span style="color: red" class=" control-label" id="spanapellidos"> </span>
                                 </div>
                                 <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                     <span class="control-label">Correo</span>
                                     <input class="form-control input-sm" name="correo" type="email" id="email"
                                            autocomplete="off" onchange="validarCorreo('email','spanemail')" required>
-                                    <span style="color: red" class=" control-label" id="spanemail"></span>
+                                    <span style="color: red" class=" control-label" id="spanemail"> </span>
                                 </div>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                                     <input class="form-control input-sm" name="codAlumno" type="text"
                                            onchange="validarNumeros('codAlumno','spancodalumno')"
                                            autocomplete="off" placeholder="Ejm: 000104499" required id="codAlumno">
-                                    <span style="color: red" class=" control-label" id="spancodAlumno"></span>
+                                    <span style="color: red" class=" control-label" id="spancodalumno"> </span>
                                 </div>
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label"> Fecha matricula</span>
@@ -136,7 +136,8 @@
                                     <span class="control-label">Sede</span>
                                     <input class="typeahead form-control"
                                            placeholder="Ejm: Trujillo" name="nombreSede" id="ns"
-                                           autocomplete="off" required>
+                                           autocomplete="off" required onchange="validarNombre('ns','spansede')">
+                                    <span style="color: red" class=" control-label" id="spansede"> </span>
                                     <script type="text/javascript">
                                         var paths = "{{ route('autocompletesede')}}";
                                         $('input.typeahead').typeahead({
@@ -152,7 +153,8 @@
                                     <span class="control-label">Escuela</span>
                                     <input class="form-control input-sm" type="text"
                                            placeholder="Ejm: Mecanica" name="nombreEscuela" id="ne"
-                                           required disabled>
+                                           required disabled onchange="validarNombre('ne','spanescuela')">
+                                    <span style="color: red" class=" control-label" id="spanescuela"> </span>
                                     <script>
                                         src = "{{ route('searchajax') }}";
                                         $("#ne").autocomplete({
@@ -163,8 +165,7 @@
                                                     dataType: "json",
                                                     data: {
                                                         term: $('#ne').val(),
-                                                        sede: $('#ns').val(),
-                                                        dni: $('#dni').val()
+                                                        sede: $('#ns').val()
                                                     },
                                                     success: function (data) {
                                                         response(data);
@@ -212,11 +213,10 @@
                             Cancelar</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <button type="submit"
-                                onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos','spanemail','spancodAlumno'],'enviar','mensaje')"
+                                onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos','spanemail','spancodalumno','spansede','spanescuela'],'enviar','mensaje')"
                                 name="enviar" id="enviar" class=" btn btn-sm btn-success"><span
                                     class="glyphicon glyphicon-ok"></span> Guardar
                         </button>
-
                     </div>
                 </form>
             </div>
