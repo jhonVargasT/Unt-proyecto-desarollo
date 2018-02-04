@@ -324,4 +324,23 @@ class produccionmodel
         }
         return $produccionbd;
     }
+
+    public function getIdAlumnoProduccion($produccion)
+    {
+        $id = null;
+        try {
+            $produccionbd = DB::select('select codProduccionAlumno from produccionalumno 
+            left join produccion on produccionalumno.idProduccion = produccion.codProduccion where produccion.nombre =:nombre', ["nombre" => $produccion]);
+
+            foreach ($produccionbd as $prod) {
+                $id = $prod->codProduccionAlumno;
+            }
+
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'getIdAlumnoProduccion/produccionmodel');
+            return false;
+        }
+        return $id;
+    }
 }

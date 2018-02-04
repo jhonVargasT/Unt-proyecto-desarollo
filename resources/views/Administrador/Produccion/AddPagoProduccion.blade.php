@@ -1,26 +1,26 @@
-@extends('Administrador/Body')
-@section('donaciones')
+@extends('Administrador.Body')
+@section('produccion')
     <div id="collapseSeven" class="collapse in">
         <div class="panel-body">
             <table class="table">
                 <tr>
+                <tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
-                        <a href="/admBuscarDonaciones">Buscar Donaciones y transaferencias</a>
+                        <a href="/admBuscarProduccion">Buscar Centro de Produccion</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarDonaciones">Agregar Donaciones y
-                            transferencias</a>
+                        <a href="/admRegistrarProduccion">Agregar Centro de
+                            Produccion</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/admRegistrarProduccionPagos" style="color: #509f0c" target="_top">Agregar Produccion
-                            pagos</a>
+                        <a href="/admRegistrarProduccionPagos"  style="color: #509f0c" target="_top">Agregar Produccion pagos</a>
                     </td>
                 </tr>
             </table>
@@ -60,8 +60,8 @@
                             <div class="form-group-sm " align="left">
                                 <div class="col-sm-2">
                                     <span class=" control-label">Centro de Produccion</span>
-                                    <select id="produccion" class="form-control " name="produccion">
-                                        <option selected disabled>Seleccionar..</option>
+                                    <select id="produccion" class="form-control " name="produccion" required>
+                                        <option disabled>Seleccionar..</option>
                                     </select>
                                 </div>
                                 <script>

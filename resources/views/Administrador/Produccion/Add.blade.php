@@ -16,7 +16,12 @@
                             Produccion</a>
                     </td>
                 </tr>
-
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <a href="/admRegistrarProduccionPagos">Agregar Produccion pagos</a>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>

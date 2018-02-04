@@ -60,18 +60,10 @@
                                         <a href="/admRegistrarDonaciones">Agregar Donaciones y Transacciones</a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="/admRegistrarProduccionPagos">Agregar Produccion pagos</a>
-                                    </td>
-                                </tr>
                             </table>
                         </div>
                     </div>
                 </div>
-
-
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">
@@ -280,6 +272,12 @@
                                         <a href="/admRegistrarProduccion">Agregar Centro de Produccion</a>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                        <a href="/admRegistrarProduccionPagos">Agregar Produccion pagos</a>
+                                    </td>
+                                </tr>
                             </table>
                         </div>
                     </div>
@@ -368,9 +366,7 @@
                         </div>
                     </div>
                 </div>
-
-
-            <div class="panel panel-primary">
+            <!--<div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseExcel">
@@ -391,8 +387,8 @@
                             </table>
                         </div>
                     </div>
-                </div>
-              <!--  <div class="panel panel-primary">
+                </div>-->
+            <!--  <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapsePago">

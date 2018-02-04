@@ -110,20 +110,12 @@ Route::get('/admRegistrarDonaciones', function () {
 Route::get('/admBuscarDonaciones', function () {
     return view('Administrador/DonacionesYTransacciones/Search');
 });
-Route::get('/admRegistrarProduccionPagos', function () {
-    return view('Administrador/DonacionesYTransacciones/AddPagoProduccion');
-});
-Route::resource('/PagoProduccion', 'donacionController@registrarPagoProduccion');
-
 
 Route::resource('DonacionRegistrada', 'donacionController@registrarDonaciones');
 Route::resource('DonacionesBuscadas', 'donacionController@listarDonaciones');
 Route::resource('DonacionCargar', 'donacionController@cargarDonacion');
 Route::get('DonacionEditada/{codDonacion}', 'donacionController@editarDonacion');
 Route::get('DonacionEliminar/{codDonacion}', 'donacionController@eliminarDonacion');
-
-Route::get('/obtenerProduccion', 'donacionController@buscarProduccion');
-
 
 ////////////////////////////////////////////Escuela//////////////////////////////////////////////////////////////////////
 
@@ -148,6 +140,13 @@ Route::get('/admRegistrarProduccion', function () {
 Route::get('/admBuscarProduccion', function () {
     return view('Administrador/Produccion/Search');
 });
+
+Route::get('/admRegistrarProduccionPagos', function () {
+    return view('Administrador/Produccion/AddPagoProduccion');
+});
+
+Route::resource('/PagoProduccion', 'produccionController@registrarPagoProduccion');
+Route::get('/obtenerProduccion', 'produccionController@buscarProduccion');
 
 Route::resource('ProduccionRegistrado', 'produccionController@registrarProduccion');
 Route::resource('ProduccionBuscadas', 'produccionController@listarProduccion');
@@ -385,7 +384,7 @@ Route::get('/redirect', 'visaController@redirect');
 Route::post('/visaPago', 'visaController@tokenVisa');
 Route::post('/transaction', 'visaController@transaction');
 
-Route::get("autocompleteTram",array('as'=>'autocomplete','uses'=> 'tramiteController@autocompletar'));
+Route::get("autocompleteTram", array('as' => 'autocomplete', 'uses' => 'tramiteController@autocompletar'));
 
 /////////////////////////////////////////////////////REPORTE////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
