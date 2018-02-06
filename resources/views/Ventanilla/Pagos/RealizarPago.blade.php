@@ -24,14 +24,14 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
-    <div class="panel-heading "><h3>Realizar pago</h3></div>
     <div style="background-color: #FFFFFF">
         <div class="panel-body">
-            @if(session()->has('true'))
-                <div class="alert alert-success" role="alert">{{session('true')}} </div>
+            <!--<div class="panel-heading "><h4>Pagos</h4></div>-->
+            @if(isset($true))
+                <div class="alert alert-success" role="alert">{{$true}}</div>
             @endif
-            @if(session()->has('false'))
-                <div class="alert alert-danger" role="alert">{{session('false')}} </div>
+            @if(isset($false))
+                <div class="alert alert-danger" role="alert">{{$false}}</div>
             @endif
             <form name="form" action="{{url('/pagar')}}" role="Form" method="POST" class="Vertical">
                 {{csrf_field()}}
@@ -237,7 +237,7 @@
                     <div class="col-sm-12 row form-group">
                         <div class="form-group-sm">
                             <div class="col-sm-2 ">
-                                <select class=" form-group-sm form-control" id="selectt" name="selectt">
+                                <select class=" form-group-sm form-control" id="selectt" name="selectt" tabindex="-1">
                                     <option value="Codigo tasa"> Codigo tasa</option>
                                     <option value="Nombre tasa"> Nombre tasa</option>
                                 </select>
@@ -493,7 +493,7 @@
                                     </div>
                                     <div class="col-sm-7">
                                         <input class="form-control" name="total" id="tp" value="{{$total}}"
-                                               readonly>
+                                               readonly tabindex="-1">
                                     </div>
                                 </div>
                             @endif
@@ -508,7 +508,7 @@
                                         S/.
                                     </div>
                                     <div class="col-sm-7">
-                                        <input class="form-control " name="pagocon" id="pc">
+                                        <input class="form-control " name="pagocon" id="pc" tabindex="-1">
                                     </div>
                                 </div>
                             </div>
@@ -522,7 +522,7 @@
                                     </div>
                                     <div class="col-sm-7">
                                         <input class="form-control " name="vuelto" id="v" readonly
-                                               value="0.00">
+                                               value="0.00" tabindex="-1">
                                     </div>
                                 </div>
                             </div>
