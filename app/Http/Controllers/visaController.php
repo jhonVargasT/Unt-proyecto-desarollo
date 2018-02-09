@@ -2,11 +2,54 @@
 
 namespace App\Http\Controllers;
 
+use App\alumnomodel;
+use App\clientemodel;
+use App\pagomodel;
+use App\personamodel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class visaController extends Controller
 {
+    public function registrarPago($idperona, $idtasa, $detalle)
+    {
+        date_default_timezone_set('America/Lima');
+        $dato = date('Y-m-d H:i:s');
+        $p = new pagomodel();
+        $p->setModalidad('online');
+        $p->setCantidad(1);
+        $p->setDetalle($detalle);
+        $p->setFecha($dato);
+        $p->setIdPersona($idperona);
+        $id = $this->idSubtramite($idtasa);
+        $p->setIdSubtramite($id);
+        $cont = $this->contadorSubtramite($idtasa);
+        $contaux = $cont + 1;
+        $valid = $p->savePagoOnline($contaux);//SQL, insersion del pago
+        return $valid;
+    }
+
+    public function contadorSubtramite($idtasa)
+    {
+        $cont = null;
+        $contador = DB::select('select contador from subtramite where codSubtramite=:codSubtramite and estado=1', ['codSubtramite' => $idtasa]);
+        foreach ($contador as $c) {
+            $cont = $c->contador;
+        }
+        return $cont;
+    }
+
+    public function idSubtramite($codigoSubtramite)
+    {
+        $id = null;
+        $cons = DB::select('select codSubtramite from subtramite where codigoSubtramite=:codigoSubtramite and estado=1', ['codigoSubtramite' => $codigoSubtramite]);
+        foreach ($cons as $c) {
+            $id = $c->codSubtramite;
+        }
+        return $id;
+    }
+
     public function tokenVisa(Request $request)
     {
         if (isset($request->total)) {
@@ -18,7 +61,7 @@ class visaController extends Controller
             $sessionKey = $this->create_token($amount, "dev", $merchantid, $accessKey, $secretAccessKey, $sessionToken);
             $this->guarda_sessionKey($sessionKey);
             $this->guarda_sessionToken($sessionToken);
-            $form = $this->boton($sessionToken, $merchantid, $amount, $request->nombres, $request->apellidos, $request->select, $request->text, $request->idt);
+            $form = $this->boton($sessionToken, $merchantid, $amount, $request->nombres, $request->apellidos, $request->select, $request->text, $request->idt, $request->detalle);
             return view('Ventanilla/Culqi/visa')->with(['form' => $form, 'nombres' => $request->nombres,
                 'apellidos' => $request->apellidos, 'select' => $request->select, 'text' => $request->text, 'escuela' => $request->escuela,
                 'facultad' => $request->facultad, 'selectt' => $request->selectt, 'txtsub' => $request->txtsub, 'subtramite' => $request->subtramite,
@@ -28,11 +71,30 @@ class visaController extends Controller
         }
     }
 
-    public function boton($sessionToken, $merchantid, $amount, $nombres, $apellidos, $select, $text, $idt)
+    public function buscarPersona($select, $text)
+    {
+        $pers = new personamodel();
+        $cli = new clientemodel();
+        $al = new alumnomodel();
+        $codper = null;
+
+        if ($select == 'Dni') {
+            $codper = $pers->obtnerIdDni($text);//SQL, obtener datos de la persona por su dni
+        } elseif ($select == 'Ruc') {
+            $codper = $cli->consultarClienteRUC($text);//SQL, obtener datos del cliente por su ruc
+        } elseif ($select == 'Codigo de alumno') {
+            $codper = $al->consultaridPersonaAlumno($text);//SQL, obtener datos del alumno por su codigo de alumno
+        }
+        return $codper;
+    }
+
+    public function boton($sessionToken, $merchantid, $amount, $nombres, $apellidos, $select, $text, $idt, $detalle)
     {
         $numorden = $this->contador();
-        $formulario = "
-        <form action=\"/transaction\" method='post'>
+        $idPer = $this->buscarPersona($select, $text);
+        if ($detalle) {
+            $formulario = "
+        <form  action=\"/transactionD/$idPer/$idt/$detalle\" method='post'>
             <script src=\"https://static-content.vnforapps.com/v1/js/checkout.js?qa=true\"
                 data-sessiontoken=\"$sessionToken\"
                 data-merchantid=\"$merchantid\"
@@ -52,28 +114,121 @@ class visaController extends Controller
                 data-frequency=\"Quarterly\"
                 data-recurrencetype=\"fixed\"
                 data-recurrenceamount=\"200\"
-                data-documenttype=\"$select\"
-                data-documentid=\"$text\"
+                data-documenttype=\"\"
+                data-documentid=\"\"
                 data-beneficiaryid=\"\"
-                data-productid=\"$idt\"
+                data-productid=\"\"
                 data-phone=\"\"
             /></script>
         </form>";
-        return $formulario;
+            return $formulario;
+        } else {
+            $formulario = "
+        <form  action=\"/transaction/$idPer/$idt\" method='post'>
+            <script src=\"https://static-content.vnforapps.com/v1/js/checkout.js?qa=true\"
+                data-sessiontoken=\"$sessionToken\"
+                data-merchantid=\"$merchantid\"
+                data-buttonsize=\"large\"
+                data-buttoncolor=\"\" 
+                data-merchantlogo =\"http://www.unt.edu.pe/img/logo.png\"
+                data-merchantname=\"\"
+                data-formbuttoncolor=\"#0A0A2A\"
+                data-showamount=\"\"
+                data-purchasenumber=\"$numorden\"
+                data-amount=\"$amount\"
+                data-cardholdername=\"$nombres\"
+                data-cardholderlastname=\"$apellidos\"
+                data-cardholderemail=\"\"
+                data-usertoken=\"\"
+                data-recurrence=\"false\"
+                data-frequency=\"Quarterly\"
+                data-recurrencetype=\"fixed\"
+                data-recurrenceamount=\"200\"
+                data-documenttype=\"\"
+                data-documentid=\"\"
+                data-beneficiaryid=\"\"
+                data-productid=\"\"
+                data-phone=\"\"
+            /></script>
+        </form>";
+            return $formulario;
+        }
     }
 
     //4547751138486006 fecha 0318 cvv 740
-    public function transaction(Request $request)
+    public function transactionD(Request $request, $idpe, $idt, $detalle)
     {
         if (isset($request->transactionToken)) {
             $sessionToken = $this->recupera_sessionToken();
             $transactionToken = $request->transactionToken;
             $respuesta = $this->authorization("dev", '137254211', $transactionToken, 'AKIAIKABOKKCTPS2LVSA', 'Cpe2yTzXCNGL6ZO9gqADsR9Cqmr2D+9dOpN4EgYs', $sessionToken);//return view('Ventanilla/Culqi/visa')->with(['respuesta' => $respuesta]);
-            var_dump($respuesta);
+            if ($respuesta['errorMessage'] == 'OK') {
+                $value = $this->registrarPago($idpe, $idt, $detalle);
+                var_dump($value);
+                var_dump($respuesta);
+            } else {
+                echo 'error';
+            }
         } else {
             return view('Ventanilla/Culqi/visa');
         }
     }
+
+    public function transaction(Request $request, $idpe, $idt)
+    {
+        if (isset($request->transactionToken)) {
+            $sessionToken = $this->recupera_sessionToken();
+            $transactionToken = $request->transactionToken;
+            $respuesta = $this->authorization("dev", '137254211', $transactionToken, 'AKIAIKABOKKCTPS2LVSA', 'Cpe2yTzXCNGL6ZO9gqADsR9Cqmr2D+9dOpN4EgYs', $sessionToken);//return view('Ventanilla/Culqi/visa')->with(['respuesta' => $respuesta]);
+            if ($respuesta['errorMessage'] == 'OK') {
+                $value = $this->registrarPago($idpe, $idt, '');
+                var_dump($value);
+                var_dump($respuesta);
+            } else {
+                echo 'error';
+            }
+        } else {
+            return view('Ventanilla/Culqi/visa');
+        }
+    }
+
+    function authorization($environment, $merchantId, $transactionToken, $accessKey, $secretKey, $sessionToken)
+    {
+        $url = null;
+        switch ($environment) {
+            case 'prd':
+                $url = "https://apice.vnforapps.com/api.authorization/api/v1/authorization/web/{$merchantId}";
+                break;
+            case 'dev':
+                $url = "https://devapice.vnforapps.com/api.authorization/api/v1/authorization/web/{$merchantId}";
+                break;
+        }
+        $header = array("Content-Type: application/json", "VisaNet-Session-Key: $sessionToken");
+        $request_body = "{
+        \"transactionToken\":\"$transactionToken\",
+        \"sessionToken\":\"$sessionToken\"
+    }";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, "$accessKey:$secretKey");
+        curl_setopt($ch, CURLOPT_HEADER, FALSE);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $request_body);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        $response = curl_exec($ch);
+        $json = json_decode($response, true);
+        /*if (version_compare(PHP_VERSION, '5.4.0', '<')) {
+            $json = json_encode($json);
+        } else {
+            $json = json_encode($json, JSON_PRETTY_PRINT);
+        }*/
+        //$dato = $json->sessionKey;
+        return $json;
+    }
+
 
     function getGUID()
     {
@@ -152,43 +307,6 @@ class visaController extends Controller
     }
 
 
-    function authorization($environment, $merchantId, $transactionToken, $accessKey, $secretKey, $sessionToken)
-    {
-        $url = null;
-        switch ($environment) {
-            case 'prd':
-                $url = "https://apice.vnforapps.com/api.authorization/api/v1/authorization/web/{$merchantId}";
-                break;
-            case 'dev':
-                $url = "https://devapice.vnforapps.com/api.authorization/api/v1/authorization/web/{$merchantId}";
-                break;
-        }
-        $header = array("Content-Type: application/json", "VisaNet-Session-Key: $sessionToken");
-        $request_body = "{
-        \"transactionToken\":\"$transactionToken\",
-        \"sessionToken\":\"$sessionToken\"
-    }";
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($ch, CURLOPT_USERPWD, "$accessKey:$secretKey");
-        curl_setopt($ch, CURLOPT_HEADER, FALSE);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-        curl_setopt($ch, CURLOPT_POST, TRUE);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $request_body);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        $response = curl_exec($ch);
-        $json = json_decode($response);
-        if (version_compare(PHP_VERSION, '5.4.0', '<')) {
-            $json = json_encode($json);
-        } else {
-            $json = json_encode($json, JSON_PRETTY_PRINT);
-        }
-        //$dato = $json->sessionKey;
-        return $json;
-    }
-
     function contador()
     {
         $archivo = "contador.txt";
@@ -200,23 +318,6 @@ class visaController extends Controller
         fwrite($fp, $contador, 26);
         fclose($fp);
         return $contador;
-    }
-
-    function jsonpp($json, $istr = '')
-    {
-        $result = '';
-        for ($p = $q = $i = 0; isset($json[$p]); $p++) {
-            $json[$p] == '"' && ($p > 0 ? $json[$p - 1] : '') != '\\' && $q = !$q;
-            if (strchr('}]', $json[$p]) && !$q && $i--) {
-                strchr('{[', $json[$p - 1]) || $result .= "\n" . str_repeat($istr, $i);
-            }
-            $result .= $json[$p];
-            if (strchr(',{[', $json[$p]) && !$q) {
-                $i += strchr('{[', $json[$p]) === FALSE ? 0 : 1;
-                strchr('}]', $json[$p + 1]) || $result .= "\n" . str_repeat($istr, $i);
-            }
-        }
-        return $result;
     }
 
     function redirect()

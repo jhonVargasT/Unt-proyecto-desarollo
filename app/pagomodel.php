@@ -383,18 +383,16 @@ class pagomodel
     public function savePagoOnline($contaux)
     {
         try {
-            $result = DB::transaction(function () use ($contaux) {//insertar pago y enviar correo de la boleta virtual al usuario
-                $id = DB::table('pago')->insertGetId(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'idProduccionAlumno' => $this->idProduccionAlumno, 'cantidad' => 1]);
+            DB::transaction(function () use ($contaux) {//insertar pago y enviar correo de la boleta virtual al usuario
+                DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'cantidad' => $this->cantidad]);
                 DB::table('subtramite')->where('codSubtramite', $this->idSubtramite)->update(['contador' => $contaux]);
-                return $id;
             });
-
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), ' savePagoOnline/pagomodel');
-            return null;
+            return false;
         }
-        return $result;
+        return true;
     }
 
     public function boletaVirtual($codPago)

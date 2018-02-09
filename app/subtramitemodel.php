@@ -325,6 +325,22 @@ class subtramitemodel
         return $subtramitebd;
     }
 
+    public function consultarIdTasaCodigoSubtramite($codigo)
+    {
+        $id = null;
+        try {
+            $subtramitebd = DB::select('select codSubtramite from subtramite where codigoSubtramite=:codigoSubtramite and estado = 1', ["codigoSubtramite" => $codigo]);
+            foreach ($subtramitebd as $s) {
+                $id = $s->codSubtramite;
+            }
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), ' consultarIdTasaCodigoSubtramite/subtramitemodel');
+            return null;
+        }
+        return $id;
+    }
+
     public function consultarCodigoSubtramiteCodSubtramite($codSubtramite)
     {
         try {

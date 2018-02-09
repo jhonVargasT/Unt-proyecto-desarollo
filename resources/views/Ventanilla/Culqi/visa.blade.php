@@ -354,7 +354,7 @@
                     </a>
                 </div>
                 <div class="col-xs-4">
-                    <button id="enviar" disabled
+                    <button id="enviar" disabled onclick="registrarPago()"
                             name="enviar" class="col-md-6 btn btn-sm btn-success"><span
                                 class="glyphicon glyphicon-menu-right"></span> Siguiente
                     </button>
