@@ -185,7 +185,6 @@ class visaController extends Controller
             $transactionToken = $request->transactionToken;
             $respuesta = $this->authorization("dev", '137254211', $transactionToken, 'AKIAIKABOKKCTPS2LVSA', 'Cpe2yTzXCNGL6ZO9gqADsR9Cqmr2D+9dOpN4EgYs', $sessionToken);//return view('Ventanilla/Culqi/visa')->with(['respuesta' => $respuesta]);
             if ($respuesta['errorMessage'] == 'OK') {
-                var_dump($respuesta);
                 $value = $this->registrarPago($idpe, $idt, '');
                 if ($value == true) {
                     return redirect('/visa')->with('true', 'Pago realizado con exito');
