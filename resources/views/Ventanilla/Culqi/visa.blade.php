@@ -58,6 +58,21 @@
             @else
                 <div class="panel-heading primary"><h5>Crear Compra</h5></div>
             @endif
+            @if(session()->has('true'))
+                <div class="alert alert-success" role="alert" id="alert">{{session('true')}} </div>
+            @endif
+            @if(session()->has('false'))
+                <div class="alert alert-danger" role="alert" id="alert">{{session('false')}}  </div>
+            @endif
+            <script>
+                $(document).ready(function () {
+                    $('#buscar').keyup(function () {
+                        if ($(this).val().length !== 0) {
+                            $('#alert').attr('hidden', true);
+                        }
+                    })
+                });
+            </script>
             <div class="panel-body">
                 <div class="row">
                     @if(isset($form))
@@ -75,9 +90,9 @@
                     @else
                         <div class="col-sm-10 col-xs-5 col-lg-2 form-group-sm ">
                             <span class="col-sm-1 col-lg-1 col-xs-1  text-danger">(*)</span>
-                            <select class=" form-group-sm form-control" id="select" name="select">
+                            <select class=" form-group-sm form-control" id="select" name="select" required>
                                 <option value="Codigo de alumno">Codigo de Matricula</option>
-                                <option value="Dni"> DNI</option>
+                                <option value="Dni">DNI</option>
                                 <option value="Ruc">RUC</option>
                             </select>
                         </div>
@@ -89,12 +104,12 @@
                     @endif
                     <div class="col-sm-10 col-xs-5 col-lg-3 form-group-sm ">
                         <span class="col-sm-1 col-lg-1 col-xs-1">Nombres:</span>
-                        <input class="form-control input-sm" name="nombres" id="nombres"
+                        <input class="form-control input-sm" name="nombres" id="nombres" required
                                @if(isset($nombres)) value="{{$nombres}}" @endif readonly tabindex="-1">
                     </div>
                     <div class="col-sm-10 col-xs-5 col-lg-3 form-group-sm ">
                         <span class="col-sm-1 col-lg-1 col-xs-1">Apellidos:</span>
-                        <input class="form-control input-sm" name="apellidos" id="apellidos"
+                        <input class="form-control input-sm" name="apellidos" id="apellidos" required
                                @if(isset($apellidos))value="{{$apellidos}}" @endif
                                readonly tabindex="-1">
                     </div>
@@ -229,7 +244,7 @@
                         });
                     </script>
                     <script>
-                        $('#ts').change(function () {
+                        $('#ts, #buscar').change(function () {
                             var value = $('#selectt option:selected').attr('value');
                             if (value === 'Codigo tasa') {
                                 var id = $('#ts').val();
@@ -252,8 +267,13 @@
                                                     $('#enviar').attr('disabled', 'disabled');
                                                 }
                                                 else {
-                                                    $('#idt').val(id);
-                                                    $('#enviar').removeAttr('disabled');
+                                                    if ($('#nombres').val() !== '') {
+                                                        $('#idt').val(id);
+                                                        $('#enviar').removeAttr('disabled');
+                                                    }
+                                                    else {
+                                                        $('#enviar').attr('disabled', 'disabled');
+                                                    }
                                                 }
                                             }
                                         });
@@ -283,9 +303,14 @@
                                                     data: {name: $('#ts').val()},
                                                     success: function (data) {
                                                         $('#idt').val(data);
+                                                        if ($('#nombres').val() !== '') {
+                                                            $('#enviar').removeAttr('disabled');
+                                                        }
+                                                        else {
+                                                            $('#enviar').attr('disabled', 'disabled');
+                                                        }
                                                     }
                                                 });
-                                                $('#enviar').removeAttr('disabled');
                                             }
                                         }
                                     });
@@ -401,7 +426,7 @@
         </div>
     </div>
 </div>
-@if(isset($form))
+@if(isset($form) || session()->has('true') || session()->has('false'))
 @else
     <script>
         $(document).ready(function () {

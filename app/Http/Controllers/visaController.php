@@ -164,31 +164,39 @@ class visaController extends Controller
             $respuesta = $this->authorization("dev", '137254211', $transactionToken, 'AKIAIKABOKKCTPS2LVSA', 'Cpe2yTzXCNGL6ZO9gqADsR9Cqmr2D+9dOpN4EgYs', $sessionToken);//return view('Ventanilla/Culqi/visa')->with(['respuesta' => $respuesta]);
             if ($respuesta['errorMessage'] == 'OK') {
                 $value = $this->registrarPago($idpe, $idt, $detalle);
-                var_dump($value);
-                var_dump($respuesta);
+                if ($value == true) {
+                    return redirect('/visa')->with('true', 'Pago realizado con exito');
+                } else {
+                    return redirect('/visa')->with('false', 'Pago realizado en el banco con exito, error al guardar en el sistema');
+                }
             } else {
-                echo 'error';
+                return redirect('/visa')->with('false', 'Pago realizado sin exito');
             }
         } else {
-            return view('Ventanilla/Culqi/visa');
+            return redirect('/visa')->with('false', 'Visanet no responde');
         }
     }
 
     public function transaction(Request $request, $idpe, $idt)
     {
+        $value = null;
         if (isset($request->transactionToken)) {
             $sessionToken = $this->recupera_sessionToken();
             $transactionToken = $request->transactionToken;
             $respuesta = $this->authorization("dev", '137254211', $transactionToken, 'AKIAIKABOKKCTPS2LVSA', 'Cpe2yTzXCNGL6ZO9gqADsR9Cqmr2D+9dOpN4EgYs', $sessionToken);//return view('Ventanilla/Culqi/visa')->with(['respuesta' => $respuesta]);
             if ($respuesta['errorMessage'] == 'OK') {
-                $value = $this->registrarPago($idpe, $idt, '');
-                var_dump($value);
                 var_dump($respuesta);
+                $value = $this->registrarPago($idpe, $idt, '');
+                if ($value == true) {
+                    return redirect('/visa')->with('true', 'Pago realizado con exito');
+                } else {
+                    return redirect('/visa')->with('false', 'Pago realizado en el banco con exito, error al guardar en el sistema');
+                }
             } else {
-                echo 'error';
+                return redirect('/visa')->with('false', 'Pago realizado sin exito');
             }
         } else {
-            return view('Ventanilla/Culqi/visa');
+            return redirect('/visa')->with('false', 'Visanet no responde');
         }
     }
 
@@ -220,15 +228,8 @@ class visaController extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         $response = curl_exec($ch);
         $json = json_decode($response, true);
-        /*if (version_compare(PHP_VERSION, '5.4.0', '<')) {
-            $json = json_encode($json);
-        } else {
-            $json = json_encode($json, JSON_PRETTY_PRINT);
-        }*/
-        //$dato = $json->sessionKey;
         return $json;
     }
-
 
     function getGUID()
     {
@@ -305,7 +306,6 @@ class visaController extends Controller
         fclose($fp);
         return $valor;
     }
-
 
     function contador()
     {
