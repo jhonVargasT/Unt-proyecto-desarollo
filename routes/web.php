@@ -384,8 +384,8 @@ Route::get('/redirect', 'visaController@redirect');
 Route::post('/registrarPago', 'visaController@registrarPago');
 
 Route::post('/visaPago', 'visaController@tokenVisa');
-Route::post('/transactionD/{idPersona}/{idTasa}/{detalle}', 'visaController@transactionD');
-Route::post('/transaction/{idPersona}/{idTasa}', 'visaController@transaction');
+Route::post('/transactionD/{idPersona}/{idTasa}/{detalle}/{cantidad}', 'visaController@transactionD');
+Route::post('/transaction/{idPersona}/{idTasa}/{cantidad}', 'visaController@transaction');
 
 Route::get("autocompleteTram", array('as' => 'autocomplete', 'uses' => 'tramiteController@autocompletar'));
 

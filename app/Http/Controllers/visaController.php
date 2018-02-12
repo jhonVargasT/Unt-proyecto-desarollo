@@ -12,13 +12,13 @@ use Illuminate\Support\Facades\Redirect;
 
 class visaController extends Controller
 {
-    public function registrarPago($idperona, $idtasa, $detalle)
+    public function registrarPago($idperona, $idtasa, $detalle, $cantidad)
     {
         date_default_timezone_set('America/Lima');
         $dato = date('Y-m-d H:i:s');
         $p = new pagomodel();
         $p->setModalidad('online');
-        $p->setCantidad(1);
+        $p->setCantidad($cantidad);
         $p->setDetalle($detalle);
         $p->setFecha($dato);
         $p->setIdPersona($idperona);
@@ -61,11 +61,11 @@ class visaController extends Controller
             $sessionKey = $this->create_token($amount, "dev", $merchantid, $accessKey, $secretAccessKey, $sessionToken);
             $this->guarda_sessionKey($sessionKey);
             $this->guarda_sessionToken($sessionToken);
-            $form = $this->boton($sessionToken, $merchantid, $amount, $request->nombres, $request->apellidos, $request->select, $request->text, $request->idt, $request->detalle);
-            return view('Ventanilla/Culqi/visa')->with(['form' => $form, 'nombres' => $request->nombres,
+            $form = $this->boton($sessionToken, $merchantid, $amount, $request->nombres, $request->apellidos, $request->select, $request->text, $request->idt, $request->detalle, $request->multiplicador);
+            return view('Ventanilla/Culqi/visa')->with(['form' => $form, 'nombres' => $request->nombres, 'pagar' => $request->pagar,
                 'apellidos' => $request->apellidos, 'select' => $request->select, 'text' => $request->text, 'escuela' => $request->escuela,
                 'facultad' => $request->facultad, 'selectt' => $request->selectt, 'txtsub' => $request->txtsub, 'subtramite' => $request->subtramite,
-                'detalle' => $request->detalle, 'boletapagar' => $request->boletapagar, 'total' => $request->total, 'id' => $request->idt]);
+                'detalle' => $request->detalle, 'boletapagar' => $request->boletapagar, 'total' => $request->total, 'id' => $request->idt, 'multiplicador' => $request->multiplicador]);
         } elseif (isset($request->total) == 0 || isset($request->total) == '') {
             return view('Ventanilla/Culqi/visa');
         }
@@ -88,13 +88,13 @@ class visaController extends Controller
         return $codper;
     }
 
-    public function boton($sessionToken, $merchantid, $amount, $nombres, $apellidos, $select, $text, $idt, $detalle)
+    public function boton($sessionToken, $merchantid, $amount, $nombres, $apellidos, $select, $text, $idt, $detalle, $cantidad)
     {
         $numorden = $this->contador();
         $idPer = $this->buscarPersona($select, $text);
         if ($detalle) {
             $formulario = "
-        <form  action=\"/transactionD/$idPer/$idt/$detalle\" method='post'>
+        <form action=\"/transactionD/$idPer/$idt/$detalle/$cantidad\" method='post'>
             <script src=\"https://static-content.vnforapps.com/v1/js/checkout.js?qa=true\"
                 data-sessiontoken=\"$sessionToken\"
                 data-merchantid=\"$merchantid\"
@@ -124,7 +124,7 @@ class visaController extends Controller
             return $formulario;
         } else {
             $formulario = "
-        <form  action=\"/transaction/$idPer/$idt\" method='post'>
+        <form action=\"/transaction/$idPer/$idt/$cantidad\" method='post'>
             <script src=\"https://static-content.vnforapps.com/v1/js/checkout.js?qa=true\"
                 data-sessiontoken=\"$sessionToken\"
                 data-merchantid=\"$merchantid\"
@@ -156,14 +156,14 @@ class visaController extends Controller
     }
 
     //4547751138486006 fecha 0318 cvv 740
-    public function transactionD(Request $request, $idpe, $idt, $detalle)
+    public function transactionD(Request $request, $idpe, $idt, $detalle, $cantidad)
     {
         if (isset($request->transactionToken)) {
             $sessionToken = $this->recupera_sessionToken();
             $transactionToken = $request->transactionToken;
             $respuesta = $this->authorization("dev", '137254211', $transactionToken, 'AKIAIKABOKKCTPS2LVSA', 'Cpe2yTzXCNGL6ZO9gqADsR9Cqmr2D+9dOpN4EgYs', $sessionToken);//return view('Ventanilla/Culqi/visa')->with(['respuesta' => $respuesta]);
             if ($respuesta['errorMessage'] == 'OK') {
-                $value = $this->registrarPago($idpe, $idt, $detalle);
+                $value = $this->registrarPago($idpe, $idt, $detalle, $cantidad);
                 if ($value == true) {
                     return redirect('/visa')->with('true', 'Pago realizado con exito');
                 } else {
@@ -177,7 +177,7 @@ class visaController extends Controller
         }
     }
 
-    public function transaction(Request $request, $idpe, $idt)
+    public function transaction(Request $request, $idpe, $idt, $cantidad)
     {
         $value = null;
         if (isset($request->transactionToken)) {
@@ -185,7 +185,7 @@ class visaController extends Controller
             $transactionToken = $request->transactionToken;
             $respuesta = $this->authorization("dev", '137254211', $transactionToken, 'AKIAIKABOKKCTPS2LVSA', 'Cpe2yTzXCNGL6ZO9gqADsR9Cqmr2D+9dOpN4EgYs', $sessionToken);//return view('Ventanilla/Culqi/visa')->with(['respuesta' => $respuesta]);
             if ($respuesta['errorMessage'] == 'OK') {
-                $value = $this->registrarPago($idpe, $idt, '');
+                $value = $this->registrarPago($idpe, $idt, '', $cantidad);
                 if ($value == true) {
                     return redirect('/visa')->with('true', 'Pago realizado con exito');
                 } else {

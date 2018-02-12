@@ -260,9 +260,10 @@
                                             data: {name: $('#st').val()},
                                             success: function (data) {
                                                 $('#bp').val(data);
-                                                var val = data * 0.04;
+                                                var val = data * 0.025;
                                                 var value = (+val) + (+data);
                                                 $('#total').val(value);
+                                                $('#pg').val(data);
                                                 if (value === 0 || value === '') {
                                                     $('#enviar').attr('disabled', 'disabled');
                                                 }
@@ -290,9 +291,10 @@
                                             var nombre = $('#ts').val();
                                             $('#st').val(nombre);
                                             $('#bp').val(data);
-                                            var val = data * 0.04;
+                                            var val = data * 0.025;
                                             var value = (+val) + (+data);
                                             $('#total').val(value);
+                                            $('#pg').val(data);
                                             if (value === 0 || value === '') {
                                                 $('#enviar').attr('disabled', 'disabled');
                                             }
@@ -349,6 +351,38 @@
                         <input class="form-control " name="boletapagar" id="bp" readonly
                                value="@if(isset($boletapagar)){{$boletapagar}}@endif" tabindex="-1">
                     </div>
+                    <div class="col-sm-1 col-xs-1 col-lg-1 form-group-sm ">
+                        x
+                    </div>
+                    <div class="col-sm-1 col-xs-1 col-lg-1 form-group-sm ">
+                        @if(isset($form))
+                            <input class="form-control" name="multiplicador" id="mp"
+                                   onkeypress="return validarNum(event)"
+                                   value="@if(isset($multiplicador)){{$multiplicador}}@endif" readonly>
+                        @else
+                            <input class="form-control" name="multiplicador" id="mp"
+                                   onkeypress="return validarNum(event)" value="1">
+                        @endif
+                    </div>
+                    <div class="col-sm-1 col-xs-1 col-lg-1 form-group-sm ">
+                        =
+                    </div>
+                    <div class="col-sm-1 col-xs-1 col-lg-1 form-group-sm ">
+
+                        <input class="form-control" name="pagar" id="pg" readonly tabindex="-1"
+                               value="@if(isset($pagar)){{$pagar}}@endif">
+
+                    </div>
+                    <script>
+                        $('#mp').change(function () {
+                            var n2 = $('#mp').val();
+                            var n1 = $('#bp').val();
+                            var r = n1 * n2;
+                            $('#pg').val(r);
+                            var tot = (r * 0.025) + r;
+                            $('#total').val(tot.toFixed(2));
+                        });
+                    </script>
                 </div>
                 <br>
                 <div class=" row ">
@@ -379,7 +413,7 @@
                     </a>
                 </div>
                 <div class="col-xs-4">
-                    <button id="enviar" disabled onclick="registrarPago()"
+                    <button id="enviar" disabled
                             name="enviar" class="col-md-6 btn btn-sm btn-success"><span
                                 class="glyphicon glyphicon-menu-right"></span> Siguiente
                     </button>
