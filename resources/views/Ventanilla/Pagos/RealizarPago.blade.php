@@ -28,11 +28,20 @@
         <div class="panel-body">
             <!--<div class="panel-heading "><h4>Pagos</h4></div>-->
             @if(isset($true))
-                <div class="alert alert-success" role="alert">{{$true}}</div>
+                <div class="alert alert-success" role="alert" id="alert">{{$true}}</div>
             @endif
             @if(isset($false))
-                <div class="alert alert-danger" role="alert">{{$false}}</div>
+                <div class="alert alert-danger" role="alert" id="alert">{{$false}}</div>
             @endif
+            <script>
+                $(document).ready(function () {
+                    $('#buscar,#ts').keyup(function () {
+                        if ($(this).val().length !== 0) {
+                            $('#alert').attr('hidden', true);
+                        }
+                    })
+                });
+            </script>
             <form name="form" action="{{url('/pagar')}}" role="Form" method="POST" class="Vertical">
                 {{csrf_field()}}
                 <div class="col-sm-12">
@@ -276,7 +285,7 @@
                                 </script>
                             </div>
                             <script>
-                                $('#ts').change(function () {
+                                $('#ts, #buscar').change(function () {
                                     var value = $('#selectt option:selected').attr('value');
                                     if (value === 'Codigo tasa') {
                                         var id = $('#ts').val();
@@ -299,7 +308,12 @@
                                                             $('#enviar').attr('disabled', 'disabled');
                                                         }
                                                         else {
-                                                            $('#enviar').removeAttr('disabled');
+                                                            if ($('#nombres').val() !== '') {
+                                                                $('#enviar').removeAttr('disabled');
+                                                            }
+                                                            else {
+                                                                $('#enviar').attr('disabled', 'disabled');
+                                                            }
                                                         }
                                                     }
                                                 });
@@ -321,7 +335,12 @@
                                                         $('#enviar').attr('disabled', 'disabled');
                                                     }
                                                     else {
-                                                        $('#enviar').removeAttr('disabled');
+                                                        if ($('#nombres').val() !== '') {
+                                                            $('#enviar').removeAttr('disabled');
+                                                        }
+                                                        else {
+                                                            $('#enviar').attr('disabled', 'disabled');
+                                                        }
                                                     }
                                                 }
                                             });
