@@ -25,7 +25,7 @@
                 @if($alumno)
                     @foreach($alumno as $a)
                         <form name="form"
-                              onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos','spanemail','spancodalumno','spansede','spanescuela'],'enviar','mensaje')"
+                              onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos','spancodalumno'],'enviar','mensaje')"
                               action="{{ url('AlumnoEditado/' .$a->codPersona ) }}" role="form" method="Get"
                               class="Vertical">
                             {{csrf_field()}}
@@ -65,8 +65,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel panel-primary">
-
+                        <!--<div class="panel panel-primary">
                                 <div class="panel-heading">Datos Alumno</div>
                                 <div class="panel-body">
                                     <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
@@ -158,7 +157,7 @@
                                         </script>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="col-sm-12 row form-group" align="center">
                                 <span id="mensaje" class="control-label" style="color: red"></span>
                             </div>
@@ -172,7 +171,7 @@
                                 </div>
                                 <div>
                                     <button type="submit"
-                                            onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos','spanemail','spancodalumno','spansede','spanescuela'],'enviar','mensaje')"
+                                            onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos','spancodalumno'],'enviar','mensaje')"
                                             name="enviar" id="enviar" class="col-md-2 btn btn-sm btn-success"><span
                                                 class="glyphicon glyphicon-ok"></span> Guardar
                                     </button>

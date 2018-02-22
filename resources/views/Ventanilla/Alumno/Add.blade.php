@@ -53,7 +53,7 @@
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
                 @endif
                 <form name="form"
-                      onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos','spanemail','spancodalumno','spansede','spanescuela'],'enviar','mensaje')"
+                      onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos','spancodalumno'],'enviar','mensaje')"
                       action="{{url('AlumnoRegistrado')}}" role="form" method="POST" class="Horizontal">
                     {{csrf_field()}}
                     <div class="panel panel-primary">
@@ -85,6 +85,13 @@
                                         });
                                     </script>
                                 </div>
+                                <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
+                                    <span class="control-label"> Codigo alumno</span>
+                                    <input class="form-control input-sm" name="codAlumno" type="text"
+                                           onchange="validarNumeros('codAlumno','spancodalumno')"
+                                           autocomplete="off" placeholder="Ejm: 000104499" required id="codAlumno">
+                                    <span style="color: red" class=" control-label" id="spancodalumno"> </span>
+                                </div>
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                     <span class="control-label">Nombres</span>
                                     <input class="form-control input-sm" name="nombres" type="text"
@@ -99,16 +106,16 @@
                                            placeholder="Ejem: Terenas Lory" required id="apellidos">
                                     <span style="color: red" class=" control-label" id="spanapellidos"> </span>
                                 </div>
-                                <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
+                                <!--<div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                     <span class="control-label">Correo</span>
                                     <input class="form-control input-sm" name="correo" type="email" id="email"
                                            autocomplete="off" onchange="validarCorreo('email','spanemail')" required>
                                     <span style="color: red" class=" control-label" id="spanemail"> </span>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-primary">
+                <!--<div class="panel panel-primary">
                         <div class="panel-heading">Datos Alumno</div>
                         <div class="panel-body">
                             <div class="row">
@@ -124,8 +131,8 @@
                                     <div class="col-sm-12 input-group date" data-provide="datepicker">
                                         <input type="text" name="fecha" class="form-control"
                                                value="<?php date_default_timezone_set('America/Lima');
-                                               $date = date('m/d/Y');
-                                               echo $date ?>" id="fecha" required>
+                $date = date('m/d/Y');
+                echo $date ?>" id="fecha" required>
                                         <div class="input-group-addon">
                                             <span class="glyphicon glyphicon-th"> </span>
                                         </div>
@@ -201,7 +208,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="col-sm-12 row form-group" align="center">
                         <span id="mensaje" class="control-label" style="color: red"></span>
                     </div>
@@ -212,7 +219,7 @@
                             Cancelar</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <button type="submit"
-                                onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos','spanemail','spancodalumno','spansede','spanescuela'],'enviar','mensaje')"
+                                onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos','spancodalumno'],'enviar','mensaje')"
                                 name="enviar" id="enviar" class=" btn btn-sm btn-success"><span
                                     class="glyphicon glyphicon-ok"></span> Guardar
                         </button>

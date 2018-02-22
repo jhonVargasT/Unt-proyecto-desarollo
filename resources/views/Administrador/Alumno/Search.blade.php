@@ -54,8 +54,8 @@
                             <option>Dni</option>
                             <option>Apellidos</option>
                             <option>Codigo alumno</option>
-                            <option>Escuela</option>
-                            <option>Facultad</option>
+                            <!--<option>Escuela</option>-->
+                            <!--<option>Facultad</option>-->
                         </select>
                     </div>
                     <div class="form-group-sm col-sm-8">
@@ -121,12 +121,12 @@
                             <tr>
                                 <td align="center">{{$a->dni}}</td>
                                 <td>{{$a->nombres}} {{$a->apellidos}}</td>
-                                <td>{{$a->correo}}</td>
-                                <td>{{$a->nombresede}}</td>
-                                <td>{{$a->nombref}}</td>
-                                <td>{{$a->nombree}}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td>{{$a->codAlumno}}</td>
-                                <td align="center">{{$a->fecha}}</td>
+                                <td align="center"></td>
                                 <td align="center">
                                     {{ csrf_field() }}
                                     <a title="Editar" href="AlumnoCargar/{{$a->codPersona}}"><span

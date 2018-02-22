@@ -21,7 +21,7 @@ class Persona extends Migration
             $table->collate = 'utf8_spanish_ci';
 
             $table->increments('codPersona')->unique();
-            $table->string('dni')->nullable();
+            $table->string('dni')->unique();
             $table->string('nombres');
             $table->string('apellidos');
             $table->string('correo')->nullable();
