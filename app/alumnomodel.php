@@ -675,7 +675,8 @@ class alumnomodel extends personamodel
         return $alumnobd;
     }*/
 
-    public function consultarPersonaApellidos($apellidos){
+    public function consultarPersonaApellidos($apellidos)
+    {
         try {
             $alumnobd = DB::select('SELECT 
                 codPersona, dni,nombres,apellidos,codAlumno
@@ -729,7 +730,8 @@ class alumnomodel extends personamodel
         return $alumnobd;
     }*/
 
-    public function consultarAlumnoCodigo($codAlumno){
+    public function consultarAlumnoCodigo($codAlumno)
+    {
         try {
             $alumnobd = DB::select('SELECT 
                 codPersona, dni,nombres,apellidos,codAlumno
@@ -820,7 +822,7 @@ class alumnomodel extends personamodel
         return $alumnobd;
     }
 
-    public function consultarAlumnoid($codPersona)
+    /*public function consultarAlumnoid($codPersona)
     {
         try {
             $alumnobd = DB::select('select codPersona, dni,nombres, apellidos,correo, codAlumno, fecha,escuela.nombre as enombre, facultad.nombre as fnombre, nombresede from persona
@@ -834,6 +836,23 @@ class alumnomodel extends personamodel
         and facultad.coSede = sede.codSede and persona.estado=1
         and alumno.estado=1 and escuela.estado=1 and facultad.estado=1
         and sede.estado=1 and persona.codPersona = ' . $codPersona . ' ');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'consultarAlumnoid/alumnomodel');
+            return null;
+        }
+        return $alumnobd;
+    }*/
+
+    public function consultarAlumnoid($codPersona)
+    {
+        try {
+            $alumnobd = DB::select('select codPersona, dni,nombres, apellidos, codAlumno from persona
+        left join alumno on persona.codPersona=alumno.idPersona
+        where persona.codPersona = alumno.idPersona
+        and persona.estado=1
+        and alumno.estado=1
+        and persona.codPersona=:codPersona', ['codPersona' => $codPersona]);
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'consultarAlumnoid/alumnomodel');

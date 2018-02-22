@@ -40,6 +40,14 @@
                                                    placeholder="Ejem: 72978792" required value="{{$a->dni}}">
                                             <span style="color: red" class=" control-label" id="spandni"></span>
                                         </div>
+                                        <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
+                                            <span class="control-label"> Codigo alumno</span>
+                                            <input class="form-control input-sm" name="codAlumno" id="codAlumno" type="text"
+                                                   autocomplete="off" onchange="validarNumeros('codAlumno','spancodalumno')"
+                                                   placeholder="Ejm: 000104499" required
+                                                   value="{{$a->codAlumno}}">
+                                            <span style="color: red" class=" control-label" id="spancodalumno"></span>
+                                        </div>
                                         <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                             <span class="control-label">Nombres</span>
                                             <input class="form-control input-sm" name="nombres" id="nombres" type="text"
@@ -55,13 +63,13 @@
                                                    placeholder="Ejem: Terenas Lory" required value="{{$a->apellidos}}">
                                             <span style="color: red" class=" control-label" id="spanapellidos"></span>
                                         </div>
-                                        <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
+                                    <!--<div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                             <span class="control-label">Correo</span>
                                             <input class="form-control input-sm" id="correo" name="correo" type="email"
                                                    autocomplete="off" onchange="validarCorreo('correo','spanemail')"
-                                                   required value="{{$a->correo}}">
+                                                   required value="">
                                             <span style="color: red" class=" control-label" id="spanemail"></span>
-                                        </div>
+                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +87,7 @@
                                     <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                         <span class="control-label"> Fecha matricula</span>
                                         <div class="col-sm-12 input-group date" data-provide="datepicker">
-                                            <input type="text" name="fecha" class="form-control" value="{{$a->fecha}}">
+                                            <input type="text" name="fecha" class="form-control" value="">
                                             <div class="input-group-addon">
                                                 <span class="glyphicon glyphicon-th"></span>
                                             </div>
@@ -90,7 +98,7 @@
                                         <input class="typeahead form-control" type="text"
                                                placeholder="Ejm: Trujillo" name="nombreSede" id="ns"
                                                autocomplete="off" required
-                                               value="{{$a->nombresede}}" onchange="validarNombre('ns','spansede')">
+                                               value="" onchange="validarNombre('ns','spansede')">
                                         <span style="color: red" class=" control-label" id="spansede"></span>
                                         <script type="text/javascript">
                                             var paths = "{{ route('autocompletesede')}}";
@@ -107,7 +115,7 @@
                                         <span class="control-label">Escuela</span>
                                         <input class="form-control input-sm" type="text"
                                                placeholder="Ejm: Mecanica" name="nombreEscuela" id="ne"
-                                               required value="{{$a->enombre}}"
+                                               required value=""
                                                onchange="validarNombre('ne','spanescuela')">
                                         <span style="color: red" class=" control-label" id="spanescuela"></span>
                                         <script>
@@ -134,7 +142,7 @@
                                     <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                         <span class="control-label">Facultad</span>
                                         <input class="form-control input-sm" name=" " type="text" id="f" readonly
-                                               value="{{$a->fnombre}}">
+                                               value="">
                                         <script>
                                             $('#ne').change(function () {
                                                 $.ajax({
