@@ -74,21 +74,31 @@ class personalController extends Controller
             Session::put('tipoCuentaV', null);
             Session::put('tipoCuentaR', null);
             Session::put('tipoCuentaI', null);
+            Session::put('tipoCuentaRT', null);
         } elseif ($personal->getTipoCuenta() == 'Ventanilla') {//Crear session del tipo de cuenta para ventanilla
             Session::put('tipoCuentaV', $personal->getTipoCuenta());
             Session::put('tipoCuentaA', null);
             Session::put('tipoCuentaR', null);
             Session::put('tipoCuentaI', null);
+            Session::put('tipoCuentaRT', null);
         } elseif ($personal->getTipoCuenta() == 'Reportes') {//Crear session del tipo de cuenta para reportes
             Session::put('tipoCuentaR', $personal->getTipoCuenta());
             Session::put('tipoCuentaV', null);
             Session::put('tipoCuentaA', null);
             Session::put('tipoCuentaI', null);
+            Session::put('tipoCuentaRT', null);
         } elseif ($personal->getTipoCuenta() == 'Importador') {//Crear session del tipo de cuenta para reportes
             Session::put('tipoCuentaI', $personal->getTipoCuenta());
             Session::put('tipoCuentaR', null);
             Session::put('tipoCuentaV', null);
             Session::put('tipoCuentaA', null);
+            Session::put('tipoCuentaRT', null);
+        } elseif ($personal->getTipoCuenta() == 'Registro') {//Crear session del tipo de cuenta para reportes
+            Session::put('tipoCuentaRT', $personal->getTipoCuenta());
+            Session::put('tipoCuentaR', null);
+            Session::put('tipoCuentaV', null);
+            Session::put('tipoCuentaA', null);
+            Session::put('tipoCuentaI', null);
         }
         //Redireccion a vista dependiendo del tipo de cuenta
         if ($personal->getTipoCuenta() == 'Administrador' && $personal->getCuenta() != '') {
@@ -103,7 +113,11 @@ class personalController extends Controller
                     if ($personal->getTipoCuenta() == 'Importador' && $personal->getCuenta() != '') {
                         return redirect()->route('Imp');
                     } else {
-                        return back()->with('true', 'Cuenta ' . $personal->getCuenta() . ' no encontrada o contraseña incorrecta')->withInput();
+                        if ($personal->getTipoCuenta() == 'Registro' && $personal->getCuenta() != '') {
+                            return redirect()->route('Reg');
+                        } else {
+                            return back()->with('true', 'Cuenta ' . $personal->getCuenta() . ' no encontrada o contraseña incorrecta')->withInput();
+                        }
                     }
                 }
             }

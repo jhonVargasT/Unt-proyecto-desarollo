@@ -246,7 +246,7 @@ Route::get('SedeEditada/{codSede}', 'sedeController@editarSede');
 Route::get('SedeEliminar/{codSede}', 'sedeController@eliminarSede');
 
 
-/////////////////////////////////////////////////////CLIENTE////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////Ventanilla/////////////////////////////////////////////////////////
 
 Route::get('/Vent', function () {
     return view('Ventanilla/Body');
@@ -275,10 +275,6 @@ Route::get('/venBuscarEstudianteProduccion', function () {
     return view('Ventanilla/Alumno/SearchP');
 });
 
-
-Route::get('/admBuscarEstudiante', function () {
-    return view('Administrador/Alumno/Search');
-});
 /////////////Pago////////////////////
 Route::get('/ventRelizarPago', function () {
     return view('Ventanilla/Pagos/RealizarPago');
@@ -388,6 +384,21 @@ Route::post('/transactionD/{idPersona}/{idTasa}/{detalle}/{cantidad}', 'visaCont
 Route::post('/transaction/{idPersona}/{idTasa}/{cantidad}', 'visaController@transaction');
 
 Route::get("autocompleteTram", array('as' => 'autocomplete', 'uses' => 'tramiteController@autocompletar'));
+
+/////////////////////////////////////////////////REGISTRO/TECNICO///////////////////////////////////////////////////////
+
+Route::get('/Reg', function () {
+    return view('RegistroTecnico/Body');
+})->name('Reg');
+//////////////Alumno//////////////////////////
+
+Route::get('/regRegistrarEstudiante', function () {
+    return view('RegistroTecnico/Alumno/Add');
+});
+
+Route::get('/regBuscarEstudiante', function () {
+    return view('RegistroTecnico/Alumno/Search');
+});
 
 /////////////////////////////////////////////////////REPORTE////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

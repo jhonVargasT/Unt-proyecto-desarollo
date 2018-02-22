@@ -22,7 +22,7 @@ class alumnoController extends Controller
         $alumno->setTipoAlummno(1);
         //$date = implode("-", array_reverse(explode("/", $request->fecha)));
         $alumno->setFecha($request->fecha);
-        $idE = $alumno->bdEscuelaSede($request->nombreEscuela,$request->nombreSede);//Consular el id de la escuela a la que va a pertenecer
+        $idE = $alumno->bdEscuelaSede($request->nombreEscuela, $request->nombreSede);//Consular el id de la escuela a la que va a pertenecer
         $alumno->setIdEscuela($idE);
         $al = $alumno->savealumno($request->dni);//Metodo de insercion en la bd al alumno (persona y alumno)
 
@@ -62,6 +62,7 @@ class alumnoController extends Controller
     {
         $valueA = Session::get('tipoCuentaA');
         $valueV = Session::get('tipoCuentaV');
+        $valueRT = Session::get('tipoCuentaRT');
 
         $alumno = new alumnomodel();
         $alu = $alumno->consultarAlumnoid($codPersona);//Obtiene los datos del alumno por su codigo de persona
@@ -70,6 +71,8 @@ class alumnoController extends Controller
             return view('Administrador/Alumno/Edit')->with(['alumno' => $alu]);
         if ($valueV == 'Ventanilla')
             return view('Ventanilla/Alumno/Edit')->with(['alumno' => $alu]);
+        if ($valueRT == 'Registro')
+            return view('RegistroTecnico/Alumno/Edit')->with(['alumno' => $alu]);
     }
 
     public function cargarAlumnoP($codPersona, $codProduccion)
@@ -91,6 +94,7 @@ class alumnoController extends Controller
     {
         $valueA = Session::get('tipoCuentaA');
         $valueV = Session::get('tipoCuentaV');
+        $valueRT = Session::get('tipoCuentaRT');
         $alumno = new alumnomodel();
         $alumno->setDni($request->dni);
         $alumno->setNombres($request->nombres);
@@ -99,7 +103,7 @@ class alumnoController extends Controller
         $alumno->setCorreo($request->correo);
         //$date = implode("-", array_reverse(explode("/", $request->fecha)));
         $alumno->setFecha($request->fecha);
-        $idE = $alumno->bdEscuelaSede($request->nombreEscuela,$request->nombreSede);//Consular el id de la escuela a la que va a pertenecer
+        $idE = $alumno->bdEscuelaSede($request->nombreEscuela, $request->nombreSede);//Consular el id de la escuela a la que va a pertenecer
         $alumno->setIdEscuela($idE);
         $alumno->editarAlumno($codPersona);//Ejecuta la consulta de actualizar los datos del alumno
 
@@ -107,6 +111,8 @@ class alumnoController extends Controller
             return view('Administrador/Alumno/Search')->with(['nombre' => $request->nombres]);
         if ($valueV == 'Ventanilla')
             return view('Ventanilla/Alumno/Search')->with(['nombre' => $request->nombres]);
+        if ($valueRT == 'Registro')
+            return view('RegistroTecnico/Alumno/Search')->with(['nombre' => $request->nombres]);
     }
 
     public function editarAlumnoP($codPersona, Request $request)
@@ -137,6 +143,7 @@ class alumnoController extends Controller
         $valueA = Session::get('tipoCuentaA');
         $valueV = Session::get('tipoCuentaV');
         $valueR = Session::get('tipoCuentaR');
+        $valueRT = Session::get('tipoCuentaRT');
 
         $alu = null;
         $alumno = new alumnomodel();
@@ -168,6 +175,8 @@ class alumnoController extends Controller
             return view('Ventanilla/Alumno/Search')->with(['alumno' => $alu, 'txt' => $request->text, 'select' => $request->select]);
         if ($valueR == 'Reportes')
             return view('Reportes/Alumno/Search')->with(['alumno' => $alu, 'txt' => $request->text, 'select' => $request->select]);
+        if ($valueRT == 'Registro')
+            return view('RegistroTecnico/Alumno/Search')->with(['alumno' => $alu, 'txt' => $request->text, 'select' => $request->select]);
     }
 
     public function listarAlumnoP(Request $request)

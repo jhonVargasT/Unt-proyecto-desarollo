@@ -104,6 +104,7 @@
                                                 <option>Ventanilla</option>
                                                 <!--<option>Reportes</option>-->
                                                 <option>Importador</option>
+                                                <option>Registro</option>
                                             </select>
                                         </div>
                                     </div>
