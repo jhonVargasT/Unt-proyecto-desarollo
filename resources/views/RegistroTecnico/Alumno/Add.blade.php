@@ -3,6 +3,12 @@
     <div id="collapseTwo" class="collapse in">
         <div class="panel-body">
             <table class="table">
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-search"></span>
+                        <a href="/regActualizarEstudiante">Actualizar Estudiantes</a>
+                    </td>
+                </tr>
                 <!--<tr>
                     <td>
                         <span class="glyphicon glyphicon-search"></span>
@@ -12,14 +18,8 @@
                 </tr>-->
                 <tr>
                     <td>
-                        <span class="glyphicon glyphicon-edit"></span>
-                        <a href="/regActualizarEstudiante" style="color: #509f0c" target="_top">Actualizar Alumno</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         <span class="glyphicon glyphicon-plus"></span>
-                        <a href="/regRegistrarEstudiante">Registrar Alumno</a>
+                        <a href="/regRegistrarEstudiante" style="color: #509f0c" target="_top">Agregar Estudiante</a>
                     </td>
                 </tr>
                 <!--<tr>
@@ -44,7 +44,7 @@
         <link rel="stylesheet" href="/resources/demos/style.css">
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-        <div class="panel-heading"><h3>Actualizar Estudiante</h3></div>
+        <div class="panel-heading"><h3>Agregar Estudiante</h3></div>
         <div style="background-color: #FFFFFF">
             <div class="panel-body">
                 @if(session()->has('true'))
@@ -54,38 +54,33 @@
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
                 @endif
                 <form name="form"
-                      action="{{url('AlumnoEditadoR')}}" role="form" method="POST" class="Horizontal">
+                      onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos','spancodalumno','spancodalumno','spansede','spanescuela'],'enviar','mensaje')"
+                      action="{{url('AlumnoRegistrado')}}" role="form" method="POST" class="Horizontal">
                     {{csrf_field()}}
                     <div class="panel panel-primary">
-                        <div class="panel-heading">Datos Busqueda</div>
+                        <div class="panel-heading">Datos personales</div>
                         <div class="panel-body">
                             <div class=" row ">
-                                <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
-                                    <span class="control-label"> Codigo Matricula</span>
-                                    <input class="form-control input-sm" name="codAlumno"
-                                           onchange="validarNumeros('codAlumno','spancodalumno')"
-                                           autocomplete="off" placeholder="Ejm: 000104499" required id="codAlumno">
-                                    <span style="color: red" class=" control-label" id="spancodalumno"> </span>
-                                    <script>
-                                        $('#codAlumno').change(function () {
-                                            $.ajax({
-                                                url: "/buscarAlumnoCodAlumno",
-                                                type: "get",
-                                                data: {codAlumno: $('#codAlumno').val()},
-                                                success: function (data) {
-                                                    if (data !== false) {
-                                                        $('#dni').val(data[0]);
-                                                        $('#nombres').val(data[1]);
-                                                        $('#apellidos').val(data[2]);
-                                                        $('#fecha').val(data[3]);
-                                                        $('#ns').val(data[4]);
-                                                        $('#f').val(data[5]);
-                                                        $('#ne').val(data[6]);
-                                                    }
-                                                }
-                                            });
-                                        });
-                                    </script>
+                                <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
+                                    <span class="control-label"> Numero de Dni</span>
+                                    <input class="form-control input-sm" name="dni" type="text"
+                                           autocomplete="off" onchange=" validarDni('dni','spandni')"
+                                           placeholder="Ejem: 72978792" required id="dni">
+                                    <span style="color: red" class=" control-label" id="spandni"> </span>
+                                </div>
+                                <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm">
+                                    <span class="control-label">Nombres</span>
+                                    <input class="form-control input-sm" name="nombres" type="text"
+                                           autocomplete="off" onchange="validarNombre('nombres','spannombre')"
+                                           placeholder="Ejm:Jose Carlos" required id="nombres">
+                                    <span style="color: red" class=" control-label" id="spannombre"> </span>
+                                </div>
+                                <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
+                                    <span class="control-label">Apellidos</span>
+                                    <input class="form-control input-sm" name="apellidos" type="text"
+                                           autocomplete="off" onchange="validarNombre('apellidos','spanapellidos')"
+                                           placeholder="Ejem: Terenas Lory" required id="apellidos">
+                                    <span style="color: red" class=" control-label" id="spanapellidos"> </span>
                                 </div>
                                 <!--<div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                     <span class="control-label">Correo</span>
@@ -100,52 +95,20 @@
                         <div class="panel-heading">Datos Alumno</div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
-                                    <span class="control-label"> Numero de Dni</span>
-                                    <input class="form-control input-sm" name="dni"
-                                           autocomplete="off" onchange=" validarDni('dni','spandni')"
-                                           placeholder="Ejem: 72978792" required id="dni">
-                                    <span style="color: red" class=" control-label" id="spandni"> </span>
-                                    <script>
-                                        $('#ppppp').change(function () {
-                                            $.ajax({
-                                                url: "/buscarAlumnoDni",
-                                                type: "get",
-                                                data: {dni: $('#dni').val()},
-                                                success: function (data) {
-                                                    if (data !== false) {
-                                                        $('#codAlumno').val(data[0]);
-                                                        $('#nombres').val(data[1]);
-                                                        $('#apellidos').val(data[2]);
-                                                        $('#fecha').val(data[3]);
-                                                        $('#ns').val(data[4]);
-                                                        $('#f').val(data[5]);
-                                                        $('#ne').val(data[6]);
-                                                    }
-                                                }
-                                            });
-                                        });
-                                    </script>
-                                </div>
-                                <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm">
-                                    <span class="control-label">Nombres</span>
-                                    <input class="form-control input-sm" name="nombres"
-                                           autocomplete="off" onchange="validarNombre('nombres','spannombre')"
-                                           placeholder="Ejm:Jose Carlos" required id="nombres">
-                                    <span style="color: red" class=" control-label" id="spannombre"> </span>
-                                </div>
-                                <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
-                                    <span class="control-label">Apellidos</span>
-                                    <input class="form-control input-sm" name="apellidos"
-                                           autocomplete="off" onchange="validarNombre('apellidos','spanapellidos')"
-                                           placeholder="Ejem: Terenas Lory" required id="apellidos">
-                                    <span style="color: red" class=" control-label" id="spanapellidos"> </span>
+                                <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
+                                    <span class="control-label"> Codigo alumno</span>
+                                    <input class="form-control input-sm" name="codAlumno" type="text"
+                                           onchange="validarNumeros('codAlumno','spancodalumno')"
+                                           autocomplete="off" placeholder="Ejm: 000104499" required id="codAlumno">
+                                    <span style="color: red" class=" control-label" id="spancodalumno"> </span>
                                 </div>
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label"> Fecha matricula</span>
                                     <div class="col-sm-12 input-group date" data-provide="datepicker">
                                         <input type="text" name="fecha" class="form-control"
-                                               value="" id="fecha" required placeholder="mm/dd/yyyy">
+                                               value="<?php date_default_timezone_set('America/Lima');
+                                               $date = date('m/d/Y');
+                                               echo $date ?>" id="fecha" required>
                                         <div class="input-group-addon">
                                             <span class="glyphicon glyphicon-th"> </span>
                                         </div>
@@ -170,9 +133,9 @@
                                 </div>
                                 <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label">Escuela</span>
-                                    <input class="form-control input-sm"
+                                    <input class="form-control input-sm" type="text"
                                            placeholder="Ejm: Mecanica" name="nombreEscuela" id="ne"
-                                           required onchange="validarNombre('ne','spanescuela')">
+                                           required disabled onchange="validarNombre('ne','spanescuela')">
                                     <span style="color: red" class=" control-label" id="spanescuela"> </span>
                                     <script>
                                         src = "{{ route('searchajax') }}";
@@ -197,7 +160,7 @@
                                 </div>
                                 <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
                                     <span class="control-label">Facultad</span>
-                                    <input class="form-control input-sm" placeholder="Ingenieria" id="f" readonly>
+                                    <input class="form-control input-sm" name=" " type="text" id="f" readonly>
                                     <script>
                                         $('#ne').change(function () {
                                             $.ajax({
@@ -227,13 +190,14 @@
                     </div>
                     <div class="row " align="center">
 
-                        <a href="{{url('/Reg')}}" class="  btn btn-sm btn-danger"><span
+                        <a href="{{url('/Adm')}}" class="  btn btn-sm btn-danger"><span
                                     class="glyphicon glyphicon-ban-circle"></span>
                             Cancelar</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button
+                        <button type="submit"
+                                onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos','spancodalumno','spancodalumno','spansede','spanescuela'],'enviar','mensaje')"
                                 name="enviar" id="enviar" class=" btn btn-sm btn-success"><span
-                                    class="glyphicon glyphicon-ok"></span> Actualizar
+                                    class="glyphicon glyphicon-ok"></span> Guardar
                         </button>
                     </div>
                 </form>

@@ -391,9 +391,17 @@ Route::get('/Reg', function () {
 })->name('Reg');
 //////////////Alumno//////////////////////////
 
+Route::get('/regRegistrarEstudiante', function () {
+    return view('RegistroTecnico/Alumno/Add');
+});
 Route::get('/regActualizarEstudiante', function () {
     return view('RegistroTecnico/Alumno/Edit');
 });
+
+Route::get('/buscarAlumnoCodAlumno', 'alumnoController@buscarAlumnoCodAlumno');
+Route::get('/buscarAlumnoDni', 'alumnoController@buscarAlumnoDni');
+Route::post('AlumnoEditadoR', 'alumnoController@editarAlumnoR');
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////REPORTE////////////////////////////////////////////////////////////

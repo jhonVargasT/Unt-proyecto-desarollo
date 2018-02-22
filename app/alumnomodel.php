@@ -975,6 +975,23 @@ class alumnomodel extends personamodel
         return $idA;
     }
 
+    public function obtenercodPersona($dni)
+    {
+        try {
+            $idA = null;
+            $alumnobd = DB::select('select codPersona from persona left join alumno on persona.codPersona = alumno.idPersona where 
+        persona.codPersona = alumno.idPersona and persona.dni=:dni', ['dni' => $dni]);
+            foreach ($alumnobd as $al) {
+                $idA = $al->codPersona;
+            }
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'obtenerCodAlumnoxCodPersona/alumnomodel');
+            return null;
+        }
+        return $idA;
+    }
+
 
     public function obtenerCodProduccion($nombre)
     {

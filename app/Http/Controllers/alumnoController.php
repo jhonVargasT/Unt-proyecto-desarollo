@@ -115,6 +115,25 @@ class alumnoController extends Controller
             return view('RegistroTecnico/Alumno/Search')->with(['nombre' => $request->nombres]);
     }
 
+    public function editarAlumnoR(Request $request)
+    {
+        $valueRT = Session::get('tipoCuentaRT');
+        $alumno = new alumnomodel();
+        $alumno->setDni($request->dni);
+        $var = $alumno->obtenercodPersona($request->dni);
+        $alumno->setNombres($request->nombres);
+        $alumno->setApellidos($request->apellidos);
+        $alumno->setCodAlumno($request->codAlumno);
+        $alumno->setCorreo($request->correo);
+        $alumno->setFecha($request->fecha);
+        $idE = $alumno->bdEscuelaSede($request->nombreEscuela, $request->nombreSede);//Consular el id de la escuela a la que va a pertenecer
+        $alumno->setIdEscuela($idE);
+        $alumno->editarAlumno($var);//Ejecuta la consulta de actualizar los datos del alumno
+
+        if ($valueRT == 'Registro')
+            return view('RegistroTecnico/Alumno/Edit')->with(['nombre' => $request->nombres]);
+    }
+
     public function editarAlumnoP($codPersona, Request $request)
     {
         $valueA = Session::get('tipoCuentaA');
@@ -313,6 +332,70 @@ class alumnoController extends Controller
             $dato[2] = $n->correo;
             $dato[3] = $n->codAlumno;
             $dato[4] = $n->fecha;
+        }
+        return response()->json($dato);
+    }
+
+    public function buscarAlumnoCodAlumno(Request $request)
+    {
+        $dato = array();
+        $alumnobd = DB::select('SELECT dni,nombres,apellidos,facultad.nombre as nombref, escuela.nombre as nombree,fecha, nombresede
+            FROM
+                persona
+                    LEFT JOIN
+                alumno ON persona.codPersona = alumno.idPersona
+                     LEFT OUTER JOIN
+                escuela ON escuela.idEscuela = alumno.coEscuela
+                     LEFT OUTER JOIN
+                facultad ON facultad.idFacultad = escuela.codigoFacultad
+                     LEFT OUTER JOIN
+                sede ON sede.codSede = facultad.coSede
+            WHERE
+                persona.codPersona = alumno.idPersona
+                    AND alumno.codAlumno =:codAlumno
+                    AND persona.estado = 1
+                    AND alumno.estado = 1', ['codAlumno' => $request->codAlumno]);
+
+        foreach ($alumnobd as $n) {
+            $dato[0] = $n->dni;
+            $dato[1] = $n->nombres;
+            $dato[2] = $n->apellidos;
+            $dato[3] = $n->fecha;
+            $dato[4] = $n->nombresede;
+            $dato[5] = $n->nombref;
+            $dato[6] = $n->nombree;
+        }
+        return response()->json($dato);
+    }
+
+    public function buscarAlumnoDni(Request $request)
+    {
+        $dato = array();
+        $alumnobd = DB::select('SELECT codAlumno,nombres,apellidos,facultad.nombre as nombref, escuela.nombre as nombree,fecha, nombresede
+            FROM
+                persona
+                    LEFT JOIN
+                alumno ON persona.codPersona = alumno.idPersona
+                     LEFT OUTER JOIN
+                escuela ON escuela.idEscuela = alumno.coEscuela
+                     LEFT OUTER JOIN
+                facultad ON facultad.idFacultad = escuela.codigoFacultad
+                     LEFT OUTER JOIN
+                sede ON sede.codSede = facultad.coSede
+            WHERE
+                persona.codPersona = alumno.idPersona
+                    AND persona.dni =:dni
+                    AND persona.estado = 1
+                    AND alumno.estado = 1', ['dni' => $request->dni]);
+
+        foreach ($alumnobd as $n) {
+            $dato[0] = $n->codAlumno;
+            $dato[1] = $n->nombres;
+            $dato[2] = $n->apellidos;
+            $dato[3] = $n->fecha;
+            $dato[4] = $n->nombresede;
+            $dato[5] = $n->nombref;
+            $dato[6] = $n->nombree;
         }
         return response()->json($dato);
     }

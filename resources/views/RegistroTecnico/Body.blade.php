@@ -24,11 +24,16 @@
                                             Produccion</a>
                                     </td>
                                 </tr>-->
-
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                        <a href="/regActualizarEstudiante">Actualizar Alumno</a>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="/regActualizarEstudiante">Actualizar Alumno</a>
+                                        <a href="/regRegistrarEstudiante">Registrar Alumno</a>
                                     </td>
                                 </tr>
                                 <!--<tr>
