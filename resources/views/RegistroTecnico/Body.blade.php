@@ -17,12 +17,6 @@
                     <div id="collapseTwo" class="panel-collapse collapse">
                         <div class="panel-body">
                             <table class="table">
-                                <tr>
-                                    <td>
-                                        <span class="glyphicon glyphicon-search"></span>
-                                        <a href="/regBuscarEstudiante">Buscar Estudiantes</a>
-                                    </td>
-                                </tr>
                                 <!--<tr>
                                     <td>
                                         <span class="glyphicon glyphicon-search"></span>
@@ -34,7 +28,7 @@
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-plus"></span>
-                                        <a href="/regRegistrarEstudiante">Agregar Estudiante</a>
+                                        <a href="/regActualizarEstudiante">Actualizar Alumno</a>
                                     </td>
                                 </tr>
                                 <!--<tr>
