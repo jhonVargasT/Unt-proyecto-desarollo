@@ -101,7 +101,7 @@ class pagoController extends Controller
             if ($val == $request->text) {
                 $totalp = $total + $pago;
                 session()->put('text', $request->text);
-                $this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->pagar, $value = Session::get('misession'));
+                //$this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->pagar, $value = Session::get('misession'));
                 return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $totalp,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
                     'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato,
@@ -110,7 +110,7 @@ class pagoController extends Controller
             } else {
                 Session::forget('txt');
                 Session::put('txt', $request->text);
-                $this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->boletapagar, $value = Session::get('misession'));
+                //$this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->boletapagar, $value = Session::get('misession'));
                 return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $pago,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
                     'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato,
@@ -247,8 +247,7 @@ class pagoController extends Controller
                 persona.codPersona = alumno.idPersona
                     AND persona.dni = ' . $var . '
                     AND persona.estado = 1
-                    AND alumno.estado = 1
-                    AND sede.estado = 1');
+                    AND alumno.estado = 1');
         foreach ($nombresa as $np) {
             $dato[0] = $np->nombres;
             $dato[1] = $np->apellidos;
@@ -329,8 +328,7 @@ class pagoController extends Controller
                 persona.codPersona = alumno.idPersona
                     AND alumno.codAlumno = "' . $var . '"
                     AND persona.estado = 1
-                    AND alumno.estado = 1
-                    AND sede.estado = 1');
+                    AND alumno.estado = 1');
         foreach ($nombresa as $np) {
             $dato[0] = $np->nombres;
             $dato[1] = $np->apellidos;
