@@ -177,7 +177,6 @@ class pagoController extends Controller
         $printer = new Printer($connector);
 
         $printer->initialize();
-        $printer->setEmphasis(true);
         $printer->setJustification(Printer::JUSTIFY_LEFT);
         $this->margenArriba($printer);
         $this->formato('                ' . $contador, $printer);
