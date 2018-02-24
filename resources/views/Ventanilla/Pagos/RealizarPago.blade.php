@@ -123,7 +123,7 @@
                                                 type: "get",
                                                 data: {name: id},
                                                 success: function (data) {
-                                                    if (data == false) {
+                                                    if (data === false) {
                                                         $.ajax({
                                                             url: '/buscarNombresDR',
                                                             type: "get",
@@ -131,18 +131,18 @@
                                                             success: function (data) {
                                                                 $('#nombres').val(data[0]);
                                                                 $('#apellidos').val(data[1]);
-                                                                $('#escuela').val('');
+                                                                /*$('#escuela').val('');
                                                                 $('#facultad').val('');
                                                                 $('#sede').val('');
                                                                 document.getElementById("selectP").disabled = true;
-                                                                document.getElementById("selectP").required = false;
+                                                                document.getElementById("selectP").required = false;*/
                                                             }
                                                         });
                                                     }
                                                     else {
                                                         $('#nombres').val(data[0]);
                                                         $('#apellidos').val(data[1]);
-                                                        $('#escuela').val(data[2]);
+                                                        /*$('#escuela').val(data[2]);
                                                         $('#facultad').val(data[3]);
                                                         $('#sede').val(data[4]);
                                                         if (data[5][0] === null) {
@@ -158,7 +158,7 @@
                                                                 document.getElementById("selectP").disabled = false;
                                                                 $('#selectP').append($('<option>').text(data[4][i]));
                                                             }
-                                                        }
+                                                        }*/
                                                     }
                                                 }
                                             });
@@ -185,7 +185,7 @@
                                                             $('#escuela').val(data[2]);
                                                             $('#facultad').val(data[3]);
                                                             $('#sede').val(data[4]);
-                                                            if (data[5][0] === null) {
+                                                            /*if (data[5][0] === null) {
                                                                 $("#selectP").empty();
                                                                 document.getElementById("selectP").disabled = true;
                                                                 document.getElementById("selectP").required = false;
@@ -197,7 +197,7 @@
                                                                     document.getElementById("selectP").disabled = false;
                                                                     $('#selectP').append($('<option>').text(data[4][i]));
                                                                 }
-                                                            }
+                                                            }*/
                                                         }
                                                     });
                                                 }
