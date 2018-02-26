@@ -101,7 +101,7 @@ class pagoController extends Controller
             if ($val == $request->text) {
                 $totalp = $total + $pago;
                 session()->put('text', $request->text);
-                //$this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->pagar, $value = Session::get('misession'));
+                $this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->pagar, $value = Session::get('misession'));
                 return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $totalp,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
                     'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato,
@@ -110,7 +110,7 @@ class pagoController extends Controller
             } else {
                 Session::forget('txt');
                 Session::put('txt', $request->text);
-                //$this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->boletapagar, $value = Session::get('misession'));
+                $this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->boletapagar, $value = Session::get('misession'));
                 return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $pago,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
                     'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato,
@@ -128,29 +128,29 @@ class pagoController extends Controller
         $aux2 = array();
         $count = strlen($var);
         for ($a = 0; $a < $count; $a++) {
-            if ($a < 46) {
+            if ($a < 69) {
                 $aux[$a] = $var[$a];
             }
-            if ($a > 45) {
+            if ($a > 68) {
                 $aux2[$a] = $var[$a];
             }
         }
         $numletras = count($aux);
         $numletras2 = count($aux2);
-        $espacios = abs($numletras - 49);
+        $espacios = abs($numletras - 71);
         //echo implode("", $aux);
         $conector->text(implode("", $aux));
         //echo str_repeat(" ", $espacios + 20);
-        $conector->text(str_repeat(" ", $espacios + 1));
+        $conector->text(str_repeat(" ", $espacios + 20));
         //echo implode("", $aux);
         $conector->text(implode("", $aux));
         if ($numletras2 != null) {
             $conector->text("\n");
-            $espacios2 = abs($numletras2 - 49);
+            $espacios2 = abs($numletras2 - 71);
             //echo implode("", $aux2);
             $conector->text(implode("", $aux2));
             //echo str_repeat(" ", $espacios2 + 20);
-            $conector->text(str_repeat(" ", $espacios2 + 1));
+            $conector->text(str_repeat(" ", $espacios2 + 20));
             //echo implode("", $aux2);
             $conector->text(implode("", $aux2));
         }
@@ -166,14 +166,14 @@ class pagoController extends Controller
 
     function margenAbajo($conector)
     {
-        $conector->text(str_repeat("\n", 5));
+        $conector->text(str_repeat("\n", 6));
     }
 
     public function imprimirBoleta($contador, $siaf, $nombres, $apellidos, $escuela, $concepto, $detalle, $fecha, $monto, $personal)
     {
         //cconnector = new FilePrintConnector("/dev/usb/lp0");
         //$connector = new NetworkPrintConnector("192.168.3.109", 9100);
-        $connector = new WindowsPrintConnector("EPSON FX-890");
+        $connector = new WindowsPrintConnector("EPSON FX-890 2");
         $printer = new Printer($connector);
 
         $printer->initialize();
@@ -186,7 +186,7 @@ class pagoController extends Controller
         $this->formato('APELLIDOS: ' . $apellidos, $printer);
         $this->formato('ESCUELA:   ' . $escuela, $printer);
         $count = $this->formato('CONCEPTO:  ' . $concepto, $printer);
-        if ($count < 47) {
+        if ($count < 69) {
             $printer->text("\n");
         }
         if ($detalle !== ' ') {
@@ -197,7 +197,7 @@ class pagoController extends Controller
         $time = strtotime($fecha);
         $newformat = date('d-m-Y H:i:s', $time);
         $this->formato('FECHA:     ' . $newformat, $printer);
-        $this->formato('MONTO:     S/. ' . $monto, $printer);
+        $this->formato('MONTO:     S/  ' . $monto, $printer);
         $this->formato('           ' . $letras = NumeroALetras::convertir($monto, 'SOLES', 'CENTIMOS'), $printer);
         $this->formato('CAJERO:    ' . $personal, $printer);
         $this->margenAbajo($printer);
