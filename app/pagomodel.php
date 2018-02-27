@@ -2062,13 +2062,36 @@ class pagomodel
         return $pago;
     }
 
-    public function listarPagosPersonal($codPersonal)
+    /*public function listarPagosPersonal($codPersonal)
     {
         try {
             date_default_timezone_set('America/Lima');
             $date = date('Y-m-d');
             $pago = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,st.codigoSubtramite 
             as codigoSubtramite, st.nombre,sum((cantidad*precio)) as precio, count(po.codPago) as nurPagos , p.nombres as pnombres, p.apellidos as papellidos
+                            FROM tramite as tr
+                            LEFT JOIN subtramite st ON (tr.codTramite = st.idTramite)
+                            LEFT JOIN pago po ON (st.codSubtramite=po.idSubtramite )
+                            LEFT JOIN personal pl ON (pl.idPersonal=po.coPersonal )
+                            LEFT JOIN persona p ON (pl.idPersona = p.codPersona )
+                            where po.fecha like "%' . $date . '%"  and idProduccionAlumno is null and pl.codPersonal="' . $codPersonal . '" and po.estado =1
+            and po.modalidad = "ventanilla" or po.modalidad = "banco"
+                            group by (st.codSubtramite) order by (tr.nombre)');
+        } catch (PDOException $e) {
+            $util = new util();
+            $util->insertarError($e->getMessage(), 'listarPagosPersonal/pagomodel');
+            return null;
+        }
+        return $pago;
+    }*/
+
+    public function listarPagosPersonal($codPersonal)
+    {
+        try {
+            date_default_timezone_set('America/Lima');
+            $date = date('Y-m-d');
+            $pago = DB::select('SELECT tr.clasificador as clasificadorsiaf, tr.nombre as nombreTramite,
+            sum((cantidad*precio)) as precio, count(po.codPago) as nurPagos , p.nombres as pnombres, p.apellidos as papellidos
                             FROM tramite as tr
                             LEFT JOIN subtramite st ON (tr.codTramite = st.idTramite)
                             LEFT JOIN pago po ON (st.codSubtramite=po.idSubtramite )

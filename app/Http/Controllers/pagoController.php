@@ -417,8 +417,6 @@ class pagoController extends Controller
                                         $data[] = array(
                                             "Clasificador" => $p->clasificadorsiaf,
                                             "Nombre de Clasificador" => $p->nombreTramite,
-                                            "Codigo Tasa" => $p->codigoSubtramite,
-                                            "Tasa" => $p->nombre,
                                             "Total" => $p->precio,
                                             "Numero de Pagos" => $p->nurPagos,
                                         );
@@ -476,7 +474,7 @@ class pagoController extends Controller
                                         $cell->setAlignment('center');
                                     });
 
-                                    $sheet->cell('E4', function ($cell) {
+                                    $sheet->cell('B5', function ($cell) {
                                         $cell->setFont(array(
                                             'family' => 'Arial',
                                             'size' => '12',
@@ -486,8 +484,7 @@ class pagoController extends Controller
                                         $cell->setAlignment('center');
                                     });
 
-                                    $sheet->mergeCells('F4:G4');
-                                    $sheet->cell('F4', function ($cell) use ($usuario) {
+                                    $sheet->cell('C5', function ($cell) use ($usuario) {
                                         $cell->setFont(array(
                                             'family' => 'Arial',
                                             'size' => '12',
@@ -498,7 +495,7 @@ class pagoController extends Controller
                                     });
 
                                     //total
-                                    $sheet->cell('F6', function ($cell) {
+                                    $sheet->cell('D6', function ($cell) {
                                         $cell->setFont(array(
                                             'family' => 'Arial',
                                             'size' => '12',
@@ -507,10 +504,10 @@ class pagoController extends Controller
                                         $cell->setValue('Total de ingresos :');
                                         $cell->setAlignment('right');
                                     });
-                                    $sheet->cell('G6', function ($cell) use ($total) {
+                                    $sheet->cell('E6', function ($cell) use ($total) {
                                         $cell->setValue($total);
                                     });
-                                    $sheet->cells('G6', function ($cells) {
+                                    $sheet->cells('E6', function ($cells) {
                                         $cells->setFont(array(
                                             'family' => 'Arial',
                                             'size' => '12'
@@ -520,7 +517,7 @@ class pagoController extends Controller
 
                                     //*************************************************
                                     //*******************cabecera de tabla
-                                    $sheet->cells('B7:G7', function ($cells) {
+                                    $sheet->cells('B7:E7', function ($cells) {
                                         $cells->setBackground('#006600');
                                         $cells->setFont(array(
                                             'family' => 'Arial',
@@ -544,49 +541,11 @@ class pagoController extends Controller
                                         ));
                                         $cells->setAlignment('center');
                                     });
-
-                                    $sheet->cells('G7:G' . ($cont + 7) . '', function ($cells) {
-                                        $cells->setFont(array(
-                                            'family' => 'Arial',
-                                            'size' => '12'
-                                        ));
-                                        $cells->setAlignment('center');
-                                    });
-                                    $sheet->cells('G7:G' . ($cont + 7) . '', function ($cells) {
-                                        $cells->setFont(array(
-                                            'family' => 'Arial',
-                                            'size' => '12'
-                                        ));
-                                        $cells->setAlignment('center');
-                                    });
-                                    $sheet->cells('G7:G' . ($cont + 7) . '', function ($cells) {
-                                        $cells->setFont(array(
-                                            'family' => 'Arial',
-                                            'size' => '12'
-                                        ));
-                                        $cells->setAlignment('center');
-                                    });
-                                    $sheet->cells('G7:G' . ($cont + 7) . '', function ($cells) {
-                                        $cells->setFont(array(
-                                            'family' => 'Arial',
-                                            'size' => '12'
-                                        ));
-                                        $cells->setAlignment('center');
-                                    });
-                                    $sheet->cells('G7:G' . ($cont + 7) . '', function ($cells) {
-                                        $cells->setFont(array(
-                                            'family' => 'Arial',
-                                            'size' => '12'
-                                        ));
-                                        $cells->setAlignment('center');
-                                    });
                                     //bordes de la hoja
                                     $sheet->setBorder('B7:B' . ($cont + 7) . '');
                                     $sheet->setBorder('C7:C' . ($cont + 7) . '');
                                     $sheet->setBorder('D7:D' . ($cont + 7) . '');
                                     $sheet->setBorder('E7:E' . ($cont + 7) . '');
-                                    $sheet->setBorder('F7:F' . ($cont + 7) . '');
-                                    $sheet->setBorder('G7:G' . ($cont + 7) . '');
                                     //ubicacion de la data
                                     $sheet->fromArray($data, null, 'B7', false);
                                     //nombre de hoja
