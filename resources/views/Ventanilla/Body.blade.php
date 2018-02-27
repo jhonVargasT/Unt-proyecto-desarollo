@@ -19,7 +19,7 @@
                             <table class="table">
                                 <tr>
                                     <td>
-                                        <i class="icomoon icon-coin"></i>
+                                        <i class="glyphicon glyphicon-usd"></i>
                                         <a href="/ventRelizarPago">Realizar pago</a>
                                     </td>
                                 </tr>
@@ -27,6 +27,12 @@
                                     <td>
                                         <i class="glyphicon glyphicon-list-alt"></i>
                                         <a href="/ventReportPago">Mostrar pagos</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <i class="glyphicon glyphicon-usd"></i>
+                                        <a href="/ventPagoPasado">Realizar pago pasado</a>
                                     </td>
                                 </tr>
                             </table>

@@ -307,7 +307,6 @@ Route::get('PagoImprimir/{codPago}/{estadoimprimir}', 'PdfController@PagosBoleta
 Route::get('PagoImprimirO/{codPago}/{estadoimprimir}', 'PdfController@PagosBoletaAlumnoO');
 Route::get('/BoletaVirtual/{codPago}', 'PdfController@BoletaVirtual');
 
-
 Route::get('PagoDeuda/{codPago}', 'pagoController@eliminarDeuda');
 Route::get('ventBoleta', 'PdfController@PagosBoleta');
 Route::resource('datos', 'pagoController@obtenerDatos');
@@ -338,6 +337,14 @@ Route::get('precioSubtramite', 'pagoController@precioSubtramite');
 
 Route::get('/nombreSCT', 'subtramiteController@nombreSCT');
 Route::get('/codigoSubtramite', 'subtramiteController@codigoSubtramite');
+///////////////////////////////////////////////PAGO-PASADO//////////////////////////////////////////////////////////////
+
+Route::get('/ventPagoPasado', function () {
+    return view('Ventanilla/Pagos/PagoPasado');
+});
+
+Route::resource('/pagarpasado', 'pagoController@registrarPagoPasado');
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

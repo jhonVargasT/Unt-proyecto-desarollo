@@ -11,6 +11,7 @@ use App\personamodel;
 use App\sedemodel;
 use App\subtramitemodel;
 use App\tramitemodel;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -77,6 +78,15 @@ class pagoController extends Controller
             $p->setModalidad('ventanilla');
             $p->setDetalle($request->detalle);
         }
+
+        /*if ($request->fecha) {
+            //$fecha = date_format($request->fecha, "Y-m-d 00:00:00");
+            $fecha = date_format(new DateTime($request->fecha), 'Y-m-d 00:00:00');
+            $p->setFecha($fecha);
+        } else {
+            $p->setFecha($dato);
+        }*/
+
         $p->setFecha($dato);
         $idper = Session::get('idpersonal', 'No existe session');
         $p->setCoPersonal($idper);
@@ -115,7 +125,107 @@ class pagoController extends Controller
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
                     'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato,
                     'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select,
-                    'tasa' => $request->subtramite , 'true'=>"Pago guardado con exito"]);
+                    'tasa' => $request->subtramite, 'true' => "Pago guardado con exito"]);
+            }
+        } else {
+            return back()->with(['false' => "Pago guardado con exito"]);
+        }
+    }
+
+    public function registrarPagoPasado(Request $request)
+    {
+        $csiaf = null;
+        $cont = 0;
+        $pers = new personamodel();
+        $cli = new clientemodel();
+        $al = new alumnomodel();
+        $subt = new subtramitemodel();
+        $codper = null;
+        $codSubtramite = null;
+        if ($request->select == 'Dni') {
+            $codper = $pers->obtnerIdDni($request->text);//SQL, obtener datos de la persona por su dni
+        } else {
+            if ($request->select == 'Ruc') {
+                $codper = $cli->consultarClienteRUC($request->text);//SQL, obtener datos del cliente por su ruc
+            } else {
+                if ($request->select == 'Codigo de alumno') {
+                    $codper = $al->consultaridPersonaAlumno($request->text);//SQL, obtener datos del alumno por su codigo de alumno
+                }
+            }
+        }
+        if ($request->subtramite) {//si existe nombre de la tasa
+            $codSubtramite = $subt->consultarSubtramiteidNombre($request->subtramite);//SQL, obtener id de la tasa por nombre de tasa
+            $csiaf = $subt->consultarSiafNombreSubtramite($request->subtramite);//SQL, obtener clasificador siaf por el nombre de tasa
+            $cont = $this->contadorSubtramite($request->subtramite);//SQL, obtener contador de la tasa por nombre de tasa
+        } elseif ($request->txtsub) {//si existe codigo de la tasa
+            $codSubtramite = $subt->consultarSubtramiteidNombre($request->txtsub);//SQL, obtener id de la tasa por nombre de tasa
+            $csiaf = $subt->consultarSiafNombreSubtramite($request->txtsub);//SQL, obtener clasificador siaf por el nombre de tasa
+            $cont = $this->contadorSubtramite($request->txtsub);//SQL, obtener contador de la tasa por nombre de tasa
+        }
+        $codigoS = $subt->consultarCodigoSubtramiteCodSubtramite($codSubtramite);//SQL, obtener codigoSubtramite de la tasa por su id de tasa
+        date_default_timezone_set('America/Lima');
+        $dato = date('Y-m-d H:i:s');
+        $pago = $request->pagar;
+        $total = $request->total;
+        $cantidad = $request->multiplicador;
+        $p = new pagomodel();
+        if ($request->voucher) {
+            $vfecha = $request->vfecha;
+            $fecha = date('Y-m-d', strtotime($vfecha));
+            $p->setNroVoucher($request->voucher);
+            $p->setNroCuenta($request->vcuenta);
+            $p->setModalidad('banco');
+            if ($request->detalle) {
+                $p->setDetalle($request->detalle . '-' . $request->voucher . '-' . $request->vcuenta . '/' . $fecha);
+            } else {
+                $p->setDetalle($request->voucher . '-' . $request->vcuenta . '/' . $fecha);
+            }
+        } else {
+            $p->setModalidad('ventanilla');
+            $p->setDetalle($request->detalle);
+        }
+
+        //$fecha = date_format($request->fecha, "Y-m-d 00:00:00");
+        $fecha = date_format(new DateTime($request->fecha), 'Y-m-d 00:00:00');
+        $p->setFecha($fecha);
+        $idper = Session::get('idpersonal', 'No existe session');
+        $p->setCoPersonal($idper);
+        $p->setIdPersona($codper);
+        $p->setIdSubtramite($codSubtramite);
+        $p->setCantidad($cantidad);
+        if ($request->selectP) {
+            $cpro = $al->bdProduccion($request->selectP);
+            $cod = $al->obtenerCodAlumnoxCodPersona($codper);
+            $ipa = $p->obteneridProduccionAlumno($cpro, $cod);
+            $p->setIdProduccionAlumno($ipa);
+        }
+        $contaux = $cont + 1;
+        if ($request->checkbox == 1) {
+            $p->setDeuda(1);
+        }
+        $valid = $p->savePago($contaux);//SQL, insersion del pago
+        $contador = $codigoS . '-' . $contaux;
+        $buscar = $request->text;
+        $val = Session::get('txt', 'No existe session');
+        if ($valid == true) {
+            if ($val == $request->text) {
+                $totalp = $total + $pago;
+                session()->put('text', $request->text);
+                //$this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->pagar, $value = Session::get('misession'));
+                return view('/Ventanilla/Pagos/PagoPasado')->with(['buscar' => $buscar, 'total' => $totalp,
+                    'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
+                    'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato,
+                    'boleta' => $request->pagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select,
+                    'tasa' => $request->subtramite, 'true' => "Pago guardado con exito"]);
+            } else {
+                Session::forget('txt');
+                Session::put('txt', $request->text);
+                //$this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->boletapagar, $value = Session::get('misession'));
+                return view('/Ventanilla/Pagos/PagoPasado')->with(['buscar' => $buscar, 'total' => $pago,
+                    'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
+                    'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato,
+                    'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select,
+                    'tasa' => $request->subtramite, 'true' => "Pago guardado con exito"]);
             }
         } else {
             return back()->with(['false' => "Pago guardado con exito"]);

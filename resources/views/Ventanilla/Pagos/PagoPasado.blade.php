@@ -6,7 +6,7 @@
                 <tr>
                     <td>
                         <i class="glyphicon glyphicon-usd"></i>
-                        <a href="/ventRelizarPago" style="color: #509f0c" target="_top">Realizar pago</a>
+                        <a href="/ventRelizarPago">Realizar pago</a>
                     </td>
                 </tr>
                 <tr>
@@ -18,7 +18,7 @@
                 <tr>
                     <td>
                         <i class="glyphicon glyphicon-usd"></i>
-                        <a href="/ventPagoPasado">Realizar pago pasado</a>
+                        <a href="/ventPagoPasado" style="color: #509f0c" target="_top">Realizar pago pasado</a>
                     </td>
                 </tr>
             </table>
@@ -48,35 +48,35 @@
                     })
                 });
             </script>
-            <form name="form" action="{{url('/pagar')}}" role="Form" method="POST" class="Vertical">
+            <form name="form" action="{{url('/pagarpasado')}}" role="Form" method="POST" class="Vertical">
                 {{csrf_field()}}
                 <div class="col-sm-12">
-                    <div class="col-sm-12 row form-group">
-                        <div class="form-group-sm">
-                            <span class="col-sm-2">Voucher?</span>
-                            <div class="col-sm-4">
-                                <input type="checkbox" id="cvoucher">
-                            </div>
-                            <script>
-                                $(document).ready(function () {
-                                    $('#cvoucher').change(function () {
-                                        if (this.checked) {
-                                            $('#dvoucher').fadeIn('slow');
-                                            document.getElementById("vfecha").required = true;
-                                            document.getElementById("vcuenta").required = true;
-                                            document.getElementById("voucher").required = true;
-                                        }
-                                        else {
-                                            $('#dvoucher').fadeOut('slow');
-                                            document.getElementById("vfecha").required = false;
-                                            document.getElementById("vcuenta").required = false;
-                                            document.getElementById("voucher").required = false;
-                                        }
-                                    });
-                                });
-                            </script>
+                    <!--<div class="col-sm-12 row form-group">
+                    <div class="form-group-sm">
+                        <span class="col-sm-2">Voucher?</span>
+                        <div class="col-sm-4">
+                            <input type="checkbox" id="cvoucher">
                         </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#cvoucher').change(function () {
+                                    if (this.checked) {
+                                        $('#dvoucher').fadeIn('slow');
+                                        document.getElementById("vfecha").required = true;
+                                        document.getElementById("vcuenta").required = true;
+                                        document.getElementById("voucher").required = true;
+                                    }
+                                    else {
+                                        $('#dvoucher').fadeOut('slow');
+                                        document.getElementById("vfecha").required = false;
+                                        document.getElementById("vcuenta").required = false;
+                                        document.getElementById("voucher").required = false;
+                                    }
+                                });
+                            });
+                        </script>
                     </div>
+                </div>-->
                     <div class="col-sm-12 row form-group">
                         <div class="form-group-sm " align="right">
                             <div class="col-sm-2">
@@ -368,6 +368,17 @@
                                           id="detalle"></textarea>
                             </div>
                         </div>
+                        <div class="form-group-sm">
+                            <span class="col-sm-2">Fecha:</span>
+                            <div class="col-sm-4">
+                                <div class="input-group date" data-provide="datepicker">
+                                    <input class="form-control" name="fecha" required>
+                                    <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-th"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div id="dvoucher" hidden>
                         <div class="col-sm-12 row form-group">
@@ -382,7 +393,7 @@
                                 <span class="col-sm-2">Fecha</span>
                                 <div class="col-sm-4">
                                     <div class="col-sm-12 input-group date" data-provide="datepicker">
-                                        <input type="text" name="vfecha" class="form-control" id="vfecha"
+                                        <input name="vfecha" class="form-control" id="vfecha" required
                                                value="<?php date_default_timezone_set('America/Lima');
                                                $date = date('m/d/Y');
                                                echo $date ?>">
