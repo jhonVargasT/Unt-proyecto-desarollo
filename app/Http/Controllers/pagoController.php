@@ -79,14 +79,6 @@ class pagoController extends Controller
             $p->setDetalle($request->detalle);
         }
 
-        /*if ($request->fecha) {
-            //$fecha = date_format($request->fecha, "Y-m-d 00:00:00");
-            $fecha = date_format(new DateTime($request->fecha), 'Y-m-d 00:00:00');
-            $p->setFecha($fecha);
-        } else {
-            $p->setFecha($dato);
-        }*/
-
         $p->setFecha($dato);
         $idper = Session::get('idpersonal', 'No existe session');
         $p->setCoPersonal($idper);
@@ -111,7 +103,7 @@ class pagoController extends Controller
             if ($val == $request->text) {
                 $totalp = $total + $pago;
                 session()->put('text', $request->text);
-                $this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->pagar, $value = Session::get('misession'));
+                //$this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->pagar, $value = Session::get('misession'));
                 return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $totalp,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
                     'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato,
@@ -120,7 +112,7 @@ class pagoController extends Controller
             } else {
                 Session::forget('txt');
                 Session::put('txt', $request->text);
-                $this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->boletapagar, $value = Session::get('misession'));
+                //$this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->boletapagar, $value = Session::get('misession'));
                 return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $pago,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
                     'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato,
@@ -185,7 +177,6 @@ class pagoController extends Controller
             $p->setDetalle($request->detalle);
         }
 
-        //$fecha = date_format($request->fecha, "Y-m-d 00:00:00");
         $fecha = date_format(new DateTime($request->fecha), 'Y-m-d 00:00:00');
         $p->setFecha($fecha);
         $idper = Session::get('idpersonal', 'No existe session');
@@ -236,34 +227,42 @@ class pagoController extends Controller
     {
         $aux = array();
         $aux2 = array();
+        //$aux3 = array();
+
         $count = strlen($var);
         for ($a = 0; $a < $count; $a++) {
             if ($a < 69) {
                 $aux[$a] = $var[$a];
             }
-            if ($a > 68) {
+            if ($a > 68 && $a < 138) {
                 $aux2[$a] = $var[$a];
             }
+            /*if ($a > 67) {
+                $aux3[$a] = $var[$a];
+            }*/
         }
         $numletras = count($aux);
         $numletras2 = count($aux2);
+        //$numletras3 = count($aux3);
+
         $espacios = abs($numletras - 71);
-        //echo implode("", $aux);
         $conector->text(implode("", $aux));
-        //echo str_repeat(" ", $espacios + 20);
         $conector->text(str_repeat(" ", $espacios + 20));
-        //echo implode("", $aux);
         $conector->text(implode("", $aux));
         if ($numletras2 != null) {
             $conector->text("\n");
             $espacios2 = abs($numletras2 - 71);
-            //echo implode("", $aux2);
             $conector->text(implode("", $aux2));
-            //echo str_repeat(" ", $espacios2 + 20);
             $conector->text(str_repeat(" ", $espacios2 + 20));
-            //echo implode("", $aux2);
             $conector->text(implode("", $aux2));
         }
+        /* if ($numletras3 != null) {
+             $conector->text("\n");
+             $espacios3 = abs($numletras3 - 71);
+             $conector->text(implode("", $aux3));
+             $conector->text(str_repeat(" ", $espacios3 + 20));
+             $conector->text(implode("", $aux3));
+         }*/
         $conector->text("\n");
         return $numletras;
     }
@@ -281,13 +280,11 @@ class pagoController extends Controller
 
     public function imprimirBoleta($contador, $siaf, $nombres, $apellidos, $escuela, $concepto, $detalle, $fecha, $monto, $personal)
     {
-        //cconnector = new FilePrintConnector("/dev/usb/lp0");
-        //$connector = new NetworkPrintConnector("192.168.3.109", 9100);
         $connector = new WindowsPrintConnector("EPSON FX-890 2");
         $printer = new Printer($connector);
 
         $printer->initialize();
-        $printer->setEmphasis(true);
+        //$printer->setEmphasis(true);
         $printer->setJustification(Printer::JUSTIFY_LEFT);
         $this->margenArriba($printer);
         $this->formato('                ' . $contador, $printer);
