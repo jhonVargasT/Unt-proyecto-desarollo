@@ -360,13 +360,13 @@ class pagomodel
             $logunt->setCodigoPersonal($codPers);
             try {
                 DB::transaction(function () use ($logunt, $contaux) {
-                    if ($this->deuda == 0) {
-                        DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal, 'idProduccionAlumno' => $this->idProduccionAlumno, 'cantidad' => $this->cantidad, 'nroVoucher' => $this->nroVoucher, 'nroCuenta' => $this->nroCuenta]);
-                        DB::table('subtramite')->where('codSubtramite', $this->idSubtramite)->update(['contador' => $contaux]);
-                    } elseif ($this->deuda != 0) {
+                    //if ($this->deuda == 0) {
+                    DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal, 'idProduccionAlumno' => $this->idProduccionAlumno, 'cantidad' => $this->cantidad, 'nroVoucher' => $this->nroVoucher, 'nroCuenta' => $this->nroCuenta]);
+                    DB::table('subtramite')->where('codSubtramite', $this->idSubtramite)->update(['contador' => $contaux]);
+                    /*} elseif ($this->deuda != 0) {
                         DB::table('pago')->insert(['detalle' => $this->detalle, 'fecha' => $this->fecha, 'modalidad' => $this->modalidad, 'idPersona' => $this->idPersona, 'idSubtramite' => $this->idSubtramite, 'coPersonal' => $this->coPersonal, 'estadodeuda' => $this->deuda, 'cantidad' => $this->cantidad, 'nroVoucher' => $this->nroVoucher, 'nroCuenta' => $this->nroCuenta]);
                         DB::table('subtramite')->where('codSubtramite', $this->idSubtramite)->update(['contador' => $contaux]);
-                    }
+                    }*/
                     $logunt->saveLogUnt();
                 });
             } catch (PDOException $e) {

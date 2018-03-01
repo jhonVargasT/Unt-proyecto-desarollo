@@ -62,21 +62,23 @@ class pagoController extends Controller
         $pago = $request->pagar;
         $total = $request->total;
         $cantidad = $request->multiplicador;
+        $detalle = $request->detalle;
+        $voucher = $request->voucher;
         $p = new pagomodel();
-        if ($request->voucher) {
+        if ($voucher) {
             $vfecha = $request->vfecha;
             $fecha = date('Y-m-d', strtotime($vfecha));
-            $p->setNroVoucher($request->voucher);
+            $p->setNroVoucher($voucher);
             $p->setNroCuenta($request->vcuenta);
             $p->setModalidad('banco');
-            if ($request->detalle) {
-                $p->setDetalle($request->detalle . '-' . $request->voucher . '-' . $request->vcuenta . '/' . $fecha);
+            if ($detalle) {
+                $p->setDetalle($detalle . '-' . $voucher . '-' . $request->vcuenta . '/' . $fecha);
             } else {
-                $p->setDetalle($request->voucher . '-' . $request->vcuenta . '/' . $fecha);
+                $p->setDetalle($voucher . '-' . $request->vcuenta . '/' . $fecha);
             }
         } else {
             $p->setModalidad('ventanilla');
-            $p->setDetalle($request->detalle);
+            $p->setDetalle($detalle);
         }
 
         $p->setFecha($dato);
@@ -103,20 +105,20 @@ class pagoController extends Controller
             if ($val == $request->text) {
                 $totalp = $total + $pago;
                 session()->put('text', $request->text);
-                $this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->pagar, $value = Session::get('misession'));
+                //$this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->pagar, $value = Session::get('misession'));
                 return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $totalp,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
                     'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato,
-                    'boleta' => $request->pagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select,
+                    'boleta' => $request->pagar, 'siaf' => $csiaf, 'contador' => $contador, 'selected' => $request->select,
                     'tasa' => $request->subtramite, 'true' => "Pago guardado con exito"]);
             } else {
                 Session::forget('txt');
                 Session::put('txt', $request->text);
-                $this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->boletapagar, $value = Session::get('misession'));
+                //$this->imprimirBoleta($contador, $csiaf, $request->nombres, $request->apellidos, $request->escuela, $request->subtramite, $request->detalle, $dato, $request->boletapagar, $value = Session::get('misession'));
                 return view('/Ventanilla/Pagos/RealizarPago')->with(['buscar' => $buscar, 'total' => $pago,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
                     'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato,
-                    'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select,
+                    'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador, 'selected' => $request->select,
                     'tasa' => $request->subtramite, 'true' => "Pago guardado con exito"]);
             }
         } else {
