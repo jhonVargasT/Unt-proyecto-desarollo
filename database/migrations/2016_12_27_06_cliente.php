@@ -21,7 +21,7 @@ class Cliente extends Migration
             $table->collate = 'utf8_spanish_ci';
 
             $table ->increments('codCliente')->unique();
-            $table ->string('ruc')->nullable()->unique();
+            $table ->string('ruc')->nullable();
             $table -> string('razonSocial')->nullable();
             $table -> boolean('estado')->default('1');
 
