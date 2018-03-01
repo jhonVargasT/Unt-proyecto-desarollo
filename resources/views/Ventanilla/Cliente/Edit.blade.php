@@ -7,7 +7,7 @@
                 @if($cliente)
                     @foreach($cliente as $c)
                         <form name="form"
-                              onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos','spanemail'],'enviar','mensaje')"
+                              onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos'],'enviar','mensaje')"
                               action="{{ url('ClienteEditado/' .$c->codPersona ) }}" role="form"
                               method="GET" class="Vertical">
                             {{csrf_field()}}
@@ -37,13 +37,13 @@
                                                    placeholder="Ejem: Terenas Lory" required value="{{$c->apellidos}}">
                                             <span style="color: red" class=" control-label" id="spanapellidos"></span>
                                         </div>
-                                        <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
+                                        <!--<div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                             <span class="control-label">Correo</span>
                                             <input class="form-control input-sm" id="correo" name="correo" type="email"
                                                    autocomplete="off" onchange="validarCorreo('correo','spanemail')"
                                                    required value="{{$c->correo}}">
                                             <span style="color: red" class=" control-label" id="spanemail"></span>
-                                        </div>
+                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +82,7 @@
                                 </div>
                                 <div>
                                     <button href="" type="submit" name="enviar" id="enviar"
-                                            onmouseover="activarbotonform(event,['spandni','spannombre','spanapellidos','spanemail'],'enviar','mensaje')"
+                                            onmouseover="activarbotonform(event,['spandni','spannombre','spanapellidos'],'enviar','mensaje')"
                                             class="col-md-2 btn btn-sm btn-success"><span
                                                 class="glyphicon glyphicon-ok"></span> Guardar
                                     </button>

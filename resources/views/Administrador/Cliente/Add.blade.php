@@ -31,7 +31,7 @@
                 <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
             @endif
             <form name="form"
-                  onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos','spanemail'],'enviar','mensaje')"
+                  onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos'],'enviar','mensaje')"
                   action="{{url('ClienteRegistrado')}}" role="form" method="POST" class="Horizontal">
                 {{csrf_field()}}
                 <div class="panel panel-primary">
@@ -117,7 +117,7 @@
                         Cancelar</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <button type="submit" id="enviar"
-                            onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos','spanemail'],'enviar','mensaje')"
+                            onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos'],'enviar','mensaje')"
                             name="enviar" class=" btn btn-sm btn-success"><span
                                 class="glyphicon glyphicon-ok"></span> Guardar
                     </button>
