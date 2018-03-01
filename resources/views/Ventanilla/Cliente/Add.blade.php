@@ -30,7 +30,7 @@
                 <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
             @endif
             <form name="form"
-                  onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos','spanemail'],'enviar','mensaje')"
+                  onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos'],'enviar','mensaje')"
                   action="{{url('ClienteRegistrado')}}" role="form" method="POST" class="Horizontal">
                 {{csrf_field()}}
                 <div class="panel panel-primary">
@@ -76,12 +76,12 @@
                                        placeholder="Ejem: Terenas Lory" required id="apellidos">
                                 <span style="color: red" class=" control-label" id="spanapellidos"> </span>
                             </div>
-                            <div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
+                            <!--<div class="col-sm-2 col-xs-2 col-lg-2 form-group-sm">
                                 <span class="control-label">Correo</span>
                                 <input class="form-control input-sm" name="correo" type="email" id="email"
                                        autocomplete="off" onchange="validarCorreo('email','spanemail')" required>
                                 <span style="color: red" class=" control-label" id="spanemail"> </span>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                         Cancelar</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <button type="submit" id="enviar"
-                            onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos','spanemail'],'enviar','mensaje')"
+                            onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos'],'enviar','mensaje')"
                             name="enviar" class=" btn btn-sm btn-success"><span
                                 class="glyphicon glyphicon-ok"></span> Guardar
                     </button>

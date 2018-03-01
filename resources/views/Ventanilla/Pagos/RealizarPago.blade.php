@@ -129,7 +129,7 @@
                                                 type: "get",
                                                 data: {name: id},
                                                 success: function (data) {
-                                                    if (data === false) {
+                                                    if (data == false) {
                                                         $.ajax({
                                                             url: '/buscarNombresDR',
                                                             type: "get",
