@@ -2099,7 +2099,7 @@ class pagomodel
                             LEFT JOIN persona p ON (pl.idPersona = p.codPersona )
                             where po.fecha like "%' . $date . '%"  and idProduccionAlumno is null and pl.codPersonal="' . $codPersonal . '" and po.estado =1
             and po.modalidad = "ventanilla" or po.modalidad = "banco"
-                            group by (clasificadorsiaf) order by (clasificadorsiaf)');
+                            group by (clasificadorsiaf) order by (clasificadorsiaf) DESC');
         } catch (PDOException $e) {
             $util = new util();
             $util->insertarError($e->getMessage(), 'listarPagosPersonal/pagomodel');

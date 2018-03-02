@@ -54,7 +54,7 @@
                     <div class="alert alert-danger" role="alert">{{session('false')}}  </div>
                 @endif
                 <form name="form"
-                      onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos'],'enviar','mensaje')"
+                      onsubmit="activarbotonform(event,['spannombre','spanapellidos'],'enviar','mensaje')"
                       action="{{url('AlumnoRegistrado')}}" role="form" method="POST" class="Horizontal">
                     {{csrf_field()}}
                     <div class="panel panel-primary">
@@ -65,7 +65,7 @@
                                     <span class="control-label"> Numero de Dni</span>
                                     <input class="form-control input-sm" name="dni" type="text"
                                            autocomplete="off" onchange=" validarDni('dni','spandni')"
-                                           placeholder="Ejem: 72978792" required id="dni">
+                                           placeholder="Ejem: 72978792"  id="dni">
                                     <span style="color: red" class=" control-label" id="spandni"> </span>
                                     <script>
                                         $('#dni').change(function () {
@@ -220,7 +220,7 @@
                             Cancelar</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <button type="submit"
-                                onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos'],'enviar','mensaje')"
+                                onmouseover="activarbotonform(null,['spannombre','spanapellidos'],'enviar','mensaje')"
                                 name="enviar" id="enviar" class=" btn btn-sm btn-success"><span
                                     class="glyphicon glyphicon-ok"></span> Guardar
                         </button>

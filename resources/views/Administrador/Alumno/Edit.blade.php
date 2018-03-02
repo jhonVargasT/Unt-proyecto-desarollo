@@ -25,7 +25,7 @@
                 @if($alumno)
                     @foreach($alumno as $a)
                         <form name="form"
-                              onsubmit="activarbotonform(event,['spandni','spannombre','spanapellidos'],'enviar','mensaje')"
+                              onsubmit="activarbotonform(event,['spannombre','spanapellidos'],'enviar','mensaje')"
                               action="{{ url('AlumnoEditado/' .$a->codPersona ) }}" role="form" method="Get"
                               class="Vertical">
                             {{csrf_field()}}
@@ -37,7 +37,7 @@
                                             <span class="control-label"> Numero de Dni</span>
                                             <input class="form-control input-sm" name="dni" id="dni" type="text"
                                                    autocomplete="off" onchange="validarDni('dni','spandni')"
-                                                   placeholder="Ejem: 72978792" required value="{{$a->dni}}">
+                                                   placeholder="Ejem: 72978792" value="{{$a->dni}}">
                                             <span style="color: red" class=" control-label" id="spandni"></span>
                                         </div>
                                         <div class=" col-sm-2 col-xs-2 col-lg-2 form-group-sm ">
@@ -179,7 +179,7 @@
                                 </a>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button type="submit"
-                                        onmouseover="activarbotonform(null,['spandni','spannombre','spanapellidos'],'enviar','mensaje')"
+                                        onmouseover="activarbotonform(null,['spannombre','spanapellidos'],'enviar','mensaje')"
                                         name="enviar" id="enviar" class=" btn btn-sm btn-success"><span
                                             class="glyphicon glyphicon-ok"></span> Guardar
                                 </button>

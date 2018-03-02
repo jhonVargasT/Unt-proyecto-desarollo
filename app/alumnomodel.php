@@ -200,7 +200,7 @@ class alumnomodel extends personamodel
         try {
             DB::transaction(function () use ($logunt, $idp, $dni) {
                 $alumnobd = DB::select('select codPersona from persona left join alumno on persona.codPersona = alumno.idPersona where 
-                persona.codPersona = alumno.idPersona and persona.dni = ' . $dni . ' and persona.estado = 1 and alumno.estado=1');
+                persona.dni =:dni and persona.estado = 1 and alumno.estado= 1',['dni'=>$dni]);
                 foreach ($alumnobd as $pbd) {
                     $idp = $pbd->codPersona;
                 }
