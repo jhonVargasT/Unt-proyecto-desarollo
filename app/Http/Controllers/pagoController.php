@@ -208,7 +208,7 @@ class pagoController extends Controller
                 return view('/Ventanilla/Pagos/PagoPasado')->with(['buscar' => $buscar, 'total' => $totalp,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
                     'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato,
-                    'boleta' => $request->pagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select,
+                    'boleta' => $request->pagar, 'siaf' => $csiaf, 'contador' => $contador, 'selected' => $request->select,
                     'tasa' => $request->subtramite, 'true' => "Pago guardado con exito"]);
             } else {
                 Session::forget('txt');
@@ -217,7 +217,7 @@ class pagoController extends Controller
                 return view('/Ventanilla/Pagos/PagoPasado')->with(['buscar' => $buscar, 'total' => $pago,
                     'nombre' => $request->nombres, 'apellidos' => $request->apellidos, 'escuela' => $request->escuela,
                     'facultad' => $request->facultad, 'sede' => $request->sede, 'detalle' => $request->detalle, 'fecha' => $dato,
-                    'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador, 'select' => $request->select,
+                    'boleta' => $request->boletapagar, 'siaf' => $csiaf, 'contador' => $contador, 'selected' => $request->select,
                     'tasa' => $request->subtramite, 'true' => "Pago guardado con exito"]);
             }
         } else {

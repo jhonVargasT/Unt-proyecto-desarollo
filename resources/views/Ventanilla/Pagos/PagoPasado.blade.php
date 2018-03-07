@@ -122,14 +122,14 @@
                                 <script>
                                     $('#buscar').change(function () {
                                         var value = $('#select option:selected').attr('value');
-                                        if (value == 'Dni') {
+                                        if (value === 'Dni') {
                                             var id = $('#buscar').val();
                                             $.ajax({
                                                 url: "/buscarNombresD",
                                                 type: "get",
                                                 data: {name: id},
                                                 success: function (data) {
-                                                    if (data === false) {
+                                                    if (data == false) {
                                                         $.ajax({
                                                             url: '/buscarNombresDR',
                                                             type: "get",
@@ -169,7 +169,7 @@
                                                 }
                                             });
                                         } else {
-                                            if (value == 'Ruc') {
+                                            if (value === 'Ruc') {
                                                 $.ajax({
                                                     url: '/buscarNombresR',
                                                     type: "get",
@@ -180,7 +180,7 @@
                                                     }
                                                 });
                                             } else {
-                                                if (value == 'Codigo de alumno') {
+                                                if (value === 'Codigo de alumno') {
                                                     $.ajax({
                                                         url: '/buscarNombresC',
                                                         type: "get",
